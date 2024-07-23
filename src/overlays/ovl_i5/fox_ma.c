@@ -216,7 +216,6 @@ static UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
     { -267040.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
     { -268840.5f, -129.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
     { -507035.0f, -319.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
-    { 0.0f, 0.0f, 0.0f, 0.0f, 0 },
 };
 
 static UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
@@ -305,7 +304,6 @@ static UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
     { -138522.9f, 11909.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
     { -140082.1f, 12810.0f, 0.0f, 330.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
     { -507035.0f, -489.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
-    { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
 };
 
 static UnkStruct_D_i5_801B8E50 D_i5_801BA138[8] = {
@@ -386,6 +384,7 @@ void Macbeth_80199920(void) {
     D_i5_801BE312 = 0;
     D_i5_801BE313 = 1;
     D_i5_801BA1D8 = 0;
+
     Graphics_ClearPrintBuffer(D_i5_801BE308, 0, 8);
 
     for (i = 0; i < 35; i++) {
@@ -409,10 +408,14 @@ void Macbeth_80199A40(u8* arg0, u8* arg1, f32 arg2) {
     Vec3f sp74;
 
     Matrix_Push(&gCalcMatrix);
+
     arg0 = SEGMENTED_TO_VIRTUAL(arg0);
     arg1 = SEGMENTED_TO_VIRTUAL(arg1);
+
     Matrix_RotateZ(gCalcMatrix, M_DTOR * arg2, MTXF_NEW);
+
     sp74.z = 0.0f;
+
     for (i = 0, var_fs4 = 0.0f; i < 32; i++, var_fs4++) {
         for (j = 0, var_fs0 = 0.0f; j < 32; j++, var_fs0++) {
             sp74.y = var_fs4 - 16.0f;
@@ -429,13 +432,11 @@ void Macbeth_80199A40(u8* arg0, u8* arg1, f32 arg2) {
 }
 
 void Macbeth_80199C20(u8* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    u8* temp_v1;
+    u8* temp_v1 = SEGMENTED_TO_VIRTUAL(arg0);
     s32 i;
     s32 j;
     u8 a;
     u8 b;
-
-    temp_v1 = SEGMENTED_TO_VIRTUAL(arg0);
 
     for (i = arg3; i < arg3 + arg4; i++) {
         b = temp_v1[i];
@@ -451,12 +452,10 @@ void Macbeth_80199C20(u8* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 
 void Macbeth_80199D88(u16* arg0, s32 arg1, s32 arg2) {
-    u16* temp_t1;
+    u16* temp_t1 = SEGMENTED_TO_VIRTUAL(arg0);
     u16 a;
     s32 i;
     s32 j;
-
-    temp_t1 = SEGMENTED_TO_VIRTUAL(arg0);
 
     for (i = 0; i < arg1; i++) {
         a = temp_t1[(arg2 - 1) * arg1 + i];
@@ -469,87 +468,88 @@ void Macbeth_80199D88(u16* arg0, s32 arg1, s32 arg2) {
     }
 }
 
-void Macbeth_Train_Init(Actor* actor) {
-    actor->state = 0;
-    actor->iwork[1] = 0;
-    actor->iwork[2] = 0;
-    actor->iwork[3] = 0;
-    actor->iwork[4] = 0;
-    actor->iwork[5] = D_i5_801BA1E4;
-    actor->iwork[7] = 0;
-    actor->iwork[8] = 0;
-    actor->iwork[9] = 0;
-    actor->iwork[10] = 0;
-    switch (actor->obj.id) {
+void Macbeth_Train_Init(Actor* this) {
+    this->state = 0;
+    this->iwork[1] = 0;
+    this->iwork[2] = 0;
+    this->iwork[3] = 0;
+    this->iwork[4] = 0;
+    this->iwork[5] = D_i5_801BA1E4;
+    this->iwork[7] = 0;
+    this->iwork[8] = 0;
+    this->iwork[9] = 0;
+    this->iwork[10] = 0;
+
+    switch (this->obj.id) {
         case OBJ_ACTOR_MA_LOCOMOTIVE:
-            actor->health = 50;
-            D_i5_801BE314 = actor->index;
+            this->health = 50;
+            D_i5_801BE314 = this->index;
             break;
         case OBJ_ACTOR_207:
-            actor->health = 250;
-            D_i5_801BE316 = actor->index;
+            this->health = 250;
+            D_i5_801BE316 = this->index;
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_2:
-            actor->health = 20;
+            this->health = 20;
             /* fallthrough */
         case OBJ_ACTOR_MA_TRAIN_CAR_3:
-            actor->health = 20;
+            this->health = 20;
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_5:
-            actor->health = 20;
+            this->health = 20;
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_6:
-            actor->health = 200;
+            this->health = 200;
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_7:
-            actor->health = 80;
+            this->health = 80;
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_4:
-            actor->health = 160;
+            this->health = 160;
         default:
             break;
     }
 
-    actor->iwork[12] = 20;
-    actor->iwork[13] = 0;
-    actor->iwork[14] = 0;
-    actor->iwork[16] = 20;
-    actor->iwork[17] = 0;
-    actor->iwork[18] = 0;
-    actor->iwork[20] = 20;
-    actor->iwork[21] = 0;
-    actor->iwork[22] = 0;
-    actor->iwork[23] = 0;
-    actor->iwork[24] = 0;
-    actor->iwork[11] = actor->health;
-    actor->iwork[15] = actor->health;
-    actor->iwork[19] = actor->health;
-    actor->fwork[1] = 0.0f;
-    actor->fwork[5] = 0.0f;
-    actor->fwork[6] = 0.0f;
-    actor->fwork[7] = 0.0f;
-    actor->fwork[8] = 0.0f;
-    actor->fwork[9] = 0.0f;
-    actor->fwork[10] = 0.0f;
-    actor->fwork[11] = 0.0f;
-    actor->fwork[12] = 0.0f;
-    actor->fwork[13] = 0.0f;
-    actor->fwork[14] = 0.0f;
-    actor->fwork[15] = 0.0f;
-    actor->fwork[16] = 0.0f;
-    actor->fwork[17] = 0.0f;
-    actor->fwork[18] = 0.0f;
-    actor->fwork[19] = 0.0f;
-    actor->fwork[20] = 0.0f;
-    actor->fwork[21] = 0.0f;
-    actor->fwork[22] = 0.0f;
-    actor->fwork[23] = 0.0f;
-    actor->fwork[24] = 0.0f;
-    actor->fwork[25] = 0.0f;
-    actor->fwork[26] = 0.0f;
-    actor->fwork[27] = 0.0f;
-    actor->fwork[28] = 0.0f;
-    actor->fwork[29] = 0.0f;
+    this->iwork[12] = 20;
+    this->iwork[13] = 0;
+    this->iwork[14] = 0;
+    this->iwork[16] = 20;
+    this->iwork[17] = 0;
+    this->iwork[18] = 0;
+    this->iwork[20] = 20;
+    this->iwork[21] = 0;
+    this->iwork[22] = 0;
+    this->iwork[23] = 0;
+    this->iwork[24] = 0;
+    this->iwork[11] = this->health;
+    this->iwork[15] = this->health;
+    this->iwork[19] = this->health;
+    this->fwork[1] = 0.0f;
+    this->fwork[5] = 0.0f;
+    this->fwork[6] = 0.0f;
+    this->fwork[7] = 0.0f;
+    this->fwork[8] = 0.0f;
+    this->fwork[9] = 0.0f;
+    this->fwork[10] = 0.0f;
+    this->fwork[11] = 0.0f;
+    this->fwork[12] = 0.0f;
+    this->fwork[13] = 0.0f;
+    this->fwork[14] = 0.0f;
+    this->fwork[15] = 0.0f;
+    this->fwork[16] = 0.0f;
+    this->fwork[17] = 0.0f;
+    this->fwork[18] = 0.0f;
+    this->fwork[19] = 0.0f;
+    this->fwork[20] = 0.0f;
+    this->fwork[21] = 0.0f;
+    this->fwork[22] = 0.0f;
+    this->fwork[23] = 0.0f;
+    this->fwork[24] = 0.0f;
+    this->fwork[25] = 0.0f;
+    this->fwork[26] = 0.0f;
+    this->fwork[27] = 0.0f;
+    this->fwork[28] = 0.0f;
+    this->fwork[29] = 0.0f;
     D_i5_801BA1E4++;
 }
 
@@ -558,71 +558,76 @@ void Macbeth_8019A128(void) {
     Macbeth_80199A40(D_MA_6023388, D_Tex_800DB4B8, gGameFrameCount * -20.0f);
 }
 
-void Macbeth_8019A198(Actor* actor) {
-    if ((actor->iwork[5] >= D_i5_801BA1E4) || (actor->iwork[5] >= D_MA_801BE2F0[3])) {
-        Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
+void Macbeth_8019A198(Actor* this) {
+    if ((this->iwork[5] >= D_i5_801BA1E4) || (this->iwork[5] >= D_MA_801BE2F0[3])) {
+        Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
     } else {
-        actor->vel.z = D_i5_801BA1DC;
-        if ((actor->iwork[5] == D_MA_801BE2F0[3] - 1) || (actor->iwork[5] == D_i5_801BA1E4 - 1)) {
-            if (D_i5_801BE310 != actor->iwork[5]) {
-                if (actor->vel.z > -6.0f) {
+        this->vel.z = D_i5_801BA1DC;
+        if ((this->iwork[5] == D_MA_801BE2F0[3] - 1) || (this->iwork[5] == D_i5_801BA1E4 - 1)) {
+            if (D_i5_801BE310 != this->iwork[5]) {
+                if (this->vel.z > -6.0f) {
                     Audio_SetSfxSpeedModulation(-6.0f);
                 } else {
-                    Audio_SetSfxSpeedModulation(actor->vel.z);
+                    Audio_SetSfxSpeedModulation(this->vel.z);
                 }
-                Audio_PlaySfxModulated(actor->sfxSource, NA_SE_EN_FREIGHT_TRAIN);
-                D_i5_801BE310 = actor->iwork[5];
+                Audio_PlaySfxModulated(this->sfxSource, NA_SE_EN_FREIGHT_TRAIN);
+                D_i5_801BE310 = this->iwork[5];
             }
-            D_i5_801BA1E0 = actor->obj.pos.z;
+            D_i5_801BA1E0 = this->obj.pos.z;
             if (D_i5_801BE313 != 0) {
-                if (actor->vel.z > -6.0f) {
+                if (this->vel.z > -6.0f) {
                     Audio_SetSfxSpeedModulation(-6.0f);
                 } else {
-                    Audio_SetSfxSpeedModulation(actor->vel.z);
+                    Audio_SetSfxSpeedModulation(this->vel.z);
                 }
             }
         }
     }
 }
 
-void Macbeth_8019A2F4(Actor* actor) {
+void Macbeth_8019A2F4(Actor* this) {
     f32 var_fa1 = 0.0f;
     f32 var_ft4 = 0.0f;
-    u8 var_v0;
-    s32 var_a0;
+    u8 i;
+    s32 j;
 
-    for (var_v0 = D_MA_801BE2F0[0]; D_i5_801BA1EC[var_v0].unk_00 != -1.0f; var_v0++) {
-        if (D_i5_801BA1EC[var_v0].unk_00 < gPlayer[0].trueZpos) {
-            var_a0 = var_v0;
-            if (var_v0 == 0) {
-                var_a0 = 1;
+    for (i = D_MA_801BE2F0[0]; D_i5_801BA1EC[i].unk_00 != -1.0f; i++) {
+        if (D_i5_801BA1EC[i].unk_00 < gPlayer[0].trueZpos) {
+            j = i;
+            if (i == 0) {
+                j = 1;
             }
-            D_MA_801BE2F0[0] = var_a0;
-            if (D_i5_801BA1E4 != D_i5_801BA1EC[var_a0 - 1].unk_04) {
-                AUDIO_PLAY_SFX(NA_SE_OB_CONNECT_CUT, actor->sfxSource, 0);
+
+            D_MA_801BE2F0[0] = j;
+
+            if (D_i5_801BA1E4 != D_i5_801BA1EC[j - 1].unk_04) {
+                AUDIO_PLAY_SFX(NA_SE_OB_CONNECT_CUT, this->sfxSource, 0);
             }
-            D_i5_801BA1E4 = D_i5_801BA1EC[var_a0 - 1].unk_04;
-            var_fa1 = D_i5_801BA1EC[var_a0 - 1].unk_08;
-            var_ft4 = D_i5_801BA1EC[var_a0 - 1].unk_0C;
-            D_MA_801BE2F0[4] = D_i5_801BA1EC[var_a0 - 1].unk_10;
-            if (D_i5_801BA1EC[var_a0 - 1].unk_10 >= 300) {
-                D_i5_801BE320[18] = (D_i5_801BA1EC[var_a0 - 1].unk_10 - 300);
-            } else if (D_i5_801BA1EC[var_a0 - 1].unk_10 == 200) {
+
+            D_i5_801BA1E4 = D_i5_801BA1EC[j - 1].unk_04;
+            var_fa1 = D_i5_801BA1EC[j - 1].unk_08;
+            var_ft4 = D_i5_801BA1EC[j - 1].unk_0C;
+            D_MA_801BE2F0[4] = D_i5_801BA1EC[j - 1].unk_10;
+
+            if (D_i5_801BA1EC[j - 1].unk_10 >= 300) {
+                D_i5_801BE320[18] = (D_i5_801BA1EC[j - 1].unk_10 - 300);
+            } else if (D_i5_801BA1EC[j - 1].unk_10 == 200) {
                 if (D_i5_801BE320[16] == 0) {
                     D_i5_801BE320[16] = 1;
                 }
-            } else if (D_i5_801BA1EC[var_a0 - 1].unk_10 == 201) {
+            } else if (D_i5_801BA1EC[j - 1].unk_10 == 201) {
                 D_i5_801BE320[17] = 1;
-            } else if (D_i5_801BA1EC[var_a0 - 1].unk_10 == 202) {
+            } else if (D_i5_801BA1EC[j - 1].unk_10 == 202) {
                 D_i5_801BE320[26] = 0;
-            } else if (D_i5_801BA1EC[var_a0 - 1].unk_10 == 203) {
+            } else if (D_i5_801BA1EC[j - 1].unk_10 == 203) {
                 D_i5_801BE320[26] = 1;
-            } else if (D_i5_801BA1EC[var_a0 - 1].unk_10 >= 100) {
-                D_MA_801BA1E8 = D_i5_801BA1EC[var_a0 - 1].unk_10;
+            } else if (D_i5_801BA1EC[j - 1].unk_10 >= 100) {
+                D_MA_801BA1E8 = D_i5_801BA1EC[j - 1].unk_10;
             }
             break;
         }
     }
+
     if (D_i5_801BE320[16] != 0) {
         switch (D_i5_801BE320[19]) {
             case 0:
@@ -635,243 +640,246 @@ void Macbeth_8019A2F4(Actor* actor) {
                 break;
         }
     }
+
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-        if (var_fa1 < (gPlayer[0].trueZpos - actor->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416))) {
+        if (var_fa1 < (gPlayer[0].trueZpos - this->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416))) {
             Math_SmoothStepToF(&D_i5_801BA1DC, -6.0f, 0.1f, 0.2f, 0.01f);
         }
-        if ((gPlayer[0].trueZpos - actor->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416)) < var_ft4) {
+
+        if ((gPlayer[0].trueZpos - this->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416)) < var_ft4) {
             Math_SmoothStepToF(&D_i5_801BA1DC, -30.0f, 0.1f, 0.2f, 0.01f);
         }
-        if ((D_i5_801BA1E4 < 5) && (gPlayer[0].trueZpos - actor->obj.pos.z > 4000.0f)) {
+
+        if ((D_i5_801BA1E4 < 5) && (gPlayer[0].trueZpos - this->obj.pos.z > 4000.0f)) {
             Math_SmoothStepToF(&D_i5_801BA1DC, 0.0f, 0.1f, 1.0f, 0.01f);
         }
-        if (gPlayer[0].trueZpos - actor->obj.pos.z > 25000.0f) {
+
+        if (gPlayer[0].trueZpos - this->obj.pos.z > 25000.0f) {
             D_i5_801BA1DC = 0.0f;
         }
-        if (gPlayer[0].trueZpos - actor->obj.pos.z < -8000.0f) {
+        if (gPlayer[0].trueZpos - this->obj.pos.z < -8000.0f) {
             D_i5_801BA1DC = -200.0f;
         }
     }
 }
 
-void Macbeth_8019A728(Actor* actor) {
-    f32 var_fv0;
-    u32 var_v1;
-    u8 var_v0;
+void Macbeth_8019A728(Actor* this) {
+    u8 i;
+    u32 j;
 
-    for (var_v0 = actor->iwork[2]; D_i5_801BA1EC[var_v0].unk_00 != -1.0f; var_v0++) {
-        if (D_i5_801BA1EC[var_v0].unk_00 < actor->obj.pos.z) {
-            var_v1 = var_v0;
-            if (var_v0 == 0) {
-                var_v1 = 1;
+    for (i = this->iwork[2]; D_i5_801BA1EC[i].unk_00 != -1.0f; i++) {
+        if (D_i5_801BA1EC[i].unk_00 < this->obj.pos.z) {
+            j = i;
+            if (i == 0) {
+                j = 1;
             }
-            actor->iwork[2] = var_v1;
-            if ((D_i5_801BA1EC[var_v1 - 1].unk_10 == actor->iwork[5]) && (actor->iwork[1] == 0)) {
-                if (actor->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_6) {
-                    actor->timer_0BC = 30;
+            this->iwork[2] = j;
+            if ((D_i5_801BA1EC[j - 1].unk_10 == this->iwork[5]) && (this->iwork[1] == 0)) {
+                if (this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_6) {
+                    this->timer_0BC = 30;
                     Radio_PlayMessage(gMsg_ID_17476, RCID_BOSS_MACBETH);
                 }
-                actor->iwork[1] = 1;
+                this->iwork[1] = 1;
             }
             break;
         }
     }
 }
 
-void Macbeth_8019A830(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -20000.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_8019A830(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -20000.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Macbeth_8019A87C(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -2000.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_8019A87C(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -2000.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Macbeth_8019A8C8(Actor* actor, s16 arg1) {
+void Macbeth_8019A8C8(Actor* this, s16 arg1) {
     s32 i;
 
-    Effect386_Spawn1(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 290.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
+    Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 290.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                      22.0f, 5);
 
     for (i = 0; i < 10; i++) {
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[21],
-                         actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         actor->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                         this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
                          RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                         actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), actor->obj.pos.z + RAND_FLOAT(50.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
                          RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
                          arg1, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[23],
-                         actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         actor->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                         this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
                          RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), arg1, RAND_FLOAT(0.8f) + 0.3f);
     }
-    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, this->sfxSource, 4);
 }
 
-void Macbeth_8019AF34(Actor* actor) {
+void Macbeth_8019AF34(Actor* this) {
     s32 i;
 
-    Effect386_Spawn1(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 290.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
+    Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 290.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                      22.0f, 5);
 
     for (i = 0; i < 10; i++) {
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[21],
-                         actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         actor->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(50.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                         this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(50.0f),
                          RAND_FLOAT(30.0f) + 7.0f, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                         actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), actor->obj.pos.z + RAND_FLOAT(50.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
                          RAND_FLOAT_CENTERED(45.0f), RAND_FLOAT(25.0f) + 7.0f, RAND_FLOAT_CENTERED(20.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1,
                          2.0f * (RAND_FLOAT(0.8f) + 0.3f));
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[23],
-                         actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                         actor->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(40.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                         this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                         this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(40.0f),
                          RAND_FLOAT(35.0f) + 7.0f, RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 1, RAND_FLOAT(0.8f) + 0.3f);
     }
-    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, this->sfxSource, 4);
 }
 
-void Macbeth_8019B580(Actor* actor, s32* arg1) {
+void Macbeth_8019B580(Actor* this, s32* arg1) {
     if (*arg1 > 10) {
         return;
     }
     if ((gGameFrameCount % 32U) == 0) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[21],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 10.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 10.0f);
     } else if ((gGameFrameCount % 32U) == 8) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
     } else if ((gGameFrameCount % 32U) == 16) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[23],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             (actor->obj.pos.z + 320.0f) + RAND_FLOAT(50.0f), 10.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             (this->obj.pos.z + 320.0f) + RAND_FLOAT(50.0f), 10.0f);
     } else if ((gGameFrameCount % 32U) == 24) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
     }
     if ((u16) (gGameFrameCount % 4U) == 0) { // fake?
-        Effect_Effect390_Spawn(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 350.0f, actor->obj.pos.z,
-                               actor->vel.x, actor->vel.y, actor->vel.z, 0.2f, 10);
+        Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
+                               this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
     }
 }
 
-void Macbeth_8019B8B0(Actor* actor) {
+void Macbeth_8019B8B0(Actor* this) {
     if ((gGameFrameCount % 4U) == 0) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[21],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             actor->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 20.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 20.0f);
     } else if ((gGameFrameCount % 4U) == 1) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             RAND_FLOAT(50.0f) + actor->obj.pos.z, 20.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
     } else if ((gGameFrameCount % 4U) == 2) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[23],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             RAND_FLOAT(50.0f) + (actor->obj.pos.z + 420.0f), 20.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             RAND_FLOAT(50.0f) + (this->obj.pos.z + 420.0f), 20.0f);
     } else if ((gGameFrameCount % 4U) == 3) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                             actor->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             RAND_FLOAT(50.0f) + actor->obj.pos.z, 20.0f);
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                             RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
     }
     if ((gGameFrameCount % 4U) == 0) {
-        Effect_Effect390_Spawn(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 350.0f, actor->obj.pos.z,
-                               actor->vel.x, actor->vel.y, actor->vel.z, 0.2f, 20);
+        Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
+                               this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
     }
 }
 
-void Macbeth_8019BBEC(Actor* actor) {
-    if ((actor->timer_0BC % 16U) == 0) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[21],
-                             RAND_FLOAT_CENTERED(100.0f) + (actor->obj.pos.y + 100.0f),
-                             RAND_FLOAT(50.0f) + (actor->obj.pos.z - 400.0f), 3.0f);
-    } else if ((actor->timer_0BC % 16U) == 4) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                             RAND_FLOAT_CENTERED(100.0f) + (actor->obj.pos.y + 100.0f),
-                             RAND_FLOAT(50.0f) + actor->obj.pos.z, 3.0f);
-    } else if ((actor->timer_0BC % 16U) == 8) {
-        func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[23],
-                             RAND_FLOAT_CENTERED(100.0f) + (actor->obj.pos.y + 100.0f),
-                             RAND_FLOAT(50.0f) + (actor->obj.pos.z + 450.0f), 3.0f);
-    } else if ((actor->timer_0BC % 16U) == 12) {
-        Effect_Effect390_Spawn(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 100.0f, actor->obj.pos.z,
-                               actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
+void Macbeth_8019BBEC(Actor* this) {
+    if ((this->timer_0BC % 16U) == 0) {
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                             RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
+                             RAND_FLOAT(50.0f) + (this->obj.pos.z - 400.0f), 3.0f);
+    } else if ((this->timer_0BC % 16U) == 4) {
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                             RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
+                             RAND_FLOAT(50.0f) + this->obj.pos.z, 3.0f);
+    } else if ((this->timer_0BC % 16U) == 8) {
+        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                             RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
+                             RAND_FLOAT(50.0f) + (this->obj.pos.z + 450.0f), 3.0f);
+    } else if ((this->timer_0BC % 16U) == 12) {
+        Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 100.0f, this->obj.pos.z,
+                               this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
     }
 }
 
-void Macbeth_8019BE50(Actor* actor) {
+void Macbeth_8019BE50(Actor* this) {
     s16 i;
 
-    Effect386_Spawn1(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 90.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
+    Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 90.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                      10.0f, 5);
-    Effect386_Spawn1(actor->obj.pos.x + actor->fwork[23], actor->obj.pos.y + 90.0f, actor->obj.pos.z + 420.0f + 300.0f,
+    Effect386_Spawn1(this->obj.pos.x + this->fwork[23], this->obj.pos.y + 90.0f, this->obj.pos.z + 420.0f + 300.0f,
                      0.0f, 0.0f, 0.0f, 10.0f, 5);
 
     for (i = 0; i < 10; i++) {
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[21],
-                         actor->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
-                         actor->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                         this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
+                         this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
                          RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[25],
-                         actor->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f), actor->obj.pos.z + RAND_FLOAT(50.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                         this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f), this->obj.pos.z + RAND_FLOAT(50.0f),
                          RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(10.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0,
                          (RAND_FLOAT(0.8f) + 0.3f));
-        Macbeth_801AD624(actor->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + actor->fwork[23],
-                         actor->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
-                         actor->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
+        Macbeth_801AD624(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                         this->obj.pos.y + 80.0f + RAND_FLOAT_CENTERED(100.0f),
+                         this->obj.pos.z + 420.0f + 100.0f + RAND_FLOAT(50.0f), RAND_FLOAT_CENTERED(10.0f),
                          RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                          RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                          RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
     }
-    Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_L);
+    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
     gHitCount++;
 }
 
-bool Macbeth_8019C4EC(Actor* actor) {
-    if (actor->dmgType != DMG_NONE) {
-        actor->dmgType = DMG_NONE;
-        if (actor->dmgPart == 1) {
-            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-            actor->dmgType = DMG_NONE;
-            actor->iwork[7] = 15;
+bool Macbeth_8019C4EC(Actor* this) {
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        if (this->dmgPart == 1) {
+            AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+            this->dmgType = DMG_NONE;
+            this->iwork[7] = 15;
             D_i5_801BE320[22] = 0;
             D_i5_801BE320[4] = 120;
             D_i5_801BE320[21] = 2;
             return true;
         }
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
 
     return false;
 }
 
-void Macbeth_8019C5B8(Actor* actor) {
+void Macbeth_8019C5B8(Actor* this) {
     f32 var_ft4;
 
-    Macbeth_801A0308(actor, actor->obj.pos.z + 520.0f, actor->obj.rot.y, 0);
+    Macbeth_801A0308(this, this->obj.pos.z + 520.0f, this->obj.rot.y, 0);
     var_ft4 = RAND_FLOAT_CENTERED(12.0f);
     if ((var_ft4 > -2.0f) && (var_ft4 < 2.0f)) {
         if (var_ft4 >= 0.0f) {
@@ -880,10 +888,10 @@ void Macbeth_8019C5B8(Actor* actor) {
             var_ft4 = -2.5f;
         }
     }
-    Macbeth_801AF200(actor->fwork[19], actor->obj.pos.y + 300.0f, actor->obj.pos.z + 520.0f, var_ft4, 10.0f, 0.0f);
+    Macbeth_801AF200(this->fwork[19], this->obj.pos.y + 300.0f, this->obj.pos.z + 520.0f, var_ft4, 10.0f, 0.0f);
 }
 
-void Macbeth_8019C6C4(Actor* actor) {
+void Macbeth_8019C6C4(Actor* this) {
     s32 var_a3;
 
     if (gBossFrameCount < 3840) {
@@ -900,135 +908,135 @@ void Macbeth_8019C6C4(Actor* actor) {
         }
     }
     if (var_a3 != 0) {
-        BonusText_Display(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, var_a3);
+        BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, var_a3);
     }
     gHitCount += var_a3 + 1;
     D_ctx_80177850 = 15;
 }
 
-void Macbeth_Locomotive_Update(Actor* actor) {
-    if (actor->vel.z < -3.0f) {
+void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
+    if (this->vel.z < -3.0f) {
         Macbeth_8019A128();
     }
-    D_i5_801BE368[4] = actor->vwork[0].x + actor->obj.pos.x;
-    D_i5_801BE368[5] = actor->vwork[0].y + actor->obj.pos.y;
-    D_i5_801BE368[6] = actor->vwork[0].z + actor->obj.pos.z;
-    Macbeth_8019A2F4(actor);
-    Macbeth_8019A198(actor);
-    Macbeth_801A015C(actor);
-    Macbeth_8019A830(actor);
-    switch (actor->state) {
+    D_i5_801BE368[4] = this->vwork[0].x + this->obj.pos.x;
+    D_i5_801BE368[5] = this->vwork[0].y + this->obj.pos.y;
+    D_i5_801BE368[6] = this->vwork[0].z + this->obj.pos.z;
+    Macbeth_8019A2F4(this);
+    Macbeth_8019A198(this);
+    Macbeth_801A015C(this);
+    Macbeth_8019A830(this);
+    switch (this->state) {
         s32 unused;
         case 0:
             D_i5_801BE320[25] = 1;
             if ((D_i5_801BE320[9] <= 0) && (D_i5_801BE320[10] <= 0) && (D_i5_801BE320[17] != 0) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 D_i5_801BE320[30] = 0;
-                actor->timer_0BC = 150;
-                actor->timer_0BE = 200;
+                this->timer_0BC = 150;
+                this->timer_0BE = 200;
                 D_i5_801BE320[19] = 1;
-                actor->state++;
+                this->state++;
             }
             break;
         case 1:
-            if (actor->timer_0BC == 1) {
-                AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, actor->sfxSource, 4);
+            if (this->timer_0BC == 1) {
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 4);
             }
-            if (actor->timer_0BC <= 0) {
-                Math_SmoothStepToF(&actor->fwork[2], -60.0f, 0.4f, 10.0f, 0.01f);
-                if (actor->timer_0BE == 30) {
-                    Macbeth_8019C5B8(actor);
+            if (this->timer_0BC <= 0) {
+                Math_SmoothStepToF(&this->fwork[2], -60.0f, 0.4f, 10.0f, 0.01f);
+                if (this->timer_0BE == 30) {
+                    Macbeth_8019C5B8(this);
                     Radio_PlayMessage(gMsg_ID_17470, RCID_BOSS_MACBETH);
                 }
-                if ((actor->fwork[2] < -58.0f) && ((Macbeth_8019C4EC(actor) != 0) || (actor->timer_0BE <= 0))) {
-                    actor->timer_0BC = 200;
+                if ((this->fwork[2] < -58.0f) && ((Macbeth_8019C4EC(this) != 0) || (this->timer_0BE <= 0))) {
+                    this->timer_0BC = 200;
                     D_i5_801BE320[19] = 0;
-                    actor->state++;
-                    AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, actor->sfxSource, 4);
+                    this->state++;
+                    AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, this->sfxSource, 4);
                 }
             }
             break;
         case 2:
-            Math_SmoothStepToF(&actor->fwork[2], 0.0f, 0.4f, 30.0f, 0.01f);
-            if ((actor->timer_0BC <= 0) && (D_i5_801BE320[25] == 1)) {
-                actor->timer_0BC = 60;
-                actor->state++;
-                AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, actor->sfxSource, 4);
+            Math_SmoothStepToF(&this->fwork[2], 0.0f, 0.4f, 30.0f, 0.01f);
+            if ((this->timer_0BC <= 0) && (D_i5_801BE320[25] == 1)) {
+                this->timer_0BC = 60;
+                this->state++;
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 4);
             }
             break;
         case 3:
-            Math_SmoothStepToF(&actor->fwork[2], -60.0f, 0.4f, 10.0f, 0.01f);
-            if ((actor->fwork[2] < -58.0f) && (Macbeth_8019C4EC(actor) != 0)) {
-                actor->timer_0BC = 150;
-                actor->state--;
+            Math_SmoothStepToF(&this->fwork[2], -60.0f, 0.4f, 10.0f, 0.01f);
+            if ((this->fwork[2] < -58.0f) && (Macbeth_8019C4EC(this) != 0)) {
+                this->timer_0BC = 150;
+                this->state--;
                 D_i5_801BE320[30]++;
                 if (D_i5_801BE320[30] >= 2) {
                     D_i5_801BE320[30] = 0;
                     D_i5_801BE320[25] = 0;
                 }
-                AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, this->sfxSource, 4);
             }
-            if (actor->timer_0BC <= 0) {
+            if (this->timer_0BC <= 0) {
                 D_i5_801BE320[30]++;
                 if (D_i5_801BE320[30] >= 2) {
                     D_i5_801BE320[30] = 0;
                     D_i5_801BE320[25] = 0;
                 }
-                actor->timer_0BC = 100;
-                actor->state--;
-                AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, actor->sfxSource, 4);
+                this->timer_0BC = 100;
+                this->state--;
+                AUDIO_PLAY_SFX(NA_SE_OB_GATE_CLOSE, this->sfxSource, 4);
             }
-            if (actor->timer_0BC == 30) {
-                Macbeth_8019C5B8(actor);
+            if (this->timer_0BC == 30) {
+                Macbeth_8019C5B8(this);
             }
             break;
         case 4:
-            Macbeth_8019AF34(actor);
-            actor->health = 0;
-            actor->timer_0BC = 200;
+            Macbeth_8019AF34(this);
+            this->health = 0;
+            this->timer_0BC = 200;
             gCameraShake = 30;
-            actor->state++;
+            this->state++;
             break;
         case 5:
-            if (actor->timer_0BC == 198) {
+            if (this->timer_0BC == 198) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
-            } else if (actor->timer_0BC == 197) {
+            } else if (this->timer_0BC == 197) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
-            if (((actor->timer_0BC < 150) || (actor->timer_0BC > 170)) && (actor->timer_0BC > 80)) {
-                Macbeth_8019B8B0(actor);
+            if (((this->timer_0BC < 150) || (this->timer_0BC > 170)) && (this->timer_0BC > 80)) {
+                Macbeth_8019B8B0(this);
             }
-            if (actor->timer_0BC == 160) {
+            if (this->timer_0BC == 160) {
                 gShowBossHealth = 0;
                 Radio_PlayMessage(gMsg_ID_17440, RCID_BOSS_MACBETH);
-                Effect_Effect383_Spawn(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y, actor->obj.pos.z, 40.0f);
-                Macbeth_8019C6C4(actor);
-                actor->vel.z = 0.0f;
+                Effect_Effect383_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y, this->obj.pos.z, 40.0f);
+                Macbeth_8019C6C4(this);
+                this->vel.z = 0.0f;
                 gCameraShake = 25;
             }
-            if (actor->timer_0BC == 100) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            if (this->timer_0BC == 100) {
+                Object_Kill(&this->obj, this->sfxSource);
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                     gPlayer[0].csState = 0;
                     gMissionStatus = MISSION_COMPLETE;
                 }
-                actor->state++;
+                this->state++;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_SLIDE);
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
             }
             break;
     }
 
-    if (actor->dmgType != DMG_NONE) {
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
 
     if (D_i5_801BE320[4] > 0) {
         D_i5_801BE320[4]--;
     }
-    actor->fwork[3] = 0.0f;
+    this->fwork[3] = 0.0f;
     if (D_i5_801BE320[21] != 0) {
         D_i5_801BE320[22]++;
         if (D_i5_801BE320[22] >= 30) {
@@ -1038,122 +1046,121 @@ void Macbeth_Locomotive_Update(Actor* actor) {
             D_i5_801BE320[22] = 0;
         }
         if (((gGameFrameCount % 2) == 0)) {
-            actor->fwork[3] = 15.0f;
+            this->fwork[3] = 15.0f;
         } else {
-            actor->fwork[3] = -15.0f;
+            this->fwork[3] = -15.0f;
         }
     }
-    D_i5_801BE320[20] = actor->state;
+    D_i5_801BE320[20] = this->state;
     if (D_i5_801BE320[23] != 0) {
         D_i5_801BE320[23] = 0;
-        actor->state = 4;
+        this->state = 4;
     }
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCsFrameCount > 630)) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Macbeth_TrainCar4_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar4_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019FC54(actor, &actor->iwork[10], &actor->iwork[11], 1, 1, actor->fwork[25], 0.0f,
-                             &actor->iwork[13]);
-            Macbeth_8019A728(actor);
-            if (actor->iwork[1] != 0) {
-                Macbeth_8019D048(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019FC54(this, &this->iwork[10], &this->iwork[11], 1, 1, this->fwork[25], 0.0f, &this->iwork[13]);
+            Macbeth_8019A728(this);
+            if (this->iwork[1] != 0) {
+                Macbeth_8019D048(this);
             }
-            Macbeth_8019A830(actor);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            if (actor->iwork[5] < D_MA_801BE2F0[3]) {
-                D_MA_801BE2F0[3] = actor->iwork[5];
+            if (this->iwork[5] < D_MA_801BE2F0[3]) {
+                D_MA_801BE2F0[3] = this->iwork[5];
             }
-            actor->state = 2;
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
+            this->state = 2;
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
             break;
         case 2:
-            Macbeth_8019BBEC(actor);
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 60;
+            Macbeth_8019BBEC(this);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 60;
             }
-            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A87C(actor);
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0BC = 20;
-                Macbeth_8019BE50(actor);
-                actor->state = 3;
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
+            Macbeth_801A015C(this);
+            Macbeth_8019A87C(this);
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->timer_0BC = 20;
+                Macbeth_8019BE50(this);
+                this->state = 3;
             }
             break;
         case 3:
-            Macbeth_801A015C(actor);
-            Math_SmoothStepToF(&actor->scale, 0.0f, 0.02f, 10.0f, 0.01f);
-            if (actor->timer_0BC <= 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Macbeth_801A015C(this);
+            Math_SmoothStepToF(&this->scale, 0.0f, 0.02f, 10.0f, 0.01f);
+            if (this->timer_0BC <= 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Macbeth_8019D048(Actor* actor) {
-    switch (actor->iwork[3]) {
+void Macbeth_8019D048(Actor* this) {
+    switch (this->iwork[3]) {
         case 0:
             if (D_i5_801BE320[28] != 0) {
                 D_i5_801BE320[28]--;
             }
-            if (actor->fwork[25] == 0.0f) {
+            if (this->fwork[25] == 0.0f) {
                 if (D_i5_801BE320[28] <= 0) {
                     Radio_PlayMessage(gMsg_ID_17390, RCID_BOSS_MACBETH);
                     D_i5_801BE320[28] = 100;
                 }
-                if (actor->obj.pos.x <= gPlayer[0].pos.x) {
-                    actor->iwork[4] = 1;
+                if (this->obj.pos.x <= gPlayer[0].pos.x) {
+                    this->iwork[4] = 1;
                 } else {
-                    actor->iwork[4] = -1;
+                    this->iwork[4] = -1;
                 }
-                actor->iwork[3]++;
+                this->iwork[3]++;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&actor->fwork[4], actor->iwork[4] * -60.0f, 0.5f, 2.0f, 1.0f);
-            if ((actor->fwork[4] < -30.0f) || (actor->fwork[4] > 30.0f)) {
-                Macbeth_8019D670(actor->obj.pos.x + actor->fwork[25] + actor->iwork[4] * 73.0f,
-                                 actor->obj.pos.y + actor->fwork[8] + 330.0f, actor->obj.pos.z, actor->iwork[4] * 70.0f,
-                                 actor->vel.z, actor->iwork[4] * -34.0f, 0.0f, 2, 5);
-                Macbeth_8019D670(actor->obj.pos.x + actor->fwork[25] + actor->iwork[4] * 74.0f,
-                                 actor->obj.pos.y + actor->fwork[8] + 330.0f, actor->obj.pos.z - 350.0f,
-                                 actor->iwork[4] * 38.0f, actor->vel.z, actor->iwork[4] * -34.0f, 0.0f, 4, 6);
-                Macbeth_8019D670(actor->obj.pos.x + actor->fwork[25] + actor->iwork[4] * 74.0f,
-                                 actor->obj.pos.y + actor->fwork[8] + 330.0f, actor->obj.pos.z + 350.0f,
-                                 actor->iwork[4] * 40.0f, actor->vel.z, actor->iwork[4] * -35.0f, 0.0f, 0, 7);
-                Macbeth_8019D670(actor->obj.pos.x + actor->fwork[25] + actor->iwork[4] * 35.0f,
-                                 actor->obj.pos.y + actor->fwork[8] + 290.0f, actor->obj.pos.z - 175.0f,
-                                 actor->iwork[4] * 20.0f, actor->vel.z, actor->iwork[4] * -35.0f, 0.0f, 12, 4);
-                Macbeth_8019D670(actor->obj.pos.x + actor->fwork[25] + actor->iwork[4] * 35.0f,
-                                 actor->obj.pos.y + actor->fwork[8] + 290.0f, actor->obj.pos.z + 175.0f,
-                                 actor->iwork[4] * 35.0f, actor->vel.z, actor->iwork[4] * -35.0f, 0.0f, 14, 5);
-                actor->iwork[3]++;
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035DD0);
+            Math_SmoothStepToF(&this->fwork[4], this->iwork[4] * -60.0f, 0.5f, 2.0f, 1.0f);
+            if ((this->fwork[4] < -30.0f) || (this->fwork[4] > 30.0f)) {
+                Macbeth_8019D670(this->obj.pos.x + this->fwork[25] + this->iwork[4] * 73.0f,
+                                 this->obj.pos.y + this->fwork[8] + 330.0f, this->obj.pos.z, this->iwork[4] * 70.0f,
+                                 this->vel.z, this->iwork[4] * -34.0f, 0.0f, 2, 5);
+                Macbeth_8019D670(this->obj.pos.x + this->fwork[25] + this->iwork[4] * 74.0f,
+                                 this->obj.pos.y + this->fwork[8] + 330.0f, this->obj.pos.z - 350.0f,
+                                 this->iwork[4] * 38.0f, this->vel.z, this->iwork[4] * -34.0f, 0.0f, 4, 6);
+                Macbeth_8019D670(this->obj.pos.x + this->fwork[25] + this->iwork[4] * 74.0f,
+                                 this->obj.pos.y + this->fwork[8] + 330.0f, this->obj.pos.z + 350.0f,
+                                 this->iwork[4] * 40.0f, this->vel.z, this->iwork[4] * -35.0f, 0.0f, 0, 7);
+                Macbeth_8019D670(this->obj.pos.x + this->fwork[25] + this->iwork[4] * 35.0f,
+                                 this->obj.pos.y + this->fwork[8] + 290.0f, this->obj.pos.z - 175.0f,
+                                 this->iwork[4] * 20.0f, this->vel.z, this->iwork[4] * -35.0f, 0.0f, 12, 4);
+                Macbeth_8019D670(this->obj.pos.x + this->fwork[25] + this->iwork[4] * 35.0f,
+                                 this->obj.pos.y + this->fwork[8] + 290.0f, this->obj.pos.z + 175.0f,
+                                 this->iwork[4] * 35.0f, this->vel.z, this->iwork[4] * -35.0f, 0.0f, 14, 5);
+                this->iwork[3]++;
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035DD0);
             }
             break;
         case 2:
-            Math_SmoothStepToF(&actor->fwork[4], actor->iwork[4] * -70.0f, 0.5f, 2.0f, 1.0f);
-            actor->iwork[3]++;
+            Math_SmoothStepToF(&this->fwork[4], this->iwork[4] * -70.0f, 0.5f, 2.0f, 1.0f);
+            this->iwork[3]++;
             break;
         case 3:
-            Math_SmoothStepToF(&actor->fwork[4], actor->iwork[4] * -70.0f, 0.2f, 2.0f, 0.0f);
-            if ((actor->fwork[4] < -69.0f) || (actor->fwork[4] > 69.0f)) {
-                actor->timer_0BC = 20;
-                actor->iwork[3]++;
+            Math_SmoothStepToF(&this->fwork[4], this->iwork[4] * -70.0f, 0.2f, 2.0f, 0.0f);
+            if ((this->fwork[4] < -69.0f) || (this->fwork[4] > 69.0f)) {
+                this->timer_0BC = 20;
+                this->iwork[3]++;
             }
             break;
         case 4:
-            if (actor->timer_0BC == 0) {
-                Math_SmoothStepToF(&actor->fwork[4], 0.0f, 0.02f, 2.0f, 0.0f);
+            if (this->timer_0BC == 0) {
+                Math_SmoothStepToF(&this->fwork[4], 0.0f, 0.02f, 2.0f, 0.0f);
             }
             break;
         default:
@@ -1161,22 +1168,22 @@ void Macbeth_8019D048(Actor* actor) {
     }
 }
 
-void Macbeth_8019D5C8(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 zVel, f32 zRot, f32 yRot, s32 arg8,
+void Macbeth_8019D5C8(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 zVel, f32 zRot, f32 yRot, s32 arg8,
                       u8 arg9) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_MA_BOULDER;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->obj.rot.z = zRot;
-    actor->obj.rot.y = yRot;
-    actor->timer_0BC = arg8;
-    actor->timer_0BE = 20;
-    actor->fwork[0] = arg4;
-    actor->vel.z = zVel;
-    actor->unk_046 = arg9;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_MA_BOULDER;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.z = zRot;
+    this->obj.rot.y = yRot;
+    this->timer_0BC = arg8;
+    this->timer_0BE = 20;
+    this->fwork[0] = arg4;
+    this->vel.z = zVel;
+    this->unk_046 = arg9;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Macbeth_8019D670(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 zVel, f32 zRot, f32 yRot, s32 arg7, u8 arg8) {
@@ -1190,161 +1197,160 @@ void Macbeth_8019D670(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 zVel, f32 zRot
     }
 }
 
-void Macbeth_TrainCar3_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar3_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019D910(actor, &actor->iwork[10], &actor->iwork[11], 1, actor->fwork[21], -420.0f,
-                             &actor->iwork[12], &actor->iwork[13]);
-            Macbeth_8019D910(actor, &actor->iwork[14], &actor->iwork[15], 2, actor->fwork[25], 0.0f, &actor->iwork[16],
-                             &actor->iwork[17]);
-            Macbeth_8019D910(actor, &actor->iwork[18], &actor->iwork[19], 3, actor->fwork[23], 420.0f,
-                             &actor->iwork[20], &actor->iwork[21]);
-            Macbeth_8019A830(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019D910(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[21], -420.0f, &this->iwork[12],
+                             &this->iwork[13]);
+            Macbeth_8019D910(this, &this->iwork[14], &this->iwork[15], 2, this->fwork[25], 0.0f, &this->iwork[16],
+                             &this->iwork[17]);
+            Macbeth_8019D910(this, &this->iwork[18], &this->iwork[19], 3, this->fwork[23], 420.0f, &this->iwork[20],
+                             &this->iwork[21]);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            if (actor->iwork[5] < D_MA_801BE2F0[3]) {
-                D_MA_801BE2F0[3] = actor->iwork[5];
+            if (this->iwork[5] < D_MA_801BE2F0[3]) {
+                D_MA_801BE2F0[3] = this->iwork[5];
             }
-            actor->state = 2;
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
+            this->state = 2;
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
             break;
         case 2:
-            Macbeth_8019BBEC(actor);
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 60;
+            Macbeth_8019BBEC(this);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 60;
             }
-            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0BC = 20;
-                Macbeth_8019BE50(actor);
-                actor->state = 3;
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0);
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->timer_0BC = 20;
+                Macbeth_8019BE50(this);
+                this->state = 3;
             }
             break;
         case 3:
-            Macbeth_801A015C(actor);
-            Math_SmoothStepToF(&actor->scale, 0.0f, 0.02f, 10.0f, 0.01f);
-            if (actor->timer_0BC <= 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Macbeth_801A015C(this);
+            Math_SmoothStepToF(&this->scale, 0.0f, 0.02f, 10.0f, 0.01f);
+            if (this->timer_0BC <= 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6, s32* arg7) {
+void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6, s32* arg7) {
     s32 var_v0;
     u8 i;
 
     switch (*arg1) {
         case 0:
-            if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
-                ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-                actor->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
-                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 20);
-                actor->iwork[arg3 + 6] = 15;
-                *arg2 -= actor->damage;
-                if ((*arg2 <= 0) ||
-                    ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                    (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
+            if (((this->dmgType != DMG_NONE) && (arg3 == this->dmgPart)) ||
+                ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+                this->dmgType = DMG_NONE;
+                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 20);
+                this->iwork[arg3 + 6] = 15;
+                *arg2 -= this->damage;
+                if ((*arg2 <= 0) || ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                    (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
                     (*arg1)++;
                 }
-            } else if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
-                actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+            } else if ((this->dmgType != DMG_NONE) && (this->dmgPart == 0)) {
+                this->dmgType = DMG_NONE;
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
             }
             break;
         case 1:
-            Effect386_Spawn1(actor->obj.pos.x + arg4, actor->obj.pos.y + 250.0f, actor->obj.pos.z + arg5, 0.0f, 0.0f,
-                             0.0f, 10.0f, 5);
+            Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f, 0.0f, 0.0f,
+                             10.0f, 5);
 
             for (i = 0; i < 10; i++) {
                 Macbeth_801AD624(
-                    actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5 + RAND_FLOAT(80.0f),
+                    this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5 + RAND_FLOAT(80.0f),
                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                     RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, (RAND_FLOAT(0.8f) + 0.3f) * 2.0f);
             }
 
-            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
             *arg7 = 1;
             *arg2 = 20;
             (*arg1)++;
             break;
         case 2:
-            if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
-                ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5])) ||
-                ((actor->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_3) && (arg3 == 2))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-                actor->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
-                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 20);
-                actor->iwork[arg3 + 6] = 20;
-                *arg2 -= actor->damage;
+            if (((this->dmgType != DMG_NONE) && (arg3 == this->dmgPart)) ||
+                ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5])) ||
+                ((this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_3) && (arg3 == 2))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+                this->dmgType = DMG_NONE;
+                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 20);
+                this->iwork[arg3 + 6] = 20;
+                *arg2 -= this->damage;
                 if ((*arg2 <= 0) ||
-                    ((D_MA_801BE2F0[1] - 1 == (actor->iwork[5])) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                    (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5])) ||
-                    ((actor->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_3) && (arg3 == 2))) {
+                    ((D_MA_801BE2F0[1] - 1 == (this->iwork[5])) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                    (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5])) ||
+                    ((this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_3) && (arg3 == 2))) {
                     gHitCount++;
                     (*arg1)++;
                 }
-            } else if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
-                actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+            } else if ((this->dmgType != DMG_NONE) && (this->dmgPart == 0)) {
+                this->dmgType = DMG_NONE;
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
             }
             break;
         case 3:
-            Effect386_Spawn1(actor->obj.pos.x + arg4, actor->obj.pos.y + 250.0f, actor->obj.pos.z + arg5, 0.0f, 0.0f,
-                             0.0f, 10.0f, 5);
-            if ((actor->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_3) || (arg3 != 2)) {
+            Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f, 0.0f, 0.0f,
+                             10.0f, 5);
+            if ((this->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_3) || (arg3 != 2)) {
                 for (i = 0; i < 15; i++) {
-                    Macbeth_801AD624(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f,
-                                     actor->obj.pos.z + arg5 + RAND_FLOAT(20.0f), RAND_FLOAT_CENTERED(10.0f),
+                    Macbeth_801AD624(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f,
+                                     this->obj.pos.z + arg5 + RAND_FLOAT(20.0f), RAND_FLOAT_CENTERED(10.0f),
                                      RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                                      (s32) (RAND_FLOAT(50.0f) + 70.0f), 2, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
                 }
             }
-            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
             *arg7 = 2;
             var_v0 = arg3;
             if (var_v0 == 3) {
                 var_v0 = 4;
             }
 
-            actor->iwork[22] |= (var_v0);
-            switch (actor->iwork[22]) {
+            this->iwork[22] |= (var_v0);
+            switch (this->iwork[22]) {
                 case 1:
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035E68);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035E68);
                     break;
                 case 2:
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035ECC);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035ECC);
                     break;
                 case 3:
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035F30);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035F30);
                     break;
                 case 4:
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035F94);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035F94);
                     break;
                 case 5:
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035FF8);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035FF8);
                     break;
                 case 6:
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603605C);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603605C);
                     break;
                 case 7:
-                    actor->state = 1;
-                    actor->timer_0BC = 60;
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
+                    this->state = 1;
+                    this->timer_0BC = 60;
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
                     break;
             }
             (*arg1)++;
@@ -1356,47 +1362,47 @@ void Macbeth_8019D910(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f3
     }
 }
 
-void Macbeth_TrainCar5_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar5_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019D910(actor, &actor->iwork[10], &actor->iwork[11], 1, actor->fwork[21], -420.0f,
-                             &actor->iwork[12], &actor->iwork[13]);
-            Macbeth_8019D910(actor, &actor->iwork[14], &actor->iwork[15], 2, actor->fwork[25], 0.0f, &actor->iwork[16],
-                             &actor->iwork[17]);
-            Macbeth_8019D910(actor, &actor->iwork[18], &actor->iwork[19], 3, actor->fwork[23], 420.0f,
-                             &actor->iwork[20], &actor->iwork[21]);
-            Macbeth_8019A830(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019D910(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[21], -420.0f, &this->iwork[12],
+                             &this->iwork[13]);
+            Macbeth_8019D910(this, &this->iwork[14], &this->iwork[15], 2, this->fwork[25], 0.0f, &this->iwork[16],
+                             &this->iwork[17]);
+            Macbeth_8019D910(this, &this->iwork[18], &this->iwork[19], 3, this->fwork[23], 420.0f, &this->iwork[20],
+                             &this->iwork[21]);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            if (actor->iwork[5] < D_MA_801BE2F0[3]) {
-                D_MA_801BE2F0[3] = actor->iwork[5];
+            if (this->iwork[5] < D_MA_801BE2F0[3]) {
+                D_MA_801BE2F0[3] = this->iwork[5];
             }
-            actor->state = 2;
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
+            this->state = 2;
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
             break;
         case 2:
-            Macbeth_8019BBEC(actor);
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 60;
+            Macbeth_8019BBEC(this);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 60;
             }
-            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A87C(actor);
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0BC = 20;
-                Macbeth_8019BE50(actor);
-                actor->state = 3;
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
+            Macbeth_801A015C(this);
+            Macbeth_8019A87C(this);
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->timer_0BC = 20;
+                Macbeth_8019BE50(this);
+                this->state = 3;
             }
             break;
         case 3:
-            Macbeth_801A015C(actor);
-            Math_SmoothStepToF(&actor->scale, 0.0f, 0.02f, 10.0f, 0.01f);
-            if (actor->timer_0BC <= 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Macbeth_801A015C(this);
+            Math_SmoothStepToF(&this->scale, 0.0f, 0.02f, 10.0f, 0.01f);
+            if (this->timer_0BC <= 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
@@ -1405,204 +1411,200 @@ f32 D_i5_801BE240;
 f32 D_i5_801BE244;
 f32 D_i5_801BE248;
 f32 D_i5_801BE24C;
-void Macbeth_8019E624(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
+void Macbeth_8019E624(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
     switch (*arg1) {
         case 0:
-            if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
-                ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-                actor->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
-                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
-                actor->iwork[7] = 15;
-                *arg2 -= actor->damage;
-                if ((*arg2 <= 0) ||
-                    ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                    (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
+            if (((this->dmgType != DMG_NONE) && (arg3 == this->dmgPart)) ||
+                ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+                this->dmgType = DMG_NONE;
+                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+                this->iwork[7] = 15;
+                *arg2 -= this->damage;
+                if ((*arg2 <= 0) || ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                    (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
                     (*arg1)++;
                 }
-            } else if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+            } else if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
             }
-            Macbeth_8019B580(actor, arg2);
+            Macbeth_8019B580(this, arg2);
             break;
         case 1:
-            Macbeth_8019A8C8(actor, 5);
+            Macbeth_8019A8C8(this, 5);
             *arg6 = 1;
             *arg2 = 80;
             (*arg1)++;
             break;
         case 2:
-            if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
-                ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-                actor->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
-                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.2f, 10);
-                actor->iwork[7] = 15;
-                *arg2 -= actor->damage;
-                if ((*arg2 <= 0) ||
-                    ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                    (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
+            if (((this->dmgType != DMG_NONE) && (arg3 == this->dmgPart)) ||
+                ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+                this->dmgType = DMG_NONE;
+                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                this->iwork[7] = 15;
+                *arg2 -= this->damage;
+                if ((*arg2 <= 0) || ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                    (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
                     gHitCount++;
                     (*arg1)++;
                 }
             } else {
-                if (actor->dmgType != DMG_NONE) {
-                    actor->dmgType = DMG_NONE;
-                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+                if (this->dmgType != DMG_NONE) {
+                    this->dmgType = DMG_NONE;
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
                 }
             }
             break;
         case 3:
-            Macbeth_8019A8C8(actor, 1);
+            Macbeth_8019A8C8(this, 1);
             *arg6 = 2;
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
             (*arg1)++;
-            actor->state = 1;
+            this->state = 1;
             break;
         case 4:
             break;
     }
 }
 
-void Macbeth_TrainCar2_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar2_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019E624(actor, &actor->iwork[10], &actor->iwork[11], 1, actor->fwork[25], 0.0f, &actor->iwork[13]);
-            Macbeth_8019A830(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019E624(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[25], 0.0f, &this->iwork[13]);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            if (actor->iwork[5] < D_MA_801BE2F0[3]) {
-                D_MA_801BE2F0[3] = actor->iwork[5];
+            if (this->iwork[5] < D_MA_801BE2F0[3]) {
+                D_MA_801BE2F0[3] = this->iwork[5];
             }
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
-            actor->state = 2;
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
+            this->state = 2;
             break;
         case 2:
-            Macbeth_8019BBEC(actor);
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 60;
+            Macbeth_8019BBEC(this);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 60;
             }
-            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A87C(actor);
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0BC = 20;
-                Macbeth_8019BE50(actor);
-                actor->state = 3;
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
+            Macbeth_801A015C(this);
+            Macbeth_8019A87C(this);
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->timer_0BC = 20;
+                Macbeth_8019BE50(this);
+                this->state = 3;
                 break;
             }
             break;
         case 3:
-            Macbeth_801A015C(actor);
-            Math_SmoothStepToF(&actor->scale, 0.0f, 0.02f, 10.0f, 0.01f);
-            if (actor->timer_0BC <= 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Macbeth_801A015C(this);
+            Math_SmoothStepToF(&this->scale, 0.0f, 0.02f, 10.0f, 0.01f);
+            if (this->timer_0BC <= 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Macbeth_8019EBF8(Actor* actor, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
+void Macbeth_8019EBF8(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32 arg5, s32* arg6) {
     switch (*arg1) {
         case 0:
-            if (((actor->dmgType != DMG_NONE) && (arg3 == actor->dmgPart)) ||
-                ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-                actor->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(actor->obj.pos.x + arg4, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg5,
-                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
-                actor->iwork[7] = 15;
-                *arg2 -= actor->damage;
-                if ((*arg2 <= 0) ||
-                    ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                    (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
+            if (((this->dmgType != DMG_NONE) && (arg3 == this->dmgPart)) ||
+                ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+                this->dmgType = DMG_NONE;
+                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+                this->iwork[7] = 15;
+                *arg2 -= this->damage;
+                if ((*arg2 <= 0) || ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                    (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
                     gHitCount++;
                     (*arg1)++;
                 }
-            } else if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+            } else if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
             }
-            Macbeth_8019B580(actor, arg2);
+            Macbeth_8019B580(this, arg2);
             return;
         case 1:
-            Macbeth_8019AF34(actor);
+            Macbeth_8019AF34(this);
             *arg6 = 2;
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
             (*arg1)++;
             return;
         case 2:
-            actor->state = 1;
+            this->state = 1;
             return;
     }
 }
 
-void Macbeth_TrainCar7_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar7_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019EBF8(actor, &actor->iwork[10], &actor->iwork[11], 1, actor->fwork[25], 0.0f, &actor->iwork[13]);
-            Macbeth_8019A830(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019EBF8(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[25], 0.0f, &this->iwork[13]);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            if (actor->iwork[5] < D_MA_801BE2F0[3]) {
-                D_MA_801BE2F0[3] = actor->iwork[5];
+            if (this->iwork[5] < D_MA_801BE2F0[3]) {
+                D_MA_801BE2F0[3] = this->iwork[5];
             }
             gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
             gCameraShake = 35;
-            if ((gPlayer[0].trueZpos - actor->obj.pos.z > -200.0f) &&
-                (gPlayer[0].trueZpos - actor->obj.pos.z < 200.0f) && (gPlayer[0].pos.y - actor->obj.pos.y > -300.0f) &&
-                (gPlayer[0].pos.y - actor->obj.pos.y < 300.0f) && (gPlayer[0].pos.x - actor->obj.pos.x > -800.0f) &&
-                (gPlayer[0].pos.x - actor->obj.pos.x < 800.0f)) {
+            if ((gPlayer[0].trueZpos - this->obj.pos.z > -200.0f) && (gPlayer[0].trueZpos - this->obj.pos.z < 200.0f) &&
+                (gPlayer[0].pos.y - this->obj.pos.y > -300.0f) && (gPlayer[0].pos.y - this->obj.pos.y < 300.0f) &&
+                (gPlayer[0].pos.x - this->obj.pos.x > -800.0f) && (gPlayer[0].pos.x - this->obj.pos.x < 800.0f)) {
                 gFillScreenRed = gFillScreenAlpha = 255;
                 gFillScreenGreen = gFillScreenBlue = 0;
                 Player_ApplyDamage(&gPlayer[0], 0, 60);
             }
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
             D_ctx_801779A8[gMainController] = 100.0f;
-            actor->state = 2;
+            this->state = 2;
             break;
         case 2:
             if (gCameraShake == 20) {
-                D_MA_801BE2F0[1] = actor->iwork[5];
+                D_MA_801BE2F0[1] = this->iwork[5];
             }
-            Macbeth_8019BBEC(actor);
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 60;
+            Macbeth_8019BBEC(this);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 60;
             }
-            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A87C(actor);
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
+            Macbeth_801A015C(this);
+            Macbeth_8019A87C(this);
             if (gCameraShake == 20) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0BC = 20;
-                Macbeth_8019BE50(actor);
-                actor->state = 3;
+                this->dmgType = DMG_NONE;
+                this->timer_0BC = 20;
+                Macbeth_8019BE50(this);
+                this->state = 3;
             }
             break;
         case 3:
-            Macbeth_801A015C(actor);
-            Math_SmoothStepToF(&actor->scale, 0.0f, 0.02f, 10.0f, 0.01f);
-            if (actor->timer_0BC <= 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Macbeth_801A015C(this);
+            Math_SmoothStepToF(&this->scale, 0.0f, 0.02f, 10.0f, 0.01f);
+            if (this->timer_0BC <= 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Macbeth_8019F164(Actor* actor) {
+void Macbeth_8019F164(Actor* this) {
     static Vec3f D_i5_801BA708 = { 0.0f, 610.0f, 0.0f };
     static Vec3f D_i5_801BA714 = { 0.0f, 0.0f, 65.0f };
     Vec3f sp84;
@@ -1615,143 +1617,142 @@ void Macbeth_8019F164(Actor* actor) {
     s16 sp44;
 
     sp44 = 0;
-    sp6C.x = gPlayer[0].pos.x - actor->obj.pos.x + actor->fwork[25];
-    sp6C.y = gPlayer[0].pos.y - 25.0f - actor->obj.pos.y + actor->fwork[8] + 25.0f;
-    sp6C.z = gPlayer[0].trueZpos - 500.0f - actor->obj.pos.z;
+    sp6C.x = gPlayer[0].pos.x - this->obj.pos.x + this->fwork[25];
+    sp6C.y = gPlayer[0].pos.y - 25.0f - this->obj.pos.y + this->fwork[8] + 25.0f;
+    sp6C.z = gPlayer[0].trueZpos - 500.0f - this->obj.pos.z;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if ((gActors[i].obj.id == OBJ_ACTOR_219) && (gActors[i].obj.status == OBJ_ACTIVE)) {
-            if ((actor->obj.pos.z < (gActors[i].obj.pos.z + 3000.0f)) &&
-                ((gActors[i].obj.pos.z - actor->obj.pos.z) < 5000.0f)) {
-                sp6C.x = gActors[i].obj.pos.x - actor->obj.pos.x + actor->fwork[25];
-                sp6C.y = gActors[i].obj.pos.y - actor->obj.pos.y + actor->fwork[8] + 25.0f;
-                sp6C.z = gActors[i].obj.pos.z + 300.0f - actor->obj.pos.z;
+            if ((this->obj.pos.z < (gActors[i].obj.pos.z + 3000.0f)) &&
+                ((gActors[i].obj.pos.z - this->obj.pos.z) < 5000.0f)) {
+                sp6C.x = gActors[i].obj.pos.x - this->obj.pos.x + this->fwork[25];
+                sp6C.y = gActors[i].obj.pos.y - this->obj.pos.y + this->fwork[8] + 25.0f;
+                sp6C.z = gActors[i].obj.pos.z + 300.0f - this->obj.pos.z;
                 sp44 = 1;
             }
             break;
         }
     }
-    if ((actor->iwork[4] == 0) || (sp44 != 0)) {
-        Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -(actor->obj.rot.x + actor->fwork[29]) * M_DTOR, MTXF_APPLY);
-        Matrix_RotateY(gCalcMatrix, -(actor->obj.rot.y + actor->fwork[26]) * M_DTOR, MTXF_APPLY);
+    if ((this->iwork[4] == 0) || (sp44 != 0)) {
+        Matrix_RotateZ(gCalcMatrix, -this->obj.rot.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(this->obj.rot.x + this->fwork[29]) * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, -(this->obj.rot.y + this->fwork[26]) * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3f(gCalcMatrix, &sp6C, &sp84);
         sp78.x = sp84.x - D_i5_801BA708.x;
         sp78.y = sp84.y - D_i5_801BA708.y;
         sp78.z = sp84.z - D_i5_801BA708.z;
-        Math_SmoothStepToAngle(&actor->fwork[4], Math_RadToDeg(Math_Atan2F(sp78.x, sp78.z)), 0.1f, 2.0f, 0.01f);
-        Math_SmoothStepToAngle(&actor->fwork[3], Math_RadToDeg(-Math_Atan2F(sp78.y, sqrtf(SQ(sp78.x) + SQ(sp78.z)))),
+        Math_SmoothStepToAngle(&this->fwork[4], Math_RadToDeg(Math_Atan2F(sp78.x, sp78.z)), 0.1f, 2.0f, 0.01f);
+        Math_SmoothStepToAngle(&this->fwork[3], Math_RadToDeg(-Math_Atan2F(sp78.y, sqrtf(SQ(sp78.x) + SQ(sp78.z)))),
                                0.1f, 2.0f, 0.01f);
 
-        if ((actor->fwork[4] > 120.0f) && (actor->fwork[4] < 180.0f)) {
-            actor->fwork[4] = 120.0f;
+        if ((this->fwork[4] > 120.0f) && (this->fwork[4] < 180.0f)) {
+            this->fwork[4] = 120.0f;
         }
-        if ((actor->fwork[4] < 240.0f) && (actor->fwork[4] > 180.0f)) {
-            actor->fwork[4] = 240.0f;
+        if ((this->fwork[4] < 240.0f) && (this->fwork[4] > 180.0f)) {
+            this->fwork[4] = 240.0f;
         }
 
-        if ((actor->fwork[3] > 60.0f) && (actor->fwork[3] < 180.0f)) {
-            actor->fwork[3] = 60.0f;
+        if ((this->fwork[3] > 60.0f) && (this->fwork[3] < 180.0f)) {
+            this->fwork[3] = 60.0f;
         }
-        if ((actor->fwork[3] < 300.0f) && (actor->fwork[3] > 180.0f)) {
-            actor->fwork[3] = 300.0f;
+        if ((this->fwork[3] < 300.0f) && (this->fwork[3] > 180.0f)) {
+            this->fwork[3] = 300.0f;
         }
     }
-    Math_SmoothStepToAngle(&actor->fwork[2], actor->fwork[4], 0.2f, 5.0f, 0.01f);
-    Math_SmoothStepToAngle(&actor->fwork[1], actor->fwork[3], 0.2f, 5.0f, 0.01f);
-    Matrix_RotateY(gCalcMatrix, (actor->obj.rot.y + actor->fwork[26]) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, (actor->obj.rot.x + actor->fwork[29]) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+    Math_SmoothStepToAngle(&this->fwork[2], this->fwork[4], 0.2f, 5.0f, 0.01f);
+    Math_SmoothStepToAngle(&this->fwork[1], this->fwork[3], 0.2f, 5.0f, 0.01f);
+    Matrix_RotateY(gCalcMatrix, (this->obj.rot.y + this->fwork[26]) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, (this->obj.rot.x + this->fwork[29]) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BA708, &sp84);
-    sp60.x = sp84.x + actor->obj.pos.x + actor->fwork[25];
-    sp60.y = sp84.y + actor->obj.pos.y + actor->fwork[8] + 25.0f;
-    sp60.z = sp84.z + actor->obj.pos.z;
-    sp54.x = actor->fwork[1];
-    sp54.y = actor->fwork[2];
+    sp60.x = sp84.x + this->obj.pos.x + this->fwork[25];
+    sp60.y = sp84.y + this->obj.pos.y + this->fwork[8] + 25.0f;
+    sp60.z = sp84.z + this->obj.pos.z;
+    sp54.x = this->fwork[1];
+    sp54.y = this->fwork[2];
     sp54.z = 0.0f;
-    sp48.x = actor->obj.rot.x + actor->fwork[29];
-    sp48.y = actor->obj.rot.y + actor->fwork[26];
-    sp48.z = actor->obj.rot.z;
-    switch (actor->iwork[4]) {
+    sp48.x = this->obj.rot.x + this->fwork[29];
+    sp48.y = this->obj.rot.y + this->fwork[26];
+    sp48.z = this->obj.rot.z;
+    switch (this->iwork[4]) {
         case 0:
             if (sp44 != 0) {
                 sp60.x -= 60.0f;
                 func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
-                actor->iwork[4]++;
-            } else if ((D_i5_801BE310 == actor->iwork[5]) ||
-                       ((gPlayer[0].pos.x - actor->obj.pos.x > 300.0f) &&
-                        (gPlayer[0].pos.x - actor->obj.pos.x < 3000.0f)) ||
-                       ((gPlayer[0].pos.x - actor->obj.pos.x < -300.0f) &&
-                        (gPlayer[0].pos.x - actor->obj.pos.x > -3000.0f))) {
-                if ((gPlayer[0].trueZpos - actor->obj.pos.z < 5000.0f) &&
-                    (gPlayer[0].trueZpos - actor->obj.pos.z > 200.0f) && (actor->timer_0BC == 0) &&
-                    (actor->health != 0)) {
+                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
+                this->iwork[4]++;
+            } else if ((D_i5_801BE310 == this->iwork[5]) ||
+                       ((gPlayer[0].pos.x - this->obj.pos.x > 300.0f) &&
+                        (gPlayer[0].pos.x - this->obj.pos.x < 3000.0f)) ||
+                       ((gPlayer[0].pos.x - this->obj.pos.x < -300.0f) &&
+                        (gPlayer[0].pos.x - this->obj.pos.x > -3000.0f))) {
+                if ((gPlayer[0].trueZpos - this->obj.pos.z < 5000.0f) &&
+                    (gPlayer[0].trueZpos - this->obj.pos.z > 200.0f) && (this->timer_0BC == 0) && (this->health != 0)) {
                     sp60.x -= 60.0f;
                     func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                    AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
-                    actor->iwork[4]++;
+                    AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
+                    this->iwork[4]++;
                 }
             }
             break;
         case 1:
-            Math_SmoothStepToF(&actor->fwork[0], -100.0f, 0.8f, 30.0f, 20.0f);
-            if (actor->fwork[0] <= -100.0f) {
-                actor->iwork[4]++;
+            Math_SmoothStepToF(&this->fwork[0], -100.0f, 0.8f, 30.0f, 20.0f);
+            if (this->fwork[0] <= -100.0f) {
+                this->iwork[4]++;
             }
             break;
         case 2:
-            Math_SmoothStepToF(&actor->fwork[0], 0.0f, 0.6f, 30.0f, 0.2f);
-            if (actor->fwork[0] >= 0.0f) {
+            Math_SmoothStepToF(&this->fwork[0], 0.0f, 0.6f, 30.0f, 0.2f);
+            if (this->fwork[0] >= 0.0f) {
                 if (sp44 == 0) {
-                    actor->timer_0BC = 15;
+                    this->timer_0BC = 15;
                 }
-                actor->iwork[4]++;
+                this->iwork[4]++;
             }
             break;
         case 3:
-            if ((actor->timer_0BC == 0) && (actor->health != 0)) {
+            if ((this->timer_0BC == 0) && (this->health != 0)) {
                 func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
-                actor->iwork[4]++;
+                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
+                this->iwork[4]++;
             }
             break;
         case 4:
-            Math_SmoothStepToF(&actor->fwork[0], -100.0f, 0.8f, 30.0f, 20.0f);
-            if (actor->fwork[0] <= -100.0f) {
-                actor->iwork[4]++;
+            Math_SmoothStepToF(&this->fwork[0], -100.0f, 0.8f, 30.0f, 20.0f);
+            if (this->fwork[0] <= -100.0f) {
+                this->iwork[4]++;
             }
             break;
         case 5:
-            Math_SmoothStepToF(&actor->fwork[0], 0.0f, 0.6f, 30.0f, 0.2f);
-            if (actor->fwork[0] >= 0.0f) {
+            Math_SmoothStepToF(&this->fwork[0], 0.0f, 0.6f, 30.0f, 0.2f);
+            if (this->fwork[0] >= 0.0f) {
                 if (sp44 == 0) {
-                    actor->timer_0BC = 15;
+                    this->timer_0BC = 15;
                 }
-                actor->iwork[4]++;
+                this->iwork[4]++;
             }
             break;
         case 6:
-            if ((actor->timer_0BC == 0) && (actor->health != 0)) {
+            if ((this->timer_0BC == 0) && (this->health != 0)) {
                 sp60.x += 60.0f;
                 func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
-                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, actor->sfxSource, 4);
-                actor->iwork[4]++;
+                AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
+                this->iwork[4]++;
             }
             break;
         case 7:
-            Math_SmoothStepToF(&actor->fwork[0], -100.0f, 0.8f, 30.0f, 20.0f);
-            if (actor->fwork[0] <= -100.0f) {
-                actor->iwork[4]++;
+            Math_SmoothStepToF(&this->fwork[0], -100.0f, 0.8f, 30.0f, 20.0f);
+            if (this->fwork[0] <= -100.0f) {
+                this->iwork[4]++;
             }
             break;
         case 8:
-            Math_SmoothStepToF(&actor->fwork[0], 0.0f, 0.6f, 30.0f, 0.2f);
-            if (actor->fwork[0] >= 0.0f) {
+            Math_SmoothStepToF(&this->fwork[0], 0.0f, 0.6f, 30.0f, 0.2f);
+            if (this->fwork[0] >= 0.0f) {
                 if (sp44 == 0) {
-                    actor->timer_0BC = (u32) (RAND_FLOAT(100.0f) + 50.0f);
+                    this->timer_0BC = (u32) (RAND_FLOAT(100.0f) + 50.0f);
                 }
-                actor->iwork[4] = 0;
+                this->iwork[4] = 0;
             }
             break;
         default:
@@ -1759,130 +1760,128 @@ void Macbeth_8019F164(Actor* actor) {
     }
 }
 
-void Macbeth_8019FC54(Actor* actor, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32 arg5, f32 arg6, s32* arg7) {
+void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32 arg5, f32 arg6, s32* arg7) {
     switch (*arg1) {
         case 0:
-            if (((actor->dmgType != DMG_NONE) && (actor->dmgPart >= arg3) && (arg4 >= actor->dmgPart)) ||
-                ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
-                actor->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(actor->obj.pos.x + arg5, actor->obj.pos.y + 200.0f, actor->obj.pos.z + arg6,
-                                       actor->vel.x, actor->vel.y, actor->vel.z, 0.15f, 10);
-                actor->iwork[7] = 15;
-                *arg2 -= actor->damage;
-                if ((*arg2 <= 0) ||
-                    ((D_MA_801BE2F0[1] - 1 == actor->iwork[5]) && (actor->iwork[5] < D_MA_801BE2F0[3])) ||
-                    (((D_MA_801BE2F0[1] + 1) == actor->iwork[5]) && (D_MA_801BE2F0[3] < actor->iwork[5]))) {
+            if (((this->dmgType != DMG_NONE) && (this->dmgPart >= arg3) && (arg4 >= this->dmgPart)) ||
+                ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
+                this->dmgType = DMG_NONE;
+                Effect_Effect390_Spawn(this->obj.pos.x + arg5, this->obj.pos.y + 200.0f, this->obj.pos.z + arg6,
+                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+                this->iwork[7] = 15;
+                *arg2 -= this->damage;
+                if ((*arg2 <= 0) || ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
+                    (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
                     gHitCount++;
-                    if ((actor->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_4) && (actor->iwork[3] < 2)) {
+                    if ((this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_4) && (this->iwork[3] < 2)) {
                         gHitCount += 5;
                     }
                     (*arg1)++;
                 }
-            } else if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+            } else if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
             }
-            Macbeth_8019B580(actor, arg2);
+            Macbeth_8019B580(this, arg2);
             break;
         case 1:
-            Macbeth_8019A8C8(actor, 6);
-            if (actor->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_6) {
-                Effect386_Spawn1(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 360.0f, actor->obj.pos.z, 0.0f,
+            Macbeth_8019A8C8(this, 6);
+            if (this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_6) {
+                Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 360.0f, this->obj.pos.z, 0.0f,
                                  0.0f, 0.0f, 20.0f, 20);
-                Effect386_Spawn1(actor->obj.pos.x + actor->fwork[25], actor->obj.pos.y + 660.0f, actor->obj.pos.z, 0.0f,
+                Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 660.0f, this->obj.pos.z, 0.0f,
                                  0.0f, 0.0f, 20.0f, 20);
             }
             *arg7 = 2;
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
             (*arg1)++;
-            actor->state = 1;
+            this->state = 1;
             break;
         case 2:
             break;
     }
 }
 
-void Macbeth_TrainCar6_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar6_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019FC54(actor, &actor->iwork[10], &actor->iwork[11], 1, 3, actor->fwork[25], 0.0f,
-                             &actor->iwork[13]);
-            Macbeth_8019A728(actor);
-            if (actor->iwork[1] != 0) {
-                Macbeth_8019F164(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019FC54(this, &this->iwork[10], &this->iwork[11], 1, 3, this->fwork[25], 0.0f, &this->iwork[13]);
+            Macbeth_8019A728(this);
+            if (this->iwork[1] != 0) {
+                Macbeth_8019F164(this);
             }
-            Macbeth_8019A830(actor);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            if (actor->iwork[5] < D_MA_801BE2F0[3]) {
-                D_MA_801BE2F0[3] = actor->iwork[5];
+            if (this->iwork[5] < D_MA_801BE2F0[3]) {
+                D_MA_801BE2F0[3] = this->iwork[5];
             }
-            actor->state = 2;
-            Macbeth_801A015C(actor);
-            Macbeth_8019A830(actor);
+            this->state = 2;
+            Macbeth_801A015C(this);
+            Macbeth_8019A830(this);
             break;
         case 2:
-            Macbeth_8019BBEC(actor);
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = 60;
+            Macbeth_8019BBEC(this);
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = 60;
             }
-            Math_SmoothStepToF(&actor->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A87C(actor);
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->timer_0BC = 20;
-                Macbeth_8019BE50(actor);
-                actor->state = 3;
+            Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
+            Macbeth_801A015C(this);
+            Macbeth_8019A87C(this);
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->timer_0BC = 20;
+                Macbeth_8019BE50(this);
+                this->state = 3;
             }
             break;
         case 3:
-            Macbeth_801A015C(actor);
-            Math_SmoothStepToF(&actor->scale, 0.0f, 0.02f, 10.0f, 0.01f);
-            if (actor->timer_0BC <= 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Macbeth_801A015C(this);
+            Math_SmoothStepToF(&this->scale, 0.0f, 0.02f, 10.0f, 0.01f);
+            if (this->timer_0BC <= 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Macbeth_801A015C(Actor* actor) {
-    if (!Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0)) {
-        actor->obj.pos.x = actor->fwork[19];
-        actor->obj.pos.y = actor->fwork[5];
-        if (!Macbeth_801A0308(actor, actor->obj.pos.z - 420.0f, actor->fwork[22], 1)) {
-            actor->fwork[21] = actor->fwork[19] - actor->obj.pos.x;
-            actor->fwork[22] = actor->fwork[20];
-            actor->fwork[6] = actor->fwork[5] - actor->obj.pos.y;
-            actor->fwork[27] = actor->fwork[9];
-            if (!Macbeth_801A0308(actor, actor->obj.pos.z + 420.0f, actor->fwork[24], 2)) {
-                actor->fwork[23] = actor->fwork[19] - actor->obj.pos.x;
-                actor->fwork[24] = actor->fwork[20];
-                actor->fwork[7] = actor->fwork[5] - actor->obj.pos.y;
-                actor->fwork[28] = actor->fwork[9];
-                if (actor->fwork[19] - actor->obj.pos.x < actor->fwork[21]) {
-                    actor->fwork[25] = actor->fwork[23] + ((actor->fwork[21] - actor->fwork[23]) / 2);
+void Macbeth_801A015C(Actor* this) {
+    if (!Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0)) {
+        this->obj.pos.x = this->fwork[19];
+        this->obj.pos.y = this->fwork[5];
+        if (!Macbeth_801A0308(this, this->obj.pos.z - 420.0f, this->fwork[22], 1)) {
+            this->fwork[21] = this->fwork[19] - this->obj.pos.x;
+            this->fwork[22] = this->fwork[20];
+            this->fwork[6] = this->fwork[5] - this->obj.pos.y;
+            this->fwork[27] = this->fwork[9];
+            if (!Macbeth_801A0308(this, this->obj.pos.z + 420.0f, this->fwork[24], 2)) {
+                this->fwork[23] = this->fwork[19] - this->obj.pos.x;
+                this->fwork[24] = this->fwork[20];
+                this->fwork[7] = this->fwork[5] - this->obj.pos.y;
+                this->fwork[28] = this->fwork[9];
+                if (this->fwork[19] - this->obj.pos.x < this->fwork[21]) {
+                    this->fwork[25] = this->fwork[23] + ((this->fwork[21] - this->fwork[23]) / 2);
                 } else {
-                    actor->fwork[25] = actor->fwork[21] + ((actor->fwork[23] - actor->fwork[21]) / 2);
+                    this->fwork[25] = this->fwork[21] + ((this->fwork[23] - this->fwork[21]) / 2);
                 }
 
-                if (actor->fwork[7] < actor->fwork[6]) {
-                    actor->fwork[8] = actor->fwork[7] + ((actor->fwork[6] - actor->fwork[7]) / 2);
+                if (this->fwork[7] < this->fwork[6]) {
+                    this->fwork[8] = this->fwork[7] + ((this->fwork[6] - this->fwork[7]) / 2);
                 } else {
-                    actor->fwork[8] = actor->fwork[6] + ((actor->fwork[7] - actor->fwork[6]) / 2);
+                    this->fwork[8] = this->fwork[6] + ((this->fwork[7] - this->fwork[6]) / 2);
                 }
-                actor->fwork[26] = (actor->fwork[22] + actor->fwork[24]) / 2;
-                actor->fwork[29] = (actor->fwork[27] + actor->fwork[28]) / 2;
+                this->fwork[26] = (this->fwork[22] + this->fwork[24]) / 2;
+                this->fwork[29] = (this->fwork[27] + this->fwork[28]) / 2;
             }
         }
     }
 }
 
-bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
+bool Macbeth_801A0308(Actor* this, f32 arg1, f32 arg2, u8 arg3) {
     s16 var_a0;
     s16 sp4C;
     f32 temp_fv0;
@@ -1898,8 +1897,7 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
 
     switch (D_MA_801BE2F0[5]) {
         case 0:
-
-            for (var_a0 = actor->fwork[arg3 + 16]; D_i5_801B8E50[var_a0].unk_10 != 0; var_a0++) {
+            for (var_a0 = this->fwork[arg3 + 16]; D_i5_801B8E50[var_a0].unk_10 != 0; var_a0++) {
                 if (D_i5_801B8E50[var_a0].unk_00 < arg1) {
                     if (var_a0 == 0) {
                         var_a0 = 1;
@@ -1926,16 +1924,16 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                     if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_MA_SWITCH_TRACK) {
                         sp28 = 0.0f;
                     }
-                    actor->fwork[arg3 + 16] = var_a0;
+                    this->fwork[arg3 + 16] = var_a0;
                     break;
                 }
             }
             if (D_i5_801B8E50[var_a0].unk_10 == 0) {
-                actor->fwork[arg3 + 16] = 1.0f;
+                this->fwork[arg3 + 16] = 1.0f;
             }
             break;
         case 1:
-            for (var_a0 = actor->fwork[arg3 + 16]; D_i5_801B9A80[var_a0].unk_10 != 0; var_a0++) {
+            for (var_a0 = this->fwork[arg3 + 16]; D_i5_801B9A80[var_a0].unk_10 != 0; var_a0++) {
                 if (D_i5_801B9A80[var_a0].unk_00 < arg1) {
                     if (var_a0 == 0) {
                         var_a0 = 1;
@@ -1962,12 +1960,12 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
                     if (D_i5_801B8E50[var_a0].unk_10 == OBJ_SCENERY_MA_SWITCH_TRACK) {
                         sp28 = 0.0f;
                     }
-                    actor->fwork[arg3 + 16] = var_a0;
+                    this->fwork[arg3 + 16] = var_a0;
                     break;
                 }
             }
             if (D_i5_801B9A80[var_a0].unk_10 == 0) {
-                actor->fwork[arg3 + 16] = 1.0f;
+                this->fwork[arg3 + 16] = 1.0f;
             }
             break;
     }
@@ -1975,52 +1973,52 @@ bool Macbeth_801A0308(Actor* actor, f32 arg1, f32 arg2, u8 arg3) {
     sp24 = 1.0f - ((sp2C - arg1) / (sp2C - sp3C));
     if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_5) ||
         (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_8)) {
-        if ((actor->iwork[5] < (s32) D_i5_801BA1E4) && (actor->iwork[5] < D_MA_801BE2F0[3])) {
-            actor->vel.z *= 0.98f;
+        if ((this->iwork[5] < (s32) D_i5_801BA1E4) && (this->iwork[5] < D_MA_801BE2F0[3])) {
+            this->vel.z *= 0.98f;
         }
         temp_fv0 = fabsf((sp2C - sp3C) / 3.0f);
         if (sp24 < 0.3333333f) {
             if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
-                actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
-                                   (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
+                this->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
+                                  (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
             } else {
-                actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44 +
-                                   (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
+                this->fwork[19] = ((sp34 - sp44) * sp24) + sp44 +
+                                  (52.160667f * (1.0f - (((sp3C - temp_fv0) - arg1) / ((sp3C - temp_fv0) - sp3C))));
             }
         } else if (sp24 < 0.666666f) {
             if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
-                actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) - 52.160667f;
+                this->fwork[19] = (((sp34 - sp44) * sp24) + sp44) - 52.160667f;
             } else {
-                actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44 + 52.160667f;
+                this->fwork[19] = ((sp34 - sp44) * sp24) + sp44 + 52.160667f;
             }
         } else if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_4) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_7)) {
-            actor->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
-                               (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
+            this->fwork[19] = (((sp34 - sp44) * sp24) + sp44) -
+                              (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
         } else {
-            actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44 +
-                               (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
+            this->fwork[19] = ((sp34 - sp44) * sp24) + sp44 +
+                              (52.160667f * (1.0f - (1.0f - ((sp2C - arg1) / (sp2C - (sp3C - (temp_fv0 * 2)))))));
         }
     } else {
         if (sp4C == OBJ_SCENERY_MA_SWITCH_TRACK) {
-            if ((actor->iwork[5] < (s32) D_i5_801BA1E4) && (actor->iwork[5] < D_MA_801BE2F0[3])) {
-                actor->vel.z *= 0.94f;
+            if ((this->iwork[5] < (s32) D_i5_801BA1E4) && (this->iwork[5] < D_MA_801BE2F0[3])) {
+                this->vel.z *= 0.94f;
             }
         }
-        actor->fwork[19] = ((sp34 - sp44) * sp24) + sp44;
+        this->fwork[19] = ((sp34 - sp44) * sp24) + sp44;
     }
-    actor->fwork[5] = ((sp30 - sp40) * sp24) + sp40;
+    this->fwork[5] = ((sp30 - sp40) * sp24) + sp40;
     if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_9) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_11)) {
-        Math_SmoothStepToF(&actor->fwork[9], 3.0f, 0.05f, 1.0f, 0.001f);
+        Math_SmoothStepToF(&this->fwork[9], 3.0f, 0.05f, 1.0f, 0.001f);
     } else if ((sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_10) || (sp4C == OBJ_SCENERY_MA_TRAIN_TRACK_12)) {
-        Math_SmoothStepToF(&actor->fwork[9], -3.0f, 0.05f, 1.0f, 0.001f);
+        Math_SmoothStepToF(&this->fwork[9], -3.0f, 0.05f, 1.0f, 0.001f);
     } else {
-        Math_SmoothStepToF(&actor->fwork[9], 0.0f, 0.05f, 1.0f, 0.0f);
+        Math_SmoothStepToF(&this->fwork[9], 0.0f, 0.05f, 1.0f, 0.0f);
     }
-    actor->fwork[20] = ((sp28 - sp38) * sp24) + sp38;
+    this->fwork[20] = ((sp28 - sp38) * sp24) + sp38;
     return false;
 }
 
-bool Macbeth_801A0A74(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Macbeth_801A0A74(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     if ((limbIndex == 5) || (limbIndex == 6)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     } else {
@@ -2032,22 +2030,21 @@ bool Macbeth_801A0A74(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-bool Macbeth_801A0B00(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Macbeth_801A0B00(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     if (limbIndex == 3) {
         *dList = NULL;
     }
     return false;
 }
 
-bool Macbeth_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Macbeth_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* actor = (Actor*) thisx;
 
     if ((limbIndex == 3) || (limbIndex == 7)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     } else {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
-
     if (limbIndex == 1) {
         pos->z += actor->fwork[0];
     }
@@ -2058,59 +2055,63 @@ bool Macbeth_801A0B20(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_MaSwitchTrack_Update(Scenery* scenery) {
-    switch (scenery->state) {
+void Macbeth_MaSwitchTrack_Update(MaSwitchTrack* this) {
+    switch (this->state) {
         case 0:
-            scenery->vel.y = 0.0f;
-            scenery->vel.x = 0.0f;
+            this->vel.y = 0.0f;
+            this->vel.x = 0.0f;
             if (D_i5_801BE312 != 0) {
-                scenery->state = 1;
-                scenery->timer_4C = 20;
+                this->state = 1;
+                this->timer_4C = 20;
             }
             break;
+
         case 1:
-            if (scenery->timer_4C == 1) {
+            if (this->timer_4C == 1) {
                 AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, gPlayer[0].sfxSource, 0);
             }
-            if (scenery->timer_4C <= 0) {
-                Math_SmoothStepToF(&scenery->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
-                if (scenery->vel.x >= 1750.0) {
-                    AUDIO_PLAY_SFX(NA_SE_OB_POINT_SWITCH, scenery->sfxSource, 0);
+            if (this->timer_4C <= 0) {
+                Math_SmoothStepToF(&this->vel.x, 1751.0f, 0.2f, 80.0f, 1.0f);
+                if (this->vel.x >= 1750.0) {
+                    AUDIO_PLAY_SFX(NA_SE_OB_POINT_SWITCH, this->sfxSource, 0);
                     Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
-                    scenery->timer_4C = 5;
-                    scenery->state = 2;
+                    this->timer_4C = 5;
+                    this->state = 2;
                 }
             }
             break;
+
         case 2:
-            Math_SmoothStepToF(&scenery->vel.y, -11.0f, 0.1f, 2.5f, 0.01f);
-            if (scenery->vel.y <= -10.0f) {
-                scenery->state = 3;
+            Math_SmoothStepToF(&this->vel.y, -11.0f, 0.1f, 2.5f, 0.01f);
+            if (this->vel.y <= -10.0f) {
+                this->state = 3;
             }
             break;
+
         case 3:
             break;
     }
-    if (scenery->timer_4C != 0) {
-        scenery->vel.z = 2.0f + RAND_FLOAT(1.0f);
+
+    if (this->timer_4C != 0) {
+        this->vel.z = 2.0f + RAND_FLOAT(1.0f);
     } else {
-        scenery->vel.z = 1.0f + RAND_FLOAT(1.0f);
+        this->vel.z = 1.0f + RAND_FLOAT(1.0f);
     }
 }
 
-bool Macbeth_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Scenery* scenery = (Scenery*) data;
+bool Macbeth_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Scenery* this = (Scenery*) thisx;
 
     if (limbIndex == 5) {
-        rot->y += scenery->vel.y;
+        rot->y += this->vel.y;
     }
     if ((limbIndex == 1) || (limbIndex == 2)) {
-        pos->z -= scenery->vel.x;
+        pos->z -= this->vel.x;
     }
     return false;
 }
 
-void Macbeth_801A0E2C(s32 limbIndex, Vec3f* rot, void* data) {
+void Macbeth_801A0E2C(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     s32 pad;
 
@@ -2124,8 +2125,8 @@ void Macbeth_801A0E2C(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* actor = (Actor*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
@@ -2160,9 +2161,9 @@ bool Macbeth_801A0EB8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801A1268(s32 limbIndex, Vec3f* rot, void* data) {
+void Macbeth_801A1268(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp1C = { 0.0f, 0.0f, 0.0f };
-    Actor* actor = (Actor*) data;
+    Actor* actor = (Actor*) thisx;
 
     if (limbIndex == 4) {
         Matrix_MultVec3f(gCalcMatrix, &sp1C, actor->vwork);
@@ -2170,67 +2171,67 @@ void Macbeth_801A1268(s32 limbIndex, Vec3f* rot, void* data) {
 }
 
 // Actors 205, 206, 208, 209, 210, 211, 212, 213
-void Macbeth_Train_Draw(Actor* actor) {
+void Macbeth_Train_Draw(Actor* this) {
     Vec3f spD0[50];
     s32 id;
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-        if (((gPlayer[0].trueZpos - actor->obj.pos.z) > 7000.0f) ||
-            ((gPlayer[0].trueZpos - actor->obj.pos.z) < -1000.0f)) {
+        if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
+            ((gPlayer[0].trueZpos - this->obj.pos.z) < -1000.0f)) {
             return;
         }
     } else {
-        if (((gPlayer[0].trueZpos - actor->obj.pos.z) > 7000.0f) ||
-            ((gPlayer[0].trueZpos - actor->obj.pos.z) < -5000.0f)) {
+        if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
+            ((gPlayer[0].trueZpos - this->obj.pos.z) < -5000.0f)) {
             return;
         }
     }
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[25], actor->fwork[8] + 25.0f, 0.0f, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, this->fwork[25], this->fwork[8] + 25.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, this->fwork[26] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    if ((actor->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_1) && (actor->obj.id != OBJ_ACTOR_MA_LOCOMOTIVE)) {
-        if (((gPlayer[0].trueZpos - actor->obj.pos.z) > 3000.0f) && (D_i5_801BE310 != actor->iwork[5])) {
+    if ((this->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_1) && (this->obj.id != OBJ_ACTOR_MA_LOCOMOTIVE)) {
+        if (((gPlayer[0].trueZpos - this->obj.pos.z) > 3000.0f) && (D_i5_801BE310 != this->iwork[5])) {
             gSPDisplayList(gMasterDisp++, D_MA_6027BF0);
             gSPDisplayList(gMasterDisp++, D_MA_601BE90);
         } else {
-            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Animation_GetFrameData(&D_MA_602EA0C, 0, spD0);
-            Animation_DrawSkeleton(1, D_MA_602EBB8, spD0, Macbeth_801A0A74, NULL, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_MA_602EBB8, spD0, Macbeth_801A0A74, NULL, this, &gIdentityMatrix);
         }
     }
-    switch (actor->obj.id) {
+    switch (this->obj.id) {
         case OBJ_ACTOR_MA_TRAIN_CAR_6:
-            if (actor->iwork[13] == 0) {
-                if ((actor->iwork[7] % 2) != 0) {
+            if (this->iwork[13] == 0) {
+                if ((this->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
-                if (actor->iwork[7] > 0) {
-                    actor->iwork[7]--;
+                if (this->iwork[7] > 0) {
+                    this->iwork[7]--;
                 }
                 Animation_GetFrameData(&D_MA_6027320, 0, spD0);
-                Animation_DrawSkeleton(1, D_MA_602742C, spD0, Macbeth_801A0B20, NULL, actor, &gIdentityMatrix);
+                Animation_DrawSkeleton(1, D_MA_602742C, spD0, Macbeth_801A0B20, NULL, this, &gIdentityMatrix);
             }
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_4:
-            if (actor->iwork[13] == 0) {
+            if (this->iwork[13] == 0) {
                 Animation_GetFrameData(&D_MA_6027A04, 0, spD0);
-                Animation_DrawSkeleton(1, D_MA_6027AF0, spD0, Macbeth_801A0B00, NULL, actor, &gIdentityMatrix);
+                Animation_DrawSkeleton(1, D_MA_6027AF0, spD0, Macbeth_801A0B00, NULL, this, &gIdentityMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 205.0f, 0.0f, MTXF_APPLY);
-                Matrix_RotateZ(gGfxMatrix, actor->fwork[4] * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, this->fwork[4] * M_DTOR, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                if ((actor->iwork[7] % 2) != 0) {
+                if ((this->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
-                if (actor->iwork[7] > 0) {
-                    actor->iwork[7]--;
+                if (this->iwork[7] > 0) {
+                    this->iwork[7]--;
                 }
-                if (actor->iwork[3] >= 3) {
+                if (this->iwork[3] >= 3) {
                     gSPDisplayList(gMasterDisp++, D_MA_6027EB0);
                 } else {
                     gSPDisplayList(gMasterDisp++, D_MA_60288A0);
@@ -2238,32 +2239,32 @@ void Macbeth_Train_Draw(Actor* actor) {
             }
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_3:
-            if (actor->iwork[17] != 2) {
+            if (this->iwork[17] != 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                if ((actor->iwork[8] % 2) != 0) {
+                if ((this->iwork[8] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
-                if (actor->iwork[8] > 0) {
-                    actor->iwork[8]--;
+                if (this->iwork[8] > 0) {
+                    this->iwork[8]--;
                 }
                 gSPDisplayList(gMasterDisp++, D_MA_6029890);
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_5:
-            if (actor->iwork[17] != 2) {
+            if (this->iwork[17] != 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -15.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                if ((actor->iwork[8] % 2) != 0) {
+                if ((this->iwork[8] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
-                if (actor->iwork[8] > 0) {
-                    actor->iwork[8]--;
+                if (this->iwork[8] > 0) {
+                    this->iwork[8]--;
                 }
-                if (actor->iwork[17] == 0) {
+                if (this->iwork[17] == 0) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     gSPDisplayList(gMasterDisp++, D_MA_6004440);
                 } else {
@@ -2276,31 +2277,31 @@ void Macbeth_Train_Draw(Actor* actor) {
             }
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_7:
-            if (actor->iwork[13] < 2) {
+            if (this->iwork[13] < 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
-                if ((actor->iwork[7] % 2) != 0) {
+                if ((this->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
-                if (actor->iwork[7] > 0) {
-                    actor->iwork[7]--;
+                if (this->iwork[7] > 0) {
+                    this->iwork[7]--;
                 }
                 gSPDisplayList(gMasterDisp++, D_MA_6024670);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_2:
-            if (actor->iwork[13] < 2) {
-                if ((actor->iwork[7] % 2) != 0) {
+            if (this->iwork[13] < 2) {
+                if ((this->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 }
-                if (actor->iwork[7] > 0) {
-                    actor->iwork[7]--;
+                if (this->iwork[7] > 0) {
+                    this->iwork[7]--;
                 }
-                if (actor->iwork[13] == 0) {
+                if (this->iwork[13] == 0) {
                     Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_MA_60269E0);
@@ -2314,10 +2315,10 @@ void Macbeth_Train_Draw(Actor* actor) {
             break;
         case OBJ_ACTOR_MA_TRAIN_CAR_1:
             Animation_GetFrameData(&D_MA_601EAB0, 0, spD0);
-            Animation_DrawSkeleton(1, D_MA_601EBBC, spD0, Macbeth_801AC5AC, NULL, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_MA_601EBBC, spD0, Macbeth_801AC5AC, NULL, this, &gIdentityMatrix);
             break;
         case OBJ_ACTOR_MA_LOCOMOTIVE:
-            Matrix_Translate(gGfxMatrix, actor->fwork[3], 0.0f, 0.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, this->fwork[3], 0.0f, 0.0f, MTXF_APPLY);
             if (D_i5_801BE320[21] == 0) {
                 Animation_GetFrameData(&D_MA_6010220, 0, spD0);
             } else if (D_i5_801BE320[21] == 1) {
@@ -2325,7 +2326,7 @@ void Macbeth_Train_Draw(Actor* actor) {
             } else {
                 Animation_GetFrameData(&D_MA_6010144, D_i5_801BE320[22], spD0);
             }
-            Animation_DrawSkeleton(1, D_MA_601042C, spD0, Macbeth_801A0EB8, Macbeth_801A1268, actor, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, D_MA_601042C, spD0, Macbeth_801A0EB8, Macbeth_801A1268, this, &gIdentityMatrix);
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
@@ -2335,50 +2336,50 @@ void Macbeth_Train_Draw(Actor* actor) {
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[21], actor->fwork[6] + 65.0f, -420.0f, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[22] * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[27] * M_DTOR, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, this->fwork[21], this->fwork[6] + 65.0f, -420.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, this->fwork[22] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, this->fwork[27] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) > 3000.0f) {
+    Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) > 3000.0f) {
         gSPDisplayList(gMasterDisp++, D_MA_6027D40);
-    } else if (actor->vel.z > -2.0f) {
+    } else if (this->vel.z > -2.0f) {
         gSPDisplayList(gMasterDisp++, D_MA_60227F0);
     } else {
         gSPDisplayList(gMasterDisp++, D_MA_60239D0);
     }
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, actor->fwork[23], actor->fwork[7] + 65.0f, 420.0f, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[24] * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, actor->fwork[28] * M_DTOR, MTXF_APPLY);
-    Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, this->fwork[23], this->fwork[7] + 65.0f, 420.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, this->fwork[24] * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, this->fwork[28] * M_DTOR, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) > 3000.0f) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) > 3000.0f) {
         gSPDisplayList(gMasterDisp++, D_MA_6027D40);
-    } else if (actor->vel.z > -2.0f) {
+    } else if (this->vel.z > -2.0f) {
         gSPDisplayList(gMasterDisp++, D_MA_60227F0);
     } else {
         gSPDisplayList(gMasterDisp++, D_MA_60239D0);
     }
     Matrix_Pop(&gGfxMatrix);
-    id = actor->obj.id;
+    id = this->obj.id;
     if ((id == OBJ_ACTOR_MA_TRAIN_CAR_3) || (id == OBJ_ACTOR_MA_TRAIN_CAR_5)) {
-        if (actor->iwork[13] != 2) {
+        if (this->iwork[13] != 2) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, actor->fwork[21], actor->fwork[6] + 10.0f, -420.0f, MTXF_APPLY);
-            Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
-            Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, this->fwork[21], this->fwork[6] + 10.0f, -420.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, this->fwork[26] * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if ((actor->iwork[7] % 2) != 0) {
+            if ((this->iwork[7] % 2) != 0) {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
-            if (actor->iwork[7] > 0) {
-                actor->iwork[7]--;
+            if (this->iwork[7] > 0) {
+                this->iwork[7]--;
             }
-            if (actor->iwork[13] == 0) {
+            if (this->iwork[13] == 0) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6004440);
             } else {
@@ -2390,20 +2391,20 @@ void Macbeth_Train_Draw(Actor* actor) {
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             Matrix_Pop(&gGfxMatrix);
         }
-        if (actor->iwork[21] != 2) {
+        if (this->iwork[21] != 2) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, actor->fwork[23], actor->fwork[7] + 10.0f, 420.0f, MTXF_APPLY);
-            Matrix_RotateY(gGfxMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
-            Matrix_RotateX(gGfxMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, this->fwork[23], this->fwork[7] + 10.0f, 420.0f, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, this->fwork[26] * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            if ((actor->iwork[9] % 2) != 0) {
+            if ((this->iwork[9] % 2) != 0) {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
-            if (actor->iwork[9] > 0) {
-                actor->iwork[9]--;
+            if (this->iwork[9] > 0) {
+                this->iwork[9]--;
             }
-            if (actor->iwork[21] == 0) {
+            if (this->iwork[21] == 0) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                 gSPDisplayList(gMasterDisp++, D_MA_6004440);
             } else {
@@ -2419,50 +2420,58 @@ void Macbeth_Train_Draw(Actor* actor) {
 }
 
 // Scenery 92 to 105
-void Macbeth_TrainTrack_Draw(Scenery* scenery) {
-    Vec3f sp78[50];
+void Macbeth_TrainTrack_Draw(Scenery* this) {
+    Vec3f frameTable[50];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
-    switch (scenery->obj.id) {
+
+    switch (this->obj.id) {
         case OBJ_SCENERY_MA_TRAIN_TRACK_3:
         case OBJ_SCENERY_MA_TRAIN_TRACK_6:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
-                ((gPlayer[0].trueZpos - scenery->obj.pos.z) < -2500.0f)) {
-                Object_Kill(&scenery->obj, scenery->sfxSource);
+                ((gPlayer[0].trueZpos - this->obj.pos.z) < -2500.0f)) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_6026860);
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_4:
         case OBJ_SCENERY_MA_TRAIN_TRACK_7:
             if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
-                ((gPlayer[0].trueZpos - scenery->obj.pos.z) < -2500.0f)) {
-                Object_Kill(&scenery->obj, scenery->sfxSource);
+                ((gPlayer[0].trueZpos - this->obj.pos.z) < -2500.0f)) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             gSPDisplayList(gMasterDisp++, D_MA_602FBF0);
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_5:
         case OBJ_SCENERY_MA_TRAIN_TRACK_8:
             gSPDisplayList(gMasterDisp++, D_MA_6022610);
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_9:
         case OBJ_SCENERY_MA_TRAIN_TRACK_11:
             gSPDisplayList(gMasterDisp++, D_MA_60309D0);
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_10:
         case OBJ_SCENERY_MA_TRAIN_TRACK_12:
             gSPDisplayList(gMasterDisp++, D_MA_6030750);
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_13:
             RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             gSPDisplayList(gMasterDisp++, D_MA_602D380);
             break;
+
         case OBJ_SCENERY_MA_SWITCH_TRACK:
             Matrix_Push(&gGfxMatrix);
-            Animation_GetFrameData(&D_MA_6025CA0, 0, sp78);
-            Animation_DrawSkeleton(1, D_MA_6025DAC, sp78, Macbeth_801A0DD8, Macbeth_801A0E2C, scenery,
+            Animation_GetFrameData(&D_MA_6025CA0, 0, frameTable);
+            Animation_DrawSkeleton(1, D_MA_6025DAC, frameTable, Macbeth_801A0DD8, Macbeth_801A0E2C, this,
                                    &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
-            if ((scenery->state == 1) && (scenery->timer_4C <= 0)) {
+
+            if ((this->state == 1) && (this->timer_4C <= 0)) {
                 Matrix_Push(&gGfxMatrix);
                 RCP_SetupDL_49();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -2470,7 +2479,7 @@ void Macbeth_TrainTrack_Draw(Scenery* scenery) {
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[0].x, D_i5_801BE688[0].y + 50.0f,
                                  D_i5_801BE688[0].z + 100.0f, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 Matrix_Pop(&gGfxMatrix);
@@ -2478,12 +2487,12 @@ void Macbeth_TrainTrack_Draw(Scenery* scenery) {
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x, D_i5_801BE688[1].y + 50.0f,
                                  D_i5_801BE688[1].z + 100.0f, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
-            } else if (scenery->state == 2) {
+            } else if (this->state == 2) {
                 Matrix_Push(&gGfxMatrix);
                 RCP_SetupDL_49();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -2491,12 +2500,13 @@ void Macbeth_TrainTrack_Draw(Scenery* scenery) {
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x - 50.0f, D_i5_801BE688[1].y + 50.0f,
                                  D_i5_801BE688[1].z + 50.0f, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, scenery->vel.z, scenery->vel.z / 2, scenery->vel.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_1024AC0);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             }
+
             if (D_MA_801BE2F0[5] != 0) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -1800.0f, MTXF_APPLY);
@@ -2512,9 +2522,11 @@ void Macbeth_TrainTrack_Draw(Scenery* scenery) {
                 Matrix_Pop(&gGfxMatrix);
             }
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_1:
             gSPDisplayList(gMasterDisp++, D_MA_60014A0);
             break;
+
         case OBJ_SCENERY_MA_TRAIN_TRACK_2:
             gSPDisplayList(gMasterDisp++, D_MA_6001180);
             break;
@@ -2522,7 +2534,7 @@ void Macbeth_TrainTrack_Draw(Scenery* scenery) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_MaTower_Draw(Scenery* scenery) {
+void Macbeth_MaTower_Draw(Scenery* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_MA_60253E0);
@@ -2532,12 +2544,12 @@ void Macbeth_MaTower_Draw(Scenery* scenery) {
 }
 
 // Scenery 77 to 82, and 84 to 91
-void Macbeth_IndicatorSign_Draw(Scenery* scenery) {
+void Macbeth_IndicatorSign_Draw(Scenery* this) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-        Object_Kill(&scenery->obj, scenery->sfxSource);
+        Object_Kill(&this->obj, this->sfxSource);
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
-    switch (scenery->obj.id) {
+    switch (this->obj.id) {
         case OBJ_SCENERY_MA_INDICATOR_SIGN:
             gSPDisplayList(gMasterDisp++, D_MA_60066A0);
             break;
@@ -2584,61 +2596,61 @@ void Macbeth_IndicatorSign_Draw(Scenery* scenery) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_MaTrainStopBlock_Update(Scenery* scenery) {
+void Macbeth_MaTrainStopBlock_Update(Scenery* this) {
     s16 i;
 
-    switch (scenery->state) {
+    switch (this->state) {
         case 0:
-            if ((D_i5_801BE312 != 0) && (gActors[D_i5_801BE314].obj.pos.z - 900.0f < scenery->obj.pos.z)) {
-                scenery->state = 1;
+            if ((D_i5_801BE312 != 0) && (gActors[D_i5_801BE314].obj.pos.z - 900.0f < this->obj.pos.z)) {
+                this->state = 1;
             }
             break;
         case 1:
-            Effect_SpawnTimedSfxAtPos(&scenery->obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 15;
             for (i = 0; i < 6; i++) {
-                func_effect_8007D2C8(scenery->obj.pos.x + D_i5_801BE6A0[i].x, scenery->obj.pos.y + D_i5_801BE6A0[i].y,
-                                     scenery->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
-                Macbeth_801AD624(
-                    scenery->obj.pos.x + D_i5_801BE6A0[i].x, scenery->obj.pos.y + D_i5_801BE6A0[i].y,
-                    scenery->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(30.0f) + 30.0f,
-                    RAND_FLOAT(-50.0f), scenery->obj.rot.x + D_i5_801BE6A0[i + 6].x,
-                    scenery->obj.rot.y + D_i5_801BE6A0[i + 6].y, scenery->obj.rot.z + D_i5_801BE6A0[i + 6].z,
-                    RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
-                    (s32) (RAND_FLOAT(50.0f) + 70.0f), i + 12, 1.0f);
+                func_effect_8007D2C8(this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
+                                     this->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
+                Macbeth_801AD624(this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
+                                 this->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f),
+                                 RAND_FLOAT(30.0f) + 30.0f, RAND_FLOAT(-50.0f),
+                                 this->obj.rot.x + D_i5_801BE6A0[i + 6].x, this->obj.rot.y + D_i5_801BE6A0[i + 6].y,
+                                 this->obj.rot.z + D_i5_801BE6A0[i + 6].z, RAND_FLOAT_CENTERED(5.0f),
+                                 RAND_FLOAT_CENTERED(5.0f), RAND_FLOAT_CENTERED(5.0f),
+                                 (s32) (RAND_FLOAT(50.0f) + 70.0f), i + 12, 1.0f);
             }
-            Object_Kill(&scenery->obj, scenery->sfxSource);
+            Object_Kill(&this->obj, this->sfxSource);
             break;
     }
 }
 
-void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
-    Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
+void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* thisx) {
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
 
     switch (limbIndex) {
         case 1:
-            Matrix_MultVec3f(gCalcMatrix, &sp24, &D_i5_801BE6A0[0]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[0]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[0]);
             break;
         case 2:
-            Matrix_MultVec3f(gCalcMatrix, &sp24, &D_i5_801BE6A0[1]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[1]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[1]);
             break;
         case 3:
-            Matrix_MultVec3f(gCalcMatrix, &sp24, &D_i5_801BE6A0[2]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[2]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[2]);
             break;
         case 4:
-            Matrix_MultVec3f(gCalcMatrix, &sp24, &D_i5_801BE6A0[3]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[3]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[3]);
             break;
         case 5:
-            Matrix_MultVec3f(gCalcMatrix, &sp24, &D_i5_801BE6A0[4]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[4]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[4]);
             break;
         case 11:
-            Matrix_MultVec3f(gCalcMatrix, &sp24, &D_i5_801BE6A0[5]);
+            Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[5]);
             Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[5]);
             break;
         default:
@@ -2646,19 +2658,19 @@ void Macbeth_801A30B8(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Macbeth_MaTrainStopBlock_Draw(Scenery* scenery) {
-    Vec3f sp38[50];
+void Macbeth_MaTrainStopBlock_Draw(Scenery* this) {
+    Vec3f frameTable[50];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Animation_GetFrameData(&D_MA_600C4D0, 0, sp38);
-    Animation_DrawSkeleton(1, D_MA_600C65C, sp38, NULL, Macbeth_801A30B8, scenery, &gIdentityMatrix);
+    Animation_GetFrameData(&D_MA_600C4D0, 0, frameTable);
+    Animation_DrawSkeleton(1, D_MA_600C65C, frameTable, NULL, Macbeth_801A30B8, this, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
 bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
+    s16 var_v1 = D_MA_801BE250[6];
     s16 temp_a0;
-    s16 var_v1;
     f32 temp_ft4;
     f32 temp_fa0;
     f32 sp40;
@@ -2669,7 +2681,6 @@ bool Macbeth_801A3300(Player* player, f32 arg1, f32 arg2) {
     f32 sp2C;
     s32 pad;
 
-    var_v1 = D_MA_801BE250[6];
     while (true) {
         if (D_i5_801B8E50[var_v1].unk_10 == 0) {
             return true;
@@ -2895,67 +2906,67 @@ bool Macbeth_801A3C20(f32 arg0) {
     return true;
 }
 
-void Macbeth_MaMaRailroadSwitch_Init(Actor* actor) {
-    actor->state = 0;
-    actor->unk_046 = D_i5_801BA1D8;
+void Macbeth_MaMaRailroadSwitch_Init(Actor* this) {
+    this->state = 0;
+    this->unk_046 = D_i5_801BA1D8;
     D_i5_801BA1D8++;
 }
 
-void Macbeth_MaRailroadSwitch_Update(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_MaRailroadSwitch_Update(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            if ((actor->dmgType != DMG_NONE) && (actor->dmgType != DMG_COLLISION)) {
-                actor->dmgType = DMG_NONE;
-                AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_ON, actor->sfxSource, 0);
-                actor->state = 1;
+            if ((this->dmgType != DMG_NONE) && (this->dmgType != DMG_COLLISION)) {
+                this->dmgType = DMG_NONE;
+                AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_ON, this->sfxSource, 0);
+                this->state = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&actor->fwork[1], -181.0f, 0.6f, 20.0f, 0.0f);
-            if (actor->fwork[1] <= -180.0f) {
-                AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_UP, actor->sfxSource, 0);
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603648C);
-                actor->iwork[0] = 2;
-                actor->state = 2;
+            Math_SmoothStepToF(&this->fwork[1], -181.0f, 0.6f, 20.0f, 0.0f);
+            if (this->fwork[1] <= -180.0f) {
+                AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_UP, this->sfxSource, 0);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_603648C);
+                this->iwork[0] = 2;
+                this->state = 2;
             }
             break;
         case 2:
-            if (actor->iwork[0] <= 0) {
-                Math_SmoothStepToF(&actor->fwork[2], 41.0f, 0.6f, 8.0f, 0.0f);
-                if (actor->fwork[2] >= 40.0f) {
-                    actor->state = 3;
-                    D_i5_801BE308[actor->unk_046] = 1;
+            if (this->iwork[0] <= 0) {
+                Math_SmoothStepToF(&this->fwork[2], 41.0f, 0.6f, 8.0f, 0.0f);
+                if (this->fwork[2] >= 40.0f) {
+                    this->state = 3;
+                    D_i5_801BE308[this->unk_046] = 1;
                 }
             } else {
-                actor->iwork[0]--;
+                this->iwork[0]--;
             }
             break;
         case 3:
             break;
     }
-    if (actor->dmgType != DMG_NONE) {
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
-        actor->dmgType = DMG_NONE;
+    if (this->dmgType != DMG_NONE) {
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
+        this->dmgType = DMG_NONE;
     }
-    Math_SmoothStepToF(&actor->fwork[0], 30.0f, 0.4f, 10.0f, 0.0f);
-    Math_SmoothStepToF(&actor->fwork[4], 30.0f, 0.4f, 10.0f, 0.0f);
-    if (actor->fwork[0] < 31.0f) {
-        if (actor->state >= 3) {
-            AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_GRN, actor->sfxSource, 0);
+    Math_SmoothStepToF(&this->fwork[0], 30.0f, 0.4f, 10.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[4], 30.0f, 0.4f, 10.0f, 0.0f);
+    if (this->fwork[0] < 31.0f) {
+        if (this->state >= 3) {
+            AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_GRN, this->sfxSource, 0);
         } else {
-            AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_RED, actor->sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_OB_MA_SWITCH_RED, this->sfxSource, 0);
         }
-        actor->fwork[0] = 255.0f;
-        actor->fwork[4] = 170.0f;
+        this->fwork[0] = 255.0f;
+        this->fwork[4] = 170.0f;
     }
 }
 
-bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* actor = (Actor*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
@@ -2972,135 +2983,135 @@ bool Macbeth_801A41B0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_MaRailroadSwitch_Draw(Actor* actor) {
-    Vec3f sp50[50];
+void Macbeth_MaRailroadSwitch_Draw(Actor* this) {
+    Vec3f frameTable[50];
 
     Matrix_Push(&gGfxMatrix);
-    Animation_GetFrameData(&D_MA_602FEB4, 0, sp50);
-    Animation_DrawSkeleton(1, D_MA_602FFA0, sp50, Macbeth_801A41B0, NULL, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_MA_602FEB4, 0, frameTable);
+    Animation_DrawSkeleton(1, D_MA_602FFA0, frameTable, Macbeth_801A41B0, NULL, this, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, this->fwork[1] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_602FFC0);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, SETUPDL_34);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->fwork[0], 0, 0, 255);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->fwork[0], 0, 0, 255);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, 0.0f, actor->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, actor->fwork[1] * M_DTOR, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[2] + 204.0f, 0.0f, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, this->fwork[1] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_602F380);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Macbeth_MaBoulder_Init(MaBoulder* actor) {
-    actor->gravity = 0;
-    actor->unk_04A = actor->unk_046;
-    actor->health = 60;
-    if (actor->fwork[0] < 0.0f) {
-        actor->unk_048 = 0;
+void Macbeth_MaBoulder_Init(MaBoulder* this) {
+    this->gravity = 0;
+    this->unk_04A = this->unk_046;
+    this->health = 60;
+    if (this->fwork[0] < 0.0f) {
+        this->unk_048 = 0;
     } else {
-        actor->unk_048 = 1;
+        this->unk_048 = 1;
     }
 }
 
-void Macbeth_Boulder_Update(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_Boulder_Update(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            if (actor->timer_0BC == 0) {
-                Math_SmoothStepToF(&actor->vel.x, actor->fwork[0], 0.5f, 3.0f, 0.0f);
-                Math_SmoothStepToF(&actor->gravity, 5.0f, 0.08f, 1.0f, 0.0f);
-                if (actor->obj.pos.y < 80.0f) {
-                    if (actor->unk_046 != 0) {
-                        AUDIO_PLAY_SFX(NA_SE_OB_ROCK_BOUND, actor->sfxSource, 0);
-                        actor->obj.pos.y = 80.0f;
-                        if (actor->vel.y < 0) {
-                            actor->vel.y = -actor->vel.y * (actor->unk_046 * 0.07f);
+            if (this->timer_0BC == 0) {
+                Math_SmoothStepToF(&this->vel.x, this->fwork[0], 0.5f, 3.0f, 0.0f);
+                Math_SmoothStepToF(&this->gravity, 5.0f, 0.08f, 1.0f, 0.0f);
+                if (this->obj.pos.y < 80.0f) {
+                    if (this->unk_046 != 0) {
+                        AUDIO_PLAY_SFX(NA_SE_OB_ROCK_BOUND, this->sfxSource, 0);
+                        this->obj.pos.y = 80.0f;
+                        if (this->vel.y < 0) {
+                            this->vel.y = -this->vel.y * (this->unk_046 * 0.07f);
                         }
 
-                        actor->fwork[0] /= 1.2f + RAND_FLOAT(1.0f) / 2;
-                        actor->unk_046--;
-                        actor->vel.z /= 1.5f;
-                        if (actor->unk_046 == 0) {
-                            actor->timer_0BE = RAND_INT(30.0f);
+                        this->fwork[0] /= 1.2f + RAND_FLOAT(1.0f) / 2;
+                        this->unk_046--;
+                        this->vel.z /= 1.5f;
+                        if (this->unk_046 == 0) {
+                            this->timer_0BE = RAND_INT(30.0f);
                         }
                     } else {
-                        if (actor->timer_0BE <= 0) {
-                            actor->fwork[0] = 0;
-                            actor->vel.x = 0;
+                        if (this->timer_0BE <= 0) {
+                            this->fwork[0] = 0;
+                            this->vel.x = 0;
                         }
-                        actor->vel.y = 0;
-                        actor->vel.z = 0;
+                        this->vel.y = 0;
+                        this->vel.z = 0;
                     }
                 }
-                if (actor->unk_048 != 0) {
-                    actor->obj.rot.z -= 0.5f * actor->vel.x;
+                if (this->unk_048 != 0) {
+                    this->obj.rot.z -= 0.5f * this->vel.x;
                 } else {
-                    actor->obj.rot.z -= 0.5f * actor->vel.x;
+                    this->obj.rot.z -= 0.5f * this->vel.x;
                 }
-                if (actor->unk_046 != actor->unk_04A) {
-                    actor->obj.rot.x = actor->obj.rot.x + (0.1 * actor->vel.z);
+                if (this->unk_046 != this->unk_04A) {
+                    this->obj.rot.x = this->obj.rot.x + (0.1 * this->vel.z);
                 }
             }
-            if (actor->unk_046 == 7) {
-                if (actor->unk_048 != 0) {
-                    actor->obj.rot.z -= 1.0f;
+            if (this->unk_046 == 7) {
+                if (this->unk_048 != 0) {
+                    this->obj.rot.z -= 1.0f;
                 } else {
-                    actor->obj.rot.z += 1.0f;
+                    this->obj.rot.z += 1.0f;
                 }
             }
-            Macbeth_801A49B8(actor);
+            Macbeth_801A49B8(this);
             break;
         case 1:
-            Macbeth_801A49B8(actor);
+            Macbeth_801A49B8(this);
             break;
         case 2:
-            func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
-            Object_Kill(&actor->obj, actor->sfxSource);
+            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+            Object_Kill(&this->obj, this->sfxSource);
             break;
     }
 }
 
-void Macbeth_801A49B8(Actor* actor) {
-    if (actor->dmgType != DMG_NONE) {
-        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, actor->sfxSource, 0);
-        actor->timer_0C6 = 15;
-        actor->health -= actor->damage;
-        if (actor->health <= 0) {
-            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+void Macbeth_801A49B8(Actor* this) {
+    if (this->dmgType != DMG_NONE) {
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_M, this->sfxSource, 0);
+        this->timer_0C6 = 15;
+        this->health -= this->damage;
+        if (this->health <= 0) {
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             gHitCount++;
-            actor->state = 2;
+            this->state = 2;
         }
-        actor->dmgType = DMG_NONE;
+        this->dmgType = DMG_NONE;
     }
 }
 
-void Macbeth_Boulder_Draw(Actor* actor) {
-    if (actor->state < 2) {
-        if (actor->scale != 1.0f) {
-            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
+void Macbeth_Boulder_Draw(Actor* this) {
+    if (this->state < 2) {
+        if (this->scale != 1.0f) {
+            Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
         gSPDisplayList(gMasterDisp++, D_MA_601A2B0);
     }
 }
 
-void Macbeth_MaRailwaySignal_Init(Actor* actor) {
-    actor->fwork[1] = 10.0f;
-    actor->fwork[6] = -100.0f;
-    D_i5_801BE318 = actor->index;
+void Macbeth_MaRailwaySignal_Init(Actor* this) {
+    this->fwork[1] = 10.0f;
+    this->fwork[6] = -100.0f;
+    D_i5_801BE318 = this->index;
 }
 
-void Macbeth_MaRailwaySignal_Update(Actor* actor) {
+void Macbeth_MaRailwaySignal_Update(Actor* this) {
     s32 pad[2];
     s32 i;
     ObjectInit* objInit;
@@ -3108,14 +3119,14 @@ void Macbeth_MaRailwaySignal_Update(Actor* actor) {
     u8 j;
 
     var_s0 = 0;
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -700.0f) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -700.0f) {
         if (D_MA_801BE2F0[5] == 0) {
             Radio_PlayMessage(gMsg_ID_17170, RCID_PEPPY);
         }
-        Object_Kill(&actor->obj, actor->sfxSource);
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
 
             for (j = 0; j < 8; j++) {
@@ -3125,39 +3136,39 @@ void Macbeth_MaRailwaySignal_Update(Actor* actor) {
             }
             if (var_s0 >= 8) {
                 Radio_PlayMessage(gMsg_ID_17150, RCID_PEPPY);
-                actor->state = 1;
+                this->state = 1;
             }
             break;
         case 1:
-            if ((gPlayer[0].trueZpos - actor->obj.pos.z) < 2000.0f) {
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6036520);
-                actor->state = 2;
+            if ((gPlayer[0].trueZpos - this->obj.pos.z) < 2000.0f) {
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6036520);
+                this->state = 2;
             }
             break;
         case 2:
-            Math_SmoothStepToF(&actor->fwork[2], -76.0f, 0.2f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&actor->fwork[3], 76.0f, 0.2f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&actor->fwork[6], 0.0f, 0.2f, 4.0f, 0.00001f);
-            if (actor->fwork[3] >= 75.0f) {
-                actor->state = 3;
+            Math_SmoothStepToF(&this->fwork[2], -76.0f, 0.2f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&this->fwork[3], 76.0f, 0.2f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&this->fwork[6], 0.0f, 0.2f, 4.0f, 0.00001f);
+            if (this->fwork[3] >= 75.0f) {
+                this->state = 3;
             }
             break;
         case 3:
-            Math_SmoothStepToF(&actor->fwork[5], -75.0f, 0.2f, 10.0f, 0.00001f);
-            Math_SmoothStepToF(&actor->fwork[6], 1.0f, 0.2f, 4.0f, 0.01f);
-            if (actor->fwork[6] >= 0.0f) {
-                actor->state = 4;
+            Math_SmoothStepToF(&this->fwork[5], -75.0f, 0.2f, 10.0f, 0.00001f);
+            Math_SmoothStepToF(&this->fwork[6], 1.0f, 0.2f, 4.0f, 0.01f);
+            if (this->fwork[6] >= 0.0f) {
+                this->state = 4;
             }
             break;
         case 4:
-            Math_SmoothStepToF(&actor->fwork[7], 31.0f, 0.2f, 2.0f, 0.01f);
-            if (actor->fwork[7] >= 30.0f) {
-                actor->state = 5;
+            Math_SmoothStepToF(&this->fwork[7], 31.0f, 0.2f, 2.0f, 0.01f);
+            if (this->fwork[7] >= 30.0f) {
+                this->state = 5;
             }
             break;
         case 5:
-            if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 3)) {
-                actor->dmgType = DMG_NONE;
+            if ((this->dmgType != DMG_NONE) && (this->dmgPart == 3)) {
+                this->dmgType = DMG_NONE;
                 D_MA_801BE2F0[5] = 1;
 
                 gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
@@ -3170,23 +3181,23 @@ void Macbeth_MaRailwaySignal_Update(Actor* actor) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
                 gPlayer[0].csState = 0;
                 gMissionStatus = MISSION_ACCOMPLISHED;
-                actor->timer_0BC = 5;
-                actor->state = 6;
+                this->timer_0BC = 5;
+                this->state = 6;
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_SLIDE);
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_TANK_BURNER_HALF);
             }
             break;
         case 6:
-            if (actor->timer_0BC == 1) {
-                AUDIO_PLAY_SFX(NA_SE_OB_HEAVY_SWITCH, actor->sfxSource, 0);
+            if (this->timer_0BC == 1) {
+                AUDIO_PLAY_SFX(NA_SE_OB_HEAVY_SWITCH, this->sfxSource, 0);
             }
-            if (actor->timer_0BC == 0) {
-                Math_SmoothStepToF(&actor->fwork[7], -41.0f, 0.2f, 5.0f, 0.01f);
-                if (actor->fwork[7] <= -40.0f) {
-                    actor->fwork[1] = 150.0f;
+            if (this->timer_0BC == 0) {
+                Math_SmoothStepToF(&this->fwork[7], -41.0f, 0.2f, 5.0f, 0.01f);
+                if (this->fwork[7] <= -40.0f) {
+                    this->fwork[1] = 150.0f;
                     Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
-                    actor->timer_0BC = 30;
-                    actor->state = 7;
+                    this->timer_0BC = 30;
+                    this->state = 7;
                 }
             }
             break;
@@ -3195,23 +3206,24 @@ void Macbeth_MaRailwaySignal_Update(Actor* actor) {
         default:
             break;
     }
-    if (actor->dmgType != DMG_NONE) {
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
-    Math_SmoothStepToF(&actor->fwork[0], 30, 0.4f, actor->fwork[1], 0.0f);
-    Math_SmoothStepToF(&actor->fwork[4], 30, 0.4f, actor->fwork[1], 0.0f);
-    if (actor->fwork[0] < 31.0f) {
-        actor->fwork[0] = 255.0f;
-        actor->fwork[4] = 170.0f;
+    Math_SmoothStepToF(&this->fwork[0], 30, 0.4f, this->fwork[1], 0.0f);
+    Math_SmoothStepToF(&this->fwork[4], 30, 0.4f, this->fwork[1], 0.0f);
+    if (this->fwork[0] < 31.0f) {
+        this->fwork[0] = 255.0f;
+        this->fwork[4] = 170.0f;
     }
 }
 
-bool Macbeth_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Macbeth_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* this = (Actor*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+
     if ((limbIndex == 9) || (limbIndex == 10)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     }
@@ -3219,42 +3231,42 @@ bool Macbeth_801A5124(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
         if (D_i5_801BE308[limbIndex - 1] != 0) {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, actor->fwork[0], actor->fwork[4], 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, this->fwork[0], this->fwork[4], 255);
         } else {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, actor->fwork[0], 0, 0, 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->fwork[0], 0, 0, 255);
         }
     }
     if ((limbIndex == 1) || (limbIndex == 3) || (limbIndex == 5) || (limbIndex == 7) || (limbIndex == 9)) {
-        pos->x = actor->fwork[2] + pos->x;
-        pos->y = actor->fwork[5] + pos->y;
+        pos->x = this->fwork[2] + pos->x;
+        pos->y = this->fwork[5] + pos->y;
     }
     if ((limbIndex == 2) || (limbIndex == 4) || (limbIndex == 6) || (limbIndex == 8) || (limbIndex == 10)) {
-        pos->x = actor->fwork[3] + pos->x;
-        pos->y = actor->fwork[5] + pos->y;
+        pos->x = this->fwork[3] + pos->x;
+        pos->y = this->fwork[5] + pos->y;
     }
     return false;
 }
 
-bool Macbeth_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Macbeth_801A54AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* this = (Actor*) thisx;
 
-    pos->y = actor->fwork[6] + pos->y;
+    pos->y = this->fwork[6] + pos->y;
     if (limbIndex == 1) {
-        rot->x = actor->fwork[7] + rot->x;
+        rot->x = this->fwork[7] + rot->x;
     }
     return false;
 }
 
-void Macbeth_MaRailwaySignal_Draw(MaRailwaySignal* actor) {
+void Macbeth_MaRailwaySignal_Draw(MaRailwaySignal* this) {
     Vec3f sp28[50];
 
     Matrix_Push(&gGfxMatrix);
     Animation_GetFrameData(&D_MA_602F2E0, 0, sp28);
-    Animation_DrawSkeleton(1, D_MA_602F36C, sp28, Macbeth_801A54AC, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_602F36C, sp28, Macbeth_801A54AC, NULL, this, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Animation_GetFrameData(&D_MA_602F098, 0, sp28);
-    Animation_DrawSkeleton(1, D_MA_602F264, sp28, Macbeth_801A5124, NULL, actor, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_MA_602F264, sp28, Macbeth_801A5124, NULL, this, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
@@ -3264,8 +3276,7 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     Actor* actor;
     s32 i;
 
-    scenery = &gScenery[0];
-    for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+    for (scenery = &gScenery[0], i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_MA_WALL_4) &&
             (fabsf(arg1->x - scenery->obj.pos.x) < 2000.0f) && (fabsf(arg1->z - scenery->obj.pos.z) < 2000.0f) &&
             (Object_CheckHitboxCollision(arg1, scenery->info.hitbox, &scenery->obj, 0.0f, 0.0f, 0.0f) != 0)) {
@@ -3273,8 +3284,7 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
         }
     }
 
-    actor = &gActors[0];
-    for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
+    for (actor = &gActors[0], i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(arg1->x - actor->obj.pos.x) < 1000.0f) &&
             (fabsf(arg1->z - actor->obj.pos.z) < 1500.0f) && (arg0 != i) && (actor->info.unk_16 != 2) &&
             (actor->timer_0C2 == 0) && (Object_CheckSingleHitbox(arg1, actor->info.hitbox, &actor->obj.pos) != 0)) {
@@ -3289,215 +3299,214 @@ s32 Macbeth_801A55D4(s32 arg0, Vec3f* arg1, Vec3f* arg2, s32 arg3) {
     return 0;
 }
 
-void Macbeth_Effect378_Update(Effect* effect) {
+void Macbeth_Effect378_Update(Effect* this) {
     u8 i;
     Vec3f sp50;
     Vec3f sp44;
     Vec3f sp38;
 
-    if ((gPlayer[0].trueZpos - effect->obj.pos.z) < -2000.0f) {
-        Object_Kill(&effect->obj, effect->sfxSource);
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -2000.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    effect->obj.rot.x = 0.0f;
-    effect->obj.rot.y = 0.0f;
-    effect->obj.rot.z = 0.0f;
-    if (effect->timer_50 == 96) {
+    this->obj.rot.x = 0.0f;
+    this->obj.rot.y = 0.0f;
+    this->obj.rot.z = 0.0f;
+    if (this->timer_50 == 96) {
         for (i = 0; i < 2; i++) {
-            Effect_Effect362_Spawn(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 6.0f);
+            Effect_Effect362_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
         }
     }
-    if ((fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 50.0f) &&
-        (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 30.0f) &&
-        (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f)) {
+    if ((fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 50.0f) && (fabsf(gPlayer[0].pos.x - this->obj.pos.x) < 30.0f) &&
+        (fabsf(gPlayer[0].pos.y - this->obj.pos.y) < 30.0f)) {
         if ((gPlayer[0].barrelRollAlpha != 0) || (gPlayer[0].meteoWarpTimer != 0)) {
             sp50.x = 0.0f;
             sp50.y = 0.0f;
             sp50.z = 100.0f;
             Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
-            effect->vel.x = sp44.x;
-            effect->vel.y = sp44.y;
-            effect->vel.z = sp44.z;
-            AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, effect->sfxSource, 4);
+            this->vel.x = sp44.x;
+            this->vel.y = sp44.y;
+            this->vel.z = sp44.z;
+            AUDIO_PLAY_SFX(NA_SE_ROLLING_REFLECT, this->sfxSource, 4);
         }
         if ((gPlayer[0].barrelRollAlpha == 0) && (gPlayer[0].mercyTimer == 0)) {
-            Player_ApplyDamage(&gPlayer[0], 0, effect->info.damage);
+            Player_ApplyDamage(&gPlayer[0], 0, this->info.damage);
             gPlayer[0].knockback.x = 20.0f;
-            if (effect->vel.x < 0.0f) {
+            if (this->vel.x < 0.0f) {
                 gPlayer[0].knockback.x *= -1.0f;
             }
-            Object_Kill(&effect->obj, effect->sfxSource);
+            Object_Kill(&this->obj, this->sfxSource);
         }
     }
 
-    if (effect->obj.pos.y < gGroundHeight) {
-        Macbeth_801ADCEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 999.9f, -10.0f, 5.0f);
-        Object_Kill(&effect->obj, effect->sfxSource);
+    if (this->obj.pos.y < gGroundHeight) {
+        Macbeth_801ADCEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 999.9f, -10.0f, 5.0f);
+        Object_Kill(&this->obj, this->sfxSource);
         if (gGroundSurface != SURFACE_WATER) {
-            effect->obj.pos.y = gGroundHeight;
+            this->obj.pos.y = gGroundHeight;
         }
     }
-    sp38.x = effect->vel.x;
-    sp38.y = effect->vel.y;
-    sp38.z = effect->vel.z;
-    if (Macbeth_801A55D4(1000, &effect->obj.pos, &sp38, 0) != 0) {
-        Macbeth_801ADCEC(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, 999.9f, -10.0f, 5.0f);
-        Object_Kill(&effect->obj, effect->sfxSource);
+    sp38.x = this->vel.x;
+    sp38.y = this->vel.y;
+    sp38.z = this->vel.z;
+    if (Macbeth_801A55D4(1000, &this->obj.pos, &sp38, 0) != 0) {
+        Macbeth_801ADCEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 999.9f, -10.0f, 5.0f);
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Macbeth_Effect378_Draw(Effect* effect) {
+void Macbeth_Effect378_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
     gSPDisplayList(gMasterDisp++, D_MA_601A840);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_Effect380_Update(Effect380* effect) {
-    if ((gPlayer[0].trueZpos - effect->obj.pos.z) < -2000.0f) {
-        Object_Kill(&effect->obj, effect->sfxSource);
+void Macbeth_Effect380_Update(Effect380* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -2000.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    effect->obj.rot.x = 20.0f;
-    if (effect->scale2 < 10.0f) {
-        effect->obj.rot.y = 180.0f;
+    this->obj.rot.x = 20.0f;
+    if (this->scale2 < 10.0f) {
+        this->obj.rot.y = 180.0f;
     } else {
-        effect->obj.rot.y = 0.0f;
+        this->obj.rot.y = 0.0f;
     }
-    effect->obj.rot.z = 0.0f;
-    if ((fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 100.0f) &&
-        (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 100.0f) &&
-        (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f) && (gPlayer[0].mercyTimer == 0)) {
-        Player_ApplyDamage(gPlayer, 0, effect->info.damage);
+    this->obj.rot.z = 0.0f;
+    if ((fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 100.0f) &&
+        (fabsf(gPlayer[0].pos.x - this->obj.pos.x) < 100.0f) && (fabsf(gPlayer[0].pos.y - this->obj.pos.y) < 30.0f) &&
+        (gPlayer[0].mercyTimer == 0)) {
+        Player_ApplyDamage(gPlayer, 0, this->info.damage);
         gPlayer[0].knockback.x = 20.0f;
-        if (effect->vel.x < 0.0f) {
+        if (this->vel.x < 0.0f) {
             gPlayer[0].knockback.x *= -1.0f;
         }
         gPlayer[0].knockback.y = 20.0f;
-        if (effect->vel.y < 0.0f) {
+        if (this->vel.y < 0.0f) {
             gPlayer[0].knockback.y *= -1.0f;
         }
-        Object_Kill(&effect->obj, effect->sfxSource);
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    if (effect->obj.pos.y < (gGroundHeight - 100.0f)) {
-        Object_Kill(&effect->obj, effect->sfxSource);
+    if (this->obj.pos.y < (gGroundHeight - 100.0f)) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    if (effect->unk_44 < 235) {
-        effect->unk_44 += 20;
+    if (this->unk_44 < 235) {
+        this->unk_44 += 20;
     }
 }
 
-void Macbeth_Effect380_Draw(Effect* effect) {
+void Macbeth_Effect380_Draw(Effect* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, effect->unk_44);
-    gDPSetEnvColor(gMasterDisp++, 255, 255, 255, effect->unk_44);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, this->unk_44);
+    gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->unk_44);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_6012A60);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_LockBars_Init(Actor* actor) {
-    actor->fwork[0] = actor->obj.pos.x;
-    actor->fwork[1] = actor->obj.pos.y;
-    actor->fwork[2] = actor->obj.rot.z;
-    actor->obj.rot.z = 0.0f;
+void Macbeth_LockBars_Init(Actor* this) {
+    this->fwork[0] = this->obj.pos.x;
+    this->fwork[1] = this->obj.pos.y;
+    this->fwork[2] = this->obj.rot.z;
+    this->obj.rot.z = 0.0f;
 }
 
-void Macbeth_HorizontalLockBar_Update(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_HorizontalLockBar_Update(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    if ((D_i5_801BA1E0 - actor->obj.pos.z) < -800.0f) {
-        if (actor->iwork[0] == 0) {
-            AUDIO_PLAY_SFX(NA_SE_OB_SIDE_GATE_CLOSE, actor->sfxSource, 0);
-            actor->iwork[0]++;
+    if ((D_i5_801BA1E0 - this->obj.pos.z) < -800.0f) {
+        if (this->iwork[0] == 0) {
+            AUDIO_PLAY_SFX(NA_SE_OB_SIDE_GATE_CLOSE, this->sfxSource, 0);
+            this->iwork[0]++;
         }
-        Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0] + (actor->fwork[2] * 400.0f), 0.1f, 4.0f, 0.01f);
+        Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + (this->fwork[2] * 400.0f), 0.1f, 4.0f, 0.01f);
     }
-    if (actor->dmgType != DMG_NONE) {
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
 }
 
-void Macbeth_HorizontalLockBar_Draw(Actor* actor) {
+void Macbeth_HorizontalLockBar_Draw(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_MA_60251A0);
 }
 
 void Macbeth_801A5FC4(s32 arg0) {
 }
 
-void Macbeth_VerticalLockBar_Update(Actor* actor) {
-    if (gPlayer[0].trueZpos - actor->obj.pos.z < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_VerticalLockBar_Update(Actor* this) {
+    if (gPlayer[0].trueZpos - this->obj.pos.z < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    if (gPlayer[0].trueZpos - actor->obj.pos.z < actor->fwork[2]) {
-        if (actor->iwork[0] == 0) {
-            AUDIO_PLAY_SFX(NA_SE_OB_POST_UP, actor->sfxSource, 0);
-            actor->iwork[0]++;
+    if (gPlayer[0].trueZpos - this->obj.pos.z < this->fwork[2]) {
+        if (this->iwork[0] == 0) {
+            AUDIO_PLAY_SFX(NA_SE_OB_POST_UP, this->sfxSource, 0);
+            this->iwork[0]++;
         }
-        Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1] + 356.0f, 0.4f, 20.0f, 0.01f);
+        Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + 356.0f, 0.4f, 20.0f, 0.01f);
     }
-    if (actor->dmgType != DMG_NONE) {
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
 }
 
-void Macbeth_VerticalLockBar_Draw(Actor* actor) {
+void Macbeth_VerticalLockBar_Draw(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_MA_6025850);
 }
 
-void Macbeth_MaBarrier_Init(Actor* actor) {
-    actor->health = 30;
+void Macbeth_MaBarrier_Init(Actor* this) {
+    this->health = 30;
 }
 
-void Macbeth_MaBarrier_Update(Actor* actor) {
+void Macbeth_MaBarrier_Update(Actor* this) {
     s16 i;
 
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            if (actor->dmgType != DMG_NONE) {
-                Effect_Effect390_Spawn(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, actor->vel.x,
-                                       actor->vel.y, actor->vel.z, 0.15f, 20);
-                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
-                actor->health -= actor->damage;
-                actor->timer_0C6 = 15;
-                if ((gPlayer[0].trueZpos - 20.0f) < actor->obj.pos.z) {
-                    actor->health = 0;
+            if (this->dmgType != DMG_NONE) {
+                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, this->vel.x,
+                                       this->vel.y, this->vel.z, 0.15f, 20);
+                AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
+                this->health -= this->damage;
+                this->timer_0C6 = 15;
+                if ((gPlayer[0].trueZpos - 20.0f) < this->obj.pos.z) {
+                    this->health = 0;
                 }
-                if (actor->health <= 0) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 0);
-                    Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y + 100.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                if (this->health <= 0) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 0);
+                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                      14.0f, 5);
                     for (i = 0; i < 20; i++) {
-                        Macbeth_801AD624(RAND_FLOAT_CENTERED(500.0f) + actor->obj.pos.x, actor->obj.pos.y + 100.0f,
-                                         RAND_FLOAT(150.0f) + actor->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
+                        Macbeth_801AD624(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, this->obj.pos.y + 100.0f,
+                                         RAND_FLOAT(150.0f) + this->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
                                          RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(360.0f),
                                          RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
                                          RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                                          (s32) (RAND_FLOAT(50.0f) + 70.0f), 4, (RAND_FLOAT(0.8f) + 0.3f) * 1.5f);
                     }
-                    actor->timer_0BC = 20;
-                    actor->state = 1;
+                    this->timer_0BC = 20;
+                    this->state = 1;
                 }
-                actor->dmgType = DMG_NONE;
+                this->dmgType = DMG_NONE;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&actor->obj.rot.x, -90.0f, 0.5f, 5.0f, 0.01f);
-            if (actor->timer_0BC == 0) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            Math_SmoothStepToF(&this->obj.rot.x, -90.0f, 0.5f, 5.0f, 0.01f);
+            if (this->timer_0BC == 0) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 }
 
-void Macbeth_MaBarrier_Draw(Actor* actor) {
+void Macbeth_MaBarrier_Draw(Actor* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
-    if ((actor->timer_0C6 % 2) != 0) {
+    if ((this->timer_0C6 % 2) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_58);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
@@ -3512,16 +3521,16 @@ void Macbeth_MaProximityLight_Init(MaProximityLight* this) {
     this->obj.rot.z = 0.0f;
 }
 
-void Macbeth_MaProximityLight_Draw(Scenery* scenery) {
-    if ((gPlayer[0].trueZpos - scenery->obj.pos.z) < scenery->vel.z) {
+void Macbeth_MaProximityLight_Draw(Scenery* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < this->vel.z) {
         if (gPlayState != PLAY_PAUSE) {
-            Math_SmoothStepToF(&scenery->vel.x, 30, 0.5f, 30.0f, 0.0f);
-            if (scenery->vel.x < 31.0f) {
-                scenery->vel.x = 255.0f;
+            Math_SmoothStepToF(&this->vel.x, 30, 0.5f, 30.0f, 0.0f);
+            if (this->vel.x < 31.0f) {
+                this->vel.x = 255.0f;
             }
         }
         RCP_SetupDL(&gMasterDisp, SETUPDL_34);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, scenery->vel.x, 0, 0, 255);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->vel.x, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, D_MA_6010700);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -3531,28 +3540,28 @@ void Macbeth_MaProximityLight_Draw(Scenery* scenery) {
 void Macbeth_801A67BC(s32 arg0) {
 }
 
-void Macbeth_Actor219_Update(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -300.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_Actor219_Update(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -300.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
-    if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == -1)) {
-        actor->dmgType = DMG_NONE;
-        if (actor->obj.pos.x <= gPlayer[0].pos.x) {
-            actor->iwork[4] = 1;
+    if ((this->dmgType != DMG_NONE) && (this->dmgPart == -1)) {
+        this->dmgType = DMG_NONE;
+        if (this->obj.pos.x <= gPlayer[0].pos.x) {
+            this->iwork[4] = 1;
         } else {
-            actor->iwork[4] = -1;
+            this->iwork[4] = -1;
         }
 
-        Macbeth_8019D670(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                         (RAND_FLOAT(2.0f) + 20.0f) * actor->iwork[4], 0.0f, actor->iwork[4] * -34.0f, 0.0f, 2, 3);
-        Object_Kill(&actor->obj, actor->sfxSource);
+        Macbeth_8019D670(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, (RAND_FLOAT(2.0f) + 20.0f) * this->iwork[4],
+                         0.0f, this->iwork[4] * -34.0f, 0.0f, 2, 3);
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Macbeth_Actor219_Draw(Actor* actor) {
+void Macbeth_Actor219_Draw(Actor* this) {
 }
 
-void Macbeth_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+void Macbeth_801A68F8(Actor* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     gTexturedLines[arg1].mode = 3;
     gTexturedLines[arg1].posAA.x = arg2;
     gTexturedLines[arg1].posAA.y = arg3;
@@ -3566,7 +3575,7 @@ void Macbeth_801A68F8(Actor* actor, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 
     gTexturedLines[arg1].posBB.z = arg7;
 }
 
-void Macbeth_801A6984(Actor* actor) {
+void Macbeth_801A6984(Actor* this) {
     s16 var_s3;
     Vec3f test;
     f32 temp_fs3;
@@ -3587,12 +3596,12 @@ void Macbeth_801A6984(Actor* actor) {
     f32 sp80;
 
     var_s3 = 0;
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) > 7000.0f) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) {
         return;
     }
-    test.x = actor->obj.pos.x - D_i5_801BE368[4];
-    test.y = actor->obj.pos.y - D_i5_801BE368[5];
-    test.z = actor->obj.pos.z - D_i5_801BE368[6];
+    test.x = this->obj.pos.x - D_i5_801BE368[4];
+    test.y = this->obj.pos.y - D_i5_801BE368[5];
+    test.z = this->obj.pos.z - D_i5_801BE368[6];
     temp_fs3 = VEC3F_MAG(&test);
     Math_Atan2F(test.x, test.z);
     Math_Atan2F(test.y, sqrtf(SQ(test.x) + SQ(test.z)));
@@ -3601,13 +3610,13 @@ void Macbeth_801A6984(Actor* actor) {
         var_s4 = 1;
     }
     spA8 = (180.0f / var_s4) + 1.0f;
-    var_fs5 = actor->obj.pos.x;
-    spA0 = actor->obj.pos.y;
-    sp9C = actor->obj.pos.z;
+    var_fs5 = this->obj.pos.x;
+    spA0 = this->obj.pos.y;
+    sp9C = this->obj.pos.z;
 
-    sp88 = (D_i5_801BE368[4] - actor->obj.pos.x) / var_s4;
-    sp84 = (D_i5_801BE368[5] - actor->obj.pos.y) / var_s4;
-    sp80 = (D_i5_801BE368[6] - actor->obj.pos.z) / var_s4;
+    sp88 = (D_i5_801BE368[4] - this->obj.pos.x) / var_s4;
+    sp84 = (D_i5_801BE368[5] - this->obj.pos.y) / var_s4;
+    sp80 = (D_i5_801BE368[6] - this->obj.pos.z) / var_s4;
     for (i = 0; i < var_s4; i++) {
         if (D_i5_801BE320[1] == 0) {
             Math_SmoothStepToF(&D_i5_801BE368[7], 0.0f, 0.01f, 0.05f, 0.01f);
@@ -3615,10 +3624,10 @@ void Macbeth_801A6984(Actor* actor) {
             Math_SmoothStepToF(&D_i5_801BE368[7], 100.0f, 0.01f, 0.01f, 0.01f);
         }
         temp = SIN_DEG(i * spA8) * (-(D_i5_801BE368[7] * 3.0f) * (1.0f - ((f32) i / var_s4)));
-        temp_fs2_2 = actor->obj.pos.x + (sp88 * i);
-        temp_fs3_2 = actor->obj.pos.y + (sp84 * i) + temp;
-        temp_fs4 = actor->obj.pos.z + (sp80 * i);
-        Macbeth_801A68F8(actor, var_s3++, var_fs5, spA0, sp9C, temp_fs2_2, temp_fs3_2, temp_fs4);
+        temp_fs2_2 = this->obj.pos.x + (sp88 * i);
+        temp_fs3_2 = this->obj.pos.y + (sp84 * i) + temp;
+        temp_fs4 = this->obj.pos.z + (sp80 * i);
+        Macbeth_801A68F8(this, var_s3++, var_fs5, spA0, sp9C, temp_fs2_2, temp_fs3_2, temp_fs4);
         var_fs5 = temp_fs2_2;
         spA0 = temp_fs3_2;
         sp9C = temp_fs4;
@@ -3626,10 +3635,10 @@ void Macbeth_801A6984(Actor* actor) {
     Macbeth_80199D88(D_MA_6012C98, 4, 8);
 }
 
-void Macbeth_801A6C78(Actor* actor) {
+void Macbeth_801A6C78(Actor* this) {
     // FAKE
     if (1) {}
-    Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
+    Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
@@ -3654,7 +3663,7 @@ void Macbeth_801A6C78(Actor* actor) {
             D_i5_801BE320[7] = 0;
             Math_SmoothStepToF(&D_i5_801BE368[2], 15.0f, 0.2f, 2.0f, 0.01f);
             D_i5_801BE368[3] += D_i5_801BE368[2];
-            if ((((gPlayer[0].trueZpos - actor->obj.pos.z) * 0.25f) < D_i5_801BE368[3]) ||
+            if ((((gPlayer[0].trueZpos - this->obj.pos.z) * 0.25f) < D_i5_801BE368[3]) ||
                 (D_i5_801BE368[3] > 8000.0f)) {
                 D_i5_801BE320[1] = 1;
             }
@@ -3671,15 +3680,15 @@ void Macbeth_801A6C78(Actor* actor) {
             }
             break;
     }
-    Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.y, (actor->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.y, (this->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A6FB4(Actor* actor) {
+void Macbeth_801A6FB4(Actor* this) {
     // FAKE
     if (1) {}
-    Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
+    Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 20.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
@@ -3702,7 +3711,7 @@ void Macbeth_801A6FB4(Actor* actor) {
             D_i5_801BE320[8] = 1;
             Math_SmoothStepToF(&D_i5_801BE368[2], 15.0f, 0.2f, 2.0f, 0.01f);
             D_i5_801BE368[3] += D_i5_801BE368[2];
-            if ((((gPlayer[0].trueZpos - actor->obj.pos.z) * 0.25f) < D_i5_801BE368[3]) ||
+            if ((((gPlayer[0].trueZpos - this->obj.pos.z) * 0.25f) < D_i5_801BE368[3]) ||
                 (D_i5_801BE368[3] > 8000.0f)) {
                 D_i5_801BE320[1] = 1;
             }
@@ -3717,13 +3726,13 @@ void Macbeth_801A6FB4(Actor* actor) {
             }
             break;
     }
-    Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.y, (actor->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.y, (this->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A72DC(Actor* actor) {
-    Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
+void Macbeth_801A72DC(Actor* this) {
+    Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 5.0f, 0.1f, RAND_FLOAT(1.0f) + 0.3f, 0.01f);
@@ -3740,13 +3749,13 @@ void Macbeth_801A72DC(Actor* actor) {
             }
             break;
     }
-    Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[5] + 600.0f, 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.y, this->fwork[5] + 600.0f, 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A74C4(Actor* actor) {
-    Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
+void Macbeth_801A74C4(Actor* this) {
+    Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 22.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
@@ -3769,7 +3778,7 @@ void Macbeth_801A74C4(Actor* actor) {
             D_i5_801BE320[7] = 1;
             Math_SmoothStepToF(&D_i5_801BE368[2], 10.0f, 0.4f, 10.0f, 0.01f);
             D_i5_801BE368[3] += D_i5_801BE368[2];
-            if ((((gPlayer[0].trueZpos - actor->obj.pos.z) * 0.25f) < D_i5_801BE368[3]) ||
+            if ((((gPlayer[0].trueZpos - this->obj.pos.z) * 0.25f) < D_i5_801BE368[3]) ||
                 (D_i5_801BE368[3] > 8000.0f)) {
                 D_i5_801BE320[1] = 1;
             }
@@ -3788,25 +3797,25 @@ void Macbeth_801A74C4(Actor* actor) {
     }
     switch (D_i5_801BE320[12]) {
         case 0:
-            Math_SmoothStepToF(&actor->obj.rot.z, 45.0f, 0.4f, 10.0f, 1.0f);
-            if (actor->obj.rot.z >= 45.0f) {
+            Math_SmoothStepToF(&this->obj.rot.z, 45.0f, 0.4f, 10.0f, 1.0f);
+            if (this->obj.rot.z >= 45.0f) {
                 D_i5_801BE320[12] = 1;
             }
             break;
         case 1:
-            Math_SmoothStepToF(&actor->obj.rot.z, -45.0f, 0.4f, 10.0f, 1.0f);
-            if (actor->obj.rot.z <= -45.0f) {
+            Math_SmoothStepToF(&this->obj.rot.z, -45.0f, 0.4f, 10.0f, 1.0f);
+            if (this->obj.rot.z <= -45.0f) {
                 D_i5_801BE320[12] = 0;
             }
             break;
     }
-    Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.y, (actor->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.2f, 30.0f, 0.01f);
-    Math_SmoothStepToF(&actor->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.y, (this->fwork[5] + 600.0f) + D_i5_801BE368[3], 0.2f, 30.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A78B0(Actor* actor) {
-    Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
+void Macbeth_801A78B0(Actor* this) {
+    Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 10.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
@@ -3824,11 +3833,11 @@ void Macbeth_801A78B0(Actor* actor) {
             break;
     }
 
-    Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[19] + D_i5_801BE368[1], 0.1f, 10.0f, 0.01f);
+    Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.1f, 10.0f, 0.01f);
 }
 
-void Macbeth_801A7A30(Actor* actor) {
-    Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
+void Macbeth_801A7A30(Actor* this) {
+    Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
     switch (D_i5_801BE320[0]) {
         case 0:
             Math_SmoothStepToF(&D_i5_801BE368[0], 30.0f, 0.1f, RAND_FLOAT(1.0f) + 1.0f, 0.01f);
@@ -3869,31 +3878,31 @@ void Macbeth_801A7A30(Actor* actor) {
             }
             break;
     }
-    actor->obj.pos.x = actor->fwork[19] + D_i5_801BE368[1];
-    actor->obj.pos.y = actor->fwork[5] + D_i5_801BE368[3];
-    actor->obj.pos.z = 1200.0f + D_i5_801BE368[6];
+    this->obj.pos.x = this->fwork[19] + D_i5_801BE368[1];
+    this->obj.pos.y = this->fwork[5] + D_i5_801BE368[3];
+    this->obj.pos.z = 1200.0f + D_i5_801BE368[6];
 }
 
-void Macbeth_801A7CAC(Actor* actor) {
+void Macbeth_801A7CAC(Actor* this) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 sp34;
     f32 sp30;
     f32 sp2C;
 
-    temp_fa0 = gPlayer[0].pos.x - actor->obj.pos.x;
-    temp_fa1 = (gPlayer[0].trueZpos - 130.0f) - actor->obj.pos.z;
+    temp_fa0 = gPlayer[0].pos.x - this->obj.pos.x;
+    temp_fa1 = (gPlayer[0].trueZpos - 130.0f) - this->obj.pos.z;
     sp2C = sqrtf(SQ(temp_fa0) + SQ(temp_fa1));
     sp30 = Math_Atan2F(temp_fa0, temp_fa1);
-    sp34 = -Math_Atan2F(gPlayer[0].pos.y - actor->obj.pos.y, sp2C);
-    Math_SmoothStepToAngle(&actor->obj.rot.y, Math_RadToDeg(sp30), 0.1f, 20.0f, 0.01f);
-    Math_SmoothStepToAngle(&actor->obj.rot.x, Math_RadToDeg(sp34), 0.1f, 20.0f, 0.01f);
+    sp34 = -Math_Atan2F(gPlayer[0].pos.y - this->obj.pos.y, sp2C);
+    Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(sp30), 0.1f, 20.0f, 0.01f);
+    Math_SmoothStepToAngle(&this->obj.rot.x, Math_RadToDeg(sp34), 0.1f, 20.0f, 0.01f);
 }
 
-void Macbeth_801A7D98(Actor* actor) {
+void Macbeth_801A7D98(Actor* this) {
     u8 i;
 
-    Macbeth_Train_Init(actor);
+    Macbeth_Train_Init(this);
     // clang-format off
     for (i = 0; i < 35; i++) { D_i5_801BE320[i] = 0; }
     for (i = 0; i < 50; i++) { D_i5_801BE368[i] = 0.0f; }
@@ -3901,7 +3910,7 @@ void Macbeth_801A7D98(Actor* actor) {
     D_i5_801BE320[29] = 250;
     D_i5_801BE320[9] = 200;
     D_i5_801BE320[10] = 250;
-    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
+    this->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
     D_i5_801BE320[14] = 0;
     D_i5_801BE320[15] = 0;
     gBossFrameCount = 0;
@@ -3910,7 +3919,7 @@ void Macbeth_801A7D98(Actor* actor) {
 static Vec3f D_i5_801BA744 = { 0.0f, 0.0f, 0.0f };
 static Vec3f D_i5_801BA750 = { 0.0f, 0.0f, 30.0f };
 
-void Macbeth_Actor207_Update(Actor* actor) {
+void Macbeth_Actor207_Update(Actor* this) {
     s32 pad;
     f32 temp;
     f32 sp374;
@@ -3929,52 +3938,52 @@ void Macbeth_Actor207_Update(Actor* actor) {
     s16 spC6;
     u8 i;
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            actor->obj.pos.y += 250.0f;
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            this->obj.pos.y += 250.0f;
             D_i5_801BE320[3] = 0;
-            Macbeth_8019A830(actor);
-            Macbeth_8019A728(actor);
-            if (actor->iwork[1] != 0) {
+            Macbeth_8019A830(this);
+            Macbeth_8019A728(this);
+            if (this->iwork[1] != 0) {
                 AUDIO_PLAY_BGM(NA_BGM_BOSS_MA);
-                actor->state = 1;
+                this->state = 1;
             }
-            Macbeth_801A6984(actor);
+            Macbeth_801A6984(this);
             break;
         case 1:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            actor->obj.pos.y += 250.0f;
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            this->obj.pos.y += 250.0f;
             D_i5_801BE320[3]++;
             if (D_i5_801BE320[3] >= 20) {
-                actor->timer_0BC = 20;
-                actor->state = 2;
+                this->timer_0BC = 20;
+                this->state = 2;
             }
-            Macbeth_8019A830(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_8019A830(this);
+            Macbeth_801A6984(this);
             break;
         case 2:
-            Macbeth_8019A198(actor);
-            Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
-            if (actor->timer_0BC == 0) {
-                Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[5] + 500.0f, 0.5f, 5.0f, 5.0f);
+            Macbeth_8019A198(this);
+            Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
+            if (this->timer_0BC == 0) {
+                Math_SmoothStepToF(&this->obj.pos.y, this->fwork[5] + 500.0f, 0.5f, 5.0f, 5.0f);
                 D_i5_801BE320[5] = 1;
                 D_i5_801BE320[7] = 1;
-                if ((actor->fwork[5] + 500.0f) <= actor->obj.pos.y) {
+                if ((this->fwork[5] + 500.0f) <= this->obj.pos.y) {
                     Radio_PlayMessage(gMsg_ID_17430, RCID_BOSS_MACBETH);
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
-                    actor->state = 3;
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                    this->state = 3;
                 }
             }
-            Macbeth_8019A830(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_8019A830(this);
+            Macbeth_801A6984(this);
             break;
         case 3:
-            Macbeth_8019A198(actor);
-            if (actor->timer_0BC == 0) {
-                actor->obj.pos.z -= 2.0f;
+            Macbeth_8019A198(this);
+            if (this->timer_0BC == 0) {
+                this->obj.pos.z -= 2.0f;
                 if (D_i5_801BE320[3] < 70) {
                     D_i5_801BE320[3] = (s16) (D_i5_801BE320[3] + 1);
                 }
@@ -3984,30 +3993,30 @@ void Macbeth_Actor207_Update(Actor* actor) {
                     D_i5_801BE320[6] = 1;
                     D_i5_801BE320[8] = 1;
                 }
-                Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[5] + 1600.0f, 0.2f, 30.0f, 10.0f);
-                if ((actor->fwork[5] + 1600.0f) <= actor->obj.pos.y) {
+                Math_SmoothStepToF(&this->obj.pos.y, this->fwork[5] + 1600.0f, 0.2f, 30.0f, 10.0f);
+                if ((this->fwork[5] + 1600.0f) <= this->obj.pos.y) {
                     D_i5_801BE320[6] = 0;
                     D_i5_801BE320[8] = 0;
                     D_i5_801BE320[3] = 0;
                     D_i5_801BE320[2] = 1;
                     D_i5_801BE320[31] = 30;
-                    actor->timer_0C0 = 1500;
-                    actor->state = 4;
+                    this->timer_0C0 = 1500;
+                    this->state = 4;
                 }
             }
-            Macbeth_8019A830(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_8019A830(this);
+            Macbeth_801A6984(this);
             break;
         case 4:
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Macbeth_8019A198(actor);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Macbeth_8019A198(this);
             D_i5_801BE320[3]++;
             if (D_i5_801BE320[3] >= 60) {
                 D_i5_801BE320[3] = 0;
             }
-            Macbeth_801A6C78(actor);
-            Macbeth_801A6984(actor);
-            Macbeth_801A7CAC(actor);
+            Macbeth_801A6C78(this);
+            Macbeth_801A6984(this);
+            Macbeth_801A7CAC(this);
             if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
                 var_v1 = 0xFF;
                 if (D_i5_801BE320[18] == 2) {
@@ -4018,17 +4027,17 @@ void Macbeth_Actor207_Update(Actor* actor) {
                     D_i5_801BE320[3] = 0;
                     D_i5_801BE320[2] = 2;
                     D_i5_801BE320[31] = 30;
-                    actor->iwork[7] = 0;
-                    actor->iwork[8] = 0;
-                    actor->iwork[9] = 0;
+                    this->iwork[7] = 0;
+                    this->iwork[8] = 0;
+                    this->iwork[9] = 0;
                     Radio_PlayMessage(gMsg_ID_17475, RCID_BOSS_MACBETH);
-                    actor->state = 18;
+                    this->state = 18;
                     break;
                 }
                 if (!(var_v1 & gGameFrameCount)) {
                     if ((D_i5_801BE320[9] > 0) || (D_i5_801BE320[10] > 0)) {
-                        if (actor->timer_0C0 == 0) {
-                            actor->timer_0C0 = 1500;
+                        if (this->timer_0C0 == 0) {
+                            this->timer_0C0 = 1500;
                             Radio_PlayMessage(gMsg_ID_17460, RCID_BOSS_MACBETH);
                         }
                         if (((D_i5_801BE320[9] > 0) && (Rand_ZeroOne() > 0.5f)) || (D_i5_801BE320[10] <= 0) ||
@@ -4041,9 +4050,9 @@ void Macbeth_Actor207_Update(Actor* actor) {
                                 D_i5_801BE320[3] = 0;
                                 D_i5_801BE320[2] = 5;
                                 D_i5_801BE320[31] = 30;
-                                actor->timer_0BC = 100;
-                                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_CHARGE0, actor->sfxSource, 4);
-                                actor->state = 12;
+                                this->timer_0BC = 100;
+                                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_CHARGE0, this->sfxSource, 4);
+                                this->state = 12;
                             }
                         } else if ((D_i5_801BE320[26] != 0) && (D_i5_801BE320[10] > 0)) {
                             D_i5_801BE320[6] = 1;
@@ -4053,7 +4062,7 @@ void Macbeth_Actor207_Update(Actor* actor) {
                             D_i5_801BE320[3] = 0;
                             D_i5_801BE320[2] = 2;
                             D_i5_801BE320[31] = 30;
-                            actor->state = 5;
+                            this->state = 5;
                         }
                     } else if ((D_i5_801BE320[20] != 3) && (D_i5_801BE320[25] == 0)) {
                         if ((Rand_ZeroOne() > 0.5f) && (D_i5_801BE320[26] != 0)) {
@@ -4064,8 +4073,8 @@ void Macbeth_Actor207_Update(Actor* actor) {
                             D_i5_801BE320[3] = 0;
                             D_i5_801BE320[2] = 7;
                             D_i5_801BE320[31] = 30;
-                            actor->timer_0BC = 100;
-                            actor->state = 15;
+                            this->timer_0BC = 100;
+                            this->state = 15;
                         } else {
                             D_i5_801BE320[6] = 1;
                             D_i5_801BE320[8] = 0;
@@ -4074,56 +4083,56 @@ void Macbeth_Actor207_Update(Actor* actor) {
                             D_i5_801BE320[3] = 0;
                             D_i5_801BE320[2] = 4;
                             D_i5_801BE320[31] = 30;
-                            actor->timer_0BC = 20;
-                            actor->state = 11;
+                            this->timer_0BC = 20;
+                            this->state = 11;
                         }
                     }
                 }
             }
             break;
         case 5:
-            Macbeth_8019A198(actor);
-            Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
-            Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].trueZpos - 1500.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.y,
-                               (actor->fwork[5] + 600.0f + (gPlayer[0].trueZpos - actor->obj.pos.z) * 0.25f) + 10.0f,
+            Macbeth_8019A198(this);
+            Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
+            Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - 1500.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.y,
+                               (this->fwork[5] + 600.0f + (gPlayer[0].trueZpos - this->obj.pos.z) * 0.25f) + 10.0f,
                                0.1f, 10.0f, 0.01f);
-            if (((actor->fwork[5] + 600.0f + (gPlayer[0].trueZpos - actor->obj.pos.z) * 0.25f) <= actor->obj.pos.y) &&
-                (actor->obj.pos.z < (gPlayer[0].trueZpos - 1300.0f))) {
-                actor->timer_0BC = 0;
-                actor->state = 6;
+            if (((this->fwork[5] + 600.0f + (gPlayer[0].trueZpos - this->obj.pos.z) * 0.25f) <= this->obj.pos.y) &&
+                (this->obj.pos.z < (gPlayer[0].trueZpos - 1300.0f))) {
+                this->timer_0BC = 0;
+                this->state = 6;
             }
-            Macbeth_801A7CAC(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_801A7CAC(this);
+            Macbeth_801A6984(this);
             break;
         case 6:
-            Macbeth_8019A198(actor);
-            if (actor->timer_0BC <= 0) {
-                actor->state = 7;
+            Macbeth_8019A198(this);
+            if (this->timer_0BC <= 0) {
+                this->state = 7;
             }
             D_i5_801BE368[9] = gPlayer[0].pos.x;
-            Macbeth_801A7CAC(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_801A7CAC(this);
+            Macbeth_801A6984(this);
             break;
         case 7:
-            if ((gPlayer[0].trueZpos - actor->obj.pos.z) < 1200.0f) {
+            if ((gPlayer[0].trueZpos - this->obj.pos.z) < 1200.0f) {
                 if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_601D188) - 1)) {
                     D_i5_801BE320[3] = (s16) (D_i5_801BE320[3] + 1);
                     if ((D_i5_801BE320[3] == 26) && (D_i5_801BE320[10] > 0)) {
-                        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6036818);
-                        AUDIO_PLAY_SFX(NA_SE_EN_CATCH, actor->sfxSource, 4);
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6036818);
+                        AUDIO_PLAY_SFX(NA_SE_EN_CATCH, this->sfxSource, 4);
                     }
                 } else {
-                    actor->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
-                    if ((gPlayer[0].pos.y + 1200.0f) < actor->obj.pos.y) {
-                        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
+                    if ((gPlayer[0].pos.y + 1200.0f) < this->obj.pos.y) {
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
                         D_i5_801BE320[3] = 0;
                         D_i5_801BE320[2] = 1;
                         D_i5_801BE320[31] = 30;
                         D_i5_801BE320[6] = 0;
                         D_i5_801BE320[8] = 0;
-                        actor->state = 4;
+                        this->state = 4;
                     }
                 }
             }
@@ -4143,27 +4152,27 @@ void Macbeth_Actor207_Update(Actor* actor) {
                     var_fv0 = 100.0f;
                     break;
             }
-            if (var_fv0 < (gPlayer[0].trueZpos - actor->obj.pos.z)) {
-                Macbeth_801A7CAC(actor);
+            if (var_fv0 < (gPlayer[0].trueZpos - this->obj.pos.z)) {
+                Macbeth_801A7CAC(this);
                 D_i5_801BE368[9] = gPlayer[0].pos.x;
             }
-            Math_SmoothStepToF(&actor->obj.pos.x, D_i5_801BE368[9], 0.2f, 30.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.x, D_i5_801BE368[9], 0.2f, 30.0f, 0.01f);
             if (D_i5_801BE320[3] < 29) {
-                Math_SmoothStepToF(&actor->obj.pos.y, gPlayer[0].pos.y + 250.0f, 0.3f, 45.0f, 0.01f);
+                Math_SmoothStepToF(&this->obj.pos.y, gPlayer[0].pos.y + 250.0f, 0.3f, 45.0f, 0.01f);
             } else {
-                Math_SmoothStepToF(&actor->obj.pos.y, gPlayer[0].pos.y + 1210.0f, 0.1f, 20.0f, 0.01f);
+                Math_SmoothStepToF(&this->obj.pos.y, gPlayer[0].pos.y + 1210.0f, 0.1f, 20.0f, 0.01f);
             }
-            Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].trueZpos - 100.0f, 0.3f, 60.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.rot.x, 0.0f, 0.2f, 20.0f, 0.01f);
-            Macbeth_801A6984(actor);
+            Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - 100.0f, 0.3f, 60.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.rot.x, 0.0f, 0.2f, 20.0f, 0.01f);
+            Macbeth_801A6984(this);
             break;
         case 8:
-            Macbeth_8019A198(actor);
+            Macbeth_8019A198(this);
             if (((gGameFrameCount % 16) == 0)) {
-                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_RAGE, actor->sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_RAGE, this->sfxSource, 4);
             }
-            Macbeth_801A74C4(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_801A74C4(this);
+            Macbeth_801A6984(this);
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_6017714) - 1)) {
                 D_i5_801BE320[3] = (s16) (D_i5_801BE320[3] + 1);
             } else {
@@ -4172,7 +4181,7 @@ void Macbeth_Actor207_Update(Actor* actor) {
             if (D_i5_801BE320[4] <= 0) {
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
-                actor->obj.rot.x -= 360.0f;
+                this->obj.rot.x -= 360.0f;
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
                 D_i5_801BE320[31] = 30;
@@ -4180,47 +4189,46 @@ void Macbeth_Actor207_Update(Actor* actor) {
                 D_i5_801BE320[7] = 0;
                 D_i5_801BE320[6] = 0;
                 D_i5_801BE320[8] = 0;
-                actor->state = 4;
+                this->state = 4;
                 break;
             }
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->iwork[9] = 15;
-                D_i5_801BE320[29] -= actor->damage;
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->iwork[9] = 15;
+                D_i5_801BE320[29] -= this->damage;
                 if (D_i5_801BE320[29] <= 0) {
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
-                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
                     Radio_PlayMessage(gMsg_ID_17450, RCID_BOSS_MACBETH);
-                    func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
-                    Macbeth_801AD624(actor->vwork[2].x, actor->vwork[2].y, actor->vwork[2].z,
-                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, -2.0f, RAND_FLOAT(360.0f),
-                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
-                                     (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
+                    func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                    Macbeth_801AD624(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z, RAND_FLOAT_CENTERED(10.0f),
+                                     RAND_FLOAT(7.0f) + 7.0f, -2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                                     RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                                     RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
                     D_i5_801BE320[3] = 0;
                     D_i5_801BE320[2] = 1;
                     D_i5_801BE320[31] = 30;
-                    actor->state = 9;
+                    this->state = 9;
                     break;
                 }
                 D_i5_801BE368[12] = 30.0f;
                 D_i5_801BE368[13] = 30.0f;
                 if (D_i5_801BE320[29] > 0) {
                     if (D_i5_801BE320[29] > 100) {
-                        AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, actor->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                     } else {
-                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, actor->sfxSource, 4);
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, this->sfxSource, 4);
                     }
                 }
             }
             if (((gGameFrameCount % 2) == 0)) {
-                actor->obj.pos.x += D_i5_801BE368[12];
-                actor->obj.pos.y += D_i5_801BE368[13];
+                this->obj.pos.x += D_i5_801BE368[12];
+                this->obj.pos.y += D_i5_801BE368[13];
             } else {
-                actor->obj.pos.x -= D_i5_801BE368[12];
-                actor->obj.pos.y -= D_i5_801BE368[13];
+                this->obj.pos.x -= D_i5_801BE368[12];
+                this->obj.pos.y -= D_i5_801BE368[13];
             }
             if (D_i5_801BE368[12] > 0.0f) {
                 D_i5_801BE368[12] -= 1.0f;
@@ -4228,8 +4236,8 @@ void Macbeth_Actor207_Update(Actor* actor) {
             if (D_i5_801BE368[13] > 0.0f) {
                 D_i5_801BE368[13] -= 1.0f;
             }
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
             if (((gGameFrameCount % 32) == 0)) {
                 D_i5_801BE320[6] = 0;
                 D_i5_801BE320[8] = 0;
@@ -4250,42 +4258,42 @@ void Macbeth_Actor207_Update(Actor* actor) {
             }
             break;
         case 9:
-            if (D_i5_801BE368[6] < actor->obj.pos.z) {
+            if (D_i5_801BE368[6] < this->obj.pos.z) {
                 D_i5_801BE320[1] = 1;
-                Macbeth_801A6984(actor);
+                Macbeth_801A6984(this);
             }
-            if ((actor->obj.pos.z - D_i5_801BE368[6]) < 500) {
-                Math_SmoothStepToF(&actor->obj.pos.x, D_i5_801BE368[4], 0.1f, 10.0f, 1.0f);
-                Math_SmoothStepToF(&actor->obj.pos.y, D_i5_801BE368[5] - 100.0f, 0.1f, 15.0f, 10.0f);
+            if ((this->obj.pos.z - D_i5_801BE368[6]) < 500) {
+                Math_SmoothStepToF(&this->obj.pos.x, D_i5_801BE368[4], 0.1f, 10.0f, 1.0f);
+                Math_SmoothStepToF(&this->obj.pos.y, D_i5_801BE368[5] - 100.0f, 0.1f, 15.0f, 10.0f);
             } else {
-                Math_SmoothStepToF(&actor->obj.pos.y, D_i5_801BE368[5] + 600.0f, 0.1f, 20.0f, 10.0f);
+                Math_SmoothStepToF(&this->obj.pos.y, D_i5_801BE368[5] + 600.0f, 0.1f, 20.0f, 10.0f);
             }
-            Math_SmoothStepToF(&actor->obj.pos.z, D_i5_801BE368[6] - 100.0f, 0.2f, 5.0f - gActors[D_i5_801BE314].vel.z,
+            Math_SmoothStepToF(&this->obj.pos.z, D_i5_801BE368[6] - 100.0f, 0.2f, 5.0f - gActors[D_i5_801BE314].vel.z,
                                1.0f);
-            actor->obj.rot.x += 10.0f;
-            actor->obj.rot.z += 10.0f;
+            this->obj.rot.x += 10.0f;
+            this->obj.rot.z += 10.0f;
             if (((gGameFrameCount % 8) == 0)) {
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
-                Effect_Effect387_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f, 8);
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f, 8);
             }
-            if ((actor->obj.pos.z <= D_i5_801BE368[6]) && (actor->obj.pos.y <= D_i5_801BE368[5])) {
+            if ((this->obj.pos.z <= D_i5_801BE368[6]) && (this->obj.pos.y <= D_i5_801BE368[5])) {
                 D_i5_801BE320[23] = 1;
                 gTeamLowHealthMsgTimer = -1;
-                actor->state = 10;
-                actor->timer_0BC = 50;
+                this->state = 10;
+                this->timer_0BC = 50;
             }
             break;
         case 10:
-            Object_Kill(&actor->obj, actor->sfxSource);
+            Object_Kill(&this->obj, this->sfxSource);
             break;
         case 11:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Macbeth_8019A198(actor);
-            Macbeth_801A6FB4(actor);
-            Macbeth_801A6984(actor);
-            if (actor->timer_0BC == 0) {
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Macbeth_8019A198(this);
+            Macbeth_801A6FB4(this);
+            Macbeth_801A6984(this);
+            if (this->timer_0BC == 0) {
                 if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_6016B2C) - 1)) {
                     D_i5_801BE320[3]++;
                 } else {
@@ -4312,18 +4320,18 @@ void Macbeth_Actor207_Update(Actor* actor) {
                         break;
                 }
                 if ((var_v0 & gGameFrameCount) == 0) {
-                    Macbeth_801ADCEC(actor->obj.pos.x, actor->obj.pos.y - 90.0f, actor->obj.pos.z - 50.0f,
+                    Macbeth_801ADCEC(this->obj.pos.x, this->obj.pos.y - 90.0f, this->obj.pos.z - 50.0f,
                                      D_i5_801BE368[0] * 0.8f, -10.0f, 8.0f);
                     D_i5_801BE320[11]++;
                     if (D_i5_801BE320[11] >= var_s0) {
-                        actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
                         D_i5_801BE320[3] = 0;
                         D_i5_801BE320[2] = 1;
                         D_i5_801BE320[31] = 30;
                         D_i5_801BE320[5] = 0;
                         D_i5_801BE320[7] = 0;
                         D_i5_801BE320[11] = 0;
-                        actor->state = 4;
+                        this->state = 4;
                         D_i5_801BE320[25] = 1;
                     }
                 }
@@ -4348,118 +4356,118 @@ void Macbeth_Actor207_Update(Actor* actor) {
             }
             break;
         case 12:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_60163F0) - 1)) {
                 D_i5_801BE320[3]++;
             } else {
                 D_i5_801BE320[3] = 0;
             }
-            Macbeth_8019A198(actor);
-            Macbeth_801A72DC(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A72DC(this);
+            Macbeth_801A6984(this);
             if (D_i5_801BE320[9] <= 0) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_MABOSS_CHARGE0);
-                actor->state = 14;
-                actor->vel.y = -20.0f;
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_MABOSS_CHARGE0);
+                this->state = 14;
+                this->vel.y = -20.0f;
             }
-            D_i5_801BE368[14] = actor->vwork[0].x;
-            D_i5_801BE368[15] = actor->vwork[0].y;
-            D_i5_801BE368[16] = actor->vwork[0].z;
-            if (actor->timer_0BC > 15) {
+            D_i5_801BE368[14] = this->vwork[0].x;
+            D_i5_801BE368[15] = this->vwork[0].y;
+            D_i5_801BE368[16] = this->vwork[0].z;
+            if (this->timer_0BC > 15) {
                 for (i = 0; i < 2; i++) {
                     D_i5_801BE368[23] = 3.0f;
-                    Macbeth_801AE800(actor->vwork[2].x + RAND_FLOAT_CENTERED(400.0f),
-                                     actor->vwork[2].y + RAND_FLOAT_CENTERED(400.0f), actor->vwork[2].z + 50.0f,
-                                     actor->vwork[2].x - 200.0f, actor->vwork[2].y, actor->vwork[2].z);
+                    Macbeth_801AE800(this->vwork[2].x + RAND_FLOAT_CENTERED(400.0f),
+                                     this->vwork[2].y + RAND_FLOAT_CENTERED(400.0f), this->vwork[2].z + 50.0f,
+                                     this->vwork[2].x - 200.0f, this->vwork[2].y, this->vwork[2].z);
                     D_i5_801BE368[23] = 4.0f;
-                    Macbeth_801AE800(actor->vwork[4].x + RAND_FLOAT_CENTERED(400.0f),
-                                     actor->vwork[4].y + RAND_FLOAT_CENTERED(400.0f), actor->vwork[4].z + 50.0f,
-                                     actor->vwork[4].x + 200.0f, actor->vwork[4].y, actor->vwork[4].z);
+                    Macbeth_801AE800(this->vwork[4].x + RAND_FLOAT_CENTERED(400.0f),
+                                     this->vwork[4].y + RAND_FLOAT_CENTERED(400.0f), this->vwork[4].z + 50.0f,
+                                     this->vwork[4].x + 200.0f, this->vwork[4].y, this->vwork[4].z);
                 }
             }
-            if (actor->timer_0BC == 0) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_MABOSS_CHARGE0);
+            if (this->timer_0BC == 0) {
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_MABOSS_CHARGE0);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 6;
                 D_i5_801BE320[31] = 30;
-                actor->timer_0BC = 70;
-                actor->state = 13;
+                this->timer_0BC = 70;
+                this->state = 13;
             }
 
             break;
         case 13:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_6016040) - 1)) {
                 D_i5_801BE320[3]++;
             }
-            Macbeth_8019A198(actor);
-            Macbeth_801A72DC(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A72DC(this);
+            Macbeth_801A6984(this);
             D_i5_801BE320[5] = 0;
             D_i5_801BE320[7] = 0;
-            if (actor->timer_0BC == 60) {
-                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_SHOT0, actor->sfxSource, 4);
+            if (this->timer_0BC == 60) {
+                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_SHOT0, this->sfxSource, 4);
                 D_i5_801BE320[24] = 0;
 
                 spC6 = RAND_INT(5.0f);
                 for (i = 0; i < 10; i++) {
-                    Macbeth_801AE610(actor->vwork[0].x, actor->vwork[0].y + 100.0f, actor->vwork[0].z,
+                    Macbeth_801AE610(this->vwork[0].x, this->vwork[0].y + 100.0f, this->vwork[0].z,
                                      RAND_FLOAT_CENTERED(35.0f), RAND_FLOAT(80) + 90.0f, RAND_RANGE(-72.0f, 8.0f),
                                      spC6);
                 }
 
                 for (i = 0; i < 20; i++) {
-                    Macbeth_801AD624(actor->vwork[0].x, actor->vwork[0].y + 50.0f + RAND_FLOAT(50.0f),
-                                     actor->vwork[0].z, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f),
-                                     actor->vel.z + 2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                    Macbeth_801AD624(this->vwork[0].x, this->vwork[0].y + 50.0f + RAND_FLOAT(50.0f), this->vwork[0].z,
+                                     RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), this->vel.z + 2.0f,
+                                     RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                                      (s32) (RAND_FLOAT(25.0f) + 30.f), 10, RAND_FLOAT(1.0f));
                 }
-                actor->timer_0BC = 80;
-                actor->state = 14;
-                actor->vel.y = -20.0f;
+                this->timer_0BC = 80;
+                this->state = 14;
+                this->vel.y = -20.0f;
             }
             break;
         case 14:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_6016040) - 1)) {
                 D_i5_801BE320[3]++;
             }
-            Macbeth_8019A198(actor);
-            actor->vel.y += 1.0f;
-            Macbeth_801A6984(actor);
+            Macbeth_8019A198(this);
+            this->vel.y += 1.0f;
+            Macbeth_801A6984(this);
             D_i5_801BE320[6] = 1;
             D_i5_801BE320[8] = 1;
-            if (actor->timer_0BC == 0) {
-                actor->vel.y = 0.0f;
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+            if (this->timer_0BC == 0) {
+                this->vel.y = 0.0f;
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
                 D_i5_801BE320[31] = 30;
-                actor->state = 4;
+                this->state = 4;
             }
             break;
         case 15:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].trueZpos - 700.0f, 0.2f, 15.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.y, gPlayer[0].pos.y + 400.0f, 0.2f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - 700.0f, 0.2f, 15.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.y, gPlayer[0].pos.y + 400.0f, 0.2f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
             if (D_i5_801BE320[3] < 15) {
                 D_i5_801BE320[3]++;
             }
-            Macbeth_8019A198(actor);
-            Macbeth_801A6984(actor);
-            if (actor->timer_0BC < 100) {
-                if (actor->timer_0BC == 98) {
-                    AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_PLATECHARGE, actor->sfxSource, 4);
+            Macbeth_8019A198(this);
+            Macbeth_801A6984(this);
+            if (this->timer_0BC < 100) {
+                if (this->timer_0BC == 98) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_PLATECHARGE, this->sfxSource, 4);
                 }
                 Matrix_RotateY(gCalcMatrix, RAND_FLOAT(2.0f) * (M_DTOR * 180.0f), MTXF_NEW);
                 sp360.x = 0.0f;
@@ -4467,13 +4475,13 @@ void Macbeth_Actor207_Update(Actor* actor) {
                 sp360.z = RAND_FLOAT(200.0f) + 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp360, &sp354);
                 D_i5_801BE368[23] = 1.0f;
-                Macbeth_801AE800(actor->vwork[2].x + sp354.x - 50.0f, actor->vwork[2].y + sp354.y + 100.0f,
-                                 actor->vwork[2].z + sp354.z, actor->vwork[2].x, actor->vwork[2].y, actor->vwork[2].z);
+                Macbeth_801AE800(this->vwork[2].x + sp354.x - 50.0f, this->vwork[2].y + sp354.y + 100.0f,
+                                 this->vwork[2].z + sp354.z, this->vwork[2].x, this->vwork[2].y, this->vwork[2].z);
                 D_i5_801BE368[23] = 2.0f;
-                Macbeth_801AE800(actor->vwork[4].x + sp354.x + 50.0f, actor->vwork[4].y + sp354.y + 100.0f,
-                                 actor->vwork[4].z + sp354.z, actor->vwork[4].x, actor->vwork[4].y, actor->vwork[4].z);
+                Macbeth_801AE800(this->vwork[4].x + sp354.x + 50.0f, this->vwork[4].y + sp354.y + 100.0f,
+                                 this->vwork[4].z + sp354.z, this->vwork[4].x, this->vwork[4].y, this->vwork[4].z);
             }
-            if (actor->timer_0BC == 0) {
+            if (this->timer_0BC == 0) {
                 switch (D_i5_801BE320[18]) {
                     case 0:
                     case 1:
@@ -4489,236 +4497,235 @@ void Macbeth_Actor207_Update(Actor* actor) {
                         D_i5_801BE320[27] = 300;
                         break;
                 }
-                actor->timer_0BC = D_i5_801BE320[27];
-                actor->state = 16;
-                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_MABOSS_PLATECHARGE);
+                this->timer_0BC = D_i5_801BE320[27];
+                this->state = 16;
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_MABOSS_PLATECHARGE);
             }
             break;
         case 16:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].trueZpos - 250.0f, 0.1f, 15.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.y, 250.0f, 0.1f, 10.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - 250.0f, 0.1f, 15.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.y, 250.0f, 0.1f, 10.0f, 0.01f);
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_6015C24) - 1)) {
                 D_i5_801BE320[3]++;
             }
-            Macbeth_8019A198(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A6984(this);
 
-            if (actor->timer_0BC < (D_i5_801BE320[27] - 40)) {
-                if ((actor->timer_0BC + 42) == D_i5_801BE320[27]) {
-                    actor->sfxSource[0] = actor->vwork[2].x;
-                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, actor->sfxSource, 4);
-                    actor->sfxSource[0] = actor->vwork[4].x;
-                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, actor->sfxSource, 4);
-                    actor->sfxSource[0] = actor->obj.pos.x;
+            if (this->timer_0BC < (D_i5_801BE320[27] - 40)) {
+                if ((this->timer_0BC + 42) == D_i5_801BE320[27]) {
+                    this->sfxSource[0] = this->vwork[2].x;
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, this->sfxSource, 4);
+                    this->sfxSource[0] = this->vwork[4].x;
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_SHOT, this->sfxSource, 4);
+                    this->sfxSource[0] = this->obj.pos.x;
                 }
                 if (((gGameFrameCount % 2) == 0) && (D_i5_801BE320[15] == 0)) {
-                    actor->vwork[6].x = actor->vwork[2].x + 80.0f;
-                    actor->vwork[6].y = 0.0f;
-                    actor->vwork[6].z = gPlayer[0].trueZpos + 50.0f;
-                    actor->vwork[7].x = actor->vwork[4].x - 80.0f;
-                    actor->vwork[7].y = 0.0f;
-                    actor->vwork[7].z = gPlayer[0].trueZpos + 50.0f;
-                    actor->vwork[6].z += actor->vel.z;
-                    actor->vwork[7].z += actor->vel.z;
-                    sp348.x = actor->vwork[6].x - actor->vwork[2].x;
-                    sp348.y = actor->vwork[6].y - actor->vwork[2].y + 25.0f;
-                    sp348.z = actor->vwork[6].z - actor->vwork[2].z;
-                    Matrix_RotateZ(gCalcMatrix, -actor->vwork[3].z * M_DTOR, MTXF_NEW);
-                    Matrix_RotateX(gCalcMatrix, -actor->vwork[3].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateY(gCalcMatrix, -actor->vwork[3].y * M_DTOR, MTXF_APPLY);
+                    this->vwork[6].x = this->vwork[2].x + 80.0f;
+                    this->vwork[6].y = 0.0f;
+                    this->vwork[6].z = gPlayer[0].trueZpos + 50.0f;
+                    this->vwork[7].x = this->vwork[4].x - 80.0f;
+                    this->vwork[7].y = 0.0f;
+                    this->vwork[7].z = gPlayer[0].trueZpos + 50.0f;
+                    this->vwork[6].z += this->vel.z;
+                    this->vwork[7].z += this->vel.z;
+                    sp348.x = this->vwork[6].x - this->vwork[2].x;
+                    sp348.y = this->vwork[6].y - this->vwork[2].y + 25.0f;
+                    sp348.z = this->vwork[6].z - this->vwork[2].z;
+                    Matrix_RotateZ(gCalcMatrix, -this->vwork[3].z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, -this->vwork[3].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, -this->vwork[3].y * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &sp348, &sp354);
                     D_i5_801BE368[14] = Math_RadToDeg(Math_Atan2F(sp354.x, sp354.z));
                     temp = sqrtf(SQ(sp354.x) + SQ(sp354.z));
                     D_i5_801BE368[13] = Math_RadToDeg(-Math_Atan2F(sp354.y, temp));
-                    Matrix_RotateY(gCalcMatrix, actor->vwork[3].y * M_DTOR, MTXF_NEW);
-                    Matrix_RotateX(gCalcMatrix, actor->vwork[3].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateZ(gCalcMatrix, actor->vwork[3].z * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, this->vwork[3].y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, this->vwork[3].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, this->vwork[3].z * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BA744, &sp354);
-                    sp348.x = actor->vwork[2].x + sp354.x;
-                    sp348.y = actor->vwork[2].y + sp354.y + 25.0f;
-                    sp348.z = actor->vwork[2].z + sp354.z;
+                    sp348.x = this->vwork[2].x + sp354.x;
+                    sp348.y = this->vwork[2].y + sp354.y + 25.0f;
+                    sp348.z = this->vwork[2].z + sp354.z;
                     sp33C.x = D_i5_801BE368[13];
                     sp33C.y = D_i5_801BE368[14];
                     sp33C.z = 0.0f;
-                    sp330.x = actor->vwork[3].x;
-                    sp330.y = actor->vwork[3].y;
-                    sp330.z = actor->vwork[3].z;
+                    sp330.x = this->vwork[3].x;
+                    sp330.y = this->vwork[3].y;
+                    sp330.z = this->vwork[3].z;
                     func_effect_8007EE68(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 5.0f);
-                    sp348.x = actor->vwork[7].x - actor->vwork[4].x;
-                    sp348.y = actor->vwork[7].y - actor->vwork[4].y + 25.0f;
-                    sp348.z = actor->vwork[7].z - actor->vwork[4].z;
-                    Matrix_RotateZ(gCalcMatrix, -actor->vwork[5].z * M_DTOR, MTXF_NEW);
-                    Matrix_RotateX(gCalcMatrix, -actor->vwork[5].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateY(gCalcMatrix, -actor->vwork[5].y * M_DTOR, MTXF_APPLY);
+                    sp348.x = this->vwork[7].x - this->vwork[4].x;
+                    sp348.y = this->vwork[7].y - this->vwork[4].y + 25.0f;
+                    sp348.z = this->vwork[7].z - this->vwork[4].z;
+                    Matrix_RotateZ(gCalcMatrix, -this->vwork[5].z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, -this->vwork[5].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, -this->vwork[5].y * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &sp348, &sp354);
                     D_i5_801BE368[14] = Math_RadToDeg(Math_Atan2F(sp354.x, sp354.z));
                     temp = sqrtf(SQ(sp354.x) + SQ(sp354.z));
                     D_i5_801BE368[13] = Math_RadToDeg(-Math_Atan2F(sp354.y, temp));
-                    Matrix_RotateY(gCalcMatrix, actor->vwork[5].y * M_DTOR, MTXF_NEW);
-                    Matrix_RotateX(gCalcMatrix, actor->vwork[5].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateZ(gCalcMatrix, actor->vwork[5].z * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, this->vwork[5].y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, this->vwork[5].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, this->vwork[5].z * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BA744, &sp354);
-                    sp348.x = actor->vwork[4].x + sp354.x;
-                    sp348.y = actor->vwork[4].y + sp354.y + 25.0f;
-                    sp348.z = actor->vwork[4].z + sp354.z;
+                    sp348.x = this->vwork[4].x + sp354.x;
+                    sp348.y = this->vwork[4].y + sp354.y + 25.0f;
+                    sp348.z = this->vwork[4].z + sp354.z;
                     sp33C.x = D_i5_801BE368[13];
                     sp33C.y = D_i5_801BE368[14];
                     sp33C.z = 0.0f;
-                    sp330.x = actor->vwork[5].x;
-                    sp330.y = actor->vwork[5].y;
-                    sp330.z = actor->vwork[5].z;
+                    sp330.x = this->vwork[5].x;
+                    sp330.y = this->vwork[5].y;
+                    sp330.z = this->vwork[5].z;
                     func_effect_8007EE68(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 10.0f);
                 }
             }
-            if (actor->timer_0BC < (D_i5_801BE320[27] - 50)) {
-                Macbeth_801A78B0(actor);
+            if (this->timer_0BC < (D_i5_801BE320[27] - 50)) {
+                Macbeth_801A78B0(this);
             }
-            if (actor->timer_0BC == 0) {
-                Audio_KillSfxBySourceAndId(actor->sfxSource, NA_SE_EN_RNG_BEAM_SHOT);
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+            if (this->timer_0BC == 0) {
+                Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_RNG_BEAM_SHOT);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
                 D_i5_801BE320[31] = 30;
-                actor->state = 4;
+                this->state = 4;
                 D_i5_801BE320[25] = 1;
             }
             break;
         case 18:
-            Macbeth_8019A198(actor);
-            Macbeth_801A0308(actor, actor->obj.pos.z, actor->obj.rot.y, 0);
-            Math_SmoothStepToF(&actor->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].trueZpos - 1200.0f, 0.1f, 35.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[5] + 600.0f + D_i5_801BE368[3], 0.1f, 20.0f, 10.0f);
-            if (D_i5_801BE368[3] < ((gPlayer[0].trueZpos - actor->obj.pos.z) / 5.0f)) {
+            Macbeth_8019A198(this);
+            Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
+            Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - 1200.0f, 0.1f, 35.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[5] + 600.0f + D_i5_801BE368[3], 0.1f, 20.0f, 10.0f);
+            if (D_i5_801BE368[3] < ((gPlayer[0].trueZpos - this->obj.pos.z) / 5.0f)) {
                 Math_SmoothStepToF(&D_i5_801BE368[2], 15.0f, 0.2f, 2.0f, 0.01f);
                 D_i5_801BE368[3] += D_i5_801BE368[2];
-            } else if (((actor->fwork[5] + 600.0f) + D_i5_801BE368[3]) <= actor->obj.pos.y) {
-                actor->timer_0BC = 0;
-                actor->state = 19;
+            } else if (((this->fwork[5] + 600.0f) + D_i5_801BE368[3]) <= this->obj.pos.y) {
+                this->timer_0BC = 0;
+                this->state = 19;
             }
-            Macbeth_801A7CAC(actor);
-            Macbeth_801A6984(actor);
+            Macbeth_801A7CAC(this);
+            Macbeth_801A6984(this);
             break;
         case 19:
-            actor->vel.z = gPlayer[0].vel.z;
-            Macbeth_801A7CAC(actor);
+            this->vel.z = gPlayer[0].vel.z;
+            Macbeth_801A7CAC(this);
             D_i5_801BE368[4] += D_i5_801BE368[32];
             D_i5_801BE368[5] += D_i5_801BE368[33];
             D_i5_801BE368[6] += D_i5_801BE368[34];
             if (D_i5_801BE320[1] < 200) {
                 D_i5_801BE320[1]++;
             }
-            Math_SmoothStepToF(&D_i5_801BE368[32], actor->obj.pos.x + RAND_FLOAT(500.0f), 0.2f, 20.0f, 0.01f);
-            Math_SmoothStepToF(&D_i5_801BE368[33], actor->obj.pos.y + RAND_FLOAT(100.0f), 0.2f, 10.0f, 0.01f);
-            Math_SmoothStepToF(&D_i5_801BE368[34], actor->obj.pos.y + RAND_FLOAT(500.0f), 0.2f, 20.0f, 0.01f);
-            if (actor->dmgType != DMG_NONE) {
+            Math_SmoothStepToF(&D_i5_801BE368[32], this->obj.pos.x + RAND_FLOAT(500.0f), 0.2f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[33], this->obj.pos.y + RAND_FLOAT(100.0f), 0.2f, 10.0f, 0.01f);
+            Math_SmoothStepToF(&D_i5_801BE368[34], this->obj.pos.y + RAND_FLOAT(500.0f), 0.2f, 20.0f, 0.01f);
+            if (this->dmgType != DMG_NONE) {
                 gPlayer[0].shields = 0;
             }
             if (((gGameFrameCount % 16) == 0)) {
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
             }
             D_i5_801BE368[9] = gPlayer[0].pos.x;
-            Math_SmoothStepToF(&actor->obj.pos.x, D_i5_801BE368[9], 0.2f, 35.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.y, gPlayer[0].pos.y, 0.3f, 15.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.pos.z, gPlayer[0].trueZpos, 0.3f, 20.0f, 0.01f);
-            Math_SmoothStepToF(&actor->obj.rot.x, 60.0f, 0.2f, 20.0f, 0.01f);
-            Macbeth_801A6984(actor);
+            Math_SmoothStepToF(&this->obj.pos.x, D_i5_801BE368[9], 0.2f, 35.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.y, gPlayer[0].pos.y, 0.3f, 15.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos, 0.3f, 20.0f, 0.01f);
+            Math_SmoothStepToF(&this->obj.rot.x, 60.0f, 0.2f, 20.0f, 0.01f);
+            Macbeth_801A6984(this);
             break;
         case 20:
-            Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Macbeth_8019A198(actor);
-            actor->vel.z = gActors[D_i5_801BE314].vel.z;
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
+            Macbeth_8019A198(this);
+            this->vel.z = gActors[D_i5_801BE314].vel.z;
             D_i5_801BE320[3]++;
             if (D_i5_801BE320[3] >= 60) {
                 D_i5_801BE320[3] = 0;
             }
-            Macbeth_801A7A30(actor);
-            Macbeth_801A6984(actor);
-            Math_SmoothStepToF(&actor->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
-            if (actor->obj.pos.z < -135200.0f) {
-                BonusText_Display(actor->obj.pos.x, actor->obj.pos.y + sp374, actor->obj.pos.z, 50);
+            Macbeth_801A7A30(this);
+            Macbeth_801A6984(this);
+            Math_SmoothStepToF(&this->obj.rot.y, 0.0f, 0.1f, 20.0f, 0.01f);
+            if (this->obj.pos.z < -135200.0f) {
+                BonusText_Display(this->obj.pos.x, this->obj.pos.y + sp374, this->obj.pos.z, 50);
                 if (1) {}
                 gHitCount += 51;
                 D_ctx_80177850 = 15;
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 20.0f);
-                Macbeth_801AD624(actor->vwork[2].x, actor->vwork[2].y, actor->vwork[2].z, RAND_FLOAT_CENTERED(10.0f),
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f);
+                Macbeth_801AD624(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z, RAND_FLOAT_CENTERED(10.0f),
                                  RAND_FLOAT(7.0f) + 7.0f, 2.0f, RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                  RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
                                  RAND_FLOAT_CENTERED(10.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 11, 1.0f);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 15;
-                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, actor->sfxSource, 4);
-                actor->state = 21;
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_L, this->sfxSource, 4);
+                this->state = 21;
             }
             break;
         case 21:
-            Object_Kill(&actor->obj, actor->sfxSource);
+            Object_Kill(&this->obj, this->sfxSource);
             break;
         default:
             break;
     }
-    if ((actor->dmgType != DMG_NONE) && (actor->state >= 2)) {
-        actor->dmgType = DMG_NONE;
-        if ((actor->dmgPart == 0) && (D_i5_801BE320[9] > 0) && ((gPlayer[0].trueZpos - actor->obj.pos.z) > 200.0f)) {
-            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
-            actor->iwork[7] = 15;
-            D_i5_801BE320[9] -= actor->damage;
-            Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80, actor->obj.pos.z + 50.0f,
-                             RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
-                             RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f),
-                             RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f),
-                             3, RAND_FLOAT(1.0f));
+    if ((this->dmgType != DMG_NONE) && (this->state >= 2)) {
+        this->dmgType = DMG_NONE;
+        if ((this->dmgPart == 0) && (D_i5_801BE320[9] > 0) && ((gPlayer[0].trueZpos - this->obj.pos.z) > 200.0f)) {
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
+            this->iwork[7] = 15;
+            D_i5_801BE320[9] -= this->damage;
+            Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y + 80, this->obj.pos.z + 50.0f, RAND_FLOAT_CENTERED(10.0f),
+                             RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
+                             RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
+                             RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[9] <= 0) {
-                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f, 5.0f);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f, 5.0f);
                 for (i = 0; i < 2; i++) {
-                    Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f,
+                    Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f,
                                      RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.0f), RAND_FLOAT_CENTERED(3.0f),
                                      RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.f),
                                      (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
                 }
-                Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y + 80.0f, actor->obj.pos.z + 50.0f,
+                Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f,
                                  RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
                                  RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
                                  RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
                                  (s32) (RAND_FLOAT(50.0f) + 70.0f), 8, 1.0f);
             }
-        } else if ((actor->dmgPart == 1) && (D_i5_801BE320[10] > 0) &&
-                   ((gPlayer[0].trueZpos - actor->obj.pos.z) > 200.0f)) {
-            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
-            actor->iwork[8] = 16;
-            D_i5_801BE320[10] -= actor->damage;
-            Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
+        } else if ((this->dmgPart == 1) && (D_i5_801BE320[10] > 0) &&
+                   ((gPlayer[0].trueZpos - this->obj.pos.z) > 200.0f)) {
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
+            this->iwork[8] = 16;
+            D_i5_801BE320[10] -= this->damage;
+            Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, RAND_FLOAT_CENTERED(10.0f),
                              RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                              RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                              RAND_FLOAT_CENTERED(30.0f), (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
             if (D_i5_801BE320[10] <= 0) {
-                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z, 6.0f);
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, 6.0f);
 
                 for (i = 0; i < 10; i++) {
-                    Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z,
+                    Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z,
                                      RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, RAND_FLOAT_CENTERED(3.0f),
                                      RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
                                      RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                                      (s32) (RAND_FLOAT(50.0f) + 70.0f), 3, RAND_FLOAT(1.0f));
                 }
-                Macbeth_801AD624(actor->obj.pos.x, actor->obj.pos.y - 30.0f, actor->obj.pos.z + 50.0f,
+                Macbeth_801AD624(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z + 50.0f,
                                  RAND_FLOAT_CENTERED(3.0f), RAND_FLOAT(15.0f), -2.0f, RAND_FLOAT(360.0f),
                                  RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
                                  RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f),
                                  (s32) (RAND_FLOAT(50.0f) + 70.0f), 9, 1.0f);
             }
         } else {
-            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
         }
     }
     if (D_i5_801BE320[4] != 0) {
-        if ((actor->state != 8) && (actor->state != 10) && (actor->state != 9)) {
+        if ((this->state != 8) && (this->state != 10) && (this->state != 9)) {
             D_i5_801BE320[5] = 1;
             D_i5_801BE320[7] = 1;
             D_i5_801BE320[6] = 1;
@@ -4728,7 +4735,7 @@ void Macbeth_Actor207_Update(Actor* actor) {
             D_i5_801BE320[31] = 30;
             D_i5_801BE368[12] = 0.0f;
             D_i5_801BE368[13] = 0.0f;
-            actor->state = 8;
+            this->state = 8;
         }
     }
     if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
@@ -4743,27 +4750,27 @@ void Macbeth_Actor207_Update(Actor* actor) {
         gBossFrameCount++;
     }
 
-    if (actor->iwork[7] > 0) {
-        actor->iwork[7]--;
+    if (this->iwork[7] > 0) {
+        this->iwork[7]--;
     }
 
-    if (actor->iwork[8] > 0) {
-        actor->iwork[8]--;
+    if (this->iwork[8] > 0) {
+        this->iwork[8]--;
     }
 
-    if (actor->iwork[9] > 0) {
-        actor->iwork[9]--;
+    if (this->iwork[9] > 0) {
+        this->iwork[9]--;
     }
-    D_i5_801BE368[14] = actor->vwork[0].x;
-    D_i5_801BE368[15] = actor->vwork[0].y;
-    D_i5_801BE368[16] = actor->vwork[0].z;
-    D_i5_801BE368[24] = actor->vwork[2].x;
-    D_i5_801BE368[25] = actor->vwork[2].y;
-    D_i5_801BE368[26] = actor->vwork[2].z;
-    D_i5_801BE368[27] = actor->vwork[4].x;
-    D_i5_801BE368[28] = actor->vwork[4].y;
-    D_i5_801BE368[29] = actor->vwork[4].z;
-    D_i5_801BE368[19] = actor->vel.z;
+    D_i5_801BE368[14] = this->vwork[0].x;
+    D_i5_801BE368[15] = this->vwork[0].y;
+    D_i5_801BE368[16] = this->vwork[0].z;
+    D_i5_801BE368[24] = this->vwork[2].x;
+    D_i5_801BE368[25] = this->vwork[2].y;
+    D_i5_801BE368[26] = this->vwork[2].z;
+    D_i5_801BE368[27] = this->vwork[4].x;
+    D_i5_801BE368[28] = this->vwork[4].y;
+    D_i5_801BE368[29] = this->vwork[4].z;
+    D_i5_801BE368[19] = this->vel.z;
     D_i5_801BE368[30] = RAND_FLOAT(1.0f);
     D_i5_801BE368[31] = RAND_FLOAT(1.0f);
     if (D_i5_801BE368[30] < 0.5f) {
@@ -4780,11 +4787,11 @@ void Macbeth_Actor207_Update(Actor* actor) {
         D_i5_801BE368[21] = 160.0f;
         D_i5_801BE368[22] = 16.0f;
     }
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (actor->state < 20)) {
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (this->state < 20)) {
         D_i5_801BE320[3] = 0;
         D_i5_801BE320[2] = 1;
         D_i5_801BE320[31] = 30;
-        actor->state = 20;
+        this->state = 20;
     }
 
     switch (D_i5_801BE320[2]) {
@@ -4827,8 +4834,8 @@ void Macbeth_Actor207_Update(Actor* actor) {
     }
 }
 
-bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* this = (Actor*) thisx;
     s16 sp62;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -4841,7 +4848,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 25:
         case 26:
         case 27:
-            if (actor->state == 9) {
+            if (this->state == 9) {
                 *dList = NULL;
                 return false;
             }
@@ -4908,7 +4915,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 
     switch (limbIndex) {
         case 14:
-            if ((actor->iwork[7] % 2) != 0) {
+            if ((this->iwork[7] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_28);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
@@ -4923,7 +4930,7 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 18:
         case 19:
         case 20:
-            if ((actor->iwork[8] % 2) != 0) {
+            if ((this->iwork[8] % 2) != 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_28);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
@@ -4935,86 +4942,86 @@ bool Macbeth_801ABC14(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
             break;
     }
 
-    if ((actor->iwork[9] % 2) != 0) {
+    if ((this->iwork[9] % 2) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_28);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
     return false;
 }
 
-void Macbeth_801AC1C0(s32 limbIndex, Vec3f* rot, void* data) {
+void Macbeth_801AC1C0(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
-    Actor* actor = (Actor*) data;
+    Actor* this = (Actor*) thisx;
 
     switch (limbIndex) {
         case 14:
-            Matrix_MultVec3f(gCalcMatrix, &sp2C, &actor->vwork[0]);
-            Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[1]);
+            Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[0]);
+            Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[1]);
             break;
         case 4:
-            Matrix_MultVec3f(gCalcMatrix, &sp2C, &actor->vwork[2]);
-            Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[3]);
+            Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[2]);
+            Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[3]);
             break;
         case 7:
-            Matrix_MultVec3f(gCalcMatrix, &sp2C, &actor->vwork[4]);
-            Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[5]);
+            Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[4]);
+            Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
             break;
     }
 }
 
-void Macbeth_Actor207_Draw(Actor* actor) {
+void Macbeth_Actor207_Draw(Actor* this) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-        if (((gPlayer[0].trueZpos - actor->obj.pos.z) > 7000.0f) ||
-            ((gPlayer[0].trueZpos - actor->obj.pos.z) < -1000.0f)) {
+        if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
+            ((gPlayer[0].trueZpos - this->obj.pos.z) < -1000.0f)) {
             return;
         }
     } else {
-        if (((gPlayer[0].trueZpos - actor->obj.pos.z) > 7000.0f) ||
-            ((gPlayer[0].trueZpos - actor->obj.pos.z) < -5000.0f)) {
+        if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
+            ((gPlayer[0].trueZpos - this->obj.pos.z) < -5000.0f)) {
             return;
         }
     }
 
     if (D_i5_801BE320[2] == 0) {
-        Matrix_Translate(gCalcMatrix, actor->fwork[25], 0.0f, 0.0f, MTXF_APPLY);
-        Matrix_RotateY(gCalcMatrix, actor->fwork[26] * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gCalcMatrix, actor->fwork[29] * M_DTOR, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, this->fwork[25], 0.0f, 0.0f, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, this->fwork[26] * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gCalcMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
         Animation_GetFrameData(&D_MA_601EA28, D_i5_801BE320[3], D_i5_801BE430);
     }
-    Animation_DrawSkeleton(3, D_MA_600D1E4, D_i5_801BE430, Macbeth_801ABC14, Macbeth_801AC1C0, actor, gCalcMatrix);
+    Animation_DrawSkeleton(3, D_MA_600D1E4, D_i5_801BE430, Macbeth_801ABC14, Macbeth_801AC1C0, this, gCalcMatrix);
 }
 
 void Macbeth_801AC42C(s32 arg0) {
 }
 
-void Macbeth_TrainCar1_Update(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_TrainCar1_Update(Actor* this) {
+    switch (this->state) {
         case 0:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
-            Macbeth_8019A728(actor);
-            if (actor->iwork[1] != 0) {
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
+            Macbeth_8019A728(this);
+            if (this->iwork[1] != 0) {
                 Radio_PlayMessage(gMsg_ID_17420, RCID_BOSS_MACBETH);
-                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_HATCH, actor->sfxSource, 4);
-                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035A94);
-                actor->state++;
+                AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_HATCH, this->sfxSource, 4);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_6035A94);
+                this->state++;
             }
-            Macbeth_8019A830(actor);
+            Macbeth_8019A830(this);
             break;
         case 1:
-            Macbeth_8019A198(actor);
-            Macbeth_801A015C(actor);
+            Macbeth_8019A198(this);
+            Macbeth_801A015C(this);
             Math_SmoothStepToF(&D_i5_801BE368[8], 160.0f, 0.1f, 3.0f, 0.01f);
-            Macbeth_8019A830(actor);
+            Macbeth_8019A830(this);
             break;
     }
-    if (actor->dmgType != DMG_NONE) {
-        actor->dmgType = DMG_NONE;
-        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, actor->sfxSource, 4);
+    if (this->dmgType != DMG_NONE) {
+        this->dmgType = DMG_NONE;
+        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
     }
 }
 
-bool Macbeth_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Macbeth_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     if ((limbIndex == 1) || (limbIndex == 3)) {
@@ -5029,17 +5036,17 @@ bool Macbeth_801AC5AC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801AC6B4(Actor* actor) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = 0.0f;
-    actor->obj.pos.y = 3000.0f;
-    actor->obj.pos.z = 0.0f;
-    actor->obj.rot.y = 180.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-    actor->animFrame = 1;
+void Macbeth_801AC6B4(Actor* this) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.pos.x = 0.0f;
+    this->obj.pos.y = 3000.0f;
+    this->obj.pos.z = 0.0f;
+    this->obj.rot.y = 180.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+    this->animFrame = 1;
 }
 
 static f32 D_i5_801BA768 = 0.0f;
@@ -5170,23 +5177,23 @@ void Macbeth_LevelStart(Player* player) {
     }
 }
 
-void Macbeth_801ACE40(Effect* effect) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(600.0f);
-    effect->obj.pos.y = gPlayer[0].cam.eye.y - 1000.0f;
-    effect->obj.pos.z = gPlayer[0].trueZpos - 2000.0f;
-    effect->obj.id = OBJ_EFFECT_CLOUDS;
-    effect->timer_50 = 80;
-    effect->unk_46 = 144;
-    effect->vel.x = 10.0f;
-    effect->vel.z = 40.0f;
-    effect->vel.y = 8.0f;
-    effect->scale2 = RAND_FLOAT(15.0f) + 10.0f;
+void Macbeth_801ACE40(Effect* this) {
+    Effect_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(600.0f);
+    this->obj.pos.y = gPlayer[0].cam.eye.y - 1000.0f;
+    this->obj.pos.z = gPlayer[0].trueZpos - 2000.0f;
+    this->obj.id = OBJ_EFFECT_CLOUDS;
+    this->timer_50 = 80;
+    this->unk_46 = 144;
+    this->vel.x = 10.0f;
+    this->vel.z = 40.0f;
+    this->vel.y = 8.0f;
+    this->scale2 = RAND_FLOAT(15.0f) + 10.0f;
     if (Rand_ZeroOne() < 0.5f) {
-        effect->obj.rot.z = 180.0f;
+        this->obj.rot.z = 180.0f;
     }
-    Object_SetInfo(&effect->info, effect->obj.id);
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Macbeth_801ACF6C(void) {
@@ -5287,27 +5294,27 @@ void Macbeth_801AD144(PlayerShot* shot) {
     }
 }
 
-void Macbeth_801AD554(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
+void Macbeth_801AD554(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                       f32 zRot, f32 argA, f32 argB, f32 argC, s16 argD, s16 argE, f32 scale2) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_357;
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-    effect->obj.rot.x = xRot;
-    effect->obj.rot.y = yRot;
-    effect->obj.rot.z = zRot;
-    effect->vel.x = xVel;
-    effect->vel.y = yVel;
-    effect->vel.z = zVel;
-    effect->scale2 = scale2;
-    effect->timer_50 = argD;
-    effect->unk_60.x = argA;
-    effect->unk_60.y = argB;
-    effect->unk_60.z = argC;
-    effect->unk_44 = argE;
-    Object_SetInfo(&effect->info, effect->obj.id);
+    Effect_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_EFFECT_357;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.x = xRot;
+    this->obj.rot.y = yRot;
+    this->obj.rot.z = zRot;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->scale2 = scale2;
+    this->timer_50 = argD;
+    this->unk_60.x = argA;
+    this->unk_60.y = argB;
+    this->unk_60.z = argC;
+    this->unk_44 = argE;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Macbeth_801AD624(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot,
@@ -5325,72 +5332,71 @@ void Macbeth_801AD624(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
 void Macbeth_801AD6E8(void) {
 }
 
-void Macbeth_MaBombDrop_Update(Actor* actor) {
+void Macbeth_MaBombDrop_Update(Actor* this) {
     Vec3f sp4C = { 0.0f, -10.0f, 0.0f };
 
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            if ((actor->timer_0BC == 0) &&
-                ((actor->vel.y -= 0.5f, (Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 1) != 0)) ||
-                 (actor->obj.pos.y < (gGroundHeight + 10.0f)) || (actor->iwork[0] != 0))) {
-                actor->vel.x = 0.0f;
-                actor->vel.y = 0.0f;
-                actor->vel.z = 0.0f;
-                if (actor->obj.pos.y < (gGroundHeight + 10.0f)) {
-                    actor->obj.pos.y = gGroundHeight;
+            if ((this->timer_0BC == 0) &&
+                ((this->vel.y -= 0.5f, (Object_CheckCollision(this->index, &this->obj.pos, &sp4C, 1) != 0)) ||
+                 (this->obj.pos.y < (gGroundHeight + 10.0f)) || (this->iwork[0] != 0))) {
+                this->vel.x = 0.0f;
+                this->vel.y = 0.0f;
+                this->vel.z = 0.0f;
+                if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
+                    this->obj.pos.y = gGroundHeight;
                 }
-                actor->state = 1;
-                actor->timer_0BC = 200;
-                actor->unk_046 = 192;
-                actor->scale = 2.5f;
-                actor->fwork[0] = 2.5f;
-                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, actor->sfxSource, 4);
-                func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 7.0f);
-                Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
-                                 5);
-                if (actor->obj.pos.y < (gGroundHeight + 10.0f)) {
-                    PlayerShot_SpawnEffect344(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
-                                              actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                this->state = 1;
+                this->timer_0BC = 200;
+                this->unk_046 = 192;
+                this->scale = 2.5f;
+                this->fwork[0] = 2.5f;
+                AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
+                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 7.0f);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+                if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
+                    PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
+                                              0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                 }
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 10;
             }
             break;
         case 1:
-            actor->scale += ((20.0f - actor->scale) * 0.1f);
-            if (actor->scale > 19.0f) {
-                actor->fwork[0] -= 0.3f;
-                actor->unk_046 -= 20;
-                if (actor->unk_046 < 0) {
-                    Object_Kill(&actor->obj, actor->sfxSource);
+            this->scale += ((20.0f - this->scale) * 0.1f);
+            if (this->scale > 19.0f) {
+                this->fwork[0] -= 0.3f;
+                this->unk_046 -= 20;
+                if (this->unk_046 < 0) {
+                    Object_Kill(&this->obj, this->sfxSource);
                 }
             }
-            actor->obj.rot.y = 180.0f - actor->obj.rot.y;
-            if ((fabsf(gPlayer[0].trueZpos - actor->obj.pos.z) < 40.0f) &&
-                (fabsf(gPlayer[0].pos.x - actor->obj.pos.x) < 80.0f)) {
-                if ((gPlayer[0].pos.y - actor->obj.pos.y > -5.0f) &&
-                    (gPlayer[0].pos.y - actor->obj.pos.y < (actor->scale * 35.0f)) && (gPlayer[0].mercyTimer == 0)) {
-                    Player_ApplyDamage(&gPlayer[0], 0, actor->info.damage);
+            this->obj.rot.y = 180.0f - this->obj.rot.y;
+            if ((fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 40.0f) &&
+                (fabsf(gPlayer[0].pos.x - this->obj.pos.x) < 80.0f)) {
+                if ((gPlayer[0].pos.y - this->obj.pos.y > -5.0f) &&
+                    (gPlayer[0].pos.y - this->obj.pos.y < (this->scale * 35.0f)) && (gPlayer[0].mercyTimer == 0)) {
+                    Player_ApplyDamage(&gPlayer[0], 0, this->info.damage);
                 }
             }
             break;
     }
 }
 
-void Macbeth_MaBombDrop_Draw(Actor* actor) {
-    switch (actor->state) {
+void Macbeth_MaBombDrop_Draw(Actor* this) {
+    switch (this->state) {
         case 0:
-            Graphics_SetScaleMtx(actor->scale);
+            Graphics_SetScaleMtx(this->scale);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
         case 1:
-            Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->scale, 2.5f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, this->fwork[0], this->scale, 2.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -5400,25 +5406,25 @@ void Macbeth_MaBombDrop_Draw(Actor* actor) {
     }
 }
 
-void Macbeth_801ADC08(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_MA_BOMBDROP;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
+void Macbeth_801ADC08(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_MA_BOMBDROP;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
     if (xVel == 999.9f) {
-        actor->iwork[0] = 1;
-        actor->vel.x = 0.0f;
+        this->iwork[0] = 1;
+        this->vel.x = 0.0f;
     } else {
-        actor->vel.x = xVel;
-        actor->iwork[0] = 0;
+        this->vel.x = xVel;
+        this->iwork[0] = 0;
     }
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
-    actor->timer_0BC = 0;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->timer_0BC = 0;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, this->sfxSource, 4);
 }
 
 void Macbeth_801ADCEC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -5432,19 +5438,19 @@ void Macbeth_801ADCEC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel
     }
 }
 
-void Macbeth_Spear_Update(Actor* actor) {
+void Macbeth_Spear_Update(Actor* this) {
     Vec3f sp3C = { 0.0f, -10.0f, 0.0f };
     s32 var_v0;
 
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -500.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -500.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            if (actor->timer_0BC == 0) {
-                actor->vel.y -= 2.5f;
-                if (actor->vel.y < 20.0f) {
+            if (this->timer_0BC == 0) {
+                this->vel.y -= 2.5f;
+                if (this->vel.y < 20.0f) {
                     switch (D_i5_801BE320[18]) {
                         case 0:
                         case 1:
@@ -5461,69 +5467,69 @@ void Macbeth_Spear_Update(Actor* actor) {
                             break;
                     }
 
-                    Math_SmoothStepToF(&actor->obj.pos.x,
-                                       gPlayer[0].pos.x + D_i5_801BA570[actor->iwork[2]][actor->iwork[1]] / var_v0,
-                                       0.2f, 30.0f, 0.01f);
-                    Math_SmoothStepToF(&actor->obj.pos.z,
-                                       gPlayer[0].trueZpos - D_i5_801BA638[actor->iwork[2]][actor->iwork[1]] / var_v0,
+                    Math_SmoothStepToF(&this->obj.pos.x,
+                                       gPlayer[0].pos.x + D_i5_801BA570[this->iwork[2]][this->iwork[1]] / var_v0, 0.2f,
+                                       30.0f, 0.01f);
+                    Math_SmoothStepToF(&this->obj.pos.z,
+                                       gPlayer[0].trueZpos - D_i5_801BA638[this->iwork[2]][this->iwork[1]] / var_v0,
                                        0.2f, 40.0f, 0.01f);
-                    Math_SmoothStepToF(&actor->obj.rot.z, RAND_FLOAT_CENTERED(15.0f), 0.1f, 10.0f, 0.01f);
+                    Math_SmoothStepToF(&this->obj.rot.z, RAND_FLOAT_CENTERED(15.0f), 0.1f, 10.0f, 0.01f);
 
-                    if (actor->fwork[2] < 1.0f) {
-                        actor->fwork[2] += 0.02;
+                    if (this->fwork[2] < 1.0f) {
+                        this->fwork[2] += 0.02;
                     }
                 }
             }
-            if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp3C, 1) != 0) ||
-                (actor->obj.pos.y < (gGroundHeight + 200.0f))) {
-                AUDIO_PLAY_SFX(NA_SE_OB_SPEAR_STICK, actor->sfxSource, 4);
+            if ((Object_CheckCollision(this->index, &this->obj.pos, &sp3C, 1) != 0) ||
+                (this->obj.pos.y < (gGroundHeight + 200.0f))) {
+                AUDIO_PLAY_SFX(NA_SE_OB_SPEAR_STICK, this->sfxSource, 4);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 5;
-                actor->vel.x = 0.0f;
-                actor->vel.y = 0.0f;
-                actor->vel.z = 0.0f;
-                if (actor->obj.pos.y < gGroundHeight + 200.0f) {
-                    actor->obj.pos.y = gGroundHeight + 200.0f;
+                this->vel.x = 0.0f;
+                this->vel.y = 0.0f;
+                this->vel.z = 0.0f;
+                if (this->obj.pos.y < gGroundHeight + 200.0f) {
+                    this->obj.pos.y = gGroundHeight + 200.0f;
                 }
-                actor->state = 1;
+                this->state = 1;
             }
-            if (actor->obj.pos.y < (gGroundHeight + 800.0f)) {
-                if (actor->iwork[0] > 10) {
-                    actor->iwork[0] -= 10;
-                } else if (actor->iwork[0] > 0) {
-                    actor->iwork[0] -= 1;
+            if (this->obj.pos.y < (gGroundHeight + 800.0f)) {
+                if (this->iwork[0] > 10) {
+                    this->iwork[0] -= 10;
+                } else if (this->iwork[0] > 0) {
+                    this->iwork[0] -= 1;
                 }
             }
             break;
         case 1:
-            if (actor->iwork[0] > 10) {
-                actor->iwork[0] -= 10;
-            } else if (actor->iwork[0] > 0) {
-                actor->iwork[0] -= 1;
+            if (this->iwork[0] > 10) {
+                this->iwork[0] -= 10;
+            } else if (this->iwork[0] > 0) {
+                this->iwork[0] -= 1;
             }
-            if (actor->dmgType != DMG_NONE) {
-                actor->dmgType = DMG_NONE;
-                actor->iwork[7] = 15;
-                actor->health -= actor->damage;
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                this->iwork[7] = 15;
+                this->health -= this->damage;
 
-                if (actor->health <= 0) {
-                    Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
-                    func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y - 200.0f,
-                                         actor->obj.pos.z, 8.0f);
-                    func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y,
-                                         actor->obj.pos.z, 8.0f);
-                    func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y + 200.0f,
-                                         actor->obj.pos.z, 7.0f);
-                    func_effect_8007D2C8(actor->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), actor->obj.pos.y + 400.0f,
-                                         actor->obj.pos.z, 7.0f);
-                    Object_Kill(&actor->obj, actor->sfxSource);
+                if (this->health <= 0) {
+                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y - 200.0f,
+                                         this->obj.pos.z, 8.0f);
+                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y, this->obj.pos.z,
+                                         8.0f);
+                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y + 200.0f,
+                                         this->obj.pos.z, 7.0f);
+                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y + 400.0f,
+                                         this->obj.pos.z, 7.0f);
+                    Object_Kill(&this->obj, this->sfxSource);
                 } else {
-                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
+                    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
                 }
             }
             break;
     }
-    actor->dmgType = DMG_NONE;
+    this->dmgType = DMG_NONE;
 }
 
 static Vec3f D_i5_801BA784[8] = {
@@ -5531,56 +5537,56 @@ static Vec3f D_i5_801BA784[8] = {
     { -40.0f, 10.0f, 30.0f }, { -41.0f, 10.0f, 10.0f }, { -43.0f, 10.0f, -10.0f }, { -45.0f, 10.0f, -30.0f },
 }; // unused?
 
-void Macbeth_Spear_Draw(Actor* actor) {
-    if (actor->state < 2) {
-        Graphics_SetScaleMtx(actor->scale);
-        if (actor->iwork[0] >= 128) {
+void Macbeth_Spear_Draw(Actor* this) {
+    if (this->state < 2) {
+        Graphics_SetScaleMtx(this->scale);
+        if (this->iwork[0] >= 128) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, actor->iwork[0]);
-            gDPSetEnvColor(gMasterDisp++, 255, 48, 0, actor->iwork[0]);
-            Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, MTXF_APPLY);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->iwork[0]);
+            gDPSetEnvColor(gMasterDisp++, 255, 48, 0, this->iwork[0]);
+            Matrix_Scale(gGfxMatrix, 1.0f, this->fwork[2], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_MA_6013060);
             RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-            Matrix_Scale(gGfxMatrix, 1.0f, actor->fwork[2], 1.0f, MTXF_APPLY);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 53, 53, 53, 255 - actor->iwork[0]);
-            gDPSetEnvColor(gMasterDisp++, 0, 0, 0, actor->iwork[0]);
+            Matrix_Scale(gGfxMatrix, 1.0f, this->fwork[2], 1.0f, MTXF_APPLY);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 53, 53, 53, 255 - this->iwork[0]);
+            gDPSetEnvColor(gMasterDisp++, 0, 0, 0, this->iwork[0]);
         } else {
             RCP_SetupDL(&gMasterDisp, SETUPDL_23);
-            if ((actor->iwork[7] % 2) != 0) {
+            if ((this->iwork[7] % 2) != 0) {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             }
-            if (actor->iwork[7] > 0) {
-                actor->iwork[7]--;
+            if (this->iwork[7] > 0) {
+                this->iwork[7]--;
             }
         }
         gSPDisplayList(gMasterDisp++, D_MA_600D480);
     }
 }
 
-void Macbeth_801AE4CC(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 yVel, f32 arg6, s16 arg7) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_MA_SPEAR;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->vel.y = yVel;
-    actor->iwork[0] = 255;
-    actor->fwork[1] = arg6;
-    actor->fwork[2] = 0.2f;
-    actor->timer_0BC = 0;
-    actor->iwork[1] = D_i5_801BE320[24]++;
-    actor->iwork[2] = arg7;
-    if (D_i5_801BA570[actor->iwork[2]][actor->iwork[1]] < 0.0f) {
-        actor->obj.rot.z = -180.0f;
+void Macbeth_801AE4CC(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 yVel, f32 arg6, s16 arg7) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_MA_SPEAR;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->vel.y = yVel;
+    this->iwork[0] = 255;
+    this->fwork[1] = arg6;
+    this->fwork[2] = 0.2f;
+    this->timer_0BC = 0;
+    this->iwork[1] = D_i5_801BE320[24]++;
+    this->iwork[2] = arg7;
+    if (D_i5_801BA570[this->iwork[2]][this->iwork[1]] < 0.0f) {
+        this->obj.rot.z = -180.0f;
     } else {
-        actor->obj.rot.z = 180.0f;
+        this->obj.rot.z = 180.0f;
     }
-    actor->health = 30;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
+    this->health = 30;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, this->sfxSource, 4);
 }
 
 void Macbeth_801AE610(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 yVel, f32 arg5, s16 arg6) {
@@ -5697,40 +5703,40 @@ void Macbeth_Effect379_Draw(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_ShockBox_Update(Actor* actor) {
-    if ((gPlayer[0].trueZpos - actor->obj.pos.z) < -300.0f) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+void Macbeth_ShockBox_Update(Actor* this) {
+    if ((gPlayer[0].trueZpos - this->obj.pos.z) < -300.0f) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    switch (actor->state) {
+    switch (this->state) {
         case 0:
-            actor->vel.y -= 0.5f;
-            if (actor->obj.pos.y < (gGroundHeight + 35.0f)) {
-                actor->vel.x = 0.0f;
-                actor->vel.y = 0.0f;
-                actor->vel.z = 0.0f;
-                if (actor->obj.pos.y < gGroundHeight + 35.0f) {
-                    actor->obj.pos.y = gGroundHeight + 35.0f;
+            this->vel.y -= 0.5f;
+            if (this->obj.pos.y < (gGroundHeight + 35.0f)) {
+                this->vel.x = 0.0f;
+                this->vel.y = 0.0f;
+                this->vel.z = 0.0f;
+                if (this->obj.pos.y < gGroundHeight + 35.0f) {
+                    this->obj.pos.y = gGroundHeight + 35.0f;
                 }
-                actor->state = 1;
-                actor->timer_0BC = 200;
-                AUDIO_PLAY_SFX(NA_SE_OB_SPARK_BEAM, actor->sfxSource, 4);
+                this->state = 1;
+                this->timer_0BC = 200;
+                AUDIO_PLAY_SFX(NA_SE_OB_SPARK_BEAM, this->sfxSource, 4);
             }
             break;
         case 1:
 
-            if (actor->fwork[0] < 10.0f) {
-                actor->fwork[0] += 1.0f;
+            if (this->fwork[0] < 10.0f) {
+                this->fwork[0] += 1.0f;
             }
 
-            if (actor->fwork[2] < 3.0f) {
-                actor->fwork[2] += 0.1f;
+            if (this->fwork[2] < 3.0f) {
+                this->fwork[2] += 0.1f;
             }
 
             if (((gGameFrameCount % 16) == 0)) {
-                Effect_Effect390_Spawn(actor->obj.pos.x - 35.0f, actor->obj.pos.y + 15.0f, actor->obj.pos.z, -3.0f,
-                                       0.0f, 0.0f, 0.1f, 20);
-                Effect_Effect390_Spawn(actor->obj.pos.x + 35.0f, actor->obj.pos.y + 15.0f, actor->obj.pos.z, 3.0f, 0.0f,
+                Effect_Effect390_Spawn(this->obj.pos.x - 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, -3.0f, 0.0f,
+                                       0.0f, 0.1f, 20);
+                Effect_Effect390_Spawn(this->obj.pos.x + 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, 3.0f, 0.0f,
                                        0.0f, 0.1f, 20);
             }
             break;
@@ -5738,52 +5744,52 @@ void Macbeth_ShockBox_Update(Actor* actor) {
             break;
     }
     if ((gGameFrameCount % 2) != 0) {
-        actor->fwork[1] = 255.0f;
+        this->fwork[1] = 255.0f;
     } else {
-        actor->fwork[1] = 32.0f;
+        this->fwork[1] = 32.0f;
     }
-    if ((actor->dmgType != DMG_NONE) && (actor->dmgPart == 0)) {
-        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
-        actor->dmgType = DMG_NONE;
-        actor->health -= actor->damage;
-        actor->timer_0C6 = 15;
-        if (actor->health <= 0) {
-            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EXPLOSION_S);
-            func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
-            Object_Kill(&actor->obj, actor->sfxSource);
+    if ((this->dmgType != DMG_NONE) && (this->dmgPart == 0)) {
+        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
+        this->dmgType = DMG_NONE;
+        this->health -= this->damage;
+        this->timer_0C6 = 15;
+        if (this->health <= 0) {
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EXPLOSION_S);
+            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
+            Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void Macbeth_ShockBox_Draw(Actor* actor) {
+void Macbeth_ShockBox_Draw(Actor* this) {
     gSPDisplayList(gMasterDisp++, D_MA_6015510);
-    Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[2], 1.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, this->fwork[0], this->fwork[2], 1.0f, MTXF_APPLY);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, -10.0f, 0.0f, MTXF_APPLY);
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 111, 175, 64, actor->fwork[1]);
-    gDPSetEnvColor(gMasterDisp++, 255, 255, 208, actor->fwork[1]);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 111, 175, 64, this->fwork[1]);
+    gDPSetEnvColor(gMasterDisp++, 255, 255, 208, this->fwork[1]);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_6012F50);
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Macbeth_801AF134(Actor* actor, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_MA_SHOCK_BOX;
-    actor->obj.pos.x = xPos;
-    actor->obj.pos.y = yPos;
-    actor->obj.pos.z = zPos;
-    actor->vel.x = xVel;
-    actor->vel.y = yVel;
-    actor->vel.z = zVel;
-    actor->timer_0BC = 0;
-    actor->health = 30;
-    actor->fwork[0] = 1.0f;
-    actor->fwork[2] = 1.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
+void Macbeth_801AF134(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_MA_SHOCK_BOX;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->timer_0BC = 0;
+    this->health = 30;
+    this->fwork[0] = 1.0f;
+    this->fwork[2] = 1.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, this->sfxSource, 4);
 }
 
 void Macbeth_801AF200(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -5805,34 +5811,34 @@ static f32 D_i5_801BA80C[5] = { 500.0f, 600.0f, 200.0f, 4500.0f, 2300.0f };
 
 static f32 D_i5_801BA820[5] = { 90.0f, -90.0f, 25.0f, 0.0f, 225.0f };
 
-void Macbeth_801AF27C(Actor* actor, s32 arg1) {
+void Macbeth_801AF27C(Actor* this, s32 arg1) {
     Player* player = &gPlayer[0];
 
-    Actor_Initialize(actor);
-    actor->obj.pos.x = D_i5_801BA7E4[arg1] + player->pos.x;
-    actor->obj.pos.y = D_i5_801BA7F8[arg1] + player->pos.y;
-    actor->obj.pos.z = D_i5_801BA80C[arg1] + player->pos.z;
-    actor->fwork[7] = RAND_FLOAT(360.0f);
-    actor->fwork[8] = RAND_FLOAT(360.0f);
-    actor->vel.x = player->vel.x;
-    actor->vel.y = player->vel.y;
-    actor->vel.z = player->vel.z;
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.rot.y = 180.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.pos.x = D_i5_801BA7E4[arg1] + player->pos.x;
+    this->obj.pos.y = D_i5_801BA7F8[arg1] + player->pos.y;
+    this->obj.pos.z = D_i5_801BA80C[arg1] + player->pos.z;
+    this->fwork[7] = RAND_FLOAT(360.0f);
+    this->fwork[8] = RAND_FLOAT(360.0f);
+    this->vel.x = player->vel.x;
+    this->vel.y = player->vel.y;
+    this->vel.z = player->vel.z;
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.rot.y = 180.0f;
+    Object_SetInfo(&this->info, this->obj.id);
     if (arg1 < 3) {
-        actor->iwork[11] = 1;
-        actor->drawShadow = true;
-        actor->fwork[3] = D_i5_801BA820[arg1];
-        actor->state = 30;
-        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+        this->iwork[11] = 1;
+        this->drawShadow = true;
+        this->fwork[3] = D_i5_801BA820[arg1];
+        this->state = 30;
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        actor->animFrame = 1;
-        actor->state = 21;
-        actor->obj.rot.z = 32.5f;
-        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-        actor->fwork[9] = 20.0f;
+        this->animFrame = 1;
+        this->state = 21;
+        this->obj.rot.z = 32.5f;
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+        this->fwork[9] = 20.0f;
     }
 }
 
@@ -5873,19 +5879,19 @@ static Vec3f D_i5_801BA834[2] = {
 
 static f32 D_i5_801BA84C[2] = { 0.0f, 60.0f };
 
-void Macbeth_801AF628(Actor* actor, s32 arg1) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[arg1].x;
-    actor->obj.pos.y = D_i5_801BA834[arg1].y;
-    actor->obj.pos.z = D_i5_801BA834[arg1].z - gPathProgress;
-    actor->animFrame = 37;
-    actor->obj.rot.y = D_i5_801BA84C[arg1];
-    actor->iwork[4] = actor->iwork[5] = 192;
-    actor->iwork[0] = actor->iwork[1] = actor->iwork[2] = actor->iwork[7] = actor->iwork[3] = 255;
-    actor->iwork[6] = 128;
-    Object_SetInfo(&actor->info, actor->obj.id);
+void Macbeth_801AF628(Actor* this, s32 arg1) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[arg1].x;
+    this->obj.pos.y = D_i5_801BA834[arg1].y;
+    this->obj.pos.z = D_i5_801BA834[arg1].z - gPathProgress;
+    this->animFrame = 37;
+    this->obj.rot.y = D_i5_801BA84C[arg1];
+    this->iwork[4] = this->iwork[5] = 192;
+    this->iwork[0] = this->iwork[1] = this->iwork[2] = this->iwork[7] = this->iwork[3] = 255;
+    this->iwork[6] = 128;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Macbeth_801AF70C(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
@@ -6371,7 +6377,7 @@ void Macbeth_LevelComplete2(Player* player) {
             }
             break;
         case 7:
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4) == 0) {
                 func_effect_8007D0E0(player->pos.x - 1750.0f + RAND_FLOAT_CENTERED(700.0f), 10.0f,
                                      player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(700.0f), 5.0f);
                 Effect_Effect343_Spawn(player->pos.x - 1800.0f + RAND_FLOAT_CENTERED(40.0f), -100.0f,
@@ -6598,7 +6604,7 @@ void Macbeth_LevelComplete2(Player* player) {
     }
 }
 
-void Macbeth_801B28BC(Actor* actor) {
+void Macbeth_801B28BC(Actor* this) {
     Vec3f sp5C;
     Vec3f sp50;
     Vec3f sp44;
@@ -6606,163 +6612,163 @@ void Macbeth_801B28BC(Actor* actor) {
     f32 sp3C;
 
     player = &gPlayer[0];
-    actor->fwork[7] += 3.0f;
-    actor->rot_0F4.z = SIN_DEG(actor->fwork[7]) * 1.5f;
-    actor->fwork[8] += 2.0f;
-    sp3C = SIN_DEG(actor->fwork[8]) * 10.0f;
+    this->fwork[7] += 3.0f;
+    this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
+    this->fwork[8] += 2.0f;
+    sp3C = SIN_DEG(this->fwork[8]) * 10.0f;
 
-    switch (actor->state) {
+    switch (this->state) {
         case 10:
-            actor->fwork[3] += D_i5_801BA864;
-            Matrix_RotateY(gCalcMatrix, actor->fwork[3] * M_DTOR, MTXF_NEW);
+            this->fwork[3] += D_i5_801BA864;
+            Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
             sp5C.x = 0.0f;
             sp5C.y = D_i5_801BA884;
             sp5C.z = D_i5_801BA894[4];
             Math_SmoothStepToF(&D_i5_801BA894[4], 100.0f, 0.05f, 0.5f, 0.01f);
             Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp44);
-            actor->fwork[0] = sp44.x;
-            actor->fwork[1] = sp44.y;
-            actor->fwork[2] = sp44.z - 100.0f;
-            Math_SmoothStepToF(&actor->obj.rot.z, SIN_DEG(actor->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1] + player->pos.y + sp3C, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.z, actor->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
+            this->fwork[0] = sp44.x;
+            this->fwork[1] = sp44.y;
+            this->fwork[2] = sp44.z - 100.0f;
+            Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp3C, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
         case 11:
-            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
-            actor->timer_0BC = 10;
-            actor->state++;
-            actor->fwork[29] = 5.0f;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->timer_0BC = 10;
+            this->state++;
+            this->fwork[29] = 5.0f;
             /* fallthrough */
         case 12:
-            Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.x, player->pos.x - 150.0f, 0.1f, 1.0f, 0.0f);
-            actor->iwork[11] = 2;
-            Math_SmoothStepToF(&actor->fwork[9], 20.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.1f, 1.0f, 0.0f);
-            if (actor->timer_0BC <= 0) {
-                actor->timer_0BC = 10;
-                actor->state++;
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, player->pos.x - 150.0f, 0.1f, 1.0f, 0.0f);
+            this->iwork[11] = 2;
+            Math_SmoothStepToF(&this->fwork[9], 20.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 1.0f, 0.0f);
+            if (this->timer_0BC <= 0) {
+                this->timer_0BC = 10;
+                this->state++;
             }
             break;
         case 13:
-            Math_SmoothStepToF(&actor->obj.pos.x, player->pos.x - 150.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.rot.x, -120.0f, 0.1f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&actor->fwork[9], -20.0f, 0.05f, 0.2f, 0.0f);
-            actor->fwork[29] = 3.0f;
-            if (actor->timer_0BC <= 0) {
-                actor->state++;
+            Math_SmoothStepToF(&this->obj.pos.x, player->pos.x - 150.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.x, -120.0f, 0.1f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[9], -20.0f, 0.05f, 0.2f, 0.0f);
+            this->fwork[29] = 3.0f;
+            if (this->timer_0BC <= 0) {
+                this->state++;
             }
             break;
         case 14:
-            Math_SmoothStepToF(&actor->obj.pos.x, player->pos.x - 150.0f, 0.1f, 3.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.rot.x, -120.0f, 0.1f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&actor->fwork[9], 22.0f, 0.05f, 0.2f, 0.0f);
-            if (actor->obj.rot.x <= -115.0f) {
-                Math_SmoothStepToF(&actor->obj.rot.z, 800.0f, 0.1f, 18.0f, 0.0f);
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+            Math_SmoothStepToF(&this->obj.pos.x, player->pos.x - 150.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.x, -120.0f, 0.1f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[9], 22.0f, 0.05f, 0.2f, 0.0f);
+            if (this->obj.rot.x <= -115.0f) {
+                Math_SmoothStepToF(&this->obj.rot.z, 800.0f, 0.1f, 18.0f, 0.0f);
+                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                 sp5C.x = 0.0f;
                 sp5C.y = 70.0f;
                 sp5C.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp44);
-                Effect_Effect393_Spawn(actor->obj.pos.x + sp44.x, actor->obj.pos.y + sp44.y, actor->obj.pos.z + sp44.z,
+                Effect_Effect393_Spawn(this->obj.pos.x + sp44.x, this->obj.pos.y + sp44.y, this->obj.pos.z + sp44.z,
                                        3.1f);
             }
             break;
         case 15:
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.05f, 0.05f, 0);
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 180.0f, 1.0f, 0.3f, 0);
-            Math_SmoothStepToF(&actor->obj.pos.y, player->pos.y + 240.0f, 0.03f, 20.0f, 0.0f);
-            if (actor->obj.rot.y == 180.0f) {
-                actor->state++;
+            Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.05f, 0.05f, 0);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 180.0f, 1.0f, 0.3f, 0);
+            Math_SmoothStepToF(&this->obj.pos.y, player->pos.y + 240.0f, 0.03f, 20.0f, 0.0f);
+            if (this->obj.rot.y == 180.0f) {
+                this->state++;
             }
             break;
         case 16:
-            actor->fwork[0] += 2.0f;
-            actor->obj.rot.y = 180.0f - actor->fwork[0];
-            Math_SmoothStepToAngle(&actor->obj.rot.z, 62.0f, 1.0f, 0.5f, 0);
-            if (actor->fwork[0] > 180.0f) {
-                actor->state++;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
-                actor->timer_0BC = 160;
-                actor->fwork[29] = 5.0f;
+            this->fwork[0] += 2.0f;
+            this->obj.rot.y = 180.0f - this->fwork[0];
+            Math_SmoothStepToAngle(&this->obj.rot.z, 62.0f, 1.0f, 0.5f, 0);
+            if (this->fwork[0] > 180.0f) {
+                this->state++;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+                this->timer_0BC = 160;
+                this->fwork[29] = 5.0f;
             }
             break;
         case 17:
-            Math_SmoothStepToAngle(&actor->obj.rot.y, 345.0f, 1.0f, 0.5f, 0.01f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 328.0f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&actor->fwork[9], 35.0f, 0.1f, 0.5f, 0.0f);
-            actor->fwork[29] = 3.0f;
-            Math_SmoothStepToF(&actor->obj.rot.z, 405.0f, 0.1f, 10.0f, 0.0f);
-            if (actor->timer_0BC == 0) {
-                Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-                Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+            Math_SmoothStepToAngle(&this->obj.rot.y, 345.0f, 1.0f, 0.5f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 328.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[9], 35.0f, 0.1f, 0.5f, 0.0f);
+            this->fwork[29] = 3.0f;
+            Math_SmoothStepToF(&this->obj.rot.z, 405.0f, 0.1f, 10.0f, 0.0f);
+            if (this->timer_0BC == 0) {
+                Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                 sp5C.x = 0.0f;
                 sp5C.y = 70.0f;
                 sp5C.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp44);
-                Effect_Effect393_Spawn(actor->obj.pos.x + sp44.x, actor->obj.pos.y + sp44.y, actor->obj.pos.z + sp44.z,
+                Effect_Effect393_Spawn(this->obj.pos.x + sp44.x, this->obj.pos.y + sp44.y, this->obj.pos.z + sp44.z,
                                        3.1f);
             }
             break;
         case 20:
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 345.0f, 0.01f, actor->fwork[4], 0.0f);
-            Math_SmoothStepToF(&actor->vel.z, -300.0f, 0.1f, 0.25f, 0.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 345.0f, 0.01f, this->fwork[4], 0.0f);
+            Math_SmoothStepToF(&this->vel.z, -300.0f, 0.1f, 0.25f, 0.0f);
             break;
         case 21:
-            Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.1f, 0.25f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.x, player->pos.x, 0.1f, 5.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.y, 800.0f, 0.1f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 0.25f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, player->pos.x, 0.1f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, 800.0f, 0.1f, 10.0f, 0.0f);
             break;
         case 22:
-            Math_SmoothStepToAngle(&actor->fwork[4], 0.25f, 0.1f, 0.005f, 0.0f);
-            Math_SmoothStepToAngle(&actor->obj.rot.x, 345.0f, 0.01f, actor->fwork[4], 0.0f);
+            Math_SmoothStepToAngle(&this->fwork[4], 0.25f, 0.1f, 0.005f, 0.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, 345.0f, 0.01f, this->fwork[4], 0.0f);
             break;
         case 30:
-            actor->fwork[3] += D_i5_801BA854[actor->index];
-            Matrix_RotateY(gCalcMatrix, actor->fwork[3] * M_DTOR, MTXF_NEW);
+            this->fwork[3] += D_i5_801BA854[this->index];
+            Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
             sp5C.x = 0.0f;
-            sp5C.y = D_i5_801BA874[actor->index];
-            sp5C.z = D_i5_801BA894[actor->index];
-            Math_SmoothStepToF(&D_i5_801BA894[actor->index], 250.0f, 0.05f, 0.5f, 0.01f);
+            sp5C.y = D_i5_801BA874[this->index];
+            sp5C.z = D_i5_801BA894[this->index];
+            Math_SmoothStepToF(&D_i5_801BA894[this->index], 250.0f, 0.05f, 0.5f, 0.01f);
             Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp44);
-            actor->fwork[0] = sp44.x;
-            actor->fwork[1] = sp44.y;
-            actor->fwork[2] = sp44.z - 100.0f;
-            Math_SmoothStepToF(&actor->obj.rot.z, SIN_DEG(actor->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.y, actor->fwork[1] + player->pos.y + sp3C, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.pos.z, actor->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
+            this->fwork[0] = sp44.x;
+            this->fwork[1] = sp44.y;
+            this->fwork[2] = sp44.z - 100.0f;
+            Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp3C, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
         case 31:
-            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
-            actor->drawShadow = false;
-            actor->timer_0BC = 20;
-            actor->state++;
-            actor->fwork[29] = 5.0f;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->drawShadow = false;
+            this->timer_0BC = 20;
+            this->state++;
+            this->fwork[29] = 5.0f;
             /* fallthrough */
         case 32:
-            if (actor->timer_0BC <= 0) {
-                actor->drawShadow = true;
+            if (this->timer_0BC <= 0) {
+                this->drawShadow = true;
             }
-            actor->iwork[11] = 2;
-            Math_SmoothStepToF(&actor->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
-            Math_SmoothStepToF(&actor->fwork[9], 25.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
+            this->iwork[11] = 2;
+            Math_SmoothStepToF(&this->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[9], 25.0f, 0.1f, 2.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
             break;
     }
-    Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
-    sp5C.z = actor->fwork[9];
+    sp5C.z = this->fwork[9];
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
-    actor->vel.x = sp50.x;
-    actor->vel.y = sp50.y;
-    actor->vel.z = sp50.z;
+    this->vel.x = sp50.x;
+    this->vel.y = sp50.y;
+    this->vel.z = sp50.z;
 }
 
 static f32 D_i5_801BA8B4[5] = { -100.0f, 380.0f, -450.0f, 0.0f, -340.0f };
@@ -6773,35 +6779,35 @@ static f32 D_i5_801BA8DC[5] = { 500.0f, 500.0f, 600.0f, 2500.0f, 590.0f };
 
 static f32 D_i5_801BA8F0[4] = { 90.0f, -90.0f, 0.0f, 0.0f };
 
-void Macbeth_801B3554(Actor* actor, s32 arg1) {
+void Macbeth_801B3554(Actor* this, s32 arg1) {
     Player* player;
 
     player = &gPlayer[0];
-    Actor_Initialize(actor);
-    actor->obj.pos.x = player->pos.x + D_i5_801BA8B4[arg1];
-    actor->obj.pos.y = player->pos.y + D_i5_801BA8C8[arg1];
-    actor->obj.pos.z = player->pos.z + D_i5_801BA8DC[arg1];
-    actor->fwork[7] = RAND_FLOAT(360.0f);
-    actor->fwork[8] = RAND_FLOAT(360.0f);
-    actor->vel.x = player->vel.x;
-    actor->vel.y = player->vel.y;
-    actor->vel.z = player->vel.z;
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.rot.y = 180.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.pos.x = player->pos.x + D_i5_801BA8B4[arg1];
+    this->obj.pos.y = player->pos.y + D_i5_801BA8C8[arg1];
+    this->obj.pos.z = player->pos.z + D_i5_801BA8DC[arg1];
+    this->fwork[7] = RAND_FLOAT(360.0f);
+    this->fwork[8] = RAND_FLOAT(360.0f);
+    this->vel.x = player->vel.x;
+    this->vel.y = player->vel.y;
+    this->vel.z = player->vel.z;
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.rot.y = 180.0f;
+    Object_SetInfo(&this->info, this->obj.id);
     if (arg1 < 3) {
-        actor->iwork[11] = 1;
-        actor->drawShadow = true;
-        actor->fwork[3] = D_i5_801BA8F0[arg1];
-        actor->state = 30;
-        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+        this->iwork[11] = 1;
+        this->drawShadow = true;
+        this->fwork[3] = D_i5_801BA8F0[arg1];
+        this->state = 30;
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
         return;
     }
-    actor->animFrame = 1;
-    actor->state = 20;
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-    actor->fwork[9] = 20.0f;
+    this->animFrame = 1;
+    this->state = 20;
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+    this->fwork[9] = 20.0f;
 }
 
 static f32 D_i5_801BA900 = 90.0f;

@@ -298,7 +298,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_ME_HOPBOT */  {(void*) ActorHopBot_Draw, 1, (ObjectFunc) ActorHopBot_Update,        aMeHopBotHitbox,   100.0f,  0, 1, 39, 0, 180.0f,  1 },
   /* OBJ_ACTOR_SLIPPY_SX */  {(void*) SectorX_SxSlippy_Draw, 1, (ObjectFunc) SectorX_SxSlippy_Update,       gNoHitbox,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_SY_ROBOT */  {(void*) SectorY_SyRobot_Draw, 1, (ObjectFunc) SectorY_SyRobot_Update,        aSyRobotHitbox,  1000.0f,  0, 0, 39, 0,   1.0f,  1 },
-  /* OBJ_ACTOR_MA_LOCOMOTIVE */  {(void*) Macbeth_Train_Draw, 1, (ObjectFunc) Macbeth_Locomotive_Update,        aMaLocomotiveHitbox, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
+  /* OBJ_ACTOR_MA_LOCOMOTIVE */  {(void*) Macbeth_Train_Draw, 1, (ObjectFunc) Macbeth_MaLocomotive_Update,        aMaLocomotiveHitbox, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
   /* OBJ_ACTOR_MA_TRAIN_CAR_1 */  {(void*) Macbeth_Train_Draw, 1, (ObjectFunc) Macbeth_TrainCar1_Update,        aMaTrainCar1Hitbox, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
   /* OBJ_ACTOR_207 */  {(void*) Macbeth_Actor207_Draw, 2, (ObjectFunc) Macbeth_Actor207_Update,        aMaActor207Hitbox, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },
   /* OBJ_ACTOR_MA_TRAIN_CAR_2 */  {(void*) Macbeth_Train_Draw, 1, (ObjectFunc) Macbeth_TrainCar2_Update,        aMaTrainCar2Hitbox, 20000.0f,  0, 0, 40, 1,   0.0f,  0 },

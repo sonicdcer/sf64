@@ -84,7 +84,7 @@ void Titania_TiPillar_Update(Scenery*);
 void Titania_TiPillar_Draw(Scenery*);
 void Titania_TiGoras_Update(Boss*);
 void Titania_TiGoras_Draw(Boss*);
-void Macbeth_Locomotive_Update(Actor*);
+void Macbeth_MaLocomotive_Update(Actor*);
 void Macbeth_TrainCar4_Update(Actor*);
 void Macbeth_TrainCar3_Update(Actor*);
 void Macbeth_TrainCar5_Update(Actor*);

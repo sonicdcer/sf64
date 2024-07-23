@@ -1140,7 +1140,7 @@ typedef Actor MeteoBall;
 typedef Actor ActorHopBot;
 typedef Actor SxSlippy;
 typedef Actor SyRobot;
-typedef Actor Actor205;
+typedef Actor MaLocomotive;
 typedef Actor TrainCar1;
 typedef Actor Actor207;
 typedef Actor TrainCar2;
