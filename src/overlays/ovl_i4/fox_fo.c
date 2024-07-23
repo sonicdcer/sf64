@@ -457,7 +457,7 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
     }
 }
 
-void Fortuna_SetupDebris(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void Fortuna_ActorDebris_Setup(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_DEBRIS;
@@ -476,12 +476,12 @@ void Fortuna_SetupDebris(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVel, f3
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Fortuna_SpawnDebris(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void Fortuna_ActorDebris_Spawn(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 30; i--) {
         if (gActors[i].obj.status == 0) {
-            Fortuna_SetupDebris(&gActors[i], pos, rot, xVel, yVel, zVel, state);
+            Fortuna_ActorDebris_Setup(&gActors[i], pos, rot, xVel, yVel, zVel, state);
             break;
         }
     }
@@ -491,14 +491,14 @@ void Fortuna_FoRadar_Update(FoRadar* this) {
     this->fwork[0] += 2.0f;
     if (this->state == 2) {
         this->state = 3;
-        Fortuna_SpawnDebris(this->vwork, &this->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                            RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_SpawnDebris(&this->vwork[1], &this->vwork[7], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                            RAND_FLOAT_CENTERED(50.0f), 36);
-        Fortuna_SpawnDebris(&this->vwork[2], &this->vwork[8], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                            RAND_FLOAT_CENTERED(50.0f), 35);
-        Fortuna_SpawnDebris(&this->vwork[3], &this->vwork[9], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
-                            RAND_FLOAT_CENTERED(50.0f), 35);
+        Fortuna_ActorDebris_Spawn(this->vwork, &this->vwork[6], RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT(10.0f) + 10.0f,
+                                  RAND_FLOAT_CENTERED(50.0f), 36);
+        Fortuna_ActorDebris_Spawn(&this->vwork[1], &this->vwork[7], RAND_FLOAT_CENTERED(50.0f),
+                                  RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(50.0f), 36);
+        Fortuna_ActorDebris_Spawn(&this->vwork[2], &this->vwork[8], RAND_FLOAT_CENTERED(50.0f),
+                                  RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(50.0f), 35);
+        Fortuna_ActorDebris_Spawn(&this->vwork[3], &this->vwork[9], RAND_FLOAT_CENTERED(50.0f),
+                                  RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(50.0f), 35);
         Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
         this->itemDrop = DROP_SILVER_RING;
         this->obj.pos.y += 230.0f;
@@ -517,9 +517,9 @@ void Fortuna_FoRadar_Update(FoRadar* this) {
     }
 }
 
-void Fortuna_Radar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
+void Fortuna_FoRadar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f vec = { 0.0f, 0.0f, 0.0f };
-    FoRadar* actor = (FoRadar*) ptr;
+    FoRadar* actor = (FoRadar*) thisx;
 
     if (actor->state == 1) {
         switch (limbIndex) {
@@ -556,8 +556,8 @@ void Fortuna_Radar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* ptr) {
     }
 }
 
-bool Fortuna_Radar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* ptr) {
-    FoRadar* actor = (FoRadar*) ptr;
+bool Fortuna_FoRadar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    FoRadar* actor = (FoRadar*) thisx;
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
@@ -590,8 +590,8 @@ bool Fortuna_Radar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3
 void Fortuna_FoRadar_Draw(FoRadar* this) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_FO_6007854, 0, frameTable);
-    Animation_DrawSkeleton(3, D_FO_6007980, frameTable, Fortuna_Radar_OverrideLimbDraw, Fortuna_Radar_PostLimbDraw,
+    Animation_GetFrameData(&aFoRadarAnim, 0, frameTable);
+    Animation_DrawSkeleton(3, aFoRadarSkel, frameTable, Fortuna_FoRadar_OverrideLimbDraw, Fortuna_FoRadar_PostLimbDraw,
                            this, gCalcMatrix);
 
     if (this->state == 1) {
@@ -618,7 +618,7 @@ f32 sLevelCompleteCsActorInitPosX[] = { -200.0f, 200.0f, -50.0f, -2000.0f };
 f32 sLevelCompleteCsActorInitPosY[] = { 0.0f, 30.0f, -90.0f, 0.0f };
 f32 sLevelCompleteCsActorInitPosZ[] = { -100.0f, -200.0f, -300.0f, 0.0f };
 
-void Fortuna_LevelCompleteCsSpawnTeam(ActorCutscene* this, s32 actorIdx) {
+void Fortuna_LevelComplete_CsSpawnTeam(ActorCutscene* this, s32 actorIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -849,7 +849,7 @@ void Fortuna_LevelComplete(Player* player) {
                 Audio_StartPlayerNoise(0);
 
                 if (gMissionStatus == MISSION_COMPLETE) {
-                    Fortuna_LevelCompleteCsSpawnTeam(greatFox, 3);
+                    Fortuna_LevelComplete_CsSpawnTeam(greatFox, 3);
                 }
             }
             break;
@@ -868,13 +868,13 @@ void Fortuna_LevelComplete(Player* player) {
             if (gCsFrameCount == 100) {
                 player->baseSpeed = 30.0f;
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                    Fortuna_LevelCompleteCsSpawnTeam(falco, 0);
+                    Fortuna_LevelComplete_CsSpawnTeam(falco, 0);
                 }
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                    Fortuna_LevelCompleteCsSpawnTeam(slippy, 1);
+                    Fortuna_LevelComplete_CsSpawnTeam(slippy, 1);
                 }
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                    Fortuna_LevelCompleteCsSpawnTeam(peppy, 2);
+                    Fortuna_LevelComplete_CsSpawnTeam(peppy, 2);
                 }
             }
 
@@ -1126,26 +1126,26 @@ void Fortuna_LevelComplete(Player* player) {
 
         case 20:
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Fortuna_LevelCompleteCsSpawnTeam(falco, 0);
+                Fortuna_LevelComplete_CsSpawnTeam(falco, 0);
                 falco->obj.pos.x = (player->pos.x - 100.0f) - 400.0f;
                 falco->obj.pos.y = player->pos.y + 400.0f;
                 falco->obj.pos.z = player->trueZpos - 150.0f;
                 falco->obj.rot.z = 90.0f;
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Fortuna_LevelCompleteCsSpawnTeam(slippy, 1);
+                Fortuna_LevelComplete_CsSpawnTeam(slippy, 1);
                 slippy->obj.pos.x = player->pos.x + 100.0f + 400.0f;
                 slippy->obj.pos.y = player->pos.y + 400.0f;
                 slippy->obj.pos.z = player->trueZpos - 150.0f;
                 slippy->obj.rot.z = -90.0f;
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Fortuna_LevelCompleteCsSpawnTeam(peppy, 2);
+                Fortuna_LevelComplete_CsSpawnTeam(peppy, 2);
                 peppy->obj.pos.x = player->pos.x;
                 peppy->obj.pos.y = player->pos.y + 100.0f + 400.0f;
                 peppy->obj.pos.z = player->trueZpos - 250.0f;
             }
-            Fortuna_LevelCompleteCsSpawnTeam(greatFox, 3);
+            Fortuna_LevelComplete_CsSpawnTeam(greatFox, 3);
 
             greatFox->obj.pos.z = player->pos.z + 400.0f;
             greatFox->vel.z = 0.0f;
@@ -1457,7 +1457,7 @@ void Fortuna_LoadLevelObjects(void) {
     Actor* actor;
     Sprite* sprite;
     Scenery360* scenery360;
-    FoBase* boss = &gBosses[0];
+    FoBase* base = &gBosses[0];
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
 
@@ -1510,11 +1510,11 @@ void Fortuna_LoadLevelObjects(void) {
         }
     }
 
-    Boss_Initialize(boss);
-    boss->obj.status = OBJ_INIT;
-    boss->obj.pos.x = 0.0f;
-    boss->obj.pos.y = 0.0f;
-    boss->obj.pos.z = 0.0f;
-    boss->obj.id = OBJ_BOSS_FO_BASE;
-    Object_SetInfo(&boss->info, boss->obj.id);
+    Boss_Initialize(base);
+    base->obj.status = OBJ_INIT;
+    base->obj.pos.x = 0.0f;
+    base->obj.pos.y = 0.0f;
+    base->obj.pos.z = 0.0f;
+    base->obj.id = OBJ_BOSS_FO_BASE;
+    Object_SetInfo(&base->info, base->obj.id);
 }

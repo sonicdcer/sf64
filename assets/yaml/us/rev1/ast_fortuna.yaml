@@ -92,11 +92,11 @@ D_FO_6007590:
 D_FO_6007730:
   { type: GFX, offset: 0x6007730, symbol: D_FO_6007730 }
 
-D_FO_6007854:
-  { type: SF64:ANIM, offset: 0x6007854, symbol: D_FO_6007854 }
+aFoRadarAnim:
+  { type: SF64:ANIM, offset: 0x6007854, symbol: aFoRadarAnim }
 
-D_FO_6007980:
-  { type: SF64:SKELETON, offset: 0x6007980, symbol: D_FO_6007980 }
+aFoRadarSkel:
+  { type: SF64:SKELETON, offset: 0x6007980, symbol: aFoRadarSkel }
 
 aFoMountain1DL:
   { type: GFX, offset: 0x60079B0, symbol: aFoMountain1DL }
