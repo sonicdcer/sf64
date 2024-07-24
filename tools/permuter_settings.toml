@@ -1,4 +1,4 @@
-compiler_type = "gcc"
+compiler_type = "ido"
 
 [preserve_macros]
 "g[DS]P.*" = "void"
