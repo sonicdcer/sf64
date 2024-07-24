@@ -507,11 +507,12 @@ void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
     }
 }
 
-void func_edisplay_8005B388(Actor* actor) {
+void func_edisplay_8005B388(Actor199* actor) {
     Vec3f sp3C = { 0.0f, 0.0f, 0.0f };
     Vec3f sp30;
 
     Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
+
     if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && !gBossActive) ||
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
          (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
