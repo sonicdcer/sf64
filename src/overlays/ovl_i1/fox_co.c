@@ -1005,7 +1005,7 @@ void Corneria_Granga_Update(Granga* this) {
                     func_enmy_80062B60(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[64], 0, 120.0f);
 
                     gCameraShake = 25;
-                    gShowBossHealth = 0;
+                    gShowBossHealth = false;
 
                     for (sp218 = 0; sp218 < 100; sp218++) {
                         func_effect_80079618(sCoGrangaWork[GRANGA_WORK_62] + RAND_FLOAT_CENTERED(600.0f),

@@ -1146,7 +1146,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                 break;
             case 1001:
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                    gShowBossHealth = 1;
+                    gShowBossHealth = true;
                     gBossHealthBar = 255;
                     this->swork[32] = 0;
                     this->swork[31]++;
@@ -1938,7 +1938,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                     break;
                 case 49:
                     Boss_AwardBonus(this);
-                    gShowBossHealth = 0;
+                    gShowBossHealth = false;
                     this->swork[28] = 9;
                     AUDIO_PLAY_SFX(NA_SE_OB_VEBOSS_BOUND, this->sfxSource, 4);
                     this->swork[26] = 1;

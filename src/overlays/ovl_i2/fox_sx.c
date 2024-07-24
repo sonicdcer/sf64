@@ -363,7 +363,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             break;
 
         case 556:
-            gShowBossHealth = 1;
+            gShowBossHealth = true;
             break;
 
         case 540:
@@ -1076,7 +1076,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
 
             if (this->timer_050 == 230) {
-                gShowBossHealth = 0;
+                gShowBossHealth = false;
                 Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 30.0f, 40);
                 Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             }

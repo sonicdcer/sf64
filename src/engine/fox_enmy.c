@@ -2633,7 +2633,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             break;
 
         case OBJ_ACTOR_TI_RASCO:
-            Titania_8018B720(&gActors[index]);
+            Titania_TiRasco_Dying(&gActors[index]);
             break;
 
         case OBJ_BOSS_VE1_GOLEMECH:

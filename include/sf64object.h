@@ -1161,7 +1161,7 @@ typedef Actor MaShockBox;
 typedef Actor MaRailwaySignal;
 typedef Actor TiTerrain;
 typedef Actor TiLandmine;
-typedef Actor DesertRover;
+typedef Actor TiDesertRover;
 typedef Actor TiDelphor;
 typedef Actor TiDelphorHead;
 typedef Actor TiDesertCrawler;

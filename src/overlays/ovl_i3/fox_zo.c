@@ -2549,7 +2549,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 gEffects[99].obj.status = gEffects[98].obj.status = OBJ_FREE;
                 sZoFwork[ZO_BSF_25] = -1000.0f;
                 sZoFwork[ZO_BSF_23] = 10.0f;
-                gShowBossHealth = 0;
+                gShowBossHealth = false;
                 Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
                 if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {

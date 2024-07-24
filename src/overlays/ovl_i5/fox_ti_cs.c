@@ -8,34 +8,34 @@ f32 D_i5_801B7328[] = { 1000.0f, 1000.0f, 1000.0f, 4000.0f };
 f32 D_i5_801B7338[] = { 1000.0f, 1000.0f, 1000.0f, -4000.0f };
 f32 D_i5_801B7348[] = { 90.0f, -90.0f, 0.0f };
 
-void Titania_80187530(Actor* actor) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
+void Titania_80187530(ActorCutscene* this) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    actor->obj.pos.x = 0.0f;
-    actor->obj.pos.y = 3000.0f;
-    actor->obj.pos.z = 0.0f;
+    this->obj.pos.x = 0.0f;
+    this->obj.pos.y = 3000.0f;
+    this->obj.pos.z = 0.0f;
 
-    actor->obj.rot.y = 180.0f;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-    actor->animFrame = 1;
+    this->obj.rot.y = 180.0f;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+    this->animFrame = 1;
 }
 
-void Titania_801875D0(Actor* actor, s32 arg1) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
+void Titania_801875D0(ActorCutscene* this, s32 arg1) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    actor->obj.pos.x = D_i5_801B72A0[arg1].x;
-    actor->obj.pos.y = D_i5_801B72A0[arg1].y + 3000.0f;
-    actor->obj.pos.z = D_i5_801B72A0[arg1].z;
+    this->obj.pos.x = D_i5_801B72A0[arg1].x;
+    this->obj.pos.y = D_i5_801B72A0[arg1].y + 3000.0f;
+    this->obj.pos.z = D_i5_801B72A0[arg1].z;
 
-    actor->obj.rot.y = 180.0f;
-    actor->iwork[11] = 1;
-    Object_SetInfo(&actor->info, actor->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+    this->obj.rot.y = 180.0f;
+    this->iwork[11] = 1;
+    Object_SetInfo(&this->info, this->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
 void Titania_LevelStart(Player* player) {
@@ -248,38 +248,38 @@ void Titania_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], sp64, 0.00f);
 }
 
-void Titania_80188108(Actor* actor, s32 arg1) {
+void Titania_80188108(Actor* this, s32 index) {
     Player* player = &gPlayer[0];
 
-    Actor_Initialize(actor);
-    actor->obj.pos.x = D_i5_801B7318[arg1] + player->pos.x;
-    actor->obj.pos.y = D_i5_801B7328[arg1] + player->pos.y;
-    actor->obj.pos.z = D_i5_801B7338[arg1] + player->pos.z;
+    Actor_Initialize(this);
+    this->obj.pos.x = D_i5_801B7318[index] + player->pos.x;
+    this->obj.pos.y = D_i5_801B7328[index] + player->pos.y;
+    this->obj.pos.z = D_i5_801B7338[index] + player->pos.z;
 
-    actor->fwork[7] = RAND_FLOAT(360.0f);
-    actor->fwork[8] = RAND_FLOAT(360.0f);
+    this->fwork[7] = RAND_FLOAT(360.0f);
+    this->fwork[8] = RAND_FLOAT(360.0f);
 
-    actor->vel.x = player->vel.x;
-    actor->vel.y = player->vel.y;
-    actor->vel.z = player->vel.z;
+    this->vel.x = player->vel.x;
+    this->vel.y = player->vel.y;
+    this->vel.z = player->vel.z;
 
-    actor->obj.status = OBJ_INIT;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.rot.y = 180.0f;
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.rot.y = 180.0f;
 
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Object_SetInfo(&this->info, this->obj.id);
 
-    if (arg1 < 3) {
-        actor->iwork[11] = 1;
-        actor->drawShadow = true;
-        actor->fwork[3] = D_i5_801B7348[arg1];
-        actor->state = 30;
-        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+    if (index < 3) {
+        this->iwork[11] = 1;
+        this->drawShadow = true;
+        this->fwork[3] = D_i5_801B7348[index];
+        this->state = 30;
+        AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        actor->animFrame = 1;
-        actor->state = 20;
-        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
-        actor->fwork[9] = 20.0f;
+        this->animFrame = 1;
+        this->state = 20;
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+        this->fwork[9] = 20.0f;
     }
 }
 
@@ -357,7 +357,7 @@ void Titania_LevelComplete(Player* player) {
             Player_CollisionCheck(player);
             Player_UpdatePath(player);
 
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4) == 0) {
                 f32 x;
                 f32 y;
                 f32 z;

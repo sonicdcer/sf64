@@ -521,7 +521,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
                     AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
 
-                    gShowBossHealth = 0;
+                    gShowBossHealth = false;
 
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
@@ -1197,7 +1197,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
 
             if (this->timer_052 == 0) {
-                gShowBossHealth = 0;
+                gShowBossHealth = false;
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -1232,7 +1232,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
         Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (gBossFrameCount == 756) {
-        gShowBossHealth = 1;
+        gShowBossHealth = true;
     }
     if (gBossFrameCount > 756) {
         gBossHealthBar = (this->health / 780.0f) * 255.0f;

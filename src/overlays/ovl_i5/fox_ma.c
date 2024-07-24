@@ -1031,7 +1031,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
                 Macbeth_8019B8B0(this);
             }
             if (this->timer_0BC == 160) {
-                gShowBossHealth = 0;
+                gShowBossHealth = false;
                 Radio_PlayMessage(gMsg_ID_17440, RCID_BOSS_MACBETH);
                 Effect_Effect383_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y, this->obj.pos.z, 40.0f);
                 Macbeth_Boss_HitCountBonus(this);
@@ -5185,7 +5185,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
         if (gBossFrameCount == 0) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         } else if (gBossFrameCount > 155) {
-            gShowBossHealth = 1;
+            gShowBossHealth = true;
             gBossHealthBar = (s32) ((D_i5_801BE320[29] / 250.f) * 85.0f);
             gBossHealthBar += (s32) ((D_i5_801BE320[9] / 200.f) * 85.0f);
             gBossHealthBar += (s32) ((D_i5_801BE320[10] / 250.f) * 85.0f);
@@ -6524,7 +6524,7 @@ void Macbeth_LevelComplete2(Player* player) {
             player->wings.unk_04 = 0.0f;
             /* fallthrough */
         case 1:
-            gShowBossHealth = 0;
+            gShowBossHealth = false;
             if (gCsFrameCount == 70) {
                 gObjectLoadIndex = 498;
 

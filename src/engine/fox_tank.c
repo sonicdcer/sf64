@@ -179,8 +179,8 @@ void func_tank_80043B18(Player* player) {
             func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
         } else {
             if (((gGameFrameCount % 2) == 0)) {
-                Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                 player->rot.y + sp38, 1.3f);
+                Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                        player->rot.y + sp38, 1.3f);
             }
             if (((gGameFrameCount % 4) == 0)) {
                 Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
@@ -198,8 +198,8 @@ void func_tank_80043B18(Player* player) {
                 }
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
-                    Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                     player->rot.y + sp38, 1.0f);
+                    Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                            player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
@@ -216,8 +216,8 @@ void func_tank_80043B18(Player* player) {
                 }
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
-                    Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                     player->rot.y + sp38, 1.0f);
+                    Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                            player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,

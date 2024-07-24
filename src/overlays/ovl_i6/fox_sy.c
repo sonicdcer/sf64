@@ -603,7 +603,7 @@ void SectorY_80199438(Boss* this) {
             }
 
             Audio_KillSfxBySource(this->sfxSource);
-            gShowBossHealth = 0;
+            gShowBossHealth = false;
             Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
             func_enmy_80062B60(this->obj.pos.x, this->obj.pos.z, 0, 120.0f);

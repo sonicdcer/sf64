@@ -89,8 +89,8 @@ D_TI1_7005420:
 D_TI1_70067C4:
   { type: SF64:ANIM, offset: 0x70067C4, symbol: D_TI1_70067C4 }
 
-D_TI1_7006990:
-  { type: SF64:SKELETON, offset: 0x7006990, symbol: D_TI1_7006990}
+aTi1DesertCrawlerSkel:
+  { type: SF64:SKELETON, offset: 0x7006990, symbol: aTi1DesertCrawlerSkel}
 
 D_TI1_7006F74:
   { type: SF64:ANIM, offset: 0x7006F74, symbol: D_TI1_7006F74 }
@@ -158,8 +158,8 @@ D_TI1_7009D60:
 D_TI1_700A190:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0700A190, symbol: D_TI1_700A190 }
 
-D_TI1_700A990:
-  { type: GFX, offset: 0x700A990, symbol: D_TI1_700A990 }
+aTi1BombDL:
+  { type: GFX, offset: 0x700A990, symbol: aTi1BombDL }
 
 D_TI1_700AAD8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x700AAD8, symbol: D_TI1_700AAD8, tlut: 0x700AB58 }
@@ -218,8 +218,8 @@ D_TI1_700CB60:
 D_TI1_700D534:
   { type: SF64:ANIM, offset: 0x700D534, symbol: D_TI1_700D534 }
 
-D_TI1_700D700:
-  {type: SF64:SKELETON, offset: 0x700D700, symbol: D_TI1_700D700}
+aTiRascoSkel:
+  {type: SF64:SKELETON, offset: 0x700D700, symbol: aTiRascoSkel}
 
 D_TI1_700D740:
   { type: GFX, offset: 0x700D740, symbol: D_TI1_700D740 }

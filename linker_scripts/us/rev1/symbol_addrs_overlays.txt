@@ -165,7 +165,7 @@ D_BO_801A03DC = 0x801A03DC;//segment:ovl_i4
 
 Macbeth_801A55D4 = 0x801A55D4;//segment:ovl_i5
 Titania_8018E3B0 = 0x8018E3B0;//segment:ovl_i5
-Titania_8018B720 = 0x8018B720;//segment:ovl_i5
+Titania_TiRasco_Dying = 0x8018B720;//segment:ovl_i5
 Titania_801990DC = 0x801990DC;//segment:ovl_i5
 Ground_801B6AEC = 0x801B6AEC;//segment:ovl_i5
 Titania_TiFekuda_Init = 0x80189B80;//segment:ovl_i5
