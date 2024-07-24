@@ -285,7 +285,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_DEBRIS */  {(void*) ActorDebris_Draw, 1, (ObjectFunc) ActorDebris_Update,       gNoHitbox,     0.0f,  0, 0, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_190 */  {(void*) func_edisplay_8005B848, 1, (ObjectFunc) func_enmy_800656D4,       gActor190_191Hitbox,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
   /* OBJ_ACTOR_191 */  {(void*) func_edisplay_8005B848, 1, (ObjectFunc) func_enmy_800656D4,       gActor190_191Hitbox,   100.0f,  0, 1, 39, 0,   1.0f,  0 },
-  /* OBJ_ACTOR_192 */  {(void*) func_edisplay_8005B9A4, 1, (ObjectFunc) func_enmy_8006654C,        D_CO_603E54C,   200.0f,  0, 1, 39, 0,  50.0f,  1 },
+  /* OBJ_ACTOR_192 */  {(void*) func_edisplay_8005B9A4, 1, (ObjectFunc) func_enmy_8006654C,        D_CO_603E54C,   200.0f,  0, 1, 39, 0,  50.0f,  1 }, // Ski Bot
   /* OBJ_ACTOR_193 */  {(void*) func_edisplay_8005BA30, 1, (ObjectFunc) func_enmy_800669A0,        D_CO_603E598,   100.0f,  0, 1, 39, 0,   0.0f,  0 },
   /* OBJ_ACTOR_194 */  {(void*) Actor194_Draw, 1, (ObjectFunc) Actor194_Update,       gActor194Hitbox,   200.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_CUTSCENE */  {(void*) ActorCutscene_Draw, 1, (ObjectFunc) ActorCutscene_Update,       gNoHitbox, 20000.0f,  0, 1, 39, 0,   0.0f,  0 },

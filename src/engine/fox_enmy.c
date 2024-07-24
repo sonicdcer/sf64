@@ -1098,9 +1098,9 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ITEM_PATH_TURN_LEFT:
             func_enmy_80063F58(&gItems[index]);
             break;
-        case OBJ_ITEM_PATH_TURN_RIGHT:
+        case OBJ_ITEM_PATH_TURN_RIGHT: 
             if (((gRingPassCount >= 7) && (gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] > 0)) ||
-                (gCurrentLevel != LEVEL_CORNERIA)) {
+                (gCurrentLevel != LEVEL_CORNERIA)) { // RingPassCount
                 func_enmy_80063F58(&gItems[index]);
             } else {
                 gItems[index].obj.status = OBJ_FREE;
@@ -1710,51 +1710,50 @@ void Actor_Despawn(Actor* actor) {
 }
 #if ENABLE_60FPS == 1 // func_enmy_8006654C *ski enimies update
 void func_enmy_8006654C(Actor* actor) {
+
     actor->gravity = 0.4f;
     if (actor->obj.pos.y <= gGroundHeight + 130.0f) {
         actor->obj.pos.y = gGroundHeight + 130.0f;
         actor->vel.y = 0.0f;
     }
+    if (((gGameFrameCountHack % 2) == 0)) { // 60fps HACK   (30fps in 60fps container)
     actor->vel.x = SIN_DEG(actor->obj.rot.y) * actor->fwork[0];
     actor->vel.z = COS_DEG(actor->obj.rot.y) * actor->fwork[0];
     switch (actor->state) {
-
         case 0:
-                if (actor->fwork[0] < 20.0f) {
-                    actor->fwork[0] += 0.5f;
-                }
-                actor->animFrame++;
-                if ((Animation_GetFrameCount(&D_CO_6029528) ) < actor->animFrame) {
-                    actor->animFrame = 0;
-                }
-                if ((actor->obj.rot.z < 15.0f) && (actor->animFrame < 20)) {
-                    actor->obj.rot.z += 1.0f;
-                }
-                if ((actor->obj.rot.z > -15.0f) && (actor->animFrame > 20)) {
-                    actor->obj.rot.z -= 1.0f;
-                }
-                if ((actor->animFrame == 20 ) || (actor->animFrame == 40 )) {
-                    actor->state++;
-                    actor->timer_0BC = 20 ;
-                }
-                break;
-         
+            if (actor->fwork[0] < 20.0f) {
+                actor->fwork[0] += 0.5f;
+            }
+            actor->animFrame++;
+            if (Animation_GetFrameCount(&D_CO_6029528) < actor->animFrame) {
+                actor->animFrame = 0;
+            }
+            if ((actor->obj.rot.z < 15.0f) && (actor->animFrame < 20)) {
+                actor->obj.rot.z += 1.0f;
+            }
+            if ((actor->obj.rot.z > -15.0f) && (actor->animFrame > 20)) {
+                actor->obj.rot.z -= 1.0f;
+            }
+            if ((actor->animFrame == 20) || (actor->animFrame == 40)) {
+                actor->state++;
+                actor->timer_0BC = 20;
+            }
+            break;
         case 1:
-                if (actor->obj.rot.z > 0.0f) {
-                    actor->obj.rot.z -= 0.5f;
-                }
-                if (actor->obj.rot.z < 0.0f) {
-                    actor->obj.rot.z += 0.5f;
-                }
-                if (actor->fwork[0] > 0.0f) {
-                    actor->fwork[0] -= 0.3f;
-                }
-                if (actor->timer_0BC == 0) {
-                    actor->state = 0;
-                }
-                break;
-          
-    }
+            if (actor->obj.rot.z > 0.0f) {
+                actor->obj.rot.z -= 0.5f;
+            }
+            if (actor->obj.rot.z < 0.0f) {
+                actor->obj.rot.z += 0.5f;
+            }
+            if (actor->fwork[0] > 0.0f) {
+                actor->fwork[0] -= 0.3f;
+            }
+            if (actor->timer_0BC == 0) {
+                actor->state = 0;
+            }
+            break;
+    }}
     actor->scale = 0.8f;
     if (actor->dmgType != DMG_NONE) {
         actor->obj.status = OBJ_DYING;
@@ -1768,7 +1767,6 @@ void func_enmy_8006654C(Actor* actor) {
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, actor->sfxSource, 4);
     }
 }
-
 #else
 void func_enmy_8006654C(Actor* actor) {
     actor->gravity = 0.4f;

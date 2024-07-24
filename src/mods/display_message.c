@@ -13,10 +13,10 @@
 #define TOSTRING(x) STRINGIFY(x)
 
 // Define the names and corresponding variables
-#define name1 0
-#define name2 0
-#define name3 0
-#define name4 0
+#define name1 gBosses[0].health
+#define name2 gBosses[1].health
+#define name3 gBosses[2].health
+#define name4 gBosses[3].health
 #define name5 0
 #define name6 0
 #define name7 0

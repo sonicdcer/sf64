@@ -166,7 +166,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
 
         if (boss->dmgPart == 0) { // backpack
             boss->swork[10] = 15;
-            boss->swork[29] -= boss->damage DIV_FRAME_FACTOR;
+            boss->swork[29] -= boss->damage;
 
             Corneria_80187A38(boss, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
 
@@ -225,7 +225,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         } else if (boss->dmgPart == 3) { // GUN
             boss->swork[3] = 15;
             boss->swork[20] = 30;
-            boss->swork[28] -= boss->damage DIV_FRAME_FACTOR;
+            boss->swork[28] -= boss->damage;
 
             Corneria_801879F0(boss, D_i1_8019B6D8[12] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[13],
                               D_i1_8019B6D8[14] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
@@ -241,7 +241,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         if (boss->dmgPart == 1) { // LEFT ARM
             boss->swork[2] = 15;
             boss->swork[21] = 30;
-            boss->swork[26] -= boss->damage DIV_FRAME_FACTOR;
+            boss->swork[26] -= boss->damage;
 
             Corneria_801879F0(boss, D_i1_8019B6D8[6] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[7],
                               D_i1_8019B6D8[8] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
@@ -255,7 +255,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         } else if (boss->dmgPart == 2) { // Right Arm
             boss->swork[1] = 15;
             boss->swork[22] = 30;
-            boss->swork[27] -= boss->damage  DIV_FRAME_FACTOR;
+            boss->swork[27] -= boss->damage;
 
             Corneria_801879F0(boss, D_i1_8019B6D8[0] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[1],
                               D_i1_8019B6D8[2] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
@@ -271,7 +271,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
             boss->swork[23] = 200;
 
             if (boss->dmgPart == 4) { // left leg
-                boss->swork[24] -= boss->damage  DIV_FRAME_FACTOR;
+                boss->swork[24] -= boss->damage;
                 boss->swork[7] = boss->swork[8] = boss->swork[9] = 5;
                 boss->swork[18] = 30;
 
@@ -289,7 +289,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
                     }
                 }
             } else { // right leg
-                boss->swork[25] -= boss->damage  DIV_FRAME_FACTOR;
+                boss->swork[25] -= boss->damage;
                 boss->swork[4] = boss->swork[5] = boss->swork[6] = 5;
                 boss->swork[19] = 30;
 
@@ -2049,10 +2049,10 @@ void Corneria_8018B15C(Actor* actor) {
             actor->animFrame++;
             }
 
-            if (actor->animFrame >= (Animation_GetFrameCount(&D_CO_602AA04) DIV_FRAME_FACTOR)) {
+            if (actor->animFrame >= (Animation_GetFrameCount(&D_CO_602AA04) )) {
                 actor->state = 3;
             }
-            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2])DIV_FRAME_FACTOR ) {
+            if (actor->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - actor->iwork[2]) ) {
                 actor->iwork[1] = 1;
                 scenery->state = 1;
                 sp54.x = 0.0f;
@@ -2570,7 +2570,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
 
         boss->fwork[16] = 4.0f;
 
-        if (((gGameFrameCount % 2) == 0)) {
+        if (((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -2600,7 +2600,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
             for (i = 0; var_v1 >= 60; i++, var_v1 -= 60) {}
 
             for (var_v0 = 0, var_v1 = 13; var_v0 < i; var_v0++, var_v1++) {
-                if ((gGameFrameCount % 16U) == (var_v0 % 16U)) {
+                if ((gGameFrameCount % (16U MUL_FRAME_FACTOR)) == (var_v0 % 16U)) { //???????
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[var_v0], &sp84[var_v1]);
                     func_effect_8007D0E0(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y, sp84[var_v1].z + boss->obj.pos.z, boss->fwork[17]);
                     func_effect_8007C120(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y, sp84[var_v1].z + boss->obj.pos.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.1f,7);
@@ -2613,7 +2613,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
             if ((gBosses[1].state != 0) && (gBosses[2].state != 0) && (gBosses[3].state != 0)) {
                 if (boss->health >= 2) {
                     boss->timer_05C = 15;
-                    boss->health -= boss->damage DIV_FRAME_FACTOR;
+                    boss->health -= boss->damage ; // Main BOSS Damage
                     if (boss->health < 120) {
                         boss->fwork[17] = 2.8f;
                         AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
@@ -2653,7 +2653,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
             }
         }
 
-        if ((gBosses[1].state != 0) && ((gGameFrameCount % 16) == 0)) {
+        if ((gBosses[1].state != 0) && ((gGameFrameCount % (16 MUL_FRAME_FACTOR)) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199908, &sp84[5]);
             func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[5].x, gBosses[0].obj.pos.y + sp84[5].y, gBosses[0].obj.pos.z + sp84[5].z, 5.0f);
         }
@@ -2661,22 +2661,22 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
         if (gBosses[2].state != 0) {
             gBosses[3].drawShadow = true;
             if (gBosses[3].state != 0) {
-                if (((gGameFrameCount % 8) == 0)) {
+                if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_80199950, &sp84[11]);
                     func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[11].x, gBosses[0].obj.pos.y + sp84[11].y, gBosses[0].obj.pos.z + sp84[11].z, 7.0f);
                 }
-            } else if (((gGameFrameCount % 16) == 0)) {
+            } else if (((gGameFrameCount % (16 MUL_FRAME_FACTOR)) == 0)) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199938, &sp84[9]);
                 func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[9].x, gBosses[0].obj.pos.y + sp84[9].y, gBosses[0].obj.pos.z + sp84[9].z, 5.0f);
             }
         }
 
-        if ((gBosses[3].state != 0) && (gBosses[2].state == 0) && ((gGameFrameCount % 16) == 0)) {
+        if ((gBosses[3].state != 0) && (gBosses[2].state == 0) && ((gGameFrameCount % (16 MUL_FRAME_FACTOR)) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199944, &sp84[10]);
             func_effect_8007D0E0(gBosses[0].obj.pos.x + sp84[10].x, gBosses[0].obj.pos.y + sp84[10].y, gBosses[0].obj.pos.z + sp84[10].z, 5.0f);
         }
 
-        if (((boss->state == 1) || (boss->state == 2)) && ((gGameFrameCount % 8) == 0)) {
+        if (((boss->state == 1) || (boss->state == 2)) && ((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -2868,7 +2868,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
                             boss->swork[6] &= 1;
                         }
 
-                        if (((gGameFrameCount % 8) == 0)) {
+                        if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0)) {
                             if (fabsf(boss->obj.pos.z - gPlayer[0].trueZpos) > 700.0f) {
 
                                 Matrix_MultVec3f(gCalcMatrix, &D_i1_801998F0[0], &sp84[3]);
@@ -2944,7 +2944,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
             case 8:
                 D_ctx_801779A8[0] = 20.0f;
 
-                if (((gGameFrameCount % 32) == 0)) {
+                if (((gGameFrameCount % (32 MUL_FRAME_FACTOR)) == 0)) {
                     for (i = 0; i < 10; i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 1.0f);
                     }
@@ -3000,7 +3000,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
                 break;
 
             case 9:
-                if (((gGameFrameCount % 16) == 0)) {
+                if (((gGameFrameCount % (16 MUL_FRAME_FACTOR)) == 0)) {
                     for (i = 0; i < 10; i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 1.0f);
                     }
@@ -3025,7 +3025,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
                 break;
 
             case 10:
-                if (((gGameFrameCount % 8) == 0)) {
+                if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0)) {
                     for (i = 0; i < 10; i++) {
                         func_effect_80079618(RAND_FLOAT_CENTERED(300.0f) + boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 1.0f);
                     }
@@ -3666,7 +3666,7 @@ void Corneria_8018DDAC(Boss* boss) {
                     if (boss->fwork[2] > 60.0f) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
-                            boss->health -= boss->damage DIV_FRAME_FACTOR;
+                            boss->health -= boss->damage; // Left Bay Damage
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
                             if (boss->health <= 0) {
                                 gBosses[0].swork[8]--;
@@ -3866,7 +3866,7 @@ void Corneria_8018E290(Boss* boss) {
                     if (boss->fwork[0] > 60.0f) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
-                            boss->health -= boss->damage DIV_FRAME_FACTOR;
+                            boss->health -= boss->damage; // Right Upper Bay Damage
 
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
 
@@ -4077,7 +4077,7 @@ void Corneria_8018E76C(Boss* boss) {
                     if (boss->fwork[1] > 60.0f) {
                         if (boss->health != 0) {
                             boss->timer_05C = 15;
-                            boss->health -= boss->damage DIV_FRAME_FACTOR;
+                            boss->health -= boss->damage; // Lower Right Bay Damage
 
                             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
 
@@ -6246,3 +6246,6 @@ void Corneria_LevelComplete1(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 #endif
+
+// Handhub
+

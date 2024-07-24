@@ -381,7 +381,7 @@ s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameT
 #endif
 
 
-#if ENABLE_60FPSi == 1 // Animation_GetFrameCount ???? *magic Code
+#if ENABLE_60FPSi == 1// Animation_GetFrameCount  *magic Code
 s32 Animation_GetFrameCount(Animation* animationSegment) { // 60fps?????? aminimation framecount 
     Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
 

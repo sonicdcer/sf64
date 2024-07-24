@@ -6384,11 +6384,11 @@ void Player_UpdateEffects(Player* player) {
 #if ENABLE_60FPS == 1 // Player_UpdateShields
 void Player_UpdateShields(Player* player) {
     if (player->damage > 0) {
-        player->damage -= 2 DIV_FRAME_FACTOR; // 60fps??????
+        player->damage -= 2 ; // 60fps??????
         if (player->damage <= 0) {
             player->damage = 0;
         }
-        player->shields -= 2 DIV_FRAME_FACTOR; // 60fps??????
+        player->shields -= 2 ; // 60fps??????
         if (player->shields <= 0) {
             player->shields = 0;
             player->damage = 0;
@@ -6396,11 +6396,11 @@ void Player_UpdateShields(Player* player) {
     }
     if (player->heal > 0) {
         player->damage = 0;
-        player->heal -= 2 DIV_FRAME_FACTOR; // 60fps???
+        player->heal -= 2 ; // 60fps???
         if (player->heal <= 0) {
             player->heal = 0;
         }
-        player->shields += 2 DIV_FRAME_FACTOR; // 60fps???
+        player->shields += 2 ; // 60fps???
         if (player->shields >= Play_GetMaxShields()) {
             player->shields = Play_GetMaxShields();
             player->heal = 0;
