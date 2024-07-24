@@ -1247,7 +1247,7 @@ typedef Boss FoBase;
 typedef Boss BoBase;
 typedef Boss BoBaseShield;
 typedef Boss BoBaseCore;
-typedef Boss BossVE2;
+typedef Boss Ve2Base;
 typedef Boss GreatFoxSZ;
 typedef Boss SyShogun;
 typedef Boss SoVulkain;

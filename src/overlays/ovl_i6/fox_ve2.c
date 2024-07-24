@@ -7,27 +7,27 @@
 #include "global.h"
 #include "assets/ast_venom_2.h"
 
-void Venom2_Ve2Base_Update(BossVE2* boss) {
-    Math_SmoothStepToF(&boss->fwork[0], boss->fwork[1], 0.5f, 5.0f, 0.0f);
+void Venom2_Ve2Base_Update(Ve2Base* this) {
+    Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.5f, 5.0f, 0.0f);
 }
 
-bool Venom2_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    BossVE2* boss = (BossVE2*) data;
+bool Venom2_Ve2Base_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Ve2Base* this = (Ve2Base*) thisx;
 
     if ((limbIndex == 1) || (limbIndex == 2)) {
-        pos->x -= boss->fwork[0];
+        pos->x -= this->fwork[0];
     }
 
     return false;
 }
 
-void Venom2_Ve2Base_Draw(BossVE2* boss) {
-    Animation_GetFrameData(&D_VE2_6014904, 0, boss->vwork);
-    Animation_DrawSkeleton(3, D_VE2_60149D0, boss->vwork, Venom2_Boss_OverrideLimbDraw, NULL, boss, gCalcMatrix);
+void Venom2_Ve2Base_Draw(Ve2Base* this) {
+    Animation_GetFrameData(&D_VE2_6014904, 0, this->vwork);
+    Animation_DrawSkeleton(3, D_VE2_60149D0, this->vwork, Venom2_Ve2Base_OverrideLimbDraw, NULL, this, gCalcMatrix);
 }
 
-void Venom2_UpdateStarWolfEvents(ActorAllRange* actor) {
-    ActorAllRange_UpdateStarWolfEvents(actor);
+void Venom2_UpdateStarWolfEvents(ActorAllRange* this) {
+    ActorAllRange_UpdateStarWolfEvents(this);
 }
 
 static Vec3f sTeamInitPos[6] = {
@@ -63,13 +63,17 @@ void Venom2_UpdateEvents(ActorAllRange* this) {
             } else {
                 gAllRangeSpawnEvent = 320;
                 gStarWolfMsgTimer = 1200;
+
                 this->state = 1;
+
                 player->pos.x = 0.0f;
                 player->pos.z = 16000.0f;
                 player->pos.y = 4350.0f;
                 player->rot.x = -20.0f;
                 player->yRot_114 = 0.0f;
+
                 this->timer_0BC = 210;
+
                 for (team = &gActors[AI360_FALCO], i = AI360_FALCO; i <= AI360_PEPPY; i++, team++) {
                     team->obj.pos.x = sTeamInitPos[i - 1].x;
                     team->obj.pos.y = sTeamInitPos[i - 1].y + 750.f;
@@ -178,7 +182,7 @@ void Venom2_UpdateEvents(ActorAllRange* this) {
 
 void Venom2_LoadLevelObjects(void) {
     Actor* actor;
-    BossVE2* boss;
+    Boss* boss;
     Scenery360* scenery360;
     s32 i;
 
@@ -476,12 +480,17 @@ void Venom2_LevelComplete(Player* player) {
     gCsCamAtX = player->pos.x;
     gCsCamAtY = player->pos.y;
     gCsCamAtZ = player->trueZpos;
+
     Matrix_RotateY(gCalcMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+
     sp64.x = 0.0f;
     sp64.y = 0.0f;
+
     sp64.z = player->baseSpeed + player->boostSpeed;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp64, &sp58);
+
     player->vel.x = sp58.x;
     player->vel.z = sp58.z;
     player->vel.y = sp58.y;
@@ -490,14 +499,18 @@ void Venom2_LevelComplete(Player* player) {
     player->pos.z += player->vel.z;
     player->trueZpos = player->pos.z;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.0f);
+
     Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0], 100.0f, 0);
+
     Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[1], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[1], 100.0f, 0);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[1], 100.0f, 0);
+
     player->bobPhase += 10.0f;
     player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
     player->rockPhase += 8.0f;

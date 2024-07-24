@@ -2299,7 +2299,6 @@ void func_demo_8004F798(ActorCutscene* this) {
 }
 
 void ActorCutscene_Update(ActorCutscene* this) {
-
     if (gCurrentLevel == LEVEL_AQUAS) {
         func_hud_80093164(this);
         return;
