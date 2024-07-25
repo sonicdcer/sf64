@@ -1198,11 +1198,11 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_ACTOR_ZO_DODORA_WP_COUNT:
-            gActors[index].iwork[0] = gZODodoraWaypointCount;
-            gZODodoraWaypointCount++;
+            gActors[index].iwork[0] = gZoDodoraWaypointCount;
+            gZoDodoraWaypointCount++;
             break;
         case OBJ_ACTOR_ZO_DODORA:
-            gZODodoraWaypointCount = 0;
+            gZoDodoraWaypointCount = 0;
             gActors[index].rot_0F4.x = gActors[index].obj.rot.x;
             gActors[index].rot_0F4.y = gActors[index].obj.rot.y;
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
@@ -1224,8 +1224,8 @@ void Object_Init(s32 index, ObjectId objId) {
                     gMeMoraStatus[i] = 1;
                     gActors[index].unk_046 = i;
                     for (j = 0; j < 100; j++) {
-                        gMeMorayPos[i][j] = gActors[index].obj.pos.y;
-                        gMeMorazPos[i][j] = gActors[index].obj.pos.z;
+                        gMeMoraYpos[i][j] = gActors[index].obj.pos.y;
+                        gMeMoraZpos[i][j] = gActors[index].obj.pos.z;
                     }
                     break;
                 }
@@ -2671,7 +2671,7 @@ void Actor_Move(Actor* this) {
 
         switch (this->obj.id) {
             case OBJ_ACTOR_ZO_DODORA:
-                gZODodoraWaypointCount = 0;
+                gZoDodoraWaypointCount = 0;
                 break;
 
             case OBJ_ACTOR_TI_DESERT_CRAWLER:

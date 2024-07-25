@@ -700,10 +700,10 @@ void Play_ClearObjectData(void) {
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
-    for (i = 0; i < ARRAY_COUNT(gMeMorayPos); i++) {
+    for (i = 0; i < ARRAY_COUNT(gMeMoraYpos); i++) {
         gMeMoraStatus[i] = 0;
-        for (j = 0; j < ARRAY_COUNT(*gMeMorayPos); j++) {
-            gMeMorayPos[i][j] = -5000.0f;
+        for (j = 0; j < ARRAY_COUNT(*gMeMoraYpos); j++) {
+            gMeMoraYpos[i][j] = -5000.0f;
         }
     }
 }
@@ -2582,7 +2582,7 @@ void Play_InitLevel(void) {
             for (i = 0; i < 200 * sizeof(*gZoDodoraPosRots); i++, ptr++) {
                 *ptr = 0;
             }
-            gZODodoraWaypointCount = 0;
+            gZoDodoraWaypointCount = 0;
             /* fallthrough */
         case LEVEL_SOLAR:
             gUseDynaFloor = true;

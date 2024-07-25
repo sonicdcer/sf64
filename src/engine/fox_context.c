@@ -180,7 +180,7 @@ s32 D_ctx_80178494;        // Torpedoes have this set to their unk_5C. Were they
 f32 gShotHitPosZ;
 f32 gShotHitPosX;
 f32 gShotHitPosY;
-s32 gZODodoraWaypointCount;
+s32 gZoDodoraWaypointCount;
 UNK_TYPE F_801784A8;
 GroundType gGroundType;
 UNK_TYPE F_801784B0;
@@ -277,12 +277,12 @@ TexturedLine gTexturedLines[100];
 RadarMark gRadarMarks[65];
 BonusText gBonusText[10];
 s32 gMeMoraStatus[2];
-f32 gMeMoraxPos[2][100];
-f32 gMeMorayPos[2][100];
-f32 gMeMorazPos[2][100];
-f32 gMeMoraxRot[2][100];
-f32 gMeMorayRot[2][100];
-f32 gMeMorazRot[2][100];
+f32 gMeMoraXpos[2][100];
+f32 gMeMoraYpos[2][100];
+f32 gMeMoraZpos[2][100];
+f32 gMeMoraXrot[2][100];
+f32 gMeMoraYrot[2][100];
+f32 gMeMoraZrot[2][100];
 UNK_TYPE P_800D31A8 = 0;
 u16 gEnemyShotSpeed; // enemy shot speed?
 u8 gShowLevelClearStatusScreen;

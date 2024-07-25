@@ -7575,7 +7575,7 @@ void Macbeth_801B38E0(void) {
     for (i = 0; i < 2; i++) {
         gMeMoraStatus[i] = 0;
         for (j = 0; j < 100; j++) {
-            gMeMorayPos[i][j] = -5000.0f;
+            gMeMoraYpos[i][j] = -5000.0f;
         }
     }
 }

@@ -253,12 +253,12 @@ void MeMora_Dying(MeMora* this) {
         this->counter_04E = 0;
     }
 
-    gMeMoraxPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-    gMeMorayPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-    gMeMorazPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-    gMeMoraxRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-    gMeMorayRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-    gMeMorazRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+    gMeMoraXpos[this->unk_046][this->counter_04E] = this->obj.pos.x;
+    gMeMoraYpos[this->unk_046][this->counter_04E] = this->obj.pos.y;
+    gMeMoraZpos[this->unk_046][this->counter_04E] = this->obj.pos.z;
+    gMeMoraXrot[this->unk_046][this->counter_04E] = this->obj.rot.x;
+    gMeMoraYrot[this->unk_046][this->counter_04E] = this->obj.rot.y;
+    gMeMoraZrot[this->unk_046][this->counter_04E] = this->obj.rot.z;
 
     this->obj.rot.x -= 10.0f;
     this->obj.rot.y += 3.0f;
@@ -273,11 +273,11 @@ void MeMora_Dying(MeMora* this) {
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
         index = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
         if (this->unk_04A == 0) {
-            func_effect_8007D2C8(gMeMoraxPos[this->unk_046][index], gMeMorayPos[this->unk_046][index],
-                                 gMeMorazPos[this->unk_046][index], 7.0f);
+            func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
+                                 gMeMoraZpos[this->unk_046][index], 7.0f);
         } else {
-            func_effect_8007D2C8(gMeMoraxPos[this->unk_046][index], gMeMorayPos[this->unk_046][index],
-                                 gMeMorazPos[this->unk_046][index], 4.0f);
+            func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
+                                 gMeMoraZpos[this->unk_046][index], 4.0f);
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
@@ -337,9 +337,9 @@ void MeMora_Draw(MeMora* this) {
 
     for (i = this->unk_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
-        MeMora_8006B46C(this, gMeMoraxPos[this->unk_046][j], gMeMorayPos[this->unk_046][j],
-                        gMeMorazPos[this->unk_046][j], gMeMoraxRot[this->unk_046][j], gMeMorayRot[this->unk_046][j],
-                        gMeMorazRot[this->unk_046][j], D_800CFFB4[i], D_800CFFC4[i], this->timer_0C6 % 2U);
+        MeMora_8006B46C(this, gMeMoraXpos[this->unk_046][j], gMeMoraYpos[this->unk_046][j],
+                        gMeMoraZpos[this->unk_046][j], gMeMoraXrot[this->unk_046][j], gMeMoraYrot[this->unk_046][j],
+                        gMeMoraZrot[this->unk_046][j], D_800CFFB4[i], D_800CFFC4[i], this->timer_0C6 % 2U);
     }
 }
 
@@ -1155,8 +1155,8 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                         gMeMoraStatus[i] = 1;
                         this->unk_046 = i;
                         for (j = 0; j < 100; j++) {
-                            gMeMorayPos[i][j] = this->obj.pos.y;
-                            gMeMorazPos[i][j] = this->obj.pos.z;
+                            gMeMoraYpos[i][j] = this->obj.pos.y;
+                            gMeMoraZpos[i][j] = this->obj.pos.z;
                         }
                         if (this->eventType == EVID_200) {
                             AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SNAKE, this->sfxSource, 4);
@@ -3057,12 +3057,12 @@ void ActorEvent_Update(ActorEvent* this) {
             this->counter_04E = 0;
         }
 
-        gMeMoraxPos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-        gMeMorayPos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-        gMeMorazPos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-        gMeMoraxRot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-        gMeMorayRot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-        gMeMorazRot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+        gMeMoraXpos[this->unk_046][this->counter_04E] = this->obj.pos.x;
+        gMeMoraYpos[this->unk_046][this->counter_04E] = this->obj.pos.y;
+        gMeMoraZpos[this->unk_046][this->counter_04E] = this->obj.pos.z;
+        gMeMoraXrot[this->unk_046][this->counter_04E] = this->obj.rot.x;
+        gMeMoraYrot[this->unk_046][this->counter_04E] = this->obj.rot.y;
+        gMeMoraZrot[this->unk_046][this->counter_04E] = this->obj.rot.z;
 
         if (this->dmgType != DMG_NONE) {
             this->dmgType = DMG_NONE;

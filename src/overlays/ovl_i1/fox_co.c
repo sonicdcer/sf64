@@ -1250,8 +1250,8 @@ void Corneria_CoGranga_Draw(CoGranga* this) {
     Matrix_Push(&gGfxMatrix);
 }
 
-bool Corneria_Garuda_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Corneria_Garuda_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    Actor* actor = (Actor*) thisx;
 
     if (limbIndex == 1) {
         rot->x += actor->fwork[GRANGA_FWK_01];
