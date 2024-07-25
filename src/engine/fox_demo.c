@@ -572,7 +572,7 @@ void Cutscene_EnterWarpZone(Player* player) {
     }
 }
 
-#if ENABLE_60FPS == 1 // Cutscene_LevelStart
+#if ENABLE_60FPS == 1 // Cutscene_LevelStart *no change
 void Cutscene_LevelStart(Player* player) {
     gCsFrameCount++;
 
@@ -958,7 +958,7 @@ void Cutscene_AllRangeMode(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR, 0.0f);
             Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp64.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
             Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + sp64.y, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + sp64.z, D_ctx_80177A48[0], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + sp64.z, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f DIV_FRAME_FACTOR);
             Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
             Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
             Math_SmoothStepToF(&player->cam.at.z, player->trueZpos + gPathProgress, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
@@ -2545,6 +2545,122 @@ void Cutscene_LandmasterDown(Player* player) {
     Cutscene_KillPlayer(player);
 }
 
+#if ENABLE_60FPS == 1 // 
+void Cutscene_ArwingDown360(Player* player) {
+    s32 i;
+    Vec3f src;
+    Vec3f dest;
+
+    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+
+    if (!((gCurrentLevel == LEVEL_VENOM_1) && gBossActive) &&
+        ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE))) {
+        player->vel.y -= 0.5f DIV_FRAME_FACTOR;
+        player->rot.x -= 2.0f DIV_FRAME_FACTOR;
+    }
+
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
+    player->trueZpos = player->pos.z;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    player->zRotBank += 15.0f DIV_FRAME_FACTOR;
+
+    if (player->csState != 0) {
+        player->rot.y += 11.0f DIV_FRAME_FACTOR;
+        player->rot.x += 17.0f DIV_FRAME_FACTOR;
+    }
+
+    if (gCamCount == 1) {
+        if (((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007D24C(RAND_FLOAT_CENTERED(20.0) + player->pos.x, RAND_FLOAT_CENTERED(20.0) + player->pos.y,
+                                 player->trueZpos, 2.2f);
+        }
+    } else if (((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+        func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->pos.x, RAND_FLOAT_CENTERED(10.0f) + player->pos.y,
+                             RAND_FLOAT_CENTERED(10.0f) + player->trueZpos, 2.2f);
+    }
+
+    if ((player->pos.y < player->pathFloor) && (player->csState == 0)) {
+        player->pos.y = player->pathFloor;
+        player->unk_284 = 0;
+        player->radioDamageTimer = 0;
+        player->vel.y = 10.0f;
+        player->csState = 1;
+
+        Play_PlaySfxNoPlayer(player->sfxSource, NA_SE_EXPLOSION_S);
+
+        if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_FORTUNA)) {
+            func_enmy_80062C38(player->pos.x, player->pos.z);
+        } else {
+            func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 3.0f);
+        }
+
+        if (player->wings.rightState == WINGSTATE_INTACT) {
+            Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
+            player->wings.rightState = WINGSTATE_BROKEN;
+            func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
+        }
+        if (player->wings.leftState == WINGSTATE_INTACT) {
+            Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
+            player->wings.leftState = WINGSTATE_BROKEN;
+            func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
+        }
+    } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) ||
+                (player->pos.y < gWaterLevel) || (player->csEventTimer == 0)) &&
+               (player->csTimer == 0)) {
+        if (gCamCount != 4) {
+            if (player->unk_284 == 0) {
+                func_effect_8007C688(player->pos.x, player->pos.y, player->trueZpos - (2.0f * player->vel.z), 3.0f, 80);
+            }
+            if (player->pos.y < player->pathFloor) {
+                func_enmy_80062C38(player->pos.x, player->pos.z);
+            }
+        }
+        if (gLevelType == LEVELTYPE_PLANET) {
+            for (i = 0; i < 4; i++) {
+                Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);
+            }
+
+            for (i = 0; i < 2; i++) {
+                Play_SpawnDebris(3, player->pos.x, player->pos.y, player->trueZpos);
+            }
+        }
+        func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 5.0f);
+        func_effect_8007BFFC(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z, 5.0f,
+                             20);
+        Cutscene_KillPlayer(player);
+    }
+    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+    Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_NEW);
+    Math_SmoothStepToF(&player->unk_000, 700.0f, 0.05f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+
+    src.x = player->unk_004 * (player->unk_000 * 0.7f);
+    src.y = player->unk_000 * 0.5f;
+    src.z = player->unk_000 + (400.0f - player->camDist);
+
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+    player->cam.eye.x = player->pos.x + dest.x;
+    player->cam.eye.z = player->pos.z + dest.z;
+
+    player->cam.at.x = player->pos.x;
+    player->cam.at.z = player->pos.z;
+
+    if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
+        player->cam.eye.y = (player->pos.y * player->unk_148) + dest.y;
+        player->cam.eye.y -= player->unk_02C - 50.0f;
+        player->cam.at.y = (player->pos.y * player->unk_14C) + 20.0f + (player->xRock * 5.0f);
+    } else {
+        player->cam.eye.y = player->pos.y + dest.y;
+        player->cam.at.y = player->pos.y;
+    }
+
+    if (gVersusMode) {
+        Player_CheckBounds360(player);
+    }
+}
+#else
 void Cutscene_ArwingDown360(Player* player) {
     s32 i;
     Vec3f src;
@@ -2659,6 +2775,7 @@ void Cutscene_ArwingDown360(Player* player) {
         Player_CheckBounds360(player);
     }
 }
+#endif
 
 void Cutscene_ArwingDownOnRails(Player* player) {
     s32 i;

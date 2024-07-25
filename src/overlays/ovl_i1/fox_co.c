@@ -610,11 +610,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
-    boss->dmgType = DMG_BEAM;
-    boss->dmgPart = 0;
-    boss->swork[29] = 0;
- }
+ //if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+ //   boss->dmgType = DMG_BEAM;
+ //   boss->dmgPart = 0;
+ //   boss->swork[29] = 0;
+ //}
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
@@ -1557,7 +1557,7 @@ void Corneria_80189058(Boss* boss) {
 }
 #endif
 
-#if ENABLE_60FPS == 1 // Corneria_8018A434 * limb animation GRANGA No change yet.
+#if ENABLE_60FPS == 1 // Corneria_8018A434 * limb animation GRANGA No change yet. no change needed? 60fps ??????
 bool Corneria_8018A434(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Boss* boss = (Boss*) data;
 
@@ -1792,7 +1792,7 @@ void Corneria_8018AA74(Boss* boss) {
     Matrix_Push(&gGfxMatrix);
 }
 
-#if ENABLE_60FPS == 1 // Corneria_8018AB08
+#if ENABLE_60FPS == 1 // Corneria_8018AB08 Garuda1
 bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
@@ -4471,6 +4471,27 @@ void Corneria_8018F4A4(void) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Corneria_8018F55C *clouds
+void Corneria_8018F55C(Effect* effect) {
+
+    Effect_Initialize(effect);
+    effect->obj.status = OBJ_INIT;
+    effect->obj.pos.x = gPlayer[0].cam.eye.x + RAND_FLOAT_CENTERED(500.0f);
+    effect->obj.pos.y = gPlayer[0].cam.eye.y + RAND_RANGE(-280.0f, 70.0f);
+    effect->obj.id = OBJ_EFFECT_352;
+    effect->timer_50 = 80;
+    effect->unk_46 = 144 MUL_FRAME_FACTOR;
+    effect->obj.pos.z = -4000.0f;
+    effect->vel.z = 60.0f;
+    effect->scale2 = 10.0f + RAND_FLOAT(15.0f);
+
+    if (Rand_ZeroOne() < 0.5f) {
+        effect->obj.rot.z = 180.0f;
+    }
+
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
+#else
 void Corneria_8018F55C(Effect* effect) {
 
     Effect_Initialize(effect);
@@ -4490,6 +4511,7 @@ void Corneria_8018F55C(Effect* effect) {
 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
+#endif
 
 #if ENABLE_60FPS == 1 // Corneria_8018F678 *clouds
 void Corneria_8018F678(void) {
@@ -4592,8 +4614,9 @@ void Corneria_LevelStart(Player* player) {
     sp2C = -Math_Atan2F(player->cam.eye.x - sp3C, player->cam.eye.z - sp34);
     sp30 = -Math_Atan2F(player->cam.eye.y - sp38, sqrtf(SQ(player->cam.eye.z - sp34) + SQ(player->cam.eye.x - sp3C)));
 
-    sp44 = Math_RadToDeg(sp2C) - D_ctx_80177A48[4];
-    sp40 = Math_RadToDeg(sp30) - D_ctx_80177A48[5];
+// clouds
+    sp44 = (Math_RadToDeg(sp2C) - D_ctx_80177A48[4]);
+    sp40 = (Math_RadToDeg(sp30) - D_ctx_80177A48[5]);
 
     if (sp44 > 180.0f) {
         sp44 -= 360.0f ;
@@ -4608,6 +4631,7 @@ void Corneria_LevelStart(Player* player) {
         sp40 += 360.0f ;
     }
 
+//clouds
     D_ctx_80177A48[6] += fabsf(sp44) ; // 60fps??????
     D_ctx_80177A48[7] += fabsf(sp40) ; // 60fps??????
 
@@ -4827,7 +4851,7 @@ void Corneria_LevelStart(Player* player) {
             actor0->fwork[20] = 0.0f;
 
             if (gMsgCharIsPrinting && ((gGameFrameCount & (2 MUL_FRAME_FACTOR)) != 0)) {
-                actor0->fwork[20] = 5.0f DIV_FRAME_FACTOR;
+                actor0->fwork[20] = 5.0f;
             }
             break;
 
@@ -4873,7 +4897,7 @@ void Corneria_LevelStart(Player* player) {
             actor2->fwork[20] = 0.0f;
 
             if (gMsgCharIsPrinting && ((gGameFrameCount & (2 MUL_FRAME_FACTOR)) != 0)) {
-                actor2->fwork[20] = 5.0f DIV_FRAME_FACTOR;
+                actor2->fwork[20] = 5.0f;
             }
             break;
 
@@ -4908,7 +4932,7 @@ void Corneria_LevelStart(Player* player) {
             actor1->fwork[20] = 0.0f;
 
             if (gMsgCharIsPrinting && ((gGameFrameCount & (2 MUL_FRAME_FACTOR)) != 0)) {
-                actor1->fwork[20] = 5.0f DIV_FRAME_FACTOR;
+                actor1->fwork[20] = 5.0f;
             }
             break;
 
@@ -4942,27 +4966,27 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (player->csTimer == 80) {
-                actor0->fwork[29] = 5.0f DIV_FRAME_FACTOR;
+                actor0->fwork[29] = 5.0f;
             }
 
             if (player->csTimer == 60) {
-                actor1->fwork[29] = 5.0f DIV_FRAME_FACTOR;
+                actor1->fwork[29] = 5.0f;
             }
 
             if (player->csTimer == 40) {
-                actor2->fwork[29] = 5.0f DIV_FRAME_FACTOR;
+                actor2->fwork[29] = 5.0f;
             }
 
             if ((player->csTimer > 70) && (player->csTimer < 80)) {
-                actor0->iwork[11] = 2 DIV_FRAME_FACTOR;
+                actor0->iwork[11] = 2 ;
             }
 
             if ((player->csTimer > 50) && (player->csTimer < 60)) {
-                actor1->iwork[11] = 2 DIV_FRAME_FACTOR;
+                actor1->iwork[11] = 2 ;
             }
 
             if ((player->csTimer > 30) && (player->csTimer < 40)) {
-                actor2->iwork[11] = 2 DIV_FRAME_FACTOR;
+                actor2->iwork[11] = 2 ;
             }
 
             if (player->csTimer == 70) {
@@ -5015,7 +5039,7 @@ void Corneria_LevelStart(Player* player) {
                 Object_Kill(&actor1->obj, actor1->sfxSource);
                 Object_Kill(&actor2->obj, actor2->sfxSource);
 
-                gLevelStartStatusScreenTimer = 80; // 60fps??????
+                gLevelStartStatusScreenTimer = 80; // handled with Global
 
                 player->pos.y = 350.0f;
                 player->cam.eye.x = player->pos.x;
