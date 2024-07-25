@@ -315,8 +315,8 @@ aCoGrangaStationaryAnim:
 D_CO_602D31C:
   { type: SF64:ANIM, offset: 0x602D31C, symbol: D_CO_602D31C }
 
-D_CO_602D400:
-  { type: SF64:ANIM, offset: 0x602D400, symbol: D_CO_602D400 }
+aCoCarrierAnim:
+  { type: SF64:ANIM, offset: 0x602D400, symbol: aCoCarrierAnim }
 
 aCoCarrierSkel:
   { type: SF64:SKELETON, offset: 0x602D5AC, symbol: aCoCarrierSkel }

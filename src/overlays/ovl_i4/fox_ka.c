@@ -279,7 +279,7 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
 }
 
 // Explosion/Fire effect with smoke.
-void Katina_FireSmokeEffectSetup(FireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
+void Katina_FireSmokeEffectSetup(EffectFireSmoke* this, f32 x, f32 y, f32 z, f32 xVel, f32 yVel, f32 zVel, f32 scale) {
     Effect_Initialize(this);
 
     this->obj.status = OBJ_INIT;

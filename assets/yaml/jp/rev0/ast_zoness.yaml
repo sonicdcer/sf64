@@ -471,8 +471,8 @@ D_ZO_6024220:
 D_ZO_60242B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60242B8, symbol: D_ZO_60242B8}
 
-aZoRock1DL:
-  { type: GFX, offset: 0x6024AC0, symbol: aZoRock1DL}
+aZoRockDL:
+  { type: GFX, offset: 0x6024AC0, symbol: aZoRockDL}
 
 D_ZO_6024D60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6024D60, symbol: D_ZO_6024D60}
@@ -502,8 +502,8 @@ D_ZO_602AC50:
 D_ZO_602AE94:
   { type: ARRAY, count: 242, array_type: Vec3f, offset: 0x602AE94, symbol: D_ZO_602AE94}
 
-aZoRock1Hitbox:
-  { type: SF64:HITBOX, offset: 0x602B9EC, symbol: aZoRock1Hitbox}
+aZoRockHitbox:
+  { type: SF64:HITBOX, offset: 0x602B9EC, symbol: aZoRockHitbox}
 
 aZoOilRig1Hitbox:
   { type: SF64:HITBOX, offset: 0x602BA20, symbol: aZoOilRig1Hitbox}

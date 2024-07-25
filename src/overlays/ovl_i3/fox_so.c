@@ -354,7 +354,7 @@ void Solar_8019F038(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) 
     }
 }
 
-void Solar_8019F0B0(SoRock* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
+void Solar_8019F0B0(SoRock1* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_SO_ROCK_3;
@@ -409,7 +409,7 @@ Vec3f D_i3_801BF95C[3] = {
 };
 
 // Actors OBJ_ACTOR_SO_ROCK_1 to OBJ_ACTOR_SO_ROCK_3
-void Solar_SoRock_Update(SoRock* this) {
+void Solar_SoRock_Update(SoRock1* this) {
     f32 sp8C = 0.0f;
     s32 sp88;
     s32 i;
@@ -507,7 +507,7 @@ void Solar_SoRock_Update(SoRock* this) {
 }
 
 // Actors OBJ_ACTOR_SO_ROCK_1 to OBJ_ACTOR_SO_ROCK_3
-void Solar_SoRock_Draw(SoRock* this) {
+void Solar_SoRock_Draw(SoRock1* this) {
     if (this->state != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);

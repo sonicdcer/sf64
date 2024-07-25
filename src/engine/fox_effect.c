@@ -164,7 +164,8 @@ Effect* Effect_Load(ObjectId objId) {
     return effect;
 }
 
-void Effect_FireSmoke_Setup2(FireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2) {
+void Effect_FireSmoke_Setup2(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                             f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
@@ -1805,7 +1806,7 @@ void Effect_Effect343_Draw(Effect343* this) {
     }
 }
 
-void EffectFireSmoke_Setup(FireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void EffectFireSmoke_Setup(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
@@ -1988,7 +1989,7 @@ void func_effect_8007D2C8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     EffectFireSmoke_Spawn2(xPos, yPos, zPos, scale2);
 }
 
-void Effect_Effect339_Update(FireSmoke* this) {
+void Effect_Effect339_Update(EffectFireSmoke* this) {
     if (gLevelType == LEVELTYPE_PLANET) {
         if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
             this->vel.y += 0.1f;
@@ -2071,7 +2072,7 @@ static Gfx* D_800D18A0[] = {
 };
 
 // Effects 339 to 341
-void Effect_FireSmoke_Draw(FireSmoke* this) {
+void Effect_FireSmoke_Draw(EffectFireSmoke* this) {
     f32 scale;
 
     Graphics_SetScaleMtx(this->scale2);

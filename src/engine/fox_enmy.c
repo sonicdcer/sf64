@@ -1130,7 +1130,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_TI_RIB_8:
             Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A20);
             break;
-        case OBJ_SCENERY_CO_RADAR:
+        case OBJ_SCENERY_CO_RADAR_DISH:
             Actor_CoRadar_Init(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
@@ -1284,7 +1284,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_CO_GARUDA_2:
         case OBJ_ACTOR_CO_GARUDA_3:
-            Corneria_IBeam_Init(&gActors[index]);
+            Corneria_CoIBeam_Init(&gActors[index]);
             /* fallthrough */
         case OBJ_ACTOR_CO_GARUDA_1:
             gActors[index].health = 24;
@@ -1303,7 +1303,7 @@ void Object_Init(s32 index, ObjectId objId) {
             Corneria_Granga_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_CO_CARRIER:
-            Corneria_Carrier_Init(&gBosses[index]);
+            Corneria_CoCarrier_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_A6_GORGON:
             Area6_A6Gorgon_Init(&gBosses[index]);

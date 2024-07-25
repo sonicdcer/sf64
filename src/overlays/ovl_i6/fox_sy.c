@@ -61,7 +61,7 @@ void SectorY_Effect354_Draw(Effect354* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void SectorY_Scenery156_Draw(Scenery156* this) {
+void SectorY_Scenery156_Draw(SceneryUnk156* this) {
     /* Unimplemented */
 }
 
@@ -3918,7 +3918,7 @@ void SectorY_SyShip3Destroyed_Update(SyShip3Destroyed* scenery) {
     }
 }
 
-void SectorY_SyShip4Destroyed_Update(SyShip4Destroyed* scenery) {
+void SectorY_SyShip4Destroyed_Update(SyShip2Destroyed* scenery) {
     Vec3f src;
     Vec3f dest;
 

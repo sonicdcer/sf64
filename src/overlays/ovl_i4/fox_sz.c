@@ -77,7 +77,7 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     }
 }
 
-void SectorZ_FireSmokeEffectSetup(FireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+void SectorZ_FireSmokeEffectSetup(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
                                   f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -1715,7 +1715,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
     this->obj.rot.z = -this->rot_0F4.z;
 }
 
-void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
+void SectorZ_SpaceJunkUpdate(SzSpaceJunk* this) {
     s32 i;
 
     this->obj.rot.x += this->rot_0F4.x;
@@ -1745,7 +1745,7 @@ void SectorZ_SpaceJunkUpdate(ActorSpaceJunk* this) {
     }
 }
 
-void SectorZ_SpaceJunkDraw(ActorSpaceJunk* this) {
+void SectorZ_SpaceJunkDraw(SzSpaceJunk* this) {
     gSPDisplayList(gMasterDisp++, aSzSpaceJunk2DL);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);

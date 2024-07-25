@@ -12,16 +12,16 @@
 u8 sFightCarrier;
 f32 sCoGrangaWork[68];
 
-void Corneria_BuildingOnFire_Update(CoBuildingOnFire* this) {
+void Corneria_CoBuildingOnFire_Update(CoBuildingOnFire* this) {
 }
 
-void Corneria_BuildingOnFire_Draw(CoBuildingOnFire* this) {
+void Corneria_CoBuildingOnFire_Draw(CoBuildingOnFire* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_CO_60199D0);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Corneria_Smoke_Update(CoSmoke* this) {
+void Corneria_CoSmoke_Update(CoSmoke* this) {
     f32 x;
     f32 y;
     f32 z;
@@ -63,7 +63,7 @@ void Corneria_BossMissile_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 xRot
     }
 }
 
-void Corneria_Granga_ShootLaser(Granga* this, f32 x, f32 y, f32 z) {
+void Corneria_CoGranga_ShootLaser(CoGranga* this, f32 x, f32 y, f32 z) {
     Vec3f src;
     Vec3f dest;
 
@@ -95,7 +95,7 @@ void Corneria_Granga_SpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
     }
 }
 
-void Corneria_Granga_Init(Granga* this) {
+void Corneria_Granga_Init(CoGranga* this) {
     s32 i;
 
     gBossFrameCount = 0;
@@ -116,17 +116,17 @@ void Corneria_Granga_Init(Granga* this) {
     }
 }
 
-void Corneria_8018798C(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+void Corneria_8018798C(CoGranga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     Effect386_Spawn1(xPos, yPos, zPos, 0.0f, 0.0f, 0.0f, scale, 30);
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
-void Corneria_801879F0(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
+void Corneria_801879F0(CoGranga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     Effect_Effect341_Spawn(xPos, yPos, zPos, scale);
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
 }
 
-void Corneria_80187A38(Granga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale, s32 timer) {
+void Corneria_80187A38(CoGranga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale, s32 timer) {
     Effect_Effect390_Spawn(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
 }
 
@@ -139,7 +139,7 @@ f32 Corneria_80187A88(s32 angle) {
     return ret;
 }
 
-void Corneria_Granga_HandleDamage(Granga* this) {
+void Corneria_CoGranga_HandleDamage(CoGranga* this) {
     CoTree* tree;
     s32 item;
     s32 i;
@@ -389,7 +389,7 @@ void Corneria_Granga_HandleDamage(Granga* this) {
     }
 }
 
-ObjectId Corneria_Granga_ChooseMissileTarget(Granga* this) {
+ObjectId Corneria_CoGranga_ChooseMissileTarget(CoGranga* this) {
     this->swork[GRANGA_MISSILE_COUNT]++;
     /*
      *  Spawn up to 5 missiles that seek the teammates
@@ -405,7 +405,7 @@ ObjectId Corneria_Granga_ChooseMissileTarget(Granga* this) {
     }
 }
 
-void Corneria_Granga_Attack(Granga* this) {
+void Corneria_CoGranga_Attack(CoGranga* this) {
     Vec3f savedPlayerPos;
     ObjectId objId;
 
@@ -419,7 +419,7 @@ void Corneria_Granga_Attack(Granga* this) {
             break;
 
         case GRANGA_ATTACK_MISSILES:
-            objId = Corneria_Granga_ChooseMissileTarget(this);
+            objId = Corneria_CoGranga_ChooseMissileTarget(this);
             if (objId != 0) {
                 if (this->swork[GRANGA_RIGHT_ARM_DMG_IND] != DMG_DESTROYED) {
                     Corneria_BossMissile_Spawn(sCoGrangaWork[GRANGA_WORK_00], sCoGrangaWork[GRANGA_WORK_01],
@@ -436,8 +436,8 @@ void Corneria_Granga_Attack(Granga* this) {
             break;
 
         case GRANGA_ATTACK_LASERS:
-            Corneria_Granga_ShootLaser(this, 40.0f, 228.0f, 212.0f);
-            Corneria_Granga_ShootLaser(this, -40.0f, 228.0f, 212.0f);
+            Corneria_CoGranga_ShootLaser(this, 40.0f, 228.0f, 212.0f);
+            Corneria_CoGranga_ShootLaser(this, -40.0f, 228.0f, 212.0f);
             this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_IDLE;
             break;
 
@@ -463,7 +463,7 @@ void Corneria_Granga_Attack(Granga* this) {
     }
 }
 
-void Corneria_Granga_DecideNextAction(Granga* this) {
+void Corneria_CoGranga_DecideNextAction(CoGranga* this) {
     if (this->timer_050 == 0) {
         this->state = GRANGA_STATIONARY;
         this->timer_050 = RAND_INT(20.0f) + 20;
@@ -515,7 +515,7 @@ void Corneria_Granga_DecideNextAction(Granga* this) {
     }
 }
 
-void Corneria_80188C7C(Granga* this) {
+void Corneria_80188C7C(CoGranga* this) {
     if (this->unk_044 == 0) {
         this->unk_044++;
         this->fwork[GRANGA_FWK_12] *= -0.2f;
@@ -532,7 +532,7 @@ void Corneria_80188C7C(Granga* this) {
     }
 }
 
-void Corneria_Granga_1UpCheck(Granga* this) {
+void Corneria_CoGranga_1UpCheck(CoGranga* this) {
     static s32 sCo1UpHitTimer = 0;
     s32 i;
     Vec3f src;
@@ -603,7 +603,7 @@ void Corneria_Granga_1UpCheck(Granga* this) {
     }
 }
 
-void Corneria_Granga_Update(Granga* this) {
+void Corneria_CoGranga_Update(CoGranga* this) {
     Vec3f sp21C = { 0.0f, 0.0f, 0.0f };
     s32 sp218;
     f32 sp214;
@@ -664,7 +664,7 @@ void Corneria_Granga_Update(Granga* this) {
         gRadarMarks[59].pos.z = this->obj.pos.z;
         gRadarMarks[59].yRot = this->obj.rot.y + 180.0f;
 
-        Corneria_Granga_1UpCheck(this);
+        Corneria_CoGranga_1UpCheck(this);
 
         if (D_edisplay_801615D0.z > 0.0f) {
             if (D_edisplay_801615D0.x > 0.0f) {
@@ -710,7 +710,7 @@ void Corneria_Granga_Update(Granga* this) {
             }
         }
 
-        Corneria_Granga_HandleDamage(this);
+        Corneria_CoGranga_HandleDamage(this);
 
         this->fwork[GRANGA_FWK_00] =
             SIN_DEG(this->swork[GRANGA_SWK_18] * 50.0f) * Corneria_80187A88(this->swork[GRANGA_SWK_18]);
@@ -838,7 +838,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_MISSILES;
                 }
 
-                Corneria_Granga_DecideNextAction(this);
+                Corneria_CoGranga_DecideNextAction(this);
                 break;
 
             case GRANGA_BACKWARDS_LASER_PLASMA:
@@ -863,7 +863,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_PLASMA;
                 }
 
-                Corneria_Granga_DecideNextAction(this);
+                Corneria_CoGranga_DecideNextAction(this);
                 break;
 
             case GRANGA_FORWARD_LASER_PLASMA:
@@ -888,7 +888,7 @@ void Corneria_Granga_Update(Granga* this) {
                     this->swork[GRANGA_ATTACK_STATE] = GRANGA_ATTACK_PLASMA;
                 }
 
-                Corneria_Granga_DecideNextAction(this);
+                Corneria_CoGranga_DecideNextAction(this);
                 break;
 
             case GRANGA_FORWARD:
@@ -904,7 +904,7 @@ void Corneria_Granga_Update(Granga* this) {
                 Animation_GetFrameData(&aCoGrangaWalkingAnim, this->animFrame, frameTable);
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp21C);
 
-                Corneria_Granga_DecideNextAction(this);
+                Corneria_CoGranga_DecideNextAction(this);
                 break;
 
             case GRANGA_FALL_TO_LEFT:
@@ -956,7 +956,7 @@ void Corneria_Granga_Update(Granga* this) {
 
                     this->timer_050 = 60;
 
-                    objId = Corneria_Granga_ChooseMissileTarget(this);
+                    objId = Corneria_CoGranga_ChooseMissileTarget(this);
                     if (objId != 0) {
                         Corneria_BossMissile_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63],
                                                    sCoGrangaWork[GRANGA_WORK_64], 65.0f, 270.0f, 0.0f, 0, 0, objId);
@@ -1060,7 +1060,7 @@ void Corneria_Granga_Update(Granga* this) {
         Math_SmoothStepToF(&this->vel.x, sp21C.x, 0.3f, 5.0f, 0.0f);
         Math_SmoothStepToF(&this->vel.z, sp21C.z, 0.3f, 5.0f, 0.0f);
 
-        Corneria_Granga_Attack(this);
+        Corneria_CoGranga_Attack(this);
 
         Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, 19, this->fwork[GRANGA_FWK_14], 100.0f, 0.0f);
         Math_SmoothStepToF(&this->fwork[GRANGA_FWK_14], 1.0f, 1.0f, 0.01f, 0.0f);
@@ -1089,8 +1089,8 @@ void Corneria_Granga_Update(Granga* this) {
     }
 }
 
-bool Corneria_Granga_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Granga* boss = (Granga*) data;
+bool Corneria_CoGranga_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+    CoGranga* boss = (CoGranga*) data;
 
     if (boss->swork[limbIndex] == DMG_DESTROYED) {
         *dList = NULL;
@@ -1164,7 +1164,7 @@ bool Corneria_Granga_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
     return false;
 }
 
-void Corneria_Granga_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
+void Corneria_CoGranga_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     s32 pad;
     Vec3f sp80 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp74;
@@ -1242,10 +1242,10 @@ void Corneria_Granga_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     }
 }
 
-void Corneria_Granga_Draw(Granga* this) {
+void Corneria_CoGranga_Draw(CoGranga* this) {
     Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, MTXF_APPLY);
-    Animation_DrawSkeleton(2, D_CO_602BE64, this->vwork, Corneria_Granga_OverrideLimbDraw, Corneria_Granga_PostLimbDraw,
-                           this, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_CO_602BE64, this->vwork, Corneria_CoGranga_OverrideLimbDraw,
+                           Corneria_CoGranga_PostLimbDraw, this, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
 }
@@ -1262,7 +1262,7 @@ bool Corneria_Garuda_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
     return false;
 }
 
-s32 Corneria_Garuda_CheckCollision(CoGaruda1* this) {
+s32 Corneria_CoGaruda1_CheckCollision(CoGaruda1* this) {
     s32 pad[2];
     s32 i;
     s32 collision;
@@ -1344,7 +1344,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
                 this->fwork[0] = 10.0f;
             }
 
-            this->iwork[0] = Corneria_Garuda_CheckCollision(this);
+            this->iwork[0] = Corneria_CoGaruda1_CheckCollision(this);
             if (this->iwork[0] != 0) {
                 this->state++;
             }
@@ -1370,7 +1370,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
     }
 }
 
-void Corneria_IBeam_Init(Actor* this) {
+void Corneria_CoIBeam_Init(CoGaruda3* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gScenery); i++) {
@@ -1437,7 +1437,7 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
                 scenery->state = 1; // I beam rotating
                 src.x = 0.0f;
                 src.y = 0.0f;
-                src.z = 30.0f; // Ibeam moving towards you
+                src.z = 30.0f; // Ibeam flying towards the camera.
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 scenery->vel.x = dest.x;
                 scenery->vel.y = dest.y;
@@ -1567,18 +1567,18 @@ void Corneria_CoGaruda1_Draw(CoGaruda1* this) {
     Animation_DrawSkeleton(3, aCoGarudaSkel, this->vwork, Corneria_Garuda_OverrideLimbDraw, NULL, this, gCalcMatrix);
 }
 
-void Corneria_Garuda_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+void Corneria_Garuda_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
+    Actor* this = (Actor*) thisx;
     Vec3f src = { 120.0f, 0.0f, 0.0f };
     Vec3f dest;
 
     if (limbIndex == 1) {
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        actor->fwork[2] = dest.x;
-        actor->fwork[6] = dest.y;
-        actor->fwork[10] = dest.z;
-        if (actor->iwork[1] == 0) {
-            gScenery[actor->iwork[0]].obj.rot.x = -rot->y;
+        this->fwork[2] = dest.x;
+        this->fwork[6] = dest.y;
+        this->fwork[10] = dest.z;
+        if (this->iwork[1] == 0) {
+            gScenery[this->iwork[0]].obj.rot.x = -rot->y;
         }
     }
 }
@@ -1592,17 +1592,17 @@ void Corneria_CoGaruda3_Draw(CoGaruda3* this) {
                            Corneria_Garuda_PostLimbDraw, this, gCalcMatrix);
 }
 
-bool Corneria_CoGarudaDestroy_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool Corneria_CoGarudaDestroy_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    CoGarudaDestroy* this = (CoGarudaDestroy*) thisx;
 
-    if ((actor->state == 101) && (limbIndex != 8)) {
+    if ((this->state == 101) && (limbIndex != 8)) {
         *dList = NULL;
     }
     return false;
 }
 
-void Corneria_CoGarudaDestroy_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
-    CoGarudaDestroy* actor = (CoGarudaDestroy*) data;
+void Corneria_CoGarudaDestroy_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
+    CoGarudaDestroy* this = (CoGarudaDestroy*) thisx;
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     Vec3f dest;
 
@@ -1610,27 +1610,27 @@ void Corneria_CoGarudaDestroy_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data
 
     switch (limbIndex) {
         case 1:
-            actor->fwork[2] = dest.x;
-            actor->fwork[6] = dest.y;
-            actor->fwork[10] = dest.z;
+            this->fwork[2] = dest.x;
+            this->fwork[6] = dest.y;
+            this->fwork[10] = dest.z;
             break;
 
         case 2:
-            actor->fwork[3] = dest.x;
-            actor->fwork[7] = dest.y;
-            actor->fwork[11] = dest.z;
+            this->fwork[3] = dest.x;
+            this->fwork[7] = dest.y;
+            this->fwork[11] = dest.z;
             break;
 
         case 3:
-            actor->fwork[4] = dest.x;
-            actor->fwork[8] = dest.y;
-            actor->fwork[12] = dest.z;
+            this->fwork[4] = dest.x;
+            this->fwork[8] = dest.y;
+            this->fwork[12] = dest.z;
             break;
 
         case 4:
-            actor->fwork[5] = dest.x;
-            actor->fwork[9] = dest.y;
-            actor->fwork[13] = dest.z;
+            this->fwork[5] = dest.x;
+            this->fwork[9] = dest.y;
+            this->fwork[13] = dest.z;
             break;
     }
 }
@@ -1640,8 +1640,8 @@ void Corneria_CoGarudaDestroy_Draw(CoGarudaDestroy* this) {
                            Corneria_CoGarudaDestroy_PostLimbDraw, this, gCalcMatrix);
 }
 
-void Corneria_Carrier_ChooseMissileTarget(Carrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5,
-                                          s32 eventType) {
+void Corneria_CoCarrier_ChooseMissileTarget(CoCarrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5,
+                                            s32 eventType) {
     ObjectId objId = OBJ_MISSILE_SEEK_PLAYER;
 
     if (Hud_MissileSeekModeCheck(0) < 4) {
@@ -1652,7 +1652,7 @@ void Corneria_Carrier_ChooseMissileTarget(Carrier* this, f32 xPos, f32 yPos, f32
                                this->obj.rot.x, this->obj.rot.y, arg5, eventType, objId);
 }
 
-void Corneria_Carrier_Init(Carrier* this) {
+void Corneria_CoCarrier_Init(CoCarrier* this) {
     s32 i;
     s16 timer;
 
@@ -1699,7 +1699,7 @@ void Corneria_Carrier_Init(Carrier* this) {
     }
 }
 
-void Corneria_Carrier_WaterSplash(Boss* this) {
+void Corneria_CoCarrier_WaterSplash(CoCarrier* this) {
     Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 0);
     Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 5);
     Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 10);
@@ -1732,7 +1732,7 @@ static Vec3f D_i1_8019995C[20] = {
 static s32 D_i1_80199A4C[4] = { 150, 200, 150, 200 };
 static f32 D_i1_80199A5C[4] = { -225.0f, 0.0f, 225.0f, 0.0f };
 
-void Corneria_Carrier_Update(Carrier* this) {
+void Corneria_CoCarrier_Update(CoCarrier* this) {
     Vec3f sp84[33];
     Vec3f src;
     Vec3f dest;
@@ -1996,7 +1996,7 @@ void Corneria_Carrier_Update(Carrier* this) {
 
                 } else if ((this->fwork[2] > 60.0f) && (this->timer_054 == 0)) {
                     this->timer_054 = 20;
-                    Corneria_Carrier_ChooseMissileTarget(this, sp84[0].x, sp84[0].y, sp84[0].z, 30.0f, 0, 1);
+                    Corneria_CoCarrier_ChooseMissileTarget(this, sp84[0].x, sp84[0].y, sp84[0].z, 30.0f, 0, 1);
                 }
                 break;
 
@@ -2006,16 +2006,16 @@ void Corneria_Carrier_Update(Carrier* this) {
                 this->fwork[13] = 20.0f;
 
                 if ((this->fwork[0] > 60.0f) && (gBosses[CARRIER_UPPER].state == 0) && (this->swork[1] == 0)) {
-                    Corneria_Carrier_ChooseMissileTarget(this, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
+                    Corneria_CoCarrier_ChooseMissileTarget(this, sp84[1].x, sp84[1].y + 50.0f, sp84[1].z, 45.0f, 0, 0);
                     AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, this->sfxSource, 4);
-                    Corneria_Carrier_ChooseMissileTarget(this, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
+                    Corneria_CoCarrier_ChooseMissileTarget(this, sp84[1].x, sp84[1].y - 50.0f, sp84[1].z, 40.0f, 0, 0);
                     this->swork[1] = 1;
                 }
 
                 if ((this->fwork[1] > 60.0f) && (gBosses[CARRIER_BOTTOM].state == 0) && (this->swork[2] == 0)) {
-                    Corneria_Carrier_ChooseMissileTarget(this, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
+                    Corneria_CoCarrier_ChooseMissileTarget(this, sp84[2].x, sp84[2].y + 50.0f, sp84[2].z, 35.0f, 0, 0);
                     AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, this->sfxSource, 4);
-                    Corneria_Carrier_ChooseMissileTarget(this, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
+                    Corneria_CoCarrier_ChooseMissileTarget(this, sp84[2].x, sp84[2].y - 50.0f, sp84[2].z, 30.0f, 0, 0);
                     this->swork[2] = 1;
                 }
 
@@ -2240,7 +2240,7 @@ void Corneria_Carrier_Update(Carrier* this) {
                     this->vel.y = -10.0f;
                     this->gravity = 0.0f;
                     this->fwork[17] = 20.0f;
-                    Corneria_Carrier_WaterSplash(this);
+                    Corneria_CoCarrier_WaterSplash(this);
                     this->state = 10;
                 }
                 break;
@@ -2305,7 +2305,7 @@ void Corneria_Carrier_Update(Carrier* this) {
 static Vec3f D_i1_80199A6C = { -270.0f, 0.0f, 200.0f };
 static Vec3f D_i1_80199A78 = { 440.0f, 0.0f, 0.0f };
 
-void Corneria_CarrierLeft_Update(CarrierLeft* this) {
+void Corneria_CarrierLeft_Update(CoCarrierLeft* this) {
     Vec3f sp4C;
     Vec3f sp40;
     s32 i;
@@ -2394,7 +2394,7 @@ void Corneria_CarrierLeft_Update(CarrierLeft* this) {
                     this->vel.y = -5.0f;
                     this->swork[0] = 1;
                     this->gravity = 0.0f;
-                    Corneria_Carrier_WaterSplash(this);
+                    Corneria_CoCarrier_WaterSplash(this);
                     AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, this->sfxSource, 4);
                 }
             } else {
@@ -2408,7 +2408,7 @@ void Corneria_CarrierLeft_Update(CarrierLeft* this) {
 static Vec3f D_i1_80199A84 = { 20.0f, -90.0f, 0.0f };
 static Vec3f D_i1_80199A90 = { -440.0f, 210.0f, 0.0f };
 
-void Corneria_CarrierUpper_Update(CarrierUpper* this) {
+void Corneria_CarrierUpper_Update(CoCarrierUpper* this) {
     Vec3f sp4C;
     Vec3f sp40;
     s32 i;
@@ -2502,7 +2502,7 @@ void Corneria_CarrierUpper_Update(CarrierUpper* this) {
                     this->vel.y = -5.0f;
                     this->swork[0] = 1;
                     this->gravity = 0.0f;
-                    Corneria_Carrier_WaterSplash(this);
+                    Corneria_CoCarrier_WaterSplash(this);
                     AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, this->sfxSource, 4);
                 }
             } else {
@@ -2516,7 +2516,7 @@ void Corneria_CarrierUpper_Update(CarrierUpper* this) {
 static Vec3f D_i1_80199A9C = { 20.0f, 90.0f, 0.0f };
 static Vec3f D_i1_80199AA8 = { -440.0f, -210.0f, 0.0f };
 
-void Corneria_CarrierBottom_Update(CarrierBottom* this) {
+void Corneria_CarrierBottom_Update(CoCarrierBottom* this) {
     Vec3f sp4C;
     Vec3f sp40;
     s32 i;
@@ -2612,7 +2612,7 @@ void Corneria_CarrierBottom_Update(CarrierBottom* this) {
                     this->vel.y = -5.0f;
                     this->swork[0] = 1;
                     this->gravity = 0.0f;
-                    Corneria_Carrier_WaterSplash(this);
+                    Corneria_CoCarrier_WaterSplash(this);
                     AUDIO_PLAY_SFX(NA_SE_OB_WATER_BOUND_M, this->sfxSource, 4);
                 }
             } else {
@@ -2623,7 +2623,7 @@ void Corneria_CarrierBottom_Update(CarrierBottom* this) {
     }
 }
 
-bool Corneria_Carrier_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_CoCarrier_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     if ((limbIndex == 10) && (gBosses[CARRIER_UPPER].state != 0) && (gBosses[CARRIER_BOTTOM].state != 0)) {
         *dList = NULL;
     }
@@ -2633,15 +2633,15 @@ bool Corneria_Carrier_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
     return false;
 }
 
-void Corneria_Carrier_Draw(Carrier* this) {
-    Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_Carrier_OverrideLimbDraw, NULL, &this->index,
+void Corneria_CoCarrier_Draw(CoCarrier* this) {
+    Animation_GetFrameData(&aCoCarrierAnim, 0, this->vwork);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CoCarrier_OverrideLimbDraw, NULL, &this->index,
                            &gIdentityMatrix);
 }
 
-bool Corneria_CarrierLeft_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_CoCarrierLeft_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* index) {
     if (limbIndex == 5) {
-        rot->y -= gBosses[*(s32*) data].fwork[2];
+        rot->y -= gBosses[*(s32*) index].fwork[2];
     }
     if ((limbIndex != 6) && (limbIndex != 5)) {
         *dList = NULL;
@@ -2649,17 +2649,17 @@ bool Corneria_CarrierLeft_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* po
     return false;
 }
 
-void Corneria_CarrierLeft_Draw(CarrierLeft* this) {
+void Corneria_CoCarrierLeft_Draw(CoCarrierLeft* this) {
     Matrix_Translate(gGfxMatrix, -D_i1_80199A78.x, -D_i1_80199A78.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CarrierLeft_OverrideLimbDraw, NULL, &this->index,
+    Animation_GetFrameData(&aCoCarrierAnim, 0, this->vwork);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CoCarrierLeft_OverrideLimbDraw, NULL, &this->index,
                            &gIdentityMatrix);
 }
 
-bool Corneria_CarrierUpper_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_CoCarrierUpper_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* index) {
     if (limbIndex == 1) {
-        rot->z -= gBosses[*(s32*) data].fwork[0];
+        rot->z -= gBosses[*(s32*) index].fwork[0];
     }
     if ((limbIndex != 1) && (limbIndex != 2)) {
         *dList = NULL;
@@ -2667,17 +2667,17 @@ bool Corneria_CarrierUpper_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* p
     return false;
 }
 
-void Corneria_CarrierUpper_Draw(CarrierUpper* this) {
+void Corneria_CoCarrierUpper_Draw(CoCarrierUpper* this) {
     Matrix_Translate(gGfxMatrix, -D_i1_80199A90.x, -D_i1_80199A90.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CarrierUpper_OverrideLimbDraw, NULL, &this->index,
+    Animation_GetFrameData(&aCoCarrierAnim, 0, this->vwork);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CoCarrierUpper_OverrideLimbDraw, NULL, &this->index,
                            &gIdentityMatrix);
 }
 
-bool Corneria_CarrierBottom_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Corneria_CoCarrierBottom_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* index) {
     if (limbIndex == 3) {
-        rot->z -= gBosses[*(s32*) data].fwork[1];
+        rot->z -= gBosses[*(s32*) index].fwork[1];
     }
     if ((limbIndex != 3) && (limbIndex != 4)) {
         *dList = NULL;
@@ -2685,44 +2685,44 @@ bool Corneria_CarrierBottom_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* 
     return false;
 }
 
-void Corneria_CarrierBottom_Draw(CarrierBottom* this) {
+void Corneria_CoCarrierBottom_Draw(CoCarrierBottom* this) {
     Matrix_Translate(gGfxMatrix, -D_i1_80199AA8.x, -D_i1_80199AA8.y, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_CO_602D400, 0, this->vwork);
-    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CarrierBottom_OverrideLimbDraw, NULL, &this->index,
-                           &gIdentityMatrix);
+    Animation_GetFrameData(&aCoCarrierAnim, 0, this->vwork);
+    Animation_DrawSkeleton(1, aCoCarrierSkel, this->vwork, Corneria_CoCarrierBottom_OverrideLimbDraw, NULL,
+                           &this->index, &gIdentityMatrix);
 }
 
-void Corneria_Doors_Update(CoDoors* scenery) {
-    switch (scenery->state) {
+void Corneria_CoDoors_Update(CoDoors* this) {
+    switch (this->state) {
         case 0:
-            if (scenery->dmgType != DMG_NONE) {
-                scenery->dmgType = DMG_NONE;
-                if (scenery->dmgPart < 2) {
-                    scenery->unk_44++;
-                    scenery->timer_4C = 5;
-                    scenery->vel.x += 2.0f;
-                    scenery->vel.y += 2.0f;
-                    if (scenery->unk_44 >= 3) {
-                        scenery->state = 1;
-                        scenery->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
-                        AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, scenery->sfxSource, 0);
+            if (this->dmgType != DMG_NONE) {
+                this->dmgType = DMG_NONE;
+                if (this->dmgPart < 2) {
+                    this->unk_44++;
+                    this->timer_4C = 5;
+                    this->vel.x += 2.0f;
+                    this->vel.y += 2.0f;
+                    if (this->unk_44 >= 3) {
+                        this->state = 1;
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
+                        AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                     } else {
-                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, scenery->sfxSource, 0);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 0);
                     }
                 }
             }
             break;
 
         case 1:
-            Math_SmoothStepToF(&scenery->vel.x, 80.0f, 0.2f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&scenery->vel.y, 80.0f, 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->vel.x, 80.0f, 0.2f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->vel.y, 80.0f, 0.2f, 10.0f, 0.0f);
             break;
     }
 }
 
-bool Corneria_Doors_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    CoDoors* scenery = (CoDoors*) data;
+bool Corneria_CoDoors_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    CoDoors* scenery = (CoDoors*) thisx;
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 
@@ -2744,11 +2744,11 @@ bool Corneria_Doors_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec
     return 0;
 }
 
-void Corneria_Doors_Draw(CoDoors* this) {
+void Corneria_CoDoors_Draw(CoDoors* this) {
     Vec3f jointTable[10];
 
     Animation_GetFrameData(&D_CO_602AA7C, 0, jointTable);
-    Animation_DrawSkeleton(3, aCoDoorsSkel, jointTable, Corneria_Doors_OverrideLimbDraw, NULL, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aCoDoorsSkel, jointTable, Corneria_CoDoors_OverrideLimbDraw, NULL, this, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 

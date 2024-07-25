@@ -911,7 +911,7 @@ void func_enmy2_8006D0F4(Actor* this) {
     }
 }
 
-void MeteoTunnel_Update(MeteoTunnel* this) {
+void MeteoTunnel_Update(MeTunnel* this) {
     this->obj.rot.z += 1.0f;
 }
 
@@ -3846,7 +3846,7 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-s32 Scenery111_Draw(Scenery111* this) {
+s32 Scenery111_Draw(SyShipDebris* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
     gSPDisplayList(gMasterDisp++, D_SY_601AD70);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);

@@ -98,7 +98,7 @@ void ActorHopBot_Draw(ActorHopBot* this) {
     Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, ActorHopBot_PostLimbDraw, &this->index, &gIdentityMatrix);
 }
 
-void MeteoTunnel_Draw(MeteoTunnel* this) {
+void MeteoTunnel_Draw(MeTunnel* this) {
     gSPDisplayList(gMasterDisp++, D_ME_601AE40);
 }
 
