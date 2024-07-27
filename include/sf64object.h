@@ -273,19 +273,19 @@ typedef struct {
     /* 0x046 */ s16 unk_046;
     /* 0x048 */ s16 unk_048;
     /* 0x04A */ s16 unk_04A;
-    /* 0x04C */ s16 timer_04C;
-    /* 0x04E */ s16 counter_04E;
+    /* 0x04C */ s16 timer_04C; // GLOBAL
+    /* 0x04E */ s16 counter_04E; // GLOBAL
     /* 0x050 */ s32 iwork[25];
     /* 0x0B4 */ s16 eventType;
     /* 0x0B6 */ s16 animFrame; // used for model type in ActorAllRange and ActorCutscene
     /* 0x0B8 */ s16 state;
     /* 0x0BA */ char pad0BA[0x2];
-    /* 0x0BC */ u16 timer_0BC;
-    /* 0x0BE */ u16 timer_0BE;
-    /* 0x0C0 */ u16 timer_0C0;
-    /* 0x0C2 */ u16 timer_0C2;
-    /* 0x0C4 */ u16 timer_0C4;
-    /* 0x0C6 */ u16 timer_0C6;
+    /* 0x0BC */ u16 timer_0BC; // GLOBAL
+    /* 0x0BE */ u16 timer_0BE; // GLOBAL
+    /* 0x0C0 */ u16 timer_0C0; // GLOBAL
+    /* 0x0C2 */ u16 timer_0C2; // GLOBAL
+    /* 0x0C4 */ u16 timer_0C4; // GLOBAL
+    /* 0x0C6 */ u16 timer_0C6; // GLOBAL
     /* 0x0C8 */ u8 unk_0C8; // may have been used for scenery shadowing
     /* 0x0C9 */ u8 drawShadow;
     /* 0x0CA */ u8 lockOnTimers[4];

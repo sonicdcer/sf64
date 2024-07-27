@@ -8499,19 +8499,23 @@ void Play_SpawnVsItem(ObjectId objId, Item* item) {
     }
 }
 
-#if ENABLE_FREEZE == 1 
-    void freeze(void) {
-        static bool sFreeze = true;
+#if ENABLE_FREEZE == 1
+void freeze(void) {
+    static bool sFreeze = true;
 
-        if (gControllerPress[0].button & D_JPAD) {
-            sFreeze ^= 1; // Freeze arwing.
-            if (sFreeze) {
-                gPlayer[0].baseSpeed = 0;
-            } else {
-                gPlayer[0].baseSpeed = gArwingSpeed;
-            }
+    if (gControllerPress[0].button & D_JPAD) {
+        sFreeze ^= 1; // Freeze arwing.
+        if (sFreeze) {
+            gPlayer[0].baseSpeed = 0;
+        } else {
+            gPlayer[0].baseSpeed = gArwingSpeed;
         }
     }
+    if (gControllerPress[0].button & U_JPAD) {
+        gPlayer[0].shields = PLAYERSTATE_1C8_DOWN;
+        Player_ApplyDamage(gPlayer, 1, 5000);
+    }
+}
 #endif
 
 void Play_SetupZPos360(f32* zPos) {

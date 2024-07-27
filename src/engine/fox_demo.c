@@ -2777,6 +2777,90 @@ void Cutscene_ArwingDown360(Player* player) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // Cutscene_ArwingDownOnRails *Incomplete! 
+void Cutscene_ArwingDownOnRails(Player* player) {
+    s32 i;
+
+    if (player->rot.x < 0.0f) {
+        player->rot.x += 1.0f DIV_FRAME_FACTOR;
+    }
+    if (player->rot.x > 0.0f) {
+        player->rot.x -= 1.0f DIV_FRAME_FACTOR;
+    }
+
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+
+    if (!((gCurrentLevel == LEVEL_VENOM_ANDROSS) && gBossActive) && (gLevelType == LEVELTYPE_PLANET)) {
+        player->vel.y = player->vel.y - (0.5f DIV_FRAME_FACTOR) ;
+    }
+
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    player->zRotBank = player->zRotBank + (15.0f DIV_FRAME_FACTOR);
+
+    if (player->csState != 0) {
+        player->rot.y += 14.0f DIV_FRAME_FACTOR;
+        player->rot.x += 26.0f DIV_FRAME_FACTOR;
+    }
+
+    if (((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) { // Smoke
+        func_effect_8007D24C(RAND_FLOAT_CENTERED(20.0) + player->pos.x, RAND_FLOAT_CENTERED(20.0) + player->pos.y, player->trueZpos, 2.2f);
+    }
+
+    if ((player->pos.y < player->pathFloor) && (player->csState == 0)) {
+        player->pos.y = player->pathFloor;
+        player->radioDamageTimer = 0;
+        player->vel.y = 10.0f;
+        player->csState = 1;
+        Play_PlaySfxNoPlayer(player->sfxSource, NA_SE_EXPLOSION_S);
+        if (gCurrentLevel == LEVEL_CORNERIA) {
+            func_enmy_80062C38(player->pos.x, player->pos.z);
+        }
+
+        if (player->wings.rightState == WINGSTATE_INTACT) {
+            Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
+            player->wings.rightState = WINGSTATE_NONE;
+            func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
+        }
+
+        if (player->wings.leftState == WINGSTATE_INTACT) {
+            Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
+            player->wings.leftState = WINGSTATE_NONE;
+            func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
+        }
+    } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) || (player->csEventTimer == 0)) && (player->csTimer == 0)) {
+        if (player->pos.y < player->pathFloor) {
+            func_effect_8007C688(player->pos.x, gGroundHeight + 20.0f, player->trueZpos - (2.0f * player->vel.z), 3.0f, 800);
+            func_enmy_80062C38(player->pos.x, player->pos.z);
+        }
+        func_effect_8007D0E0(player->pos.x, player->pos.y - (2.0f * player->vel.y), player->trueZpos - (2.0f * player->vel.z), 6.0f);
+        func_effect_8007BFFC(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z), 0.0f, 0.0f, 0.0f, 3.0f, 20);
+        if (gLevelType == LEVELTYPE_PLANET) {
+            for (i = 0; i < 2; i++) {
+                Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);
+            }
+
+            for (i = 0; i < 4; i++) {
+                Play_SpawnDebris(4, player->pos.x, player->pos.y, player->trueZpos);
+            }
+        }
+        Cutscene_KillPlayer(player);
+    }
+
+    player->camRoll -= 3.0f DIV_FRAME_FACTOR;
+
+    if (player->csState != 0) {
+        player->camRoll += 10.0f DIV_FRAME_FACTOR;
+    }
+
+    if ((gGroundSurface == SURFACE_WATER) && (player->pos.y <= player->pathFloor)) {
+        func_effect_8007D9DC(player->pos.x, gGroundHeight + 2.0f, player->trueZpos, 3.0f, 20.0f, 0);
+        func_effect_8007ADF4(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
+    }
+}
+#else
 void Cutscene_ArwingDownOnRails(Player* player) {
     s32 i;
 
@@ -2864,7 +2948,43 @@ void Cutscene_ArwingDownOnRails(Player* player) {
         func_effect_8007ADF4(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 //
+void Cutscene_PlayerDown(Player* player) {
+    player->flags_228 = 0;
+    player->barrelRollAlpha = 0;
+
+    if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+        gControllerRumbleFlags[gPlayerNum] = 1;
+    }
+
+    switch (player->form) {
+        case FORM_ARWING:
+            if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                Cutscene_ArwingDown360(player);
+            } else {
+                Cutscene_ArwingDownOnRails(player);
+                Player_UpdatePath(player);
+            }
+            Player_CollisionCheck(player);
+            Player_FloorCheck(player);
+            break;
+
+        case FORM_LANDMASTER:
+            Cutscene_LandmasterDown(player);
+            break;
+
+        case FORM_BLUE_MARINE:
+            Aquas_BlueMarineDown(player);
+            break;
+
+        case FORM_ON_FOOT:
+            Cutscene_LandmasterDown(player);
+            break;
+    }
+}
+#else
 void Cutscene_PlayerDown(Player* player) {
     player->flags_228 = 0;
     player->barrelRollAlpha = 0;
@@ -2898,6 +3018,7 @@ void Cutscene_PlayerDown(Player* player) {
             break;
     }
 }
+#endif
 
 static f32 D_demo_800CA098[] = { 1.0f, -0.9f, 0.7f };
 static f32 D_demo_800CA0A4[] = { 150.0f, 100.0f, 200.0f };
@@ -2911,17 +3032,17 @@ void func_demo_8004E4D4(ActorCutscene* this) {
     Player* sp38 = gPlayer;
     f32 sp34;
 
-    this->fwork[7] += 3.0f;
-    this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
-    this->fwork[8] += 2.0f;
-    sp34 = SIN_DEG(this->fwork[8]) * 10.0f;
+    this->fwork[7] += 3.0f DIV_FRAME_FACTOR;
+    this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.0f + (0.5f DIV_FRAME_FACTOR);
+    this->fwork[8] += 2.0f DIV_FRAME_FACTOR;
+    sp34 = SIN_DEG(this->fwork[8]) * 10.0f DIV_FRAME_FACTOR;
 
     switch (this->state) {
         case 0:
-            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
             this->obj.rot.x = -sp38->rot.x;
             this->obj.rot.y = sp38->rot.y + 180.0f;
             break;
@@ -2936,13 +3057,13 @@ void func_demo_8004E4D4(ActorCutscene* this) {
 
         case 2:
             if (gLevelType == LEVELTYPE_PLANET) {
-                this->fwork[21] += 0.4f;
+                this->fwork[21] += 0.4f DIV_FRAME_FACTOR;
                 if (this->fwork[21] > 0.6f) {
                     this->fwork[21] = 0.6f;
                 }
             }
             this->iwork[11] = 2;
-            this->fwork[9] *= 1.2f;
+            this->fwork[9] *= 1.0f + (0.2f DIV_FRAME_FACTOR);
             if (this->timer_0BC == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
@@ -2957,25 +3078,25 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             /* fallthrough */
         case 11:
             this->iwork[11] = 2;
-            this->fwork[9] += 2.0f;
+            this->fwork[9] += 2.0f DIV_FRAME_FACTOR;
             if (this->fwork[9] > 50.0f) {
                 this->fwork[9] = 50.0f;
             }
             if (this->timer_0BE == 0) {
                 switch (this->index) {
                     case 1:
-                        this->obj.rot.y += 0.3f;
-                        Math_SmoothStepToF(&this->obj.rot.z, -70.0f, 0.05f, 4.0f, 0.0f);
+                        this->obj.rot.y += 0.3f DIV_FRAME_FACTOR;
+                        Math_SmoothStepToF(&this->obj.rot.z, -70.0f, 0.05f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
                         break;
 
                     case 2:
-                        this->obj.rot.y -= 0.3f;
-                        Math_SmoothStepToF(&this->obj.rot.z, 70.0f, 0.05f, 4.0f, 0.0f);
+                        this->obj.rot.y -= 0.3f DIV_FRAME_FACTOR;
+                        Math_SmoothStepToF(&this->obj.rot.z, 70.0f, 0.05f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
                         break;
 
                     case 3:
-                        this->obj.rot.x -= 0.4f;
-                        Math_SmoothStepToF(&this->obj.rot.z, 1000.0f, 0.05f, 6.0f, 0.0f);
+                        this->obj.rot.x -= 0.4f DIV_FRAME_FACTOR;
+                        Math_SmoothStepToF(&this->obj.rot.z, 1000.0f, 0.05f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0f);
                         break;
                 }
             }
@@ -2986,7 +3107,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             break;
 
         case 30:
-            this->fwork[3] += D_demo_800CA098[this->index];
+            this->fwork[3] += D_demo_800CA098[this->index] DIV_FRAME_FACTOR;
 
             Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
 
@@ -3000,10 +3121,10 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->fwork[1] = sp3C.y;
             this->fwork[2] = sp3C.z - 100.0f;
 
-            Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
             break;
 
         case 31:
@@ -3014,9 +3135,9 @@ void func_demo_8004E4D4(ActorCutscene* this) {
 
         case 32:
             this->iwork[11] = 2;
-            Math_SmoothStepToF(&this->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
-            Math_SmoothStepToF(&this->fwork[9], 25.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.x, -20.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->fwork[9], 25.0f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
             break;
     }
     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -3163,6 +3284,112 @@ void func_demo_8004E4D4(ActorCutscene* this) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // func_demo_8004EBD0 *into levels? 
+void func_demo_8004EBD0(ActorCutscene* this) {
+    Vec3f src;
+    Vec3f dest;
+
+    if (this->state < 4) {
+        this->fwork[9] = 0.4f;
+
+        this->obj.pos.x += (gCsTeamTargetsX[this->index] - this->obj.pos.x) * (0.4f DIV_FRAME_FACTOR);
+        this->obj.pos.y += (gCsTeamTargetsY[this->index] - this->obj.pos.y) * (0.4f DIV_FRAME_FACTOR);
+        this->obj.pos.z += (gCsTeamTargetsZ[this->index] - this->obj.pos.z) * (0.4f DIV_FRAME_FACTOR);
+
+        this->obj.rot.z *= 0.98f DIV_FRAME_FACTOR;
+        this->obj.rot.x = -gPlayer[0].rot.x;
+        this->obj.rot.y = gPlayer[0].rot.y + 180.0f;
+
+        if (1) {}
+
+        this->fwork[7] += 1.0f DIV_FRAME_FACTOR;
+        if (((s32) this->fwork[7] & 0x40) != 0) {
+            this->fwork[0] += 0.1f DIV_FRAME_FACTOR;
+        } else {
+            this->fwork[0] -= 0.1f DIV_FRAME_FACTOR;
+        }
+
+        this->fwork[8] += 1.2f DIV_FRAME_FACTOR;
+        if (((s32) this->fwork[8] & 0x40) != 0) {
+            this->fwork[1] += 0.1f DIV_FRAME_FACTOR;
+        } else {
+            this->fwork[1] -= 0.1f DIV_FRAME_FACTOR;
+        }
+    }
+
+    switch (this->state) {
+        case 0:
+            this->fwork[3] *= 0.992f DIV_FRAME_FACTOR;
+            if (this->fwork[3] < 1.2f) {
+                this->state++;
+            }
+            break;
+
+        case 1:
+            this->fwork[3] *= 0.997f DIV_FRAME_FACTOR;
+            if (this->fwork[3] < 1.0f) {
+                this->fwork[3] = 1.0f;
+                this->state++;
+            }
+            this->timer_0BC = 560;
+            break;
+
+        case 2:
+            if (this->timer_0BC == 110) {
+                gPlayer[0].csTimer = 10000;
+            }
+            if (this->timer_0BC == 260) {
+                gPlayer[0].csEventTimer = 10000;
+            }
+            if (this->timer_0BC == 0) {
+                this->state++;
+                this->timer_0BC = 10;
+                Play_PlaySfxFirstPlayer(this->sfxSource, NA_SE_ARWING_BOOST);
+                this->fwork[29] = 5.0f;
+            }
+            break;
+
+        case 3:
+            this->iwork[11] = 2;
+            if (this->timer_0BC == 0) {
+                this->state++;
+                this->timer_0BC = 30;
+            }
+            break;
+
+        case 4:
+            this->fwork[21] += 0.4f;
+            if (this->fwork[21] > 0.6f) {
+                this->fwork[21] = 0.6f;
+            }
+            this->fwork[6] += 1.0f DIV_FRAME_FACTOR;
+
+            Matrix_RotateY(gCalcMatrix, (gPlayer[0].rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -(gPlayer[0].rot.x * M_DTOR), MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, -((gPlayer[0].bankAngle + gPlayer[0].rockAngle) * M_DTOR), MTXF_APPLY);
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = this->fwork[6] * this->fwork[6];
+
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            this->vel.x = dest.x;
+            this->vel.y = dest.y;
+            this->vel.z = dest.z;
+
+            if (this->timer_0BC == 0) {
+                func_effect_80078E50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
+                Object_Kill(&this->obj, this->sfxSource);
+            }
+            break;
+    }
+    this->obj.pos.y += 5.0f DIV_FRAME_FACTOR;
+    this->fwork[21] -= 0.02f DIV_FRAME_FACTOR;
+    if (this->fwork[21] < 0.0f) {
+        this->fwork[21] = 0.0f;
+    }
+}
+#else
 void func_demo_8004EBD0(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
@@ -3267,7 +3494,171 @@ void func_demo_8004EBD0(ActorCutscene* this) {
         this->fwork[21] = 0.0f;
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // func_demo_8004F05C *This fixes the ships cutscene in Cornaria. Needs closer look for other levels.
+void func_demo_8004F05C(Actor* actor) {
+    if (((gLevelType == LEVELTYPE_PLANET) && (actor->animFrame == 0)) || (gCurrentLevel == LEVEL_BOLSE)) {
+        actor->fwork[0] += 3.0f DIV_FRAME_FACTOR;
+        actor->fwork[1] = SIN_DEG(actor->fwork[0]) * 1.5f;
+    }
+
+    switch (gCurrentLevel) {
+        case LEVEL_BOLSE:
+            switch (actor->animFrame) {
+                case 0:
+                    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+                        actor->rot_0F4.z += actor->rot_0F4.y DIV_FRAME_FACTOR;
+                        actor->vel.x = SIN_DEG(actor->rot_0F4.z) * 10.0f;
+                        actor->obj.rot.z = SIN_DEG(actor->rot_0F4.z) * 40.0f;
+                        break;
+                    }
+
+                    Math_SmoothStepToF(&actor->obj.rot.z, actor->fwork[1], 0.05f DIV_FRAME_FACTOR, 0.3f DIV_FRAME_FACTOR, 0.0f);
+
+                    switch (actor->state) {
+                        case 0:
+                            break;
+
+                        case 1:
+                            actor->state = 2;
+                            actor->timer_0BC = 100;
+                            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
+                            actor->fwork[29] = 5.0f;
+
+                        case 2:
+                            actor->iwork[11] = 2;
+                            actor->vel.z -= 5.0f DIV_FRAME_FACTOR;
+                            if (actor->timer_0BC == 0) {
+                                Object_Kill(&actor->obj, actor->sfxSource);
+                            }
+                            break;
+                    }
+                    break;
+
+                case 31:
+                    if (actor->timer_0BC == 0) {
+                        Object_Kill(&actor->obj, actor->sfxSource);
+                    }
+                    break;
+
+                case 32:
+                    actor->obj.rot.z += actor->rot_0F4.z DIV_FRAME_FACTOR;
+                    if (actor->timer_0BC == 0) {
+                        Object_Kill(&actor->obj, actor->sfxSource);
+                    }
+                    break;
+
+                case 30:
+                    break;
+            }
+            break;
+
+        case LEVEL_AREA_6:
+            Area6_8018DA58(actor);
+            break;
+
+        case LEVEL_SECTOR_Y:
+            switch (actor->animFrame) {
+                case 0:
+                    SectorY_8019FF00(actor);
+                    break;
+
+                case 42:
+                    if (actor->timer_0BC == 0) {
+                        if (actor->obj.pos.x >= -3500.0f) {
+                            if (actor->obj.pos.z <= 3000.0f) {
+                                if ((fabsf(actor->obj.pos.y) <= 400.0f) && (gCsFrameCount <= 300 MUL_FRAME_FACTOR)) {
+                                    func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 8.0f);
+                                }
+                            }
+                        }
+                        Object_Kill(&actor->obj, actor->sfxSource);
+                    }
+                    break;
+
+                case 43:
+                    if (actor->timer_0BC == 0) {
+                        Object_Kill(&actor->obj, actor->sfxSource);
+                    }
+                    break;
+            }
+            break;
+
+        case LEVEL_SECTOR_X:
+            if ((actor->state != 0) && (actor->state == 1)) {
+                actor->vel.y += 0.1f DIV_FRAME_FACTOR;
+                Math_SmoothStepToF(&actor->obj.rot.x, -20.0f, 0.1f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            }
+            break;
+
+        case LEVEL_SECTOR_Z:
+        case LEVEL_KATINA:
+            break;
+
+        default:
+            switch (actor->state) {
+                case 100:
+                    Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0x14].x, 0.03f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0x14].y, 0.03f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0x14].z, 0.03f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.rot.z, 0.0f, 0.02f DIV_FRAME_FACTOR, 0.3f DIV_FRAME_FACTOR, 0);
+                    break;
+
+                case 0:
+                    actor->obj.rot.z = actor->rot_0F4.z;
+                    if (actor->animFrame == 10) {
+                        actor->obj.pos.z = gPlayer[0].cam.eye.z + 12000.0f;
+                    }
+                    break;
+
+                case 1:
+                    actor->vel.y += 0.8f DIV_FRAME_FACTOR;
+                    actor->vel.x += 0.8f DIV_FRAME_FACTOR;
+                    Math_SmoothStepToF(&actor->obj.rot.z, 420.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+                    break;
+
+                case 2:
+                    actor->vel.y += 0.8f DIV_FRAME_FACTOR;
+                    actor->vel.x -= 0.8f DIV_FRAME_FACTOR;
+                    Math_SmoothStepToF(&actor->obj.rot.z, -420.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+                    break;
+
+                case 3:
+                    actor->vel.y += 1.2f DIV_FRAME_FACTOR;
+                    actor->vel.z += 0.1f DIV_FRAME_FACTOR;
+                    Math_SmoothStepToF(&actor->obj.rot.x, -45.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+                    break;
+
+                case 10:
+                    actor->vel.x -= 1.0f DIV_FRAME_FACTOR;
+                    Math_SmoothStepToF(&actor->obj.rot.z, -45.0f, 0.05f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+                    break;
+
+                case 11:
+                    actor->vel.x -= 2.0f;
+                    Math_SmoothStepToF(&actor->obj.rot.z, -70.0f, 0.1f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.rot.y, 225.0f, 0.05f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+                    break;
+
+                case 12:
+                    actor->vel.x += 2.0f DIV_FRAME_FACTOR;
+                    actor->vel.y += 1.0f DIV_FRAME_FACTOR;
+                    Math_SmoothStepToF(&actor->obj.rot.z, 80.0f, 0.1f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.rot.x, -15.0f, 0.05f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.rot.y, 135.0f, 0.05f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+                    break;
+
+                case 13:
+                    actor->vel.y += 2.0f;
+                    Math_SmoothStepToF(&actor->obj.rot.z, -400.0f, 0.2f DIV_FRAME_FACTOR, 14.0f DIV_FRAME_FACTOR, 0.0f);
+                    Math_SmoothStepToF(&actor->obj.rot.x, -45.0f, 0.05f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+                    break;
+            }
+            break;
+    }
+}
+#else
 void func_demo_8004F05C(Actor* actor) {
     if (((gLevelType == LEVELTYPE_PLANET) && (actor->animFrame == 0)) || (gCurrentLevel == LEVEL_BOLSE)) {
         actor->fwork[0] += 3.0f;
@@ -3429,6 +3820,7 @@ void func_demo_8004F05C(Actor* actor) {
             break;
     }
 }
+#endif
 
 void func_demo_8004F798(Actor* actor) {
     actor->iwork[11] = 2;
@@ -3451,6 +3843,149 @@ void func_demo_8004F798(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 // ActorCutscene_Update
+void ActorCutscene_Update(ActorCutscene* this) {
+
+    if (gCurrentLevel == LEVEL_AQUAS) {
+        func_hud_80093164(this);
+        return;
+    }
+
+    switch (gPlayer[0].state_1C8) {
+        case PLAYERSTATE_1C8_LEVEL_COMPLETE:
+            switch (gCurrentLevel) {
+                case LEVEL_SECTOR_Y:
+                    if (gPlayer[0].csState >= 3) {
+                        SectorY_8019FF00(this);
+                    }
+                    break;
+
+                case LEVEL_SOLAR:
+                    if (gPlayer[0].csState >= 3) {
+                        Solar_801A8BE8(this);
+                    }
+                    break;
+
+                case LEVEL_ZONESS:
+                    if (gPlayer[0].csState >= 3) {
+                        Zoness_8019E5F0(this);
+                    }
+                    break;
+
+                case LEVEL_VENOM_ANDROSS:
+                case LEVEL_VENOM_2:
+                    Andross_80195E44(this);
+                    break;
+
+                case LEVEL_KATINA:
+                    Katina_SFTeamFlyTowardsCamera(this);
+                    break;
+
+                case LEVEL_SECTOR_Z:
+                    SectorZ_8019DD20(this);
+                    break;
+
+                case LEVEL_AREA_6:
+                    Area6_8018DA58(this);
+                    break;
+
+                case LEVEL_METEO:
+                    if (gLevelPhase == 0) {
+                        Meteo_8018ED9C(this);
+                    } else {
+                        func_demo_80049630(this);
+                    }
+                    break;
+
+                case LEVEL_FORTUNA:
+                    if (this->animFrame == 11 MUL_FRAME_FACTOR) {
+                        switch (this->state) {
+                            case 0:
+                                if (gCsFrameCount == 100 MUL_FRAME_FACTOR) {
+                                    this->state = 1;
+                                    this->timer_0BC = 50;
+                                    this->iwork[0] = 255;
+                                    AUDIO_PLAY_SFX(NA_SE_EN_BOSS_EXPLOSION, this->sfxSource, 0);
+                                }
+                                break;
+
+                            case 1:
+                                Math_SmoothStepToF(&this->scale, 0.5f, 0.03f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR, 0.0f);
+                                gFillScreenRed = gFillScreenAlpha = gFillScreenGreen = gFillScreenBlue = 0;
+
+                                if ((this->timer_0BC == 43) || (this->timer_0BC == 46) || (this->timer_0BC == 49)) {
+                                    gFillScreenAlpha = 192;
+                                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                                }
+
+                                this->iwork[0] -= 2;
+                                if (this->iwork[0] < 0) {
+                                    this->iwork[0] = 0;
+                                    this->scale = 0.0f;
+                                }
+
+                                gLight3Brightness = this->iwork[0] / 255.0f;
+                                gLight3x = gActors[0].obj.pos.x + 10.0f;
+                                gLight3y = gActors[0].obj.pos.y - 40.0f;
+                                gLight3z = gActors[0].obj.pos.z - 70.0f;
+                                gLight3R = 255;
+                                gLight3G = 255;
+                                gLight3B = 80;
+                                break;
+                        }
+                    }
+                    break;
+
+                case LEVEL_CORNERIA:
+                    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                        func_demo_8004E4D4(this);
+                    } else {
+                        func_demo_8004EBD0(this);
+                    }
+                    break;
+
+                case LEVEL_SECTOR_X:
+                    if (gLevelPhase != 0) {
+                        func_demo_80049630(this);
+                    } else {
+                        func_demo_8004E4D4(this);
+                    }
+                    break;
+
+                case LEVEL_TITANIA:
+                    func_demo_8004E4D4(this);
+                    break;
+
+                case LEVEL_MACBETH:
+                    Macbeth_801B28BC(this);
+                    break;
+
+                case LEVEL_BOLSE:
+                    func_demo_8004F05C(this);
+                    break;
+
+                default:
+                    func_demo_8004EBD0(this);
+                    break;
+            }
+            break;
+
+        case PLAYERSTATE_1C8_LEVEL_INTRO:
+            func_demo_8004F05C(this);
+            break;
+
+        case PLAYERSTATE_1C8_ENTER_WARP_ZONE:
+            func_demo_8004F798(this);
+            break;
+
+        case PLAYERSTATE_1C8_STANDBY:
+            if (gCurrentLevel == LEVEL_SECTOR_Y) {
+                SectorY_8019FF00(this);
+            }
+            break;
+    }
+}
+#else
 void ActorCutscene_Update(ActorCutscene* this) {
 
     if (gCurrentLevel == LEVEL_AQUAS) {
@@ -3592,6 +4127,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
             break;
     }
 }
+#endif
 
 static Vec3f D_demo_800CA0BC[] = {
     { -1373.0, 484.0, -374.0 },
