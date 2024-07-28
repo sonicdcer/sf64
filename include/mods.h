@@ -139,10 +139,14 @@ void Spawner(void);
 #define FRAME_FACTOR 2
 #define DIV_FRAME_FACTOR / FRAME_FACTOR
 #define MUL_FRAME_FACTOR * FRAME_FACTOR
+#define PROPER_DIV_FRAME_FACTOR(x) ((x + 1.0f)  DIV_FRAME_FACTOR)
+#define IMPROPER_DIV_FRAME_FACTOR(x) (1.0f + (x - 1.0f)  DIV_FRAME_FACTOR)
 extern int gGameFrameCountHack;
 #else
 #define DIV_FRAME_FACTOR
 #define MUL_FRAME_FACTOR
+#define PROPER_DIV_FRAME_FACTOR
+#define IMPROPER_DIV_FRAME_FACTOR
 #endif
 
 #endif // MODS_H

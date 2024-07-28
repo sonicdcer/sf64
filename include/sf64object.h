@@ -233,13 +233,13 @@ typedef struct {
     /* 0x04A */ s16 unk_04A; 
     /* 0x04C */ s16 unk_04C;
     /* 0x04E */ s16 state;
-    /* 0x050 */ s16 timer_050;
-    /* 0x052 */ s16 timer_052;
-    /* 0x054 */ s16 timer_054;
-    /* 0x056 */ s16 timer_056;
-    /* 0x058 */ s16 timer_058;
-    /* 0x05A */ s16 timer_05A;
-    /* 0x05C */ s16 timer_05C;
+    /* 0x050 */ s16 timer_050; //GLOBAL
+    /* 0x052 */ s16 timer_052; //GLOBAL
+    /* 0x054 */ s16 timer_054; //GLOBAL
+    /* 0x056 */ s16 timer_056; //GLOBAL
+    /* 0x058 */ s16 timer_058; //GLOBAL
+    /* 0x05A */ s16 timer_05A; //GLOBAL
+    /* 0x05C */ s16 timer_05C; //GLOBAL
     /* 0x05E */ u8 drawShadow;
     /* 0x060 */ s16 health;
     /* 0x062 */ s8 dmgType;

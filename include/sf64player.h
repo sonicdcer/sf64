@@ -268,8 +268,8 @@ typedef struct Player {
 #endif
     /* 0x1F0 */ s32 baseRollRate;
     /* 0x1F4 */ s32 hitTimer;
-    /* 0x1F8 */ s32 csTimer;
-    /* 0x1FC */ s32 csEventTimer;
+    /* 0x1F8 */ s32 csTimer; //SEMIGLOBAL
+    /* 0x1FC */ s32 csEventTimer; //GLOBAL
     /* 0x200 */ s32 dmgEffect; // 1 colors the arwing red. 2 gives it a static-y texture
     /* 0x204 */ s32 wingPosition;
     /* 0x208 */ s32 unk_208; // timer for great fox splash effects in aquas intro

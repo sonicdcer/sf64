@@ -504,6 +504,24 @@ void Corneria_80188A18(Boss* boss) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Corneria_80188C7C
+void Corneria_80188C7C(Boss* boss) {
+    if (boss->unk_044 == 0) {
+        boss->unk_044++;
+        boss->fwork[12] *= PROPER_DIV_FRAME_FACTOR(-0.2f);
+        AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_L, boss->sfxSource, 4);
+        func_enmy_80062B60(D_i1_8019B6D8[56], D_i1_8019B6D8[58], 0, 30.0f);
+        boss->swork[18] = 13;
+        boss->swork[19] = 15;
+        boss->swork[21] = 10;
+        boss->swork[22] = 12;
+        boss->swork[20] = 17;
+        gCameraShake = 20;
+    } else {
+        boss->fwork[12] = 0.0f;
+    }
+}
+#else
 void Corneria_80188C7C(Boss* boss) {
     if (boss->unk_044 == 0) {
         boss->unk_044++;
@@ -520,6 +538,7 @@ void Corneria_80188C7C(Boss* boss) {
         boss->fwork[12] = 0.0f;
     }
 }
+#endif
 
 void Corneria_80188D50(Boss* boss) {  // ??????
     static s32 D_i1_801997E0 = 0;
@@ -610,11 +629,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- //if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
- //   boss->dmgType = DMG_BEAM;
- //   boss->dmgPart = 0;
- //   boss->swork[29] = 0;
- //}
+ if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+    boss->dmgType = DMG_BEAM;
+    boss->dmgPart = 0;
+    boss->swork[29] = 0;
+ }
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
@@ -1792,7 +1811,7 @@ void Corneria_8018AA74(Boss* boss) {
     Matrix_Push(&gGfxMatrix);
 }
 
-#if ENABLE_60FPS == 1 // Corneria_8018AB08 Garuda1
+#if ENABLE_60FPS == 1 // Corneria_8018AB08 GARUDA1 Punch
 bool Corneria_8018AB08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Actor* actor = (Actor*) data;
 
@@ -2545,6 +2564,11 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
     gBossFrameCount++;
     }
 
+ // if (gControllerPress[0].button & R_CBUTTONS){ // Carrier Update Kill Boss
+ //    boss->health = 1;
+ //    boss->state = 8;
+ // }
+
     Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
@@ -2969,7 +2993,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
                     if (boss->timer_056 == 0) {
                         Boss_AwardBonus(boss);
                         boss->fwork[17] = 10.0f;
-                        boss->vel.y *= 1.5f;
+                        boss->vel.y *= IMPROPER_DIV_FRAME_FACTOR(1.5f);
                         gMissionStatus = MISSION_ACCOMPLISHED;
 
                         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
@@ -3096,6 +3120,10 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
     f32* temp_a0;
     f32* temp_a1;
 
+ // if (gControllerPress[0].button & R_CBUTTONS){ // Carrier Update Kill Boss
+ //    boss->health = 1;
+ //    boss->state = 8;
+ // }
     gBossFrameCount++;
 
     Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -5823,7 +5851,7 @@ void Corneria_LevelComplete1(Player* player) {
 
         case 4:
             if (gCsFrameCount >= 1270 MUL_FRAME_FACTOR) {
-                player->baseSpeed *= 1.0f + (0.2f DIV_FRAME_FACTOR); //?????
+                player->baseSpeed *= IMPROPER_DIV_FRAME_FACTOR(1.2f );
                 player->contrailScale += 0.04f DIV_FRAME_FACTOR;
                 if (player->contrailScale > 0.6f) {
                     player->contrailScale = 0.6f;
