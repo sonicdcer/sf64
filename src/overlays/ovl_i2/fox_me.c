@@ -75,6 +75,47 @@ void Meteo_8018756C(Actor* actor) {
     Meteo_80187530(actor);
 }
 
+#if ENABLE_60FPS == 1 //
+void Meteo_80187650(Actor* actor) {
+    Vec3f vec;
+
+    actor->obj.rot.y += 1.7f DIV_FRAME_FACTOR;
+    actor->obj.rot.x += 3.3f DIV_FRAME_FACTOR;
+    actor->unk_046 -= 15 DIV_FRAME_FACTOR; //??????
+
+    if (actor->unk_046 < 0) {
+        actor->unk_046 = 0;
+    }
+
+    actor->unk_048 += 8 DIV_FRAME_FACTOR;
+    if (actor->unk_048 > 995) {
+        actor->unk_048 = 995;
+    }
+
+    if ((actor->timer_0BC % (4U MUL_FRAME_FACTOR)) == 1) {
+        func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
+    }
+
+    if (actor->dmgType != DMG_NONE) {
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+        Object_Kill(&actor->obj, actor->sfxSource);
+    }
+
+    if (actor->timer_0C2 == 0) {
+        vec.x = actor->vel.x;
+        vec.y = actor->vel.y;
+        vec.z = actor->vel.z;
+        if ((Object_CheckCollision(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
+            (actor->obj.pos.y < (gGroundHeight + 20.0f))) {
+            func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 10.0f);
+            actor->obj.status = OBJ_DYING;
+        }
+    }
+
+    Meteo_80187530(actor);
+}
+#else
 void Meteo_80187650(Actor* actor) {
     Vec3f vec;
 
@@ -114,6 +155,7 @@ void Meteo_80187650(Actor* actor) {
 
     Meteo_80187530(actor);
 }
+#endif
 
 void Meteo_801877C4(Actor* actor) {
     Vec3f sp44;
@@ -1878,6 +1920,242 @@ void Meteo_8018CCF8(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 //
+void Meteo_LevelStart(Player* player) {
+    u8 sp8F;
+    s32 i;
+    Actor* actor0 = &gActors[0];
+    Actor* actor1 = &gActors[1];
+    Actor* actor2 = &gActors[2];
+    Actor* actor3 = &gActors[3];
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 sp68;
+    f32 sp64;
+    Vec3f sp58;
+    Vec3f sp4C;
+
+    gFillScreenAlphaStep = 4;
+
+    PRINTF("Demo_Time %d\n");
+
+    switch (player->csState) {
+        case 0:
+            gCsFrameCount = 0;
+
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                Meteo_8018C77C(actor0, 0);
+            }
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
+                Meteo_8018C77C(actor1, 1);
+            }
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
+                Meteo_8018C77C(actor2, 2);
+            }
+
+            Meteo_8018C77C(actor3, 3);
+            Meteo_8018CAD8();
+
+            for (i = 5; i < 15; i++) {
+                Meteo_8018C8F4(&gActors[i], actor3);
+            }
+
+            D_ctx_80177A48[1] = -13000.0f;
+            D_ctx_80177A48[2] = -13000.0f;
+            D_ctx_80177A48[4] = -22000.0f;
+
+            player->cam.eye.x = gCsCamEyeX = player->pos.x + 100.0f;
+            player->cam.eye.y = gCsCamEyeY = player->pos.y;
+            player->cam.eye.z = gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
+
+            player->cam.at.x = gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            player->cam.at.y = gCsCamAtY = player->pos.y;
+            player->cam.at.z = gCsCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
+
+            player->csState = 1;
+
+            D_ctx_80177A48[3] = 1.0f;
+
+        case 1:
+            actor3->vel.z = 4.0f;
+            gCsCamEyeX = player->pos.x + 100.0f;
+            gCsCamEyeY = player->pos.y;
+            gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
+            gCsCamAtX = D_ctx_80177A48[2] + player->pos.x;
+            gCsCamAtY = player->pos.y + 20.0f;
+            gCsCamAtZ = D_ctx_80177A48[4] + player->trueZpos;
+            Math_SmoothStepToF(&D_ctx_80177A48[1], 8000.0f, 0.05f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToF(&D_ctx_80177A48[2], 0.0f, 0.05f DIV_FRAME_FACTOR, 25.0f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 0.05f DIV_FRAME_FACTOR, 200.0f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToF(&player->rot.z, 0.0f, 0.05f DIV_FRAME_FACTOR, 0.3f DIV_FRAME_FACTOR, 0);
+
+            D_ctx_80177A48[0] = 0.1f;
+            if (gCsFrameCount == 680 MUL_FRAME_FACTOR) {
+                actor3->state = 10;
+            }
+            if (gCsFrameCount == 720 MUL_FRAME_FACTOR) {
+                actor0->state = 11;
+            }
+            if (gCsFrameCount == 750 MUL_FRAME_FACTOR) {
+                actor2->state = 12;
+            }
+            if (gCsFrameCount == 780 MUL_FRAME_FACTOR) {
+                actor1->state = 13;
+            }
+            if (gCsFrameCount > 810 MUL_FRAME_FACTOR) {
+                player->csState = 2;
+                D_ctx_80177A48[0] = 0.0f;
+                player->csTimer = 40;
+            }
+            sp8F = false;
+            if (gCsFrameCount == 190 MUL_FRAME_FACTOR) {
+                player->csEventTimer = 5;
+                player->meTargetIndex = 10;
+                sp8F = true;
+            }
+            if (gCsFrameCount == 230 MUL_FRAME_FACTOR) {
+                player->csEventTimer = 3;
+                player->meTargetIndex = 6;
+                sp8F = true;
+            }
+            if (gCsFrameCount == 240 MUL_FRAME_FACTOR) {
+                player->csEventTimer = 3;
+                player->meTargetIndex = 11;
+                sp8F = true;
+            }
+            if (gCsFrameCount == 270 MUL_FRAME_FACTOR) {
+                player->csEventTimer = 2;
+                player->meTargetIndex = 12;
+                sp8F = true;
+            }
+            if (gCsFrameCount == 600 MUL_FRAME_FACTOR) {
+                Meteo_8018CA10(&gActors[16], &gActors[3], 100.0f, 500.0f, 1500.0f);
+                Meteo_8018CA10(&gActors[17], &gActors[3], 300.0f, 400.0f, 2000.0f);
+            }
+            if (gCsFrameCount == 660 MUL_FRAME_FACTOR) {
+                for (i = 4; i < 15; i++) {
+                    gActors[i].obj.status = OBJ_FREE;
+                }
+
+                actor3->obj.pos.x += 1000.0f DIV_FRAME_FACTOR;
+                actor3->obj.pos.z += 4000.0f DIV_FRAME_FACTOR;
+
+                for (i = 4; i < 9; i++) {
+                    Meteo_8018C8F4(&gActors[i], &gActors[3]);
+                }
+
+                actor3->obj.pos.x -= 1000.0f DIV_FRAME_FACTOR;
+                actor3->obj.pos.z -= 4000.0f DIV_FRAME_FACTOR;
+
+                Meteo_8018CA10(&gActors[13], &gActors[3], 1500.0f, 200.0f, 100.0f);
+                Meteo_8018CA10(&gActors[14], &gActors[3], 1200.0f, -200.0f, -500.0f);
+                Meteo_8018CA10(&gActors[15], &gActors[3], 2000.0f, -100.0f, -1000.0f);
+
+                gActors[50].obj.status = gActors[16].obj.status = gActors[17].obj.status = OBJ_FREE;
+            }
+
+            if (gCsFrameCount > 660 MUL_FRAME_FACTOR) {
+                player->wings.modelId = 0;
+            }
+
+            if (gCsFrameCount == 340 MUL_FRAME_FACTOR) {
+                func_effect_8007D2C8(gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z, 10.0f);
+                gActors[8].obj.status = OBJ_FREE;
+                Meteo_8018CCF8(&gActors[8]);
+            }
+
+            if (player->csEventTimer != 0) {
+                if (sp8F != 0) {
+                    sp58 = D_i2_801955C4;
+                    D_ctx_80177A48[3] *= -1.0f;
+                    x = gActors[player->meTargetIndex].obj.pos.x - (actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f));
+                    y = gActors[player->meTargetIndex].obj.pos.y - (actor3->obj.pos.y - 232.0f);
+                    z = gActors[player->meTargetIndex].obj.pos.z - (actor3->obj.pos.z - 1190.0f);
+
+                    sp64 = Math_RadToDeg(Math_Atan2F(x, z));
+                    x = sqrtf(SQ(x) + SQ(z));
+                    sp68 = Math_RadToDeg(-Math_Atan2F(y, x));
+
+                    Matrix_RotateY(gCalcMatrix, M_DTOR * sp64, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, MTXF_APPLY);
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
+
+                    Actor_SpawnGreatFoxLaser(100, actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
+                                             actor3->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
+                                             actor3->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z,
+                                             sp68, sp64, 0.0f);
+                }
+                if (player->csEventTimer == 1) {
+                    func_effect_8007D2C8(gActors[player->meTargetIndex].obj.pos.x,
+                                         gActors[player->meTargetIndex].obj.pos.y,
+                                         gActors[player->meTargetIndex].obj.pos.z, 10.0f);
+                    gActors[player->meTargetIndex].obj.status = OBJ_FREE;
+                    Meteo_8018CCF8(&gActors[player->meTargetIndex]);
+                    Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
+                }
+            }
+            break;
+
+        case 2:
+            gCsCamEyeX = player->pos.x;
+            gCsCamEyeY = (player->pos.y * player->unk_148) + 50.0f;
+            gCsCamEyeZ = 400.0f;
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = (player->pos.y * player->unk_148) + 20.0f;
+            gCsCamAtZ = player->trueZpos;
+
+            Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR, 0.0f);
+
+            if (player->csTimer == 0) {
+                AUDIO_PLAY_BGM(gBgmSeqId);
+                gLevelStartStatusScreenTimer = 80;
+                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->csState = 0;
+                player->csTimer = 0;
+                player->csEventTimer = 0;
+                player->cam.eye.x = player->pos.x;
+                player->cam.eye.y = (player->pos.y * player->unk_148) + 50.0f;
+                player->cam.eye.z = 400.0f;
+                player->cam.at.x = player->pos.x;
+                player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
+                player->cam.at.z = player->trueZpos;
+
+                for (i = 0; i < 4; i++) {
+                    Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
+                }
+
+                gLoadLevelObjects = 1;
+                break;
+            }
+    }
+
+    switch (gCsFrameCount) {
+        case 500 MUL_FRAME_FACTOR:
+            if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
+                Radio_PlayMessage(gMsg_ID_3005, RCID_SLIPPY);
+            }
+            break;
+
+        case 600 MUL_FRAME_FACTOR:
+            if ((gTeamShields[TEAM_ID_SLIPPY] > 0) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
+                Radio_PlayMessage(gMsg_ID_3010, RCID_PEPPY);
+            }
+            break;
+
+        case 700 MUL_FRAME_FACTOR:
+            Radio_PlayMessage(gMsg_ID_3015, RCID_FOX);
+            break;
+    }
+
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 20000.0f DIV_FRAME_FACTOR, 0.0f);
+}
+#else
 void Meteo_LevelStart(Player* player) {
     u8 sp8F;
     s32 i;
@@ -2112,6 +2390,7 @@ void Meteo_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0], 20000.0f, 0.0f);
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 20000.0f, 0.0f);
 }
+#endif
 
 void Meteo_8018D9EC(Actor* actor) {
     switch (actor->state) {

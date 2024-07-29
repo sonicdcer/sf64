@@ -127,23 +127,23 @@ typedef struct PlayerShot {
     /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
 
-typedef struct WingInfo {
-    /* 0x00 */ u8 rightState;
-    /* 0x01 */ u8 leftState;
-    /* 0x04 */ f32 unk_04;
-    /* 0x08 */ f32 unk_08;
-    /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
-    /* 0x14 */ f32 unk_14;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
-    /* 0x24 */ f32 unk_24;
+typedef struct WingInfo { // ArwingInfo
+    /* 0x00 */ u8 rightState; // rightWingState
+    /* 0x01 */ u8 leftState; // leftWingState
+    /* 0x04 */ f32 unk_04; // upperRightFlapYrot
+    /* 0x08 */ f32 unk_08; // bottomRightFlapYrot
+    /* 0x0C */ f32 unk_0C; // upperLeftFlapYrot
+    /* 0x10 */ f32 unk_10; // bottomLeftFlapYrot
+    /* 0x14 */ f32 unk_14; // laserGunsYpos
+    /* 0x18 */ f32 unk_18; // laserGunsXpos
+    /* 0x1C */ f32 unk_1C; // wingsXrot
+    /* 0x20 */ f32 unk_20; // wingsYrot
+    /* 0x24 */ f32 unk_24; // wingsZrot
     /* 0x28 */ f32 unk_28;
-    /* 0x2C */ u8 modelId;
-    /* 0x30 */ f32 unk_30;
-    /* 0x34 */ f32 unk_34;
-    /* 0x38 */ f32 unk_38;
+    /* 0x2C */ u8 modelId; // teamFaceId
+    /* 0x30 */ f32 unk_30; // teamFaceXrot
+    /* 0x34 */ f32 unk_34; // teamFaceYrot
+    /* 0x38 */ f32 unk_38; // windshieldXrot
 } WingInfo; // size = 0x3C
 
 typedef struct PlayerSfx {

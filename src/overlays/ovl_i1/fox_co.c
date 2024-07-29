@@ -629,11 +629,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
-    boss->dmgType = DMG_BEAM;
-    boss->dmgPart = 0;
-    boss->swork[29] = 0;
- }
+ // if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+ //    boss->dmgType = DMG_BEAM;
+ //    boss->dmgPart = 0;
+ //    boss->swork[29] = 0;
+ // }
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
@@ -1111,11 +1111,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- //if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
- //   boss->dmgType = DMG_BEAM;
- //   boss->dmgPart = 0;
- //   boss->swork[29] = 0;
- //}
+ // if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+ //    boss->dmgType = DMG_BEAM;
+ //    boss->dmgPart = 0;
+ //    boss->swork[29] = 0;
+ // }
 
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
@@ -2564,10 +2564,10 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
     gBossFrameCount++;
     }
 
- // if (gControllerPress[0].button & R_CBUTTONS){ // Carrier Update Kill Boss
- //    boss->health = 1;
- //    boss->state = 8;
- // }
+  // if (gControllerPress[0].button & R_CBUTTONS){ // Carrier Update Kill Boss
+  //    boss->health = 1;
+  //    boss->state = 8;
+  // }
 
     Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2624,7 +2624,7 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
             for (i = 0; var_v1 >= 60; i++, var_v1 -= 60) {}
 
             for (var_v0 = 0, var_v1 = 13; var_v0 < i; var_v0++, var_v1++) {
-                if ((gGameFrameCount % (16U MUL_FRAME_FACTOR)) == (var_v0 % 16U)) { //???????
+                if ((gGameFrameCount % (16U MUL_FRAME_FACTOR)) == (var_v0 % 16U)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[var_v0], &sp84[var_v1]);
                     func_effect_8007D0E0(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y, sp84[var_v1].z + boss->obj.pos.z, boss->fwork[17]);
                     func_effect_8007C120(sp84[var_v1].x + boss->obj.pos.x, sp84[var_v1].y + boss->obj.pos.y, sp84[var_v1].z + boss->obj.pos.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.1f,7);
@@ -3120,10 +3120,10 @@ void Corneria_8018C19C(Boss* boss) { // ATTACK CARRIER Update
     f32* temp_a0;
     f32* temp_a1;
 
- // if (gControllerPress[0].button & R_CBUTTONS){ // Carrier Update Kill Boss
- //    boss->health = 1;
- //    boss->state = 8;
- // }
+  //if (gControllerPress[0].button & R_CBUTTONS){ // Carrier Update Kill Boss
+  //   boss->health = 1;
+  //   boss->state = 8;
+  //}
     gBossFrameCount++;
 
     Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -4508,7 +4508,7 @@ void Corneria_8018F55C(Effect* effect) {
     effect->obj.pos.y = gPlayer[0].cam.eye.y + RAND_RANGE(-280.0f, 70.0f);
     effect->obj.id = OBJ_EFFECT_352;
     effect->timer_50 = 80;
-    effect->unk_46 = 144 MUL_FRAME_FACTOR;
+    effect->unk_46 = 144;
     effect->obj.pos.z = -4000.0f;
     effect->vel.z = 60.0f;
     effect->scale2 = 10.0f + RAND_FLOAT(15.0f);
@@ -4660,8 +4660,8 @@ void Corneria_LevelStart(Player* player) {
     }
 
 //clouds
-    D_ctx_80177A48[6] += fabsf(sp44) ; // 60fps??????
-    D_ctx_80177A48[7] += fabsf(sp40) ; // 60fps??????
+    D_ctx_80177A48[6] += fabsf(sp44) DIV_FRAME_FACTOR; // 60fps??????
+    D_ctx_80177A48[7] += fabsf(sp40) DIV_FRAME_FACTOR; // 60fps??????
 
     // cloud reflection
     if (sp2C >= 0.0f) {
@@ -4673,7 +4673,7 @@ void Corneria_LevelStart(Player* player) {
     }
 
     for (i = 0; (i < 40 && D_ctx_80177A48[6] >= 0.2f );
-         i++, D_ctx_80177A48[6] -= 0.2f DIV_FRAME_FACTOR) {
+         i++, D_ctx_80177A48[6] -= 0.2f ) {
         if (sp44 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
         } else {
@@ -4682,7 +4682,7 @@ void Corneria_LevelStart(Player* player) {
     }
 
     for (i = 0; (i < 40 && D_ctx_80177A48[7] >= 0.3f );
-         i++, D_ctx_80177A48[7] -= 0.3f DIV_FRAME_FACTOR) {
+         i++, D_ctx_80177A48[7] -= 0.3f ) {
         if (sp40 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 0);
         } else {
@@ -4826,7 +4826,7 @@ void Corneria_LevelStart(Player* player) {
                 actor2->state = 0;
                 actor1->state = 0;
                 actor0->obj.pos.y = player->pos.y + 80.0f;
-                actor0->obj.pos.z += 100.0f DIV_FRAME_FACTOR; // train
+                actor0->obj.pos.z += 100.0f DIV_FRAME_FACTOR;
             }
 
             if (gMsgCharIsPrinting && (gGameFrameCount & (2 MUL_FRAME_FACTOR))) {
@@ -5724,9 +5724,7 @@ void Corneria_LevelComplete1(Player* player) {
 
             D_ctx_80177A48[0] = Math_RadToDeg(Math_Atan2F(sp54, sp4C));
             D_ctx_80177A48[1] = sqrtf(SQ(sp54) + SQ(sp4C));
-            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             player->csState++;
-            }
             D_ctx_80177A48[5] = 0.0f;
             D_ctx_80177A48[4] = D_ctx_80177A48[5];
             D_ctx_80177A48[2] = D_ctx_80177A48[5];
@@ -5842,7 +5840,7 @@ void Corneria_LevelComplete1(Player* player) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
                 AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
-                player->csState++; //?????
+                player->csState++;
                 player->baseSpeed = 2.0f;
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
@@ -5851,8 +5849,8 @@ void Corneria_LevelComplete1(Player* player) {
 
         case 4:
             if (gCsFrameCount >= 1270 MUL_FRAME_FACTOR) {
-                player->baseSpeed *= IMPROPER_DIV_FRAME_FACTOR(1.2f );
-                player->contrailScale += 0.04f DIV_FRAME_FACTOR;
+                player->baseSpeed *= IMPROPER_DIV_FRAME_FACTOR(1.2f);
+                player->contrailScale += 0.04f; // ??????? should be handled but breaks contrail scale
                 if (player->contrailScale > 0.6f) {
                     player->contrailScale = 0.6f;
                 }

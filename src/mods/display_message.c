@@ -13,10 +13,10 @@
 #define TOSTRING(x) STRINGIFY(x)
 
 // Define the names and corresponding variables
-#define name1 gBosses[0].health
-#define name2 gBosses[1].health
-#define name3 gBosses[2].health
-#define name4 gBosses[3].health
+#define name1 gBosses[0].state
+#define name2 0
+#define name3 0
+#define name4 0
 #define name5 0
 #define name6 0
 #define name7 0
@@ -80,7 +80,7 @@ void Display_Text(void) { // theboy181 Display Text
     base_y = SCREEN_HEIGHT - BOTTOM_MARGIN - total_names * y_offset;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_80);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 125);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 255);
 
     for (i = 0, j = 0; i < NUM_NAMES; i++) {
         if (values[i] == 0) continue; // Skip names with zero values

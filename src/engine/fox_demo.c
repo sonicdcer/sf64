@@ -312,6 +312,7 @@ void func_demo_80049630(ActorCutscene* this) {
     this->obj.rot.z = -this->rot_0F4.z;
 }
 
+#if ENABLE_60FPS == 1 // func_demo_8004990C *no change
 void func_demo_8004990C(Player* player) {
     if (gGroundType == 0) {
         gPathTexScroll += 60.0f;
@@ -319,6 +320,15 @@ void func_demo_8004990C(Player* player) {
     player->trueZpos = player->pos.z + player->camDist;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
 }
+#else
+void func_demo_8004990C(Player* player) {
+    if (gGroundType == 0) {
+        gPathTexScroll += 60.0f;
+    }
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+}
+#endif
 
 static f32 D_demo_800C9FD0[] = { -1200.0f, 1200.0f, 0.0f, 0.0f };
 static f32 D_demo_800C9FE0[] = { 0.0f, 0.0f, 600.0f, 2000.0f };
@@ -1148,7 +1158,7 @@ void Cutscene_AllRangeMode(Player* player) {
             Matrix_MultVec3f(gCalcMatrix, &sp70, &sp64);
 
             if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
-                sp64.x *= IMPROPER_DIV_FRAME_FACTOR(-1.0f);
+                sp64.x *= -1.0f;  // *= not this one, why? 
             }
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f DIV_FRAME_FACTOR, 0.005f DIV_FRAME_FACTOR, 0.0f);
             Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp64.x, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.0f);
@@ -1471,7 +1481,7 @@ void Cutscene_CoComplete2(Player* player) {
 
         case 1:
             Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 0.1f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 0.0f);
-            player->contrailScale += 0.04f DIV_FRAME_FACTOR;
+            player->contrailScale += 0.04f; // ??????
             if (player->contrailScale > 0.6f) {
                 player->contrailScale = 0.6f;
             }
@@ -1654,7 +1664,7 @@ void Cutscene_CoComplete2(Player* player) {
             gStarfieldScrollY += 0.2f DIV_FRAME_FACTOR;
             gStarfieldScrollX += 0.2f DIV_FRAME_FACTOR;
             player->unk_190 = 2.0f;
-            player->contrailScale += 0.1f DIV_FRAME_FACTOR;
+            player->contrailScale += 0.1f; // ??????
             if (player->contrailScale > 0.6f) {
                 player->contrailScale = 0.6f;
             }

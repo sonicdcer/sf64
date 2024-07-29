@@ -5622,7 +5622,7 @@ void Player_ArwingBoost(Player* player) {
         player->boostSpeed += 0.3f MUL_FRAME_FACTOR; // Adjusted for double speed
         Math_SmoothStepToF(&player->camDist, -130.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
         player->zRotBarrelRoll -= player->meteoWarpSpinSpeed DIV_FRAME_FACTOR; // Adjusted for double speed
-        player->meteoWarpSpinSpeed = player->meteoWarpSpinSpeed + 0.2f DIV_FRAME_FACTOR; // Adjusted for double speed
+        player->meteoWarpSpinSpeed += 0.2f DIV_FRAME_FACTOR;
         if (player->meteoWarpSpinSpeed > 50.0f) { 
             player->meteoWarpSpinSpeed = 50.0f;
         }
@@ -5654,7 +5654,7 @@ void Player_ArwingBoost(Player* player) {
                 }
             }
             if (gLevelType == LEVELTYPE_PLANET) {
-                player->wings.unk_28 += (35.0f - player->wings.unk_28) * 0.1f DIV_FRAME_FACTOR; // Adjusted for double speed
+                player->wings.unk_28 += ((35.0f - player->wings.unk_28) * 0.1f) DIV_FRAME_FACTOR; // Adjusted for double speed
                 Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
                 Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
                 Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
@@ -5665,7 +5665,7 @@ void Player_ArwingBoost(Player* player) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = true;
             }
-            player->contrailScale += 0.04f DIV_FRAME_FACTOR; // Adjusted for double speed
+            player->contrailScale += 0.04f; // ??????
             if (player->contrailScale > 0.6f) {
                 player->contrailScale = 0.6f;
             }
@@ -7561,8 +7561,7 @@ void Camera_FollowPlayer(Player* player, s32 playerNum, bool arg2) {
             player->cam.at.y = gPlayer[playerNum].groundPos.y + 20.0f;
             break;
     }
-    Math_SmoothStepToF(&player->camRoll, 0.0f, (0.05f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR),
-                       (0.00001f DIV_FRAME_FACTOR)); // 60fps fix BG scrolling time
+    Math_SmoothStepToF(&player->camRoll, 0.0f, (0.05f DIV_FRAME_FACTOR), (5.0f DIV_FRAME_FACTOR), (0.00001f DIV_FRAME_FACTOR)); // 60fps fix BG scrolling time
 }
 #else
 void Camera_FollowPlayer(Player* player, s32 playerNum, bool arg2) {
@@ -8157,7 +8156,7 @@ void Play_UpdateLevel(void) {
         case LEVEL_CORNERIA:
 
             func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
-            if ((gGameFrameCount % 2 DIV_FRAME_FACTOR) ==
+            if ((gGameFrameCount % (2 DIV_FRAME_FACTOR)) ==
                 0) { // compensate for texture scroll good luck billboards, and water animation speed.
                 Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }

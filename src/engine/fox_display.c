@@ -1229,6 +1229,67 @@ void func_display_80055B58(Player* player) {
     }
 }
 
+
+#if ENABLE_60FPS == 1 // func_display_80055E98 *Contrarails
+void func_display_80055E98(Player* player) {
+    f32 sp5C;
+    f32 sp58;
+    f32 sp54;
+    f32 sp50;
+    f32 var_fs0;
+
+    sp5C = 70.0f;
+    sp58 = -18.0f;
+    if (player->wingPosition == 2) {
+        sp5C = 108.0f;
+        sp58 = -22.0f;
+    }
+    if (player->contrailScale != 0.0f) {
+        sp54 = 0.0f;
+        if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+            sp54 = 180.0f;
+        }
+        var_fs0 = player->rot.y;
+        if (var_fs0 > 90.0f) {
+            var_fs0 -= 180.0f;
+        }
+        var_fs0 = var_fs0 * 0.25f;
+        sp50 = player->rot.x * 0.25f;
+        if (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+            var_fs0 = 0.0f;
+            sp50 = 0.0f;
+        }
+        RCP_SetupDL_64();
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
+        if (player->wings.leftState == WINGSTATE_INTACT) {
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, sp5C, sp58, -100.0f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, -(M_DTOR * var_fs0), MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, player->contrailScale, 1.0f, 50.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102A8A0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+        if (player->wings.rightState == WINGSTATE_INTACT) {
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, -sp5C, sp58, -100.0f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, -(M_DTOR * var_fs0), MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, player->contrailScale, 1.0f, 50.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102A8A0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
+#else
 void func_display_80055E98(Player* player) {
     f32 sp5C;
     f32 sp58;
@@ -1287,6 +1348,7 @@ void func_display_80055E98(Player* player) {
         }
     }
 }
+#endif
 
 void func_display_80056230(Player* player) {
     if (player->draw && (player->form == FORM_ARWING) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
@@ -1296,7 +1358,7 @@ void func_display_80056230(Player* player) {
         Matrix_RotateY(gGfxMatrix, (player->yRot_114 + player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, -((player->xRot_120 + player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, -((player->bankAngle + player->rockAngle + player->damageShake) * M_DTOR),
-                       MTXF_APPLY);
+MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, player->xShake, player->yBob, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         func_display_80055E98(player);
@@ -1518,7 +1580,7 @@ void func_display_80057248(void) {
     f32 var_fs0;
 
     // Change the bitmask from 4 to 8 to run every 16 frames instead of every 8 frames.
-    if ((gGameFrameCount & 4 MUL_FRAME_FACTOR) == 0) {
+    if ((gGameFrameCount & (4 MUL_FRAME_FACTOR)) == 0) {
         RCP_SetupDL_40();
         for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
             if (gTeamArrowsViewPos[i].z < 0.0f) {
@@ -1696,6 +1758,61 @@ void func_display_80057814(Player* player) {
     player->sfx.zRot = player->bankAngle;
 }
 
+#if ENABLE_60FPS == 1 // func_display_800578C4 *Level Complete Camera
+void func_display_800578C4(Player* player) {
+    Vec3f sp4C = { 0.0f, 0.0f, -300.0f };
+    Vec3f sp40;
+    f32 sp3C;
+    f32 sp38;
+
+    switch (D_display_800CA220) {
+        case 0:
+            Math_SmoothStepToAngle(&player->wings.unk_30, 0.0f, 0.2f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToAngle(&player->wings.unk_34, 0.0f, 0.2f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+            gPlayCamEye.x = player->cam.eye.x;
+            gPlayCamEye.y = player->cam.eye.y;
+            gPlayCamEye.z = player->cam.eye.z;
+            gPlayCamAt.x = player->cam.at.x;
+            gPlayCamAt.y = player->cam.at.y;
+            gPlayCamAt.z = player->cam.at.z;
+            break;
+        case 1:
+        case 2:
+        case 3:
+            sp38 = Math_RadToDeg(player->camPitch) + player->rot.x;
+            if (sp38 > 360.0f) {
+                sp38 -= 360.0f;
+            }
+            if (sp38 < 0.0f) {
+                sp38 += 360.0f;
+            }
+            sp3C = (Math_RadToDeg(player->camYaw) + 180.0f) - player->rot.y;
+            if (sp3C > 360.0f) {
+                sp3C -= 360.0f;
+            }
+            if (sp3C < 0.0f) {
+                sp3C += 360.0f;
+            }
+            sp3C = 360.0f - sp3C;
+            Math_SmoothStepToAngle(&player->wings.unk_30, sp38, 0.2f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToAngle(&player->wings.unk_34, sp3C, 0.2f DIV_FRAME_FACTOR, 6.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_display_800CA380, gControllerPress->stick_y * 0.75f, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_display_800CA384, gControllerPress->stick_x * 3.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_display_800CA388, D_display_800CA38C[D_display_800CA220], 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            sp4C.z = D_display_800CA388;
+            Matrix_RotateX(gCalcMatrix, (player->rot.y + D_display_800CA380) * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, (player->rot.x + D_display_800CA384) * M_DTOR, MTXF_APPLY);
+            Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
+            gPlayCamEye.x = player->pos.x + sp40.x;
+            gPlayCamEye.y = player->pos.y + sp40.y + 20.0f;
+            gPlayCamEye.z = player->trueZpos + sp40.z;
+            gPlayCamAt.x = (SIN_DEG(gGameFrameCount * 3.0f) * 3.0f) + player->pos.x;
+            gPlayCamAt.y = (COS_DEG(gGameFrameCount * 4.0f) * 3.0f) + player->pos.y;
+            gPlayCamAt.z = (SIN_DEG(gGameFrameCount * 3.5f) * 3.0f) + player->trueZpos;
+            break;
+    }
+}
+#else
 void func_display_800578C4(Player* player) {
     Vec3f sp4C = { 0.0f, 0.0f, -300.0f };
     Vec3f sp40;
@@ -1749,6 +1866,7 @@ void func_display_800578C4(Player* player) {
             break;
     }
 }
+#endif
 
 #if ENABLE_60FPS == 1 // Play_Draw 
 void Play_Draw(void) {

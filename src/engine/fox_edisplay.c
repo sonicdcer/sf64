@@ -433,6 +433,64 @@ void ActorDebris_Draw(ActorDebris* this) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Actor_DrawEngineAndContrails
+void Actor_DrawEngineAndContrails(Actor* actor) {
+    f32 sp5C;
+    f32 temp1;
+    f32 sp54;
+    s32 pad[5]; // fake? seems like a lot of padding
+
+    if ((actor->iwork[11] != 0) && (actor->obj.status == OBJ_ACTIVE)) {
+        temp1 = 652.5f * 0.001f; // 0.65250003f;
+        if (actor->iwork[11] >= 2) {
+            temp1 = 1.3050001f;
+        }
+        Math_SmoothStepToF(&actor->fwork[29], temp1, 0.3f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
+        sp5C = actor->fwork[29];
+        if ((gGameFrameCount % 2) != 0) {
+            sp5C *= IMPROPER_DIV_FRAME_FACTOR(1.111f);
+        }
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp5C, sp5C * 0.7f, sp5C, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        Play_DrawEngineGlow(gLevelType);
+        Matrix_Pop(&gGfxMatrix);
+    }
+    sp5C = actor->fwork[21];
+    if ((sp5C != 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
+        sp54 = 0.0f;
+        if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+            sp54 = 180.0f;
+        }
+        RCP_SetupDL_64_2();
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 70.0f, -10.0f, -100.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp5C, 1.0f, 50.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_102A8A0);
+        Matrix_Pop(&gGfxMatrix);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, -70.0f, -10.0f, -100.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, sp5C, 1.0f, 50.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_102A8A0);
+        Matrix_Pop(&gGfxMatrix);
+    }
+}
+#else
 void Actor_DrawEngineAndContrails(Actor* actor) {
     f32 sp5C;
     f32 temp1;
@@ -489,6 +547,7 @@ void Actor_DrawEngineAndContrails(Actor* actor) {
         Matrix_Pop(&gGfxMatrix);
     }
 }
+#endif
 
 f32 D_edisplay_800CFCA0[] = {
     1.7f, 1.8f, 2.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,

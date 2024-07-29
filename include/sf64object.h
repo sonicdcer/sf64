@@ -210,7 +210,7 @@ typedef struct {
     /* 0x4A */ s16 unk_4A;
     /* 0x4C */ u8 unk_4C;
     /* 0x4E */ s16 state;
-    /* 0x50 */ u16 timer_50;
+    /* 0x50 */ u16 timer_50; //GLOBAL
     /* 0x52 */ char pad52[0x2];
     /* 0x54 */ Vec3f vel;
     /* 0x60 */ Vec3f unk_60;

@@ -924,6 +924,36 @@ void func_effect_800798F0(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007A28C * Giant Explosion
+void func_effect_8007A28C(Effect* effect) {
+    Texture_Scroll(D_10190C0, 16, 32, 0);
+    gGroundClipMode = 2;
+    effect->obj.rot.y += 1.0f DIV_FRAME_FACTOR;
+    Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f DIV_FRAME_FACTOR, 1.5f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+
+    if (effect->timer_50 > 10) {
+        D_ctx_801779A8[0] = 60.0f;
+    }
+    if (effect->timer_50 == 48) {
+        gFillScreenAlpha = 150;
+    }
+    if (effect->timer_50 > 45) {
+        gFillScreenAlphaTarget = 0;
+        gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+    }
+
+    gFillScreenAlphaStep = 3;
+
+    if (effect->timer_50 == 0) {
+        effect->unk_44 -= 2 DIV_FRAME_FACTOR;
+        if (effect->unk_44 < 0) {
+            effect->unk_44 = 0;
+            Object_Kill(&effect->obj, effect->sfxSource);
+            gGroundClipMode = 0;
+        }
+    }
+}
+#else
 void func_effect_8007A28C(Effect* effect) {
     Texture_Scroll(D_10190C0, 16, 32, 0);
     gGroundClipMode = 2;
@@ -952,6 +982,7 @@ void func_effect_8007A28C(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007A3C0(Effect* effect) {
     if (gReflectY > 0) {
@@ -966,6 +997,7 @@ void func_effect_8007A3C0(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007A4B8
 void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -981,6 +1013,23 @@ void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
+#else
+void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+    Effect_Initialize(effect);
+    effect->obj.status = OBJ_INIT;
+    effect->obj.id = OBJ_EFFECT_383;
+    effect->scale1 = scale1;
+    effect->timer_50 = 50;
+    effect->unk_44 = 200;
+
+    effect->obj.pos.x = xPos;
+    effect->obj.pos.y = yPos;
+    effect->obj.pos.z = zPos;
+
+    AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
+    Object_SetInfo(&effect->info, effect->obj.id);
+}
+#endif
 
 void func_effect_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
@@ -1313,7 +1362,7 @@ void func_effect_8007B2BC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->obj.pos.z = zPos;
 
     effect->scale1 = scale1;
-    effect->unk_44 = 255;
+    effect->unk_44 = 255 MUL_FRAME_FACTOR;
     effect->unk_4C = arg5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -1438,6 +1487,16 @@ void func_effect_8007B5C0(Effect* effect) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // func_effect_8007B62C
+void func_effect_8007B62C(Effect* effect) {
+    if (effect->timer_50 == 0) {
+        effect->unk_46 -= 4 DIV_FRAME_FACTOR;
+        if (effect->unk_46 <= 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+}
+#else
 void func_effect_8007B62C(Effect* effect) {
     if (effect->timer_50 == 0) {
         effect->unk_46 -= 4;
@@ -1446,6 +1505,7 @@ void func_effect_8007B62C(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007B670(Effect* effect) {
 }
@@ -2614,6 +2674,43 @@ void func_effect_8007E3E4(Effect* effect) {
     effect->vel.y += 0.05f;
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007E45C *Giant Explosion Update
+void func_effect_8007E45C(Effect* effect) {
+    switch (effect->state) {
+        case 0:
+            if (effect->unk_4C != 0) {
+                Math_SmoothStepToF(&effect->scale2, 5.0f, 0.05f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+                effect->unk_44 -= 10  DIV_FRAME_FACTOR;
+                effect->obj.rot.z += effect->scale1  DIV_FRAME_FACTOR;
+                if (effect->unk_44 < 0) {
+                    Object_Kill(&effect->obj, effect->sfxSource);
+                }
+                break;
+            }
+
+            effect->scale2 += 0.02f DIV_FRAME_FACTOR;
+            effect->unk_44--;
+
+            if (effect->unk_44 < 0) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+
+            effect->obj.rot.z += effect->scale1;
+            Math_SmoothStepToF(&effect->vel.y, 0.5f, 0.05f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
+            break;
+
+        case 1:
+            effect->vel.y = 3.0f;
+            Math_SmoothStepToF(&effect->scale2, 5.0f, 0.05f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            effect->unk_44 -= 10 DIV_FRAME_FACTOR;
+            effect->obj.rot.z += effect->scale1 DIV_FRAME_FACTOR;
+            if (effect->unk_44 < 0) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+            break;
+    }
+}
+#else
 void func_effect_8007E45C(Effect* effect) {
     switch (effect->state) {
         case 0:
@@ -2649,6 +2746,8 @@ void func_effect_8007E45C(Effect* effect) {
             break;
     }
 }
+#endif
+
 
 void func_effect_8007E5CC(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
@@ -2934,6 +3033,44 @@ void func_effect_8007F2FC(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007F438 *meteo aquas effect? 
+void func_effect_8007F438(Effect* effect) {
+    if (gCurrentLevel == LEVEL_AQUAS) {
+        effect->obj.rot.z += 3.5f DIV_FRAME_FACTOR;
+        effect->vel.z = 5.0f;
+
+        if (effect->unk_44 != 0) {
+            Math_SmoothStepToF(&effect->scale1, 100.0f, 1.0f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+        } else {
+            Math_SmoothStepToF(&effect->scale1, 0.0f, 1.0f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+        }
+
+        if (effect->unk_46 == 0) {
+            effect->unk_46 = 30;
+            effect->unk_44++;
+            effect->unk_44 &= 1;
+        } else {
+            effect->unk_46--;
+        }
+
+        if (gPathVelZ < 0.0f) {
+            effect->vel.z = -10.0f;
+        }
+
+        if (effect->timer_50 == 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    } else {
+        effect->obj.rot.z += 3.5f DIV_FRAME_FACTOR;
+        if (gLevelType == LEVELTYPE_PLANET) {
+            effect->vel.y += 0.2f DIV_FRAME_FACTOR;
+        }
+        if (effect->timer_50 == 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+}
+#else
 void func_effect_8007F438(Effect* effect) {
     if (gCurrentLevel == LEVEL_AQUAS) {
         effect->obj.rot.z += 3.5f;
@@ -2970,6 +3107,7 @@ void func_effect_8007F438(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007F5AC(Effect* effect) {
     if (effect->unk_4C == 0) {
