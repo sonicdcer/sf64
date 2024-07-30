@@ -633,7 +633,7 @@ void func_enmy_80062C38(f32 xPos, f32 yPos) {
     }
 }
 
-void func_enmy_80062D04(f32 xPos, f32 yPos) {
+void func_enmy_80062D04(f32 xPos, f32 yPos) { //*unused
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
@@ -2071,13 +2071,15 @@ void Item_SpinPickup(Item* this) {
     Vec3f sp34;
 
     Math_SmoothStepToF(&this->unk_50, 10.0f, 1.0f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f); // 60fps
+
     if (this->unk_50 > 30.0f) {
-        sparkleMask = 2 - 1;
+        sparkleMask = 1 MUL_FRAME_FACTOR - 1;
     } else if (this->unk_50 > 20.0f) {
-        sparkleMask = 4 - 1;
+        sparkleMask = 2 MUL_FRAME_FACTOR - 1;
     } else {
-        sparkleMask = 16 - 1;
+        sparkleMask = 8 MUL_FRAME_FACTOR - 1;
     }
+    
     if ((sparkleMask & gGameFrameCount) == 0) {
         Matrix_RotateY(gCalcMatrix,((gGameFrameCount * 23.0f)DIV_FRAME_FACTOR)* M_DTOR, MTXF_NEW);  // 60fps
         sp40.x = 50.0f;

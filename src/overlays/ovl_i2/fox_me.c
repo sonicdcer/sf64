@@ -6,6 +6,7 @@
 
 #include "global.h"
 #include "assets/ast_meteo.h"
+#include "mods.h"
 
 Vec3f D_i2_80195430[] = {
     { 122.0, -5.0, -1200.0 },   { 122.0, -103.0, -727.0 }, { 142.0, -323.0, -848.0 }, { 362.0, -59.0, -435.0 },
@@ -50,6 +51,31 @@ void Meteo_80187530(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Meteo_8018756C *metor large rockrotation
+void Meteo_8018756C(Actor* actor) {
+    Vec3f vec;
+    if (actor->dmgType != DMG_NONE) {
+        actor->dmgType = DMG_NONE;
+        actor->health -= actor->damage;
+        if (actor->health <= 0) {
+            actor->obj.status = OBJ_DYING;
+        }
+    }
+
+    actor->obj.rot.y += 2.0f DIV_FRAME_FACTOR;
+    actor->obj.rot.x += 1.3f DIV_FRAME_FACTOR;
+
+    vec.x = actor->vel.x;
+    vec.y = actor->vel.y;
+    vec.z = actor->vel.z;
+
+    if ((Object_CheckCollision(actor->index, &actor->obj.pos, &vec, 0) != 0) ||
+        (actor->obj.pos.y < (gGroundHeight + 20.0f))) {
+        actor->obj.status = OBJ_DYING;
+    }
+    Meteo_80187530(actor);
+}
+#else
 void Meteo_8018756C(Actor* actor) {
     Vec3f vec;
 
@@ -74,14 +100,14 @@ void Meteo_8018756C(Actor* actor) {
     }
     Meteo_80187530(actor);
 }
+#endif
 
-#if ENABLE_60FPS == 1 //
+#if ENABLE_60FPS == 1 // Meteo_80187650 * Meteo Cutsceen rocks spin
 void Meteo_80187650(Actor* actor) {
     Vec3f vec;
-
     actor->obj.rot.y += 1.7f DIV_FRAME_FACTOR;
     actor->obj.rot.x += 3.3f DIV_FRAME_FACTOR;
-    actor->unk_046 -= 15 DIV_FRAME_FACTOR; //??????
+    actor->unk_046 -= 15 DIV_FRAME_FACTOR;
 
     if (actor->unk_046 < 0) {
         actor->unk_046 = 0;
@@ -190,6 +216,30 @@ void Meteo_801877C4(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Meteo_8018795C *lazer cannon
+void Meteo_8018795C(Actor* actor) {
+    Vec3f vec;
+    s32 pad[2];
+
+    actor->obj.rot.y += 7.0f DIV_FRAME_FACTOR;
+    actor->obj.rot.x += 3.3f DIV_FRAME_FACTOR;
+
+    if (actor->dmgType != DMG_NONE) {
+        Actor_Despawn(actor);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Object_Kill(&actor->obj, actor->sfxSource);
+        func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+        func_effect_8007BFFC(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, 4.0f, 10);
+    }
+
+    if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0)) {
+        Math_Vec3fFromAngles(&vec, actor->obj.rot.x, actor->obj.rot.y, 100.0f);
+        func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + (vec.x * 3.0f), actor->obj.pos.y + (vec.y * 3.0f),
+                             actor->obj.pos.z + (vec.z * 3.0f), actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z,
+                             0.0f, 0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
+    }
+}
+#else
 void Meteo_8018795C(Actor* actor) {
     Vec3f vec;
     s32 pad[2];
@@ -213,6 +263,7 @@ void Meteo_8018795C(Actor* actor) {
                              0.0f, 0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
     }
 }
+#endif
 
 void Meteo_80187B08(Actor* actor) {
     actor->obj.rot.y += 7.0f;
@@ -2392,6 +2443,20 @@ void Meteo_LevelStart(Player* player) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // Meteo_8018D9EC *meteor shower1
+void Meteo_8018D9EC(Actor* actor) {
+    switch (actor->state) {
+        case 0:
+            actor->fwork[0] = RAND_FLOAT_CENTERED(10.0f);
+            actor->state = 1;
+
+        case 1:
+            actor->obj.rot.z += actor->fwork[0] DIV_FRAME_FACTOR;
+            break;
+    }
+    Meteo_80187530(actor);
+}
+#else
 void Meteo_8018D9EC(Actor* actor) {
     switch (actor->state) {
         case 0:
@@ -2404,6 +2469,7 @@ void Meteo_8018D9EC(Actor* actor) {
     }
     Meteo_80187530(actor);
 }
+#endif
 
 void Meteo_8018DA6C(Actor* actor) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);

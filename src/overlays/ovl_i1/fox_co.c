@@ -155,6 +155,237 @@ f32 Corneria_80187A88(s32 arg0) {
     return ret;
 }
 
+#if ENABLE_60FPS == 1 //
+void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
+    Sprite* sprite;
+    s32 item;
+    s32 var_s1;
+    s32 var_s1_2;
+
+    if (boss->dmgType != DMG_NONE) {
+        boss->dmgType = DMG_NONE;
+
+        if (boss->dmgPart == 0) { // backpack
+            boss->swork[10] = 15;
+            boss->swork[29] -= boss->damage;
+
+            Corneria_80187A38(boss, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 0.2f, 20);
+
+            if (boss->swork[29] < 30) {
+                func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_KNOCK_DOWN);
+            } else {
+                func_effect_8007A6F0(&boss->obj.pos, NA_SE_OB_DAMAGE_M);
+            }
+
+            Radio_PlayMessage(gMsg_ID_2270, RCID_BOSS_CORNERIA);
+
+            if (boss->swork[29] <= 0) {
+                boss->swork[10] = 1000;
+                boss->info.hitbox[1 + 0] = 100000.0f;
+
+                Corneria_8018798C(boss, D_i1_8019B6D8[62], D_i1_8019B6D8[63], D_i1_8019B6D8[64], 10.0f);
+
+                AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
+
+                gScreenFlashTimer = 8;
+
+                if (fabsf(boss->obj.rot.x) < 20.0f) {
+                    boss->swork[32] = 1;
+                }
+
+                boss->state = 7;
+                boss->timer_050 = 100;
+
+                SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 80);
+                SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 80);
+
+                gCsFrameCount = 0;
+
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                    gPlayer[0].csState = gPlayer[0].csTimer = 0;
+                    gPlayer[0].rot.y += gPlayer[0].yRot_114 DIV_FRAME_FACTOR;
+
+                    if (gPlayer[0].rot.y > 360.0f) {
+                        gPlayer[0].rot.y -= 360.0f;
+                    }
+                    if (gPlayer[0].rot.y < 0.0f) {
+                        gPlayer[0].rot.y += 360.0f;
+                    }
+                    gPlayer[0].yRot_114 = 0.0f;
+                }
+
+                Radio_PlayMessage(gMsg_ID_2280, RCID_BOSS_CORNERIA);
+
+                Boss_AwardBonus(boss);
+
+                gBossFrameCount = 100000;
+                return;
+            }
+        } else if (boss->dmgPart == 3) { // GUN
+            boss->swork[3] = 15;
+            boss->swork[20] = 30;
+            boss->swork[28] -= boss->damage;
+
+            Corneria_801879F0(boss, D_i1_8019B6D8[12] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[13],
+                              D_i1_8019B6D8[14] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
+            Corneria_80187A38(boss, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.1f, 20);
+
+            if (boss->swork[28] <= 0) {
+                boss->swork[3] = 1000;
+                boss->info.hitbox[1 + 18] = 100000.0f;
+                Corneria_8018798C(boss, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 10.0f);
+            }
+        }
+
+        if (boss->dmgPart == 1) { // LEFT ARM
+            boss->swork[2] = 15;
+            boss->swork[21] = 30;
+            boss->swork[26] -= boss->damage;
+
+            Corneria_801879F0(boss, D_i1_8019B6D8[6] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[7],
+                              D_i1_8019B6D8[8] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
+            Corneria_80187A38(boss, D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 0.1f, 20);
+
+            if (boss->swork[26] <= 0) {
+                boss->swork[2] = 1000;
+                boss->info.hitbox[1 + 6] = 100000.0f;
+                Corneria_8018798C(boss, D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 7.0f);
+            }
+        } else if (boss->dmgPart == 2) { // Right Arm
+            boss->swork[1] = 15;
+            boss->swork[22] = 30;
+            boss->swork[27] -= boss->damage;
+
+            Corneria_801879F0(boss, D_i1_8019B6D8[0] + RAND_FLOAT_CENTERED(60.0f), D_i1_8019B6D8[1],
+                              D_i1_8019B6D8[2] + RAND_FLOAT_CENTERED(60.0f), 2.0f);
+            Corneria_80187A38(boss, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 0.1f, 20);
+
+            if (boss->swork[27] <= 0) {
+                boss->swork[1] = 1000;
+                boss->info.hitbox[1 + 12] = 100000.0f;
+                Corneria_8018798C(boss, D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 7.0f);
+            }
+        } else if ((boss->dmgPart == 4) || (boss->dmgPart == 5)) { // left/right Leg
+            AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, boss->sfxSource, 4);
+            boss->swork[23] = 200;
+
+            if (boss->dmgPart == 4) { // left leg
+                boss->swork[24] -= boss->damage;
+                boss->swork[7] = boss->swork[8] = boss->swork[9] = 5;
+                boss->swork[18] = 30;
+
+                if (boss->swork[24] <= 0) {
+                    boss->swork[7] = boss->swork[8] = boss->swork[9] = 1000;
+                    boss->info.hitbox[1 + 24] = 100000.0f;
+
+                    for (var_s1 = 3; var_s1 < 6; var_s1++) {
+                        Boss_SpawnDebris(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2], D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2], D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f, RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
+                    }
+
+                    if (boss->state < 5) {
+                        boss->state = 5;
+                        boss->timer_050 = 60;
+                    }
+                }
+            } else { // right leg
+                boss->swork[25] -= boss->damage;
+                boss->swork[4] = boss->swork[5] = boss->swork[6] = 5;
+                boss->swork[19] = 30;
+
+                if (boss->swork[25] <= 0) {
+                    boss->swork[4] = boss->swork[5] = boss->swork[6] = 1000;
+                    boss->info.hitbox[1 + 30] = 100000.0f;
+
+                    for (var_s1 = 0; var_s1 < 3; var_s1++) {
+                        Boss_SpawnDebris(D_i1_8019B6D8[18 + var_s1 + 2], D_i1_8019B6D8[24 + var_s1 + 2],
+                                         D_i1_8019B6D8[30 + var_s1 + 2], D_i1_8019B6D8[36 + var_s1 + 2],
+                                         D_i1_8019B6D8[42 + var_s1 + 2], D_i1_8019B6D8[48 + var_s1 + 2], 0.0f,
+                                         RAND_FLOAT(20.0f), 0.0f, 5.5f, var_s1 + 28, RAND_INT(30.0f) + 60.0f);
+                    }
+
+                    if (boss->state < 5) {
+                        boss->state = 6;
+                        boss->timer_050 = 60;
+                    }
+                }
+            }
+
+            if (boss->timer_050 < 50) {
+                boss->timer_050 += 10;
+            }
+
+            if ((boss->state != 0) && (boss->state < 5)) {
+                boss->fwork[14] = 0.0f;
+
+                if (Rand_ZeroOne() < 0.5f) {
+                    item = OBJ_ITEM_SILVER_RING;
+                } else {
+                    item = OBJ_ITEM_BOMB;
+                }
+                Corneria_80187838(boss, boss->obj.pos.x, boss->obj.pos.y + 100.0f, boss->obj.pos.z, item);
+            }
+
+            if (boss->state < 5) {
+                boss->state = 0;
+
+                switch (RAND_INT(5.0f)) {
+                    case 0:
+                        boss->swork[31] = 2;
+                        break;
+                    case 1:
+                        boss->swork[31] = 3;
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                        boss->swork[31] = 4;
+                        break;
+                }
+            }
+        } else {
+            func_effect_8007A6F0(&boss->obj.pos, NA_SE_EN_REFLECT);
+        }
+    }
+
+    if (!(D_edisplay_801615D0.y < 0.0f)) {
+        for (sprite = gSprites, var_s1 = 0; var_s1 < ARRAY_COUNT(gSprites); var_s1++, sprite++) {
+            if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
+                if ((fabsf(sprite->obj.pos.x - D_i1_8019B6D8[20]) < 90.0f) &&
+                    (fabsf(sprite->obj.pos.z - D_i1_8019B6D8[32]) < 90.0f)) {
+                    sprite->destroy = 1;
+                    break;
+                } else if ((fabsf(sprite->obj.pos.x - D_i1_8019B6D8[23]) < 90.0f) &&
+                           (fabsf(sprite->obj.pos.z - D_i1_8019B6D8[35]) < 90.0f)) {
+                    sprite->destroy = 1;
+                    break;
+                }
+            }
+        }
+
+        if ((boss->swork[1] == 1000) && ((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007BFFC(D_i1_8019B6D8[3], D_i1_8019B6D8[4], D_i1_8019B6D8[5],
+                                 (D_i1_8019B6D8[3] - boss->obj.pos.x) * 0.1f, 0.0f,
+                                 (D_i1_8019B6D8[5] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
+        }
+        if ((boss->swork[2] == 1000) && ((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007BFFC(D_i1_8019B6D8[9], D_i1_8019B6D8[10], D_i1_8019B6D8[11],
+                                 (D_i1_8019B6D8[9] - boss->obj.pos.x) * 0.1f, 0.0f,
+                                 (D_i1_8019B6D8[11] - boss->obj.pos.z) * 0.1f, 1.5f, 5);
+        }
+        if ((boss->swork[3] == 1000) && ((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007BFFC(D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
+        }
+        if ((boss->swork[4] == 1000) && ((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007BFFC(D_i1_8019B6D8[56], D_i1_8019B6D8[57], D_i1_8019B6D8[58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+        }
+        if ((boss->swork[7] == 1000) && ((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007BFFC(D_i1_8019B6D8[59], D_i1_8019B6D8[60], D_i1_8019B6D8[61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+        }
+    }
+}
+#else
 void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
     Sprite* sprite;
     s32 item;
@@ -384,6 +615,7 @@ void Corneria_80187AC8(Boss* boss) { // GRANGA DAMAGE
         }
     }
 }
+#endif
 
 ObjectId Corneria_80188750(Boss* boss) {
     boss->swork[35]++;
@@ -398,6 +630,61 @@ ObjectId Corneria_80188750(Boss* boss) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Corneria_801887AC * ??????
+void Corneria_801887AC(Boss* boss) { // ??????
+    Vec3f sp3C;
+    ObjectId objId;
+
+    if ((gBossFrameCount < 500)) {
+        return;
+    }
+
+    switch (boss->swork[30]) {
+        case 0:
+            break;
+
+        case 1:
+            objId = Corneria_80188750(boss);
+            if (objId != 0) {
+                if (boss->swork[1] != 1000) {
+                    Corneria_80187710(D_i1_8019B6D8[0], D_i1_8019B6D8[1], D_i1_8019B6D8[2], 65.0f, 0.0f,
+                                      D_i1_8019B6D8[16] + boss->obj.rot.y, 0, 0, objId);
+                }
+                if (boss->swork[2] != 1000) {
+                    Corneria_80187710(D_i1_8019B6D8[6], D_i1_8019B6D8[7], D_i1_8019B6D8[8], 65.0f, 0.0f,
+                                      D_i1_8019B6D8[16] + boss->obj.rot.y, 0, 0, objId);
+                }
+            }
+            boss->swork[30] = 0;
+            break;
+
+        case 2:
+            Corneria_801877A0(boss, 40.0f, 228.0f, 212.0f);
+            Corneria_801877A0(boss, -40.0f, 228.0f, 212.0f);
+            boss->swork[30] = 0;
+            break;
+
+        case 3:
+            if (boss->swork[3] != 1000) {
+                sp3C.x = gPlayer[0].pos.x;
+                sp3C.y = gPlayer[0].pos.y;
+                sp3C.z = gPlayer[0].trueZpos;
+
+                gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f) DIV_FRAME_FACTOR;
+                gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f) DIV_FRAME_FACTOR;
+                gPlayer[0].trueZpos += RAND_FLOAT_CENTERED(300.0f) DIV_FRAME_FACTOR;
+
+                func_effect_8007F11C(OBJ_EFFECT_376, D_i1_8019B6D8[12], D_i1_8019B6D8[13], D_i1_8019B6D8[14], 60.0f);
+
+                gPlayer[0].pos.x = sp3C.x;
+                gPlayer[0].pos.y = sp3C.y;
+                gPlayer[0].trueZpos = sp3C.z;
+            }
+            boss->swork[30] = 0;
+            break;
+    }
+}
+#else
 void Corneria_801887AC(Boss* boss) { // ??????
     Vec3f sp3C;
     ObjectId objId;
@@ -451,6 +738,7 @@ void Corneria_801887AC(Boss* boss) { // ??????
             break;
     }
 }
+#endif
 
 void Corneria_80188A18(Boss* boss) {
     if (boss->timer_050 == 0) {
@@ -629,11 +917,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- // if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
- //    boss->dmgType = DMG_BEAM;
- //    boss->dmgPart = 0;
- //    boss->swork[29] = 0;
- // }
+ //if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+ //   boss->dmgType = DMG_BEAM;
+ //   boss->dmgPart = 0;
+ //   boss->swork[29] = 0;
+ //}
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {
             boss->swork[33]++;
@@ -924,7 +1212,7 @@ void Corneria_80189058(Boss* boss) {
                     boss->drawShadow = false;
                     gGroundClipMode = 1;
 
-                    if (((gGameFrameCount % 8) == 0)) {
+                    if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0)) {
                         D_i1_8019B6D8[17] = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f);
                         D_i1_8019B6D8[18] = gPlayer[0].pos.y;
                         D_i1_8019B6D8[19] = gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(2000.0f);
@@ -938,11 +1226,11 @@ void Corneria_80189058(Boss* boss) {
                             boss->obj.rot.z = 60.0f;
                             Corneria_80188C7C(boss);
 
-                            if ((gGameFrameCount % 512U) == 0) {
+                            if ((gGameFrameCount % (512U MUL_FRAME_FACTOR)) == 0) {
                                 Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                             }
 
-                            if ((gGameFrameCount % 512U) == 256) {
+                            if ((gGameFrameCount % (512U MUL_FRAME_FACTOR)) == 256) {
                                 Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                             }
                         }
@@ -953,10 +1241,10 @@ void Corneria_80189058(Boss* boss) {
                             boss->obj.rot.z = -60.0f;
                             Corneria_80188C7C(boss);
 
-                            if ((gGameFrameCount % 512U) == 0) {
+                            if ((gGameFrameCount % (512U MUL_FRAME_FACTOR)) == 0) {
                                 Radio_PlayMessage(gMsg_ID_2275, RCID_BOSS_CORNERIA);
                             }
-                            if ((gGameFrameCount % 512U) == 256) {
+                            if ((gGameFrameCount % (512U MUL_FRAME_FACTOR)) == 256) {
                                 Radio_PlayMessage(gMsg_ID_2220, RCID_BOSS_CORNERIA);
                             }
                         }
@@ -976,7 +1264,7 @@ void Corneria_80189058(Boss* boss) {
 
                     boss->yOffset = SIN_DEG(boss->obj.rot.z) * 30.0f;
 
-                    if (((gGameFrameCount % 16) == 0)) {
+                    if (((gGameFrameCount % (16 MUL_FRAME_FACTOR)) == 0)) {
                         boss->unk_04C = RAND_INT(100.0f);
                     }
 
@@ -1111,11 +1399,11 @@ void Corneria_80189058(Boss* boss) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
- // if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
- //    boss->dmgType = DMG_BEAM;
- //    boss->dmgPart = 0;
- //    boss->swork[29] = 0;
- // }
+ //if (gControllerPress[0].button & R_CBUTTONS){ // Granga Update Kill Boss
+ //   boss->dmgType = DMG_BEAM;
+ //   boss->dmgPart = 0;
+ //   boss->swork[29] = 0;
+ //}
 
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (boss->swork[33] == 0) {

@@ -715,6 +715,47 @@ void func_effect_80079618(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007968C * Debrid falling in large explosion Boss
+void func_effect_8007968C(Effect* effect) {
+    if ((gCurrentLevel != LEVEL_MACBETH) || (effect->unk_44 != 7)) {
+        if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundHeight)) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    } else {
+        if (((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+            func_effect_8007D2C8(effect->obj.pos.x, effect->obj.pos.y + 550.0f, effect->obj.pos.z, 10.0f);
+        }
+        if ((effect->timer_50 == 0) || (effect->obj.pos.y < (gGroundHeight - 100.0f))) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+
+    effect->obj.rot.x += effect->unk_60.x DIV_FRAME_FACTOR;
+    effect->obj.rot.y += effect->unk_60.y DIV_FRAME_FACTOR;
+    effect->obj.rot.z += effect->unk_60.z DIV_FRAME_FACTOR;
+
+    if (gLevelType == LEVELTYPE_PLANET) {
+        effect->vel.y -= 0.5f DIV_FRAME_FACTOR;
+    }
+
+    if ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+        (gCsFrameCount > 175)) {
+        effect->vel.x *= PROPER_DIV_FRAME_FACTOR(0.95f);
+        effect->vel.y *= PROPER_DIV_FRAME_FACTOR(0.95f);
+        effect->vel.z *= PROPER_DIV_FRAME_FACTOR(0.95f);
+    }
+
+    if ((gCurrentLevel == LEVEL_MACBETH) && (effect->unk_44 == 10)) {
+        effect->obj.rot.x = 0.0f;
+        effect->obj.rot.y = 0.0f;
+        if (effect->timer_50 >= 25) {
+            effect->scale1 = 0.5f;
+        } else if (effect->scale1 > 0.03) {
+            effect->scale1 -= 0.02f DIV_FRAME_FACTOR;
+        }
+    }
+}
+#else
 void func_effect_8007968C(Effect* effect) {
     if ((gCurrentLevel != LEVEL_MACBETH) || (effect->unk_44 != 7)) {
         if ((effect->timer_50 == 0) || (effect->obj.pos.y < gGroundHeight)) {
@@ -754,6 +795,7 @@ void func_effect_8007968C(Effect* effect) {
         }
     }
 }
+#endif
 
 bool func_effect_800798C4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     if ((limbIndex != 1) && (limbIndex != 5)) {
@@ -997,7 +1039,6 @@ void func_effect_8007A3C0(Effect* effect) {
     }
 }
 
-#if ENABLE_60FPS == 1 // func_effect_8007A4B8
 void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -1013,23 +1054,6 @@ void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
-#else
-void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
-    Effect_Initialize(effect);
-    effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_383;
-    effect->scale1 = scale1;
-    effect->timer_50 = 50;
-    effect->unk_44 = 200;
-
-    effect->obj.pos.x = xPos;
-    effect->obj.pos.y = yPos;
-    effect->obj.pos.z = zPos;
-
-    AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, effect->sfxSource, 4);
-    Object_SetInfo(&effect->info, effect->obj.id);
-}
-#endif
 
 void func_effect_8007A568(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
@@ -1362,7 +1386,7 @@ void func_effect_8007B2BC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scal
     effect->obj.pos.z = zPos;
 
     effect->scale1 = scale1;
-    effect->unk_44 = 255 MUL_FRAME_FACTOR;
+    effect->unk_44 = 255;
     effect->unk_4C = arg5;
     Object_SetInfo(&effect->info, effect->obj.id);
 }
@@ -1472,7 +1496,7 @@ void func_effect_8007B550(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
 #if ENABLE_60FPS == 1 // func_effect_8007B5C0 *unk
 void func_effect_8007B5C0(Effect* effect) {
     Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
-    effect->unk_44 -= effect->unk_46;
+    effect->unk_44 -= effect->unk_46 DIV_FRAME_FACTOR;
     if (effect->unk_44 < 0) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }
@@ -1776,6 +1800,34 @@ void func_effect_8007C1AC(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 
     }
 }
 
+#if ENABLE_60FPS == 1 //func_effect_8007C250 ??????
+void func_effect_8007C250(Effect* effect) {
+    f32 randX;
+    f32 randY;
+    f32 randOther;
+    s32 var_v0;
+
+    Math_SmoothStepToF(&effect->vel.x, 0.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&effect->vel.y, 0.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+    Math_SmoothStepToF(&effect->vel.z, 0.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+
+    var_v0 = 4 MUL_FRAME_FACTOR - 1;
+    if (gLevelMode == LEVELMODE_ALL_RANGE) { //??????
+        var_v0 = 2 MUL_FRAME_FACTOR - 1;
+    }
+
+    if ((effect->timer_50 & var_v0) == 0) {
+        randX = RAND_FLOAT_CENTERED(40.0f);
+        randY = RAND_FLOAT_CENTERED(40.0f);
+        randOther = RAND_FLOAT(0.5f) + 1.0f;
+        func_effect_8007D0E0(effect->obj.pos.x + randX, effect->obj.pos.y + randY, effect->obj.pos.z,
+                             effect->scale2 * randOther);
+        if (effect->timer_50 == 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+}
+#else
 void func_effect_8007C250(Effect* effect) {
     f32 randX;
     f32 randY;
@@ -1802,6 +1854,7 @@ void func_effect_8007C250(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007C3B4(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
                           s32 arg8) {
@@ -2174,14 +2227,12 @@ void func_effect_8007D2F4(Effect* effect) {
         if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
             effect->vel.y += 0.1f DIV_FRAME_FACTOR;
             if (effect->timer_50 == 0) {
-                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
                 effect->unk_4C++;
-                }
                 effect->timer_50 = 4;
-                if (effect->unk_4C > 15) {
+                if (effect->unk_4C > 15 ) {
                     effect->timer_50 = 5;
                 }
-                if (effect->unk_4C > 20) {
+                if (effect->unk_4C > 20 ) {
                     Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
@@ -2194,24 +2245,20 @@ void func_effect_8007D2F4(Effect* effect) {
             }
             effect->vel.y += 0.3f DIV_FRAME_FACTOR;
             if (effect->timer_50 == 0) {
-                if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
                 effect->unk_4C++;
-                }
-                if (effect->unk_4C > 15) {
+                if (effect->unk_4C > 15  ) {
                     effect->timer_50 = 2;
                 }
-                if (effect->unk_4C > 20) {
+                if (effect->unk_4C > 20  ) {
                     Object_Kill(&effect->obj, effect->sfxSource);
                 }
             }
         }
     } else {
         if (effect->timer_50 == 0) {
-            if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
             effect->unk_4C++;
-            }
             effect->timer_50 = effect->unk_46;
-            if (effect->unk_4C > 13) {
+            if (effect->unk_4C > 13 ) {
                 Object_Kill(&effect->obj, effect->sfxSource);
             }
         }
@@ -2755,6 +2802,17 @@ void func_effect_8007E5CC(Effect* effect) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007E648 *??????
+void func_effect_8007E648(Effect* effect) {
+    if (effect->timer_50 == 0) {
+        Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f);
+        effect->unk_44 -= 2 DIV_FRAME_FACTOR;
+        if (effect->unk_44 < 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+}
+#else
 void func_effect_8007E648(Effect* effect) {
     if (effect->timer_50 == 0) {
         Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.05f, 100.0f, 0.0f);
@@ -2764,6 +2822,7 @@ void func_effect_8007E648(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPos, f32 speed) {
     f32 sp54;
@@ -2776,7 +2835,6 @@ void func_effect_8007E6B8(Effect* effect, u32 objId, f32 xPos, f32 yPos, f32 zPo
     effect->obj.status = OBJ_INIT;
     effect->obj.id = objId;
     effect->timer_50 = 100;
-
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
@@ -3134,6 +3192,48 @@ void func_effect_8007F5AC(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007F6B0 *unk Cornaria
+void func_effect_8007F6B0(Effect* effect) {
+    s32 i;
+    f32 temp;
+    f32 cos;
+    f32 sin;
+    f32 randfloat;
+    f32 x;
+    f32 z;
+    f32 y;
+    f32 yPos;
+    Math_SmoothStepToF(&effect->scale2, effect->scale1, 0.1f DIV_FRAME_FACTOR, 12.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+
+    effect->unk_44 -= 2 DIV_FRAME_FACTOR;
+    if (effect->unk_44 < 0) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+
+    if (((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0) && (effect->state == 0)) {
+        randfloat = RAND_FLOAT(30.0f);
+        for (i = 0; i < 36; i += 2) {
+            temp = (i * 10.0f * M_DTOR) + randfloat;
+            sin = __sinf(temp) * effect->scale2 * 8.0f;
+            cos = __cosf(temp) * effect->scale2 * 8.0f;
+            yPos = gGroundHeight + 40.0f;
+
+            if (gGroundType == 4) {
+                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + gPathProgress, &x, &y, &z);
+                yPos = y + 30.0f;
+            }
+
+            if (gCurrentLevel == LEVEL_AQUAS) {
+                func_effect_8007B8F8(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 20.0f);
+            } else if (gCurrentLevel == LEVEL_FORTUNA) {
+                func_effect_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 20.0f);
+            } else if (gCurrentLevel == LEVEL_TITANIA) {
+                func_effect_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 10.0f, 255, 15, 0);
+            }
+        }
+    }
+}
+#else
 void func_effect_8007F6B0(Effect* effect) {
     s32 i;
     f32 temp;
@@ -3175,6 +3275,7 @@ void func_effect_8007F6B0(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007F958(Effect* effect) {
     s32 i;
@@ -3368,6 +3469,16 @@ void func_effect_800802D8(Effect* effect) {
     func_effect_8007FE88(effect);
 }
 
+#if ENABLE_60FPS == 1 // func_effect_800802F8 *unk
+void func_effect_800802F8(Effect* effect) {
+    func_effect_8007FE88(effect);
+    effect->obj.rot.z += 10.0f DIV_FRAME_FACTOR;
+    effect->scale2 = 3.0f;
+    if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+        effect->scale2 = 3.5f;
+    }
+}
+#else
 void func_effect_800802F8(Effect* effect) {
     func_effect_8007FE88(effect);
     effect->obj.rot.z += 10.0f;
@@ -3376,6 +3487,7 @@ void func_effect_800802F8(Effect* effect) {
         effect->scale2 = 3.5f;
     }
 }
+#endif
 
 #if ENABLE_60FPS == 1 // func_effect_80080360 GRANGA Blue Blaster Effect
 void func_effect_80080360(Effect* effect) {

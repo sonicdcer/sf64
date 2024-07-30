@@ -1,6 +1,6 @@
 #include "global.h"
 
-s32 gBossFrameCount;
+s32 gBossFrameCount; // SEMIGLOBAL
 
 s32 gBossBgms[] = {
     NA_BGM_BOSS_CO, NA_BGM_BOSS_ME, NA_BGM_BOSS_SX, NA_BGM_BOSS_A6, NA_BGM_BOSS_SB, NA_BGM_BOSS_SY, NA_BGM_BOSS_VE,

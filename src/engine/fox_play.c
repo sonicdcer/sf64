@@ -733,6 +733,36 @@ void Play_ClearObjectData(void) {
     }
 }
 
+#if ENABLE_60FPS == 1 // 
+void Play_UpdateFillScreen(void) {
+    if (gFillScreenAlpha != gFillScreenAlphaTarget) {
+        if (gFillScreenAlpha < gFillScreenAlphaTarget) {
+            gFillScreenAlpha += gFillScreenAlphaStep DIV_FRAME_FACTOR;
+            if (gFillScreenAlpha >= gFillScreenAlphaTarget) {
+                gFillScreenAlpha = gFillScreenAlphaTarget;
+            }
+        } else {
+            gFillScreenAlpha -= gFillScreenAlphaStep DIV_FRAME_FACTOR;
+            if (gFillScreenAlphaTarget >= gFillScreenAlpha) {
+                gFillScreenAlpha = gFillScreenAlphaTarget;
+            }
+        }
+    }
+    gFillScreenAlphaStep = 16;
+    Math_SmoothStepToF(&gLight3Brightness, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.04f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+    if (gScreenFlashTimer != 0) {
+        gScreenFlashTimer--;
+        if ((gScreenFlashTimer & (2 MUL_FRAME_FACTOR)) != 0) {
+            gFillScreenRed = 255;
+            gFillScreenGreen = 255;
+            gFillScreenBlue = 255;
+            gFillScreenAlpha = 254;
+        } else {
+            gFillScreenAlpha = 0;
+        }
+    }
+}
+#else
 void Play_UpdateFillScreen(void) {
     if (gFillScreenAlpha != gFillScreenAlphaTarget) {
         if (gFillScreenAlpha < gFillScreenAlphaTarget) {
@@ -761,6 +791,7 @@ void Play_UpdateFillScreen(void) {
         }
     }
 }
+#endif
 
 void Play_SpawnHitmark(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
@@ -8476,6 +8507,7 @@ void Play_Update(void) {
     }
     Play_UpdateLevel();
 }
+
 
 u8 sVsItemSpawnIndex = -1;
 

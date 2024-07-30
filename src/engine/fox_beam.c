@@ -2316,8 +2316,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             }
             if ((gPlayer[shot->sourceId].form == FORM_LANDMASTER) || (gPlayer[shot->sourceId].form == FORM_ON_FOOT)) {
                 shot->vel.y -= 1.0f;
-                Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR,
-                                   0.0f); // 60fps
+                Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f); // 60fps
             }
             if (shot->timer < 25) {
                 if (gVersusMode) {
