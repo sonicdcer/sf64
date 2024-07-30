@@ -555,7 +555,7 @@ typedef enum ObjectId {
     /* 246 */ OBJ_ACTOR_ZO_MINE,
     /* 247 */ OBJ_ACTOR_ZO_BARRIER, // Barrier with opening rudders on the sides.
     /* 248 */ OBJ_ACTOR_ZO_CRANE_MAGNET,
-    /* 249 */ OBJ_ACTOR_SPIKEBALL,  // Spikeball shoot by Zoness boss.
+    /* 249 */ OBJ_ACTOR_SPIKEBALL,  // Spikeball shot by Zoness boss.
     /* 250 */ OBJ_ACTOR_ZO_CARGOSHIP,
     /* 251 */ OBJ_ACTOR_ZO_CONTAINER,
     /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
@@ -650,7 +650,7 @@ typedef enum ObjectId {
     /* 341 */ OBJ_EFFECT_FIRE_SMOKE_3,
     /* 342 */ OBJ_EFFECT_SMOKE_1,
     /* 343 */ OBJ_EFFECT_SMOKE_2,
-    /* 344 */ OBJ_EFFECT_EXPLOSION_MARK_1, // Explosion mark left on the ground after an explodes.
+    /* 344 */ OBJ_EFFECT_EXPLOSION_MARK_1, // Explosion mark left on the ground after an enemy explodes.
     /* 345 */ OBJ_EFFECT_LASER_MARK_1, // Mark left when lasers hit the ground.
     /* 346 */ OBJ_EFFECT_346,
     /* 347 */ OBJ_EFFECT_347,
@@ -682,17 +682,17 @@ typedef enum ObjectId {
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
     /* 374 */ OBJ_EFFECT_374, // ast_enmy_planet
     /* 375 */ OBJ_EFFECT_375,
-    /* 376 */ OBJ_EFFECT_376,
-    /* 377 */ OBJ_EFFECT_377,
-    /* 378 */ OBJ_EFFECT_378,
+    /* 376 */ OBJ_EFFECT_376, // Plasma shot by Granga
+    /* 377 */ OBJ_EFFECT_377, // Spyborg blue shot
+    /* 378 */ OBJ_EFFECT_378, // Ball projectiles shot by train car turret in Macbeth
     /* 379 */ OBJ_EFFECT_379,
-    /* 380 */ OBJ_EFFECT_380,
+    /* 380 */ OBJ_EFFECT_380, // Some kind of shot (Macbeth boss)
     /* 381 */ OBJ_EFFECT_381,
     /* 382 */ OBJ_EFFECT_382,
-    /* 383 */ OBJ_EFFECT_383,
-    /* 384 */ OBJ_EFFECT_384,
-    /* 385 */ OBJ_EFFECT_385,
-    /* 386 */ OBJ_EFFECT_386,
+    /* 383 */ OBJ_EFFECT_383, // Big boss explosion
+    /* 384 */ OBJ_EFFECT_384, // small explosion
+    /* 385 */ OBJ_EFFECT_385, // small explosion
+    /* 386 */ OBJ_EFFECT_386, // some type of explosion
     /* 387 */ OBJ_EFFECT_387,
     /* 388 */ OBJ_EFFECT_388,
     /* 389 */ OBJ_EFFECT_389,

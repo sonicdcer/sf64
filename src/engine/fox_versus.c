@@ -246,7 +246,7 @@ void func_versus_800BD7C4(f32 xPos, f32 yPos, s32 arg2) {
     s32 i;
 
     for (i = 10; i != 1; i /= 10) {
-        if (xPos > 0 && (yPos > 0)) {
+        if ((xPos > 0) && (yPos > 0)) {
             TextureRect_IA8(&gMasterDisp, D_800D4B20[arg2 / i], 16, 8, xPos, yPos, 1.0f, 1.0f);
         }
         xPos += 9.0f;

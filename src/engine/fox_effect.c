@@ -1235,7 +1235,7 @@ void Effect_Effect384_Setup(Effect384* this, f32 xPos, f32 yPos, f32 zPos, f32 s
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-// Orange-yellowish light this simulating an explosion
+// Orange-yellowish light simulating an explosion
 void Effect_Effect384_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg4) {
     s32 i;
 

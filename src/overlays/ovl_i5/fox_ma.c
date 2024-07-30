@@ -1706,7 +1706,7 @@ void Macbeth_MaTrainCar7_Update(Actor* this) {
     }
 }
 
-void Macbeth_8019F164(Actor* this) {
+void Macbeth_8019F164(MaTrainCar6* this) {
     static Vec3f D_i5_801BA708 = { 0.0f, 610.0f, 0.0f };
     static Vec3f D_i5_801BA714 = { 0.0f, 0.0f, 65.0f };
     Vec3f sp84;
@@ -1930,7 +1930,7 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
     }
 }
 
-void Macbeth_MaTrainCar6_Update(Actor* this) {
+void Macbeth_MaTrainCar6_Update(MaTrainCar6* this) {
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
