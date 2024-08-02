@@ -821,7 +821,14 @@ typedef struct {
 } AudioSlowLoadBuffer; // size = 0xC4
 
 typedef struct {
-    /* 0x00 */ u32 romAddr;
+    /* 0x00 */ s16 numEntries;
+    /* 0x02 */ s16 unkMediumParam;
+    /* 0x04 */ uintptr_t romAddr;
+    /* 0x08 */ char pad[8];
+} AudioTableBase;
+
+typedef struct {
+    /* 0x00 */ uintptr_t romAddr;
     /* 0x04 */ u32 size;
     /* 0x08 */ s8 medium;
     /* 0x09 */ s8 cachePolicy;
@@ -829,13 +836,6 @@ typedef struct {
     /* 0x0C */ s16 shortData2;
     /* 0x0E */ s16 shortData3;
 } AudioTableEntry; // size = 0x10
-
-typedef struct {
-    /* 0x00 */ s16 numEntries;
-    /* 0x02 */ s16 unkMediumParam;
-    /* 0x04 */ u32 romAddr;
-    /* 0x08 */ char pad[8];
-} AudioTableBase;
 
 typedef struct {
     /* 0x00 */ AudioTableBase base;

@@ -208,11 +208,11 @@ void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam) {
     s32 i;
 
     table->base.unkMediumParam = unkMediumParam;
-    table->base.romAddr = romAddr;
+    table->base.romAddr = (uintptr_t) romAddr;
 
     for (i = 0; i < table->base.numEntries; i++) {
         if ((table->entries[i].size != 0) && (table->entries[i].medium == MEDIUM_CART)) {
-            table->entries[i].romAddr += (u32) romAddr;
+            table->entries[i].romAddr += (uintptr_t) romAddr;
         }
     }
 }
@@ -837,6 +837,7 @@ void AudioLoad_Init(void) {
     for (; dwordsLeft >= 0; dwordsLeft--) {
         *clearContext++ = 0;
     }
+
     switch (osTvType) {
         case OS_TV_PAL:
             gMaxTempoTvTypeFactors = 20.03042f;
@@ -852,10 +853,13 @@ void AudioLoad_Init(void) {
             gRefreshRate = 60;
             break;
     }
+
     AudioThread_Init();
+
     for (i = 0; i < 3; i++) {
         gAiBuffLengths[i] = 0xA0;
     }
+
     gAudioTaskCountQ = 0;
     gAudioTaskIndexQ = 0;
     gCurAiBuffIndex = 0;
@@ -863,13 +867,17 @@ void AudioLoad_Init(void) {
     gAudioCurTask = NULL;
     gAudioRspTasks[0].task.t.data_size = 0;
     gAudioRspTasks[1].task.t.data_size = 0;
+
     osCreateMesgQueue(&gSyncDmaQueue, gSyncDmaMsg, 1);
     osCreateMesgQueue(&gCurAudioFrameDmaQueue, gCurAudioFrameDmaMsg, 64);
     osCreateMesgQueue(&gExternalLoadQueue, gExternalLoadMsg, 16);
     osCreateMesgQueue(&gPreloadSampleQueue, gPreloadSampleMsg, 16);
+
     gCurAudioFrameDmaCount = 0;
     gSampleDmaCount = 0;
+
     AudioHeap_InitMainPools(gInitPoolSize);
+
     for (i = 0; i < 3; i++) {
         gAiBuffers[i] = AudioHeap_Alloc(&gInitPool, AIBUF_SIZE);
         for (j = 0; j < AIBUF_LEN; j++) {
@@ -879,26 +887,33 @@ void AudioLoad_Init(void) {
     gAudioSpecId = AUDIOSPEC_0;
     gAudioResetStep = 1;
     AudioHeap_ResetStep();
-    gSequenceTable = (AudioTable*) &gSeqTableInit;
-    gSoundFontTable = (AudioTable*) &gSoundFontTableInit;
-    gSampleBankTable = (AudioTable*) &gSampleBankTableInit;
+
+    gSequenceTable = &gSeqTableInit;
+    gSoundFontTable = &gSoundFontTableInit;
+    gSampleBankTable = &gSampleBankTableInit;
     gSeqFontTable = gSeqFontTableInit;
     gNumSequences = gSequenceTable->base.numEntries;
+
     AudioLoad_InitTable(gSequenceTable, SEGMENT_ROM_START(audio_seq), gSequenceMedium);
     AudioLoad_InitTable(gSoundFontTable, SEGMENT_ROM_START(audio_bank), gSoundFontMedium);
     AudioLoad_InitTable(gSampleBankTable, SEGMENT_ROM_START(audio_table), gSampleBankMedium);
+
     numFonts = gSoundFontTable->base.numEntries;
+
     gSoundFontList = AudioHeap_Alloc(&gInitPool, numFonts * sizeof(SoundFont));
+
     for (i = 0; i < numFonts; i++) {
         gSoundFontList[i].sampleBankId1 = (gSoundFontTable->entries[i].shortData1 >> 8) & 0xFF;
         gSoundFontList[i].sampleBankId2 = gSoundFontTable->entries[i].shortData1 & 0xFF;
         gSoundFontList[i].numInstruments = (gSoundFontTable->entries[i].shortData2 >> 8) & 0xFF;
         gSoundFontList[i].numDrums = gSoundFontTable->entries[i].shortData2 & 0xFF;
     }
+
     ramAddr = AudioHeap_Alloc(&gInitPool, gPermanentPoolSize);
     if (ramAddr == NULL) {
         gPermanentPoolSize = 0;
     }
+
     AudioHeap_InitPool(&gPermanentPool.pool, ramAddr, gPermanentPoolSize);
     func_800168BC();
 }
