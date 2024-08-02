@@ -1,7 +1,7 @@
 /**
  * This file is provisional, some of the structs need to be corrected, and others might be unused
  * This file is only meant to be used as reference to help audio decompilation
-*/
+ */
 
 #ifndef SF64_AUDIO_H
 #define SF64_AUDIO_H
@@ -57,7 +57,7 @@ typedef void (*AudioCustomUpdateFunction)(void);
 // Both left and right channels
 #define DMEM_2CH_SIZE (2 * DMEM_1CH_SIZE)
 
-#define AIBUF_LEN (170 * SAMPLES_PER_FRAME)   // number of samples
+#define AIBUF_LEN (170 * SAMPLES_PER_FRAME)  // number of samples
 #define AIBUF_SIZE (AIBUF_LEN * SAMPLE_SIZE) // number of bytes
 
 // Filter sizes
@@ -216,16 +216,16 @@ typedef struct {
     /* 0x04 */ u32 end;
     /* 0x08 */ u32 count;
     /* 0x10 */ u64 predictorState[4]; // only exists if count != 0. 8-byte aligned
-} AdpcmLoop; // size = 0x30 or 0x10, 0x8 aligned
+} AdpcmLoop;                          // size = 0x30 or 0x10, 0x8 aligned
 
 typedef struct {
     /* 0x00 */ s32 order;
     /* 0x04 */ s32 numPredictors;
-    #ifdef AVOID_UB
+#ifdef AVOID_UB
     /* 0x08 */ u64 book[]; // size 8 * order * numPredictors.
-    #else
+#else
     /* 0x08 */ u64 book[1]; // size 8 * order * numPredictors.
-    #endif
+#endif
 } AdpcmBook; // size >= 8, 0x8 aligned
 
 typedef struct {
@@ -290,7 +290,7 @@ typedef struct {
     /* 0x0C */ s32 startPos;                    // start pos in ring buffer
     /* 0x10 */ s16 lengthA;                     // first length in ring buffer (from startPos, at most until end)
     /* 0x12 */ s16 lengthB;                     // second length in ring buffer (from pos 0)
-} ReverbRingBufferItem; // size = 0x14
+} ReverbRingBufferItem;                         // size = 0x14
 
 typedef struct {
     /* 0x000 */ u8 resampleFlags;
@@ -300,7 +300,7 @@ typedef struct {
     /* 0x004 */ u8 downsampleRate;
     /* 0x005 */ s8 unk_05;
     /* 0x006 */ u16 windowSize;
-    /* 0x008 */ u16 decayRatio;  // determines how much reverb persists
+    /* 0x008 */ u16 decayRatio; // determines how much reverb persists
     /* 0x00A */ u16 unk_0A;
     /* 0x00C */ u16 leakRtL;
     /* 0x00E */ u16 leakLtR;
@@ -341,7 +341,7 @@ typedef struct {
     /* 0x004 */ u8 seqId;
     /* 0x005 */ u8 defaultFont;
     /* 0x006 */ u8 unk_06[1];
-    /* 0x007 */ s8 unk_07[1]; // indexed like an array, but that can't be
+    /* 0x007 */ s8 unk_07[1];    // indexed like an array, but that can't be
     /* 0x008 */ u16 tempo;       // seqTicks per minute
     /* 0x00A */ u16 tempoAcc;    // tempo accumulation, used in a discretized algorithm to apply tempo.
     /* 0x00C */ u16 tempoChange; // Used to adjust the tempo without altering the base tempo.
@@ -365,8 +365,8 @@ typedef struct {
     /* 0x0D8 */ s32 skipTicks;
     /* 0x0DC */ u32 scriptCounter;
     /* 0x0E0 */ char
-        padE4[0x6C];  // unused struct members for sequence/sound font dma management, according to sm64 decomp
-} SequencePlayer; // size = 0x14C
+        padE4[0x6C]; // unused struct members for sequence/sound font dma management, according to sm64 decomp
+} SequencePlayer;    // size = 0x14C
 
 typedef struct {
     /* 0x0 */ u8 decayIndex; // index used to obtain adsr decay rate from adsrDecayTable
@@ -381,7 +381,7 @@ typedef struct {
             /* 0x00 */ u8 hang : 1;
             /* 0x00 */ u8 decay : 1;
             /* 0x00 */ u8 release : 1;
-            /* 0x00 */ 
+            /* 0x00 */
         } s;
         /* 0x00 */ u8 asByte;
     } action;
@@ -475,7 +475,7 @@ typedef struct SequenceChannel {
     /* 0x7C */ NotePool notePool;
     /* 0xBC */ s8 seqScriptIO[8]; // bridge between .seq script and audio lib, "io ports"
     /* 0xC4 */ u16 unkC4;
-} SequenceChannel; // size = 0xC8
+} SequenceChannel;                // size = 0xC8
 
 // Might also be known as a Track, according to sm64 debug strings (?).
 typedef struct SequenceLayer {
@@ -502,19 +502,19 @@ typedef struct SequenceLayer {
     /* 0x28 */ f32 velocitySquare;
     /* 0x2C */ f32 noteVelocity;
     /* 0x30 */ f32 noteFreqMod;
-    /* 0x34 */ u16 shortNoteDefaultDelay;    
+    /* 0x34 */ u16 shortNoteDefaultDelay;
     /* 0x36 */ u16 lastDelay;
     /* 0x38 */ s16 delay;
     /* 0x3A */ s16 gateDelay;
     /* 0x3C */ s16 delay2;
-    /* 0x40 */ struct Note *note;
+    /* 0x40 */ struct Note* note;
     /* 0x44 */ Instrument* instrument;
-    /* 0x48 */ TunedSample *tunedSample;
-    /* 0x4C */ SequenceChannel *channel;
+    /* 0x48 */ TunedSample* tunedSample;
+    /* 0x4C */ SequenceChannel* channel;
     /* 0x50 */ SeqScriptState state;
     /* 0x6C */ AudioListItem listItem;
     /* 0x7C */ char pad7C[4];
-} SequenceLayer; //size = 0x80
+} SequenceLayer; // size = 0x80
 
 typedef struct UnkStruct_800097A8 {
     /* 0x00 */ s16* unk_0;
@@ -525,7 +525,7 @@ typedef struct UnkStruct_800097A8 {
     /* 0x14 */ struct SampleDma* unk_14;
     /* 0x18 */ s16 unk18;
     /* 0x1A */ char pad1A[6];
-} UnkStruct_800097A8;  /* size = 0x20 */
+} UnkStruct_800097A8; /* size = 0x20 */
 
 typedef struct {
     /* 0x000 */ s16 adpcmdecState[16];
@@ -834,20 +834,13 @@ typedef struct {
     /* 0x00 */ s16 numEntries;
     /* 0x02 */ s16 unkMediumParam;
     /* 0x04 */ u32 romAddr;
-    /* 0x08 */ char pad[0x8];
+    /* 0x08 */ char pad[8];
 } AudioTableBase;
 
 typedef struct {
-    /* 0x00 */ s16 numEntries;
-    /* 0x02 */ s16 unkMediumParam;
-    /* 0x04 */ u32 romAddr;
-    /* 0x08 */ char pad[0x8];
-    #ifdef AVOID_UB
+    /* 0x00 */ AudioTableBase base;
     /* 0x10 */ AudioTableEntry entries[]; // (dynamic size)
-    #else
-    /* 0x10 */ AudioTableEntry entries[1]; // (dynamic size)
-    #endif
-} AudioTable;                              // size >= 0x20
+} AudioTable;                             // size >= 0x20
 
 typedef struct SampleDma {
     /* 0x00 */ u8* ramAddr;
@@ -914,13 +907,13 @@ typedef struct {
 } SoundTestTrack; // size: 0x6
 
 typedef struct {
-    /* 0x00 */ f32 *xPos;
-    /* 0x04 */ f32 *yPos;
-    /* 0x08 */ f32 *zPos;
+    /* 0x00 */ f32* xPos;
+    /* 0x04 */ f32* yPos;
+    /* 0x08 */ f32* zPos;
     /* 0x0C */ u8 token;
-    /* 0x10 */ f32 *freqMod;
-    /* 0x14 */ f32 *volMod;
-    /* 0x18 */ s8 *reverbAdd;
+    /* 0x10 */ f32* freqMod;
+    /* 0x14 */ f32* volMod;
+    /* 0x18 */ s8* reverbAdd;
     /* 0x1C */ f32 distance;
     /* 0x20 */ u32 priority;
     /* 0x24 */ u32 sfxId;
@@ -943,7 +936,7 @@ typedef struct {
 typedef struct {
     /* 0x0 */ u32 priority; // lower is more prioritized
     /* 0x4 */ u8 entryIndex;
-} ActiveSfx; // size 0x8
+} ActiveSfx;                // size 0x8
 
 typedef struct {
     /* 0x0 */ u8 seqId;
@@ -977,19 +970,19 @@ typedef struct {
     /* 0x014 */ u32 tempoCmd;
     /* 0x018 */ u16 tempoOriginal; // stores the original tempo before modifying it (to reset back to)
     /* 0x01C */ Modulation tempo;
-    /* 0x02C */ u32 setupCmd[5]; // a queue of cmds to execute once the player is disabled
-    /* 0x040 */ u8 setupCmdTimer; // only execute setup commands when the timer is at 0.
-    /* 0x041 */ u8 setupCmdNum; // number of setup commands requested once the player is disabled
+    /* 0x02C */ u32 setupCmd[5];   // a queue of cmds to execute once the player is disabled
+    /* 0x040 */ u8 setupCmdTimer;  // only execute setup commands when the timer is at 0.
+    /* 0x041 */ u8 setupCmdNum;    // number of setup commands requested once the player is disabled
     /* 0x042 */ u8 setupFadeTimer;
     /* 0x044 */ ChannelModulation channelMod[16];
     /* 0x244 */ u16 freqModChannelFlags;
     /* 0x246 */ u16 volChannelFlags;
-    /* 0x248 */ u16 seqId; // active seqId currently playing. Resets when sequence stops
-    /* 0x24A */ u16 prevSeqId; // last seqId played on a player. Does not reset when sequence stops
+    /* 0x248 */ u16 seqId;            // active seqId currently playing. Resets when sequence stops
+    /* 0x24A */ u16 prevSeqId;        // last seqId played on a player. Does not reset when sequence stops
     /* 0x24C */ u16 channelPortMask;
-    /* 0x250 */ u32 startSeqCmd; // This name comes from MM
+    /* 0x250 */ u32 startSeqCmd;      // This name comes from MM
     /* 0x254 */ u8 isWaitingForFonts; // This name comes from MM
-} ActiveSequence; // size 0x258
+} ActiveSequence;                     // size 0x258
 
 typedef struct {
     /* 0x0 */ f32 volMod;
@@ -1022,12 +1015,12 @@ typedef struct {
 
 #define SEQ_HEX0(seqId) ((seqId) >> 28 & 0xFF)
 #define SEQ_HEX1(seqId) (((seqId) & (0xF << 24)) >> 24 & 0xFF)
-#define SEQ_BYTE4(seqId) ((seqId) & 0xFF)
-#define SEQ_BYTE3(seqId) (((seqId) & (0xFF << 8)) >>8 & 0xFF)
-#define SEQ_BYTE2(seqId) (((seqId) & (0xFF << 16)) >>13 & 0xFFFF)
+#define SEQ_BYTE4(seqId) ((seqId) &0xFF)
+#define SEQ_BYTE3(seqId) (((seqId) & (0xFF << 8)) >> 8 & 0xFF)
+#define SEQ_BYTE2(seqId) (((seqId) & (0xFF << 16)) >> 13 & 0xFFFF)
 
 // audio_synthesis
-void func_80008780(f32 *, s32, f32 *);
+void func_80008780(f32*, s32, f32*);
 Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
 
 // audio_effects
@@ -1077,7 +1070,7 @@ void func_800128B4(void);
 void func_80012964(NotePool* pool);
 void func_80012AC4(NotePool* pool, s32);
 void func_80012C40(Note* note);
-Note *func_8001301C(SequenceLayer* layer);
+Note* func_8001301C(SequenceLayer* layer);
 void func_800132E8(void);
 
 // audio_seqplayer
@@ -1091,18 +1084,15 @@ void func_800168BC(void);
 
 // audio_thread
 void AudioThread_ScheduleProcessCmds(void);
-u32 AudioThread_GetAsyncLoadStatus(u32 *);
+u32 AudioThread_GetAsyncLoadStatus(u32*);
 u8* AudioThread_GetFontsForSequence(s32 seqId, u32* outNumFonts);
 bool AudioThread_ResetComplete(void);
 void AudioThread_ResetAudioHeap(s32);
 void AudioThread_Init(void);
 
-extern AudioTableBase gSampleBankTableInit;
-// extern AudioTableEntry gSampleBankTableInitEntries[];
-extern AudioTableBase gSeqTableInit;
-// extern AudioTableEntry gSeqTableInitEntries[];
-extern AudioTableBase gSoundFontTableInit;
-// extern AudioTableEntry gSoundFontTableInitEntries[];
+extern AudioTable gSampleBankTableInit;
+extern AudioTable gSeqTableInit;
+extern AudioTable gSoundFontTableInit;
 extern u8 gSeqFontTableInit[];
 
 extern AudioSpec gAudioSpecs[];
@@ -1150,7 +1140,7 @@ extern u8 gSeqLoadStatus[256];
 extern volatile u8 gAudioResetStep;
 extern u8 gAudioSpecId;
 extern s32 gResetFadeoutFramesLeft;
-extern u8 sAudioContextPad1000[0x1000];// 0x1000 gap
+extern u8 sAudioContextPad1000[0x1000]; // 0x1000 gap
 extern Note* gNotes;
 // 0x4
 extern SequencePlayer gSeqPlayers[4];
@@ -1186,10 +1176,10 @@ extern u8 gSampleDmaReuseQueue1RdPos;
 extern u8 gSampleDmaReuseQueue2RdPos;
 extern u8 gSampleDmaReuseQueue1WrPos;
 extern u8 gSampleDmaReuseQueue2WrPos;
-extern AudioTable *gSequenceTable;
+extern AudioTable* gSequenceTable;
 extern AudioTable* gSoundFontTable;
-extern AudioTable *gSampleBankTable;
-extern u8 *gSeqFontTable;
+extern AudioTable* gSampleBankTable;
+extern u8* gSeqFontTable;
 extern s16 gNumSequences;
 extern SoundFont* gSoundFontList;
 // 0x4

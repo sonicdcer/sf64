@@ -207,10 +207,10 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
 void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam) {
     s32 i;
 
-    table->unkMediumParam = unkMediumParam;
-    table->romAddr = romAddr;
+    table->base.unkMediumParam = unkMediumParam;
+    table->base.romAddr = romAddr;
 
-    for (i = 0; i < table->numEntries; i++) {
+    for (i = 0; i < table->base.numEntries; i++) {
         if ((table->entries[i].size != 0) && (table->entries[i].medium == MEDIUM_CART)) {
             table->entries[i].romAddr += (u32) romAddr;
         }
@@ -253,7 +253,8 @@ s32 AudioLoad_SyncLoadSample(Sample* sample, s32 fontId) {
             return -1;
         }
         if (sample->medium == MEDIUM_UNK) {
-            AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleAddr, sample->size, gSampleBankTable->unkMediumParam);
+            AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleAddr, sample->size,
+                                       gSampleBankTable->base.unkMediumParam);
         } else {
             AudioLoad_SyncDma(sample->sampleAddr, sampleAddr, sample->size, sample->medium);
         }
@@ -509,7 +510,7 @@ void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate) {
 
         *didAllocate = true;
         if (medium == MEDIUM_UNK) {
-            AudioLoad_SyncDmaUnkMedium(romAddr, ramAddr, size, table->unkMediumParam);
+            AudioLoad_SyncDmaUnkMedium(romAddr, ramAddr, size, table->base.unkMediumParam);
         } else {
             AudioLoad_SyncDma(romAddr, ramAddr, size, medium);
         }
@@ -882,11 +883,11 @@ void AudioLoad_Init(void) {
     gSoundFontTable = (AudioTable*) &gSoundFontTableInit;
     gSampleBankTable = (AudioTable*) &gSampleBankTableInit;
     gSeqFontTable = gSeqFontTableInit;
-    gNumSequences = gSequenceTable->numEntries;
+    gNumSequences = gSequenceTable->base.numEntries;
     AudioLoad_InitTable(gSequenceTable, SEGMENT_ROM_START(audio_seq), gSequenceMedium);
     AudioLoad_InitTable(gSoundFontTable, SEGMENT_ROM_START(audio_bank), gSoundFontMedium);
     AudioLoad_InitTable(gSampleBankTable, SEGMENT_ROM_START(audio_table), gSampleBankMedium);
-    numFonts = gSoundFontTable->numEntries;
+    numFonts = gSoundFontTable->base.numEntries;
     gSoundFontList = AudioHeap_Alloc(&gInitPool, numFonts * sizeof(SoundFont));
     for (i = 0; i < numFonts; i++) {
         gSoundFontList[i].sampleBankId1 = (gSoundFontTable->entries[i].shortData1 >> 8) & 0xFF;
@@ -1003,7 +1004,7 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
                 } else if (slowLoad->bytesRemaining < 0x1000) {
                     if (slowLoad->medium == MEDIUM_UNK) {
                         AudioLoad_DmaSlowCopyUnkMedium(slowLoad->curDevAddr, slowLoad->curRamAddr,
-                                                       slowLoad->bytesRemaining, sampleBankTable->unkMediumParam);
+                                                       slowLoad->bytesRemaining, sampleBankTable->base.unkMediumParam);
                     } else {
                         AudioLoad_DmaSlowCopy(&gSlowLoads.slowLoad[i], slowLoad->bytesRemaining);
                     }
@@ -1011,7 +1012,7 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
                 } else {
                     if (slowLoad->medium == MEDIUM_UNK) {
                         AudioLoad_DmaSlowCopyUnkMedium(slowLoad->curDevAddr, slowLoad->curRamAddr, 0x1000,
-                                                       sampleBankTable->unkMediumParam);
+                                                       sampleBankTable->base.unkMediumParam);
                     } else {
                         AudioLoad_DmaSlowCopy(&gSlowLoads.slowLoad[i], 0x1000);
                     }
@@ -1161,7 +1162,7 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
     } else if (asyncLoad->bytesRemaining < asyncLoad->chunkSize) {
         if (asyncLoad->medium == MEDIUM_UNK) {
             AudioLoad_AsyncDmaUnkMedium(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->bytesRemaining,
-                                        sampleTable->unkMediumParam);
+                                        sampleTable->base.unkMediumParam);
         } else {
             AudioLoad_AsyncDma(asyncLoad, asyncLoad->bytesRemaining);
         }
@@ -1169,7 +1170,7 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
     } else {
         if (asyncLoad->medium == MEDIUM_UNK) {
             AudioLoad_AsyncDmaUnkMedium(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->chunkSize,
-                                        sampleTable->unkMediumParam);
+                                        sampleTable->base.unkMediumParam);
         } else {
             AudioLoad_AsyncDma(asyncLoad, asyncLoad->chunkSize);
         }
@@ -1296,7 +1297,7 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
             case AUDIOLOAD_SYNC:
                 if (sample->medium == MEDIUM_UNK) {
                     AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleRamAddr, sample->size,
-                                               gSampleBankTable->unkMediumParam);
+                                               gSampleBankTable->base.unkMediumParam);
                     sample->sampleAddr = sampleRamAddr;
                     sample->medium = MEDIUM_RAM;
                 } else {
