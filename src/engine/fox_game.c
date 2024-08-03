@@ -612,9 +612,14 @@ void Game_Update(void) {
 #if MODS_SPAWNER == 1
         Spawner();
 #endif
+#if BOSS_KILLER == 1
+        KillBoss();
+#endif
     }
 }
-
+#if BOSS_KILLER == 1
+#include "../mods/bosskiller.c"
+#endif
 #if MODS_FPS_COUNTER == 1
 #include "../mods/fpscounter.c"
 #endif

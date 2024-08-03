@@ -225,7 +225,7 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
 
     switch (this->state) {
         case 0:
-            gAllRangeSpawnEvent = TIME_IN_SECONDS(96);
+            gAllRangeSpawnEvent = 2880;
 
             for (i = 0; i < 6; i++) {
                 gSavedStarWolfTeamAlive[i] = true;

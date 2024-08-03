@@ -17,7 +17,7 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
  */
-#define MODS_LEVEL_SELECT 0
+#define MODS_LEVEL_SELECT 1
 
 /**
  * Sound Effects Jukebox:
@@ -32,7 +32,7 @@
  * Auto debugger:
  * Crash debugger appears without needing to enter code.
  */
-#define MODS_AUTO_DEBUGGER 0
+#define MODS_AUTO_DEBUGGER 1
 
 /**
  * FPS Counter:
@@ -71,6 +71,8 @@
  */
 #define MODS_SPAWNER 0
 
+#define BOSS_KILLER 1
+
 /* ************************* */
 
 #if MODS_LEVEL_SELECT == 1
@@ -87,6 +89,10 @@ void RamMod_Update(void);
 
 #if MODS_SPAWNER == 1
 void Spawner(void);
+#endif
+
+#if BOSS_KILLER == 1
+void KillBoss(void);
 #endif
 
 #endif
