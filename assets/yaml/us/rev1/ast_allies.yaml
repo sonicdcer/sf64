@@ -8,8 +8,8 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_D000000:
-  { type: GFX, offset: 0xD000000, symbol: D_D000000 }
+aKattMarkDL:
+  { type: GFX, offset: 0xD000000, symbol: aKattMarkDL }
 
 ast_allies_seg13_vtx_00000098:
   { type: VTX, count: 3, offset: 0x0D000098, symbol: ast_allies_seg13_vtx_00000098 }
@@ -17,11 +17,11 @@ ast_allies_seg13_vtx_00000098:
 D_D0000C8:
   { type: BLOB, size: 0x18, offset: 0x0D0000C8, symbol: D_D0000C8 }
 
-D_D0000E0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D0000E0, symbol: D_D0000E0, tlut: 0x0D000160 }
+aKattMarkTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D0000E0, symbol: aKattMarkTex, tlut: 0x0D000160 }
 
-D_D000160:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD000160, symbol: D_D000160 }
+aKattMarkTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD000160, symbol: aKattMarkTLUT }
 
 D_D000170:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD000170, symbol: D_D000170 }
@@ -77,25 +77,25 @@ D_D00AFB8:
 D_D00B3B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00B3B8, symbol: D_D00B3B8 }
 
-D_D00B5C0:
-  { type: GFX, offset: 0xD00B5C0, symbol: D_D00B5C0 }
+aBillMarkDL:
+  { type: GFX, offset: 0xD00B5C0, symbol: aBillMarkDL }
 
 # Letter B
-D_D00B688:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B688, symbol: D_D00B688, tlut: 0xD00B708 }
+aBillMarkTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B688, symbol: aBillMarkTex, tlut: 0xD00B708 }
 
-D_D00B708:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B708, symbol: D_D00B708 }
+aBillMarkTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B708, symbol: aBillMarkTLUT }
 
-D_D00B720:
-  { type: GFX, offset: 0xD00B720, symbol: D_D00B720 }
+aJamesMarkDL:
+  { type: GFX, offset: 0xD00B720, symbol: aJamesMarkDL }
 
 # Letter J ?
-D_D00B7F0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B7F0, symbol: D_D00B7F0, tlut: 0xD00B870 }
+aJamesMarkTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B7F0, symbol: aJamesMarkTex, tlut: 0xD00B870 }
 
-D_D00B870:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B870, symbol: D_D00B870 }
+aJamesMarkTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B870, symbol: aJamesMarkTLUT }
 
 D_D00B880:
   { type: GFX, offset: 0xD00B880, symbol: D_D00B880 }

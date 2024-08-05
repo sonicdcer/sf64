@@ -31,8 +31,8 @@ D_TR_6002740:
 D_TR_60028F0:
   { type: TEXTURE, format: RGBA16, offset: 0x060028F0, width: 32, height: 32, ctype: u16, symbol: D_TR_60028F0 }
 
-D_TR_60030F0:
-  { type: GFX, offset: 0x60030F0, symbol: D_TR_60030F0 }
+aTrBuildingDL:
+  { type: GFX, offset: 0x60030F0, symbol: aTrBuildingDL }
 
 D_TR_6003360:
   { type: TEXTURE, format: RGBA16, offset: 0x06003360, width: 16, height: 16, ctype: u16, symbol: D_TR_6003360 }
@@ -76,8 +76,8 @@ D_TR_6008EF8:
 D_TR_6009B34:
   { type: SF64:SCRIPT, offset: 0x6009B34, symbol: D_TR_6009B34 }
 
-D_TR_6009CC4:
-  { type: SF64:HITBOX, offset: 0x6009CC4, symbol: D_TR_6009CC4 }
+aTrBuildingHitbox:
+  { type: SF64:HITBOX, offset: 0x6009CC4, symbol: aTrBuildingHitbox }
 
 D_TR_6009CFC:
   { type: SF64:HITBOX, offset: 0x6009CFC, symbol: D_TR_6009CFC }

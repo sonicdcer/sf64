@@ -179,8 +179,8 @@ D_arwing_3018348:
 D_arwing_30183D0:
   { type: GFX, offset: 0x30183D0, symbol: D_arwing_30183D0 }
 
-D_arwing_30184D8:
-  { type: TEXTURE, format: RGBA16, offset: 0x30184D8, width: 32, height: 32, ctype: u16, symbol: D_arwing_30184D8 }
+aWindshieldClouldReflextionTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x30184D8, width: 32, height: 32, ctype: u16, symbol: aWindshieldClouldReflextionTex }
 
 D_arwing_3018CD8:
   { type: TEXTURE, format: RGBA16, offset: 0x3018CD8, width: 64, height: 16, ctype: u16, symbol: D_arwing_3018CD8 }

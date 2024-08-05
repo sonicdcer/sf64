@@ -35,11 +35,11 @@ D_SY_6003348:
 D_SY_60034C4:
   { type: SF64:ANIM, offset: 0x60034C4, symbol: D_SY_60034C4 }
 
-D_SY_60034D0:
-  { type: GFX, offset: 0x60034D0, symbol: D_SY_60034D0 }
+aSyShipWindowsDL:
+  { type: GFX, offset: 0x60034D0, symbol: aSyShipWindowsDL }
 
-D_SY_60036A0:
-  { type: GFX, offset: 0x60036A0, symbol: D_SY_60036A0 }
+aSyShip3DestroyedDL:
+  { type: GFX, offset: 0x60036A0, symbol: aSyShip3DestroyedDL }
 
 D_SY_6004958:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06004958, symbol: D_SY_6004958 }
@@ -47,8 +47,8 @@ D_SY_6004958:
 D_SY_6005158:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06005158, symbol: D_SY_6005158 }
 
-D_SY_6005360:
-  { type: GFX, offset: 0x6005360, symbol: D_SY_6005360 }
+aSyShip4DL:
+  { type: GFX, offset: 0x6005360, symbol: aSyShip4DL }
 
 D_SY_6005BE0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06005BE0, symbol: D_SY_6005BE0 }
@@ -74,8 +74,8 @@ D_SY_6008BE0:
 D_SY_6008FE0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06008FE0, symbol: D_SY_6008FE0 }
 
-D_SY_60097E0:
-  { type: GFX, offset: 0x060097E0, symbol: D_SY_60097E0 }
+aSyShip1DL:
+  { type: GFX, offset: 0x060097E0, symbol: aSyShip1DL }
 
 D_SY_600AAC0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0600AAC0, symbol: D_SY_600AAC0 }
@@ -98,11 +98,11 @@ D_SY_600EAC0:
 D_SY_600F2C0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x0600F2C0, symbol: D_SY_600F2C0 }
 
-D_SY_600F6C0:
-  { type: GFX, offset: 0x600F6C0, symbol: D_SY_600F6C0 }
+aSyShip4DestroyedDL:
+  { type: GFX, offset: 0x600F6C0, symbol: aSyShip4DestroyedDL }
 
-D_SY_60102C0:
-  { type: GFX, offset: 0x60102C0, symbol: D_SY_60102C0 }
+aSyShip3DL:
+  { type: GFX, offset: 0x60102C0, symbol: aSyShip3DL }
 
 D_SY_6011758:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x06011758, symbol: D_SY_6011758 }
@@ -158,8 +158,8 @@ D_SY_6015960:
 D_SY_6015B60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06015B60, symbol: D_SY_6015B60 }
 
-D_SY_60188D0:
-  { type: GFX, offset: 0x60188D0, symbol: D_SY_60188D0 }
+aSyShipProjectileDL:
+  { type: GFX, offset: 0x60188D0, symbol: aSyShipProjectileDL }
 
 D_SY_60183B0:
   { type: GFX, offset: 0x60183B0, symbol: D_SY_60183B0 }
@@ -176,20 +176,20 @@ D_SY_601AD70:
 D_SY_601AE08:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AE08, symbol: D_SY_601AE08 }
 
-D_SY_601B610: 
-  { type: GFX, offset: 0x601B610, symbol: D_SY_601B610 }
+aSyShip2SpriteDL: 
+  { type: GFX, offset: 0x601B610, symbol: aSyShip2SpriteDL }
 
 D_SY_601B6A0: 
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601B6A0, symbol: D_SY_601B6A0 }
 
-D_SY_601C6A0: 
-  { type: GFX, offset: 0x601C6A0, symbol: D_SY_601C6A0 }
+aSyShip3SpriteDL: 
+  { type: GFX, offset: 0x601C6A0, symbol: aSyShip3SpriteDL }
 
 D_SY_601C730: 
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601C730, symbol: D_SY_601C730 }
 
-D_SY_601D730: 
-  { type: GFX, offset: 0x601D730, symbol: D_SY_601D730 }
+aSyShip2DL: 
+  { type: GFX, offset: 0x601D730, symbol: aSyShip2DL }
 
 D_SY_601F3B8:
   { type: SF64:ANIM, offset: 0x601F3B8, symbol: D_SY_601F3B8 }
@@ -308,8 +308,8 @@ D_SY_6032E18:
 D_SY_6033070:
   {type: SF64:COLPOLY, count: 174, offset: 0x6033070, symbol: D_SY_6033070, mesh_symbol: D_SY_6033E08 }
 
-D_SY_603405C:
-  { type: SF64:HITBOX, offset: 0x603405C, symbol: D_SY_603405C }
+aSyRobotHitbox:
+  { type: SF64:HITBOX, offset: 0x603405C, symbol: aSyRobotHitbox }
 
 D_SY_60340C0:
   { type: SF64:HITBOX, offset: 0x60340C0, symbol: D_SY_60340C0 }
@@ -329,34 +329,34 @@ D_SY_60342A0:
 D_SY_6034304:
   { type: SF64:HITBOX, offset: 0x6034304, symbol: D_SY_6034304 }
 
-D_SY_6034368:
-  { type: SF64:HITBOX, offset: 0x6034368, symbol: D_SY_6034368 }
+aSyScenery156Hitbox:
+  { type: SF64:HITBOX, offset: 0x6034368, symbol: aSyScenery156Hitbox }
 
 D_SY_603445C:
   { type: SF64:HITBOX, offset: 0x603445C, symbol: D_SY_603445C }
 
-D_SY_6034478:
-  { type: SF64:HITBOX, offset: 0x6034478, symbol: D_SY_6034478 }
+aSyShip1Hitbox:
+  { type: SF64:HITBOX, offset: 0x6034478, symbol: aSyShip1Hitbox }
 
-D_SY_603450C:
-  { type: SF64:HITBOX, offset: 0x603450C, symbol: D_SY_603450C }
+aSyShip2Hitbox:
+  { type: SF64:HITBOX, offset: 0x603450C, symbol: aSyShip2Hitbox }
 
-D_SY_6034588:
-  { type: SF64:HITBOX, offset: 0x6034588, symbol: D_SY_6034588 }
+aSyShip3Hitbox:
+  { type: SF64:HITBOX, offset: 0x6034588, symbol: aSyShip3Hitbox }
 
-D_SY_6034664:
-  { type: SF64:HITBOX, offset: 0x6034664, symbol: D_SY_6034664 }
+aSyShip3DestroyedHitbox:
+  { type: SF64:HITBOX, offset: 0x6034664, symbol: aSyShip3DestroyedHitbox }
 
-D_SY_6034770:
-  { type: SF64:HITBOX, offset: 0x6034770, symbol: D_SY_6034770 }
+aSyShip4Hitbox:
+  { type: SF64:HITBOX, offset: 0x6034770, symbol: aSyShip4Hitbox }
 
-D_SY_60347D4:
-  { type: SF64:HITBOX, offset: 0x60347D4, symbol: D_SY_60347D4 }
+aSyShipWindowsHitbox:
+  { type: SF64:HITBOX, offset: 0x60347D4, symbol: aSyShipWindowsHitbox }
 
-D_SY_60347F0:
-  { type: SF64:HITBOX, offset: 0x60347F0, symbol: D_SY_60347F0 }
+aSyShip4DestroyedHitbox:
+  { type: SF64:HITBOX, offset: 0x60347F0, symbol: aSyShip4DestroyedHitbox }
 
-D_SY_603486C:
-  { type: SF64:HITBOX, offset: 0x603486C, symbol: D_SY_603486C }
+aSyShipProjectileHitbox:
+  { type: SF64:HITBOX, offset: 0x603486C, symbol: aSyShipProjectileHitbox }
 
 # size = 0x34890

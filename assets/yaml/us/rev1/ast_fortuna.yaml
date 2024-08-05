@@ -62,11 +62,11 @@ D_FO_6006120:
 D_FO_6006220:
   { type: TEXTURE, format: TLUT, colors: 120, offset: 0x6006220, ctype: u16, symbol: D_FO_6006220 }
 
-D_FO_6006310:
-  { type: GFX, offset: 0x6006310, symbol: D_FO_6006310 }
+aFoMountain3DL:
+  { type: GFX, offset: 0x6006310, symbol: aFoMountain3DL }
 
-D_FO_60066E0:
-  { type: GFX, offset: 0x60066E0, symbol: D_FO_60066E0 }
+aFoTowerDL:
+  { type: GFX, offset: 0x60066E0, symbol: aFoTowerDL }
 
 ast_fortuna_seg6_vtx_6898:
   { type: VTX, count: 52, offset: 0x6006898, symbol: ast_fortuna_seg6_vtx_6898 }
@@ -92,17 +92,17 @@ D_FO_6007590:
 D_FO_6007730:
   { type: GFX, offset: 0x6007730, symbol: D_FO_6007730 }
 
-D_FO_6007854:
-  { type: SF64:ANIM, offset: 0x6007854, symbol: D_FO_6007854 }
+aFoRadarAnim:
+  { type: SF64:ANIM, offset: 0x6007854, symbol: aFoRadarAnim }
 
-D_FO_6007980:
-  { type: SF64:SKELETON, offset: 0x6007980, symbol: D_FO_6007980 }
+aFoRadarSkel:
+  { type: SF64:SKELETON, offset: 0x6007980, symbol: aFoRadarSkel }
 
-D_FO_60079B0:
-  { type: GFX, offset: 0x60079B0, symbol: D_FO_60079B0 }
+aFoMountain1DL:
+  { type: GFX, offset: 0x60079B0, symbol: aFoMountain1DL }
 
-D_FO_6007D80:
-  { type: GFX, offset: 0x6007D80, symbol: D_FO_6007D80 }
+aFoMountain2DL:
+  { type: GFX, offset: 0x6007D80, symbol: aFoMountain2DL }
 
 D_FO_6008150:
   { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6008150, ctype: u16, symbol: D_FO_6008150 }
@@ -161,8 +161,8 @@ D_FO_600F60C:
 aFoPoleHitbox:
   { type: SF64:HITBOX, offset: 0x600FE9C, symbol: aFoPoleHitbox }
 
-D_FO_600FEB8:
-  { type: SF64:HITBOX, offset: 0x600FEB8, symbol: D_FO_600FEB8 }
+aFoTowerHitbox:
+  { type: SF64:HITBOX, offset: 0x600FEB8, symbol: aFoTowerHitbox }
 
 aFoRadarHitbox:
   { type: SF64:HITBOX, offset: 0x600FF30, symbol: aFoRadarHitbox }
@@ -170,14 +170,14 @@ aFoRadarHitbox:
 D_FO_600FF64:
   { type: SF64:HITBOX, offset: 0x600FF64, symbol: D_FO_600FF64 }
 
-D_FO_600FF80:
-  { type: SF64:HITBOX, offset: 0x600FF80, symbol: D_FO_600FF80 }
+aFoMountain1Hitbox:
+  { type: SF64:HITBOX, offset: 0x600FF80, symbol: aFoMountain1Hitbox }
 
-D_FO_600FFA0:
-  { type: SF64:HITBOX, offset: 0x600FFA0, symbol: D_FO_600FFA0 }
+aFoMountain2Hitbox:
+  { type: SF64:HITBOX, offset: 0x600FFA0, symbol: aFoMountain2Hitbox }
 
-D_FO_600FFC0:
-  { type: SF64:HITBOX, offset: 0x600FFC0, symbol: D_FO_600FFC0 }
+aFoMountain3Hitbox:
+  { type: SF64:HITBOX, offset: 0x600FFC0, symbol: aFoMountain3Hitbox }
 
-D_FO_600FFE0:
-  { type: SF64:HITBOX, offset: 0x600FFE0, symbol: D_FO_600FFE0 }
+aFoBaseHitbox:
+  { type: SF64:HITBOX, offset: 0x600FFE0, symbol: aFoBaseHitbox }

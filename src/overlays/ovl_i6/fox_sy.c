@@ -7,25 +7,25 @@
 #include "global.h"
 #include "assets/ast_sector_y.h"
 
-typedef void (*BossFuncs)(Boss*);
+typedef void (*BossFuncs)(SyShogun*);
 
-void SectorY_80198244(Boss*);
-void SectorY_80198ABC(Boss*);
-void SectorY_80199D64(Boss*);
-void SectorY_8019AA08(Boss*);
-void SectorY_8019AEC0(Boss*);
-void SectorY_8019A434(Boss*);
-void SectorY_8019A640(Boss*);
-void SectorY_8019A82C(Boss*);
-bool SectorY_8019B528(Boss*);
-bool SectorY_8019B5CC(Boss*);
-void SectorY_8019B6E8(Boss*);
-void SectorY_8019BBBC(Boss*);
-void SectorY_8019BC14(Boss*);
-void SectorY_8019C194(Boss*, f32, f32);
-void SectorY_801A0510(Actor*, s32);
-void SectorY_SetupDebris(Actor*, f32, f32, f32, f32, f32, f32, s32);
-void SectorY_SpawnDebris(f32, f32, f32, f32, f32, f32, s32);
+void SectorY_80198244(SyShogun*);
+void SectorY_80198ABC(SyShogun*);
+void SectorY_80199D64(SyShogun*);
+void SectorY_8019AA08(SyShogun*);
+void SectorY_8019AEC0(SyShogun*);
+void SectorY_8019A434(SyShogun*);
+void SectorY_8019A640(SyShogun*);
+void SectorY_8019A82C(SyShogun*);
+bool SectorY_8019B528(SyShogun*);
+bool SectorY_8019B5CC(SyShogun*);
+void SectorY_8019B6E8(SyShogun*);
+void SectorY_8019BBBC(SyShogun*);
+void SectorY_8019BC14(SyShogun*);
+void SectorY_8019C194(SyShogun*, f32, f32);
+void SectorY_801A0510(ActorCutscene*, s32);
+void SectorY_ActorDebris_Setup(Actor*, f32, f32, f32, f32, f32, f32, s32);
+void SectorY_ActorDebris_Spawn(f32, f32, f32, f32, f32, f32, s32);
 
 f32 D_i6_801A8440[3];
 
@@ -61,10 +61,11 @@ void SectorY_Effect354_Draw(Effect354* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void SectorY_Scenery156_Draw(Scenery* scenery) {
+void SectorY_Scenery156_Draw(SceneryUnk156* this) {
+    /* Unimplemented */
 }
 
-void SectorY_Boss314_Init(BossSY* this) {
+void SectorY_SyShogun_Init(SyShogun* this) {
     this->fwork[9] = 0.0f;
     this->swork[33] = 5500;
     this->timer_050 = 10;
@@ -118,7 +119,7 @@ void SectorY_Boss314_Init(BossSY* this) {
     }
 }
 
-void SectorY_80197F18(Boss* this) {
+void SectorY_80197F18(SyShogun* this) {
     this->swork[20] = 0;
     this->swork[21] = 3;
     this->fwork[9] = 0.0f;
@@ -128,7 +129,7 @@ void SectorY_80197F18(Boss* this) {
     }
 }
 
-void SectorY_80197F84(Boss* this) {
+void SectorY_80197F84(SyShogun* this) {
     f32 yaw;
 
     Math_SmoothStepToF(&this->obj.pos.y, 0.0f, 0.5f, 15.0f, 0.1f);
@@ -174,10 +175,10 @@ void SectorY_80197F84(Boss* this) {
     }
 }
 
-void SectorY_80198238(Boss* this) {
+void SectorY_80198238(SyShogun* this) {
 }
 
-void SectorY_80198244(Boss* this) {
+void SectorY_80198244(SyShogun* this) {
     f32 speed;
 
     this->swork[20] = 3;
@@ -201,7 +202,7 @@ void SectorY_80198244(Boss* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, this->sfxSource, 4);
 }
 
-void SectorY_801983E4(Boss* this) {
+void SectorY_801983E4(SyShogun* this) {
     f32 yAngle;
     f32 xSpeed;
     f32 zSpeed;
@@ -310,7 +311,7 @@ void SectorY_801983E4(Boss* this) {
     }
 }
 
-void SectorY_80198ABC(Boss* this) {
+void SectorY_80198ABC(SyShogun* this) {
     f32 yAngle = Math_RadToDeg(Math_Atan2F(-this->obj.pos.x, -300.0f - this->obj.pos.z)) - this->rot_078.y;
 
     if (yAngle < 0.0f) {
@@ -363,7 +364,7 @@ void SectorY_80198ABC(Boss* this) {
     D_ctx_80177A10[8] %= 4U;
 }
 
-void SectorY_80198CE4(Boss* this) {
+void SectorY_80198CE4(SyShogun* this) {
     f32 yAngle;
 
     SectorY_8019B6E8(this);
@@ -408,7 +409,7 @@ void SectorY_80198CE4(Boss* this) {
     }
 }
 
-void SectorY_80198F5C(Boss* this) {
+void SectorY_80198F5C(SyShogun* this) {
     Vec3f vec;
     Vec3f sp48;
     f32 xDisplacement;
@@ -416,8 +417,8 @@ void SectorY_80198F5C(Boss* this) {
     s32 i;
 
     this->timer_05C = 20;
-    func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f,
-                         10);
+    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
+                           0.1f, 10);
     this->health -= this->damage;
 
     if (this->health < 0) {
@@ -427,7 +428,7 @@ void SectorY_80198F5C(Boss* this) {
     this->timer_058 = 20;
 
     if (this->health <= 0) {
-        this->unk_04C = 0;
+        this->animFrame = 0;
         this->swork[36] = 0;
         this->swork[21] = 9;
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
@@ -512,7 +513,7 @@ void SectorY_80198F5C(Boss* this) {
     }
 }
 
-void SectorY_80199438(Boss* this) {
+void SectorY_80199438(SyShogun* this) {
     s32 i;
     s32 j;
     Vec3f vec;
@@ -565,15 +566,15 @@ void SectorY_80199438(Boss* this) {
                 D_ctx_80177850 = 15;
                 this->swork[36]++;
 
-                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 8.0f, 10);
-                func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                 this->vel.z, 8.0f, 10);
+                Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
 
                 for (i = 10; i < 24; i++) {
                     if (i != 15) {
-                        SectorY_SpawnDebris(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
-                                            RAND_FLOAT_CENTERED(50.0f) + this->vel.z, i);
+                        SectorY_ActorDebris_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                                  RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                                  RAND_FLOAT_CENTERED(50.0f) + this->vel.z, i);
                     }
                 }
             }
@@ -586,8 +587,8 @@ void SectorY_80199438(Boss* this) {
         }
 
         if (((gGameFrameCount % 4) == 0) && (this->swork[36] == 0)) {
-            func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.1f, 5);
+            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                   this->vel.z, 0.1f, 5);
         }
 
         if ((gCsFrameCount == 120) && (this->swork[36] == 0) && (this->index == 0)) {
@@ -602,8 +603,8 @@ void SectorY_80199438(Boss* this) {
             }
 
             Audio_KillSfxBySource(this->sfxSource);
-            gShowBossHealth = 0;
-            func_effect_8007A568(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+            gShowBossHealth = false;
+            Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
             func_enmy_80062B60(this->obj.pos.x, this->obj.pos.z, 0, 120.0f);
             gCameraShake = 25;
@@ -611,8 +612,9 @@ void SectorY_80199438(Boss* this) {
 
             for (i = 10; i < 24; i++) {
                 if (i != 15) {
-                    SectorY_SpawnDebris(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                        RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f) + this->vel.z, i);
+                    SectorY_ActorDebris_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                              RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                              RAND_FLOAT_CENTERED(50.0f) + this->vel.z, i);
                 }
             }
             this->timer_058 = 100;
@@ -644,9 +646,9 @@ void SectorY_80199438(Boss* this) {
 
                 for (j = ARRAY_COUNT(gActors) - 1; j >= 0; j--) {
                     if (gActors[j].obj.status == OBJ_FREE) {
-                        SectorY_SetupDebris(&gActors[j], this->fwork[28], this->fwork[29], this->fwork[30],
-                                            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
-                                            RAND_FLOAT_CENTERED(50.0f) + this->vel.z, 15);
+                        SectorY_ActorDebris_Setup(&gActors[j], this->fwork[28], this->fwork[29], this->fwork[30],
+                                                  RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                                  RAND_FLOAT_CENTERED(50.0f) + this->vel.z, 15);
                         break;
                     }
                 }
@@ -673,7 +675,7 @@ void SectorY_80199438(Boss* this) {
     }
 }
 
-void SectorY_80199D64(Boss* this) {
+void SectorY_80199D64(SyShogun* this) {
     if (this->swork[34] >= 2) {
         this->swork[20] = 6;
         this->swork[21] = 1;
@@ -684,7 +686,7 @@ void SectorY_80199D64(Boss* this) {
     }
 }
 
-void SectorY_80199DAC(Boss* this) {
+void SectorY_80199DAC(SyShogun* this) {
     f32 sp34;
     f32 zSpeed;
     f32 xSpeed;
@@ -722,7 +724,7 @@ void SectorY_80199DAC(Boss* this) {
             (ABS(this->obj.pos.z + 300.0f) <= 300.0f)) {
             Math_SmoothStepToF(&this->fwork[43], 3.0f, 0.1f, 0.1f, 0.1f);
             this->swork[21] = 6;
-            this->unk_04C = 27;
+            this->animFrame = 27;
             this->fwork[12] = 320.0f;
             if (this->timer_056 == 0) {
                 this->timer_056 = 51;
@@ -774,7 +776,7 @@ void SectorY_80199DAC(Boss* this) {
     }
 }
 
-void SectorY_8019A434(Boss* this) {
+void SectorY_8019A434(SyShogun* this) {
     this->swork[20] = 7;
     this->swork[21] = 5;
     this->timer_056 = (s32) (RAND_FLOAT(130.0f) + 60.0f);
@@ -785,7 +787,7 @@ void SectorY_8019A434(Boss* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_MS_LAND, this->sfxSource, 4);
 }
 
-void SectorY_8019A520(Boss* this) {
+void SectorY_8019A520(SyShogun* this) {
     SectorY_8019B6E8(this);
 
     if (this->timer_052 == 0) {
@@ -803,12 +805,12 @@ void SectorY_8019A520(Boss* this) {
         this->fwork[0] = 1.0f;
     }
 
-    if ((this->unk_04C == 0) || (this->unk_04C == 27)) {
+    if ((this->animFrame == 0) || (this->animFrame == 27)) {
         AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, this->sfxSource, 4);
     }
 }
 
-void SectorY_8019A640(Boss* this) {
+void SectorY_8019A640(SyShogun* this) {
     this->swork[20] = 8;
     this->swork[21] = 0;
     this->vel.x = 0.0f;
@@ -817,7 +819,7 @@ void SectorY_8019A640(Boss* this) {
     this->timer_056 = 80;
 }
 
-void SectorY_8019A66C(Boss* this) {
+void SectorY_8019A66C(SyShogun* this) {
     SectorY_8019B6E8(this);
 
     if (this->timer_052 == 0) {
@@ -849,7 +851,7 @@ void SectorY_8019A66C(Boss* this) {
     }
 }
 
-void SectorY_8019A82C(Boss* this) {
+void SectorY_8019A82C(SyShogun* this) {
     this->swork[20] = 9;
     this->fwork[9] = 0.0f;
     this->timer_050 = RAND_INT(150.0f) + 340;
@@ -857,7 +859,7 @@ void SectorY_8019A82C(Boss* this) {
     AllRange_PlayMessage(gMsg_ID_14340, RCID_BOSS_SECTORY);
 }
 
-void SectorY_8019A898(Boss* this) {
+void SectorY_8019A898(SyShogun* this) {
     f32 yAngle1;
     f32 yAngle2;
 
@@ -874,11 +876,11 @@ void SectorY_8019A898(Boss* this) {
 
     this->swork[21] = 6;
 
-    if (((yAngle2 >= 30.0f) && (yAngle2 <= 330.0f)) || ((this->unk_04C != 0)) && (this->unk_04C != 27)) {
+    if (((yAngle2 >= 30.0f) && (yAngle2 <= 330.0f)) || ((this->animFrame != 0)) && (this->animFrame != 27)) {
         this->swork[21] = 5;
         Math_SmoothStepToAngle(&this->rot_078.y, yAngle1, 0.1f, 2.0f, 0.1f);
         this->fwork[0] = 1.0f;
-        if ((this->unk_04C == 0) || (this->unk_04C == 27)) {
+        if ((this->animFrame == 0) || (this->animFrame == 27)) {
             AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, this->sfxSource, 4);
         }
     } else {
@@ -890,7 +892,7 @@ void SectorY_8019A898(Boss* this) {
     }
 }
 
-void SectorY_8019AA08(Boss* this) {
+void SectorY_8019AA08(SyShogun* this) {
     if (SectorY_8019B5CC(this)) {
         return;
     }
@@ -914,11 +916,11 @@ void SectorY_8019AA08(Boss* this) {
     }
 
     this->swork[20] = 10;
-    this->unk_04C = 0;
+    this->animFrame = 0;
     this->fwork[34] = 2.8f;
 }
 
-void SectorY_8019AAF0(Boss* this) {
+void SectorY_8019AAF0(SyShogun* this) {
     f32 var_fv1;
     f32 xAngle;
     f32 yAngle;
@@ -934,13 +936,13 @@ void SectorY_8019AAF0(Boss* this) {
         var_fv1 += 200.0f;
     }
 
-    if ((this->swork[31] >= this->unk_04C) && (fabsf(this->obj.pos.z - this->fwork[20]) < (var_fv1 + 1000.0f)) &&
+    if ((this->swork[31] >= this->animFrame) && (fabsf(this->obj.pos.z - this->fwork[20]) < (var_fv1 + 1000.0f)) &&
         (fabsf(this->obj.pos.x - this->fwork[18]) < var_fv1)) {
-        this->unk_04C++;
+        this->animFrame++;
     }
 
-    if (this->unk_04C >= this->swork[32] - 29) {
-        if (this->unk_04C == this->swork[32] - 29) {
+    if (this->animFrame >= this->swork[32] - 29) {
+        if (this->animFrame == this->swork[32] - 29) {
             if (this->swork[31] == 11) {
                 AUDIO_PLAY_SFX(NA_SE_EN_MS_PUNCH, this->sfxSource, 4);
             } else {
@@ -948,7 +950,7 @@ void SectorY_8019AAF0(Boss* this) {
             }
         }
 
-        if (this->unk_04C >= (this->swork[32] - 5)) {
+        if (this->animFrame >= (this->swork[32] - 5)) {
             SectorY_80198244(this);
         }
     } else {
@@ -989,12 +991,12 @@ void SectorY_8019AAF0(Boss* this) {
     if (this->swork[20] == 10) {
         this->fwork[0] = 0.25f;
     }
-    if ((this->swork[20] == 10) && (this->unk_04C >= 12)) {
+    if ((this->swork[20] == 10) && (this->animFrame >= 12)) {
         this->fwork[0] = 1.0f;
     }
 }
 
-void SectorY_8019AEC0(Boss* this) {
+void SectorY_8019AEC0(SyShogun* this) {
     this->swork[20] = 11;
     this->swork[21] = 8;
     this->vel.x = 0.0f;
@@ -1003,7 +1005,7 @@ void SectorY_8019AEC0(Boss* this) {
     this->unk_044 = 0;
 }
 
-void SectorY_8019AEEC(Boss* this) {
+void SectorY_8019AEEC(SyShogun* this) {
     if ((this->obj.pos.y != 365.0f) && (this->swork[21] != 1)) {
         if (this->unk_04A != 0) {
             if (this->unk_04A == 1) {
@@ -1063,8 +1065,8 @@ void SectorY_8019AEEC(Boss* this) {
                 Math_SmoothStepToF(&this->vel.z, 80.0f, 0.1f, 2.0f, 0.5f);
                 Math_SmoothStepToF(&gActors[59].vel.z, 80.0f, 0.1f, 2.0f, 0.5f);
                 if ((gGameFrameCount % 2) == 0) {
-                    func_effect_8007C120(this->obj.pos.x, this->obj.pos.y - 150.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                         0.1f, 5);
+                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y - 150.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                           0.1f, 5);
                 }
             }
         }
@@ -1102,7 +1104,7 @@ void SectorY_8019AEEC(Boss* this) {
     }
 }
 
-bool SectorY_8019B528(Boss* this) {
+bool SectorY_8019B528(SyShogun* this) {
     if (this->timer_050 != 0) {
         return false;
     }
@@ -1117,7 +1119,7 @@ bool SectorY_8019B528(Boss* this) {
     return false;
 }
 
-bool SectorY_8019B5CC(Boss* this) {
+bool SectorY_8019B5CC(SyShogun* this) {
     f32 pad;
     Vec3f pos;
 
@@ -1140,7 +1142,7 @@ bool SectorY_8019B5CC(Boss* this) {
     return false;
 }
 
-void SectorY_8019B6E8(Boss* this) {
+void SectorY_8019B6E8(SyShogun* this) {
     f32 var4;
     f32 var3;
     f32 var2;
@@ -1199,7 +1201,7 @@ void SectorY_8019B6E8(Boss* this) {
     }
 }
 
-void SectorY_8019BBBC(Boss* this) {
+void SectorY_8019BBBC(SyShogun* this) {
     this->fwork[18] = gPlayer[0].pos.x;
     this->fwork[19] = gPlayer[0].pos.y;
     this->fwork[20] = gPlayer[0].pos.z;
@@ -1208,7 +1210,7 @@ void SectorY_8019BBBC(Boss* this) {
     this->fwork[26] = gPlayer[0].vel.z;
 }
 
-void SectorY_8019BC14(Boss* this) {
+void SectorY_8019BC14(SyShogun* this) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
@@ -1288,7 +1290,7 @@ void SectorY_8019BC14(Boss* this) {
     }
 }
 
-void SectorY_8019C194(Boss* this, f32 zSpeed, f32 xSpeed) {
+void SectorY_8019C194(SyShogun* this, f32 zSpeed, f32 xSpeed) {
     f32 sp2C;
     f32 sp28;
 
@@ -1390,7 +1392,7 @@ static BossFuncs D_i6_801A6910[] = {
     SectorY_80199DAC, SectorY_8019A520, SectorY_8019A66C, SectorY_8019A898, SectorY_8019AAF0, SectorY_8019AEEC,
 };
 
-void SectorY_Boss_Update(BossSY* this) {
+void SectorY_SyShogun_Update(SyShogun* this) {
     s32 i;
     f32 sp1E8;
     f32 sp1E4;
@@ -1447,71 +1449,71 @@ void SectorY_Boss_Update(BossSY* this) {
         }
 
         if ((this->swork[29] != 0) && !(this->swork[29] & gGameFrameCount)) {
-            func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.1f, 5);
+            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                   this->vel.z, 0.1f, 5);
         }
 
         switch (this->swork[21]) {
             case 0:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_602B778) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_602B778, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_602B778, this->animFrame, frameTable);
                 break;
 
             case 1:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_60265B4) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_60265B4, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_60265B4) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_60265B4, this->animFrame, frameTable);
                 break;
 
             case 2:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_6029B48) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_6029B48, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_6029B48) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_6029B48, this->animFrame, frameTable);
                 break;
 
             case 3:
-                this->unk_04C = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_602B8DC, this->unk_04C, frameTable);
+                this->animFrame = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
+                sp1D0 = Animation_GetFrameData(&D_SY_602B8DC, this->animFrame, frameTable);
                 break;
 
             case 4:
-                this->unk_04C++;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_SY_6003348)) {
-                    this->unk_04C = Animation_GetFrameCount(&D_SY_6003348) - 1;
+                this->animFrame++;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SY_6003348)) {
+                    this->animFrame = Animation_GetFrameCount(&D_SY_6003348) - 1;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_6003348, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_6003348, this->animFrame, frameTable);
                 break;
 
             case 5:
-                this->unk_04C++;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_SY_602738C)) {
-                    this->unk_04C = 0;
+                this->animFrame++;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SY_602738C)) {
+                    this->animFrame = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->animFrame, frameTable);
                 break;
 
             case 6:
-                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->animFrame, frameTable);
                 break;
 
             case 7:
-                if (this->unk_04C < (Animation_GetFrameCount(&D_SY_602645C) - 1)) {
-                    this->unk_04C++;
+                if (this->animFrame < (Animation_GetFrameCount(&D_SY_602645C) - 1)) {
+                    this->animFrame++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_602645C, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_602645C, this->animFrame, frameTable);
                 break;
 
             case 8:
-                if (this->unk_04C < (Animation_GetFrameCount(&D_SY_60258A0) - 1)) {
-                    this->unk_04C++;
+                if (this->animFrame < (Animation_GetFrameCount(&D_SY_60258A0) - 1)) {
+                    this->animFrame++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_60258A0, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_60258A0, this->animFrame, frameTable);
                 break;
 
             case 9:
-                this->unk_04C++;
-                if (this->unk_04C >= Animation_GetFrameCount(&D_SY_60034C4)) {
-                    this->unk_04C = 0;
+                this->animFrame++;
+                if (this->animFrame >= Animation_GetFrameCount(&D_SY_60034C4)) {
+                    this->animFrame = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_60034C4, this->unk_04C, frameTable);
+                sp1D0 = Animation_GetFrameData(&D_SY_60034C4, this->animFrame, frameTable);
                 break;
         }
 
@@ -1554,10 +1556,13 @@ void SectorY_Boss_Update(BossSY* this) {
             Math_SmoothStepToAngle(&this->fwork[5], sp1E8, 0.2f, 4.0f, 0.1f);
             Matrix_RotateX(gCalcMatrix, -this->fwork[5] * M_DTOR, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, -this->fwork[6] * M_DTOR, MTXF_APPLY);
+
             src.x = this->fwork[18] - this->obj.pos.x;
             src.y = (this->fwork[19] - this->obj.pos.y) + 20.0f;
             src.z = this->fwork[20] - this->obj.pos.z;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             sp1E0 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
             sp1DC = Math_RadToDeg(-Math_Atan2F(dest.y, sqrtf(SQ(dest.x) + SQ(dest.z))));
 
@@ -1576,10 +1581,13 @@ void SectorY_Boss_Update(BossSY* this) {
 
             Math_SmoothStepToAngle(&this->fwork[8], sp1E0, 0.4f, 8.0f, 0.1f);
             Math_SmoothStepToAngle(&this->fwork[7], sp1DC, 0.4f, 8.0f, 0.1f);
+
             src.x = (this->fwork[18] - this->obj.pos.x) + (COS_DEG(this->obj.rot.y) * 100.0f);
             src.y = (this->fwork[19] - this->obj.pos.y) - 80.0f;
             src.z = this->fwork[20] - this->obj.pos.z;
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             sp1D8 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
             sp1D4 = Math_RadToDeg(-Math_Atan2F(dest.y, sqrtf(SQ(dest.x) + SQ(dest.z))));
 
@@ -1598,12 +1606,16 @@ void SectorY_Boss_Update(BossSY* this) {
 
             Math_SmoothStepToAngle(&this->fwork[15], sp1D8, 0.2f, 4.0f, 0.1f);
             Math_SmoothStepToAngle(&this->fwork[14], sp1D4, 0.2f, 4.0f, 0.1f);
+
             Matrix_RotateX(gCalcMatrix, -this->fwork[14] * M_DTOR, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, -this->fwork[15] * M_DTOR, MTXF_APPLY);
+
             src.x = this->fwork[18] - this->obj.pos.x;
             src.y = (this->fwork[19] - this->obj.pos.y) + (COS_DEG(this->obj.rot.z) * 40.0f);
             src.z = (this->fwork[20] - this->obj.pos.z) - (COS_DEG(this->obj.rot.y) * 60.0f);
+
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
             sp1E4 = Math_RadToDeg(Math_Atan2F(dest.x, dest.z));
             sp1E8 = Math_RadToDeg(-Math_Atan2F(dest.y, sqrtf(SQ(dest.x) + SQ(dest.z))));
 
@@ -1679,7 +1691,7 @@ void SectorY_Boss_Update(BossSY* this) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         }
         if ((gBossFrameCount == 620) && (this->swork[34] == 0)) {
-            gShowBossHealth = 1;
+            gShowBossHealth = true;
         }
         if ((gBossFrameCount >= 350) || (this->swork[34] != 0)) {
             if (this->swork[34] != 0) {
@@ -1718,8 +1730,8 @@ void SectorY_Boss_Update(BossSY* this) {
     }
 }
 
-bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Boss* boss = (Boss*) data;
+bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    SyShogun* boss = (SyShogun*) thisx;
     Vec3f sp10 = { 0.0f, 0.0f, 0.0f };
 
     if ((boss->timer_05C % 2) == 0) {
@@ -1763,15 +1775,15 @@ bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-bool SectorY_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Boss* boss = (Boss*) data;
+bool SectorY_SyShogun_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    SyShogun* this = (SyShogun*) thisx;
     Vec3f sp38 = { 0.0f, 0.0f, 0.0f };
 
-    if (boss->index != 0) {
-        return SectorY_8019DC4C(limbIndex, dList, pos, rot, boss);
+    if (this->index != 0) {
+        return SectorY_8019DC4C(limbIndex, dList, pos, rot, this);
     }
 
-    if ((boss->timer_05C % 2) != 0) {
+    if ((this->timer_05C % 2) != 0) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
     } else {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
@@ -1779,21 +1791,21 @@ bool SectorY_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f
 
     switch (limbIndex) {
         case 2:
-            rot->z -= boss->fwork[4];
-            rot->z += boss->fwork[16];
-            rot->y -= boss->fwork[17];
+            rot->z -= this->fwork[4];
+            rot->z += this->fwork[16];
+            rot->y -= this->fwork[17];
             break;
 
         case 3:
-            rot->z -= boss->fwork[4];
-            rot->z += boss->fwork[14];
-            rot->x -= boss->fwork[15];
+            rot->z -= this->fwork[4];
+            rot->z += this->fwork[14];
+            rot->x -= this->fwork[15];
             break;
 
         case 4:
-            if (boss->swork[25] == 0) {
+            if (this->swork[25] == 0) {
                 *dList = D_SY_6013600;
-                if ((boss->swork[24] % 2) != 0) {
+                if ((this->swork[24] % 2) != 0) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 0, 255);
                 }
             } else {
@@ -1802,20 +1814,20 @@ bool SectorY_Boss_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f
             break;
 
         case 17:
-            rot->x += boss->fwork[8];
-            rot->y -= boss->fwork[7];
+            rot->x += this->fwork[8];
+            rot->y -= this->fwork[7];
             *dList = D_SY_6014BD0;
             break;
 
         case 18:
-            rot->x += boss->fwork[6];
-            rot->y -= boss->fwork[5];
+            rot->x += this->fwork[6];
+            rot->y -= this->fwork[5];
             break;
     }
     return false;
 }
 
-void SectorY_Boss_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorY_SyShogun_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp7C = { 40.0f, -30.0f, 0.0f };
     Vec3f sp70 = { -40.0f, -30.0f, 0.0f };
     Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
@@ -1824,57 +1836,57 @@ void SectorY_Boss_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     Vec3f sp40 = { 0.0f, 0.0f, 66.0f };
     Vec3f sp34 = { 0.0f, 30.0f, -60.0f };
     Vec3f sp28;
-    Boss* boss = (Boss*) data;
+    SyShogun* this = (SyShogun*) thisx;
 
     switch (limbIndex) {
         case 0:
-            if (boss->index != 0) {
+            if (this->index != 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp58, &sp28);
             } else {
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
             }
-            boss->fwork[31] = sp28.x;
-            boss->fwork[32] = sp28.y;
-            boss->fwork[33] = sp28.z;
+            this->fwork[31] = sp28.x;
+            this->fwork[32] = sp28.y;
+            this->fwork[33] = sp28.z;
             break;
 
         case 1:
             Matrix_Push(&gCalcMatrix);
             Matrix_MultVec3f(gCalcMatrix, &sp70, &sp28);
-            boss->fwork[21] = sp28.x;
-            boss->fwork[22] = sp28.y;
-            boss->fwork[23] = sp28.z;
+            this->fwork[21] = sp28.x;
+            this->fwork[22] = sp28.y;
+            this->fwork[23] = sp28.z;
             Matrix_Pop(&gCalcMatrix);
             Matrix_MultVec3f(gCalcMatrix, &sp7C, &sp28);
-            boss->fwork[1] = sp28.x;
-            boss->fwork[2] = sp28.y;
-            boss->fwork[3] = sp28.z;
+            this->fwork[1] = sp28.x;
+            this->fwork[2] = sp28.y;
+            this->fwork[3] = sp28.z;
             break;
 
         case 3:
-            if (boss->index == 0) {
+            if (this->index == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp28);
-                boss->fwork[35] = sp28.x;
-                boss->fwork[36] = sp28.y;
-                boss->fwork[37] = sp28.z;
+                this->fwork[35] = sp28.x;
+                this->fwork[36] = sp28.y;
+                this->fwork[37] = sp28.z;
             }
             break;
 
         case 4:
-            if (boss->index == 0) {
+            if (this->index == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp64, &sp28);
-                boss->fwork[28] = sp28.x;
-                boss->fwork[29] = sp28.y;
-                boss->fwork[30] = sp28.z;
+                this->fwork[28] = sp28.x;
+                this->fwork[29] = sp28.y;
+                this->fwork[30] = sp28.z;
             }
             break;
 
         case 6:
-            if (boss->index == 0) {
+            if (this->index == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp40, &sp28);
-                boss->fwork[38] = sp28.x;
-                boss->fwork[39] = sp28.y;
-                boss->fwork[40] = sp28.z;
+                this->fwork[38] = sp28.x;
+                this->fwork[39] = sp28.y;
+                this->fwork[40] = sp28.z;
             }
             break;
 
@@ -1886,7 +1898,7 @@ void SectorY_Boss_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
 static f32 D_i6_801A69AC[20] = { 0.3f,   0.7f,   1.3f,  0.7f,    0.3f,  0.0f,   10.0f, 20.0f,  300.0f, 100.0f,
                                  200.0f, 100.0f, 60.0f, -260.0f, 80.0f, 100.0f, 80.0f, 262.0f, 285.0f, 252.0f };
 
-void SectorY_Boss_Draw(Boss* this) {
+void SectorY_SyShogun_Draw(SyShogun* this) {
     f32 sp9C;
     f32 sp98;
     f32 sp94;
@@ -1901,8 +1913,8 @@ void SectorY_Boss_Draw(Boss* this) {
     }
 
     if ((this->health > 0) || (this->swork[36] == 0)) {
-        Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_Boss_OverrideLimbDraw, SectorY_Boss_PostLimbDraw,
-                               this, gCalcMatrix);
+        Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_SyShogun_OverrideLimbDraw,
+                               SectorY_SyShogun_PostLimbDraw, this, gCalcMatrix);
         if (this->timer_054 != 0) {
             sp9C = D_i6_801A69AC[this->timer_054];
             RCP_SetupDL_49();
@@ -2065,7 +2077,7 @@ void SectorY_LevelComplete(Player* player) {
     s32 pad[2];
     Vec3f sp60;
     Vec3f sp54;
-    Boss* boss = &gBosses[0];
+    SyShogun* boss = &gBosses[0];
     f32 temp_ft1;
 
     switch (player->csState) {
@@ -2395,7 +2407,7 @@ void SectorY_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void SectorY_8019FF00(Actor* this) {
+void SectorY_8019FF00(ActorCutscene* this) {
     Vec3f sp4C;
     Vec3f sp40;
     f32 x;
@@ -2777,9 +2789,9 @@ void SectorY_801A0AC0(Player* player) {
                 spA4.y = RAND_FLOAT_CENTERED(500.0f) + -500.0f;
                 spA4.z = RAND_FLOAT_CENTERED(5000.0f) + 170.0f;
                 Matrix_MultVec3f(gCalcMatrix, &spA4, &sp98);
-                func_effect_8007C120(gActors[8].obj.pos.x + sp98.x, gActors[8].obj.pos.y + sp98.y,
-                                     gActors[8].obj.pos.z + sp98.z, gActors[8].vel.x, gActors[8].vel.y,
-                                     gActors[8].vel.z, 0.8f, 5);
+                Effect_Effect390_Spawn(gActors[8].obj.pos.x + sp98.x, gActors[8].obj.pos.y + sp98.y,
+                                       gActors[8].obj.pos.z + sp98.z, gActors[8].vel.x, gActors[8].vel.y,
+                                       gActors[8].vel.z, 0.8f, 5);
                 func_effect_8007D2C8(gActors[8].obj.pos.x - 2000.0f + RAND_FLOAT_CENTERED(500.0f),
                                      gActors[8].obj.pos.y - 500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                      gActors[8].obj.pos.z + RAND_FLOAT_CENTERED(3000.0f), 8);
@@ -2846,9 +2858,9 @@ void SectorY_801A0AC0(Player* player) {
                     break;
 
                 case 145:
-                    func_effect_8007BFFC(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
-                                         gActors[11].vel.x, gActors[11].vel.y, gActors[11].vel.z, 8, 10);
-                    func_effect_8007B344(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z, 8, 5);
+                    Effect386_Spawn1(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
+                                     gActors[11].vel.x, gActors[11].vel.y, gActors[11].vel.z, 8, 10);
+                    Effect_Effect384_Spawn(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z, 8, 5);
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, gActors[11].sfxSource, 4);
                     break;
 
@@ -2862,9 +2874,9 @@ void SectorY_801A0AC0(Player* player) {
                 case 150:
                     Object_Kill(&gActors[11].obj, gActors[11].sfxSource);
                     for (i = 10; i < 24; i++) {
-                        SectorY_SpawnDebris(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
-                                            RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
-                                            RAND_FLOAT_CENTERED(50.0f), i);
+                        SectorY_ActorDebris_Spawn(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
+                                                  RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                                  RAND_FLOAT_CENTERED(50.0f), i);
                     }
                     break;
 
@@ -3435,7 +3447,8 @@ void SectorY_801A0AC0(Player* player) {
     player->trueZpos = player->pos.z + player->camDist;
 }
 
-void SectorY_SetupDebris(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void SectorY_ActorDebris_Setup(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                               s32 state) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_DEBRIS;
@@ -3452,18 +3465,18 @@ void SectorY_SetupDebris(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xV
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void SectorY_SpawnDebris(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 state) {
+void SectorY_ActorDebris_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, s32 state) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            SectorY_SetupDebris(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel, state);
+            SectorY_ActorDebris_Setup(&gActors[i], xPos, yPos, zPos, xVel, yVel, zVel, state);
             break;
         }
     }
 }
 
-void SectorY_Actor204_Update(Actor204* this) {
+void SectorY_SyRobot_Update(SyRobot* this) {
     f32 sp1E4;
     f32 sp1E0;
     s32 i;
@@ -3655,9 +3668,9 @@ void SectorY_Actor204_Update(Actor204* this) {
             }
 
             if (this->timer_0BE == 5U) {
-                func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 8.0f, 10);
-                func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                 this->vel.z, 8.0f, 10);
+                Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
                 AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, this->sfxSource, 4);
             }
 
@@ -3665,8 +3678,9 @@ void SectorY_Actor204_Update(Actor204* this) {
                 Object_Kill(&this->obj, this->sfxSource);
                 Actor_Despawn(this);
                 for (i = 10; i < 24; i++) {
-                    SectorY_SpawnDebris(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(50.0f),
-                                        RAND_FLOAT_CENTERED(50.0f), this->vel.z + RAND_FLOAT_CENTERED(50.0f), i);
+                    SectorY_ActorDebris_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                              RAND_FLOAT_CENTERED(50.0f), RAND_FLOAT_CENTERED(50.0f),
+                                              this->vel.z + RAND_FLOAT_CENTERED(50.0f), i);
                 }
             }
             break;
@@ -3739,7 +3753,7 @@ void SectorY_Actor204_Update(Actor204* this) {
         Math_SmoothStepToF(&this->fwork[27], 0.0f, 1.0f, 0.05f, 0.0f);
     }
 
-    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603405C);
+    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotHitbox);
     if (this->unk_046 == 1) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603421C);
     }
@@ -3769,8 +3783,8 @@ void SectorY_Actor204_Update(Actor204* this) {
         } else {
             AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             this->timer_0C6 = 15;
-            func_effect_8007C120(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y, this->vel.z,
-                                 0.1f, 10);
+            Effect_Effect390_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
+                                   this->vel.z, 0.1f, 10);
             this->health -= this->damage;
 
             if (this->health <= 0) {
@@ -3788,8 +3802,8 @@ static s32 D_i6_801A6B28[3] = { 255, 150, 150 };
 static s32 D_i6_801A6B34[3] = { 150, 255, 150 };
 static s32 D_i6_801A6B40[6] = { 150, 150, 255 };
 
-bool SectorY_Actor204_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
-    Actor* actor = (Actor*) data;
+bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    SyRobot* actor = (SyRobot*) thisx;
 
     if (limbIndex == 4) {
         if ((actor->iwork[18] % 2) == 0) {
@@ -3814,7 +3828,7 @@ bool SectorY_Actor204_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
     if (limbIndex == 17) {
         rot->x += actor->fwork[28];
         rot->y -= actor->fwork[29];
-        if (actor->eventType == 48) {
+        if (actor->eventType == EVID_48) {
             *dList = D_SY_6014BD0;
         }
     }
@@ -3825,10 +3839,10 @@ bool SectorY_Actor204_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
     return false;
 }
 
-void SectorY_Actor204_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorY_SyRobot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp2C = { 40.0f, -30.0f, 0.0f };
     Vec3f sp20;
-    Actor* actor = (Actor*) data;
+    SyRobot* actor = (SyRobot*) thisx;
 
     if (limbIndex == 1) {
         Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
@@ -3842,12 +3856,12 @@ static f32 D_i6_801A6B64[5] = {
     0.3f, 0.7f, 1.3f, 0.7f, 0.3f,
 };
 
-void SectorY_Actor204_Draw(Actor204* this) {
+void SectorY_SyRobot_Draw(SyRobot* this) {
     f32 scale;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_Actor204_OverrideLimbDraw,
-                           SectorY_Actor204_PostLimbDraw, this, gCalcMatrix);
+    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_SyRobot_OverrideLimbDraw, SectorY_SyRobot_PostLimbDraw,
+                           this, gCalcMatrix);
 
     if (this->timer_0C4 != 0) {
         scale = D_i6_801A6B64[this->timer_0C4];
@@ -3864,7 +3878,7 @@ void SectorY_Actor204_Draw(Actor204* this) {
     }
 }
 
-void SectorY_Scenery109_Update(Scenery* scenery) {
+void SectorY_SyShip3Destroyed_Update(SyShip3Destroyed* scenery) {
     Vec3f src;
     Vec3f dest;
 
@@ -3881,30 +3895,30 @@ void SectorY_Scenery109_Update(Scenery* scenery) {
         src.y = RAND_FLOAT_CENTERED(900.0f) + -150.0f;
         src.z = 90.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        func_effect_8007C120(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                             scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
+                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
         src.x = RAND_FLOAT_CENTERED(100.0f) + -500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f);
         src.z = 80.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        func_effect_8007C120(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                             scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
+                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
         src.x = RAND_FLOAT_CENTERED(100.0f) + 500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -50.0f;
         src.z = 1900.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        func_effect_8007C120(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                             scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
+                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
         src.x = RAND_FLOAT_CENTERED(100.0f) + -1000.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -250.0f;
         src.z = 1100.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        func_effect_8007C120(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                             scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
+                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
     }
 }
 
-void SectorY_Scenery112_Update(Scenery* scenery) {
+void SectorY_SyShip4Destroyed_Update(SyShip2Destroyed* scenery) {
     Vec3f src;
     Vec3f dest;
 
@@ -3921,13 +3935,13 @@ void SectorY_Scenery112_Update(Scenery* scenery) {
         src.y = RAND_FLOAT_CENTERED(300.0f) + -100.0f;
         src.z = RAND_FLOAT_CENTERED(5000.0f) + 500.0f;
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        func_effect_8007C120(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                             scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.3f, 5);
+        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
+                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.3f, 5);
         src.x = RAND_FLOAT_CENTERED(100.0f) + -600.0f;
         src.y = RAND_FLOAT_CENTERED(250.0f) + 300.0f;
         src.z = RAND_FLOAT_CENTERED(1500.0f) + -1650.0f;
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        func_effect_8007C120(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                             scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
+                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
     }
 }

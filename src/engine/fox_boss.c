@@ -31,7 +31,7 @@ void Boss_AwardBonus(Boss* this) {
         yOffset = 0.0f;
         if (this->obj.id == OBJ_BOSS_CO_GRANGA) {
             yOffset = 300.0f;
-        } else if (this->obj.id == OBJ_BOSS_TI) {
+        } else if (this->obj.id == OBJ_BOSS_TI_GORAS) {
             yOffset = 200.0f;
         }
         BonusText_Display(this->obj.pos.x, this->obj.pos.y + yOffset, this->obj.pos.z, bonus);
@@ -42,21 +42,27 @@ void Boss_AwardBonus(Boss* this) {
 }
 
 void Boss299_Init(Boss299* this) {
+    /* Unimplemented */
 }
 
 void Boss299_Update(Boss299* this) {
+    /* Unimplemented */
 }
 
 void Boss299_Draw(Boss299* this) {
+    /* Unimplemented */
 }
 
 void Boss300_Init(Boss300* this) {
+    /* Unimplemented */
 }
 
 void Boss300_Update(Boss300* this) {
+    /* Unimplemented */
 }
 
 void Boss300_Draw(Boss300* this) {
+    /* Unimplemented */
 }
 
 void Boss_SetupDebris(ActorDebris* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,

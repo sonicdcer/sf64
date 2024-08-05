@@ -106,36 +106,36 @@ void AllRange_DrawCountdown(void) {
     }
 }
 
-void Boss309_Update(Boss309* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS309_UPDATE, this);
+void BoBase_Update(BoBase* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_UPDATE, this);
 }
 
-void Boss309_Draw(Boss309* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS309_DRAW, this);
+void BoBase_Draw(BoBase* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_DRAW, this);
 }
 
-void Boss310_Update(Boss310* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS310_UPDATE, this);
+void BoBaseShield_Update(BoBaseShield* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_SHIELD_UPDATE, this);
 }
 
-void Boss310_Draw(Boss310* this) {
-    OvlI4_CallFunction(OVLCALL_BOSS310_DRAW, this);
+void BoBaseShield_Draw(BoBaseShield* this) {
+    OvlI4_CallFunction(OVLCALL_BO_BASE_SHIELD_DRAW, this);
 }
 
-void Actor271_Update(Actor271* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR271_UPDATE, this);
+void BoShieldReactor_Update(BoShieldReactor* this) {
+    OvlI4_CallFunction(OVLCALL_BO_SHIELD_REACTOR_UPDATE, this);
 }
 
-void Actor271_Draw(Actor271* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR271_DRAW, this);
+void BoShieldReactor_Draw(BoShieldReactor* this) {
+    OvlI4_CallFunction(OVLCALL_BO_SHIELD_REACTOR_DRAW, this);
 }
 
-void Actor272_Update(Actor272* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR272_UPDATE, this);
+void BoLaserCannon_Update(BoLaserCannon* this) {
+    OvlI4_CallFunction(OVLCALL_BO_LASER_CANNON_UPDATE, this);
 }
 
-void Actor272_Draw(Actor272* this) {
-    OvlI4_CallFunction(OVLCALL_ACTOR272_DRAW, this);
+void BoLaserCannon_Draw(BoLaserCannon* this) {
+    OvlI4_CallFunction(OVLCALL_BO_LASER_CANNON_DRAW, this);
 }
 
 void AllRange_GreatFoxRepair(Player* player) {
@@ -309,8 +309,9 @@ void ActorAllRange_SetShadowData(Actor* this) {
     if (this->drawShadow && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
-                ((scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                 (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
+                ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
+                 (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                 (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) ||
                  (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3)) &&
                 (fabsf(scenery360->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
                 (fabsf(scenery360->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
@@ -332,8 +333,9 @@ void ActorAllRange_SetShadowData(Actor* this) {
                 spCC.y = spD8.y + temp1.y;
                 spCC.z = spD8.z + temp1.z;
 
-                if ((scenery360->obj.id == OBJ_SCENERY_149) || (scenery360->obj.id == OBJ_SCENERY_150)) {
-                    if (scenery360->obj.id == OBJ_SCENERY_149) {
+                if ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3)) {
+                    if (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) {
                         colId = COL1_5;
                     } else {
                         colId = COL1_6;
@@ -831,10 +833,10 @@ s32 func_360_8003049C(ActorAllRange* this) {
 
     if (boss->obj.id == OBJ_BOSS_CO_CARRIER) {
         var_ft5 = 350.0f;
-    } else if (boss->obj.id == OBJ_BOSS_309) {
+    } else if (boss->obj.id == OBJ_BOSS_BO_BASE) {
         sp44 = 2000.0f;
         var_ft5 = 750.0f;
-    } else if (boss->obj.id == OBJ_BOSS_KA_BASE) {
+    } else if (boss->obj.id == OBJ_BOSS_KA_FLBASE) {
         sp44 = 1500.0f;
         var_ft5 = 700.0f;
     }
@@ -2127,8 +2129,8 @@ void ActorAllRange_Update(ActorAllRange* this) {
                 spA8.y = 70.0f;
                 spA8.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
-                func_effect_80078E50(this->obj.pos.x + sp9C.x, this->obj.pos.y + sp9C.y, this->obj.pos.z + sp9C.z,
-                                     3.1f);
+                Effect_Effect393_Spawn(this->obj.pos.x + sp9C.x, this->obj.pos.y + sp9C.y, this->obj.pos.z + sp9C.z,
+                                       3.1f);
             }
         }
     }
@@ -2260,7 +2262,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                     this->timer_0BE = 2;
                     this->obj.status = OBJ_DYING;
                     this->itemDrop = DROP_NONE;
-                    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
+                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
                     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 } else {
                     this->dmgType = DMG_BEAM;
@@ -2339,7 +2341,7 @@ void ActorAllRange_DrawBarrelRoll(ActorAllRange* this) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 0, 0, 160, alpha);
-        gSPDisplayList(gMasterDisp++, D_101DC10);
+        gSPDisplayList(gMasterDisp++, aBarrelRollTex);
         Matrix_Pop(&gGfxMatrix);
     }
 }

@@ -2263,7 +2263,7 @@ void Title_8018D2B8(s32 arg0) {
     wings.unk_34 = D_menu_801B84E8[arg0].unk_30;
     wings.unk_38 = D_menu_801B84E8[arg0].unk_24;
 
-    func_display_80053658(&wings);
+    Display_ArwingWings(&wings);
 
     Object_UpdateSfxSource(D_menu_801B84E8[arg0].unk_50);
 

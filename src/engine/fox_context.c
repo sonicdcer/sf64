@@ -180,7 +180,7 @@ s32 D_ctx_80178494;        // Torpedoes have this set to their unk_5C. Were they
 f32 gShotHitPosZ;
 f32 gShotHitPosX;
 f32 gShotHitPosY;
-s32 gZOSnakeWaypointCount;
+s32 gZoDodoraWaypointCount;
 UNK_TYPE F_801784A8;
 GroundType gGroundType;
 UNK_TYPE F_801784B0;
@@ -276,13 +276,13 @@ PlayerShot gPlayerShots[16];
 TexturedLine gTexturedLines[100];
 RadarMark gRadarMarks[65];
 BonusText gBonusText[10];
-s32 gActor194Status[2];
-f32 gActor194xPos[2][100];
-f32 gActor194yPos[2][100];
-f32 gActor194zPos[2][100];
-f32 gActor194xRot[2][100];
-f32 gActor194yRot[2][100];
-f32 gActor194zRot[2][100];
+s32 gMeMoraStatus[2];
+f32 gMeMoraXpos[2][100];
+f32 gMeMoraYpos[2][100];
+f32 gMeMoraZpos[2][100];
+f32 gMeMoraXrot[2][100];
+f32 gMeMoraYrot[2][100];
+f32 gMeMoraZrot[2][100];
 UNK_TYPE P_800D31A8 = 0;
 u16 gEnemyShotSpeed; // enemy shot speed?
 u8 gShowLevelClearStatusScreen;
@@ -330,7 +330,7 @@ u8 gTiStartLandmaster;
 u16 gControllerRumbleTimers[4];
 u16 gPlayerScores[4];
 s32 gCircleWipeFrame;
-s32 D_ctx_80177C70; // sets camera field of view Y. initialized to 0 and never changed
+s32 gFovYMode; // sets camera field of view Y. initialized to 0 and never changed
 s32 gTraining360MsgTimer;
 s32 gTraining360MsgIndex;
 s32 D_ctx_80177C94; // these save player parameters across the Venom -> Andross transition
@@ -368,7 +368,7 @@ Scenery360* gScenery360;
 UNK_TYPE F_801782B0;
 s32 gDrawSmallRocks;
 s32 D_ctx_801782BC; // set to 0, never used
-PosRot* gZOSnakePosRots;
+PosRot* gZoDodoraPosRots;
 f32* D_ctx_801782CC; // arrays used for dynamic floor
 f32* D_ctx_801782D4;
 f32* D_ctx_801782DC;

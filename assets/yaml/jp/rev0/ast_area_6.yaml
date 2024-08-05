@@ -237,8 +237,8 @@ D_A6_6028254:
 D_A6_60282A0:
   { type: SF64:HITBOX, offset: 0x60282A0, symbol: D_A6_60282A0 }
 
-D_A6_6028454:
-  { type: SF64:HITBOX, offset: 0x6028454, symbol: D_A6_6028454 }
+aA6GorgonHitbox:
+  { type: SF64:HITBOX, offset: 0x6028454, symbol: aA6GorgonHitbox }
 
 D_A6_6028578:
   { type: SF64:HITBOX, offset: 0x6028578, symbol: D_A6_6028578 }

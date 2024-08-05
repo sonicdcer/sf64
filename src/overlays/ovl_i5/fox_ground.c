@@ -261,19 +261,21 @@ void Ground_801B4AA8(s32* arg0, s32* arg1) {
     }
 }
 
-void Ground_801B5110(f32 arg0, f32 arg1, f32 arg2) {
+void Ground_801B5110(f32 x, f32 y, f32 z) {
     UnkStruct_801C62E8* ptr;
     s32 i;
     s32 k;
+
+    z = 200.0f;
 
     D_i5_801C5C04 = 0;
     D_i5_801C5C08 = 0;
     D_i5_801C5C0C = 0;
     D_i5_801C5C10 = 0.0f;
     D_i5_801BE740 = D_i5_801BE744 = 1.0f;
-    D_i5_801C62D8.x = arg0;
-    D_i5_801C62D8.y = arg1;
-    D_i5_801C62D8.z = 200.0f; // Probably used to be arg2
+    D_i5_801C62D8.x = x;
+    D_i5_801C62D8.y = y;
+    D_i5_801C62D8.z = z;
     D_i5_801C5C14 = 1;
 
     for (i = 0, ptr = D_i5_801C62E8; i < ARRAY_COUNT(D_i5_801C62E8); i++, ptr++) {
@@ -556,8 +558,8 @@ void Ground_801B5FE0(s32 arg0, s32 arg1, s32 arg2) {
 }
 
 void Ground_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
-    s32 var_a0;
-    s32 var_a1;
+    s32 i;
+    s32 j;
     s32 var;
 
     gDPSetupTile((*dlist)++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, 0, G_TX_MIRROR | G_TX_WRAP,
@@ -568,10 +570,10 @@ void Ground_801B68A8(Gfx** dlist, s32 arg1, s32 arg2) {
     gSPMatrix((*dlist)++, gGfxMtx++, G_MTX_NOPUSH | G_MTX_MUL | G_MTX_MODELVIEW);
 
     var = 1;
-    var_a0 = (arg1 + 25) % 27;
-    for (var_a1 = 26; var_a1 >= var; var_a1--) {
-        gSPDisplayList((*dlist)++, &D_i5_801C2528[var_a0]);
-        var_a0 = (var_a0 + 26) % 27;
+    j = (arg1 + 25) % 27;
+    for (i = 26; i >= var; i--) {
+        gSPDisplayList((*dlist)++, &D_i5_801C2528[j]);
+        j = (j + 26) % 27;
     }
 }
 
@@ -760,6 +762,7 @@ s32 Ground_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     return 1;
 }
 
+// Unused
 void Ground_801B7240(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     s32 pad;
     f32 sp28;

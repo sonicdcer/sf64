@@ -865,7 +865,7 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
     D_ending_80198590.unk_30 = +D_ending_801985F0.x;
     D_ending_80198590.unk_34 = -D_ending_801985F0.y;
 
-    func_display_80053658(&D_ending_80198590);
+    Display_ArwingWings(&D_ending_80198590);
 }
 
 void Ending_80191700(u32 arg0, AssetInfo* asset) {

@@ -692,7 +692,7 @@ void func_demo_8004A840(s32 actor) {
     func_demo_8004A700(&gActors[actor], actor);
 }
 
-void func_demo_8004A888(Clouds* this) {
+void func_demo_8004A888(EffectClouds* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -1226,7 +1226,7 @@ void Cutscene_CoComplete2(Player* player) {
                 player->csState = 5;
                 player->baseSpeed = 0.0f;
                 player->csTimer = 10;
-                func_effect_80078E50(player->pos.x, player->pos.y, player->trueZpos, 30.0f);
+                Effect_Effect393_Spawn(player->pos.x, player->pos.y, player->trueZpos, 30.0f);
             }
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y - D_ctx_80177A48[6];
@@ -1612,7 +1612,7 @@ void Cutscene_KillPlayer(Player* player) {
             if (gVsPointsToWin == gVsPoints[player->attacker - 1]) {
                 player->attacker = -1;
                 if (player->unk_284 == 0) {
-                    func_effect_8007C688(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 1000);
+                    Effect_Effect387_Spawn(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 1000);
                 }
             }
         }
@@ -1631,10 +1631,10 @@ void Cutscene_LandmasterDown(Player* player) {
     player->pos.y += 30.0f;
     func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
     if (gCamCount == 1) {
-        func_effect_8007BFFC(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
-        func_effect_8007C688(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 800);
+        Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
+        Effect_Effect387_Spawn(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 800);
     } else {
-        func_effect_8007BFFC(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+        Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 10);
     }
     Cutscene_KillPlayer(player);
 }
@@ -1704,7 +1704,8 @@ void Cutscene_ArwingDown360(Player* player) {
                (player->csTimer == 0)) {
         if (gCamCount != 4) {
             if (player->unk_284 == 0) {
-                func_effect_8007C688(player->pos.x, player->pos.y, player->trueZpos - (2.0f * player->vel.z), 3.0f, 80);
+                Effect_Effect387_Spawn(player->pos.x, player->pos.y, player->trueZpos - (2.0f * player->vel.z), 3.0f,
+                                       80);
             }
             if (player->pos.y < player->pathFloor) {
                 func_enmy_80062C38(player->pos.x, player->pos.z);
@@ -1720,8 +1721,7 @@ void Cutscene_ArwingDown360(Player* player) {
             }
         }
         func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 5.0f);
-        func_effect_8007BFFC(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z, 5.0f,
-                             20);
+        Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z, 5.0f, 20);
         Cutscene_KillPlayer(player);
     }
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
@@ -1810,14 +1810,14 @@ void Cutscene_ArwingDownOnRails(Player* player) {
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) || (player->csEventTimer == 0)) &&
                (player->csTimer == 0)) {
         if (player->pos.y < player->pathFloor) {
-            func_effect_8007C688(player->pos.x, gGroundHeight + 20.0f, player->trueZpos - (2.0f * player->vel.z), 3.0f,
-                                 800);
+            Effect_Effect387_Spawn(player->pos.x, gGroundHeight + 20.0f, player->trueZpos - (2.0f * player->vel.z),
+                                   3.0f, 800);
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }
         func_effect_8007D0E0(player->pos.x, player->pos.y - (2.0f * player->vel.y),
                              player->trueZpos - (2.0f * player->vel.z), 6.0f);
-        func_effect_8007BFFC(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z),
-                             0.0f, 0.0f, 0.0f, 3.0f, 20);
+        Effect386_Spawn1(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z), 0.0f,
+                         0.0f, 0.0f, 3.0f, 20);
         if (gLevelType == LEVELTYPE_PLANET) {
             for (i = 0; i < 2; i++) {
                 Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);
@@ -1837,8 +1837,8 @@ void Cutscene_ArwingDownOnRails(Player* player) {
     }
 
     if ((gGroundSurface == SURFACE_WATER) && (player->pos.y <= player->pathFloor)) {
-        func_effect_8007D9DC(player->pos.x, gGroundHeight + 2.0f, player->trueZpos, 3.0f, 20.0f, 0);
-        func_effect_8007ADF4(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
+        Effect_Effect367_Spawn(player->pos.x, gGroundHeight + 2.0f, player->trueZpos, 3.0f, 20.0f, 0);
+        Effect_Effect372_Spawn2(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
     }
 }
 
@@ -2103,7 +2103,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
             this->vel.z = dest.z;
 
             if (this->timer_0BC == 0) {
-                func_effect_80078E50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
+                Effect_Effect393_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -2299,7 +2299,6 @@ void func_demo_8004F798(ActorCutscene* this) {
 }
 
 void ActorCutscene_Update(ActorCutscene* this) {
-
     if (gCurrentLevel == LEVEL_AQUAS) {
         func_hud_80093164(this);
         return;
@@ -2747,14 +2746,14 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             /* fallthrough */
         case 39:
-            gSPDisplayList(gMasterDisp++, D_SY_60097E0);
+            gSPDisplayList(gMasterDisp++, aSyShip1DL);
             func_demo_8004FCB8(this, 4);
             break;
 
         case 36:
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_SY_601D730);
+            gSPDisplayList(gMasterDisp++, aSyShip2DL);
             func_demo_8004FCB8(this, 0);
             break;
 
@@ -2874,15 +2873,15 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 45:
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
+            gSPDisplayList(gMasterDisp++, aAqBump2DL);
             break;
 
         case 46:
-            gSPDisplayList(gMasterDisp++, D_AQ_601DE60);
+            gSPDisplayList(gMasterDisp++, aAqCoralReef2DL);
             break;
 
         case 47:
-            gSPDisplayList(gMasterDisp++, D_AQ_602B4C0);
+            gSPDisplayList(gMasterDisp++, aAqRockDL);
             break;
     }
 }

@@ -67,7 +67,7 @@ typedef enum {
     /* 38 */ A6_SWK_38,
     /* 39 */ A6_SWK_39,
     /* 40 */ A6_SWK_MAX,
-} BossA6swork;
+} A6Gorgonswork;
 
 typedef enum {
     /*  0 */ A6_FWK_0,
@@ -121,7 +121,7 @@ typedef enum {
     /* 48 */ A6_FWK_48,
     /* 49 */ A6_FWK_49,
     /* 50 */ A6_FWK_MAX,
-} BossA6fwork;
+} A6Gorgonfwork;
 
 typedef enum {
     /*  0 */ A6_VWK_0,
@@ -175,7 +175,7 @@ typedef enum {
     /* 48 */ A6_VWK_48,
     /* 49 */ A6_VWK_49,
     /* 50 */ A6_VWK_MAX,
-} BossA6vwork;
+} A6Gorgonvwork;
 
 typedef enum {
     /*  0 */ A6_BSS_0,
@@ -219,7 +219,7 @@ typedef enum {
     /* 38 */ A6_BSS_38,
     /* 39 */ A6_BSS_39,
     /* 40 */ A6_BSS_MAX,
-} BossA6bsswork;
+} A6Gorgonbsswork;
 
 typedef struct {
     /* 0x00 */ f32 r[3];
@@ -355,8 +355,8 @@ f32 D_i3_801BF494[12] = {
     -90.0f, 30.0f, 26.0f, 22.0f, 18.0f, 11.0f, 8.0f, 5.0f, 3.0f, 2.0f, 1.0f, 0.0f,
 };
 
-void Area6_80187530(Actor191* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
-                    s32 unk0B4) {
+void Area6_ActorMissileSeekPlayer_Setup(ActorMissileSeekPlayer* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6,
+                                        f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
     PRINTF("おん\n"); // On
     PRINTF("おふ\n"); // Off
     Actor_Initialize(this);
@@ -378,20 +378,21 @@ void Area6_80187530(Actor191* this, f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f3
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_BARREL_SHOT);
 }
 
-void Area6_801875E4(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC, s32 unk0B4) {
+void Area6_ActorMissileSeekPlayer_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
+                                        s32 unk0B4) {
     s32 i;
-    Actor191* actor191;
+    ActorMissileSeekPlayer* missile;
 
-    for (i = 0, actor191 = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor191++) {
-        if (actor191->obj.status == OBJ_FREE) {
-            Area6_80187530(actor191, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
+    for (i = 0, missile = &gActors[0]; i < ARRAY_COUNT(gActors); i++, missile++) {
+        if (missile->obj.status == OBJ_FREE) {
+            Area6_ActorMissileSeekPlayer_Setup(missile, xPos, yPos, zPos, fwork6, xRot, yRot, timer0BC, unk0B4);
             D_i3_801C2250[A6_BSS_11] = i + 1;
             break;
         }
     }
 }
 
-void Area6_8018767C(Effect395* this) {
+void Area6_Effect395_Setup(Effect395* this) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_395;
@@ -405,18 +406,18 @@ void Area6_8018767C(Effect395* this) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Area6_80187704(void) {
+void Area6_Effect395_Spawn(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Area6_8018767C(&gEffects[i]);
+            Area6_Effect395_Setup(&gEffects[i]);
             break;
         }
     }
 }
 
-void Area6_BossA6_Init(BossA6* this) {
+void Area6_A6Gorgon_Init(A6Gorgon* this) {
     Hitbox* hitbox;
     s32 i;
 
@@ -462,7 +463,7 @@ void Area6_BossA6_Init(BossA6* this) {
     AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL_LEVEL, this->sfxSource, 4);
 }
 
-void Area6_Boss_Update(BossA6* this) {
+void Area6_A6Gorgon_Update(A6Gorgon* this) {
     s32 i;
     s32 pad;
     s32 var_s0;
@@ -520,7 +521,7 @@ void Area6_Boss_Update(BossA6* this) {
 
                     AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
 
-                    gShowBossHealth = 0;
+                    gShowBossHealth = false;
 
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 40);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 40);
@@ -579,8 +580,8 @@ void Area6_Boss_Update(BossA6* this) {
 
     if ((this->swork[A6_SWK_15 + 0] == 0) && (this->swork[A6_SWK_15 + 1] == 0) && (this->swork[A6_SWK_15 + 2] == 0) &&
         (this->fwork[A6_FWK_0] != 0) && !(gGameFrameCount % 2U)) {
-        func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, this->vel.x, this->vel.y,
-                             this->vel.z, 0.3f, 1);
+        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, this->vel.x, this->vel.y,
+                               this->vel.z, 0.3f, 1);
     }
 
     sp120 = 0.5f;
@@ -682,12 +683,12 @@ void Area6_Boss_Update(BossA6* this) {
         }
 
         if (!(gGameFrameCount % 32U)) {
-            func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, this->vel.x, this->vel.y,
-                                 this->vel.z, 0.5f, 70);
+            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, this->vel.x, this->vel.y,
+                                   this->vel.z, 0.5f, 70);
         }
     }
 
-    if (!(gGameFrameCount % 16U)) {
+    if ((gGameFrameCount % 16U) == 0) {
         dz_114 = fabsf(this->fwork[A6_FWK_3] / -1700.0f);
         if (dz_114 < 1.0f) {
             dz_114 = 1.0f;
@@ -929,7 +930,7 @@ void Area6_Boss_Update(BossA6* this) {
                     D_i3_801C2250[A6_BSS_28] = 0;
                     this->state = 4;
                     this->fwork[A6_FWK_2] = 1.0f;
-                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028454);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aA6GorgonHitbox);
                     D_i3_801C2250[A6_BSS_6] = 1;
                     Audio_KillSfxBySource(this->sfxSource);
                     AUDIO_PLAY_SFX(NA_SE_EN_COVER_CLOSE, this->sfxSource, 4);
@@ -1010,7 +1011,7 @@ void Area6_Boss_Update(BossA6* this) {
 
         case 5:
             if (this->timer_050 == 1) {
-                Area6_80187704();
+                Area6_Effect395_Spawn();
                 AUDIO_PLAY_SFX(NA_SE_EN_A6BOSS_CHARGE, this->sfxSource, 4);
                 D_i3_801C2250[A6_BSS_33] = 120;
             }
@@ -1150,8 +1151,9 @@ void Area6_Boss_Update(BossA6* this) {
                                 spf124 = 1;
                             }
 
-                            Area6_801875E4(this->obj.pos.x + sp8C.x, this->obj.pos.y + sp8C.y, this->obj.pos.z + sp8C.z,
-                                           25.0f, pitch_110, yaw_10C, 10, spf124);
+                            Area6_ActorMissileSeekPlayer_Spawn(this->obj.pos.x + sp8C.x, this->obj.pos.y + sp8C.y,
+                                                               this->obj.pos.z + sp8C.z, 25.0f, pitch_110, yaw_10C, 10,
+                                                               spf124);
 
                             D_i3_801C2250[A6_BSS_12_0 + var_s0] = D_i3_801C2250[A6_BSS_11];
                         }
@@ -1195,7 +1197,7 @@ void Area6_Boss_Update(BossA6* this) {
             }
 
             if (this->timer_052 == 0) {
-                gShowBossHealth = 0;
+                gShowBossHealth = false;
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -1230,7 +1232,7 @@ void Area6_Boss_Update(BossA6* this) {
         Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
     }
     if (gBossFrameCount == 756) {
-        gShowBossHealth = 1;
+        gShowBossHealth = true;
     }
     if (gBossFrameCount > 756) {
         gBossHealthBar = (this->health / 780.0f) * 255.0f;
@@ -1258,7 +1260,7 @@ void Area6_Boss_Update(BossA6* this) {
     }
 }
 
-void Area6_8018A1B0(BossA6* this, s32 arg1) {
+void Area6_8018A1B0(A6Gorgon* this, s32 arg1) {
     switch (D_i3_801C2250[A6_BSS_2_0 + arg1]) {
         case 0:
             this->swork[A6_SWK_27 + arg1] = 12;
@@ -1290,7 +1292,7 @@ void Area6_8018A1B0(BossA6* this, s32 arg1) {
     }
 }
 
-void Area6_8018A2C4(BossA6* this) {
+void Area6_8018A2C4(A6Gorgon* this) {
     s32 i;
     Vec3f effectPos;
 
@@ -1330,7 +1332,7 @@ void Area6_8018A2C4(BossA6* this) {
     }
 }
 
-void Area6_8018A464(BossA6* this, s32 arg1) {
+void Area6_8018A464(A6Gorgon* this, s32 arg1) {
     s32 i;
     s32 j;
     f32 var_fs0;
@@ -1692,7 +1694,7 @@ void Area6_8018A464(BossA6* this, s32 arg1) {
     }
 }
 
-void Area6_8018B9BC(BossA6* this) {
+void Area6_8018B9BC(A6Gorgon* this) {
     s32 i;
     s32 j;
     Vec3f dest;
@@ -1726,8 +1728,8 @@ void Area6_8018B9BC(BossA6* this) {
                     sfxPos.z = this->obj.pos.z + dest.z;
 
                     Effect_SpawnTimedSfxAtPos(&sfxPos, NA_SE_EN_EXPLOSION_M);
-                    func_effect_8007C120(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
-                                         this->vel.y, this->vel.z, 0.2f, 50);
+                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
+                                           this->vel.y, this->vel.z, 0.2f, 50);
                 }
 
                 if ((this->swork[A6_SWK_15] == 0) && (this->swork[A6_SWK_16] == 0) && (this->swork[A6_SWK_17] == 0)) {
@@ -1871,7 +1873,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Area6_Boss_Draw(BossA6* this) {
+void Area6_A6Gorgon_Draw(A6Gorgon* this) {
     Vec3f jointTable[30];
     Vec3f spC4;
     Vec3f spB8;
@@ -2122,14 +2124,14 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
 void Area6_8018D4E0(Actor* this) {
     s32 i;
 
-    func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
+    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 7.0f);
-    func_effect_8007B344(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f, 5);
+    Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f, 5);
 
     Object_Kill(&this->obj, this->sfxSource);
 
     for (i = 0; i < 15; i++) {
-        func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
+        Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
     }
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 }

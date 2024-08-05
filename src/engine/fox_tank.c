@@ -179,12 +179,12 @@ void func_tank_80043B18(Player* player) {
             func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
         } else {
             if (((gGameFrameCount % 2) == 0)) {
-                Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                 player->rot.y + sp38, 1.3f);
+                Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                        player->rot.y + sp38, 1.3f);
             }
             if (((gGameFrameCount % 4) == 0)) {
-                func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->trueZpos + sp3C.z,
-                                     2.0f, 255, 15, 0);
+                Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
+                                       player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
             }
         }
     } else {
@@ -198,12 +198,12 @@ void func_tank_80043B18(Player* player) {
                 }
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
-                    Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                     player->rot.y + sp38, 1.0f);
+                    Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                            player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
-                    func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                         player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
+                    Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
+                                           player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
                 }
             }
         }
@@ -216,12 +216,12 @@ void func_tank_80043B18(Player* player) {
                 }
             } else {
                 if (((gGameFrameCount % 2) == 0)) {
-                    Titania_80189120(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                     player->rot.y + sp38, 1.0f);
+                    Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                            player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
-                    func_effect_8007A900(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                         player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
+                    Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
+                                           player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
                 }
             }
         }
@@ -285,7 +285,7 @@ void func_tank_800443DC(Player* player) {
     s32 i;
 
     for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_58) &&
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
             func_tank_800441C8(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
                                scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
@@ -673,19 +673,21 @@ void func_tank_80045678(Player* player) {
             Math_SmoothStepToF(&player->vel.y, 0.0f, 0.1f, 2.0f, 0);
         }
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
-            func_effect_8007A900(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
-                                 player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.5f, 255, 16, 1);
+            Effect_Effect359_Spawn(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
+                                   player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.5f, 255, 16, 1);
         }
     } else {
         D_800C9F3C = 0;
         if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->rollState == 0)) {
             if ((player->unk_16C > 0.2f) && (player->radioDamageTimer == 0)) {
-                func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->groundPos.y + 10.0f,
-                                     player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
+                Effect_Effect359_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f),
+                                       player->groundPos.y + 10.0f, player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f,
+                                       255, 15, 0);
             }
             if ((player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
-                func_effect_8007A900(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->groundPos.y + 10.0f,
-                                     player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
+                Effect_Effect359_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f),
+                                       player->groundPos.y + 10.0f, player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f,
+                                       255, 15, 0);
             }
         }
     }
@@ -789,7 +791,7 @@ void func_tank_80046260(Player* player) {
     s32 i;
 
     for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_58) &&
+        if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z) && (scenery->obj.pos.y < player->pos.y)) {
             func_tank_800460E0(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
                                scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
@@ -844,14 +846,14 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     if (Play_CheckPolyCollision(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         if (D_MA_801BE250[27] < arg3 + sp58.y) {
             D_MA_801BE250[27] = arg3 + sp58.y;
-            if (arg1 == OBJ_SCENERY_67) {
+            if (arg1 == OBJ_SCENERY_MA_WALL_3) {
                 player->rollState = 0;
                 D_800C9F04 = 1;
             }
         }
         D_MA_801BE250[28] = sp58.x;
         D_MA_801BE250[29] = sp58.z;
-    } else if ((arg1 == OBJ_SCENERY_67) && (D_MA_801BE250[27] == 0.0f) &&
+    } else if ((arg1 == OBJ_SCENERY_MA_WALL_3) && (D_MA_801BE250[27] == 0.0f) &&
                Play_CheckPolyCollision(arg1, arg2 + 20.0f, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         player->rollState = 9;
         player->rollTimer = 15;
@@ -886,9 +888,9 @@ void func_tank_80046704(Player* player) {
     if (1) {}
     for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
-            if ((scenery->obj.id == OBJ_SCENERY_69) || (scenery->obj.id == OBJ_SCENERY_70) ||
-                (scenery->obj.id == OBJ_SCENERY_71) || (scenery->obj.id == OBJ_SCENERY_72) ||
-                (scenery->obj.id == OBJ_SCENERY_73) || (scenery->obj.id == OBJ_SCENERY_67)) {
+            if ((scenery->obj.id == OBJ_SCENERY_MA_TERRAIN_BUMP) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_1) ||
+                (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_2) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_3) ||
+                (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_4) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_3)) {
                 temp1 = scenery->obj.pos.x - player->pos.x;
                 temp2 = scenery->obj.pos.z - player->trueZpos;
 
@@ -896,7 +898,7 @@ void func_tank_80046704(Player* player) {
                     func_tank_8004641C(player, scenery->obj.id, scenery->obj.pos.x, scenery->obj.pos.y,
                                        scenery->obj.pos.z, scenery->obj.rot.x, scenery->obj.rot.y, scenery->obj.rot.z);
                 }
-            } else if (scenery->obj.id == OBJ_SCENERY_74) {
+            } else if (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_5) {
                 if (((player->pos.x - 820.0f) <= scenery->obj.pos.x) &&
                     (scenery->obj.pos.x <= (player->pos.x + 820.0f)) &&
                     ((player->pos.y - 50.0f) <= scenery->obj.pos.y) &&
@@ -907,10 +909,10 @@ void func_tank_80046704(Player* player) {
                     player->groundPos.y = D_MA_801BE250[27] - 3.0f;
                 }
             }
-            if ((scenery->obj.id == OBJ_SCENERY_59) || (scenery->obj.id == OBJ_SCENERY_60) ||
-                (scenery->obj.id == OBJ_SCENERY_61) || (scenery->obj.id == OBJ_SCENERY_63) ||
-                (scenery->obj.id == OBJ_SCENERY_105) || (scenery->obj.id == OBJ_SCENERY_66) ||
-                (scenery->obj.id == OBJ_SCENERY_67) || (scenery->obj.id == OBJ_SCENERY_68)) {
+            if ((scenery->obj.id == OBJ_SCENERY_MA_BUILDING_1) || (scenery->obj.id == OBJ_SCENERY_MA_BUILDING_2) ||
+                (scenery->obj.id == OBJ_SCENERY_MA_TOWER) || (scenery->obj.id == OBJ_SCENERY_63) ||
+                (scenery->obj.id == OBJ_SCENERY_MA_TRAIN_TRACK_13) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_2) ||
+                (scenery->obj.id == OBJ_SCENERY_MA_WALL_3) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_4)) {
                 s32 temp_v0;
                 s32 sp94;
 
@@ -934,9 +936,9 @@ void func_tank_80046704(Player* player) {
                         player->pos.x += (D_800C9F4C[temp_v0] * 5.0f);
                         break;
                     case 3:
-                        if ((scenery->obj.id == OBJ_SCENERY_59) || (scenery->obj.id == OBJ_SCENERY_60) ||
-                            (scenery->obj.id == OBJ_SCENERY_63) || (scenery->obj.id == OBJ_SCENERY_66) ||
-                            (scenery->obj.id == OBJ_SCENERY_68)) {
+                        if ((scenery->obj.id == OBJ_SCENERY_MA_BUILDING_1) ||
+                            (scenery->obj.id == OBJ_SCENERY_MA_BUILDING_2) || (scenery->obj.id == OBJ_SCENERY_63) ||
+                            (scenery->obj.id == OBJ_SCENERY_MA_WALL_2) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_4)) {
                             Player_ApplyDamage(player, temp_v0, 5);
                         }
                         player->baseSpeed = -(D_800C9F00 * 1.5f);
@@ -945,7 +947,7 @@ void func_tank_80046704(Player* player) {
                         AUDIO_PLAY_SFX(NA_SE_TANK_WALL_HIT, player->sfxSource, 0);
                         break;
                 }
-                if (scenery->obj.id == OBJ_SCENERY_59) {
+                if (scenery->obj.id == OBJ_SCENERY_MA_BUILDING_1) {
                     if (((player->pos.x - 230.0f) <= scenery->obj.pos.x) &&
                         (scenery->obj.pos.x <= (player->pos.x + 230.0f)) &&
                         ((80.0f <= player->pos.y - scenery->obj.pos.y)) &&
@@ -975,7 +977,7 @@ void func_tank_80046704(Player* player) {
                         (scenery->obj.pos.z <= (player->trueZpos + 220.0f)) && (player->pos.y >= 200.0f)) {
                         player->groundPos.y = scenery->obj.pos.y + 204.0f;
                     }
-                } else if ((scenery->obj.id == OBJ_SCENERY_105) && Macbeth_801A3C20(player->trueZpos)) {
+                } else if ((scenery->obj.id == OBJ_SCENERY_MA_TRAIN_TRACK_13) && Macbeth_801A3C20(player->trueZpos)) {
                     if (((player->pos.x - 200.0f) < D_MA_801BE250[21]) &&
                         (D_MA_801BE250[21] < (player->pos.x + 200.0f))) {
                         player->groundPos.y = D_MA_801BE250[22] - 1.0f;
@@ -1342,14 +1344,15 @@ void func_tank_800481F4(Player* player) {
     func_tank_800444BC(player);
     if (player->mercyTimer == 0) {
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
-            if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_58) &&
-                (scenery->obj.id != OBJ_SCENERY_105) && (scenery->obj.id != OBJ_SCENERY_59) &&
-                (scenery->obj.id != OBJ_SCENERY_60) && (scenery->obj.id != OBJ_SCENERY_63) &&
-                (scenery->obj.id != OBJ_SCENERY_66) && (scenery->obj.id != OBJ_SCENERY_67) &&
-                (scenery->obj.id != OBJ_SCENERY_68) && (scenery->obj.id != OBJ_SCENERY_70) &&
-                (scenery->obj.id != OBJ_SCENERY_72) && (scenery->obj.id != OBJ_SCENERY_71) &&
-                (scenery->obj.id != OBJ_SCENERY_73) && (scenery->obj.id != OBJ_SCENERY_74) &&
-                (scenery->obj.id != OBJ_SCENERY_69) && ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
+            if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_TI_BRIDGE) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_TRAIN_TRACK_13) && (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_1) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_2) && (scenery->obj.id != OBJ_SCENERY_63) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_WALL_2) && (scenery->obj.id != OBJ_SCENERY_MA_WALL_3) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_WALL_4) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_1) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_3) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_2) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_4) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_5) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_TERRAIN_BUMP) &&
+                ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
                 var_fv1 = scenery->obj.rot.y;
                 if (scenery->info.action == (ObjectFunc) SceneryRotateTowardsCamera) {
                     var_fv1 = 0.0f;
@@ -1429,7 +1432,7 @@ void func_tank_800481F4(Player* player) {
                         Player_ApplyDamage(player, 0, 5);
                         player->mercyTimer = 1;
                     }
-                } else if ((OBJ_ACTOR_205 <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_213)) {
+                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f,
@@ -1463,12 +1466,12 @@ void func_tank_800481F4(Player* player) {
                                                           actor->obj.rot.y, actor->obj.rot.z, 0.0f, 0.0f, 0.0f);
                     if (temp_v0 != 0) {
                         actor->dmgType = DMG_COLLISION;
-                        if ((actor->obj.id == OBJ_ACTOR_225) || (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
+                        if ((actor->obj.id == OBJ_ACTOR_TI_LANDMINE) || (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
                             actor->dmgType = -1;
                         }
                         if (actor->info.damage) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
-                            if (actor->obj.id == OBJ_ACTOR_225) {
+                            if (actor->obj.id == OBJ_ACTOR_TI_LANDMINE) {
                                 player->knockback.y = 0.0f;
                             }
                         } else {
@@ -1487,11 +1490,11 @@ void func_tank_800481F4(Player* player) {
                     if (temp_v0 != 0) {
                         if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_POLE) ||
                             (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
-                            sprite->destroy = 1;
+                            sprite->destroy = true;
                             player->hitTimer = 6;
                             player->hitDirection = 0;
                         } else if (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) {
-                            sprite->destroy = 1;
+                            sprite->destroy = true;
                         } else {
                             Player_ApplyDamage(player, temp_v0, sprite->info.damage);
                         }

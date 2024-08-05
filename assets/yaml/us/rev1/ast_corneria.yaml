@@ -303,20 +303,20 @@ D_CO_602AA7C:
 aCoDoorsSkel: 
   { type: SF64:SKELETON, offset: 0x602AB48, symbol: aCoDoorsSkel }
 
-D_CO_602BC18:
-  { type: SF64:ANIM, offset: 0x602BC18, symbol: D_CO_602BC18 }
+aCoGrangaWalkingAnim:
+  { type: SF64:ANIM, offset: 0x602BC18, symbol: aCoGrangaWalkingAnim }
   
 D_CO_602BE64: 
   { type: SF64:SKELETON, offset: 0x602BE64, symbol: D_CO_602BE64 }
 
-D_CO_602C0D0:
-  { type: SF64:ANIM, offset: 0x602C0D0, symbol: D_CO_602C0D0 }
+aCoGrangaStationaryAnim:
+  { type: SF64:ANIM, offset: 0x602C0D0, symbol: aCoGrangaStationaryAnim }
 
 D_CO_602D31C: 
   { type: SF64:ANIM, offset: 0x602D31C, symbol: D_CO_602D31C }
 
-D_CO_602D400:
-  { type: SF64:ANIM, offset: 0x602D400, symbol: D_CO_602D400 }
+aCoCarrierAnim:
+  { type: SF64:ANIM, offset: 0x602D400, symbol: aCoCarrierAnim }
   
 aCoCarrierSkel:
   { type: SF64:SKELETON, offset: 0x602D5AC, symbol: aCoCarrierSkel }
@@ -522,14 +522,14 @@ aCoBuilding10Hitbox:
 aCoIBeamHitbox:
   { type: SF64:HITBOX, offset: 0x603E514, symbol: aCoIBeamHitbox }
 
-D_CO_603E54C:
-  { type: SF64:HITBOX, offset: 0x603E54C, symbol: D_CO_603E54C }
+aCoActorSkibotHitbox:
+  { type: SF64:HITBOX, offset: 0x603E54C, symbol: aCoActorSkibotHitbox }
 
-D_CO_603E598:
-  { type: SF64:HITBOX, offset: 0x603E598, symbol: D_CO_603E598 }
+aCoActorRadarHitbox:
+  { type: SF64:HITBOX, offset: 0x603E598, symbol: aCoActorRadarHitbox }
 
-D_CO_603E5B4:
-  { type: SF64:HITBOX, offset: 0x603E5B4, symbol: D_CO_603E5B4 }
+aCoMoleMissileHitbox:
+  { type: SF64:HITBOX, offset: 0x603E5B4, symbol: aCoMoleMissileHitbox }
 
 CoGarudaHitbox:
   { type: SF64:HITBOX, offset: 0x603E5D0, symbol: CoGarudaHitbox }
@@ -540,14 +540,14 @@ aCoGarudaDestroyHitbox:
 aCoGrangaHitbox:
   { type: SF64:HITBOX, offset: 0x603E620, symbol: aCoGrangaHitbox }
 
-D_CO_603E714:
-  { type: SF64:HITBOX, offset: 0x603E714, symbol: D_CO_603E714 }
+aCoCarrierLeftHitbox:
+  { type: SF64:HITBOX, offset: 0x603E714, symbol: aCoCarrierLeftHitbox }
 
-D_CO_603E748:
-  { type: SF64:HITBOX, offset: 0x603E748, symbol: D_CO_603E748 }
+aCoCarrierUpperHitbox:
+  { type: SF64:HITBOX, offset: 0x603E748, symbol: aCoCarrierUpperHitbox }
 
-D_CO_603E7C4:
-  { type: SF64:HITBOX, offset: 0x603E7C4, symbol: D_CO_603E7C4 }
+aCoCarrierBottomHitbox:
+  { type: SF64:HITBOX, offset: 0x603E7C4, symbol: aCoCarrierBottomHitbox }
 
 aCoCarrierHitbox:
   { type: SF64:HITBOX, offset: 0x603E840, symbol: aCoCarrierHitbox }

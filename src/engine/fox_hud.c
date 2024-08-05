@@ -359,7 +359,7 @@ void func_hud_80085944(void) {
                 y = D_800D1AD8[i + 1];
                 scale = 0.28f;
 
-                if (D_ctx_80177C70 == 2) {
+                if (gFovYMode == 2) {
                     x -= 7.00f;
                     y += 7.00f;
                     scale += 0.06f;
@@ -408,7 +408,7 @@ void func_hud_80085944(void) {
                     y = D_800D1AD8[i + 1];
                     scale = 0.28f;
 
-                    if (D_ctx_80177C70 == 2) {
+                    if (gFovYMode == 2) {
                         x -= 7.00f;
                         y += 7.00f;
                         scale += 0.06f;
@@ -3645,7 +3645,7 @@ void HUD_Draw(void) {
     func_hud_80088970();
 }
 
-void HUD_BossFO_Draw(Boss* boss) {
+void HUD_FoBase_Draw(Boss* boss) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, D_FO_6003090);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -3686,13 +3686,13 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
         i = RAND_INT(36.0f);
 
         if ((gGameFrameCount & 2) == 0) {
-            func_effect_8007C120(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
-                                 boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
+            Effect_Effect390_Spawn(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
+                                   boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
         }
 
         if (((gGameFrameCount % 8) == 0)) {
-            func_effect_8007BFFC(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
-                                 boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
+            Effect386_Spawn1(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
+                             boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
     }
 }
@@ -3803,7 +3803,7 @@ s32 func_hud_80090200(Boss* boss) {
     return ret;
 }
 
-void HUD_BossFO_Update(Boss* boss) {
+void HUD_FoBase_Update(Boss* boss) {
     switch (boss->state) {
         case 0:
             if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
@@ -4442,9 +4442,9 @@ void func_hud_800922F4(Actor* actor) {
         }
 
         if (!(gGameFrameCount & (temp >> 2)) && (Rand_ZeroOne() < 0.5f)) {
-            func_effect_8007C120(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
-                                 actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y,
-                                 actor->vel.z, actor->scale * 0.07f, 3);
+            Effect_Effect390_Spawn(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
+                                   actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y,
+                                   actor->vel.z, actor->scale * 0.07f, 3);
         }
     }
 }
@@ -4780,7 +4780,7 @@ void func_hud_80093164(Actor* actor) {
                 break;
 
             case 41:
-                Aquas_801BE034(actor);
+                Aquas_CsAqFishGroup_Update(actor);
                 break;
 
             case 44:
@@ -5158,7 +5158,7 @@ void HUD_AquasStart(Player* player) {
                 player->pos.z = dest.z;
 
                 if (((player->csTimer % 8) == 0) && (player->csTimer > 740)) {
-                    func_effect_8007D9DC(player->cam.eye.x, 1600.0f, player->cam.eye.z, 10.0f, 100.0f, 0);
+                    Effect_Effect367_Spawn(player->cam.eye.x, 1600.0f, player->cam.eye.z, 10.0f, 100.0f, 0);
                 }
 
                 if ((player->unk_018 > -200.0f) && (D_ctx_80177A10[8] < 6)) {
@@ -5173,9 +5173,9 @@ void HUD_AquasStart(Player* player) {
 
                 if (((gGameFrameCount % 3) == 0) && (player->csTimer <= 740)) {
                     for (i = 0; i < 8; i++) {
-                        Aquas_801AC8A8(player->cam.eye.x + RAND_FLOAT_CENTERED(D_800D22C4),
-                                       player->cam.eye.y + 260.0f + RAND_FLOAT_CENTERED(D_800D22C8),
-                                       player->cam.eye.z + RAND_FLOAT_CENTERED(D_800D22CC), 1.0f, 0);
+                        Aquas_Effect366_Spawn(player->cam.eye.x + RAND_FLOAT_CENTERED(D_800D22C4),
+                                              player->cam.eye.y + 260.0f + RAND_FLOAT_CENTERED(D_800D22C8),
+                                              player->cam.eye.z + RAND_FLOAT_CENTERED(D_800D22CC), 1.0f, 0);
                     }
                 }
             }
@@ -5265,8 +5265,9 @@ void HUD_AquasStart(Player* player) {
                 AUDIO_PLAY_BGM(NA_BGM_STAGE_AQ);
             }
 
-            Aquas_801AC8A8(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT_CENTERED(10.0f),
-                           player->pos.z - 65.0f + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
+            Aquas_Effect366_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
+                                  player->pos.y + RAND_FLOAT_CENTERED(10.0f),
+                                  player->pos.z - 65.0f + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
             break;
 
         default:
@@ -5958,9 +5959,9 @@ void HUD_AquasComplete(Player* player) {
         src.y = 0.0f;
         src.z = -70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        Aquas_801AC8A8(player->pos.x + dest.x + RAND_FLOAT_CENTERED(10.0f),
-                       player->pos.y + dest.y + RAND_FLOAT_CENTERED(10.0f),
-                       player->pos.z + dest.z + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
+        Aquas_Effect366_Spawn(player->pos.x + dest.x + RAND_FLOAT_CENTERED(10.0f),
+                              player->pos.y + dest.y + RAND_FLOAT_CENTERED(10.0f),
+                              player->pos.z + dest.z + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
     }
 
     player->unk_178 += 20.0f;
