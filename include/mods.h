@@ -10,6 +10,7 @@
 #define MODS_AUTO_DEBUGGER              0
 #define MODS_FPS_COUNTER                0
 #define DISP_MESSAGE                    0
+#define DISP_MESSAGE2                   0
 #define MODS_SPAWNER                    0
 #define ENABLE_FREEZE                   0
 #define MODS_LEVEL_SELECT               0
@@ -127,8 +128,13 @@ void RamMod_Update(void);
 void ENABLE_360_MODE(void);
 #endif
 
-#if MODS_LEVEL_SELECT == 1
+#if DISP_MESSAGE == 1
 void Display_Text(void);
+#endif
+
+#if DISP_MESSAGE2 == 1
+void Display_Text2(char*);
+extern char* msgPrint;
 #endif
 
 #if MODS_SPAWNER == 1

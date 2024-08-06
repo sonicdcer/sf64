@@ -3226,6 +3226,42 @@ void Macbeth_801A5AF0(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
+#if ENABLE_60FPS == 1 // Macbeth_801A5B4C
+void Macbeth_801A5B4C(Effect* effect) {
+    msgPrint = "801A5B4C";
+    if ((gPlayer[0].trueZpos - effect->obj.pos.z) < -2000.0f) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+    effect->obj.rot.x = 20.0f;
+    if (effect->scale2 < 10.0f) {
+        effect->obj.rot.y = 180.0f;
+    } else {
+        effect->obj.rot.y = 0.0f;
+    }
+    effect->obj.rot.z = 0.0f;
+    if ((fabsf(gPlayer[0].trueZpos - effect->obj.pos.z) < 100.0f) &&
+        (fabsf(gPlayer[0].pos.x - effect->obj.pos.x) < 100.0f) &&
+        (fabsf(gPlayer[0].pos.y - effect->obj.pos.y) < 30.0f) && (gPlayer[0].mercyTimer == 0)) {
+        Player_ApplyDamage(gPlayer, 0, effect->info.damage);
+        gPlayer[0].knockback.x = 20.0f;
+        if (effect->vel.x < 0.0f) {
+            gPlayer[0].knockback.x *= -1.0f;
+        }
+        gPlayer[0].knockback.y = 20.0f;
+        if (effect->vel.y < 0.0f) {
+            gPlayer[0].knockback.y *= -1.0f;
+        }
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+    if (effect->obj.pos.y < (gGroundHeight - 100.0f)) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+
+    if (effect->unk_44 < 235) {
+        effect->unk_44 += 20 DIV_FRAME_FACTOR;
+    }
+}
+#else
 void Macbeth_801A5B4C(Effect* effect) {
     if ((gPlayer[0].trueZpos - effect->obj.pos.z) < -2000.0f) {
         Object_Kill(&effect->obj, effect->sfxSource);
@@ -3259,6 +3295,7 @@ void Macbeth_801A5B4C(Effect* effect) {
         effect->unk_44 += 20;
     }
 }
+#endif
 
 void Macbeth_801A5D68(Effect* effect) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);

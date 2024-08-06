@@ -102,9 +102,11 @@ void Meteo_8018756C(Actor* actor) {
 }
 #endif
 
+
 #if ENABLE_60FPS == 1 // Meteo_80187650 * Meteo Cutsceen rocks spin
 void Meteo_80187650(Actor* actor) {
     Vec3f vec;
+
     actor->obj.rot.y += 1.7f DIV_FRAME_FACTOR;
     actor->obj.rot.x += 3.3f DIV_FRAME_FACTOR;
     actor->unk_046 -= 15 DIV_FRAME_FACTOR;
@@ -118,7 +120,7 @@ void Meteo_80187650(Actor* actor) {
         actor->unk_048 = 995;
     }
 
-    if ((actor->timer_0BC % (4U MUL_FRAME_FACTOR)) == 1) {
+    if ((actor->timer_0BC % 4U ) == 1) {
         func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 6.0f);
     }
 
@@ -183,6 +185,40 @@ void Meteo_80187650(Actor* actor) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // Meteo_801877C4 * Damage WebShips
+void Meteo_801877C4(Actor* actor) {
+    Vec3f sp44;
+    Vec3f sp38;
+
+    actor->obj.rot.z += 1.0f DIV_FRAME_FACTOR;
+
+    Matrix_RotateZ(gCalcMatrix, actor->obj.rot.z * M_DTOR, MTXF_NEW);
+
+    sp38.x = 0.0f;
+    sp38.y = -1100.0f;
+    sp38.z = 0.0f;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp38, &sp44);
+
+    actor->obj.pos.x = actor->fwork[0] + sp44.x;
+    actor->obj.pos.y = actor->fwork[1] + sp44.y;
+
+    if (actor->dmgType != DMG_NONE) {
+        Actor_Despawn(actor);
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Object_Kill(&actor->obj, actor->sfxSource);
+        func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 5.0f);
+        func_effect_8007BFFC(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+    }
+
+    if (actor->timer_0BC == 0) {
+        actor->timer_0BC = 40;
+        if (actor->obj.pos.z < (gPlayer[0].trueZpos - 1000.0f)) {
+            func_effect_8007F11C(OBJ_EFFECT_353, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 120.0f);
+        }
+    }
+}
+#else
 void Meteo_801877C4(Actor* actor) {
     Vec3f sp44;
     Vec3f sp38;
@@ -215,6 +251,7 @@ void Meteo_801877C4(Actor* actor) {
         }
     }
 }
+#endif
 
 #if ENABLE_60FPS == 1 // Meteo_8018795C *lazer cannon
 void Meteo_8018795C(Actor* actor) {
@@ -265,7 +302,7 @@ void Meteo_8018795C(Actor* actor) {
 }
 #endif
 
-void Meteo_80187B08(Actor* actor) {
+void Meteo_80187B08(Actor* actor) { // Unused
     actor->obj.rot.y += 7.0f;
     actor->obj.rot.x += 3.3f;
 
@@ -343,9 +380,10 @@ void Meteo_80187D98(Effect* effect, f32 x, f32 y, f32 z, f32 arg4, bool arg5) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
+#if ENABLE_60FPS == 1 // Meteo_80187E38 electric shots
 void Meteo_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
-
+if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Meteo_80187D98(&gEffects[i], x, y, z, arg3, 0);
@@ -375,6 +413,40 @@ void Meteo_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
         }
     }
 }
+}
+#else
+void Meteo_80187E38(f32 x, f32 y, f32 z, f32 arg3) {
+    s32 i;
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3, 0);
+            AUDIO_PLAY_SFX(NA_SE_EN_S_BEAM_SHOT, gEffects[i].sfxSource, 4);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3, 1);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 0);
+            break;
+        }
+    }
+
+    for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
+            Meteo_80187D98(&gEffects[i], x, y, z, arg3 + 90.0f, 1);
+            break;
+        }
+    }
+}
+#endif
 
 void Meteo_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Effect_Initialize(effect);
@@ -391,7 +463,7 @@ void Meteo_80187FF8(Effect* effect, f32 x, f32 y, f32 z) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Meteo_80188088(Boss* boss) {
+void Meteo_80188088(Boss* boss) { // Electic shots
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
@@ -448,6 +520,115 @@ void Meteo_80188298(f32 x, f32 y, f32 z, f32 zRot) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Meteo_80188344 *boss shield rotation
+void Meteo_80188344(Boss* boss) {
+    Vec3f src;
+    Vec3f dest;
+    f32 temp;
+
+    if (boss->state < 5) {
+        boss->obj.pos.x = gBosses[0].obj.pos.x;
+        boss->obj.pos.y = gBosses[0].obj.pos.y;
+        boss->obj.pos.z = gBosses[0].obj.pos.z;
+        boss->obj.rot.x = gBosses[0].obj.rot.x;
+        boss->obj.rot.y = gBosses[0].obj.rot.y;
+        boss->obj.rot.z = gBosses[0].obj.rot.z + boss->rot_078.z + 45.0f + 180.0f;
+    }
+
+    switch (boss->state) {
+        case 0:
+            boss->timer_050 = 150;
+            boss->rot_078.z += 2.5f DIV_FRAME_FACTOR;
+            break;
+
+        case 1:
+            temp = fabsf(90.0f - boss->rot_078.z) * 0.1f;
+            if (temp > 2.5f) {
+                temp = 2.5f;
+            }
+
+            boss->rot_078.z += temp DIV_FRAME_FACTOR;
+
+            if (boss->timer_050 == 0) {
+                boss->state = 2;
+                boss->dmgType = DMG_NONE;
+            }
+            break;
+
+        case 2:
+            if (boss->dmgType == DMG_BEAM) {
+                boss->dmgType = DMG_NONE;
+                boss->timer_054 = 5;
+                boss->swork[0] += 32 DIV_FRAME_FACTOR;
+
+                Audio_SetTransposeAndPlaySfx(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, boss->unk_04A);
+
+                boss->unk_04A++;
+                if (boss->unk_04A > 7) {
+                    boss->unk_04A = 7;
+                }
+
+                if (boss->swork[0] >= 255) {
+                    boss->unk_04A = 0;
+                    Audio_KillSfxBySource(boss->sfxSource);
+                    if (boss->swork[1] == 0) {
+                        boss->swork[1]++;
+                        Radio_PlayMessage(gMsg_ID_3315, RCID_PEPPY);
+                    }
+
+                    boss->swork[0] = 0;
+
+                    Matrix_RotateZ(gCalcMatrix, (boss->obj.rot.z - 45.0f) * M_DTOR, MTXF_NEW);
+
+                    src.x = 0.0f;
+                    src.y = 156.0f;
+                    src.z = 930.0f;
+
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+                    Meteo_80188298(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->obj.rot.z - 45.0f);
+                    Meteo_80188228(boss->obj.pos.x - dest.x, boss->obj.pos.y - dest.y, boss->obj.pos.z + dest.z, boss->obj.rot.z - 45.0f);
+                    Meteo_80188228(boss->obj.pos.x + dest.y, boss->obj.pos.y - dest.x, boss->obj.pos.z + dest.z, (boss->obj.rot.z - 45.0f) + 90.0f);
+                }
+            }
+            break;
+
+        case 3:
+            boss->timer_050 = 30;
+            boss->state = 4;
+            boss->timer_05C = 15;
+            boss->swork[0] = 0;
+            break;
+
+        case 4:
+            if (boss->timer_050 == 0) {
+                func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 30.0f);
+                func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+                boss->state = 5;
+
+                boss->info.cullDistance = 1000.0f;
+
+                Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE);
+                AUDIO_PLAY_SFX(NA_SE_EN_MEBOSS_SHIELD, boss->sfxSource, 4);
+            }
+            break;
+
+        case 5:
+            boss->obj.rot.z -= 3.0f DIV_FRAME_FACTOR;
+            if (boss->vel.z < 5.0f) {
+                boss->vel.z = boss->vel.z + 1.0f;
+            }
+            break;
+    }
+
+    if (boss->rot_078.z >= 360.0f) {
+        boss->rot_078.z -= 360.0f;
+    }
+    if (boss->rot_078.z < 0.0f) {
+        boss->rot_078.z += 360.0f;
+    }
+}
+#else
 void Meteo_80188344(Boss* boss) {
     Vec3f src;
     Vec3f dest;
@@ -559,7 +740,43 @@ void Meteo_80188344(Boss* boss) {
         boss->rot_078.z += 360.0f;
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_801887D0 *boss stuff
+void Meteo_801887D0(Boss* boss) {
+    s32 i;
+
+    if ((boss->timer_054 % 2) != 0) {
+        RCP_SetupDL_27();
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, 255);
+    }
+
+    Matrix_RotateZ(gGfxMatrix, (M_PI / 4), MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gSPDisplayList(gMasterDisp++, D_ME_60240B0);
+    RCP_SetupDL_64();
+
+    for (i = 1; i < 4; i++) {
+        if (boss->swork[0] != 0) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, boss->swork[0]);
+            Matrix_Push(&gGfxMatrix);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 156.0f, 930.0f, MTXF_APPLY);
+
+            if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+                Matrix_Scale(gGfxMatrix, 6.0f, 9.0f, 5.0f, MTXF_APPLY);
+            } else {
+                Matrix_Scale(gGfxMatrix, 4.0f, 7.0f, 5.0f, MTXF_APPLY);
+            }
+
+            Matrix_RotateZ(gGfxMatrix, 1.5707964f, MTXF_APPLY); // (M_PI / 2) does not match
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_ME_60263F0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
+#else
 void Meteo_801887D0(Boss* boss) {
     s32 i;
 
@@ -593,6 +810,7 @@ void Meteo_801887D0(Boss* boss) {
         }
     }
 }
+#endif
 
 void Meteo_Boss297_Init(Boss297* this) {
     s32 i;
@@ -647,8 +865,10 @@ void Meteo_80188B84(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
+#if ENABLE_60FPS == 1 // Meteo_80188C2C *electric shock
 void Meteo_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
     s32 i;
+if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
@@ -657,7 +877,67 @@ void Meteo_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6)
         }
     }
 }
+}
+#else
+void Meteo_80188C2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 arg6) {
+    s32 i;
+    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+        if (gEffects[i].obj.status == OBJ_FREE) {
+            Meteo_80188B84(&gEffects[i], x, y, z, xRot, yRot, arg5, arg6);
+            return;
+        }
+    }
+}
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_80188CAC *boss electric shot
+void Meteo_80188CAC(Effect* effect) {
+    Vec3f src;
+    Vec3f dest;
+
+    if (effect->state == 0) {
+    
+        switch (effect->unk_48) {
+            case 0:
+                effect->obj.rot.x -= 15.0f DIV_FRAME_FACTOR;
+                if (effect->obj.rot.x <= -45.0f) {
+                    effect->unk_48 = 1;
+                }
+                break;
+
+            case 1:
+                effect->obj.rot.x += 15.0f DIV_FRAME_FACTOR;
+                if (effect->obj.rot.x >= 45.0f) {
+                    effect->unk_48 = 0;
+                }
+                break;
+        }
+
+        effect->unk_44 = 255 MUL_FRAME_FACTOR; //?????
+        effect->scale2 = 1.0f;
+        effect->unk_60.z += 20.0f DIV_FRAME_FACTOR;
+
+        Matrix_RotateZ(gCalcMatrix, effect->unk_60.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
+
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 80.0f;
+
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+        effect->vel.x = dest.x;
+        effect->vel.y = dest.y;
+        effect->vel.z = dest.z;
+
+        Meteo_80188C2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x, effect->obj.rot.y, effect->unk_60.z, 1.0f);
+    } else if (effect->timer_50 == 0) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+
+    func_effect_8007A774(gPlayer, effect, 90.0f);
+}
+#else
 void Meteo_80188CAC(Effect* effect) {
     Vec3f src;
     Vec3f dest;
@@ -704,6 +984,7 @@ void Meteo_80188CAC(Effect* effect) {
 
     func_effect_8007A774(gPlayer, effect, 90.0f);
 }
+#endif
 
 void Meteo_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
     Effect_Initialize(effect);
@@ -726,7 +1007,7 @@ void Meteo_80188E8C(Effect* effect, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32
 
 void Meteo_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale) {
     s32 i;
-
+//msgPrint == "80188F2C";
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
             Meteo_80188E8C(&gEffects[i], x, y, z, xRot, yRot, arg5, scale);
@@ -734,6 +1015,41 @@ void Meteo_80188F2C(f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 arg5, f32 scale
         }
     }
 }
+
+#if ENABLE_60FPS == 1 // Meteo_80188FAC *boss ????
+void Meteo_80188FAC(Effect* effect) {
+    Vec3f src;
+    Vec3f dest;
+
+    if (effect->state != 1) {
+        effect->obj.rot.x = 10.0f;
+        effect->obj.rot.z += 20.0f DIV_FRAME_FACTOR;
+
+        Matrix_RotateZ(gCalcMatrix, effect->obj.rot.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
+
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 80.0f;
+
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+        effect->vel.x = dest.x;
+        effect->vel.y = dest.y;
+        effect->vel.z = dest.z;
+
+        if (((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) {
+            Meteo_80188F2C(effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z, effect->obj.rot.x,effect->obj.rot.y, effect->obj.rot.z, 5.0f);
+        }
+    } else {
+        effect->unk_44 -= 8 DIV_FRAME_FACTOR;
+        if (effect->unk_44 < 0) {
+            Object_Kill(&effect->obj, effect->sfxSource);
+        }
+    }
+    func_effect_8007A774(gPlayer, effect, 60.0f);
+}
+#else
 
 void Meteo_80188FAC(Effect* effect) {
     Vec3f src;
@@ -768,7 +1084,51 @@ void Meteo_80188FAC(Effect* effect) {
     }
     func_effect_8007A774(gPlayer, effect, 60.0f);
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_80189114 *boss Ring Shots? 
+void Meteo_80189114(Effect* effect) {
+    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+
+    effect->scale2 += 0.5f DIV_FRAME_FACTOR;
+    if (effect->scale2 > 10.0f) {
+        effect->scale2 = 10.0f;
+    }
+
+    effect->obj.rot.z += 35.0f DIV_FRAME_FACTOR;
+    if (effect->obj.pos.x < gPlayer[0].pos.x) {
+        effect->obj.pos.x += 1.5f DIV_FRAME_FACTOR;
+        if (effect->vel.x < 40.0f) {
+            effect->vel.x += 2.0f DIV_FRAME_FACTOR;
+        }
+    }
+
+    if (gPlayer[0].pos.x < effect->obj.pos.x) {
+        effect->obj.pos.x -= 1.5f DIV_FRAME_FACTOR;
+        if (effect->vel.x > -40.0f) {
+            effect->vel.x -= 2.0f DIV_FRAME_FACTOR;
+        }
+    }
+
+    if (effect->obj.pos.y < gPlayer[0].pos.y) {
+        effect->obj.pos.y += 1.5f DIV_FRAME_FACTOR;
+        if (effect->vel.y < 40.0f) {
+            effect->vel.y += 2.0f DIV_FRAME_FACTOR;
+        }
+    }
+
+    if (gPlayer[0].pos.y < effect->obj.pos.y) {
+        effect->obj.pos.y -= 1.5f DIV_FRAME_FACTOR;
+        if (effect->vel.y > -40.0f) {
+            effect->vel.y -= 2.0f DIV_FRAME_FACTOR;
+        }
+    }
+
+    func_effect_8007A774(gPlayer, effect, 100.0f);
+}
+#else
 void Meteo_80189114(Effect* effect) {
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
         Object_Kill(&effect->obj, effect->sfxSource);
@@ -810,6 +1170,7 @@ void Meteo_80189114(Effect* effect) {
 
     func_effect_8007A774(gPlayer, effect, 100.0f);
 }
+#endif
 
 void Meteo_801892F0(Boss* boss, s32 arg1) {
     Vec3f dest;
@@ -819,8 +1180,7 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
 
     if (arg1 == 7) {
         func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 15.0f);
-        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
-                             7.0f, 20);
+        func_effect_8007BFFC(boss->obj.pos.x, boss->obj.pos.y + 330.0f, boss->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f, 20);
     }
 
     if (arg1 == 5) {
@@ -847,11 +1207,29 @@ void Meteo_801892F0(Boss* boss, s32 arg1) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
         func_effect_8007D2C8(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 10.0f);
-        func_effect_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f, 0.0f,
-                             0.0f, 5.0f, 15);
+        func_effect_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
     }
 }
 
+#if ENABLE_60FPS == 1 // Meteo_80189624
+void Meteo_80189624(void) {
+    if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+        gLight1xRot = gLight1xRotTarget = 0.0f;
+        gLight1yRot = gLight1yRotTarget = 5.0f;
+        gLight1zRot = gLight1zRotTarget = 0.0f;
+        gLight2xRot = gLight2xRotTarget = 0.0f;
+        gLight2yRot = gLight2yRotTarget = 100.0f;
+        gLight2zRot = gLight2zRotTarget = 0.0f;
+    } else {
+        gLight1xRot = gLight1xRotTarget = 0.0f;
+        gLight1yRot = gLight1yRotTarget = -5.0f;
+        gLight1zRot = gLight1zRotTarget = 0.0f;
+        gLight2xRot = gLight2xRotTarget = 0.0f;
+        gLight2yRot = gLight2yRotTarget = 110.0f;
+        gLight2zRot = gLight2zRotTarget = 0.0f;
+    }
+}
+#else
 void Meteo_80189624(void) {
     if ((gGameFrameCount % 2) != 0) {
         gLight1xRot = gLight1xRotTarget = 0.0f;
@@ -869,7 +1247,720 @@ void Meteo_80189624(void) {
         gLight2zRot = gLight2zRotTarget = 0.0f;
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_8018978C  Boss
+void Meteo_8018978C(Boss* boss) {
+    f32 sp7C;
+    f32 rand;
+    s32 i;
+    s32 var_v0;
+
+    Vec3f src;
+    Vec3f dest;
+    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+    gBossFrameCount++;
+    }
+
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+
+    if ((gGameFrameCount & (16 MUL_FRAME_FACTOR)) != 0) {
+        boss->swork[19] += 32 DIV_FRAME_FACTOR ;
+        if (boss->swork[19] > 128 ) {
+            boss->swork[19] = 128 ;
+        }
+    } else {
+        boss->swork[19] -= 32 DIV_FRAME_FACTOR;
+        if (boss->swork[19] < 0) {
+            boss->swork[19] = 0;
+        }
+    }
+
+    if ((gGameFrameCount & (56 MUL_FRAME_FACTOR)) == 0) {
+        boss->fwork[3] = D_i2_80195534[gGameFrameCount % 8U];
+        boss->fwork[4] = D_i2_80195534[gGameFrameCount % 8U];
+        boss->fwork[5] = D_i2_80195534[gGameFrameCount % 8U];
+        boss->fwork[6] = D_i2_80195534[gGameFrameCount % 8U];
+    }
+
+    if (((gGameFrameCount + 20) & (56 MUL_FRAME_FACTOR)) == 0) {
+        boss->fwork[7] = D_i2_80195534[(gGameFrameCount + 20) % 8U];
+        boss->fwork[8] = D_i2_80195534[(gGameFrameCount + 20) % 8U];
+    }
+
+    if (boss->swork[9] != 0) {
+        boss->swork[9]--;
+    }
+
+    if (boss->swork[10] != 0) {
+        boss->swork[10]--;
+    }
+
+    if (boss->swork[11] != 0) {
+        boss->swork[11]--;
+    }
+
+    if (boss->swork[12] != 0) {
+        boss->swork[12]--;
+    }
+
+    if (boss->swork[13] != 0) {
+        boss->swork[13]--;
+    }
+
+    if (boss->swork[14] != 0) {
+        boss->swork[14]--;
+    }
+
+    if (boss->swork[15] != 0) {
+        boss->swork[15]--;
+    }
+
+    if (boss->swork[0] > 5) {
+        boss->swork[0]--;
+        if (boss->swork[0] == 5) {
+            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BURNER_L);
+        }
+    }
+
+    if (boss->swork[1] > 5) {
+        boss->swork[1] = boss->swork[1] - 1;
+        if (boss->swork[1] == 5) {
+            Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BURNER_L);
+        }
+    }
+
+    if (boss->dmgType != DMG_NONE) {
+        boss->dmgType = DMG_NONE;
+        if ((boss->dmgPart != 7) && (boss->dmgPart >= 5) && (boss->dmgPart != 5)) {
+            AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+        }
+
+        if ((boss->state >= 2) && (boss->state < 20)) {
+            if ((boss->dmgPart < 5) && (boss[0].fwork[17 + boss->dmgPart] > 0.5f)) {
+                if (boss[0].swork[boss->dmgPart + 2] != 0) {
+                    AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, boss->sfxSource, 4);
+
+                    boss[0].swork[9 + boss->dmgPart] = 20;
+                    boss[0].swork[2 + boss->dmgPart] -= boss->damage;
+
+                    if (boss[0].swork[2 + boss->dmgPart] <= 0) {
+                        boss[0].swork[2 + boss->dmgPart] = 0;
+                        Meteo_801892F0(boss, boss->dmgPart);
+                        boss->swork[20]++;
+                        if (boss->swork[20] == 2) {
+                            Radio_PlayMessage(gMsg_ID_17160, RCID_PEPPY);
+                        }
+                        if (boss->swork[20] == 3) {
+                            Radio_PlayMessage(gMsg_ID_3371, RCID_BOSS_METEO);
+                        }
+                        if (boss->swork[20] == 4) {
+                            Radio_PlayMessage(gMsg_ID_3320, RCID_BOSS_METEO);
+                        }
+                    }
+                } else {
+                    AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                }
+            }
+
+            if (boss->state >= 9) {
+                if (boss->dmgPart == 5) {
+                    if ((boss->swork[7] != 0) && (boss->fwork[22] > 0.8f)) {
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
+                        boss->swork[14] = 20;
+                        boss->swork[7] -= boss->damage;
+                        if (boss->swork[7] <= 0) {
+                            boss->swork[7] = 0;
+                            Meteo_801892F0(boss, boss->dmgPart);
+                        }
+                    } else {
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                    }
+                }
+
+                if (boss->dmgPart == 7) {
+                    if ((boss->swork[8] != 0) && (boss->fwork[23] > 0.8f)) {
+                        AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, boss->sfxSource, 4);
+                        boss->swork[15] = 20;
+                        boss->swork[8] -= boss->damage;
+                        if (boss->swork[8] <= 0) {
+                            boss->swork[8] = 0;
+                            Meteo_801892F0(boss, boss->dmgPart);
+                        }
+                    } else {
+                        AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, boss->sfxSource, 4);
+                    }
+                }
+
+                if (boss->swork[7] <= 0) {
+                    if (boss->swork[8] <= 0) {
+                        Boss_AwardBonus(boss);
+
+                        boss->state = 20;
+                        boss->timer_050 = 300;
+                        boss->timer_052 = 260;
+                        boss->vel.x = 0.0f;
+                        boss->vel.y = 0.0f;
+
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
+                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                            gPlayer[0].csState = 0;
+                            gCsFrameCount = 0;
+                        }
+
+                        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
+                        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
+                        AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, boss->sfxSource, 4);
+                        gScreenFlashTimer = 8 MUL_FRAME_FACTOR;
+                    }
+                }
+            }
+        }
+    }
+
+    sp7C = boss->obj.pos.z + gPathProgress;
+
+    if (boss->state >= 3) {
+        if (boss->state < 20) {
+            Math_SmoothStepToF(&boss->vel.z, -gArwingSpeed, 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.0f);
+            if ((boss->fwork[9] + 200.0f) < sp7C) {
+                Math_SmoothStepToF(&boss->vel.z, -60.0f, 0.1f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+            }
+            if (sp7C < (boss->fwork[9] - 300.0f)) {
+                Math_SmoothStepToF(&boss->vel.z, 20.0f, 0.1f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+            }
+        }
+    }
+
+    if ((boss->state >= 3) && (boss->state < 20)) {
+        switch (boss->swork[16]) {
+            case 0:
+                if (boss->vel.y > 0.0f) {
+                    boss->vel.y -= 0.2f DIV_FRAME_FACTOR;
+                }
+                if (boss->vel.y < 0.0f) {
+                    boss->vel.y += 0.2f DIV_FRAME_FACTOR;
+                }
+
+                if (boss->timer_054 == 0) {
+                    boss->timer_054 = 20;
+                    boss->fwork[13] = 7.0f;
+                    if (boss->obj.pos.y > 0.0f) {
+                        boss->fwork[13] = -7.0f;
+                    }
+                    boss->timer_054 = RAND_INT(30.0f) + 40.0f;
+                    boss->swork[16] = 1;
+                }
+                break;
+
+            case 1:
+                if (boss->fwork[13] < boss->vel.y) {
+                    boss->vel.y = (boss->vel.y - 0.2f) ;
+                }
+
+                if (boss->vel.y < boss->fwork[13]) {
+                    boss->vel.y += 0.2f DIV_FRAME_FACTOR;
+                }
+
+                if (boss->timer_054 == 0) {
+                    boss->swork[16] = 0;
+                    boss->timer_054 = RAND_INT(30.0f) + 40.0f;
+                }
+                break;
+        }
+
+        switch (boss->swork[17]) {
+            case 0:
+                if (boss->vel.x > 0.0f) {
+                    boss->vel.x = (boss->vel.x - 0.2f) ;
+                }
+
+                if (boss->vel.x < 0.0f) {
+                    boss->vel.x += 0.2f DIV_FRAME_FACTOR;
+                }
+
+                if (boss->timer_056 == 0) {
+                    boss->timer_056 = 20;
+                    boss->fwork[14] = 7.0f;
+                    if (boss->obj.pos.x > 0.0f) {
+                        boss->fwork[14] = -7.0f;
+                    }
+                    boss->timer_056 = RAND_INT(40.0f) + 50.0f;
+                    boss->swork[17] = 1;
+                }
+                break;
+
+            case 1:
+                if (boss->fwork[14] < boss->vel.x) {
+                    boss->vel.x = (boss->vel.x - 0.2f) ;
+                }
+                if (boss->vel.x < boss->fwork[14]) {
+                    boss->vel.x += 0.2f DIV_FRAME_FACTOR;
+                }
+                if (boss->timer_056 == 0) {
+                    boss->swork[17] = 0;
+                    boss->timer_056 = RAND_INT(40.0f) + 50.0f;
+                }
+                break;
+        }
+    }
+
+    if (boss->swork[18] != 0) {
+        s32 objId;
+
+        if (func_hud_8008AC54(0) >= 4) {
+            objId = OBJ_ACTOR_191;
+        } else {
+            objId = OBJ_ACTOR_190;
+        }
+
+        AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, boss->sfxSource, 4);
+
+        src.x = 0.0f;
+        src.y = 330.0f;
+        src.z = -1022.0f;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+        if (boss->swork[18] == 1) {
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 270.0f, 0.0f, 30, 0, objId);
+        } else {
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f, 0.0f, 0, 0, objId);
+        }
+
+        src.y = -330.0f;
+
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+        if (boss->swork[18] == 1) {
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 90.0f, 0.0f, 30, 0, objId);
+        } else {
+            Meteo_80187D08(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, 50.0f, 0.0f, 0.0f, 0, 0, objId);
+        }
+        boss->swork[18] = 0;
+    }
+
+    if ((sp7C < 200.0f) && (sp7C > -1500.0f)) {
+        gLight2xRotTarget = 0.0f;
+        gLight2yRotTarget = 150.0f;
+        gLight2zRotTarget = 0.0f;
+    }
+
+    switch (boss->state) {
+        case 0:
+            boss->swork[0] = 10;
+            boss->swork[1] = 10;
+
+            boss->obj.pos.y += (((0.0f - boss->obj.pos.y) * boss->fwork[1]) DIV_FRAME_FACTOR);
+            boss->vel.z = boss->fwork[0] - gPathVelZ;
+
+            if (sp7C < boss->fwork[9]) {
+                boss->state = 1;
+                boss->fwork[1] = 0.0f;
+            }
+
+            if (sp7C < -1000.0f) {
+                if (boss->fwork[1] < 0.005f) {
+                    boss->fwork[1] = boss->fwork[1] + 0.0001f;
+                }
+            }
+            break;
+
+        case 1:
+            boss->obj.pos.y += (((0.0f - boss->obj.pos.y) * boss->fwork[1]) DIV_FRAME_FACTOR);
+            boss->vel.z = boss->fwork[0] - gPathVelZ;
+
+            if (boss->fwork[0] < 0.0f) {
+                boss->fwork[0] += 0.5f DIV_FRAME_FACTOR;
+                if (boss->fwork[0] >= 0.0f) {
+                    boss->state = 2;
+                    boss->timer_050 = 50;
+                    gBosses[boss->unk_044].state = 1;
+                }
+            }
+
+            if (boss->fwork[1] < 0.005f) {
+                boss->fwork[1] = boss->fwork[1] + 0.0001f;
+            }
+            break;
+
+        case 2:
+            boss->obj.pos.y += (((0.0f - boss->obj.pos.y) * boss->fwork[1]) DIV_FRAME_FACTOR);
+            boss->vel.z = boss->fwork[0] - gPathVelZ;
+
+            if (boss->fwork[1] < 0.05f) {
+                boss->fwork[1] = boss->fwork[1] + 0.0004f;
+            }
+
+            if (boss->timer_050 == 0) {
+                boss->state = 3;
+                boss->timer_050 = 50;
+                boss->timer_058 = 100;
+                Radio_PlayMessage(gMsg_ID_3310, RCID_BOSS_METEO);
+            }
+            break;
+
+        case 3:
+            if (boss->timer_052 == 0) {
+                rand = Rand_ZeroOne();
+                boss->fwork[9] = -3000.0f;
+                if (rand < 0.3f) {
+                    boss->fwork[9] = -2000.0f;
+                }
+                if (rand > 0.7f) {
+                    boss->fwork[9] = -4000.0f;
+                }
+                boss->timer_052 = 80;
+            } else if (boss->vel.z < -50.0f) {
+                if (boss->swork[0] == 5) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, boss->sfxSource, 4);
+                }
+
+                if (boss->swork[0] < 10) {
+                    boss->swork[0] += 2 DIV_FRAME_FACTOR;
+                    if (boss->swork[0] > 10) {
+                        boss->swork[0] = 10;
+                    }
+                }
+
+                if (boss->swork[1] < 10) {
+                    boss->swork[1] += 2 DIV_FRAME_FACTOR;
+                    if (boss->swork[1] > 10) {
+                        boss->swork[1] = 10;
+                    }
+                }
+            }
+
+            if (gBosses[boss->unk_044].state < 3) {
+                var_v0 = 0;
+                if (boss->swork[2] == 0) {
+                    var_v0 = 1;
+                    boss->obj.rot.z += 0.1f DIV_FRAME_FACTOR;
+                }
+                if (boss->swork[3] == 0) {
+                    var_v0++;
+                    boss->obj.rot.z += 0.1f DIV_FRAME_FACTOR;
+                }
+                if (boss->swork[4] == 0) {
+                    var_v0++;
+                    boss->obj.rot.z += 0.1f DIV_FRAME_FACTOR;
+                }
+                if (boss->swork[5] == 0) {
+                    var_v0++;
+                    boss->obj.rot.z += 0.1f DIV_FRAME_FACTOR;
+                }
+                if (var_v0 == 4) {
+                    gBosses[boss->unk_044].state = 3;
+                    boss->state = 4;
+                    boss->timer_050 = 250;
+                    boss->timer_05A = 30;
+                    boss->fwork[10] = 0;
+                }
+
+                if ((boss->timer_050 == 0) && (gBosses[boss->unk_044].state == 2)) {
+                    boss->fwork[2] = 90.0f;
+                    boss->timer_050 = D_i2_80195520[var_v0] + 45;
+                    AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL, boss->sfxSource, 4);
+                }
+
+                if (boss->fwork[2] > 0.0f) {
+                    boss->fwork[2] -= 2.0f DIV_FRAME_FACTOR;
+                    gBosses[boss->unk_044].rot_078.z -= 2.0f DIV_FRAME_FACTOR;
+                }
+            }
+
+            if (boss->timer_058 == 0) {
+                boss->timer_058 = RAND_INT(80.0f) + 180.0f;
+                boss->swork[18] = 1;
+            }
+            break;
+
+        case 4:
+            boss->fwork[9] = -3000.0f;
+            if (boss->fwork[10] < 0.02f) {
+                boss->fwork[10] += 0.0002f DIV_FRAME_FACTOR;
+            }
+            boss->obj.rot.z += ((0.0f - boss->obj.rot.z) * boss->fwork[10]) DIV_FRAME_FACTOR;
+            if (boss->timer_050 == 100) {
+                Radio_PlayMessage(gMsg_ID_3321, RCID_BOSS_METEO);
+            }
+            if (boss->timer_050 == 0) {
+                boss->state = 5;
+                boss->timer_050 = 70;
+            }
+            break;
+
+        case 5:
+            boss->obj.rot.z += (((0.0f - boss->obj.rot.z) * 0.02f) DIV_FRAME_FACTOR);
+
+            if (boss->timer_050 == 1) {
+                AUDIO_PLAY_SFX(NA_SE_EN_S_BEAM_CHARGE, boss->sfxSource, 4);
+            }
+
+            if (boss->timer_050 == 0) {
+                gLight1xRotTarget = 0.0f;
+                gLight1yRotTarget = 5.0f;
+                gLight1zRotTarget = 0.0f;
+                gLight2xRotTarget = 0.0f;
+                gLight2yRotTarget = 100.0f;
+                gLight2zRotTarget = 0.0f;
+                gLight1rotStep = 5.0f;
+                gLight2rotStep = 5.0f;
+
+                if (boss->fwork[11] < 70.0f) {
+                    boss->fwork[11] += 1.0f DIV_FRAME_FACTOR;
+                    if (boss->fwork[11] > 20.0f) {
+                        boss->fwork[11] += 1.0f DIV_FRAME_FACTOR;
+                    }
+                } else {
+                    boss->state = 6;
+                    boss->timer_050 = 75;
+                }
+
+                if (boss->fwork[11] > 30.0f) {
+                    Meteo_80189624();
+                }
+            }
+            break;
+
+        case 6: // Electric Shots
+            boss->obj.rot.z = boss->obj.rot.z + ((0.0f - boss->obj.rot.z) * 0.02f);
+            Math_SmoothStepToF(&boss->fwork[0x15], 4.0f, 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR, 0.0f);
+
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT) {
+                gFillScreenRed = gFillScreenAlpha = gFillScreenGreen = gFillScreenBlue = 0;
+
+                if ((boss->timer_050 == 10) || (boss->timer_050 == 30) || (boss->timer_050 == 50) ||
+                    (boss->timer_050 == 70)) {
+                    gFillScreenAlpha = 150;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                    Meteo_80187E38(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z + 1300.0f, boss->fwork[12] + boss->obj.rot.z);
+                    boss->fwork[12] = RAND_FLOAT(360.0f);
+                }
+                if ((boss->timer_050 == 13) || (boss->timer_050 == 33) || (boss->timer_050 == 53) ||
+                    (boss->timer_050 == 73)) {
+                    gFillScreenAlpha = 150;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
+                }
+                if (boss->timer_050 == 0) {
+                    boss->state = 7;
+                    AUDIO_PLAY_SFX(NA_SE_EN_S_BEAM_END, boss->sfxSource, 4);
+                }
+                Meteo_80189624();
+            }
+            break;
+
+        case 7:
+            if (boss->fwork[11] > 26.0f) {
+                Meteo_80189624();
+            }
+
+            if (boss->fwork[11] > 0.0f) {
+                boss->fwork[11] -= 2.0f DIV_FRAME_FACTOR;
+                if (boss->fwork[11] <= 0.0f) {
+                    boss->fwork[11] = 0.0f;
+                    Audio_KillSfxBySource(boss->sfxSource);
+                    if (boss->swork[6] == 0) {
+                        boss->state = 8;
+
+                        boss->timer_050 = 190;
+                        boss->timer_052 = 230;
+
+                        boss->fwork[10] = 0.0f;
+                        boss->fwork[22] = 0.0f;
+                        boss->fwork[23] = 0.0f;
+                        gCsFrameCount = 0;
+                        Radio_PlayMessage(gMsg_ID_3322, RCID_BOSS_METEO);
+                        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
+                        SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
+                    } else {
+                        boss->state = 5;
+                        boss->timer_050 = 70;
+                    }
+                }
+            }
+            break;
+
+        case 8:
+            gCsFrameCount++;
+            if (gCsFrameCount == 130 MUL_FRAME_FACTOR) {
+                Radio_PlayMessage(gMsg_ID_3330, RCID_BOSS_METEO);
+            }
+            if (gCsFrameCount == 300 MUL_FRAME_FACTOR) {
+                PRINTF("msg_03340\n");
+                Radio_PlayMessage(gMsg_ID_3340, RCID_FALCO);
+            }
+
+            if (gCsFrameCount == 400 MUL_FRAME_FACTOR) {
+                AUDIO_PLAY_BGM(NA_BGM_REAL_BOSS);
+                if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                    Radio_PlayMessage(gMsg_ID_3345, RCID_BOSS_METEO);
+                } else {
+                    Radio_PlayMessage(gMsg_ID_3350, RCID_BOSS_METEO);
+                }
+            }
+
+            if (boss->timer_050 == 0) {
+                if (boss->fwork[10] < 0.02f) {
+                    boss->fwork[10] = boss->fwork[10] + 0.0002f;
+                }
+
+                boss->obj.rot.x += ((-180.0f - boss->obj.rot.x) * boss->fwork[10]) DIV_FRAME_FACTOR;
+
+                if (boss->timer_052 != 0) {
+                    if (boss->swork[0] == 5) {
+                        AUDIO_PLAY_SFX(NA_SE_EN_BURNER_L, boss->sfxSource, 4);
+                    }
+                    if (boss->swork[0] < 10) {
+                        boss->swork[0] += 2 DIV_FRAME_FACTOR;
+                        if (boss->swork[0] > 10) {
+                            boss->swork[0] = 10;
+                        }
+                    }
+                }
+
+                if (boss->obj.rot.x < -178.0f) {
+                    boss->state = 9;
+                    boss->timer_050 = 0;
+                    boss->fwork[15] = 8.0f;
+                    AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_CHARGE, boss->sfxSource, 4);
+                }
+            }
+            break;
+
+        case 9:
+            boss->obj.rot.x += ((-180.0f - boss->obj.rot.x) * boss->fwork[10]) DIV_FRAME_FACTOR ;
+            if ((boss->timer_050 > 50) && (boss->timer_050 <= 64)) {
+                boss->fwork[22] -= 0.1f DIV_FRAME_FACTOR;
+                if (boss->fwork[22] < 0.0f) {
+                    boss->fwork[22] = 0.0f;
+                }
+                boss->fwork[23] -= 0.1f DIV_FRAME_FACTOR;
+                if (boss->fwork[23] < 0.0f) {
+                    boss->fwork[23] = 0.0f;
+                }
+            }
+
+            if (boss->timer_050 < 20) {
+                boss->fwork[22] += 0.1f DIV_FRAME_FACTOR;
+                if (boss->fwork[22] > 1.0f) {
+                    boss->fwork[22] = 1.0f;
+                }
+                boss->fwork[23] += 0.1f DIV_FRAME_FACTOR;
+                if (boss->fwork[23] > 1.0f) {
+                    boss->fwork[23] = 1.0f;
+                }
+            }
+
+            if (boss->timer_050 == 40) {
+                boss->swork[18] = 2;
+            }
+
+            if (boss->timer_050 == 0) {
+                boss->fwork[15] -= 0.1f DIV_FRAME_FACTOR;
+                if (boss->fwork[15] < -1.0f) {
+                    boss->timer_050 = 40;
+                    boss->state = 10;
+                }
+            }
+            break;
+
+        case 10:
+            if (boss->timer_050 == 0) {
+                boss->state = 9;
+                boss->timer_050 = 70;
+                boss->fwork[15] = 8.0f;
+                AUDIO_PLAY_SFX(NA_SE_EN_RNG_BEAM_CHARGE, boss->sfxSource, 4);
+            } else if ((boss->timer_050 % (2U )) == 1) { // ??????
+                Meteo_80188088(boss);
+            }
+            break;
+
+        case 20:
+            if (boss->timer_052 == 230) {
+                Radio_PlayMessage(gMsg_ID_3370, RCID_BOSS_METEO);
+            }
+            if (boss->timer_052 == 90) {
+                Radio_PlayMessage(gMsg_ID_3360, RCID_FOX);
+            }
+
+            if (((gGameFrameCount % (8 MUL_FRAME_FACTOR)) == 0) && (Rand_ZeroOne() < 0.5f)) {
+                boss->timer_05C = 4;
+            }
+
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[RAND_INT(19.9f)], &dest);
+
+            if (((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0)) {
+                func_effect_8007C120(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x, boss->vel.y, boss->vel.z, 0.3f, 20);
+            }
+            if (((gGameFrameCount % (4 MUL_FRAME_FACTOR)) == 0)) {
+                func_effect_8007BFFC(boss->obj.pos.x + dest.x, boss->obj.pos.y + dest.y, boss->obj.pos.z + dest.z, boss->vel.x, boss->vel.y, boss->vel.z, 10.0f, 10);
+            }
+
+            boss->vel.y = -5.0f;
+            boss->obj.rot.x += 0.2f DIV_FRAME_FACTOR;
+            boss->obj.rot.z -= 0.1f DIV_FRAME_FACTOR;
+
+            if (boss->timer_050 == 0) {
+                func_effect_8007D2C8(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
+                Object_Kill(&boss->obj, boss->sfxSource);
+            }
+            if (boss->timer_050 == 20) {
+                func_effect_8007A568(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 80.0f);
+                AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, boss->sfxSource, 4);
+                gControllerRumbleTimers[0] = 60;
+                for (i = 0; i < ARRAY_COUNT(gActors); i++) {
+                    if (gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) {
+                        Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
+                    }
+                }
+            }
+
+            switch (boss->timer_050) {
+                case 20:
+                    gShowBossHealth = false;
+
+                case 1:
+                case 5:
+                case 10:
+                case 15:
+                    func_effect_8007B344(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 71.0f, 5);
+
+                case 0:
+                    for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
+                        func_effect_80079618(RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.x, RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.y, RAND_FLOAT_CENTERED(1000.0f) + boss->obj.pos.z, 3.0f);
+                    }
+                    break;
+            }
+    }
+
+    if (boss->obj.rot.z >= 360.0f) {
+        boss->obj.rot.z = boss->obj.rot.z - 360.0f;
+    }
+    if (boss->obj.rot.z < 0.0f) {
+        boss->obj.rot.z += 360.0f;
+    }
+
+    if (gBossFrameCount == 250) {
+        Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
+    }
+    if (gBossFrameCount == 406) {
+        gShowBossHealth = true;
+    }
+    if (gBossFrameCount > 406) {
+        gBossHealthBar = (boss->swork[2] + boss->swork[3] + boss->swork[4] + boss->swork[5] + boss->swork[7] + boss->swork[8] + boss->swork[6]) / 2.6274f; // approx 670 / 255
+        if ((gBossFrameCount > 506) && (gBossFrameCount < 1000)) {
+            Math_SmoothStepToF(&boss->fwork[17], 3.3f, 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[18], 3.3f, 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[19], 3.3f, 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&boss->fwork[20], 3.3f, 1.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR, 0.0f);
+        }
+    }
+}
+#else
 void Meteo_8018978C(Boss* boss) {
     f32 sp7C;
     f32 rand;
@@ -1590,7 +2681,56 @@ void Meteo_8018978C(Boss* boss) {
         }
     }
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_8018B7C4 *meto boss Engine glow
+void Meteo_8018B7C4(s32 arg0) {
+    f32 effect = arg0 * 0.83333f; // approx 5 / 6
+
+    if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+        effect *= PROPER_DIV_FRAME_FACTOR(1.1f);
+    }
+
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+
+    RCP_SetupDL_64();
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Scale(gGfxMatrix, 10.0f * effect, 10.0f * effect, 10.0f * effect, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 70);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 20.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 9.0f * effect, 9.0f * effect, 9.0f * effect, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 60);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 35.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 7.5f * effect, 7.5f * effect, 7.5f * effect, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 50);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+
+    Matrix_Pop(&gGfxMatrix);
+    Matrix_Push(&gGfxMatrix);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 40.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, 5.0f * effect, 5.0f * effect, 5.0f * effect, MTXF_APPLY);
+    Matrix_SetGfxMtx(&gMasterDisp);
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 40);
+    gSPDisplayList(gMasterDisp++, D_102ED50);
+    Matrix_Pop(&gGfxMatrix);
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+    
+}
+#else
 void Meteo_8018B7C4(s32 arg0) {
     f32 effect = arg0 * 0.83333f; // approx 5 / 6
 
@@ -1636,7 +2776,237 @@ void Meteo_8018B7C4(s32 arg0) {
     Matrix_Pop(&gGfxMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_8018BACC * boss stuff
+void Meteo_8018BACC(Boss* boss) {
+    s32 i;
+    f32 var_fs0;
+    f32 var_fs1;
+    s32 pad;
+
+    gSPDisplayList(gMasterDisp++, D_ME_6001310);
+    RCP_SetupDL_64();
+    gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+
+    for (i = 0; i < 6; i++) {
+        if ((boss->fwork[i + 3] != 0) && (boss->fwork[11] == 0.0f)) {
+            var_fs1 = 2.0f * boss->fwork[3 + i];
+            Matrix_Push(&gGfxMatrix);
+            switch (i) {
+                case 0:
+                    Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, MTXF_APPLY);
+                    break;
+
+                case 1:
+                    Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, MTXF_APPLY);
+                    break;
+
+                case 2:
+                    Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, MTXF_APPLY);
+                    break;
+
+                case 3:
+                    Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, MTXF_APPLY);
+                    break;
+
+                case 4:
+                    Matrix_Translate(gGfxMatrix, 1283.0f, 0.0f, -340.0f, MTXF_APPLY);
+                    break;
+
+                case 5:
+                    Matrix_Translate(gGfxMatrix, -1283.0f, 0.0f, -340.0f, MTXF_APPLY);
+                    break;
+            }
+
+            if (i < 4) {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 32, 32, 128);
+                Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, MTXF_APPLY);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_102ED50);
+            } else {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
+                Matrix_Scale(gGfxMatrix, var_fs1 * 6.0f, var_fs1 * 6.0f, var_fs1 * 6.0f, MTXF_APPLY);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_102ED50);
+            }
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+
+    for (i = 0; i < 7; i++) {
+        if (boss->swork[2 + i] != 0) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, boss->swork[19], 255);
+
+            if ((boss->swork[9 + i] % 2) != 0) {
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 80, 0, 0, 255);
+            }
+
+            Matrix_Push(&gGfxMatrix);
+
+            if (i == 4) {
+                Matrix_Translate(gGfxMatrix, 0.0f, 0, 300.0f, MTXF_APPLY);
+                Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[21], boss->fwork[21], 1.0f, MTXF_APPLY);
+            }
+
+            if (i == 5) {
+                Matrix_Translate(gGfxMatrix, 0.0f, 330.0f, -1022.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[22] * 3.2f, 2.0f * boss->fwork[22], 1.0f, MTXF_APPLY);
+            }
+
+            if (i == 6) {
+                Matrix_Translate(gGfxMatrix, 0.0f, -330.0f, -1022.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[23] * 3.2f, 2.0f * boss->fwork[23], 1.0f, MTXF_APPLY);
+            }
+
+            if (i < 4) {
+                Matrix_RotateZ(gGfxMatrix, M_DTOR * 90.0f * i, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, 0.0f, 200.0f, 500.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, boss->fwork[17 + i], boss->fwork[17 + i], 1.0f, MTXF_APPLY);
+            }
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            if (i < 4) {
+                gSPDisplayList(gMasterDisp++, D_ME_6024AD0);
+            } else {
+                gSPDisplayList(gMasterDisp++, D_ME_60236F0);
+            }
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, 128);
+    for (i = 0; i < 4; i++) {
+        if (boss->fwork[11] != 0) {
+            var_fs1 = boss->fwork[11];
+            if (boss->fwork[11] > 15.0f) {
+                var_fs1 = 15.0f;
+            }
+
+            Matrix_Push(&gGfxMatrix);
+            switch (i) {
+                case 0:
+                    Matrix_Translate(gGfxMatrix, 746.0f, 741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, -M_PI / 4, MTXF_APPLY);
+                    break;
+
+                case 1:
+                    Matrix_Translate(gGfxMatrix, -746.0f, 741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, M_PI / 4, MTXF_APPLY);
+                    break;
+
+                case 2:
+                    Matrix_Translate(gGfxMatrix, -746.0f, -741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, 3 * M_PI / 4, MTXF_APPLY);
+                    break;
+
+                case 3:
+                    Matrix_Translate(gGfxMatrix, 746.0f, -741.0f, 680.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, -3 * M_PI / 4, MTXF_APPLY);
+                    break;
+            }
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            Matrix_Push(&gGfxMatrix);
+
+            if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+                Matrix_Scale(gGfxMatrix, var_fs1 * 2.5f, var_fs1 * 2.5f, var_fs1 * 2.5f, MTXF_APPLY);
+            } else {
+                Matrix_Scale(gGfxMatrix, var_fs1 * 3.0f, var_fs1 * 3.0f, var_fs1 * 3.0f, MTXF_APPLY);
+            }
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102ED50);
+            Matrix_Pop(&gGfxMatrix);
+            Matrix_RotateX(gGfxMatrix, -M_PI / 6, MTXF_APPLY);
+
+            if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+                Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
+            }
+            Matrix_Scale(gGfxMatrix, 2.0f, 2.0f * var_fs1, 2.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, -20.0f, 0.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+
+    if (boss->fwork[11] > 15.0f) {
+        var_fs1 = boss->fwork[11] - 15.0f;
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, 255);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 1300.0f, MTXF_APPLY);
+        if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+            Matrix_Scale(gGfxMatrix, var_fs1 * 0.8f, var_fs1 * 0.8f, var_fs1 * 0.8f, MTXF_APPLY);
+        } else {
+            Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, MTXF_APPLY);
+        }
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gSPDisplayList(gMasterDisp++, D_102ED50);
+        Matrix_Pop(&gGfxMatrix);
+    }
+
+    if ((boss->state == 9) || (boss->state == 10)) {
+        var_fs1 = boss->fwork[15];
+        for (i = 0; i < 10; i++) {
+            var_fs1 += 0.3f DIV_FRAME_FACTOR;
+            var_fs0 = var_fs1;
+            if (var_fs1 <= 7.0f) {
+                if (var_fs1 < 1.0f) {
+                    var_fs0 = 1.0f;
+                }
+
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_i2_80195554[i]);
+                Matrix_Push(&gGfxMatrix);
+
+                Matrix_Translate(gGfxMatrix, 700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), MTXF_APPLY);
+
+                if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+                    Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, MTXF_APPLY);
+                } else {
+                    Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, MTXF_APPLY);
+                }
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_ME_6023810);
+                Matrix_Pop(&gGfxMatrix);
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, -700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), MTXF_APPLY);
+
+                if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+                    Matrix_Scale(gGfxMatrix, var_fs0, var_fs0, var_fs0, MTXF_APPLY);
+                } else {
+                    Matrix_Scale(gGfxMatrix, var_fs0 * 1.1f, var_fs0 * 1.1f, var_fs0 * 1.1f, MTXF_APPLY);
+                }
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_ME_6023810);
+                Matrix_Pop(&gGfxMatrix);
+            }
+        }
+    }
+
+    if (boss->swork[0] > 0) { // Engine Glow
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 0.0f, 650.0f, 600.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        Meteo_8018B7C4(boss->swork[0] - 1);
+        Matrix_Pop(&gGfxMatrix);
+    }
+
+    if (boss->swork[1] > 0) { // Engine Glow
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Translate(gGfxMatrix, 0.0f, -650.0f, 600.0f, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        Meteo_8018B7C4(boss->swork[1] - 1);
+        Matrix_Pop(&gGfxMatrix);
+    }
+
+    gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+}
+#else
 void Meteo_8018BACC(Boss* boss) {
     s32 i;
     f32 var_fs0;
@@ -1864,6 +3234,7 @@ void Meteo_8018BACC(Boss* boss) {
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
+#endif
 
 void Meteo_8018C77C(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
@@ -2497,6 +3868,24 @@ void Meteo_8018DBEC(Effect* effect) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Meteo_8018DCE4 *meteo electric shock
+void Meteo_8018DCE4(Effect* effect) {
+    
+    if (effect->state != 0) {
+        Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, effect->scale2, effect->scale2, effect->scale2 * 3.0f, MTXF_APPLY);
+
+        if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
+            Matrix_RotateZ(gGfxMatrix, M_PI, MTXF_APPLY);
+        }
+
+        Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
+        Matrix_SetGfxMtx(&gMasterDisp);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, effect->unk_44);
+        gSPDisplayList(gMasterDisp++, D_102F5E0);
+    }
+}
+#else
 void Meteo_8018DCE4(Effect* effect) {
     if (effect->state != 0) {
         Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2512,6 +3901,7 @@ void Meteo_8018DCE4(Effect* effect) {
         gSPDisplayList(gMasterDisp++, D_102F5E0);
     }
 }
+#endif
 
 void Meteo_8018DE14(Effect* effect) {
     Matrix_RotateX(gGfxMatrix, effect->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -2551,11 +3941,282 @@ void Meteo_8018DF08(Actor* actor, s32 idx) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Meteo_LevelComplete
 void Meteo_LevelComplete(Player* player) {
     Vec3f src;
     Vec3f dest;
     s32 pad[5];
+    
+    gBosses[1].obj.status = OBJ_FREE;
 
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+
+    switch (player->csState) {
+        case 0:
+            Audio_StopSfxByBankAndSource(1, player->sfxSource);
+            player->csState++;
+
+            D_ctx_80177A48[0] = 0.0f;
+            D_ctx_80177A48[1] = 0.0f;
+            D_ctx_80177A48[2] = 0.0f;
+
+            player->wings.modelId = 1;
+
+            gCsFrameCount = 0;
+
+        case 1:
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_NEW);
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = D_ctx_80177A48[2] + 2000.0f;
+
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            gCsCamEyeX = gBosses[0].obj.pos.x + dest.x;
+            gCsCamEyeY = gBosses[0].obj.pos.y + dest.y;
+
+            gCsCamEyeZ = gBosses[0].obj.pos.z + gPathProgress + dest.z;
+            gCsCamAtX = gBosses[0].obj.pos.x;
+            gCsCamAtY = gBosses[0].obj.pos.y;
+
+            gCsCamAtZ = gBosses[0].obj.pos.z + gPathProgress;
+
+            Math_SmoothStepToF(&D_ctx_80177A48[1], 180.0f, 0.05f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_ctx_80177A48[2], 1500.0f, 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 0.1f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&gBosses[0].vel.z, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+
+            if (gCsFrameCount == (320 MUL_FRAME_FACTOR)) {
+                gCsFrameCount = (200 MUL_FRAME_FACTOR);
+                D_ctx_80177A48[0] = 0.0f;
+                D_ctx_80177A48[3] = 0.0f;
+                D_ctx_80177A48[4] = 0.0f;
+                player->csState++;
+                player->csTimer = 100;
+            }
+            break;
+
+        case 2:
+            if (player->csTimer == 0) {
+                Math_SmoothStepToF(&D_ctx_80177A48[3], 1.0f, 1.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR, 0.0f);
+            }
+            if (player->csTimer == 50) {
+                AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
+            }
+
+            Math_SmoothStepToF(&D_ctx_80177A48[1], 1080.0f, 0.01f DIV_FRAME_FACTOR, D_ctx_80177A48[3] DIV_FRAME_FACTOR, 0.0f);
+
+            if (gCsFrameCount < (500 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[2], -1700.0f, 0.1f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.0f);
+            } else if (gCsFrameCount < (800 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[2], -1000.0f, 0.1f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+            } else if (gCsFrameCount < (1150 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[2], -1250.0f, 0.1f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+            } else {
+                Math_SmoothStepToF(&D_ctx_80177A48[2], -1500.0f, 0.1f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+            }
+
+            if (gCsFrameCount < (400 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 0.03f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.0f);
+            } else if (gCsFrameCount < (700 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[4], -40.0f, 0.03f DIV_FRAME_FACTOR, 0.4f DIV_FRAME_FACTOR, 0.0f);
+            } else if (gCsFrameCount < (1100 MUL_FRAME_FACTOR)) {
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 40.0f, 0.03f DIV_FRAME_FACTOR, 0.4f DIV_FRAME_FACTOR, 0.0f);
+            } else {
+                Math_SmoothStepToF(&D_ctx_80177A48[4], 7.0f, 0.03f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.0f);
+            }
+
+            Math_SmoothStepToF(D_ctx_80177A48, 0.1f, 0.1f DIV_FRAME_FACTOR, 0.002f DIV_FRAME_FACTOR, 0.0f);
+
+            Matrix_RotateX(gCalcMatrix, D_ctx_80177A48[4] * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_APPLY);
+
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = D_ctx_80177A48[2] + 2000.0f;
+
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos + gPathProgress + 150.0f;
+
+            if (gCsFrameCount > (1390 MUL_FRAME_FACTOR)) {
+                player->baseSpeed += 2.0f DIV_FRAME_FACTOR;
+                player->rot.x += 0.1f DIV_FRAME_FACTOR;
+                player->unk_190 = 2.0f;
+
+                if (gCsFrameCount == (1465 MUL_FRAME_FACTOR)) {
+                    Audio_FadeOutAll(20);
+                }
+
+                if (gCsFrameCount > (1465 MUL_FRAME_FACTOR)) {
+                    gFillScreenAlphaTarget = 255;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                    gFillScreenAlphaStep = 8;
+                    if (gFillScreenAlpha == 255) {
+                        player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                        player->csTimer = 0;
+                        gFadeoutType = 4;
+                        gLeveLClearStatus[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
+                    }
+                }
+            } else {
+                gCsCamEyeX = player->pos.x + dest.x;
+                gCsCamEyeY = player->pos.y + dest.y;
+                gCsCamEyeZ = player->trueZpos + gPathProgress + 150.0f + dest.z;
+            }
+            break;
+    }
+
+    switch (gCsFrameCount) {
+        case (350 MUL_FRAME_FACTOR):
+            Object_Kill(&gActors[0].obj, gActors[0].sfxSource);
+            Object_Kill(&gActors[1].obj, gActors[1].sfxSource);
+            Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
+
+            if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                Meteo_8018DF08(&gActors[0], 0);
+            }
+            if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
+                Meteo_8018DF08(&gActors[1], 1);
+            }
+            if (gTeamShields[TEAM_ID_PEPPY] > 0) {
+                Meteo_8018DF08(&gActors[2], 2);
+            }
+            Meteo_8018DF08(&gActors[3], 3);
+            break;
+
+        case (370 MUL_FRAME_FACTOR):
+            gLevelClearScreenTimer = (100 MUL_FRAME_FACTOR);
+            break;
+
+        case (450 MUL_FRAME_FACTOR):
+            Radio_PlayMessage(gMsg_ID_20010, RCID_FOX);
+            break;
+
+        case (538 MUL_FRAME_FACTOR):
+            switch (gTeamShields[TEAM_ID_SLIPPY]) {
+                case -1:
+                    Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
+                    break;
+                case 0:
+                    Radio_PlayMessage(gMsg_ID_20345, RCID_ROB64);
+                    break;
+                default:
+                    func_demo_80048AC0(TEAM_ID_SLIPPY);
+                    break;
+            }
+            break;
+
+        case (685 MUL_FRAME_FACTOR):
+            switch (gTeamShields[TEAM_ID_PEPPY]) {
+                case -1:
+                    Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
+                    break;
+                case 0:
+                    Radio_PlayMessage(gMsg_ID_20344, RCID_ROB64);
+                    break;
+                default:
+                    func_demo_80048AC0(TEAM_ID_PEPPY);
+                    break;
+            }
+            break;
+
+        case (831 MUL_FRAME_FACTOR):
+            switch (gTeamShields[TEAM_ID_FALCO]) {
+                case -1:
+                    Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
+                    break;
+                case 0:
+                    Radio_PlayMessage(gMsg_ID_20340, RCID_ROB64);
+                    break;
+                default:
+                    func_demo_80048AC0(TEAM_ID_FALCO);
+                    break;
+            }
+            break;
+
+        case (976 MUL_FRAME_FACTOR):
+            gShowLevelClearStatusScreen = 1;
+            break;
+
+        case (1176 MUL_FRAME_FACTOR):
+            gShowLevelClearStatusScreen = 0;
+            break;
+
+        case (1300  MUL_FRAME_FACTOR):
+            gActors[0].state = 1;
+            break;
+
+        case 1330 MUL_FRAME_FACTOR:
+            gActors[1].state = 1;
+            break;
+
+        case 1360 MUL_FRAME_FACTOR:
+            gActors[2].state = 1;
+            break;
+
+        case 1390 MUL_FRAME_FACTOR:
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
+            player->unk_194 = 5.0f;
+            player->unk_190 = 5.0f;
+            break;
+
+        case 1400 MUL_FRAME_FACTOR:
+            gActors[3].state = 1;
+            gActors[3].obj.pos.x = player->cam.eye.x - 700.0f;
+            gActors[3].obj.pos.y = player->cam.eye.y;
+            gActors[3].obj.pos.z = player->cam.eye.z - gPathProgress + 1000.0f;
+            break;
+    }
+
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = player->baseSpeed + player->boostSpeed;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    player->vel.x = dest.x;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
+
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
+
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    player->bobPhase += 10.0f DIV_FRAME_FACTOR;
+    player->yBob = -SIN_DEG(player->bobPhase) * 0.3f;
+    player->rockPhase += 8.0f DIV_FRAME_FACTOR;
+    player->rockAngle = SIN_DEG(player->rockPhase);
+}
+#else
+void Meteo_LevelComplete(Player* player) {
+    Vec3f src;
+    Vec3f dest;
+    s32 pad[5];
+    
     gBosses[1].obj.status = OBJ_FREE;
 
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
@@ -2820,11 +4481,44 @@ void Meteo_LevelComplete(Player* player) {
     player->rockPhase += 8.0f;
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
+#endif
 
+#if ENABLE_60FPS == 1 // Meteo_8018ED9C *level complete ship
 void Meteo_8018ED9C(Actor* actor) {
     Vec3f sp3C;
     Vec3f sp30;
 
+    switch (actor->state) {
+        case 0:
+            actor->vwork[0].x = gPlayer[0].pos.x + D_i2_80195610[actor->index].x;
+            actor->vwork[0].y = gPlayer[0].pos.y + D_i2_80195610[actor->index].y;
+            actor->vwork[0].z = gPlayer[0].pos.z + D_i2_80195610[actor->index].z;
+
+            Math_SmoothStepToF(&actor->obj.pos.x, actor->vwork[0].x, 0.02f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&actor->obj.pos.y, actor->vwork[0].y, 0.02f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&actor->obj.pos.z, actor->vwork[0].z, 0.02f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&actor->rot_0F4.z, 0.0f, 0.03f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0001f DIV_FRAME_FACTOR);
+            break;
+
+        case 1:
+            actor->state = 2;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
+            actor->timer_0BC = 150;
+            actor->fwork[29] = 5.0f;
+
+        case 2:
+            actor->iwork[11] = 2;
+            actor->fwork[0] += 2.0f DIV_FRAME_FACTOR;
+            actor->rot_0F4.x += 0.1f DIV_FRAME_FACTOR;
+            if (actor->timer_0BC == 0) {
+                Object_Kill(&actor->obj, actor->sfxSource);
+            }
+            break;
+    }
+    #else
+    void Meteo_8018ED9C(Actor* actor) {
+    Vec3f sp3C;
+    Vec3f sp30;
     switch (actor->state) {
         case 0:
             actor->vwork[0].x = gPlayer[0].pos.x + D_i2_80195610[actor->index].x;
@@ -2852,6 +4546,7 @@ void Meteo_8018ED9C(Actor* actor) {
             }
             break;
     }
+    #endif
 
     Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, 0U);
     Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), 1U);

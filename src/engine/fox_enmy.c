@@ -1428,6 +1428,194 @@ void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_enmy_800656D4 *meteo boss? other? Missles
+void func_enmy_800656D4(Actor* actor) {
+    s32 i;
+    s32 j;
+    f32 spD4;
+    f32 spD0;
+    f32 spCC;
+    f32 var_fv0;
+    s32 spC4;
+    s32 var_ra;
+    s32 spB4[3];
+    s32 spA8[3];
+    s32 temp_a3_2;
+    Vec3f sp98;
+    Vec3f sp8C;
+    f32 sp88;
+    f32 sp84;
+    f32 sp80;
+    f32 sp7C;
+    f32 sp78;
+
+    var_ra = (gLevelMode == LEVELMODE_ALL_RANGE) ? 2 : 0;
+
+    if (actor->iwork[2] == 0) {
+        if (actor->obj.id == OBJ_ACTOR_190) {
+            for (i = 0; i < 3; i++) {
+                spB4[i] = gTeamShields[i + 1];
+                spA8[i] = var_ra + i;
+            }
+            for (i = 0; i < 3; i++) {
+                for (j = i + 1; j < 3; j++) {
+                    if (spB4[i] < spB4[j]) {
+                        temp_a3_2 = spB4[j];
+                        spB4[j] = spB4[i];
+                        spB4[i] = temp_a3_2;
+                        temp_a3_2 = spA8[j];
+                        spA8[j] = spA8[i];
+                        spA8[i] = temp_a3_2;
+                    }
+                }
+            }
+            switch (gGameFrameCount % (6U MUL_FRAME_FACTOR)) {
+                case 0:
+                case 1:
+                case 2:
+                    spC4 = spA8[2];
+                    break;
+                case 3:
+                case 4:
+                    spC4 = spA8[1];
+                    break;
+                case 5:
+                    spC4 = spA8[0];
+                    break;
+            }
+
+            if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                if (gTeamShields[spC4 - 1] > 0) {
+                    actor->iwork[1] = spC4;
+                    goto label;
+                } else {
+                    actor->iwork[1] = 10000;
+                }
+            } else {
+                if (gTeamShields[spC4 + 1] > 0) {
+                    actor->iwork[1] = spC4;
+                    goto label;
+                } else {
+                    actor->iwork[1] = 10000;
+                }
+            }
+        }
+        actor->iwork[1] = 10000;
+    label:
+        actor->iwork[2] = 1;
+    }
+    spC4 = actor->iwork[1];
+    if ((spC4 == var_ra) || ((var_ra + 1) == spC4) || ((var_ra + 2) == spC4)) {
+        actor->fwork[29] = gActors[spC4].obj.pos.z;
+        actor->fwork[28] = gActors[spC4].obj.pos.y;
+        actor->fwork[27] = gActors[spC4].obj.pos.x;
+        if ((fabsf(actor->obj.pos.x - gActors[spC4].obj.pos.x) < 400.0f) &&
+            (fabsf(actor->obj.pos.z - gActors[spC4].obj.pos.z) < 400.0f)) {
+            if (RAND_FLOAT(spC4 - 1) < 0.6f) {
+                gActors[spC4].iwork[10] = 1;
+            }
+        }
+
+    } else {
+        actor->fwork[29] = gPlayer[0].trueZpos;
+        actor->fwork[28] = gPlayer[0].pos.y;
+        actor->fwork[27] = gPlayer[0].pos.x;
+    }
+    if (actor->timer_0BC != 0) {
+        Math_SmoothStepToAngle(&actor->obj.rot.x, 0.0f, 0.3f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+    } else {
+        if ((actor->iwork[10] == 0) && ((fabsf(actor->fwork[27] - actor->obj.pos.x) > 300.0f) || (fabsf(actor->fwork[29] - actor->obj.pos.z) > 300.0f))) {
+            actor->fwork[0] += 5.0f DIV_FRAME_FACTOR;
+            actor->fwork[1] += 8.0f DIV_FRAME_FACTOR;
+            sp88 = actor->fwork[27] - actor->obj.pos.x;
+            sp80 = actor->fwork[29] - actor->obj.pos.z;
+            sp80 = sqrtf(SQ(sp88) + SQ(sp80)) * 0.2f;
+            if (actor->eventType == 1) {
+                sp80 = 0.1f;
+            }
+            spD0 = SIN_DEG(actor->fwork[0]) * sp80;
+            sp88 = COS_DEG(actor->fwork[1]) * sp80;
+            spD4 = COS_DEG(actor->obj.rot.y) * sp88;
+            spCC = -SIN_DEG(actor->obj.rot.y) * sp88;
+
+            sp88 = (actor->fwork[27] + spD4) - actor->obj.pos.x;
+            sp84 = (actor->fwork[28] + spD0) - actor->obj.pos.y;
+            sp80 = (actor->fwork[29] + spCC) - actor->obj.pos.z;
+            sp78 = Math_RadToDeg(Math_Atan2F(sp88, sp80));
+            sp80 = sqrtf(SQ(sp88) + SQ(sp80));
+            sp7C = Math_RadToDeg(-Math_Atan2F(sp84, sp80));
+            sp84 = Math_SmoothStepToAngle(&actor->obj.rot.y, sp78, 0.3f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+            Math_SmoothStepToAngle(&actor->obj.rot.x, sp7C, 0.3f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.001f DIV_FRAME_FACTOR);
+        }
+        if ((fabsf(actor->fwork[27] - actor->obj.pos.x) < 60.0f) &&
+            (fabsf(actor->fwork[28] - actor->obj.pos.y) < 60.0f) &&
+            (fabsf(actor->fwork[29] - actor->obj.pos.z) < 60.0f) && ((spC4 == 2) || (spC4 == 3) || (spC4 == 4))) {
+            gActors[spC4].dmgType = DMG_BEAM;
+            gActors[spC4].damage = 20;
+            gActors[spC4].dmgSource = DMG_SRC_2;
+            func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+            func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
+            Object_Kill(&actor->obj, actor->sfxSource);
+        }
+    }
+    Math_Vec3fFromAngles(&sp98, actor->obj.rot.x, actor->obj.rot.y, actor->fwork[5]);
+    actor->vel.x = sp98.x;
+    actor->vel.y = sp98.y;
+    actor->vel.z = sp98.z - gPathVelZ;
+    if (actor->eventType == 0) {
+        actor->obj.rot.z += 5.0f DIV_FRAME_FACTOR;
+    }
+    if (actor->eventType == 1) {
+        if (actor->timer_0BE == 0) {
+            actor->timer_0BE = 30;
+            Math_Vec3fFromAngles(&sp98, actor->obj.rot.x, actor->obj.rot.y, 120.0f);
+            func_effect_8007F04C(OBJ_EFFECT_353, actor->obj.pos.x + sp98.x, actor->obj.pos.y + sp98.y,
+                                 actor->obj.pos.z + sp98.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
+                                 0.0f, 0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
+        }
+        var_fv0 = 330.0f;
+        if (sp84 < 0.0f) {
+            var_fv0 = 30.0f;
+        }
+        Math_SmoothStepToAngle(&actor->obj.rot.z, var_fv0, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+    }
+    if ((gGroundType == 4) && Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z + gPathProgress)) {
+        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 5.0f);
+        Object_Kill(&actor->obj, actor->sfxSource);
+    }
+    sp8C.x = actor->vel.x;
+    sp8C.y = actor->vel.y;
+    sp8C.z = actor->vel.z;
+    if ((Object_CheckCollision(actor->index, &actor->obj.pos, &sp8C, 1) != 0) || (actor->dmgType != DMG_NONE) ||
+        (actor->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+        func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 3.0f);
+        Object_Kill(&actor->obj, actor->sfxSource);
+        if (actor->dmgType != DMG_NONE) {
+            actor->itemDrop = DROP_SILVER_RING_50p;
+            if ((gCurrentLevel == LEVEL_CORNERIA)) {
+                if (gLevelMode == LEVELMODE_ALL_RANGE) {
+                    actor->itemDrop = DROP_SILVER_RING_50p;
+                } else {
+                    actor->itemDrop = DROP_SILVER_RING_25p;
+                }
+            }
+            if (gCurrentLevel == LEVEL_AREA_6) {
+                actor->itemDrop = DROP_SILVER_RING_10p;
+            }
+            Actor_Despawn(actor);
+        }
+        func_effect_8007A6F0(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+    }
+    if (gLevelMode == LEVELMODE_ON_RAILS) {
+        if (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 100.0f) {
+            actor->iwork[10] = 1;
+        }
+        if (gPlayer[0].cam.eye.z < (actor->obj.pos.z + gPathProgress)) {
+            Object_Kill(&actor->obj, actor->sfxSource);
+        }
+    }
+}
+#else
 void func_enmy_800656D4(Actor* actor) {
     s32 i;
     s32 j;
@@ -1615,6 +1803,7 @@ void func_enmy_800656D4(Actor* actor) {
         }
     }
 }
+#endif
 
 void func_enmy_800660F0(Actor* actor) {
     Item* item = gItems;
@@ -1716,7 +1905,7 @@ void func_enmy_8006654C(Actor* actor) {
         actor->obj.pos.y = gGroundHeight + 130.0f;
         actor->vel.y = 0.0f;
     }
-    if (((gGameFrameCountHack % 2) == 0)) { // 60fps HACK   (30fps in 60fps container)
+    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK   (30fps in 60fps container)
     actor->vel.x = SIN_DEG(actor->obj.rot.y) * actor->fwork[0];
     actor->vel.z = COS_DEG(actor->obj.rot.y) * actor->fwork[0];
     switch (actor->state) {
@@ -3428,13 +3617,66 @@ void Effect_Update(Effect* this) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // TexturedLine_Update
 void TexturedLine_Update(TexturedLine* this) { // 60fps example of this is Venoms eyballs commected to andross
     Vec3f sp44;
     Vec3f sp38;
     f32 dx;
     f32 dy;
     f32 dz;
+    if (this->timer != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+        this->timer--;
+        }
+    }
+    dx = this->posAA.x - this->posBB.x;
+    dy = this->posAA.y - this->posBB.y;
+    dz = this->posAA.z - this->posBB.z;
+    this->yRot = Math_Atan2F(dx, dz);
+    this->xRot = -Math_Atan2F(dy, sqrtf(SQ(dx) + SQ(dz)));
+    if (this->mode != 4) {
+        this->zScale = sqrtf(SQ(dx) + SQ(dy) + SQ(dz));
+    }
 
+    if (gGameState == GSTATE_PLAY) {
+        if (((this->mode == 1) || (this->mode == 101) || (this->mode == 50)) &&
+            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gPlayer[0].hitTimer == 0)) {
+            Matrix_RotateX(gCalcMatrix, -this->xRot, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, -this->yRot, MTXF_APPLY);
+            sp44.x = gPlayer[gPlayerNum].pos.x - this->posAA.x;
+            sp44.y = gPlayer[gPlayerNum].pos.y - this->posAA.y;
+            sp44.z = gPlayer[gPlayerNum].trueZpos - this->posAA.z;
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+            sp38.x += this->posAA.x DIV_FRAME_FACTOR;
+            sp38.y += this->posAA.y DIV_FRAME_FACTOR;
+            sp38.z += this->posAA.z DIV_FRAME_FACTOR;
+            if ((fabsf(sp38.x - this->posAA.x) < 30.0f) && (fabsf(sp38.y - this->posAA.y) < 30.0f) &&
+                (sp38.z < this->posAA.z) && ((this->posAA.z - this->zScale) < sp38.z)) {
+                if (gCurrentLevel == LEVEL_AQUAS) {
+                    Player_ApplyDamage(&gPlayer[0], 0, 30);
+                } else {
+                    Player_ApplyDamage(&gPlayer[0], 0, 20);
+                }
+                if (this->mode < 100) {
+                    this->mode = 0;
+                }
+            }
+        }
+        if (((this->posAA.z + gPathProgress) > 1000.0f) && (gLevelMode != LEVELMODE_ALL_RANGE)) {
+            this->mode = 0;
+        }
+        if (((this->mode == 3) || (this->mode == 50)) && (this->timer == 0)) {
+            this->mode = 0;
+        }
+    }
+}
+#else
+void TexturedLine_Update(TexturedLine* this) { // 60fps example of this is Venoms eyballs commected to andross
+    Vec3f sp44;
+    Vec3f sp38;
+    f32 dx;
+    f32 dy;
+    f32 dz;
     if (this->timer != 0) {
         this->timer--;
     }
@@ -3479,6 +3721,7 @@ void TexturedLine_Update(TexturedLine* this) { // 60fps example of this is Venom
         }
     }
 }
+#endif
 
 void TexturedLine_UpdateAll(void) {
     TexturedLine* texLine;

@@ -15,6 +15,7 @@
 #define ASPECT2
 #endif
 
+extern char*message;
 f32 gNextVsViewScale;
 f32 gVsViewScale;
 s32 gPlayerInactive[4];
@@ -61,7 +62,7 @@ static s32 sLevelSceneIds[] = {
     /* LEVEL_VERSUS */ SCENE_VERSUS,
 };
 
-#if DISP_MESSAGE == 1
+#if DISP_MESSAGE || DISP_MESSAGE2  == 1
 #include "../mods/display_message.c"
 #endif
 
@@ -614,6 +615,10 @@ void Game_Update(void) {
 
 #if DISP_MESSAGE == 1
  Display_Text();
+#endif
+
+#if DISP_MESSAGE2 == 1
+ Display_Text2(msgPrint);
 #endif
 
     }

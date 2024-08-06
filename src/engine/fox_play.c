@@ -5406,7 +5406,7 @@ void Player_UpdateArwingRoll(Player* player) {
     }
     if (player->meteoWarpTimer == 0) {
         if (player->rollState == 0) {
-            Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, (0.1f DIV_FRAME_FACTOR), (10.0f DIV_FRAME_FACTOR), (0.00001f DIV_FRAME_FACTOR)); // 60fps
+            Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR); // 60fps
         }
         if (player->rollInputTimerL != 0) {
             player->rollInputTimerL--;
@@ -5611,26 +5611,31 @@ void Player_ArwingBoost(Player* player) {
         player->boostCooldown = true;
     }
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        sp28 = 3.0f; 
-        sp2C = 0.5f; 
+        sp28 = 3.0f;
+        sp2C = 0.5f;
+
     } else {
-        sp28 = 1.5f; 
-        sp2C = 0.35f; 
+        sp28 = 1.5f;
+        sp2C = 0.35f;
     }
     player->sfx.boost = 0;
-    var = gInputPress->stick_y;
+    var = gInputPress->stick_y; // fake?
     if (gLoopDownTimers[gPlayerNum] != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
         gLoopDownTimers[gPlayerNum]--;
+        }
     }
 
     if (gLoopBoostTimers[gPlayerNum] != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
         gLoopBoostTimers[gPlayerNum]--;
+        }
     }
     if (!player->somersault && (gDrawBackdrop < 5)) {
         if (var >= -50) {
-            gLoopDownTimers[gPlayerNum] = 5 MUL_FRAME_FACTOR; // Adjusted for double speed
+            gLoopDownTimers[gPlayerNum] = 5;
         }
-        if ((gLoopDownTimers[gPlayerNum] > 0) && (gLoopDownTimers[gPlayerNum] < 5 MUL_FRAME_FACTOR) && // Adjusted for double speed
+        if ((gLoopDownTimers[gPlayerNum] > 0) && (gLoopDownTimers[gPlayerNum] < 5) &&
             (gLoopBoostTimers[gPlayerNum] != 0)) {
             player->somersault = true;
             if (gLevelMode == LEVELMODE_ON_RAILS) {
@@ -5645,25 +5650,29 @@ void Player_ArwingBoost(Player* player) {
         }
     }
     if (player->meteoWarpTimer != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
         player->meteoWarpTimer--;
+        }
         player->boostCooldown = true;
         if (gRingPassCount > 0) {
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], gRingPassCount * 10.0f, 1.0f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], gRingPassCount * 10.0f, 1.0f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
         }
-        player->boostSpeed += 0.3f MUL_FRAME_FACTOR; // Adjusted for double speed
-        Math_SmoothStepToF(&player->camDist, -130.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
-        player->zRotBarrelRoll -= player->meteoWarpSpinSpeed DIV_FRAME_FACTOR; // Adjusted for double speed
+        player->boostSpeed += 0.3f DIV_FRAME_FACTOR;
+        Math_SmoothStepToF(&player->camDist, -130.0f, 0.2f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
+        player->zRotBarrelRoll -= player->meteoWarpSpinSpeed DIV_FRAME_FACTOR;
         player->meteoWarpSpinSpeed += 0.2f DIV_FRAME_FACTOR;
-        if (player->meteoWarpSpinSpeed > 50.0f) { 
+        if (player->meteoWarpSpinSpeed > 50.0f) {
             player->meteoWarpSpinSpeed = 50.0f;
         }
-        if (((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0) && (gBlurAlpha > 64)) { // Adjusted for double speed
+        if (((gGameFrameCount % 2 MUL_FRAME_FACTOR) == 0) && (gBlurAlpha > 64 MUL_FRAME_FACTOR)) {
+            if (1) {}
             gBlurAlpha--;
+
         }
     } else {
         player->meteoWarpSpinSpeed = 0.0f;
         if (gBlurAlpha < 255) {
-            gBlurAlpha += 4 DIV_FRAME_FACTOR; // Adjusted for double speed
+            gBlurAlpha += 4 DIV_FRAME_FACTOR;
             if (gBlurAlpha >= 252) {
                 gBlurAlpha = 255;
             }
@@ -5681,43 +5690,43 @@ void Player_ArwingBoost(Player* player) {
                 player->unk_194 = 5.0f;
                 player->unk_190 = 5.0f;
                 if (gBoostButton[player->num] & gInputPress->button) {
-                    gLoopBoostTimers[gPlayerNum] = 5 MUL_FRAME_FACTOR; // Adjusted for double speed
+                    gLoopBoostTimers[gPlayerNum] = 5;
                 }
             }
             if (gLevelType == LEVELTYPE_PLANET) {
-                player->wings.unk_28 += ((35.0f - player->wings.unk_28) * 0.1f) DIV_FRAME_FACTOR; // Adjusted for double speed
-                Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
-                Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
-                Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
-                Math_SmoothStepToF(&player->wings.unk_10, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
+                player->wings.unk_28 += ((35.0f - player->wings.unk_28) * 0.1f) DIV_FRAME_FACTOR;
+                Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&player->wings.unk_10, 0.0f, 0.5f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.0f);
             }
-            player->boostMeter += sp28 DIV_FRAME_FACTOR; // Adjusted for double speed
+            player->boostMeter += sp28 DIV_FRAME_FACTOR;
             if (player->boostMeter > 90.0f) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = true;
             }
-            player->contrailScale += 0.04f; // ??????
+            player->contrailScale += 0.04f DIV_FRAME_FACTOR;
             if (player->contrailScale > 0.6f) {
                 player->contrailScale = 0.6f;
             }
             player->unk_190 = 2.0f;
-            player->boostSpeed += 2.0f DIV_FRAME_FACTOR; // Adjusted for double speed
+            player->boostSpeed += 2.0f DIV_FRAME_FACTOR;
             if (player->boostSpeed > 30.0f) {
-                player->boostSpeed = 30.0f; 
+                player->boostSpeed = 30.0f;
             }
-            Math_SmoothStepToF(&player->camDist, -400.0f, 0.1f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
+            Math_SmoothStepToF(&player->camDist, -400.0f, 0.1f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.0f);
             player->sfx.boost = 1;
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f); // Adjusted for double speed
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f DIV_FRAME_FACTOR, 10.0f DIV_FRAME_FACTOR, 0.0f);
         } else {
             if (player->boostMeter > 0.0f) {
-                player->boostMeter -= sp2C DIV_FRAME_FACTOR; // Adjusted for double speed
+                player->boostMeter -= sp2C DIV_FRAME_FACTOR;
                 if (player->boostMeter <= 0.0f) {
                     player->boostMeter = 0.0f;
                     player->boostCooldown = false;
                 }
             }
             if (player->boostSpeed > 0.0f) {
-                player->boostSpeed -= 1.0f DIV_FRAME_FACTOR; // Adjusted for double speed
+                player->boostSpeed -= 1.0f DIV_FRAME_FACTOR;
                 if (player->boostSpeed < 0.0f) {
                     player->boostSpeed = 0.0f;
                 }
@@ -5725,7 +5734,6 @@ void Player_ArwingBoost(Player* player) {
         }
     }
 }
-
 // clang-format on
 #else
 void Player_ArwingBoost(Player* player) {
@@ -5855,6 +5863,7 @@ void Player_ArwingBoost(Player* player) {
     }
 }
 #endif
+
 // Unused
 void Player_ArwingBoost2(Player* player) {
     Player_ArwingBoost(player);
@@ -8169,9 +8178,9 @@ void Play_UpdateLevel(void) {
             if (gLevelPhase == 1) {
                 gBlurAlpha = 128;
                 if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 0.0f, 1.0f, 1.0f, 0.0f); // 60fps??????
+                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 0.0f, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
                 } else {
-                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 128.0f, 1.0f, 1.0f, 0.0f); // 60fps??????
+                    Math_SmoothStepToF(&gWarpZoneBgAlpha, 128.0f, 1.0f DIV_FRAME_FACTOR, 1.0f DIV_FRAME_FACTOR, 0.0f);
                 }
             }
             if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 0) && (gRingPassCount == 4)) {

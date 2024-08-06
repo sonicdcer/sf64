@@ -13,7 +13,7 @@
 #define TOSTRING(x) STRINGIFY(x)
 
 // Define the names and corresponding variables
-#define name1 gBosses[0].state
+#define name1 gBosses[0].state // Show Boss Case
 #define name2 0
 #define name3 0
 #define name4 0
@@ -44,6 +44,46 @@ int calculate_number_x_position(const char *text, int base_x) {
     size_t length = strlen(text);
     int offset = length * CHAR_WIDTH; // Width of each character
     return base_x + offset + CHAR_WIDTH; // Adding an extra character width as space
+}
+extern char* msgPrint;
+extern s32 D_80161810[10];
+void Audio_StopPlayerNoise(u8 playerId);
+void Audio_StopSequence(u8 seqPlayId, u16 fadeOutTime);
+void Audio_StopSfxByBankAndSource(u8 bankId, f32* sfxSource);
+
+void Display_Text2(char* message2) {
+    static bool printswitch = true;
+    RCP_SetupDL(&gMasterDisp, SETUPDL_80);
+
+    if (gControllerPress[0].button & L_TRIG) {
+        printswitch ^= 1;
+
+    }
+
+    if (printswitch) {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 255);
+        Graphics_DisplaySmallText(10, 10, 1.0f, 1.0f, "ENABLED");
+    } else {
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 255);
+        Graphics_DisplaySmallText(10, 10, 1.0f, 1.0f, "DISABLED");
+    }
+
+    if (message2 != NULL) {
+        if (printswitch) {
+            gPlayState = PLAY_PAUSE;
+            D_ctx_80177868 = 4;
+            D_ctx_80178484 = 100000;
+            D_80161810[3] = 1;
+            Audio_StopSequence(0, 0);
+            Audio_StopPlayerNoise(0);
+            Audio_StopSfxByBankAndSource(0, 0);
+        }
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 255);
+        Graphics_DisplaySmallText(20, 225, 1.0f, 1.0f, message2);
+    }
+        if (gPlayState != PLAY_PAUSE) {
+         msgPrint = NULL;
+        }
 }
 
 void Display_Text(void) { // theboy181 Display Text

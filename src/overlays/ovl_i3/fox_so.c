@@ -704,6 +704,208 @@ void Solar_801A003C(Actor* actor) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Solar_801A0120
+void Solar_801A0120(Effect* effect) {
+    f32 sp5C;
+    f32 sp58;
+    f32 sp54;
+    f32 sp50 = 1.0f;
+    s32 sp4C;
+    s32 sp48;
+    Vec3f sp3C;
+
+    switch (effect->state) {
+        case 0:
+            Matrix_Translate(gCalcMatrix, effect->vel.x, effect->vel.y, effect->vel.z, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, effect->unk_60.y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, effect->unk_60.x * M_DTOR, MTXF_APPLY);
+
+            sp3C.x = 0.0f;
+            sp3C.y = 0.0f;
+            sp3C.z = -effect->scale1;
+
+            Matrix_MultVec3f(gCalcMatrix, &sp3C, &effect->obj.pos);
+
+            effect->unk_60.x += 5.0f DIV_FRAME_FACTOR;
+
+            if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) == 0) { //?????
+                if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+                effect->unk_4C++;
+                }
+                if (effect->unk_4C > 2) {
+                    effect->unk_4C = 0;
+                }
+            }
+
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
+            }
+
+            if (effect->unk_60.x > 190.0f) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+
+            sp48 = effect->unk_48;
+
+            if (Play_CheckDynaFloorCollision(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
+                effect->unk_48 = 1;
+                if (effect->scale2 == 20.0f) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_IN_PROMINENCE, effect->sfxSource, 4);
+                }
+            } else {
+                effect->unk_48 = 0;
+            }
+
+            if (sp48 != effect->unk_48) {
+                if (effect->unk_48 != 0) {
+                    sp54 = 50.0f;
+                } else {
+                    sp54 = -50.0f;
+                }
+
+                if ((effect->index % 2) != 0) {
+                    sp58 = 100.0f;
+                } else {
+                    sp58 = -100.0f;
+                }
+
+                Solar_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + sp54, effect->obj.pos.z, sp58 * 0.25f,
+                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+            }
+            break;
+
+        case 1:
+            if (effect->timer_50 == 0) {
+                effect->timer_50 = 4;
+                effect->unk_4C++;
+                if (effect->unk_4C >= 6) {
+                    effect->unk_4C = 0;
+                    Object_Kill(&effect->obj, effect->sfxSource);
+                }
+            }
+
+            if (effect->scale2 > 10.0f) {
+                effect->vel.y -= 2.5f;
+            } else if (effect->scale2 > 4.0f) {
+                effect->vel.y -= 1.0f;
+            }
+            break;
+
+        case 2:
+            if (effect->timer_50 == 0) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+            Math_SmoothStepToF(&effect->scale2, 0.0f, 0.1f, 0.2f, 0.0f);
+            effect->obj.rot.z += 3.0f;
+            effect->vel.y -= 0.3f;
+            break;
+
+        case 3:
+            Math_SmoothStepToF(&effect->obj.rot.z, -190.0f, 1.0f, 10.0f, 0.0f);
+            effect->vel.y -= 0.3f;
+            if (effect->obj.rot.z <= -180.0f) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+            break;
+
+        case 4:
+            if (gBosses[0].swork[SO_SWK_0] != 7) {
+                Math_SmoothStepToF(&effect->vel.y, -40.0f, 1.0f, 1.0f, 1.0f);
+            } else {
+                effect->vel.z = gPlayer[0].vel.z;
+                Math_SmoothStepToF(&effect->vel.y, -65.0f, 2.0f, 1.0f, 0.5f);
+            }
+
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 12.0f);
+            }
+
+            if (effect->obj.pos.y < -20.0f) {
+                Object_Kill(&effect->obj, effect->sfxSource);
+            }
+
+            effect->obj.rot.z += 6.0f;
+            if (effect->obj.rot.z >= 360.0f) {
+                effect->obj.rot.z = 0.0f;
+            }
+
+            sp48 = effect->unk_48;
+
+            if (Play_CheckDynaFloorCollision(&sp5C, &sp4C, effect->obj.pos.x, effect->obj.pos.y, effect->obj.pos.z)) {
+                effect->unk_48 = 1;
+                if (effect->scale2 == 20.0f) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_IN_PROMINENCE, effect->sfxSource, 4);
+                }
+            } else {
+                effect->unk_48 = 0;
+            }
+
+            if ((sp48 != effect->unk_48) && (effect->unk_48 != 0)) {
+                if ((effect->index % 2) != 0) {
+                    sp58 = 100.0f;
+                } else {
+                    sp58 = -100.0f;
+                }
+                Solar_8019E9F4(effect->obj.pos.x + sp58, effect->obj.pos.y + -50.0f, effect->obj.pos.z, sp58 * 0.25f,
+                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+            }
+            break;
+
+        case 5:
+            effect->unk_4C++;
+            if (effect->unk_4C > 2) {
+                effect->unk_4C = 0;
+            }
+
+            if (effect->unk_60.x < 7.5f) {
+                effect->unk_60.x += 0.25f;
+            }
+            effect->unk_60.z += 10.0f;
+
+            effect->vel.x = SIN_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
+            effect->vel.y = COS_DEG(effect->unk_60.z) * (effect->unk_60.x * 10.0f);
+            effect->vel.z = gPlayer[0].vel.z + 15.0f;
+
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
+                if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, effect->sfxSource, 4);
+                }
+            } else {
+                effect->vel.z += 65.0f;
+                if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
+                    Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SOBOSS_BREATH);
+                }
+            }
+            break;
+
+        case 6:
+            sp50 = -1.0f;
+            /* fallthrough */
+        case 7:
+            effect->unk_4C++;
+            if (effect->unk_4C > 2) {
+                effect->unk_4C = 0;
+            }
+
+            effect->unk_60.z += 20.0f;
+
+            effect->vel.x = SIN_DEG(effect->unk_60.z) * sp50 * 50.0f;
+            effect->vel.y = COS_DEG(effect->unk_60.z) * sp50 * 50.0f;
+            effect->vel.z = gPlayer[0].vel.z + 80.0f;
+
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                func_effect_8007A774(&gPlayer[0], effect, effect->scale2 * 18.0f);
+                if ((effect->unk_4C == 0) && ((effect->scale2 >= 9.8f) || (effect->scale2 <= 4.4f))) {
+                    AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, effect->sfxSource, 4);
+                }
+            } else if (fabsf(gBosses[0].obj.pos.z - effect->obj.pos.z) >= 2000.0f) {
+                Audio_KillSfxBySourceAndId(effect->sfxSource, NA_SE_EN_SOBOSS_BREATH);
+            }
+            break;
+    }
+}
+#else
 void Solar_801A0120(Effect* effect) {
     f32 sp5C;
     f32 sp58;
@@ -902,6 +1104,7 @@ void Solar_801A0120(Effect* effect) {
             break;
     }
 }
+#endif
 
 void Solar_801A0AF0(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);

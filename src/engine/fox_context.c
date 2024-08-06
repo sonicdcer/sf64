@@ -76,10 +76,14 @@ f32 gRadioTextBoxScaleY;
 f32 gRadioMsgRadioId;
 UNK_TYPE F_80177D80;
 UNK_TYPE F_80177DE8;
-s32 gGameFrameCount;
+s32 gGameFrameCount; //NONGLOBAL
 
 #if ENABLE_60FPS == 1
 int gGameFrameCountHack;
+#endif
+
+#if DISP_MESSAGE2 == 1
+char* msgPrint;
 #endif
 
 s32 gObjectLoadIndex;

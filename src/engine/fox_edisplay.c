@@ -643,6 +643,7 @@ void func_edisplay_8005B7CC(Actor* actor) {
     gSPDisplayList(gMasterDisp++, D_ME_6022920);
 }
 
+#if ENABLE_60FPS == 1 // func_edisplay_8005B848 * Enging Glow
 void func_edisplay_8005B848(Actor* actor) {
     f32 scale;
 
@@ -667,6 +668,32 @@ void func_edisplay_8005B848(Actor* actor) {
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     Actor_DrawEngineGlow(actor, 2);
 }
+#else
+void func_edisplay_8005B848(Actor* actor) {
+    f32 scale;
+
+    switch (actor->eventType) {
+        case 0:
+            gSPDisplayList(gMasterDisp++, D_1028230);
+            break;
+        case 1:
+            if (gCurrentLevel == LEVEL_AREA_6) {
+                gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400B390);
+            } else {
+                gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4007AF0);
+            }
+            break;
+    }
+    scale = 2.0f;
+    if ((gGameFrameCount % 2) != 0) {
+        scale = 1.7f;
+    }
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
+    actor->iwork[11] = 1;
+    Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
+    Actor_DrawEngineGlow(actor, 2);
+}
+#endif
 
 #if ENABLE_60FPSi == 1 // func_edisplay_8005B9A4 *magic code
 s16 Animation_GetFrameDataInterp(Animation* animationSegmemt, f32 frame, Vec3f* frameTable);
@@ -1877,6 +1904,61 @@ Gfx D_edisplay_800CFD80[] = {
     gsSPEndDisplayList(),
 };
 
+#if ENABLE_60FPS == 1 // TexturedLine_Draw
+void TexturedLine_Draw(void) {
+    s32 i;
+
+    if (gCurrentLevel == LEVEL_MACBETH) {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_33);
+        gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+    } else if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_41);
+    } else {
+        RCP_SetupDL_14();
+    }
+    
+    for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
+        TexturedLine* texLine = &gTexturedLines[i];
+
+        if (gTexturedLines[i].mode != 0) {
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, texLine->posAA.x, texLine->posAA.y, texLine->posAA.z + gPathProgress, MTXF_APPLY);
+            Matrix_RotateY(gGfxMatrix, texLine->yRot, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, texLine->xRot, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, texLine->yRot, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, texLine->xyScale, texLine->xyScale, texLine->zScale, MTXF_APPLY);
+
+            if ((gCurrentLevel == LEVEL_AQUAS) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
+                s32 alpha = ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) ? 180 : 50;
+
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
+                if (gCurrentLevel == LEVEL_AQUAS) {
+                    Matrix_Scale(gGfxMatrix, 0.01f, 0.3f, 0.0025f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, (gGameFrameCount DIV_FRAME_FACTOR) * 5.0f * M_DTOR, MTXF_APPLY);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_AQ_60119A0);
+                } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
+                    Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, (gGameFrameCount DIV_FRAME_FACTOR) * 25.0f * M_DTOR, MTXF_APPLY);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
+                }
+            } else {
+                Matrix_SetGfxMtx(&gMasterDisp);
+                if (gCurrentLevel == LEVEL_MACBETH) {
+                    gSPDisplayList(gMasterDisp++, D_MA_6012C00);
+                } else {
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b, texLine->prim.a);
+                    gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
+                }
+            }
+            Matrix_Pop(&gGfxMatrix);
+        }
+    }
+}
+#else
 void TexturedLine_Draw(void) {
     s32 i;
 
@@ -1931,6 +2013,7 @@ void TexturedLine_Draw(void) {
         }
     }
 }
+#endif
 
 void TexturedLine_DrawPath(s32 index) {
     TexturedLine* texLine = &gTexturedLines[index];

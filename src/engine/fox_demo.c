@@ -101,6 +101,162 @@ void func_demo_80048CC4(Actor* actor, s32 arg1) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Cutscene_WarpZoneComplete
+void Cutscene_WarpZoneComplete(Player* player) {
+    Vec3f sp5C;
+    Vec3f sp50;
+    s32 pad[2];
+    f32 temp_ft3;
+    f32 temp_ret;
+    s32 temp_v1;
+
+    gBosses[1].obj.status = OBJ_FREE;
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+
+    switch (player->csState) {
+        case 0:
+            player->somersault = false;
+            Audio_StopSfxByBankAndSource(1, player->sfxSource);
+            player->csState++;
+            D_ctx_80177A48[0] = 0.0f;
+            D_ctx_80177A48[1] = 0.0f;
+            D_ctx_80177A48[2] = 0.0f;
+            player->wings.modelId = 1;
+            gCsFrameCount = 0;
+            /* fallthrough */
+        case 1:
+            D_ctx_80177A48[1] -= D_ctx_80177A48[2];
+            Math_SmoothStepToF(&D_ctx_80177A48[2], 1.2f, 0.1f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 0.1f DIV_FRAME_FACTOR, 0.002f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->baseSpeed, 0.0f, 1.0f DIV_FRAME_FACTOR, 0.5f DIV_FRAME_FACTOR, 0.0f);
+            Matrix_RotateX(gCalcMatrix, -5.0f * M_DTOR, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_APPLY);
+            sp5C.x = 0.0f;
+            sp5C.y = 0.0f;
+            sp5C.z = 300.0f;
+            Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp50);
+            gCsCamAtX = player->pos.x;
+            gCsCamAtY = player->pos.y;
+            gCsCamAtZ = player->trueZpos + gPathProgress;
+
+            switch (gCsFrameCount) {
+                case 101 MUL_FRAME_FACTOR:
+                    if (gTeamShields[TEAM_ID_FALCO] > 0) {
+                        func_demo_80048CC4(&gActors[0], 0);
+                    }
+                    if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
+                        func_demo_80048CC4(&gActors[1], 1);
+                    }
+                    if (gTeamShields[TEAM_ID_PEPPY] > 0) {
+                        func_demo_80048CC4(&gActors[2], 2);
+                    }
+                    break;
+
+                case 100 MUL_FRAME_FACTOR:
+                    gLevelClearScreenTimer = 100;
+                    break;
+
+                case 200 MUL_FRAME_FACTOR:
+                    gShowLevelClearStatusScreen = 1;
+                    break;
+
+                case 400 MUL_FRAME_FACTOR:
+                    gShowLevelClearStatusScreen = 0;
+                    break;
+
+                case 420 MUL_FRAME_FACTOR:
+                    gActors[0].state = 1;
+                    break;
+
+                case 430 MUL_FRAME_FACTOR:
+                    gActors[1].state = 1;
+                    break;
+
+                case 440 MUL_FRAME_FACTOR:
+                    gActors[2].state = 1;
+                    break;
+
+                case 450 MUL_FRAME_FACTOR:
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
+                    player->unk_194 = 5.0f;
+                    player->unk_190 = 5.0f;
+
+                default:
+                    break;
+            }
+            if (gCsFrameCount > 450 MUL_FRAME_FACTOR) {
+                Math_SmoothStepToF(&D_ctx_80177A48[0], 1.0f, 0.1f DIV_FRAME_FACTOR, 0.004f DIV_FRAME_FACTOR, 0.0f);
+                player->baseSpeed += 2.0f DIV_FRAME_FACTOR;
+                player->rot.x += 0.1f DIV_FRAME_FACTOR;
+                player->unk_190 = 2.0f;
+
+                if (gCsFrameCount == 530 MUL_FRAME_FACTOR) {
+                    Audio_FadeOutAll(50);
+                }
+
+                if (gCsFrameCount > 540 MUL_FRAME_FACTOR) {
+                    gFillScreenAlphaTarget = 255;
+                    gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
+                    gFillScreenAlphaStep = 8;
+                    if (gFillScreenAlpha == 255) {
+                        player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                        player->csTimer = 0;
+                        gFadeoutType = 4;
+                        if (gCurrentLevel == LEVEL_METEO) {
+                            gLeveLClearStatus[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;
+                        } else {
+                            gLeveLClearStatus[LEVEL_SECTOR_X] = Play_CheckMedalStatus(150) + 1;
+                        }
+                        gMissionStatus = MISSION_WARP;
+                    }
+                }
+            } else {
+                gCsCamEyeX = player->pos.x + sp50.x;
+                gCsCamEyeY = player->pos.y + sp50.y;
+                gCsCamEyeZ = player->trueZpos + gPathProgress + sp50.z;
+            }
+
+            break;
+    }
+
+    Math_SmoothStepToF(&player->cam.eye.x, gCsCamEyeX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.eye.y, gCsCamEyeY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.eye.z, gCsCamEyeZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.at.x, gCsCamAtX, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.at.y, gCsCamAtY, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0] DIV_FRAME_FACTOR, 50000.0f DIV_FRAME_FACTOR, 0);
+    Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
+
+    sp5C.x = 0.0f;
+    sp5C.y = 0.0f;
+    sp5C.z = player->baseSpeed + player->boostSpeed;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
+    player->vel.x = sp50.x;
+    player->vel.z = sp50.z;
+    player->vel.y = sp50.y;
+
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
+
+    player->trueZpos = player->pos.z + player->camDist;
+    player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
+    player->bobPhase += 10.0f DIV_FRAME_FACTOR;
+    player->yBob = (-SIN_DEG(player->bobPhase)) * 0.3f;
+    player->rockPhase += 8.0f DIV_FRAME_FACTOR;
+    player->rockAngle = SIN_DEG(player->rockPhase);
+}
+#else
 void Cutscene_WarpZoneComplete(Player* player) {
     Vec3f sp5C;
     Vec3f sp50;
@@ -255,6 +411,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
     player->rockPhase += 8.0f;
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
+#endif
 
 static Vec3f D_demo_800C9FA0[] = {
     { 200.0f, -10.0f, 200.0f },
@@ -312,10 +469,10 @@ void func_demo_80049630(ActorCutscene* this) {
     this->obj.rot.z = -this->rot_0F4.z;
 }
 
-#if ENABLE_60FPS == 1 // func_demo_8004990C *no change
+#if ENABLE_60FPS == 1 // func_demo_8004990C
 void func_demo_8004990C(Player* player) {
     if (gGroundType == 0) {
-        gPathTexScroll += 60.0f;
+        gPathTexScroll += 60.0f DIV_FRAME_FACTOR;
     }
     player->trueZpos = player->pos.z + player->camDist;
     player->bankAngle = player->rot.z + player->zRotBank + player->zRotBarrelRoll;
@@ -394,30 +551,30 @@ void Cutscene_EnterWarpZone(Player* player) {
     s32 var_v0;
     s32 pad[4];
 
-    player->pos.x += player->vel.x;
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
     player->flags_228 = 0;
     player->alternateView = false;
-    player->pos.y += player->vel.y;
-    player->pos.z += player->vel.z;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
 
     func_demo_8004990C(player);
 
     player->zPathVel = -player->vel.z;
-    player->zPath += -player->vel.z;
+    player->zPath += -player->vel.z DIV_FRAME_FACTOR;
     gPathProgress = player->zPath;
 
-    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
-    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
-    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
-    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 5.0f, 0.0f);
-    Math_SmoothStepToF(&player->pos.x, 0.0f, 0.1f, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->pos.y, 0.0f, 0.1f, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.x, 0.0f, 0.1f, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.eye.y, 0.0f, 0.1f, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.x, 0.0f, 0.1f, 50.0f, 0.0f);
-    Math_SmoothStepToF(&player->cam.at.y, 0.0f, 0.1f, 50.0f, 0.0f);
-    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 20.0f, 0.0f);
+    Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.z, 0.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 5.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->pos.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->pos.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.eye.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.x, 0.0f, 0.1f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToF(&player->cam.at.y, 0.0f, 0.1f DIV_FRAME_FACTOR, 50.0f DIV_FRAME_FACTOR, 0.0f);
+    Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0.0f);
 
     switch (player->csState) {
         case 0:
@@ -446,20 +603,20 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 1:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 4.0f, 0.0f);
-            Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f DIV_FRAME_FACTOR, 4.0f DIV_FRAME_FACTOR, 0.0f);
+            Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
             gStarWarpDistortion *= IMPROPER_DIV_FRAME_FACTOR(1.05f);
             if (player->csTimer == 0) {
                 player->csState = 2;
                 player->csTimer = 150;
             }
             player->unk_190 = 2.0f;
-            player->camDist -= 2.0f;
+            player->camDist -= 2.0f DIV_FRAME_FACTOR;
             gBlurAlpha = 128;
             break;
 
         case 2:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
             if (gStarWarpDistortion < 20000.0f) {
                 gStarWarpDistortion *= IMPROPER_DIV_FRAME_FACTOR(1.01f);
             }
@@ -471,8 +628,8 @@ void Cutscene_EnterWarpZone(Player* player) {
                     player->unk_190 = 5.0f;
                 }
 
-                player->camDist += player->warpCamSpeed;
-                player->warpCamSpeed -= 100.0f;
+                player->camDist += player->warpCamSpeed DIV_FRAME_FACTOR;
+                player->warpCamSpeed -= 100.0f DIV_FRAME_FACTOR;
 
                 if (player->camDist < -15000.0f) {
                     player->camDist = 0.0f;
@@ -512,8 +669,8 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 4:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
-            player->camRoll -= 0.5f;
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
+            player->camRoll -= 0.5f DIV_FRAME_FACTOR;
             if (player->csTimer == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlphaTarget = 255;
@@ -540,7 +697,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 5:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f DIV_FRAME_FACTOR, 3.0f DIV_FRAME_FACTOR, 0.0f);
             if (player->csTimer == 0) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 8;
@@ -552,8 +709,8 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 6:
-            Math_SmoothStepToF(&gStarWarpDistortion, 0.0f, 0.2f, 1000.0f, 0.1f);
-            Math_SmoothStepToF(&player->camDist, 0.0f, 0.2f, 500.0f, 0.1f);
+            Math_SmoothStepToF(&gStarWarpDistortion, 0.0f, 0.2f DIV_FRAME_FACTOR, 1000.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&player->camDist, 0.0f, 0.2f DIV_FRAME_FACTOR, 500.0f DIV_FRAME_FACTOR, 0.1f DIV_FRAME_FACTOR);
             if (player->csTimer < 30) {
                 for (var_v0 = 0; var_v0 < 3; var_v0++) {
                     func_demo_80049B44();
@@ -574,8 +731,8 @@ void Cutscene_EnterWarpZone(Player* player) {
                 gDrawSmallRocks = 0;
                 gLoadLevelObjects = 1;
             }
-            Math_SmoothStepToF(&player->cam.eye.y, (player->pos.y * player->unk_148) + 50.0f, 0.2f, 15.0f, 0.01f);
-            Math_SmoothStepToF(&player->cam.at.y, (player->pos.y * player->unk_14C) + 20.0f, 0.2f, 15.0f, 0.01f);
+            Math_SmoothStepToF(&player->cam.eye.y, (player->pos.y * player->unk_148) + 50.0f, 0.2f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
+            Math_SmoothStepToF(&player->cam.at.y, (player->pos.y * player->unk_14C) + 20.0f, 0.2f DIV_FRAME_FACTOR, 15.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
             break;
 
         default:
@@ -4399,6 +4556,391 @@ void func_demo_8004FCB8(Actor* actor, s32 arg1) {
     }
 }
 
+#if ENABLE_60FPS == 1 // ActorCutscene_Draw
+void ActorCutscene_Draw(Actor* actor) {
+    static f32 D_800CA210 = 0.0f;
+    static f32 D_800CA214 = 0.0f;
+    static f32 D_800CA218 = 0.0f;
+    f32 sp2DC;
+    f32 sp2D8;
+    f32 sp2D4;
+    s32 sp2D0;
+    s32 pad2C4[3];
+    Vec3f sp2B8;
+    Vec3f sp2AC;
+    Vec3f sp144[30];
+    s32 pad[3];
+    s32 animFrameData;
+    f32 camX;
+    f32 camY;
+    f32 camZ;
+    f32 y;
+    f32 x;
+
+    switch (actor->animFrame) {
+        case 1000:
+            RCP_SetupDL(&gMasterDisp, SETUPDL_45);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, actor->unk_046);
+            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+
+            if (actor->unk_046 > 50) {
+                Actor_DrawEngineAndContrails(actor);
+            }
+            break;
+
+        case 0:
+            func_edisplay_8005B388(actor);
+            break;
+
+        case 1:
+            if (gCurrentLevel == LEVEL_SECTOR_Z) {
+                gSPFogPosition(gMasterDisp++, gFogNear, 1005);
+            }
+            actor->info.bonus = 1;
+            Cutscene_DrawGreatFox();
+            break;
+
+        case 10:
+            RCP_SetupDL_40();
+            Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_ME_6020810);
+            break;
+
+        case 11:
+            RCP_SetupDL_64_2();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+            Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 10.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, 1.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            RCP_SetupDL_49();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, actor->iwork[0]);
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 00, actor->iwork[0]);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            break;
+
+        case 20:
+            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
+            break;
+
+        case 24:
+            gSPDisplayList(gMasterDisp++, D_D009A40);
+            Actor_DrawEngineAndContrails(actor);
+            break;
+
+        case 25:
+            if ((actor->index % 2) != 0) {
+                gSPDisplayList(gMasterDisp++, D_SZ_6001DA0);
+            } else {
+                gSPDisplayList(gMasterDisp++, D_SZ_6001360);
+            }
+            break;
+
+        case 26:
+            gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
+            Actor_DrawEngineGlow(actor, 2);
+            break;
+
+        case 28:
+            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
+            Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, MTXF_APPLY);
+            Actor_DrawEngineGlow(actor, 2);
+            break;
+
+        case 30:
+            Display_SetSecondLight(&actor->obj.pos);
+
+            if (actor->unk_046 != 0) {
+                RCP_SetupDL(&gMasterDisp, SETUPDL_55);
+                gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+                Rand_SetSeed(1, 29000, 9876);
+
+                for (sp2D0 = 0; sp2D0 < 30; sp2D0++) {
+                    Matrix_Push(&gGfxMatrix);
+                    Matrix_Translate(gGfxMatrix, RAND_FLOAT_CENTERED_SEEDED(3000.0f) * actor->fwork[20],
+                                     RAND_FLOAT_CENTERED_SEEDED(3000.0f) * actor->fwork[20],
+                                     RAND_FLOAT_CENTERED_SEEDED(3000.0f) * actor->fwork[20], MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, 2.0f * RAND_FLOAT_SEEDED(M_PI), MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, (2.0f * (gGameFrameCount DIV_FRAME_FACTOR)) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, 2.0f * RAND_FLOAT_SEEDED(M_PI), MTXF_APPLY);
+
+                    switch ((s32) (sp2D0 % 4U)) {
+                        case 0:
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.3f, 1.0f, MTXF_APPLY);
+                            break;
+
+                        case 1:
+                            Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, MTXF_APPLY);
+                            break;
+
+                        case 2:
+                            Matrix_Scale(gGfxMatrix, 1.0f, 0.5f, 1.0f, MTXF_APPLY);
+                            break;
+
+                        case 3:
+                            Matrix_Scale(gGfxMatrix, 0.5f, 1.0f, 1.0f, MTXF_APPLY);
+                            break;
+                    }
+
+                    Matrix_Scale(gGfxMatrix, RAND_FLOAT_SEEDED(8.0f) + 8.0f, RAND_FLOAT_SEEDED(8.0f) + 8.0f, 10.0f,
+                                 MTXF_APPLY);
+                    Matrix_SetGfxMtx(&gMasterDisp);
+                    gSPDisplayList(gMasterDisp++, D_1021E20);
+                    Matrix_Pop(&gGfxMatrix);
+                }
+
+                break;
+            }
+
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+                Matrix_Push(&gGfxMatrix);
+                Matrix_RotateX(gGfxMatrix, 20.0f * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, ((gGameFrameCount DIV_FRAME_FACTOR) * 0.5f) * M_DTOR, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
+            } else {
+                Matrix_RotateX(gGfxMatrix, -10.0f * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, ((gGameFrameCount DIV_FRAME_FACTOR) * 0.3f) * M_DTOR, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
+                Matrix_Push(&gGfxMatrix);
+            }
+
+            Matrix_Translate(gGfxMatrix, 0.f, -590.0f, 0.f, MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            gSPDisplayList(gMasterDisp++, D_BO_600BAA0);
+
+            Matrix_Push(&gGfxMatrix);
+
+            RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+
+            switch (((gGameFrameCount DIV_FRAME_FACTOR) >> 3) % 4U) {
+                case 0:
+                    sp2DC = 255.0f;
+                    sp2D8 = 0.0f;
+                    sp2D4 = 0.0f;
+                    break;
+
+                case 1:
+                    sp2DC = 0.0f;
+                    sp2D8 = 255.0f;
+                    sp2D4 = 0.0f;
+                    break;
+
+                case 2:
+                    sp2DC = 0.0f;
+                    sp2D8 = 0.0f;
+                    sp2D4 = 255.0f;
+                    break;
+
+                case 3:
+                    sp2DC = 255.0f;
+                    sp2D8 = 255.0f;
+                    sp2D4 = 0.0f;
+                    break;
+            }
+
+            Math_SmoothStepToF(&D_800CA210, sp2DC, 1.0f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToF(&D_800CA214, sp2D8, 1.0f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0);
+            Math_SmoothStepToF(&D_800CA218, sp2D4, 1.0f DIV_FRAME_FACTOR, 20.0f DIV_FRAME_FACTOR, 0);
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, (s32) D_800CA210, (s32) D_800CA214, (s32) D_800CA218, 128);
+
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+                Matrix_Scale(gGfxMatrix, 1.02f, 1.02f, 1.02f, MTXF_APPLY);
+            } else {
+                Matrix_Scale(gGfxMatrix, 0.97f, 0.97f, 0.97f, MTXF_APPLY);
+            }
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+
+            gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
+            gSPDisplayList(gMasterDisp++, D_BO_6000D80);
+            gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
+
+            Matrix_Pop(&gGfxMatrix);
+            Matrix_Pop(&gGfxMatrix);
+
+            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                Matrix_Scale(gGfxMatrix, 0.075f, 0.075f, 0.075f, MTXF_APPLY);
+                break;
+            }
+            break;
+
+        case 31:
+            RCP_SetupDL_21();
+            Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 2.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_101ABD0);
+            break;
+
+        case 32:
+            gSPDisplayList(gMasterDisp++, D_BO_6008770);
+            break;
+
+        case 33:
+            if ((actor->index == 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+                gSPDisplayList(gMasterDisp++, D_D00B880);
+            } else {
+                gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
+            }
+            Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
+            Actor_DrawEngineGlow(actor, 0);
+            break;
+
+        case 34:
+            gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
+            break;
+
+        case 35:
+            Matrix_Scale(gGfxMatrix, 0.125f, 0.125f, 0.125f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            /* fallthrough */
+        case 39:
+            gSPDisplayList(gMasterDisp++, D_SY_60097E0);
+            func_demo_8004FCB8(actor, 4);
+            break;
+
+        case 36:
+            Matrix_Scale(gGfxMatrix, actor->scale, actor->scale, actor->scale, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_SY_601D730);
+            func_demo_8004FCB8(actor, 0);
+            break;
+
+        case 37:
+            RCP_SetupDL_49();
+            gDPSetPrimColor(gMasterDisp++, 0, 0, actor->iwork[0], actor->iwork[1], actor->iwork[2], actor->iwork[3]);
+            gDPSetEnvColor(gMasterDisp++, actor->iwork[4], actor->iwork[5], actor->iwork[6], actor->iwork[7]);
+            Matrix_Scale(gGfxMatrix, actor->scale, actor->fwork[4], 1.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            break;
+
+        case 38:
+            animFrameData = Animation_GetFrameData(D_demo_800CA1F4[actor->iwork[4]], actor->iwork[5], sp144);
+            Math_SmoothStepToVec3fArray(sp144, actor->vwork, 1, animFrameData, actor->fwork[2] DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, .0f);
+            RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 150, 255, 150, 255);
+            Animation_DrawSkeleton(1, D_SY_602D140, actor->vwork, 0, 0, actor, &gIdentityMatrix);
+
+            if (actor->fwork[0] != 0.0f) {
+                RCP_SetupDL_49();
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+                gDPSetEnvColor(gMasterDisp++, 255, 32, 32, 255);
+                Matrix_Translate(gGfxMatrix, 10.0f, -5.0f, -40.0f, MTXF_APPLY);
+                Matrix_RotateY(gGfxMatrix, (-actor->obj.rot.y) * M_DTOR, MTXF_APPLY);
+                Graphics_SetScaleMtx(1.0f);
+                Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[0], actor->fwork[0], MTXF_APPLY);
+
+                camX = gPlayer[0].cam.eye.x - actor->obj.pos.x;
+                camY = gPlayer[0].cam.eye.y - actor->obj.pos.y;
+                camZ = gPlayer[0].cam.eye.z - (actor->obj.pos.z + gPathProgress);
+
+                y = -Math_Atan2F(camX, camZ);
+                x = Math_Atan2F(camY, sqrtf(SQ(camZ) + SQ(camX)));
+
+                Matrix_RotateY(gGfxMatrix, -y, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, -x, MTXF_APPLY);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                Math_SmoothStepToF(&actor->fwork[0], 0.0f, 0.1f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR);
+            }
+
+            if (actor->fwork[6] != 0.0f) {
+                RCP_SetupDL_49();
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+                gDPSetEnvColor(gMasterDisp++, 255, 48, 0, 255);
+                Matrix_Pop(&gGfxMatrix);
+                Matrix_Push(&gGfxMatrix);
+                Matrix_RotateY(gCalcMatrix, (actor->obj.rot.y - 90.0f) * M_DTOR, MTXF_NEW);
+
+                sp2B8.x = 210.0f;
+                sp2B8.y = 0.0f;
+                sp2B8.z = 40.0f;
+
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2B8, &sp2AC);
+                Matrix_Translate(gGfxMatrix, actor->obj.pos.x + sp2AC.x, actor->obj.pos.y + sp2AC.y,
+                                 actor->obj.pos.z + sp2AC.z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, actor->fwork[6], actor->fwork[6], actor->fwork[6], MTXF_APPLY);
+
+                camX = gPlayer[0].cam.eye.x - actor->obj.pos.x;
+                camY = gPlayer[0].cam.eye.y - actor->obj.pos.y;
+                camZ = gPlayer[0].cam.eye.z - (actor->obj.pos.z + gPathProgress);
+
+                y = -Math_Atan2F(camX, camZ);
+                x = Math_Atan2F(camY, sqrtf(SQ(camZ) + SQ(camX)));
+
+                Matrix_RotateY(gGfxMatrix, -y, MTXF_APPLY);
+                Matrix_RotateX(gGfxMatrix, -x, MTXF_APPLY);
+
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                Math_SmoothStepToF(&actor->fwork[6], 0.00f, 0.1f DIV_FRAME_FACTOR, 0.6f DIV_FRAME_FACTOR, 0);
+            }
+            break;
+
+        case 40:
+            gSPDisplayList(gMasterDisp++, D_SY_60132A0);
+            break;
+
+        case 41:
+            Aquas_801BE0F0(actor);
+            break;
+
+        case 42:
+            gSPDisplayList(gMasterDisp++, D_SY_6014A40);
+            break;
+
+        case 43:
+            RCP_SetupDL_49();
+
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, actor->iwork[0]);
+            gDPSetEnvColor(gMasterDisp++, 255, 192, 128, 255);
+
+            Matrix_RotateY(
+                gGfxMatrix,
+                Math_Atan2F(gPlayer[0].cam.eye.x - gPlayer[0].cam.at.x, gPlayer[0].cam.eye.z - gPlayer[0].cam.at.z),
+                MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, actor->fwork[0], actor->fwork[0], actor->fwork[0], MTXF_APPLY);
+
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_1024AC0);
+
+            if (actor->iwork[0] != 0) {
+                actor->iwork[0] -= 7  DIV_FRAME_FACTOR; // not even
+                msgPrint = "THIS IS WHAT IT DOES";
+            }
+            actor->fwork[0] += 0.2f DIV_FRAME_FACTOR;
+            break;
+
+        case 44:
+            Animation_GetFrameData(&D_AQ_6020A40, actor->iwork[0], actor->vwork);
+            gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+            Animation_DrawSkeleton(1, D_AQ_6020C6C, actor->vwork, 0, 0, &actor->index, &gIdentityMatrix);
+            gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+            break;
+
+        case 45:
+            Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, D_AQ_600EEF0);
+            break;
+
+        case 46:
+            gSPDisplayList(gMasterDisp++, D_AQ_601DE60);
+            break;
+
+        case 47:
+            gSPDisplayList(gMasterDisp++, D_AQ_602B4C0);
+            break;
+    }
+}
+#else
 void ActorCutscene_Draw(Actor* actor) {
     static f32 D_800CA210 = 0.0f;
     static f32 D_800CA214 = 0.0f;
@@ -4781,6 +5323,7 @@ void ActorCutscene_Draw(Actor* actor) {
             break;
     }
 }
+#endif
 
 void Cutscene_DrawGreatFox(void) {
     Vec3f* var_s6_2;
