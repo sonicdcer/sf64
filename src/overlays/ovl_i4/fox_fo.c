@@ -795,7 +795,7 @@ void Fortuna_LevelComplete(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((func_hud_80090200(&gBosses[0]) == 2) || (gMissionStatus != MISSION_COMPLETE)) {
+            if ((HUD_FoBase_ExplodeCs(&gBosses[0]) == 2) || (gMissionStatus != MISSION_COMPLETE)) {
                 Play_ClearObjectData();
                 if (gMissionStatus == MISSION_COMPLETE) {
                     player->csState = 10;

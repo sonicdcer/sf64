@@ -406,7 +406,7 @@ void func_hud_8008EA14(f32, f32);
 void HUD_Draw(void);
 void HUD_FoBase_Draw(Boss*);
 void func_hud_8008FFF0(Boss*, s32);
-s32 func_hud_80090200(Boss* boss);
+s32 HUD_FoBase_ExplodeCs(Boss* this);
 bool func_hud_8009092C(Actor*);
 void HUD_FoBase_Update(Boss*);
 bool func_hud_800915FC(Actor*);

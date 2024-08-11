@@ -3670,6 +3670,7 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
     s32 i;
     f32 temp;
     s32 temp2;
+
     if (arg1 >= 7000) {
         temp2 = arg1 - 7000;
 
@@ -3697,134 +3698,135 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
     }
 }
 
-s32 func_hud_80090200(Boss* boss) {
+s32 HUD_FoBase_ExplodeCs(FoBase* this) {
     Vec3f dest, src;
     Player* player;
     s32 ret = 0;
 
-    if (boss->swork[0] == 1) {
-        func_hud_8008FFF0(boss, 8596);
+    if (this->swork[0] == 1) {
+        func_hud_8008FFF0(this, 8596);
         player = &gPlayer[0];
         ret = 1;
 
-        switch (boss->swork[1]) {
+        switch (this->swork[1]) {
             case 0:
-                AUDIO_PLAY_SFX(NA_SE_EARTHQUAKE, boss->sfxSource, 0);
-                AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EARTHQUAKE, this->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO, this->sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
 
-                player->cam.eye.x = boss->fwork[4] = boss->obj.pos.x;
-                player->cam.eye.y = boss->fwork[5] = boss->obj.pos.y + 500.0f;
-                player->cam.eye.z = boss->fwork[6] = boss->obj.pos.z + 4000.0f;
+                player->cam.eye.x = this->fwork[4] = this->obj.pos.x;
+                player->cam.eye.y = this->fwork[5] = this->obj.pos.y + 500.0f;
+                player->cam.eye.z = this->fwork[6] = this->obj.pos.z + 4000.0f;
 
-                player->cam.at.x = boss->obj.pos.x;
-                player->cam.at.y = boss->obj.pos.y;
-                player->cam.at.z = boss->obj.pos.z;
+                player->cam.at.x = this->obj.pos.x;
+                player->cam.at.y = this->obj.pos.y;
+                player->cam.at.z = this->obj.pos.z;
 
-                boss->fwork[7] = 0.0f;
-                boss->fwork[8] = 0.0f;
-                boss->fwork[9] = 10.0f;
+                this->fwork[7] = 0.0f;
+                this->fwork[8] = 0.0f;
+                this->fwork[9] = 10.0f;
 
-                boss->timer_050 = 1000;
+                this->timer_050 = 1000;
 
-                boss->swork[1] = 1;
+                this->swork[1] = 1;
                 break;
 
             case 1:
-                if (boss->timer_050 == 930) {
-                    boss->swork[1] = 2;
+                if (this->timer_050 == 930) {
+                    this->swork[1] = 2;
                 }
 
-                boss->fwork[7] += 0.5f;
-                if (boss->fwork[7] >= 360.0f) {
-                    boss->fwork[7] = 0.0f;
+                this->fwork[7] += 0.5f;
+                if (this->fwork[7] >= 360.0f) {
+                    this->fwork[7] = 0.0f;
                 }
 
-                Math_SmoothStepToF(&boss->fwork[9], 80.0f, 0.01f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 0.0f, 0.02f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 500.0f, 0.02f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[9], 80.0f, 0.01f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[4], this->obj.pos.x + 0.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[5], this->obj.pos.y + 500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[6], this->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
                 break;
 
             case 2:
-                if (boss->timer_050 == 870) {
-                    boss->swork[1] = 3;
+                if (this->timer_050 == 870) {
+                    this->swork[1] = 3;
                 }
 
-                boss->fwork[7] += 3.0f;
-                if (boss->fwork[7] >= 360.0f) {
-                    boss->fwork[7] = 0.0f;
+                this->fwork[7] += 3.0f;
+                if (this->fwork[7] >= 360.0f) {
+                    this->fwork[7] = 0.0f;
                 }
 
-                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 0.0f, 0.02f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 1500.0f, 0.02f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[4], this->obj.pos.x + 0.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[5], this->obj.pos.y + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[6], this->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
                 break;
 
             case 3:
-                if (boss->timer_050 == 770) {
-                    boss->swork[1] = 4;
+                if (this->timer_050 == 770) {
+                    this->swork[1] = 4;
                 }
 
-                Math_SmoothStepToF(&boss->fwork[9], 10.0f, 0.01f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 4000.0f, 0.02f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 2000.0f, 0.02f, 10000.0f, 0.0f);
-                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[9], 10.0f, 0.01f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[4], this->obj.pos.x + 4000.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[5], this->obj.pos.y + 2000.0f, 0.02f, 10000.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[6], this->obj.pos.z + 1500.0f, 0.02f, 10000.0f, 0.0f);
                 break;
 
             case 4:
                 ret = 2;
+                break;
         }
 
-        if (boss->swork[1] < 4) {
-            src.x = boss->fwork[4] - boss->obj.pos.x;
-            src.y = boss->fwork[5] - boss->obj.pos.y;
-            src.z = boss->fwork[6] - boss->obj.pos.z;
+        if (this->swork[1] < 4) {
+            src.x = this->fwork[4] - this->obj.pos.x;
+            src.y = this->fwork[5] - this->obj.pos.y;
+            src.z = this->fwork[6] - this->obj.pos.z;
 
-            Matrix_Translate(gCalcMatrix, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, M_DTOR * boss->fwork[7], MTXF_APPLY);
-            Matrix_RotateX(gCalcMatrix, M_DTOR * boss->fwork[8], MTXF_APPLY);
+            Matrix_Translate(gCalcMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, M_DTOR * this->fwork[7], MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * this->fwork[8], MTXF_APPLY);
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
             player->cam.eye.x = dest.x;
             player->cam.eye.y = dest.y;
             player->cam.eye.z = dest.z;
 
-            player->cam.at.x = boss->obj.pos.x;
-            player->cam.at.y = boss->obj.pos.x;
-            player->cam.at.z = boss->obj.pos.x;
+            player->cam.at.x = this->obj.pos.x;
+            player->cam.at.y = this->obj.pos.x;
+            player->cam.at.z = this->obj.pos.x;
 
-            player->cam.at.x += COS_DEG(boss->timer_050 * 60.0f) * boss->fwork[9];
-            player->cam.at.y += SIN_DEG(boss->timer_050 * 179.0f) * boss->fwork[9];
+            player->cam.at.x += COS_DEG(this->timer_050 * 60.0f) * this->fwork[9];
+            player->cam.at.y += SIN_DEG(this->timer_050 * 179.0f) * this->fwork[9];
         }
     }
 
     return ret;
 }
 
-void HUD_FoBase_Update(Boss* boss) {
-    switch (boss->state) {
+void HUD_FoBase_Update(FoBase* this) {
+    switch (this->state) {
         case 0:
-            if ((boss->fwork[1] == 255.0f) && (boss->fwork[2] == 212.0f)) {
-                boss->state = 1;
+            if ((this->fwork[1] == 255.0f) && (this->fwork[2] == 212.0f)) {
+                this->state = 1;
 
             } else {
-                Math_SmoothStepToF(&boss->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
-                Math_SmoothStepToF(&boss->fwork[2], 212.0f, 0.3f, 4.98f, 4.98f);
+                Math_SmoothStepToF(&this->fwork[1], 255.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&this->fwork[2], 212.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
 
         case 1:
-            if ((boss->fwork[1] == 28.0f) && (boss->fwork[2] == 23.0f)) {
-                boss->state = 0;
+            if ((this->fwork[1] == 28.0f) && (this->fwork[2] == 23.0f)) {
+                this->state = 0;
             } else {
-                Math_SmoothStepToF(&boss->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
-                Math_SmoothStepToF(&boss->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
+                Math_SmoothStepToF(&this->fwork[1], 28.0f, 0.3f, 6.0f, 6.0f);
+                Math_SmoothStepToF(&this->fwork[2], 23.0f, 0.3f, 4.98f, 4.98f);
             }
             break;
     }
-    func_hud_8008FFF0(boss, gAllRangeEventTimer);
+    func_hud_8008FFF0(this, gAllRangeEventTimer);
 }
 
 bool func_hud_8009092C(Actor* actor) {
