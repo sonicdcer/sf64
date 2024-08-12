@@ -1,0 +1,8 @@
+// dma symbols
+gDmaTable = 0x8017DB20;
+dma_table_ROM_START = 0xE44F0; //defined:true
+audio_seq_ROM_START = 0xE4A90; //defined:true
+audio_bank_ROM_START = 0x11F780; //defined:true
+audio_table_ROM_START = 0x13D7A0; //defined:true
+ovl_ending = 0x00F02520; //defined:true
+ovl_unused = 0x00F025C0; //defined:true

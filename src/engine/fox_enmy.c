@@ -116,6 +116,7 @@ bool func_enmy_80060FE4(Vec3f* arg0, f32 arg1) {
     return false;
 }
 
+// Unused
 bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
     Vec3f src;
     Vec3f dest;
@@ -278,7 +279,7 @@ void Item_Load(Item* this, ObjectInit* objInit) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_enmy_80061958(Effect346* this, f32 xPos, f32 yPos, f32 zPos) {
+void Effect_Effect346_Setup(Effect346* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_346;
@@ -317,12 +318,13 @@ void func_enmy_80061A4C(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 500.0f;
             }
-            func_enmy_80061958(&gEffects[i], x, y, z);
+            Effect_Effect346_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
 }
 
+// For Aquas
 void func_enmy_80061B68(void) {
     s32 i;
     f32 x;
@@ -341,12 +343,13 @@ void func_enmy_80061B68(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 1000.0f;
             }
-            func_enmy_80061958(&gEffects[i], x, y, z);
+            Effect_Effect346_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
 }
 
+// Unused
 void func_enmy_80061CD0(void) {
     s32 i;
     f32 x;
@@ -361,22 +364,25 @@ void func_enmy_80061CD0(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 1000.0f;
             }
-            func_enmy_80061958(&gEffects[i], x, y, z);
+            Effect_Effect346_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
 }
 
+// Unused
 void func_enmy_80061E48(Actor* this, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_ACTOR_181;
+
+    this->obj.id = OBJ_ACTOR_ME_METEOR_1;
     if (Rand_ZeroOne() < 0.5f) {
-        this->obj.id = OBJ_ACTOR_186;
+        this->obj.id = OBJ_ACTOR_ME_LASER_CANNON_1;
     }
     if (Rand_ZeroOne() < 0.5f) {
-        this->obj.id = OBJ_ACTOR_182;
+        this->obj.id = OBJ_ACTOR_ME_METEOR_2;
     }
+
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -403,17 +409,21 @@ void ActorEvent_Load(ActorEvent* this, ObjectInit* objInit, s32 index) {
     this->aiType = objInit->id - ACTOR_EVENT_ID;
 
     Object_SetInfo(&this->info, this->obj.id);
+
     this->info.cullDistance = 3000.0f;
     this->fwork[25] = 20000.0f;
     this->iwork[1] = gPrevEventActorIndex;
     this->iwork[10] = gActors[gPrevEventActorIndex].aiType;
     this->fwork[22] = gArwingSpeed;
+
     Matrix_RotateZ(gCalcMatrix, -gFormationInitRot.z * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -gFormationInitRot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, -gFormationInitRot.y * M_DTOR, MTXF_APPLY);
+
     src.x = this->obj.pos.x - gFormationInitPos.x;
     src.y = this->obj.pos.y - gFormationInitPos.y;
     src.z = this->obj.pos.z - gFormationInitPos.z;
+
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &this->vwork[28]);
     this->iwork[9] = gFormationLeaderIndex;
     gPrevEventActorIndex = index;
@@ -442,7 +452,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
             }
         }
         if ((objInit->id >= OBJ_ACTOR_START) && (objInit->id < OBJ_ACTOR_MAX)) {
-            if ((objInit->id == OBJ_ACTOR_267) || (objInit->id == OBJ_ACTOR_254)) {
+            if ((objInit->id == OBJ_ACTOR_AQ_JELLYFISH) || (objInit->id == OBJ_ACTOR_ZO_SEARCHLIGHT)) {
                 for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
                     if (gActors[i].obj.status == OBJ_FREE) {
                         Actor_Load(&gActors[i], objInit);
@@ -481,7 +491,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 }
             }
         }
-        if (objInit->id >= OBJ_EFFECT_START && objInit->id <= OBJ_ID_MAX) {
+        if ((objInit->id >= OBJ_EFFECT_START) && (objInit->id <= OBJ_ID_MAX)) {
             switch (objInit->id) {
                 case OBJ_UNK_403:
                     D_MA_801BA1E8 = 99;
@@ -496,10 +506,10 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                     D_Andross_801A7F78 = objInit->rot.z * 0.1f;
                     D_Andross_801A7F60 = -(f32) objInit->rot.x;
                     break;
-                case OBJ_UNK_400:
+                case OBJ_ENV_SMALL_ROCKS_ENABLE:
                     gDrawSmallRocks++;
                     break;
-                case OBJ_UNK_401:
+                case OBJ_ENV_SMALL_ROCKS_DISABLE:
                     if (gDrawSmallRocks > 0) {
                         gDrawSmallRocks--;
                     }
@@ -552,6 +562,7 @@ void Object_LoadLevelObjects(void) {
     } else {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
     }
+
     if (gGroundClipMode == 0) {
         for (j = 0; j < gDrawSmallRocks; j++) {
             if (gCurrentLevel == LEVEL_AQUAS) {
@@ -561,6 +572,7 @@ void Object_LoadLevelObjects(void) {
             }
         }
     }
+
     if (gCurrentLevel == LEVEL_METEO) {
         yMax = xMax = 10000.0f;
         yMin = xMin = -10000.0f;
@@ -581,13 +593,14 @@ void Object_LoadLevelObjects(void) {
     if ((gPlayer[0].pathChangeTimer != 0) && (gPlayer[0].pathChangeYaw > 0.0f)) {
         xMin = -10000.0f;
     }
+
     gLastPathChange = 0;
 
     for (i = 0, objInit = &gLevelObjects[gObjectLoadIndex]; i < 10000; i++, gObjectLoadIndex++, objInit++) {
         if (objInit->id <= OBJ_INVALID) {
             break;
         }
-        if (((gPathProgress <= objInit->zPos1) && (objInit->zPos1 <= gPathProgress + 200.0f))) {
+        if ((gPathProgress <= objInit->zPos1) && (objInit->zPos1 <= gPathProgress + 200.0f)) {
             if ((gCurrentLevel == LEVEL_VENOM_1) && (objInit->id >= ACTOR_EVENT_ID)) {
                 if (((objInit->rot.y < 180.0f) && (objInit->xPos < gPlayer[0].xPath)) ||
                     ((objInit->rot.y > 180.0f) && (gPlayer[0].xPath < objInit->xPos))) {
@@ -680,9 +693,11 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
     count = *hitboxData;
     if (count != 0) {
         hitboxData++;
+
         for (i = 0; i < count; i++, hitboxData += 6) {
             rotate = 0.0f;
             hitRot.x = hitRot.y = hitRot.z = 0.0f;
+
             if (*hitboxData >= HITBOX_SHADOW) {
                 return false;
             }
@@ -693,6 +708,7 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
                 hitRot.z = hitboxData[3];
                 hitboxData += 4;
             }
+
             if ((obj->rot.y == 0.0f) && (obj->rot.z == 0.0f) && (obj->rot.x == 0.0f) && (rotate == 0.0f)) {
                 hitPos.x = pos->x;
                 hitPos.y = pos->y;
@@ -701,22 +717,28 @@ bool Object_CheckHitboxCollision(Vec3f* pos, f32* hitboxData, Object* obj, f32 x
                 Matrix_RotateZ(gCalcMatrix, -hitRot.z * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -hitRot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -hitRot.y * M_DTOR, MTXF_APPLY);
+
                 Matrix_RotateZ(gCalcMatrix, -obj->rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, -obj->rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_APPLY);
+
                 if ((xRot != 0.0f) || (yRot != 0.0f) || (zRot != 0.0f)) {
                     Matrix_RotateZ(gCalcMatrix, -zRot * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, MTXF_APPLY);
                     Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_APPLY);
                 }
+
                 sp80.x = pos->x - obj->pos.x;
                 sp80.y = pos->y - obj->pos.y;
                 sp80.z = pos->z - obj->pos.z;
+
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp80, &sp74);
+
                 hitPos.x = obj->pos.x + sp74.x;
                 hitPos.y = obj->pos.y + sp74.y;
                 hitPos.z = obj->pos.z + sp74.z;
             }
+
             hitbox = (Hitbox*) hitboxData;
             if (((hitbox->z.size + 20.0f) > fabsf(hitbox->z.offset + obj->pos.z - hitPos.z)) &&
                 ((hitbox->x.size + 20.0f) > fabsf(hitbox->x.offset + obj->pos.x - hitPos.x)) &&
@@ -752,32 +774,37 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
 
     sp74.x = pos->x - obj->pos.x;
     sp74.z = pos->z - obj->pos.z;
-    if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (objId == OBJ_ACTOR_180)) {
+
+    if (((fabsf(sp74.x) < 1100.0f) && (fabsf(sp74.z) < 1100.0f)) || (objId == OBJ_ACTOR_ME_MOLAR_ROCK)) {
         sp74.y = pos->y - obj->pos.y;
+
         Matrix_RotateY(gCalcMatrix, -obj->rot.y * M_DTOR, MTXF_NEW);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+
         relPos.x = obj->pos.x + sp68.x;
         relPos.y = obj->pos.y + sp68.y;
         relPos.z = obj->pos.z + sp68.z;
+
         objPos.x = obj->pos.x;
         objPos.y = obj->pos.y;
         objPos.z = obj->pos.z;
-        if ((objId == OBJ_ACTOR_180) || (objId == OBJ_SCENERY_149) || (objId == OBJ_SCENERY_150) ||
-            (objId == OBJ_BOSS_FO) || (objId == OBJ_BOSS_SZ_GREAT_FOX) || (objId == OBJ_BOSS_VE2) ||
-            (objId == OBJ_BOSS_309) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
+
+        if ((objId == OBJ_ACTOR_ME_MOLAR_ROCK) || (objId == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+            (objId == OBJ_SCENERY_FO_MOUNTAIN_3) || (objId == OBJ_BOSS_FO_BASE) || (objId == OBJ_BOSS_SZ_GREAT_FOX) ||
+            (objId == OBJ_BOSS_VE2_BASE) || (objId == OBJ_BOSS_BO_BASE) || (objId == OBJ_SCENERY_ME_TUNNEL)) {
             colId = COL1_0;
-            if (objId == OBJ_BOSS_VE2) {
+            if (objId == OBJ_BOSS_VE2_BASE) {
                 colId = COL1_9;
             }
             if (objId == OBJ_SCENERY_ME_TUNNEL) {
                 colId = COL1_1;
-            } else if (objId == OBJ_BOSS_FO) {
+            } else if (objId == OBJ_BOSS_FO_BASE) {
                 colId = COL1_4;
-            } else if (objId == OBJ_BOSS_309) {
+            } else if (objId == OBJ_BOSS_BO_BASE) {
                 colId = COL1_7;
-            } else if (objId == OBJ_SCENERY_149) {
+            } else if (objId == OBJ_SCENERY_FO_MOUNTAIN_2) {
                 colId = COL1_5;
-            } else if (objId == OBJ_SCENERY_150) {
+            } else if (objId == OBJ_SCENERY_FO_MOUNTAIN_3) {
                 colId = COL1_6;
             } else if (objId == OBJ_BOSS_SZ_GREAT_FOX) {
                 colId = COL1_8;
@@ -793,17 +820,18 @@ bool Object_CheckPolyCollision(Vec3f* pos, Vec3f* vel, ObjectId objId, Object* o
             if (objId == OBJ_SCENERY_CO_BUMP_3) {
                 colId = COL2_3;
             }
-            if (objId == OBJ_SCENERY_140) {
+            if (objId == OBJ_SCENERY_VS_PYRAMID_1) {
                 colId = COL2_4;
             }
-            if (objId == OBJ_SCENERY_141) {
+            if (objId == OBJ_SCENERY_VS_PYRAMID_2) {
                 colId = COL2_6;
             }
-            if (objId == OBJ_SCENERY_117) {
+            if (objId == OBJ_SCENERY_AQ_CORAL_REEF_1) {
                 colId = COL2_14;
             } else if ((objId == OBJ_SCENERY_CO_BUMP_4) || (objId == OBJ_SCENERY_CO_BUMP_5)) {
                 colId = COL2_1;
             }
+
             if (func_col2_800A3690(&relPos, &objPos, colId, &sp44)) {
                 return true;
             }
@@ -826,9 +854,12 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
         for (i = 0; i < 200; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
-                    (scenery360->obj.id == OBJ_SCENERY_117) || (scenery360->obj.id == OBJ_SCENERY_141) ||
-                    (scenery360->obj.id == OBJ_SCENERY_150) || (scenery360->obj.id == OBJ_SCENERY_149) ||
-                    (scenery360->obj.id == OBJ_SCENERY_148) || (scenery360->obj.id == OBJ_SCENERY_140)) {
+                    (scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
+                    (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_1) ||
+                    (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1)) {
                     if (Object_CheckPolyCollision(pos, vel, scenery360->obj.id, &scenery360->obj)) {
                         return 999;
                     }
@@ -867,7 +898,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             Object_CheckSingleHitbox(pos, sprite->info.hitbox, &sprite->obj.pos)) {
             if ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_CO_TREE) ||
                 (sprite->obj.id == OBJ_SPRITE_CO_TREE)) {
-                sprite->destroy = 1;
+                sprite->destroy = true;
             }
             return 0;
         }
@@ -878,12 +909,12 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             boss = &gBosses[0];
             for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
                 if (boss->obj.status == OBJ_ACTIVE) {
-                    if ((boss->obj.id == OBJ_BOSS_FO) || (boss->obj.id == OBJ_BOSS_VE2) ||
-                        (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_309)) {
+                    if ((boss->obj.id == OBJ_BOSS_FO_BASE) || (boss->obj.id == OBJ_BOSS_VE2_BASE) ||
+                        (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_BO_BASE)) {
                         if (Object_CheckPolyCollision(pos, vel, boss->obj.id, &boss->obj)) {
                             return 2;
                         }
-                    } else if (boss->obj.id == OBJ_BOSS_310) {
+                    } else if (boss->obj.id == OBJ_BOSS_BO_BASE_SHIELD) {
                         temp.x = fabsf(boss->obj.pos.x - pos->x) * (5.0f / 6.0f);
                         temp.y = fabsf(boss->obj.pos.y - pos->y) * 2;
                         temp.z = fabsf(boss->obj.pos.z - pos->z) * (5.0f / 6.0f);
@@ -892,7 +923,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                             return 2;
                         }
                     } else {
-                        if (boss->obj.id == OBJ_BOSS_KA) {
+                        if (boss->obj.id == OBJ_BOSS_KA_SAUCERER) {
                             temp.x = fabsf(boss->obj.pos.x - pos->x);
                             temp.y = fabsf(boss->obj.pos.y - 300.0f - pos->y) * 7.42f;
                             temp.z = fabsf(boss->obj.pos.z - pos->z);
@@ -916,7 +947,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
             if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 1000.0f) &&
                 (fabsf(pos->z - actor->obj.pos.z) < 1500.0f) && (index != i) && (actor->info.unk_16 != 2) &&
                 !((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType <= AI360_PEPPY)) && (actor->timer_0C2 == 0)) {
-                if (actor->obj.id == OBJ_ACTOR_180) {
+                if (actor->obj.id == OBJ_ACTOR_ME_MOLAR_ROCK) {
                     if (Object_CheckPolyCollision(pos, vel, actor->obj.id, &actor->obj)) {
                         return 2;
                     }
@@ -953,14 +984,14 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
     return 0;
 }
 
-void func_enmy_80063CAC(Scenery* this) {
+void Actor_CoRadar_Init(Scenery* this) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
             Actor_Initialize(&gActors[i]);
             gActors[i].obj.status = OBJ_INIT;
-            gActors[i].obj.id = OBJ_ACTOR_193;
+            gActors[i].obj.id = OBJ_ACTOR_CO_RADAR;
             gActors[i].obj.pos.x = this->obj.pos.x;
             gActors[i].obj.pos.y = this->obj.pos.y;
             gActors[i].obj.pos.z = this->obj.pos.z;
@@ -971,7 +1002,7 @@ void func_enmy_80063CAC(Scenery* this) {
     }
 }
 
-void func_enmy_80063D58(CoDoors* this) {
+void Scenery_Corneria_Init(CoDoors* this) {
     s32 i;
 
     this->obj.pos.y = gGroundHeight;
@@ -1001,7 +1032,7 @@ void func_enmy_80063D58(CoDoors* this) {
     }
 }
 
-void func_enmy_80063E5C(Scenery* this, f32* hitboxData) {
+void Scenery_CoStoneArch_Init(CoStoneArch* this, f32* hitboxData) {
     s32 i;
     Item* item;
 
@@ -1021,7 +1052,9 @@ void func_enmy_80063E5C(Scenery* this, f32* hitboxData) {
     }
 }
 
+// Unused
 void func_enmy_80063F4C(s32 arg0) {
+    /* Unimplemented */
 }
 
 void func_enmy_80063F58(Item* item) {
@@ -1033,10 +1066,10 @@ void func_enmy_80063F74(Item* item) {
 }
 
 void Object_Init(s32 index, ObjectId objId) {
-    s32 var_a0;
-    s32 var_a2;
-    f32 sp54;
-    f32 sp50;
+    s32 i;
+    s32 j;
+    f32 xRot;
+    f32 zRot;
     f32 sp4C;
     PosRot* var_v0;
 
@@ -1044,7 +1077,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SPRITE_CO_SMOKE:
             Effect_SpawnTimedSfxAtPos(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
-        case OBJ_ACTOR_234:
+        case OBJ_ACTOR_TI_GREAT_FOX:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
             break;
         case OBJ_SCENERY_CO_WATERFALL:
@@ -1053,52 +1086,52 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_TEAM_BOSS:
             ActorTeamBoss_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_235:
+        case OBJ_ACTOR_ZO_BIRD:
             gActors[index].fwork[10] = fabsf(Math_ModF(gActors[index].obj.pos.x, 100.0f));
             break;
-        case OBJ_ACTOR_247:
-            Zoness_Actor247_Init(&gActors[index]);
+        case OBJ_ACTOR_ZO_BARRIER:
+            Zoness_ZoBarrier_Init(&gActors[index]);
             break;
         case OBJ_EFFECT_368:
             if (gCurrentLevel == LEVEL_TITANIA) {
-                Ground_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + gPathProgress, &sp54, &sp4C,
-                                &sp50);
+                Ground_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + gPathProgress, &xRot, &sp4C,
+                                &zRot);
                 gEffects[index].obj.pos.y = sp4C + 3.0f;
-                gEffects[index].obj.rot.x = RAD_TO_DEG(sp54);
-                gEffects[index].obj.rot.z = RAD_TO_DEG(sp50);
+                gEffects[index].obj.rot.x = RAD_TO_DEG(xRot);
+                gEffects[index].obj.rot.z = RAD_TO_DEG(zRot);
             } else if (gCurrentLevel == LEVEL_MACBETH) {
                 gEffects[index].obj.status = OBJ_FREE;
             }
             break;
         case OBJ_SCENERY_TI_RIB_0:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006940);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006940);
             break;
         case OBJ_SCENERY_TI_RIB_1:
-            func_enmy_80063E5C(&gScenery[index], D_TI_600695C);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_600695C);
             break;
         case OBJ_SCENERY_TI_RIB_2:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006978);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006978);
             break;
         case OBJ_SCENERY_TI_RIB_3:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006994);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006994);
             break;
         case OBJ_SCENERY_TI_RIB_4:
-            func_enmy_80063E5C(&gScenery[index], D_TI_60069B0);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069B0);
             break;
         case OBJ_SCENERY_TI_RIB_5:
-            func_enmy_80063E5C(&gScenery[index], D_TI_60069CC);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069CC);
             break;
         case OBJ_SCENERY_TI_RIB_6:
-            func_enmy_80063E5C(&gScenery[index], D_TI_60069E8);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069E8);
             break;
         case OBJ_SCENERY_TI_RIB_7:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006A04);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A04);
             break;
         case OBJ_SCENERY_TI_RIB_8:
-            func_enmy_80063E5C(&gScenery[index], D_TI_6006A20);
+            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A20);
             break;
-        case OBJ_SCENERY_CO_RADAR:
-            func_enmy_80063CAC(&gScenery[index]);
+        case OBJ_SCENERY_CO_RADAR_DISH:
+            Actor_CoRadar_Init(&gScenery[index]);
             break;
         case OBJ_ITEM_CHECKPOINT:
             if (gSavedObjectLoadIndex != 0) {
@@ -1128,7 +1161,7 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_SCENERY_CO_STONE_ARCH:
-            func_enmy_80063E5C(&gScenery[index], gItemRingCheckHitbox);
+            Scenery_CoStoneArch_Init(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
         case OBJ_SCENERY_CO_HIGHWAY_1:
         case OBJ_SCENERY_CO_HIGHWAY_2:
@@ -1136,46 +1169,46 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_SCENERY_CO_ARCH_2:
         case OBJ_SCENERY_CO_ARCH_3:
         case OBJ_SCENERY_CO_DOORS:
-            func_enmy_80063D58(&gScenery[index]);
+            Scenery_Corneria_Init(&gScenery[index]);
             break;
-        case OBJ_ACTOR_187:
+        case OBJ_ACTOR_ME_LASER_CANNON_2:
             gActors[index].fwork[0] = gActors[index].obj.pos.x;
             gActors[index].fwork[1] = gActors[index].obj.pos.y;
             gActors[index].obj.rot.z = gActors[index].obj.rot.x;
             gActors[index].obj.rot.x = 0.0f;
             break;
-        case OBJ_ACTOR_182:
-        case OBJ_ACTOR_186:
+        case OBJ_ACTOR_ME_METEOR_2:
+        case OBJ_ACTOR_ME_LASER_CANNON_1:
             gActors[index].unk_046 = gFogRed;
             gActors[index].unk_048 = gFogNear;
             gActors[index].obj.rot.x = RAND_FLOAT(360.0f);
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
             break;
-        case OBJ_ACTOR_181:
+        case OBJ_ACTOR_ME_METEOR_1:
             gActors[index].obj.rot.x = RAND_FLOAT(360.0f);
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
             gActors[index].health = 200;
             break;
-        case OBJ_ACTOR_202:
+        case OBJ_ACTOR_ME_HOPBOT:
             gActors[index].health = 30;
             break;
-        case OBJ_ACTOR_252:
+        case OBJ_ACTOR_ZO_RADARBUOY:
             if (gPlayer[0].pos.z < gActors[index].obj.pos.z) {
                 Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             }
             break;
-        case OBJ_ACTOR_239:
-            gActors[index].iwork[0] = gZOSnakeWaypointCount;
-            gZOSnakeWaypointCount++;
+        case OBJ_ACTOR_ZO_DODORA_WP_COUNT:
+            gActors[index].iwork[0] = gZoDodoraWaypointCount;
+            gZoDodoraWaypointCount++;
             break;
-        case OBJ_ACTOR_236:
-            gZOSnakeWaypointCount = 0;
+        case OBJ_ACTOR_ZO_DODORA:
+            gZoDodoraWaypointCount = 0;
             gActors[index].rot_0F4.x = gActors[index].obj.rot.x;
             gActors[index].rot_0F4.y = gActors[index].obj.rot.y;
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
             gActors[index].fwork[2] = gActors[index].obj.pos.y;
-            var_v0 = gZOSnakePosRots;
-            for (var_a0 = 0; var_a0 < 200; var_a0++, var_v0++) {
+            var_v0 = gZoDodoraPosRots;
+            for (i = 0; i < 200; i++, var_v0++) {
                 var_v0->pos.x = gActors[index].obj.pos.x;
                 var_v0->pos.y = gActors[index].obj.pos.y;
                 var_v0->pos.z = gActors[index].obj.pos.z;
@@ -1184,15 +1217,15 @@ void Object_Init(s32 index, ObjectId objId) {
                 var_v0->rot.z = gActors[index].obj.rot.z;
             }
             break;
-        case OBJ_ACTOR_194:
+        case OBJ_ACTOR_ME_MORA:
             gActors[index].unk_046 = 100;
-            for (var_a0 = 0; var_a0 < 2; var_a0++) {
-                if (gActor194Status[var_a0] == 0) {
-                    gActor194Status[var_a0] = 1;
-                    gActors[index].unk_046 = var_a0;
-                    for (var_a2 = 0; var_a2 < 100; var_a2++) {
-                        gActor194yPos[var_a0][var_a2] = gActors[index].obj.pos.y;
-                        gActor194zPos[var_a0][var_a2] = gActors[index].obj.pos.z;
+            for (i = 0; i < 2; i++) {
+                if (gMeMoraStatus[i] == 0) {
+                    gMeMoraStatus[i] = 1;
+                    gActors[index].unk_046 = i;
+                    for (j = 0; j < 100; j++) {
+                        gMeMoraYpos[i][j] = gActors[index].obj.pos.y;
+                        gMeMoraZpos[i][j] = gActors[index].obj.pos.z;
                     }
                     break;
                 }
@@ -1205,163 +1238,163 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_MISSILE_SEEK_PLAYER:
             AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
-        case OBJ_ACTOR_192:
+        case OBJ_ACTOR_CO_SKIBOT:
             gActors[index].drawShadow = true;
             break;
-        case OBJ_BOSS_320:
-            Andross_Boss320_Init(&gBosses[index]);
+        case OBJ_BOSS_AND_ANDROSS:
+            Andross_AndAndross_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_KA:
-            Katina_BossSetup(&gBosses[index]);
+        case OBJ_BOSS_KA_SAUCERER:
+            Katina_KaSaucerer_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_SY:
-            SectorY_Boss314_Init(&gBosses[index]);
+        case OBJ_BOSS_SY_SHOGUN:
+            SectorY_SyShogun_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_205:
-        case OBJ_ACTOR_206:
-        case OBJ_ACTOR_208:
-        case OBJ_ACTOR_209:
-        case OBJ_ACTOR_210:
-        case OBJ_ACTOR_211:
-        case OBJ_ACTOR_212:
-        case OBJ_ACTOR_213:
-            Macbeth_80199F8C(&gActors[index]);
+        case OBJ_ACTOR_MA_LOCOMOTIVE:
+        case OBJ_ACTOR_MA_TRAIN_CAR_1:
+        case OBJ_ACTOR_MA_TRAIN_CAR_2:
+        case OBJ_ACTOR_MA_TRAIN_CAR_3:
+        case OBJ_ACTOR_MA_TRAIN_CAR_4:
+        case OBJ_ACTOR_MA_TRAIN_CAR_5:
+        case OBJ_ACTOR_MA_TRAIN_CAR_6:
+        case OBJ_ACTOR_MA_TRAIN_CAR_7:
+            Macbeth_Train_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_207:
-            Macbeth_801A7D98(&gActors[index]);
+            Macbeth_Actor207_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_214:
-            Macbeth_801A3E70(&gActors[index]);
+        case OBJ_ACTOR_MA_RAILROAD_SWITCH:
+            Macbeth_MaMaRailroadSwitch_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_215:
-            Macbeth_801A4660(&gActors[index]);
+        case OBJ_ACTOR_MA_BOULDER:
+            Macbeth_MaBoulder_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_223:
-            Macbeth_801A4AF8(&gActors[index]);
+        case OBJ_ACTOR_MA_RAILWAY_SIGNAL:
+            Macbeth_MaRailwaySignal_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_216:
-        case OBJ_ACTOR_217:
-            Macbeth_801A5E2C(&gActors[index]);
+        case OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR:
+        case OBJ_ACTOR_MA_VERTICAL_LOCK_BAR:
+            Macbeth_LockBars_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_218:
-            Macbeth_801A6134(&gActors[index]);
+        case OBJ_ACTOR_MA_BARRIER:
+            Macbeth_MaBarrier_Init(&gActors[index]);
             break;
-        case OBJ_SCENERY_65:
-            Macbeth_801A65E0(&gScenery[index]);
+        case OBJ_SCENERY_MA_PROXIMITY_LIGHT:
+            Macbeth_MaProximityLight_Init(&gScenery[index]);
             break;
         case OBJ_ACTOR_CO_GARUDA_2:
         case OBJ_ACTOR_CO_GARUDA_3:
-            Corneria_IBeam_Init(&gActors[index]);
+            Corneria_CoIBeam_Init(&gActors[index]);
             /* fallthrough */
         case OBJ_ACTOR_CO_GARUDA_1:
             gActors[index].health = 24;
             AUDIO_PLAY_SFX(NA_SE_EN_TANK_RB_ENGINE, gActors[index].sfxSource, 4);
             break;
-        case OBJ_BOSS_297:
-            Meteo_Boss297_Init(&gBosses[index]);
+        case OBJ_BOSS_ME_CRUSHER:
+            Meteo_MeCrusher_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_299:
+        case OBJ_BOSS_UNK_299:
             Boss299_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_300:
+        case OBJ_BOSS_UNK_300:
             Boss300_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_CO_GRANGA:
             Corneria_Granga_Init(&gBosses[index]);
             break;
         case OBJ_BOSS_CO_CARRIER:
-            Corneria_Carrier_Init(&gBosses[index]);
+            Corneria_CoCarrier_Init(&gBosses[index]);
             break;
-        case OBJ_BOSS_A6:
-            Area6_BossA6_Init(&gBosses[index]);
+        case OBJ_BOSS_A6_GORGON:
+            Area6_A6Gorgon_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_231:
-            Titania_Actor231_Init(&gActors[index]);
+        case OBJ_ACTOR_TI_BOMB:
+            Titania_TiBomb_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_232:
-            Titania_8018ADC4(&gActors[index]);
+        case OBJ_ACTOR_TI_RASCO:
+            Titania_TiRasco_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_233:
-            Titania_80189B80(&gActors[index]);
+        case OBJ_ACTOR_TI_FEKUDA:
+            Titania_TiFekuda_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_229:
-            Titania_8018BFB0(&gActors[index]);
+        case OBJ_ACTOR_TI_DESERT_CRAWLER:
+            Titania_TiDesertCrawler_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_227:
-            Titania_8018E3CC(&gActors[index]);
+        case OBJ_ACTOR_TI_DELPHOR:
+            Titania_TiDelphor_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_228:
-            Titania_8018E5E8(&gActors[index]);
+        case OBJ_ACTOR_TI_DELPHOR_HEAD:
+            Titania_TiDelphorHead_Init(&gActors[index]);
             break;
         case OBJ_SPRITE_TI_CACTUS:
-            Titania_8018EFF0(&gSprites[index]);
+            Titania_TiCactus_Init(&gSprites[index]);
             break;
-        case OBJ_BOSS_TI:
-            Titania_Boss306_Init(&gBosses[index]);
+        case OBJ_BOSS_TI_GORAS:
+            Titania_TiGoras_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_240:
-            Zoness_801915A4(&gActors[index]);
+        case OBJ_ACTOR_ZO_Z_GULL:
+            Zoness_ZoEnergyBall_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_241:
-            Zoness_80191BB8(&gActors[index]);
+        case OBJ_ACTOR_ZO_ENERGY_BALL:
+            Zoness_ZoEnergyBall_Init2(&gActors[index]);
             break;
-        case OBJ_BOSS_ZO:
-            Zoness_BossZo_Init(&gBosses[index]);
+        case OBJ_BOSS_ZO_SARUMARINE:
+            Zoness_ZoSarumarine_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_250:
-            Zoness_8019B1F0(&gActors[index]);
+        case OBJ_ACTOR_ZO_CARGOSHIP:
+            Zoness_ZoCargoShip_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_251:
-            Zoness_8019B810(&gActors[index]);
+        case OBJ_ACTOR_ZO_CONTAINER:
+            Zoness_ZoContainer_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_253:
-            Zoness_8019C200(&gActors[index]);
+        case OBJ_ACTOR_ZO_SUPPLYCRANE:
+            Zoness_ZoSupplyCrane_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_255:
-            Aquas_801AD688(&gActors[index]);
+            Aquas_Actor255_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_256:
-            Aquas_801AE3AC(&gActors[index]);
+            Aquas_Actor256_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_257:
-            Aquas_801AF9FC(&gActors[index]);
+            Aquas_Actor257_Init(&gActors[index]);
             break;
-        case OBJ_BOSS_AQ:
-            Aquas_BossAq_Init(&gBosses[index]);
+        case OBJ_BOSS_AQ_BACOON:
+            Aquas_AqBacoon_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_259:
-            Aquas_801B6344(&gActors[index]);
+        case OBJ_ACTOR_AQ_ANGLERFISH:
+            Aquas_AqAnglerFish_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_262:
-            Aquas_801B6E54(&gActors[index]);
+        case OBJ_ACTOR_AQ_SPINDLYFISH:
+            Aquas_AqSpindlyFish_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_260:
-            Aquas_801B7AF0(&gActors[index]);
+        case OBJ_ACTOR_AQ_GAROA:
+            Aquas_AqGaroa_Init(&gActors[index]);
             break;
-        case OBJ_SCENERY_57:
-            Titania_8018F0D8(&gScenery[index]);
+        case OBJ_SCENERY_TI_PILLAR:
+            Titania_TiPillar_Init(&gScenery[index]);
             break;
-        case OBJ_BOSS_VE1:
-            Venom1_Boss319_Init(&gBosses[index]);
+        case OBJ_BOSS_VE1_GOLEMECH:
+            Venom1_Ve1Golemech_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_280:
-            Venom1_8019250C(&gActors[index]);
+        case OBJ_ACTOR_VE1_PILLAR_1:
+            Venom1_Ve1Pillar1_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_281:
-        case OBJ_ACTOR_282:
-            Venom1_80192CB0(&gActors[index]);
+        case OBJ_ACTOR_VE1_PILLAR_2:
+        case OBJ_ACTOR_VE1_PILLAR_3:
+            Venom1_Ve1Pillar2_3_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_283:
-            Venom1_80192EA4(&gActors[index]);
+        case OBJ_ACTOR_VE1_PILLAR_4:
+            Venom1_Ve1Pillar4_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_284:
-            Venom1_801933B4(&gActors[index]);
+        case OBJ_ACTOR_VE1_MONKEY_STATUE:
+            Venom1_Ve1MonkeyStatue_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_265:
-            Aquas_801BA57C(&gActors[index]);
+        case OBJ_ACTOR_AQ_BOULDER:
+            Venom1_AqBoulder_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_267:
-            Aquas_801BB26C(&gActors[index]);
+        case OBJ_ACTOR_AQ_JELLYFISH:
+            Venom1_AqJellyfish_Init(&gActors[index]);
             break;
     }
 }
@@ -1380,10 +1413,10 @@ void Scenery_UpdateTitaniaBones(Scenery* this) {
     }
 }
 
-void func_enmy_80065380(Actor182* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
+void func_enmy_80065380(MeMeteor2* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 arg5, f32 arg6) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_ACTOR_182;
+    this->obj.id = OBJ_ACTOR_ME_METEOR_2;
     this->timer_0BC = RAND_INT(10.0f) + 10;
     this->timer_0C2 = 30;
     this->vel.x = arg4;
@@ -1413,23 +1446,24 @@ void func_enmy_8006546C(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 ar
 void func_enmy_800654E4(Object* obj) {
     f32 temp_fs0;
     f32 temp_fs1;
-    s32 var_s1;
+    s32 i;
 
     func_effect_8007D2C8(obj->pos.x, obj->pos.y, obj->pos.z, 12.0f);
-    for (var_s1 = 0; var_s1 < 4; var_s1++) {
+
+    for (i = 0; i < 4; i++) {
         func_enmy_8006546C(obj->pos.x, obj->pos.y, obj->pos.z, RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT_CENTERED(40.0f),
                            RAND_FLOAT(-20.0f));
     }
 }
 
-void func_enmy_800655C8(Actor190* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
+void func_enmy_800655C8(ActorMissileSeekTeam* this, f32 xPos, f32 yPos, f32 zPos, s32 eventType) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_MISSILE_SEEK_TEAM;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
-    this->eventType = arg4;
+    this->eventType = eventType;
     this->timer_0BE = 50;
     if (this->eventType == 1) {
         this->timer_0BE = 30;
@@ -1449,8 +1483,7 @@ void func_enmy_8006566C(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-// Actors 190 & 191
-void Actors190_191_Update(Actor* this) {
+void ActorMissileSeek_Update(Actor* this) {
     s32 i;
     s32 j;
     f32 spD4;
@@ -1747,7 +1780,7 @@ void Actor_Despawn(Actor* this) {
     }
 }
 
-void Actor192_Update(Actor192* this) {
+void ActorSkibot_Update(ActorSkibot* this) {
     this->gravity = 0.4f;
 
     if (this->obj.pos.y <= gGroundHeight + 130.0f) {
@@ -1815,7 +1848,7 @@ void Actor192_Update(Actor192* this) {
     }
 }
 
-void func_enmy_8006684C(Actor192* this) {
+void func_enmy_8006684C(ActorSkibot* this) {
     s32 pad;
 
     if (this->timer_0BE != 0) {
@@ -1835,13 +1868,13 @@ void func_enmy_8006684C(Actor192* this) {
         this->obj.rot.x += 11.0f;
         this->obj.rot.y += 7.0f;
         if (this->vel.y < -3.0f) {
-            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
             this->timer_0BE = 3;
         }
     }
 }
 
-void Actor193_Update(Actor193* this) {
+void ActorRadar_Update(CoRadar* this) {
     if (this->timer_0BC != 0) {
         if (this->timer_0BC == 1) {
             Object_Kill(&this->obj, this->sfxSource);
@@ -1850,14 +1883,14 @@ void Actor193_Update(Actor193* this) {
         this->obj.rot.y += 5.0f;
         if (this->dmgType != DMG_NONE) {
             func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 8.0f);
-            func_effect_8007BFFC(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
             this->timer_0BC = 4;
             Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
 
-void Actor180_Update(Actor180* this) {
+void MeMolarRock_Update(MeMolarRock* this) {
 }
 
 void func_enmy_80066A8C(CoBuilding9* this) {
@@ -2015,7 +2048,7 @@ void Item_SpinPickup(Item* this) {
         src.y = RAND_FLOAT_CENTERED(120.0f);
         src.z = 0.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
+        Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
     }
     this->obj.rot.y += this->unk_50;
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
@@ -2092,7 +2125,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
                                     D_enmy_800CFEC4[i].z + this->obj.pos.z, D_enmy_800CFF0C[i].y + this->obj.rot.y,
                                     D_enmy_800CFF0C[i].x + this->obj.rot.x, RAND_FLOAT_CENTERED(40.0f),
                                     RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(40.0f));
-                func_effect_800794CC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.6f);
+                Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.6f);
             }
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2316,8 +2349,8 @@ void ItemSupplyRing_Update(Item* this) {
                 src.y = this->width * 100.0f;
                 src.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                func_effect_80078E50(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                     3.5f);
+                Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                       3.5f);
             }
             break;
     }
@@ -2568,43 +2601,43 @@ void Object_Dying(s32 index, ObjectId objId) {
             }
             break;
 
-        case OBJ_ACTOR_202:
+        case OBJ_ACTOR_ME_HOPBOT:
             func_enmy2_800763A4(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_194:
-            Actor194_Dying(&gActors[index]);
+        case OBJ_ACTOR_ME_MORA:
+            MeMora_Dying(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_186:
+        case OBJ_ACTOR_ME_LASER_CANNON_1:
             Meteo_80187B08(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_181:
+        case OBJ_ACTOR_ME_METEOR_1:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
             break;
 
-        case OBJ_ACTOR_182:
+        case OBJ_ACTOR_ME_METEOR_2:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
             func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
             Actor_Despawn(&gActors[index]);
             break;
 
-        case OBJ_ACTOR_192:
+        case OBJ_ACTOR_CO_SKIBOT:
             func_enmy_8006684C(&gActors[index]);
             break;
 
-        case OBJ_BOSS_TI:
+        case OBJ_BOSS_TI_GORAS:
             Titania_801990DC(&gBosses[index]);
             break;
 
-        case OBJ_ACTOR_232:
-            Titania_8018B720(&gActors[index]);
+        case OBJ_ACTOR_TI_RASCO:
+            Titania_TiRasco_Dying(&gActors[index]);
             break;
 
-        case OBJ_BOSS_VE1:
-            Venom1_80198594(&gBosses[index]);
+        case OBJ_BOSS_VE1_GOLEMECH:
+            Venom1_Ve1Golemech_Dying(&gBosses[index]);
             break;
     }
 }
@@ -2623,7 +2656,7 @@ void Actor_Move(Actor* this) {
     }
 
     var_fv0 = 4000.0f;
-    if ((this->obj.id == OBJ_ACTOR_236) || (gCurrentLevel == LEVEL_MACBETH) ||
+    if ((this->obj.id == OBJ_ACTOR_ZO_DODORA) || (gCurrentLevel == LEVEL_MACBETH) ||
         ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_56))) {
         var_fv0 = 8000.0f;
     } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
@@ -2637,27 +2670,27 @@ void Actor_Move(Actor* this) {
         Object_Kill(&this->obj, this->sfxSource);
 
         switch (this->obj.id) {
-            case OBJ_ACTOR_236:
-                gZOSnakeWaypointCount = 0;
+            case OBJ_ACTOR_ZO_DODORA:
+                gZoDodoraWaypointCount = 0;
                 break;
 
-            case OBJ_ACTOR_229:
+            case OBJ_ACTOR_TI_DESERT_CRAWLER:
                 Titania_8018E3B0(this);
                 break;
 
-            case OBJ_ACTOR_194:
-                gActor194Status[this->unk_046] = 0;
+            case OBJ_ACTOR_ME_MORA:
+                gMeMoraStatus[this->unk_046] = 0;
                 break;
 
             case OBJ_ACTOR_EVENT:
                 if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
-                    gActor194Status[this->unk_046] = 0;
+                    gMeMoraStatus[this->unk_046] = 0;
                 } else if ((this->eventType == EVID_SX_WARP_GATE) && (this->unk_046 != 2)) {
                     gRingPassCount = -1;
                 }
                 break;
 
-            case OBJ_ACTOR_252:
+            case OBJ_ACTOR_ZO_RADARBUOY:
                 gMissedZoSearchlight = true;
                 break;
         }
@@ -2791,7 +2824,7 @@ void Actor_Update(Actor* this) {
         case OBJ_INIT:
             this->obj.status = OBJ_ACTIVE;
             Object_Init(this->index, this->obj.id);
-            if (this->obj.id != OBJ_ACTOR_252) {
+            if (this->obj.id != OBJ_ACTOR_ZO_RADARBUOY) {
                 Actor_Move(this);
             }
             break;
@@ -3046,7 +3079,7 @@ void Object_Update(void) {
         }
     } else if (gVersusMode) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
-            if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_146)) {
+            if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_VS_SPACE_JUNK_3)) {
                 if ((i % 2) != 0) {
                     scenery360->obj.rot.y += 0.5f;
                 } else {

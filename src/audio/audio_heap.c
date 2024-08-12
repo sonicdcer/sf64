@@ -915,7 +915,7 @@ void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry) {
     s32 sampleBankId2;
     s32 sampleBankId1;
 
-    numFonts = gSoundFontTable->numEntries;
+    numFonts = gSoundFontTable->base.numEntries;
     for (fondId = 0; fondId < numFonts; fondId++) {
         sampleBankId1 = gSoundFontList[fondId].sampleBankId1;
         sampleBankId2 = gSoundFontList[fondId].sampleBankId2;
@@ -974,7 +974,7 @@ SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size) {
 void AudioHeap_DiscardSampleCaches(void) {
     s32 fontId;
     s32 i;
-    s32 numFonts = gSoundFontTable->numEntries;
+    s32 numFonts = gSoundFontTable->base.numEntries;
     s32 pad;
     s32 sampleBankId2;
     s32 sampleBankId1;

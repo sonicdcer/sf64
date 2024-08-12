@@ -263,7 +263,7 @@ void Background_DrawBackdrop(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    if (D_ctx_80177C70 == 2) {
+    if (gFovYMode == 2) {
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
     }
 
@@ -931,7 +931,7 @@ void Background_DrawGround(void) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, gPlayer[gPlayerNum].xPath, -3.0f + gCameraShakeY, sp1D4, MTXF_APPLY);
 
-    if (D_ctx_80177C70 == 2) {
+    if (gFovYMode == 2) {
         Matrix_Scale(gGfxMatrix, 1.2f, 1.2f, 1.0f, MTXF_APPLY);
     }
 

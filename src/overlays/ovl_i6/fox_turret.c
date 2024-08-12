@@ -118,6 +118,7 @@ void Turret_Shoot(Player* player) {
             gTexturedLines[i].posBB.z = gActors[i].obj.pos.z;
         }
     }
+
     if (gControllerHold[player->num].button & R_TRIG) {
         player->turretLockOnCount++;
         if (player->turretLockOnCount > ARRAY_COUNT(gActors)) {
@@ -260,11 +261,13 @@ void Turret_Draw(Player* player) {
     Matrix_Translate(gGfxMatrix, 0.0f, -100.0f, 0.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, player->rot.y * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, -player->rot.x * M_DTOR, MTXF_APPLY);
+
     if (player->turretState < 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -5000.0f + (player->turretRecoil * 25), MTXF_APPLY);
     } else {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -5000.0f, MTXF_APPLY);
     }
+
     Matrix_Scale(gGfxMatrix, 12.0f, 12.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     Matrix_Pop(&gGfxMatrix);

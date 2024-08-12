@@ -50,8 +50,8 @@ D_VE1_90039F0:
 D_VE1_9003DF0:
   {type: TEXTURE, ctype: u16, format: TLUT, colors: 176, offset: 0x9003DF0, symbol: D_VE1_9003DF0}
 
-D_VE1_9003F50:
-  {type: GFX, offset: 0x9003F50, symbol: D_VE1_9003F50}
+aVe1TempleInterior1DL:
+  {type: GFX, offset: 0x9003F50, symbol: aVe1TempleInterior1DL}
 
 D_VE1_9004478:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x9004478, symbol: D_VE1_9004478}
@@ -65,8 +65,8 @@ D_VE1_9005078:
 D_VE1_9005478:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x9005478, symbol: D_VE1_9005478}
 
-D_VE1_9005C80:
-  {type: GFX, offset: 0x9005C80, symbol: D_VE1_9005C80}
+aVe1TempleEntranceDL:
+  {type: GFX, offset: 0x9005C80, symbol: aVe1TempleEntranceDL}
 
 D_VE1_9009700:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x9009700, symbol: D_VE1_9009700}
@@ -92,8 +92,8 @@ D_VE1_900BF00:
 D_VE1_900C700:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x900C700, symbol: D_VE1_900C700}
 
-D_VE1_900D098:
-  {type: SF64:ANIM, offset: 0x900D098, symbol: D_VE1_900D098}
+aVe1MonkeyStatueAnim:
+  {type: SF64:ANIM, offset: 0x900D098, symbol: aVe1MonkeyStatueAnim}
 
 D_VE1_900D164:
   {type: SF64:SKELETON, offset: 0x900D164, symbol: D_VE1_900D164}
@@ -104,8 +104,8 @@ D_VE1_900D180:
 D_VE1_900D520:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x900D520, symbol: D_VE1_900D520}
 
-D_VE1_900DD20:
-  {type: GFX, offset: 0x900DD20, symbol: D_VE1_900DD20}
+aVe1Pillar1DL:
+  {type: GFX, offset: 0x900DD20, symbol: aVe1Pillar1DL}
 
 D_VE1_900DF20:
   {type: GFX, offset: 0x900DF20, symbol: D_VE1_900DF20}
@@ -116,11 +116,11 @@ D_VE1_900DFB8:
 D_VE1_900EFC0:
   {type: GFX, offset: 0x900EFC0, symbol: D_VE1_900EFC0}
 
-D_VE1_900F060:
-  {type: GFX, offset: 0x900F060, symbol: D_VE1_900F060}
+aVe1TempleInterior2DL:
+  {type: GFX, offset: 0x900F060, symbol: aVe1TempleInterior2DL}
 
-D_VE1_900F1D0:
-  {type: GFX, offset: 0x900F1D0, symbol: D_VE1_900F1D0}
+aVe1TempleInterior3DL:
+  {type: GFX, offset: 0x900F1D0, symbol: aVe1TempleInterior3DL}
 
 D_VE1_9010FC4:
   {type: SF64:ANIM, offset: 0x9010FC4, symbol: D_VE1_9010FC4}
@@ -179,8 +179,8 @@ D_VE1_901C0F4:
 D_VE1_901DA38:
   {type: SF64:ANIM, offset: 0x901DA38, symbol: D_VE1_901DA38}
 
-D_VE1_901DA50:
-  {type: GFX, offset: 0x901DA50, symbol: D_VE1_901DA50}
+aVe1Pillar3DL:
+  {type: GFX, offset: 0x901DA50, symbol: aVe1Pillar3DL}
 
 D_VE1_901DC90:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x901DC90, symbol: D_VE1_901DC90}
@@ -230,8 +230,8 @@ D_VE1_90234D0:
 D_VE1_9023880:
   {type: GFX, offset: 0x9023880, symbol: D_VE1_9023880}
 
-D_VE1_9023AD0:
-  {type: GFX, offset: 0x9023AD0, symbol: D_VE1_9023AD0}
+aVe1Pillar4DL:
+  {type: GFX, offset: 0x9023AD0, symbol: aVe1Pillar4DL}
 
 D_VE1_9024738:
   {type: SF64:ANIM, offset: 0x9024738, symbol: D_VE1_9024738}

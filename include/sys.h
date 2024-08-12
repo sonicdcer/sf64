@@ -40,7 +40,7 @@ s32 vsprintf(char* dst, const char* fmt, va_list args);
 void Game_Initialize(void);
 void Game_Update(void);
 
-extern bool gShowCrosshairs[];
+extern bool gShowReticles[];
 extern bool D_game_800D2870;
 
 extern f32 gNextVsViewScale;

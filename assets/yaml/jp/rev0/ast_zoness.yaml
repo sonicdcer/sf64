@@ -141,14 +141,14 @@ D_ZO_600E5EC:
 D_ZO_600E7D8:
   { type: SF64:SKELETON, offset: 0x600E7D8, symbol: D_ZO_600E7D8}
 
-D_ZO_600E820:
-  { type: GFX, offset: 0x600E820, symbol: D_ZO_600E820}
+aZoOilRig3DL:
+  { type: GFX, offset: 0x600E820, symbol: aZoOilRig3DL}
 
-D_ZO_600EC90:
-  { type: GFX, offset: 0x600EC90, symbol: D_ZO_600EC90}
+aZoOilRig2DL:
+  { type: GFX, offset: 0x600EC90, symbol: aZoOilRig2DL}
 
-D_ZO_600F560:
-  { type: GFX, offset: 0x600F560, symbol: D_ZO_600F560}
+aZoOilRig1DL:
+  { type: GFX, offset: 0x600F560, symbol: aZoOilRig1DL}
 
 D_ZO_600FE58:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600FE58, symbol: D_ZO_600FE58}
@@ -225,8 +225,8 @@ D_ZO_6017810:
 D_ZO_60178B0:
   { type: GFX, offset: 0x60178B0, symbol: D_ZO_60178B0}
 
-D_ZO_6017950:
-  { type: GFX, offset: 0x6017950, symbol: D_ZO_6017950}
+aZoBallDL:
+  { type: GFX, offset: 0x6017950, symbol: aZoBallDL}
 
 D_ZO_60179D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60179D8, symbol: D_ZO_60179D8}
@@ -366,8 +366,8 @@ D_ZO_601FBC4:
 D_ZO_601FC90:
   { type: SF64:SKELETON, offset: 0x601FC90, symbol: D_ZO_601FC90}
 
-D_ZO_601FCB0:
-  { type: GFX, offset: 0x601FCB0, symbol: D_ZO_601FCB0}
+aZoIslandDL:
+  { type: GFX, offset: 0x601FCB0, symbol: aZoIslandDL}
 
 D_ZO_60201B0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60201B0, symbol: D_ZO_60201B0}
@@ -471,8 +471,8 @@ D_ZO_6024220:
 D_ZO_60242B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60242B8, symbol: D_ZO_60242B8}
 
-aZoRock1DL:
-  { type: GFX, offset: 0x6024AC0, symbol: aZoRock1DL}
+aZoRockDL:
+  { type: GFX, offset: 0x6024AC0, symbol: aZoRockDL}
 
 D_ZO_6024D60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6024D60, symbol: D_ZO_6024D60}
@@ -502,59 +502,59 @@ D_ZO_602AC50:
 D_ZO_602AE94:
   { type: ARRAY, count: 242, array_type: Vec3f, offset: 0x602AE94, symbol: D_ZO_602AE94}
 
-aZoRock1Hitbox:
-  { type: SF64:HITBOX, offset: 0x602B9EC, symbol: aZoRock1Hitbox}
+aZoRockHitbox:
+  { type: SF64:HITBOX, offset: 0x602B9EC, symbol: aZoRockHitbox}
 
-D_ZO_602BA20:
-  { type: SF64:HITBOX, offset: 0x602BA20, symbol: D_ZO_602BA20}
+aZoOilRig1Hitbox:
+  { type: SF64:HITBOX, offset: 0x602BA20, symbol: aZoOilRig1Hitbox}
 
-D_ZO_602BAE4:
-  { type: SF64:HITBOX, offset: 0x602BAE4, symbol: D_ZO_602BAE4}
+aZoOilRig2Hitbox:
+  { type: SF64:HITBOX, offset: 0x602BAE4, symbol: aZoOilRig2Hitbox}
 
-D_ZO_602BBD8:
-  { type: SF64:HITBOX, offset: 0x602BBD8, symbol: D_ZO_602BBD8}
+aZoOilRig3Hitbox:
+  { type: SF64:HITBOX, offset: 0x602BBD8, symbol: aZoOilRig3Hitbox}
 
-D_ZO_602BC54:
-  { type: SF64:HITBOX, offset: 0x602BC54, symbol: D_ZO_602BC54}
+aZoIslandHitbox:
+  { type: SF64:HITBOX, offset: 0x602BC54, symbol: aZoIslandHitbox}
 
-D_ZO_602BC58:
-  { type: SF64:HITBOX, offset: 0x602BC58, symbol: D_ZO_602BC58}
+aZoDodoraHitbox:
+  { type: SF64:HITBOX, offset: 0x602BC58, symbol: aZoDodoraHitbox}
 
-D_ZO_602BE3C:
-  { type: SF64:HITBOX, offset: 0x602BE3C, symbol: D_ZO_602BE3C}
+aZoTroikaHitbox:
+  { type: SF64:HITBOX, offset: 0x602BE3C, symbol: aZoTroikaHitbox}
 
-D_ZO_602BE58:
-  { type: SF64:HITBOX, offset: 0x602BE58, symbol: D_ZO_602BE58}
+aZoObnemaHitbox:
+  { type: SF64:HITBOX, offset: 0x602BE58, symbol: aZoObnemaHitbox}
 
-D_ZO_602BFC4:
-  { type: SF64:HITBOX, offset: 0x602BFC4, symbol: D_ZO_602BFC4}
+aZoBarrierHitbox:
+  { type: SF64:HITBOX, offset: 0x602BFC4, symbol: aZoBarrierHitbox}
 
 D_ZO_602C028:
   { type: SF64:HITBOX, offset: 0x602C028, symbol: D_ZO_602C028}
 
-D_ZO_602C044:
-  { type: SF64:HITBOX, offset: 0x602C044, symbol: D_ZO_602C044}
+aZoSarumarineHitbox:
+  { type: SF64:HITBOX, offset: 0x602C044, symbol: aZoSarumarineHitbox}
 
 D_ZO_602C1A0:
   { type: SF64:HITBOX, offset: 0x602C1A0, symbol: D_ZO_602C1A0}
 
-D_ZO_602C1D4:
-  { type: SF64:HITBOX, offset: 0x602C1D4, symbol: D_ZO_602C1D4}
+aZoCargoShipHitbox:
+  { type: SF64:HITBOX, offset: 0x602C1D4, symbol: aZoCargoShipHitbox}
 
-D_ZO_602C218:
-  { type: SF64:HITBOX, offset: 0x602C218, symbol: D_ZO_602C218}
+aZoContainerHitbox:
+  { type: SF64:HITBOX, offset: 0x602C218, symbol: aZoContainerHitbox}
 
-D_ZO_602C234:
-  { type: SF64:HITBOX, offset: 0x602C234, symbol: D_ZO_602C234}
+aZoRadarBuoyHitbox:
+  { type: SF64:HITBOX, offset: 0x602C234, symbol: aZoRadarBuoyHitbox}
 
-D_ZO_602C250:
-  { type: SF64:HITBOX, offset: 0x602C250, symbol: D_ZO_602C250}
+aZoSupplyCraneHitbox:
+  { type: SF64:HITBOX, offset: 0x602C250, symbol: aZoSupplyCraneHitbox}
 
-D_ZO_602C294:
-  { type: SF64:HITBOX, offset: 0x602C294, symbol: D_ZO_602C294}
+aZoBirdHitbox:
+  { type: SF64:HITBOX, offset: 0x602C294, symbol: aZoBirdHitbox}
 
-D_ZO_602C2B0:
-  { type: SF64:HITBOX, offset: 0x602C2B0, symbol: D_ZO_602C2B0}
+aZoSearchLightHitbox:
+  { type: SF64:HITBOX, offset: 0x602C2B0, symbol: aZoSearchLightHitbox}
 
 D_ZO_602C2CC:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C2CC, symbol: D_ZO_602C2CC}

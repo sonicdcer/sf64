@@ -104,8 +104,8 @@ D_ME_600C740:
 D_ME_600CAA0:
   { type: GFX, offset: 0x600CAA0, symbol: D_ME_600CAA0 }
 
-D_ME_600CD60:
-  { type: GFX, offset: 0x600CD60, symbol: D_ME_600CD60 }
+aMeMeteorShower3DL:
+  { type: GFX, offset: 0x600CD60, symbol: aMeMeteorShower3DL }
 
 D_ME_600CDE8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0600CDE8, symbol: D_ME_600CDE8 }
@@ -137,8 +137,8 @@ D_ME_6014238:
 D_ME_6015238:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06015238, symbol: D_ME_6015238 }
 
-D_ME_6016240:
-  { type: GFX, offset: 0x6016240, symbol: D_ME_6016240 }
+aMeMeteorShower2DL:
+  { type: GFX, offset: 0x6016240, symbol: aMeMeteorShower2DL }
 
 D_ME_60162C8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060162C8, symbol: D_ME_60162C8 }
@@ -146,20 +146,20 @@ D_ME_60162C8:
 D_ME_60172C8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060172C8, symbol: D_ME_60172C8 }
 
-D_ME_6017AD0:
-  { type: GFX, offset: 0x06017AD0, symbol: D_ME_6017AD0 }
+aMeMeteorShower1DL:
+  { type: GFX, offset: 0x06017AD0, symbol: aMeMeteorShower1DL }
 
 D_ME_6017B60:
   { type: GFX, offset: 0x06017B60, symbol: D_ME_6017B60 }
 
-D_ME_6018450:
-  { type: GFX, offset: 0x06018450, symbol: D_ME_6018450 }
+aMeLaserCannon2DL:
+  { type: GFX, offset: 0x06018450, symbol: aMeLaserCannon2DL }
 
 D_ME_6018960:
   { type: GFX, offset: 0x06018960, symbol: D_ME_6018960 }
 
-D_ME_6018C00:
-  { type: GFX, offset: 0x06018C00, symbol: D_ME_6018C00 }
+aMeMeteor1DL:
+  { type: GFX, offset: 0x06018C00, symbol: aMeMeteor1DL }
 
 D_ME_6019430:
   { type: GFX, offset: 0x06019430, symbol: D_ME_6019430 }
@@ -286,29 +286,29 @@ D_ME_602F604:
 D_ME_602F638:
   { type: SF64:HITBOX, offset: 0x602F638, symbol: D_ME_602F638 }
 
-D_ME_602F684:
-  { type: SF64:HITBOX, offset: 0x602F684, symbol: D_ME_602F684 }
+aMeMeteoBallHitbox:
+  { type: SF64:HITBOX, offset: 0x602F684, symbol: aMeMeteoBallHitbox }
 
-D_ME_602F6A0:
-  { type: SF64:HITBOX, offset: 0x602F6A0, symbol: D_ME_602F6A0 }
+aMeHopBotHitbox:
+  { type: SF64:HITBOX, offset: 0x602F6A0, symbol: aMeHopBotHitbox }
 
-D_ME_602F6EC:
-  { type: SF64:HITBOX, offset: 0x602F6EC, symbol: D_ME_602F6EC }
+aMeMeteor1Hitbox:
+  { type: SF64:HITBOX, offset: 0x602F6EC, symbol: aMeMeteor1Hitbox }
 
-D_ME_602F708:
-  { type: SF64:HITBOX, offset: 0x602F708, symbol: D_ME_602F708 }
+aMeMeteor2Hitbox:
+  { type: SF64:HITBOX, offset: 0x602F708, symbol: aMeMeteor2Hitbox }
 
-D_ME_602F724:
-  { type: SF64:HITBOX, offset: 0x602F724, symbol: D_ME_602F724 }
+aMeLaserCannon1Hitbox:
+  { type: SF64:HITBOX, offset: 0x602F724, symbol: aMeLaserCannon1Hitbox }
 
-D_ME_602F740:
-  { type: SF64:HITBOX, offset: 0x602F740, symbol: D_ME_602F740 }
+aMeLaserCannon2Hitbox:
+  { type: SF64:HITBOX, offset: 0x602F740, symbol: aMeLaserCannon2Hitbox }
 
-D_ME_602F75C:
-  { type: SF64:HITBOX, offset: 0x602F75C, symbol: D_ME_602F75C }
+aMeCrusherHitbox:
+  { type: SF64:HITBOX, offset: 0x602F75C, symbol: aMeCrusherHitbox }
 
-D_ME_602FA50:
-  { type: SF64:HITBOX, offset: 0x602FA50, symbol: D_ME_602FA50 }
+aMeCrusherShieldHitbox:
+  { type: SF64:HITBOX, offset: 0x602FA50, symbol: aMeCrusherShieldHitbox }
 
 D_ME_602FA9C:
   {type: SF64:COLPOLY, count: 79, offset: 0x602FA9C, symbol: D_ME_602FA9C, mesh_symbol: D_ME_OFFSET }

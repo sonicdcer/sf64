@@ -41,38 +41,38 @@ typedef struct {
 } CollisionHeader2; // size = 0x24
 
 typedef enum {
-    /*  0 */ COL1_0, // OBJ_ACTOR_180
+    /*  0 */ COL1_0, // OBJ_ACTOR_ME_MOLAR_ROCK
     /*  1 */ COL1_1, // OBJ_SCENERY_ME_TUNNEL
     /*  2 */ COL1_2,
     /*  3 */ COL1_3, // ACTOR_EVENT_ID
-    /*  4 */ COL1_4, // OBJ_BOSS_FO
-    /*  5 */ COL1_5, // OBJ_SCENERY_149
-    /*  6 */ COL1_6, // OBJ_SCENERY_150
-    /*  7 */ COL1_7, // OBJ_BOSS_309
+    /*  4 */ COL1_4, // OBJ_BOSS_FO_BASE
+    /*  5 */ COL1_5, // OBJ_SCENERY_FO_MOUNTAIN_2
+    /*  6 */ COL1_6, // OBJ_SCENERY_FO_MOUNTAIN_3
+    /*  7 */ COL1_7, // OBJ_BOSS_BO_BASE
     /*  8 */ COL1_8, // OBJ_BOSS_SZ_GREAT_FOX
-    /*  9 */ COL1_9, // OBJ_BOSS_VE2
+    /*  9 */ COL1_9, // OBJ_BOSS_VE2_BASE
 } CollisonId_1;
 
 typedef enum {
     /*  0 */ COL2_0,  // default
     /*  1 */ COL2_1,  // OBJ_SCENERY_CO_BUMP_4, OBJ_SCENERY_CO_BUMP_5
     /*  2 */ COL2_2,  // OBJ_SCENERY_CO_BUMP_2
-    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_69
-    /*  4 */ COL2_4,  // OBJ_SCENERY_140
+    /*  3 */ COL2_3,  // OBJ_SCENERY_CO_BUMP_3, OBJ_SCENERY_MA_TERRAIN_BUMP
+    /*  4 */ COL2_4,  // OBJ_SCENERY_VS_PYRAMID_1
     /*  5 */ COL2_5,  // PLAYERSHOT_7 ?
-    /*  6 */ COL2_6,  // OBJ_SCENERY_141
-    /*  7 */ COL2_7,  // OBJ_SCENERY_47
-    /*  8 */ COL2_8,  // OBJ_SCENERY_70
-    /*  9 */ COL2_9,  // OBJ_SCENERY_72
-    /* 10 */ COL2_10, // OBJ_SCENERY_71
-    /* 11 */ COL2_11, // OBJ_SCENERY_73
-    /* 12 */ COL2_12, // OBJ_SCENERY_67
-    /* 13 */ COL2_13, // OBJ_SCENERY_74
-    /* 14 */ COL2_14, // OBJ_SCENERY_117
-    /* 15 */ COL2_15, // OBJ_SCENERY_124
-    /* 16 */ COL2_16, // OBJ_SCENERY_126
-    /* 17 */ COL2_17, // OBJ_SCENERY_143
-    /* 18 */ COL2_18, // OBJ_SCENERY_120
+    /*  6 */ COL2_6,  // OBJ_SCENERY_VS_PYRAMID_2
+    /*  7 */ COL2_7,  // OBJ_SCENERY_ZO_ISLAND
+    /*  8 */ COL2_8,  // OBJ_SCENERY_MA_FLOOR_1
+    /*  9 */ COL2_9,  // OBJ_SCENERY_MA_FLOOR_3
+    /* 10 */ COL2_10, // OBJ_SCENERY_MA_FLOOR_2
+    /* 11 */ COL2_11, // OBJ_SCENERY_MA_FLOOR_4
+    /* 12 */ COL2_12, // OBJ_SCENERY_MA_WALL_3
+    /* 13 */ COL2_13, // OBJ_SCENERY_MA_FLOOR_5
+    /* 14 */ COL2_14, // OBJ_SCENERY_AQ_CORAL_REEF_1
+    /* 15 */ COL2_15, // OBJ_SCENERY_AQ_BUMP_1
+    /* 16 */ COL2_16, // OBJ_SCENERY_AQ_BUMP_2
+    /* 17 */ COL2_17, // OBJ_SCENERY_VS_KA_FLBASE
+    /* 18 */ COL2_18, // OBJ_SCENERY_AQ_CORAL_REEF_2
 } CollisionId_2;
 
 typedef struct {
@@ -231,7 +231,7 @@ typedef struct Boss {
     /* 0x046 */ s16 unk_046;
     /* 0x048 */ s16 unk_048;
     /* 0x04A */ s16 unk_04A;
-    /* 0x04C */ s16 unk_04C;
+    /* 0x04C */ s16 animFrame;
     /* 0x04E */ s16 state;
     /* 0x050 */ s16 timer_050;
     /* 0x052 */ s16 timer_052;
@@ -329,7 +329,7 @@ typedef enum ObjectId {
     /*  20 */ OBJ_SCENERY_CO_ARCH_1,
     /*  21 */ OBJ_SCENERY_CO_ARCH_2,
     /*  22 */ OBJ_SCENERY_CO_ARCH_3,
-    /*  23 */ OBJ_SCENERY_CO_RADAR,
+    /*  23 */ OBJ_SCENERY_CO_RADAR_DISH,
     /*  24 */ OBJ_SCENERY_CO_HIGHWAY_5,
     /*  25 */ OBJ_SCENERY_CO_HIGHWAY_6,
     /*  26 */ OBJ_SCENERY_CO_HIGHWAY_7,
@@ -349,124 +349,124 @@ typedef enum ObjectId {
     /*  40 */ OBJ_SCENERY_CO_BUILDING_9,
     /*  41 */ OBJ_SCENERY_CO_BUILDING_10,
     /*  42 */ OBJ_SCENERY_IBEAM,
-    /*  43 */ OBJ_SCENERY_ZO_ROCK_1,
-    /*  44 */ OBJ_SCENERY_44,
-    /*  45 */ OBJ_SCENERY_45,
-    /*  46 */ OBJ_SCENERY_46,
-    /*  47 */ OBJ_SCENERY_47,
-    /*  48 */ OBJ_SCENERY_48,
-    /*  49 */ OBJ_SCENERY_49,
-    /*  50 */ OBJ_SCENERY_50,
-    /*  51 */ OBJ_SCENERY_51,
-    /*  52 */ OBJ_SCENERY_52,
-    /*  53 */ OBJ_SCENERY_53,
+    /*  43 */ OBJ_SCENERY_ZO_ROCK,
+    /*  44 */ OBJ_SCENERY_ZO_OIL_RIG_1,
+    /*  45 */ OBJ_SCENERY_ZO_OIL_RIG_2,
+    /*  46 */ OBJ_SCENERY_ZO_OIL_RIG_3,
+    /*  47 */ OBJ_SCENERY_ZO_ISLAND,
+    /*  48 */ OBJ_SCENERY_VE1_WALL_1,
+    /*  49 */ OBJ_SCENERY_VE1_WALL_2,
+    /*  50 */ OBJ_SCENERY_VE1_WALL_3,
+    /*  51 */ OBJ_SCENERY_VE1_HALLWAY_OBSTACLE,
+    /*  52 */ OBJ_SCENERY_VE1_GENERATOR,
+    /*  53 */ OBJ_SCENERY_VE1_WATCH_POST,
     /*  54 */ OBJ_SCENERY_CO_WATERFALL,
     /*  55 */ OBJ_SCENERY_CO_ROCKWALL,
     /*  56 */ OBJ_SCENERY_CO_DOORS,
-    /*  57 */ OBJ_SCENERY_57,
-    /*  58 */ OBJ_SCENERY_58,
-    /*  59 */ OBJ_SCENERY_59,
-    /*  60 */ OBJ_SCENERY_60,
-    /*  61 */ OBJ_SCENERY_61,
-    /*  62 */ OBJ_SCENERY_62,
+    /*  57 */ OBJ_SCENERY_TI_PILLAR,
+    /*  58 */ OBJ_SCENERY_TI_BRIDGE,
+    /*  59 */ OBJ_SCENERY_MA_BUILDING_1,
+    /*  60 */ OBJ_SCENERY_MA_BUILDING_2,
+    /*  61 */ OBJ_SCENERY_MA_TOWER,
+    /*  62 */ OBJ_SCENERY_MA_WALL_1,
     /*  63 */ OBJ_SCENERY_63,
-    /*  64 */ OBJ_SCENERY_64,
-    /*  65 */ OBJ_SCENERY_65,
-    /*  66 */ OBJ_SCENERY_66,
-    /*  67 */ OBJ_SCENERY_67,
-    /*  68 */ OBJ_SCENERY_68,
-    /*  69 */ OBJ_SCENERY_69,
-    /*  70 */ OBJ_SCENERY_70,
-    /*  71 */ OBJ_SCENERY_71,
-    /*  72 */ OBJ_SCENERY_72,
-    /*  73 */ OBJ_SCENERY_73,
-    /*  74 */ OBJ_SCENERY_74,
-    /*  75 */ OBJ_SCENERY_75,
-    /*  76 */ OBJ_SCENERY_76,
-    /*  77 */ OBJ_SCENERY_77,
-    /*  78 */ OBJ_SCENERY_78,
-    /*  79 */ OBJ_SCENERY_79,
-    /*  80 */ OBJ_SCENERY_80,
-    /*  81 */ OBJ_SCENERY_81,
-    /*  82 */ OBJ_SCENERY_82,
-    /*  83 */ OBJ_SCENERY_83,
-    /*  84 */ OBJ_SCENERY_84,
-    /*  85 */ OBJ_SCENERY_85,
-    /*  86 */ OBJ_SCENERY_86,
-    /*  87 */ OBJ_SCENERY_87,
-    /*  88 */ OBJ_SCENERY_88,
-    /*  89 */ OBJ_SCENERY_89,
-    /*  90 */ OBJ_SCENERY_90,
-    /*  91 */ OBJ_SCENERY_91,
-    /*  92 */ OBJ_SCENERY_92,
-    /*  93 */ OBJ_SCENERY_93,
-    /*  94 */ OBJ_SCENERY_94,
-    /*  95 */ OBJ_SCENERY_95,
-    /*  96 */ OBJ_SCENERY_96,
-    /*  97 */ OBJ_SCENERY_97,
-    /*  98 */ OBJ_SCENERY_98,
-    /*  99 */ OBJ_SCENERY_99,
-    /* 100 */ OBJ_SCENERY_100,
-    /* 101 */ OBJ_SCENERY_101,
-    /* 102 */ OBJ_SCENERY_102,
-    /* 103 */ OBJ_SCENERY_103,
-    /* 104 */ OBJ_SCENERY_104,
-    /* 105 */ OBJ_SCENERY_105,
-    /* 106 */ OBJ_SCENERY_106,
-    /* 107 */ OBJ_SCENERY_107,
-    /* 108 */ OBJ_SCENERY_108,
-    /* 109 */ OBJ_SCENERY_109,
-    /* 110 */ OBJ_SCENERY_110,
-    /* 111 */ OBJ_SCENERY_111,
-    /* 112 */ OBJ_SCENERY_112,
-    /* 113 */ OBJ_SCENERY_113,
-    /* 114 */ OBJ_SCENERY_114,
-    /* 115 */ OBJ_SCENERY_115,
-    /* 116 */ OBJ_SCENERY_116,
-    /* 117 */ OBJ_SCENERY_117,
-    /* 118 */ OBJ_SCENERY_118,
-    /* 119 */ OBJ_SCENERY_119,
-    /* 120 */ OBJ_SCENERY_120,
-    /* 121 */ OBJ_SCENERY_121,
-    /* 122 */ OBJ_SCENERY_122,
-    /* 123 */ OBJ_SCENERY_123,
-    /* 124 */ OBJ_SCENERY_124,
-    /* 125 */ OBJ_SCENERY_125,
-    /* 126 */ OBJ_SCENERY_126,
-    /* 127 */ OBJ_SCENERY_127,
-    /* 128 */ OBJ_SCENERY_128,
-    /* 129 */ OBJ_SCENERY_129,
-    /* 130 */ OBJ_SCENERY_130,
-    /* 131 */ OBJ_SCENERY_131,
-    /* 132 */ OBJ_SCENERY_132,
-    /* 133 */ OBJ_SCENERY_133,
-    /* 134 */ OBJ_SCENERY_134,
-    /* 135 */ OBJ_SCENERY_135,
-    /* 136 */ OBJ_SCENERY_136,
-    /* 137 */ OBJ_SCENERY_137,
-    /* 138 */ OBJ_SCENERY_138,
-    /* 139 */ OBJ_SCENERY_139,
-    /* 140 */ OBJ_SCENERY_140,
-    /* 141 */ OBJ_SCENERY_141,
-    /* 142 */ OBJ_SCENERY_142,
-    /* 143 */ OBJ_SCENERY_143,
-    /* 144 */ OBJ_SCENERY_144,
-    /* 145 */ OBJ_SCENERY_145,
-    /* 146 */ OBJ_SCENERY_146,
+    /*  64 */ OBJ_SCENERY_MA_GUILLOTINE,
+    /*  65 */ OBJ_SCENERY_MA_PROXIMITY_LIGHT,
+    /*  66 */ OBJ_SCENERY_MA_WALL_2,
+    /*  67 */ OBJ_SCENERY_MA_WALL_3,
+    /*  68 */ OBJ_SCENERY_MA_WALL_4,
+    /*  69 */ OBJ_SCENERY_MA_TERRAIN_BUMP,
+    /*  70 */ OBJ_SCENERY_MA_FLOOR_1,
+    /*  71 */ OBJ_SCENERY_MA_FLOOR_2,
+    /*  72 */ OBJ_SCENERY_MA_FLOOR_3,
+    /*  73 */ OBJ_SCENERY_MA_FLOOR_4,
+    /*  74 */ OBJ_SCENERY_MA_FLOOR_5,
+    /*  75 */ OBJ_SCENERY_MA_FLOOR_6,
+    /*  76 */ OBJ_SCENERY_MA_WEAPONS_FACTORY,
+    /*  77 */ OBJ_SCENERY_MA_INDICATOR_SIGN,
+    /*  78 */ OBJ_SCENERY_MA_DISTANCE_SIGN_1,
+    /*  79 */ OBJ_SCENERY_MA_DISTANCE_SIGN_2,
+    /*  80 */ OBJ_SCENERY_MA_DISTANCE_SIGN_3,
+    /*  81 */ OBJ_SCENERY_MA_DISTANCE_SIGN_4,
+    /*  82 */ OBJ_SCENERY_MA_DISTANCE_SIGN_5,
+    /*  83 */ OBJ_SCENERY_MA_TRAIN_STOP_BLOCK,
+    /*  84 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_1,
+    /*  85 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_2,
+    /*  86 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_3,
+    /*  87 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_4,
+    /*  88 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_5,
+    /*  89 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_6,
+    /*  90 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_7,
+    /*  91 */ OBJ_SCENERY_MA_RAILROAD_SWITCH_8,
+    /*  92 */ OBJ_SCENERY_MA_TRAIN_TRACK_1,
+    /*  93 */ OBJ_SCENERY_MA_TRAIN_TRACK_2,
+    /*  94 */ OBJ_SCENERY_MA_TRAIN_TRACK_3,
+    /*  95 */ OBJ_SCENERY_MA_TRAIN_TRACK_4,
+    /*  96 */ OBJ_SCENERY_MA_TRAIN_TRACK_5,
+    /*  97 */ OBJ_SCENERY_MA_TRAIN_TRACK_6,
+    /*  98 */ OBJ_SCENERY_MA_TRAIN_TRACK_7,
+    /*  99 */ OBJ_SCENERY_MA_TRAIN_TRACK_8,
+    /* 100 */ OBJ_SCENERY_MA_TRAIN_TRACK_9,
+    /* 101 */ OBJ_SCENERY_MA_TRAIN_TRACK_10,
+    /* 102 */ OBJ_SCENERY_MA_TRAIN_TRACK_11,
+    /* 103 */ OBJ_SCENERY_MA_TRAIN_TRACK_12,
+    /* 104 */ OBJ_SCENERY_MA_SWITCH_TRACK,
+    /* 105 */ OBJ_SCENERY_MA_TRAIN_TRACK_13,
+    /* 106 */ OBJ_SCENERY_SY_SHIP_1,
+    /* 107 */ OBJ_SCENERY_SY_SHIP_2,
+    /* 108 */ OBJ_SCENERY_SY_SHIP_3,
+    /* 109 */ OBJ_SCENERY_SY_SHIP_3_DESTROYED,
+    /* 110 */ OBJ_SCENERY_SY_SHIP_4,
+    /* 111 */ OBJ_SCENERY_SY_SHIP_DEBRIS,
+    /* 112 */ OBJ_SCENERY_SY_SHIP_2_DESTROYED,
+    /* 113 */ OBJ_SPRITE_SY_SHIP_2, // Unused
+    /* 114 */ OBJ_SPRITE_SY_SHIP_3, // Unused
+    /* 115 */ OBJ_SCENERY_SY_SHIP_PROJECTILE,
+    /* 116 */ OBJ_SCENERY_SY_SHIP_WINDOWS,
+    /* 117 */ OBJ_SCENERY_AQ_CORAL_REEF_1,
+    /* 118 */ OBJ_SCENERY_AQ_TUNNEL_1,
+    /* 119 */ OBJ_SCENERY_AQ_ARCH,
+    /* 120 */ OBJ_SCENERY_AQ_CORAL_REEF_2,
+    /* 121 */ OBJ_SCENERY_AQ_ROCK,
+    /* 122 */ OBJ_SCENERY_AQ_WALL_1,
+    /* 123 */ OBJ_SCENERY_AQ_ROOF,
+    /* 124 */ OBJ_SCENERY_AQ_BUMP_1,
+    /* 125 */ OBJ_SCENERY_AQ_TUNNEL_2,
+    /* 126 */ OBJ_SCENERY_AQ_BUMP_2,
+    /* 127 */ OBJ_SCENERY_VE1_TEMPLE_ENTRANCE,
+    /* 128 */ OBJ_SCENERY_VE1_TEMPLE_INTERIOR_1,
+    /* 129 */ OBJ_SCENERY_VE1_TEMPLE_INTERIOR_2,
+    /* 130 */ OBJ_SCENERY_VE1_TEMPLE_INTERIOR_3,
+    /* 131 */ OBJ_SCENERY_AND_PASSAGE,
+    /* 132 */ OBJ_SCENERY_AND_DOOR,
+    /* 133 */ OBJ_SCENERY_TR_BUILDING,
+    /* 134 */ OBJ_SCENERY_AND_PATH_INTERSECTION,
+    /* 135 */ OBJ_SCENERY_AND_PATH_WALLS,
+    /* 136 */ OBJ_SCENERY_AND_PATH_EXIT,
+    /* 137 */ OBJ_SCENERY_AND_PATH_ENTRANCE,
+    /* 138 */ OBJ_SCENERY_VS_BUILDING_1, // Building with Pepper's face.
+    /* 139 */ OBJ_SCENERY_VS_BUILDING_2, // Building with Pepper's face. Duplicate from previous?
+    /* 140 */ OBJ_SCENERY_VS_PYRAMID_1,
+    /* 141 */ OBJ_SCENERY_VS_PYRAMID_2,
+    /* 142 */ OBJ_SCENERY_VS_ARCH,
+    /* 143 */ OBJ_SCENERY_VS_KA_FLBASE,
+    /* 144 */ OBJ_SCENERY_VS_SPACE_JUNK_1,
+    /* 145 */ OBJ_SCENERY_VS_SPACE_JUNK_2,
+    /* 146 */ OBJ_SCENERY_VS_SPACE_JUNK_3,
     /* 147 */ OBJ_SCENERY_147,
-    /* 148 */ OBJ_SCENERY_148,
-    /* 149 */ OBJ_SCENERY_149,
-    /* 150 */ OBJ_SCENERY_150,
-    /* 151 */ OBJ_SCENERY_151,
-    /* 152 */ OBJ_SCENERY_152,
-    /* 153 */ OBJ_SCENERY_153,
-    /* 154 */ OBJ_SCENERY_154,
-    /* 155 */ OBJ_SCENERY_155,
-    /* 156 */ OBJ_SCENERY_156,
-    /* 157 */ OBJ_SCENERY_157,
-    /* 158 */ OBJ_SCENERY_158,
-    /* 159 */ OBJ_SCENERY_159,
-    /* 160 */ OBJ_SCENERY_160,
+    /* 148 */ OBJ_SCENERY_FO_MOUNTAIN_1,
+    /* 149 */ OBJ_SCENERY_FO_MOUNTAIN_2,
+    /* 150 */ OBJ_SCENERY_FO_MOUNTAIN_3,
+    /* 151 */ OBJ_SCENERY_FO_TOWER,
+    /* 152 */ OBJ_SCENERY_BO_POLE,
+    /* 153 */ OBJ_SCENERY_BO_BUILDING,
+    /* 154 */ OBJ_SCENERY_KA_FLBASE,
+    /* 155 */ OBJ_SCENERY_UNK_155,
+    /* 156 */ OBJ_SCENERY_UNK_156,
+    /* 157 */ OBJ_SCENERY_SZ_SPACE_JUNK_3,
+    /* 158 */ OBJ_SCENERY_SZ_SPACE_JUNK_1,
+    /* 159 */ OBJ_SCENERY_VE2_TOWER,
+    /* 160 */ OBJ_SCENERY_VE2_MOUNTAIN,
     /* 161 */ OBJ_SPRITE_CO_POLE,
     /* 162 */ OBJ_SPRITE_CO_TREE,
     /* 163 */ OBJ_SPRITE_FO_POLE,
@@ -486,148 +486,148 @@ typedef enum ObjectId {
     /* 177 */ OBJ_ACTOR_CO_GARUDA_2, // Robot that throws I-Beams.
     /* 178 */ OBJ_ACTOR_CO_GARUDA_3, // Robot that spins I-Beams.
     /* 179 */ OBJ_ACTOR_CO_GARUDA_DESTROY,
-    /* 180 */ OBJ_ACTOR_180,
-    /* 181 */ OBJ_ACTOR_181,
-    /* 182 */ OBJ_ACTOR_182,
-    /* 183 */ OBJ_ACTOR_183,
-    /* 184 */ OBJ_ACTOR_184,
-    /* 185 */ OBJ_ACTOR_185,
-    /* 186 */ OBJ_ACTOR_186,
-    /* 187 */ OBJ_ACTOR_187,
-    /* 188 */ OBJ_ACTOR_188,
+    /* 180 */ OBJ_ACTOR_ME_MOLAR_ROCK,
+    /* 181 */ OBJ_ACTOR_ME_METEOR_1,
+    /* 182 */ OBJ_ACTOR_ME_METEOR_2, // Smaller than Meteor 1
+    /* 183 */ OBJ_ACTOR_ME_METEOR_SHOWER_1,
+    /* 184 */ OBJ_ACTOR_ME_METEOR_SHOWER_2,
+    /* 185 */ OBJ_ACTOR_ME_METEOR_SHOWER_3,
+    /* 186 */ OBJ_ACTOR_ME_LASER_CANNON_1,
+    /* 187 */ OBJ_ACTOR_ME_LASER_CANNON_2,
+    /* 188 */ OBJ_ACTOR_AQ_UNK_188, // Unimplemented actor.
     /* 189 */ OBJ_ACTOR_DEBRIS,
     /* 190 */ OBJ_MISSILE_SEEK_TEAM,
     /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
-    /* 192 */ OBJ_ACTOR_192,
-    /* 193 */ OBJ_ACTOR_193,
-    /* 194 */ OBJ_ACTOR_194,
+    /* 192 */ OBJ_ACTOR_CO_SKIBOT,
+    /* 193 */ OBJ_ACTOR_CO_RADAR,
+    /* 194 */ OBJ_ACTOR_ME_MORA,
     /* 195 */ OBJ_ACTOR_CUTSCENE,
-    /* 196 */ OBJ_ACTOR_196,
+    /* 196 */ OBJ_ACTOR_CO_MOLE_MISSILE,
     /* 197 */ OBJ_ACTOR_ALLRANGE,
     /* 198 */ OBJ_ACTOR_TEAM_BOSS,
     /* 199 */ OBJ_ACTOR_199,
     /* 200 */ OBJ_ACTOR_EVENT,
-    /* 201 */ OBJ_ACTOR_201,
-    /* 202 */ OBJ_ACTOR_202,
+    /* 201 */ OBJ_ACTOR_ME_METEO_BALL,
+    /* 202 */ OBJ_ACTOR_ME_HOPBOT,
     /* 203 */ OBJ_ACTOR_SLIPPY_SX,
-    /* 204 */ OBJ_ACTOR_204,
-    /* 205 */ OBJ_ACTOR_205,
-    /* 206 */ OBJ_ACTOR_206,
+    /* 204 */ OBJ_ACTOR_SY_ROBOT,
+    /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,
+    /* 206 */ OBJ_ACTOR_MA_TRAIN_CAR_1,
     /* 207 */ OBJ_ACTOR_207,
-    /* 208 */ OBJ_ACTOR_208,
-    /* 209 */ OBJ_ACTOR_209,
-    /* 210 */ OBJ_ACTOR_210,
-    /* 211 */ OBJ_ACTOR_211,
-    /* 212 */ OBJ_ACTOR_212,
-    /* 213 */ OBJ_ACTOR_213,
-    /* 214 */ OBJ_ACTOR_214,
-    /* 215 */ OBJ_ACTOR_215,
-    /* 216 */ OBJ_ACTOR_216,
-    /* 217 */ OBJ_ACTOR_217,
-    /* 218 */ OBJ_ACTOR_218,
+    /* 208 */ OBJ_ACTOR_MA_TRAIN_CAR_2,
+    /* 209 */ OBJ_ACTOR_MA_TRAIN_CAR_3,
+    /* 210 */ OBJ_ACTOR_MA_TRAIN_CAR_4,
+    /* 211 */ OBJ_ACTOR_MA_TRAIN_CAR_5,
+    /* 212 */ OBJ_ACTOR_MA_TRAIN_CAR_6,
+    /* 213 */ OBJ_ACTOR_MA_TRAIN_CAR_7,
+    /* 214 */ OBJ_ACTOR_MA_RAILROAD_SWITCH,
+    /* 215 */ OBJ_ACTOR_MA_BOULDER,
+    /* 216 */ OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR,
+    /* 217 */ OBJ_ACTOR_MA_VERTICAL_LOCK_BAR,
+    /* 218 */ OBJ_ACTOR_MA_BARRIER,
     /* 219 */ OBJ_ACTOR_219,
-    /* 220 */ OBJ_ACTOR_220,
-    /* 221 */ OBJ_ACTOR_221,
-    /* 222 */ OBJ_ACTOR_222,
-    /* 223 */ OBJ_ACTOR_223,
-    /* 224 */ OBJ_ACTOR_224,
-    /* 225 */ OBJ_ACTOR_225,
-    /* 226 */ OBJ_ACTOR_226,
-    /* 227 */ OBJ_ACTOR_227,
-    /* 228 */ OBJ_ACTOR_228,
-    /* 229 */ OBJ_ACTOR_229,
-    /* 230 */ OBJ_ACTOR_230,
-    /* 231 */ OBJ_ACTOR_231,
-    /* 232 */ OBJ_ACTOR_232,
-    /* 233 */ OBJ_ACTOR_233,
-    /* 234 */ OBJ_ACTOR_234,
-    /* 235 */ OBJ_ACTOR_235,
-    /* 236 */ OBJ_ACTOR_236,
-    /* 237 */ OBJ_ACTOR_237,
-    /* 238 */ OBJ_ACTOR_238,
-    /* 239 */ OBJ_ACTOR_239,
-    /* 240 */ OBJ_ACTOR_240,
-    /* 241 */ OBJ_ACTOR_241,
-    /* 242 */ OBJ_ACTOR_242,
-    /* 243 */ OBJ_ACTOR_243,
-    /* 244 */ OBJ_ACTOR_244,
-    /* 245 */ OBJ_ACTOR_245,
-    /* 246 */ OBJ_ACTOR_246,
-    /* 247 */ OBJ_ACTOR_247,
-    /* 248 */ OBJ_ACTOR_248,
-    /* 249 */ OBJ_ACTOR_249,
-    /* 250 */ OBJ_ACTOR_250,
-    /* 251 */ OBJ_ACTOR_251,
-    /* 252 */ OBJ_ACTOR_252,
-    /* 253 */ OBJ_ACTOR_253,
-    /* 254 */ OBJ_ACTOR_254,
+    /* 220 */ OBJ_ACTOR_MA_BOMBDROP,
+    /* 221 */ OBJ_ACTOR_MA_SPEAR,
+    /* 222 */ OBJ_ACTOR_MA_SHOCK_BOX,
+    /* 223 */ OBJ_ACTOR_MA_RAILWAY_SIGNAL,
+    /* 224 */ OBJ_ACTOR_TI_TERRAIN,
+    /* 225 */ OBJ_ACTOR_TI_LANDMINE,
+    /* 226 */ OBJ_ACTOR_TI_DESERT_ROVER,
+    /* 227 */ OBJ_ACTOR_TI_DELPHOR,      // Tall enemy with laser tracking.
+    /* 228 */ OBJ_ACTOR_TI_DELPHOR_HEAD, // Delphor's head.
+    /* 229 */ OBJ_ACTOR_TI_DESERT_CRAWLER,
+    /* 230 */ OBJ_ACTOR_TI_BOULDER,
+    /* 231 */ OBJ_ACTOR_TI_BOMB,   // Ground time-based bomb.
+    /* 232 */ OBJ_ACTOR_TI_RASCO,  // Flying enemy that throws rocks.
+    /* 233 */ OBJ_ACTOR_TI_FEKUDA, // Small cannon that fires lasers.
+    /* 234 */ OBJ_ACTOR_TI_GREAT_FOX,
+    /* 235 */ OBJ_ACTOR_ZO_BIRD,
+    /* 236 */ OBJ_ACTOR_ZO_DODORA, // Giant flying snake type enemy.
+    /* 237 */ OBJ_ACTOR_UNK_237,
+    /* 238 */ OBJ_ACTOR_ZO_FISH,
+    /* 239 */ OBJ_ACTOR_ZO_DODORA_WP_COUNT, // Dodora waypoint counter.
+    /* 240 */ OBJ_ACTOR_ZO_Z_GULL,
+    /* 241 */ OBJ_ACTOR_ZO_ENERGY_BALL,     // Energy balls carried by Z-Gulls.
+    /* 242 */ OBJ_ACTOR_ZO_TROIKA,
+    /* 243 */ OBJ_ACTOR_ZO_SHRIMP,
+    /* 244 */ OBJ_ACTOR_ZO_OBNEMA,  // Giant Arachnid type enemy.
+    /* 245 */ OBJ_ACTOR_ZO_BALL,    // Balls shoot by Zoness boss.
+    /* 246 */ OBJ_ACTOR_ZO_MINE,
+    /* 247 */ OBJ_ACTOR_ZO_BARRIER, // Barrier with opening rudders on the sides.
+    /* 248 */ OBJ_ACTOR_ZO_CRANE_MAGNET,
+    /* 249 */ OBJ_ACTOR_SPIKEBALL,  // Spikeball shot by Zoness boss.
+    /* 250 */ OBJ_ACTOR_ZO_CARGOSHIP,
+    /* 251 */ OBJ_ACTOR_ZO_CONTAINER,
+    /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
+    /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
+    /* 254 */ OBJ_ACTOR_ZO_SEARCHLIGHT,
     /* 255 */ OBJ_ACTOR_255,
     /* 256 */ OBJ_ACTOR_256,
     /* 257 */ OBJ_ACTOR_257,
-    /* 258 */ OBJ_ACTOR_258,
-    /* 259 */ OBJ_ACTOR_259,
-    /* 260 */ OBJ_ACTOR_260,
-    /* 261 */ OBJ_ACTOR_261,
-    /* 262 */ OBJ_ACTOR_262,
-    /* 263 */ OBJ_ACTOR_263,
-    /* 264 */ OBJ_ACTOR_264,
-    /* 265 */ OBJ_ACTOR_265,
-    /* 266 */ OBJ_ACTOR_266,
-    /* 267 */ OBJ_ACTOR_267,
-    /* 268 */ OBJ_ACTOR_268,
-    /* 269 */ OBJ_ACTOR_269,
-    /* 270 */ OBJ_ACTOR_270,
-    /* 271 */ OBJ_ACTOR_271,
-    /* 272 */ OBJ_ACTOR_272,
+    /* 258 */ OBJ_ACTOR_AQ_PEARL,
+    /* 259 */ OBJ_ACTOR_AQ_ANGLERFISH, // Giant fish with search light.
+    /* 260 */ OBJ_ACTOR_AQ_GAROA,      // Blue shellded enemy that throws energy balls.
+    /* 261 */ OBJ_ACTOR_AQ_SCULPIN,    // Fish-type enemy.
+    /* 262 */ OBJ_ACTOR_AQ_SPINDLYFISH,
+    /* 263 */ OBJ_ACTOR_AQ_SQUID,
+    /* 264 */ OBJ_ACTOR_AQ_SEAWEED,
+    /* 265 */ OBJ_ACTOR_AQ_BOULDER,
+    /* 266 */ OBJ_ACTOR_AQ_CORAL,
+    /* 267 */ OBJ_ACTOR_AQ_JELLYFISH,
+    /* 268 */ OBJ_ACTOR_AQ_FISHGROUP, // A school of small fish.
+    /* 269 */ OBJ_ACTOR_AQ_STONE_COLUMN,
+    /* 270 */ OBJ_ACTOR_AQ_OYSTER,
+    /* 271 */ OBJ_ACTOR_BO_SHIELD_REACTOR,
+    /* 272 */ OBJ_ACTOR_BO_LASER_CANNON,
     /* 273 */ OBJ_ACTOR_FO_RADAR,
     /* 274 */ OBJ_ACTOR_SZ_SPACE_JUNK,
-    /* 275 */ OBJ_ACTOR_275,
-    /* 276 */ OBJ_ACTOR_276,
-    /* 277 */ OBJ_ACTOR_277,
-    /* 278 */ OBJ_ACTOR_278,
-    /* 279 */ OBJ_ACTOR_279,
-    /* 280 */ OBJ_ACTOR_280,
-    /* 281 */ OBJ_ACTOR_281,
-    /* 282 */ OBJ_ACTOR_282,
-    /* 283 */ OBJ_ACTOR_283,
-    /* 284 */ OBJ_ACTOR_284,
-    /* 285 */ OBJ_ACTOR_285,
-    /* 286 */ OBJ_ACTOR_286,
-    /* 287 */ OBJ_ACTOR_287,
-    /* 288 */ OBJ_ACTOR_288,
-    /* 289 */ OBJ_ACTOR_289,
-    /* 290 */ OBJ_ACTOR_290,
+    /* 275 */ OBJ_ACTOR_SO_ROCK_1, // Surfacing rock type 1.
+    /* 276 */ OBJ_ACTOR_SO_ROCK_2, // Surfacing rock type 2.
+    /* 277 */ OBJ_ACTOR_SO_ROCK_3, // Surfacing rock type 3.
+    /* 278 */ OBJ_ACTOR_SO_WAVE,
+    /* 279 */ OBJ_ACTOR_SO_PROMINENCE,
+    /* 280 */ OBJ_ACTOR_VE1_PILLAR_1,
+    /* 281 */ OBJ_ACTOR_VE1_PILLAR_2,
+    /* 282 */ OBJ_ACTOR_VE1_PILLAR_3,
+    /* 283 */ OBJ_ACTOR_VE1_PILLAR_4,
+    /* 284 */ OBJ_ACTOR_VE1_MONKEY_STATUE,
+    /* 285 */ OBJ_ACTOR_AND_LASER_EMITTER,
+    /* 286 */ OBJ_ACTOR_AND_BRAIN_WASTE,
+    /* 287 */ OBJ_ACTOR_AND_EXPLOSION, // Explosions that follow Fox during the Andross escape.
+    /* 288 */ OBJ_ACTOR_AND_RADIO, // Andross radio messages.
+    /* 289 */ OBJ_ACTOR_AND_JAMES_TRIGGER,
+    /* 290 */ OBJ_ACTOR_AND_BOSS_TIMER_SET,
     /* 291 */ OBJ_ACTOR_SUPPLIES,
     /* 292 */ OBJ_BOSS_CO_GRANGA,
     /* 293 */ OBJ_BOSS_CO_CARRIER,
-    /* 294 */ OBJ_BOSS_294,
-    /* 295 */ OBJ_BOSS_295,
-    /* 296 */ OBJ_BOSS_296,
-    /* 297 */ OBJ_BOSS_297,
-    /* 298 */ OBJ_BOSS_298,
-    /* 299 */ OBJ_BOSS_299,
-    /* 300 */ OBJ_BOSS_300,
-    /* 301 */ OBJ_BOSS_301,
-    /* 302 */ OBJ_BOSS_A6,
+    /* 294 */ OBJ_BOSS_CO_CARRIER_LEFT,
+    /* 295 */ OBJ_BOSS_CO_CARRIER_UPPER,
+    /* 296 */ OBJ_BOSS_CO_CARRIER_BOTTOM,
+    /* 297 */ OBJ_BOSS_ME_CRUSHER,
+    /* 298 */ OBJ_BOSS_ME_CRUSHER_SHIELD,
+    /* 299 */ OBJ_BOSS_UNK_299,
+    /* 300 */ OBJ_BOSS_UNK_300,
+    /* 301 */ OBJ_BOSS_AQ_UNK_301,
+    /* 302 */ OBJ_BOSS_A6_GORGON,
     /* 303 */ OBJ_BOSS_SX_SPYBORG,
-    /* 304 */ OBJ_BOSS_304,
-    /* 305 */ OBJ_BOSS_305,
-    /* 306 */ OBJ_BOSS_TI,
-    /* 307 */ OBJ_BOSS_ZO,
-    /* 308 */ OBJ_BOSS_FO,
-    /* 309 */ OBJ_BOSS_309,
-    /* 310 */ OBJ_BOSS_310,
-    /* 311 */ OBJ_BOSS_311,
-    /* 312 */ OBJ_BOSS_VE2,
+    /* 304 */ OBJ_BOSS_SX_SPYBORG_LEFT_ARM,
+    /* 305 */ OBJ_BOSS_SX_SPYBORG_RIGHT_ARM,
+    /* 306 */ OBJ_BOSS_TI_GORAS,
+    /* 307 */ OBJ_BOSS_ZO_SARUMARINE,
+    /* 308 */ OBJ_BOSS_FO_BASE,
+    /* 309 */ OBJ_BOSS_BO_BASE,
+    /* 310 */ OBJ_BOSS_BO_BASE_SHIELD, // Bolse force field
+    /* 311 */ OBJ_BOSS_BO_BASE_CORE,
+    /* 312 */ OBJ_BOSS_VE2_BASE,
     /* 313 */ OBJ_BOSS_SZ_GREAT_FOX,
-    /* 314 */ OBJ_BOSS_SY,
-    /* 315 */ OBJ_BOSS_SO,
-    /* 316 */ OBJ_BOSS_KA,
-    /* 317 */ OBJ_BOSS_KA_BASE,
-    /* 318 */ OBJ_BOSS_AQ,
-    /* 319 */ OBJ_BOSS_VE1,
-    /* 320 */ OBJ_BOSS_320,
-    /* 321 */ OBJ_BOSS_321,
+    /* 314 */ OBJ_BOSS_SY_SHOGUN,
+    /* 315 */ OBJ_BOSS_SO_VULKAIN,
+    /* 316 */ OBJ_BOSS_KA_SAUCERER,
+    /* 317 */ OBJ_BOSS_KA_FLBASE,
+    /* 318 */ OBJ_BOSS_AQ_BACOON,
+    /* 319 */ OBJ_BOSS_VE1_GOLEMECH,
+    /* 320 */ OBJ_BOSS_AND_ANDROSS,
+    /* 321 */ OBJ_BOSS_AND_BRAIN,
     /* 322 */ OBJ_ITEM_LASERS,
     /* 323 */ OBJ_ITEM_CHECKPOINT,
     /* 324 */ OBJ_ITEM_SILVER_RING,
@@ -645,13 +645,13 @@ typedef enum ObjectId {
     /* 336 */ OBJ_ITEM_GOLD_RING,
     /* 337 */ OBJ_ITEM_WING_REPAIR,
     /* 338 */ OBJ_ITEM_TRAINING_RING,
-    /* 339 */ OBJ_EFFECT_FIRE_SMOKE,
-    /* 340 */ OBJ_EFFECT_340,
-    /* 341 */ OBJ_EFFECT_341,
-    /* 342 */ OBJ_EFFECT_342,
-    /* 343 */ OBJ_EFFECT_343,
-    /* 344 */ OBJ_EFFECT_344,
-    /* 345 */ OBJ_EFFECT_345,
+    /* 339 */ OBJ_EFFECT_FIRE_SMOKE_1,
+    /* 340 */ OBJ_EFFECT_FIRE_SMOKE_2,
+    /* 341 */ OBJ_EFFECT_FIRE_SMOKE_3,
+    /* 342 */ OBJ_EFFECT_SMOKE_1,
+    /* 343 */ OBJ_EFFECT_SMOKE_2,
+    /* 344 */ OBJ_EFFECT_EXPLOSION_MARK_1, // Explosion mark left on the ground after an enemy explodes.
+    /* 345 */ OBJ_EFFECT_LASER_MARK_1, // Mark left when lasers hit the ground.
     /* 346 */ OBJ_EFFECT_346,
     /* 347 */ OBJ_EFFECT_347,
     /* 348 */ OBJ_EFFECT_348,
@@ -664,7 +664,7 @@ typedef enum ObjectId {
     /* 355 */ OBJ_EFFECT_355,
     /* 356 */ OBJ_EFFECT_356,
     /* 357 */ OBJ_EFFECT_357,
-    /* 358 */ OBJ_EFFECT_358,
+    /* 358 */ OBJ_EFFECT_KA_ENERGY_PARTICLES,
     /* 359 */ OBJ_EFFECT_359,
     /* 360 */ OBJ_EFFECT_360,
     /* 361 */ OBJ_EFFECT_361,
@@ -672,27 +672,27 @@ typedef enum ObjectId {
     /* 363 */ OBJ_EFFECT_363,
     /* 364 */ OBJ_EFFECT_364,
     /* 365 */ OBJ_EFFECT_365,
-    /* 366 */ OBJ_EFFECT_366,
-    /* 367 */ OBJ_EFFECT_367,
-    /* 368 */ OBJ_EFFECT_368,
-    /* 369 */ OBJ_EFFECT_369,
-    /* 370 */ OBJ_EFFECT_370,
-    /* 371 */ OBJ_EFFECT_371,
-    /* 372 */ OBJ_EFFECT_372,
+    /* 366 */ OBJ_EFFECT_366, // ast_blue_marine
+    /* 367 */ OBJ_EFFECT_367, // ast_bg_planet
+    /* 368 */ OBJ_EFFECT_368, // TI: ast_landmaster
+    /* 369 */ OBJ_EFFECT_369, // ME: ast_common
+    /* 370 */ OBJ_EFFECT_370, // ME: ast_meteo
+    /* 371 */ OBJ_EFFECT_371, // ME: ast_meteo
+    /* 372 */ OBJ_EFFECT_372, // ast_arwing
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
-    /* 374 */ OBJ_EFFECT_374,
+    /* 374 */ OBJ_EFFECT_374, // ast_enmy_planet
     /* 375 */ OBJ_EFFECT_375,
-    /* 376 */ OBJ_EFFECT_376,
-    /* 377 */ OBJ_EFFECT_377,
-    /* 378 */ OBJ_EFFECT_378,
+    /* 376 */ OBJ_EFFECT_376, // Plasma shot by Granga
+    /* 377 */ OBJ_EFFECT_377, // Spyborg blue shot
+    /* 378 */ OBJ_EFFECT_378, // Ball projectiles shot by train car turret in Macbeth
     /* 379 */ OBJ_EFFECT_379,
-    /* 380 */ OBJ_EFFECT_380,
+    /* 380 */ OBJ_EFFECT_380, // Some kind of shot (Macbeth boss)
     /* 381 */ OBJ_EFFECT_381,
     /* 382 */ OBJ_EFFECT_382,
-    /* 383 */ OBJ_EFFECT_383,
-    /* 384 */ OBJ_EFFECT_384,
-    /* 385 */ OBJ_EFFECT_385,
-    /* 386 */ OBJ_EFFECT_386,
+    /* 383 */ OBJ_EFFECT_383, // Big boss explosion
+    /* 384 */ OBJ_EFFECT_384, // small explosion
+    /* 385 */ OBJ_EFFECT_385, // small explosion
+    /* 386 */ OBJ_EFFECT_386, // some type of explosion
     /* 387 */ OBJ_EFFECT_387,
     /* 388 */ OBJ_EFFECT_388,
     /* 389 */ OBJ_EFFECT_389,
@@ -706,13 +706,13 @@ typedef enum ObjectId {
     /* 397 */ OBJ_EFFECT_397,
     /* 398 */ OBJ_EFFECT_398,
     /* 399 */ OBJ_EFFECT_399,
-    /* 400 */ OBJ_UNK_400,
-    /* 401 */ OBJ_UNK_401,
+    /* 400 */ OBJ_ENV_SMALL_ROCKS_ENABLE,
+    /* 401 */ OBJ_ENV_SMALL_ROCKS_DISABLE,
     /* 402 */ OBJ_UNK_402,
     /* 403 */ OBJ_UNK_403,
     /* 404 */ OBJ_UNK_404,
     /* 405 */ OBJ_UNK_405,
-    /* 407 */ OBJ_ID_MAX,
+    /* 406 */ OBJ_ID_MAX,
 } ObjectId;
 
 #define OBJ_SCENERY_START OBJ_SCENERY_CO_STONE_ARCH
@@ -720,8 +720,8 @@ typedef enum ObjectId {
 #define OBJ_ACTOR_START OBJ_ACTOR_CO_GARUDA_1
 #define OBJ_BOSS_START OBJ_BOSS_CO_GRANGA
 #define OBJ_ITEM_START OBJ_ITEM_LASERS
-#define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE
-#define OBJ_ENV_START OBJ_UNK_400
+#define OBJ_EFFECT_START OBJ_EFFECT_FIRE_SMOKE_1
+#define OBJ_ENV_START OBJ_ENV_SMALL_ROCKS_ENABLE
 
 #define OBJ_SCENERY_MAX OBJ_SPRITE_START
 #define OBJ_SPRITE_MAX OBJ_ACTOR_START
@@ -935,167 +935,167 @@ typedef enum {
     /* 50 */ LN_VWK_MAX,
 } BossLNvwork;
 
-typedef Scenery Scenery_0;
-typedef Scenery Scenery_1;
-typedef Scenery Scenery_2;
-typedef Scenery Scenery_3;
-typedef Scenery Scenery_4;
-typedef Scenery Scenery_5;
-typedef Scenery Scenery_6;
-typedef Scenery Scenery_7;
-typedef Scenery Scenery_8;
-typedef Scenery Scenery_9;
-typedef Scenery Scenery_10;
-typedef Scenery Scenery_11;
-typedef Scenery Scenery_12;
-typedef Scenery Scenery_13;
-typedef Scenery Scenery_14;
-typedef Scenery Scenery_15;
-typedef Scenery Scenery_16;
-typedef Scenery Scenery_17;
+typedef Scenery CoStoneArch;
+typedef Scenery CoBump1;
+typedef Scenery CoBump2;
+typedef Scenery CoBump3;
+typedef Scenery CoBump4;
+typedef Scenery CoBump5;
+typedef Scenery CoHighway1;
+typedef Scenery CoHighway2;
+typedef Scenery CoHighway3;
+typedef Scenery CoHighway4;
+typedef Scenery CoBuilding1;
+typedef Scenery CoBuilding2;
+typedef Scenery CoBuilding3;
+typedef Scenery CoBuilding4;
+typedef Scenery CoBuilding5;
+typedef Scenery CoBuilding6;
+typedef Scenery CoBuilding7;
+typedef Scenery CoBuilding8;
 typedef Scenery CoBuildingOnFire;
-typedef Scenery Scenery_19;
-typedef Scenery Scenery_20;
-typedef Scenery Scenery_21;
-typedef Scenery Scenery_22;
-typedef Scenery Scenery_23;
-typedef Scenery Scenery_24;
-typedef Scenery Scenery_25;
-typedef Scenery Scenery_26;
-typedef Scenery Scenery_27;
-typedef Scenery Scenery_28;
-typedef Scenery Scenery_29;
-typedef Scenery Scenery_30;
-typedef Scenery Scenery_31;
-typedef Scenery Scenery_32;
-typedef Scenery Scenery_33;
-typedef Scenery Scenery_34;
-typedef Scenery Scenery_35;
-typedef Scenery Scenery_36;
-typedef Scenery Scenery_37;
-typedef Scenery Scenery_38;
-typedef Scenery MeteoTunnel;
+typedef Scenery CoTower;
+typedef Scenery CoArch1;
+typedef Scenery CoArch2;
+typedef Scenery CoArch3;
+typedef Scenery CoRadarDish;
+typedef Scenery CoHighway5;
+typedef Scenery CoHighway6;
+typedef Scenery CoHighway7;
+typedef Scenery CoHighway8;
+typedef Scenery CoHighway9;
+typedef Scenery TiSkull;
+typedef Scenery TiRib0;
+typedef Scenery TiRib1;
+typedef Scenery TiRib2;
+typedef Scenery TiRib3;
+typedef Scenery TiRib4;
+typedef Scenery TiRib5;
+typedef Scenery TiRib6;
+typedef Scenery TiRib7;
+typedef Scenery TiRib8;
+typedef Scenery MeTunnel;
 typedef Scenery CoBuilding9;
 typedef Scenery CoBuilding10;
 typedef Scenery CoIBeam;
-typedef Scenery Scenery_43;
-typedef Scenery Scenery_44;
-typedef Scenery Scenery_45;
-typedef Scenery Scenery_46;
-typedef Scenery Scenery_47;
-typedef Scenery Scenery_48;
-typedef Scenery Scenery_49;
-typedef Scenery Scenery_50;
-typedef Scenery Scenery_51;
-typedef Scenery Scenery_52;
-typedef Scenery Scenery_53;
+typedef Scenery ZoRock;
+typedef Scenery ZoOilRig1;
+typedef Scenery ZoOilRig2;
+typedef Scenery ZoOilRig3;
+typedef Scenery ZoIsland;
+typedef Scenery Ve1Wall1;
+typedef Scenery Ve1Wall2;
+typedef Scenery Ve1Wall3;
+typedef Scenery Ve1HallwayObstacle;
+typedef Scenery Ve1Generator;
+typedef Scenery Ve1WatchPost;
 typedef Scenery CoWaterfall;
-typedef Scenery Scenery_55;
+typedef Scenery CoRockWall;
 typedef Scenery CoDoors;
-typedef Scenery Scenery_57;
-typedef Scenery Scenery_58;
-typedef Scenery Scenery_59;
-typedef Scenery Scenery_60;
-typedef Scenery Scenery_61;
-typedef Scenery Scenery_62;
-typedef Scenery Scenery_63;
-typedef Scenery Scenery_64;
-typedef Scenery Scenery_65;
-typedef Scenery Scenery_66;
-typedef Scenery Scenery_67;
-typedef Scenery Scenery_68;
-typedef Scenery Scenery_69;
-typedef Scenery Scenery_70;
-typedef Scenery Scenery_71;
-typedef Scenery Scenery_72;
-typedef Scenery Scenery_73;
-typedef Scenery Scenery_74;
-typedef Scenery Scenery_75;
-typedef Scenery Scenery_76;
-typedef Scenery Scenery_77;
-typedef Scenery Scenery_78;
-typedef Scenery Scenery_79;
-typedef Scenery Scenery_80;
-typedef Scenery Scenery_81;
-typedef Scenery Scenery_82;
-typedef Scenery Scenery_83;
-typedef Scenery Scenery_84;
-typedef Scenery Scenery_85;
-typedef Scenery Scenery_86;
-typedef Scenery Scenery_87;
-typedef Scenery Scenery_88;
-typedef Scenery Scenery_89;
-typedef Scenery Scenery_90;
-typedef Scenery Scenery_91;
-typedef Scenery Scenery_92;
-typedef Scenery Scenery_93;
-typedef Scenery Scenery_94;
-typedef Scenery Scenery_95;
-typedef Scenery Scenery_96;
-typedef Scenery Scenery_97;
-typedef Scenery Scenery_98;
-typedef Scenery Scenery_99;
-typedef Scenery Scenery_100;
-typedef Scenery Scenery_101;
-typedef Scenery Scenery_102;
-typedef Scenery Scenery_103;
-typedef Scenery Scenery_104;
-typedef Scenery Scenery_105;
-typedef Scenery Scenery_106;
-typedef Scenery Scenery_107;
-typedef Scenery Scenery_108;
-typedef Scenery Scenery_109;
-typedef Scenery Scenery_110;
-typedef Scenery Scenery_111;
-typedef Scenery Scenery_112;
-typedef Scenery Scenery_113;
-typedef Scenery Scenery_114;
-typedef Scenery Scenery_115;
-typedef Scenery Scenery_116;
-typedef Scenery Scenery_117;
-typedef Scenery Scenery_118;
-typedef Scenery Scenery_119;
-typedef Scenery Scenery_120;
-typedef Scenery Scenery_121;
-typedef Scenery Scenery_122;
-typedef Scenery Scenery_123;
-typedef Scenery Scenery_124;
-typedef Scenery Scenery_125;
-typedef Scenery Scenery_126;
-typedef Scenery Scenery_127;
-typedef Scenery Scenery_128;
-typedef Scenery Scenery_129;
-typedef Scenery Scenery_130;
-typedef Scenery Scenery_131;
-typedef Scenery Scenery_132;
-typedef Scenery Scenery_133;
-typedef Scenery Scenery_134;
-typedef Scenery Scenery_135;
-typedef Scenery Scenery_136;
-typedef Scenery Scenery_137;
-typedef Scenery Scenery_138;
-typedef Scenery Scenery_139;
-typedef Scenery Scenery_140;
-typedef Scenery Scenery_141;
-typedef Scenery Scenery_142;
-typedef Scenery Scenery_143;
-typedef Scenery Scenery_144;
-typedef Scenery Scenery_145;
-typedef Scenery Scenery_146;
-typedef Scenery Scenery_147;
-typedef Scenery Scenery_148;
-typedef Scenery Scenery_149;
-typedef Scenery Scenery_150;
-typedef Scenery Scenery_151;
-typedef Scenery Scenery_152;
-typedef Scenery Scenery_153;
-typedef Scenery Scenery_154;
-typedef Scenery Scenery_155;
-typedef Scenery Scenery_156;
-typedef Scenery Scenery_157;
-typedef Scenery Scenery_158;
-typedef Scenery Scenery_159;
-typedef Scenery Scenery_160;
+typedef Scenery TiPillar;
+typedef Scenery TiBridge;
+typedef Scenery MaBuilding1;
+typedef Scenery MaBuilding2;
+typedef Scenery MaTower;
+typedef Scenery MaWall1;
+typedef Scenery Scenery63;
+typedef Scenery MaGuillotine;
+typedef Scenery MaProximityLight;
+typedef Scenery MaWall2;
+typedef Scenery MaWall3;
+typedef Scenery MaWall4;
+typedef Scenery MaTerrainBump;
+typedef Scenery MaFloor1;
+typedef Scenery MaFloor2;
+typedef Scenery MaFloor3;
+typedef Scenery MaFloor4;
+typedef Scenery MaFloor5;
+typedef Scenery MaFloor6;
+typedef Scenery MaWeaponsFactory;
+typedef Scenery MaIndicatorSign;
+typedef Scenery MaDistanceSign1;
+typedef Scenery MaDistanceSign2;
+typedef Scenery MaDistanceSign3;
+typedef Scenery MaDistanceSign4;
+typedef Scenery MaDistanceSign5;
+typedef Scenery MaTrainStopBlock;
+typedef Scenery MaRailroadSwitch1;
+typedef Scenery MaRailroadSwitch2;
+typedef Scenery MaRailroadSwitch3;
+typedef Scenery MaRailroadSwitch4;
+typedef Scenery MaRailroadSwitch5;
+typedef Scenery MaRailroadSwitch6;
+typedef Scenery MaRailroadSwitch7;
+typedef Scenery MaRailroadSwitch8;
+typedef Scenery MaTrainTrack1;
+typedef Scenery MaTrainTrack2;
+typedef Scenery MaTrainTrack3;
+typedef Scenery MaTrainTrack4;
+typedef Scenery MaTrainTrack5;
+typedef Scenery MaTrainTrack6;
+typedef Scenery MaTrainTrack7;
+typedef Scenery MaTrainTrack8;
+typedef Scenery MaTrainTrack9;
+typedef Scenery MaTrainTrack10;
+typedef Scenery MaTrainTrack11;
+typedef Scenery MaTrainTrack12;
+typedef Scenery MaSwitchTrack;
+typedef Scenery MaTrainTrack13;
+typedef Scenery SyShip1;
+typedef Scenery SyShip2;
+typedef Scenery SyShip3;
+typedef Scenery SyShip3Destroyed;
+typedef Scenery SyShip4;
+typedef Scenery SyShipDebris;
+typedef Scenery SyShip2Destroyed;
+typedef Sprite SpriteSyShip2;
+typedef Sprite SpriteSyShip3;
+typedef Scenery SyShipProjectile;
+typedef Scenery SyShipWindows;
+typedef Scenery AqCoralReef1;
+typedef Scenery AqTunnel1;
+typedef Scenery AqArch;
+typedef Scenery AqCoralReef2;
+typedef Scenery AqRock;
+typedef Scenery AqWall1;
+typedef Scenery AqRoof;
+typedef Scenery AqBump1;
+typedef Scenery AqTunnel2;
+typedef Scenery AqBump2;
+typedef Scenery Ve1TempleEntrance;
+typedef Scenery AqTempleInterior1;
+typedef Scenery AqTempleInterior2;
+typedef Scenery AqTempleInterior3;
+typedef Scenery AndPassage;
+typedef Scenery AndDoor;
+typedef Scenery TrBuilding;
+typedef Scenery AndPathIntersection;
+typedef Scenery AndPathWalls;
+typedef Scenery AndPathExit;
+typedef Scenery AndPathEntrance;
+typedef Scenery VsBuilding1;
+typedef Scenery VsBuilding2;
+typedef Scenery VsPyramid1;
+typedef Scenery VsPyramid2;
+typedef Scenery VsArch;
+typedef Scenery VsKaFlBase;
+typedef Scenery VsSpaceJunk1;
+typedef Scenery VsSpaceJunk2;
+typedef Scenery VsSpaceJunk3;
+typedef Scenery Scenery147;
+typedef Scenery FoMountain1;
+typedef Scenery FoMountain2;
+typedef Scenery FoMountain3;
+typedef Scenery FoTower;
+typedef Scenery BoPole;
+typedef Scenery BoBuilding;
+typedef Scenery KaFlBase;
+typedef Scenery SceneryUnk155;
+typedef Scenery SceneryUnk156;
+typedef Scenery SzSpaceJunk3;
+typedef Scenery SzSpaceJunk1;
+typedef Scenery Ve2Tower;
+typedef Scenery Ve2Mountain;
 typedef Sprite CoPole;
 typedef Sprite CoTree;
 typedef Sprite FoPole;
@@ -1115,148 +1115,148 @@ typedef Actor CoGaruda1;
 typedef Actor CoGaruda2;
 typedef Actor CoGaruda3;
 typedef Actor CoGarudaDestroy;
-typedef Actor Actor180;
-typedef Actor Actor181;
-typedef Actor Actor182;
-typedef Actor Actor183;
-typedef Actor Actor184;
-typedef Actor Actor185;
-typedef Actor Actor186;
-typedef Actor Actor187;
+typedef Actor MeMolarRock;
+typedef Actor MeMeteor1;
+typedef Actor MeMeteor2;
+typedef Actor MeMeteorShower1;
+typedef Actor MeMeteorShower2;
+typedef Actor MeMeteorShower3;
+typedef Actor MeLaserCannon1;
+typedef Actor MeLaserCannon2;
 typedef Actor Actor188;
 typedef Actor ActorDebris;
-typedef Actor Actor190;
-typedef Actor Actor191;
-typedef Actor Actor192;
-typedef Actor Actor193;
-typedef Actor Actor194;
+typedef Actor ActorMissileSeekTeam;
+typedef Actor ActorMissileSeekPlayer;
+typedef Actor ActorSkibot;
+typedef Actor CoRadar;
+typedef Actor MeMora;
 typedef Actor ActorCutscene;
-typedef Actor Actor196;
+typedef Actor ActorMoleMissile;
 typedef Actor ActorAllRange;
-typedef Actor ActorTeamBoss;
+typedef Actor ActorTeamBoss; // Teammates in a boss battle
 typedef Actor Actor199;
 typedef Actor ActorEvent;
-typedef Actor Actor201;
-typedef Actor Actor202;
-typedef Actor ActorSlippySX;
-typedef Actor Actor204;
-typedef Actor Actor205;
-typedef Actor Actor206;
+typedef Actor MeteoBall;
+typedef Actor ActorHopBot;
+typedef Actor SxSlippy;
+typedef Actor SyRobot;
+typedef Actor MaLocomotive;
+typedef Actor MaTrainCar1;
 typedef Actor Actor207;
-typedef Actor Actor208;
-typedef Actor Actor209;
-typedef Actor Actor210;
-typedef Actor Actor211;
-typedef Actor Actor212;
-typedef Actor Actor213;
-typedef Actor Actor214;
-typedef Actor Actor215;
-typedef Actor Actor216;
-typedef Actor Actor217;
-typedef Actor Actor218;
+typedef Actor MaTrainCar2;
+typedef Actor MaTrainCar3;
+typedef Actor MaTrainCar4;
+typedef Actor MaTrainCar5;
+typedef Actor MaTrainCar6;
+typedef Actor MaTrainCar7;
+typedef Actor MaRailroadSwitch;
+typedef Actor MaBoulder;
+typedef Actor MaHorizontalLockBar;
+typedef Actor MaVerticalLockBar;
+typedef Actor MaBarrier;
 typedef Actor Actor219;
-typedef Actor Actor220;
-typedef Actor Actor221;
-typedef Actor Actor222;
-typedef Actor Actor223;
-typedef Actor Actor224;
-typedef Actor Actor225;
-typedef Actor Actor226;
-typedef Actor Actor227;
-typedef Actor Actor228;
-typedef Actor Actor229;
-typedef Actor Actor230;
-typedef Actor Actor231;
-typedef Actor Actor232;
-typedef Actor Actor233;
-typedef Actor Actor234;
-typedef Actor Actor235;
-typedef Actor Actor236;
+typedef Actor MaBombDrop;
+typedef Actor MaSpear;
+typedef Actor MaShockBox;
+typedef Actor MaRailwaySignal;
+typedef Actor TiTerrain;
+typedef Actor TiLandmine;
+typedef Actor TiDesertRover;
+typedef Actor TiDelphor;
+typedef Actor TiDelphorHead;
+typedef Actor TiDesertCrawler;
+typedef Actor TiBoulder;
+typedef Actor TiBomb;
+typedef Actor TiRasco;
+typedef Actor TiFekuda;
+typedef Actor TiGreatFox;
+typedef Actor ZoBird;
+typedef Actor ZoDodora;
 typedef Actor Actor237;
-typedef Actor Actor238;
-typedef Actor Actor239;
-typedef Actor Actor240;
-typedef Actor Actor241;
-typedef Actor Actor242;
-typedef Actor Actor243;
-typedef Actor Actor244;
-typedef Actor Actor245;
-typedef Actor Actor246;
-typedef Actor Actor247;
-typedef Actor Actor248;
-typedef Actor Actor249;
-typedef Actor Actor250;
-typedef Actor Actor251;
-typedef Actor Actor252;
-typedef Actor Actor253;
-typedef Actor Actor254;
+typedef Actor ZoFish;
+typedef Actor ZoDodoraWpCount;
+typedef Actor ZGull;
+typedef Actor ZoEnergyBall;
+typedef Actor ZoTroika;
+typedef Actor ZoShrimp;
+typedef Actor ZoObnema;
+typedef Actor ZoBall;
+typedef Actor ZoMine;
+typedef Actor ZoBarrier;
+typedef Actor ZoCraneMagnet;
+typedef Actor ZoSpikeBall;
+typedef Actor ZoCargoShip;
+typedef Actor ZoContainer;
+typedef Actor ZoRadarBuoy;
+typedef Actor ZoSupplyCrane;
+typedef Actor ZoSearchLight;
 typedef Actor Actor255;
 typedef Actor Actor256;
 typedef Actor Actor257;
-typedef Actor Actor258;
-typedef Actor Actor259;
-typedef Actor Actor260;
-typedef Actor Actor261;
-typedef Actor Actor262;
-typedef Actor Actor263;
-typedef Actor Actor264;
-typedef Actor Actor265;
-typedef Actor Actor266;
-typedef Actor Actor267;
-typedef Actor Actor268;
-typedef Actor Actor269;
-typedef Actor Actor270;
-typedef Actor Actor271;
-typedef Actor Actor272;
+typedef Actor AqPearl;
+typedef Actor AqAnglerFish;
+typedef Actor AqGaroa;
+typedef Actor AqSculpin;
+typedef Actor AqSpindlyFish;
+typedef Actor AqSquid;
+typedef Actor AqSeaweed;
+typedef Actor AqBoulder;
+typedef Actor AqCoral;
+typedef Actor AqJellyfish;
+typedef Actor AqFishGroup;
+typedef Actor AqStoneColumn;
+typedef Actor AqOyster;
+typedef Actor BoShieldReactor;
+typedef Actor BoLaserCannon;
 typedef Actor FoRadar;
-typedef Actor ActorSpaceJunk;
-typedef Actor Actor275;
-typedef Actor Actor276;
-typedef Actor Actor277;
-typedef Actor Actor278;
-typedef Actor Actor279;
-typedef Actor Actor280;
-typedef Actor Actor281;
-typedef Actor Actor282;
-typedef Actor Actor283;
-typedef Actor Actor284;
-typedef Actor Actor285;
-typedef Actor Actor286;
-typedef Actor Actor287;
-typedef Actor Actor288;
-typedef Actor Actor289;
-typedef Actor Actor290;
+typedef Actor SzSpaceJunk;
+typedef Actor SoRock1;
+typedef Actor SoRock2;
+typedef Actor SoRock3;
+typedef Actor SoWave;
+typedef Actor SoProminence;
+typedef Actor Ve1Pillar1;
+typedef Actor Ve1Pillar2;
+typedef Actor Ve1Pillar3;
+typedef Actor Ve1Pillar4;
+typedef Actor Ve1MonkeyStatue;
+typedef Actor AndLaserEmitter;
+typedef Actor AndBrainWaste;
+typedef Actor AndExplosion;
+typedef Actor AndRadio;
+typedef Actor AndJamesTrigger;
+typedef Actor AndBossTimer;
 typedef Actor ActorSupplies;
-typedef Boss Granga;
-typedef Boss Carrier;
-typedef Boss Boss294;
-typedef Boss Boss295;
-typedef Boss Boss296;
-typedef Boss Boss297;
-typedef Boss Boss298;
+typedef Boss CoGranga;
+typedef Boss CoCarrier;
+typedef Boss CoCarrierLeft;
+typedef Boss CoCarrierUpper;
+typedef Boss CoCarrierBottom;
+typedef Boss MeCrusher;
+typedef Boss MeCrusherShield;
 typedef Boss Boss299;
 typedef Boss Boss300;
 typedef Boss Boss301;
-typedef Boss BossA6;
-typedef Boss Spyborg;
-typedef Boss Boss304;
-typedef Boss Boss305;
-typedef Boss Boss306;
-typedef Boss BossZO;
-typedef Boss BossFO;
-typedef Boss Boss309;
-typedef Boss Boss310;
-typedef Boss Boss311;
-typedef Boss BossVE2;
+typedef Boss A6Gorgon;
+typedef Boss SxSpyborg;
+typedef Boss SxSpyborgLeftArm;
+typedef Boss SxSpyborgRightArm;
+typedef Boss TiGoras;
+typedef Boss ZoSarumarine;
+typedef Boss FoBase;
+typedef Boss BoBase;
+typedef Boss BoBaseShield;
+typedef Boss BoBaseCore;
+typedef Boss Ve2Base;
 typedef Boss GreatFoxSZ;
-typedef Boss BossSY;
-typedef Boss BossSO;
-typedef Boss Saucerer;
-typedef Boss Frontlinebase;
-typedef Boss BossAQ;
-typedef Boss Boss319;
-typedef Boss Boss320;
-typedef Boss Boss321;
+typedef Boss SyShogun;
+typedef Boss SoVulkain;
+typedef Boss KaSaucerer;
+typedef Boss KaFrontlineBase;
+typedef Boss AqBacoon;
+typedef Boss Ve1Golemech;
+typedef Boss AndAndross;
+typedef Boss AndBrain;
 typedef Item ItemLasers;
 typedef Item ItemCheckpoint;
 typedef Item ItemSilverStar;
@@ -1287,7 +1287,7 @@ typedef Effect Effect348;
 typedef Effect Effect349;
 typedef Effect Effect350;
 typedef Effect Effect351;
-typedef Effect Clouds;
+typedef Effect EffectClouds;
 typedef Effect Effect353;
 typedef Effect Effect354;
 typedef Effect Effect355;

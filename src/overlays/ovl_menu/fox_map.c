@@ -2281,7 +2281,7 @@ void Map_801A116C(void) {
         wings.unk_34 = 0.0f;
         wings.unk_38 = 0.0f;
 
-        func_display_80053658(&wings);
+        Display_ArwingWings(&wings);
 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);

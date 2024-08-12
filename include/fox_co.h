@@ -1,6 +1,9 @@
 #ifndef FOX_CO_H
 #define FOX_CO_H
 
+#define TEAM_HEAD_XROT (19)
+#define TEAM_HEAD_YROT (20)
+
 // Granga Boss:
 
 #define DMG_FLICKER_5 (5)    // Damage indicator flickers for 5 frames
@@ -9,13 +12,13 @@
 
 typedef enum GrangaStates {
     /* 0 */ GRANGA_STATIONARY,
-    /* 1 */ GRANGA_STATE_1,
-    /* 2 */ GRANGA_STATE_2,
-    /* 3 */ GRANGA_STATE_3,
-    /* 4 */ GRANGA_STATE_4,
-    /* 5 */ GRANGA_STATE_5,
-    /* 6 */ GRANGA_STATE_6,
-    /* 7 */ GRANGA_STATE_7,
+    /* 1 */ GRANGA_FORWARD_MISSILE,        // walk forward + missile
+    /* 2 */ GRANGA_BACKWARDS_LASER_PLASMA, // Walk backwards + lasers + plasma
+    /* 3 */ GRANGA_FORWARD_LASER_PLASMA,   // Walk towards player + lasers + plasma
+    /* 4 */ GRANGA_FORWARD,                // Walk forward
+    /* 5 */ GRANGA_FALL_TO_LEFT,           // Falling from missing left leg
+    /* 6 */ GRANGA_FALL_TO_RIGHT,          // Falling from missing right leg
+    /* 7 */ GRANGA_EXPLODE,                // BOOM!
 } GrangaStates;
 
 typedef enum GrangaWork {
@@ -35,10 +38,10 @@ typedef enum GrangaWork {
     /* 13 */ GRANGA_WORK_13,
     /* 14 */ GRANGA_WORK_14,
     /* 15 */ GRANGA_WORK_15,
-    /* 16 */ GRANGA_WORK_16, // yRot of missiles launched from both arms ?
-    /* 17 */ GRANGA_WORK_17, // x of something
-    /* 18 */ GRANGA_WORK_18, // y of something
-    /* 19 */ GRANGA_WORK_19, // z of something
+    /* 16 */ GRANGA_WORK_16,  // yRot of missiles launched from both arms ?
+    /* 17 */ GRANGA_TARGET_X, // player.pos.x target position
+    /* 18 */ GRANGA_TARGET_Y, // player.pos.y target position
+    /* 19 */ GRANGA_TARGET_Z, // player.pos.trueZpos target position
     /* 20 */ GRANGA_WORK_20,
     /* 21 */ GRANGA_WORK_21,
     /* 22 */ GRANGA_WORK_22,
@@ -123,7 +126,7 @@ typedef enum GrangaSwork {
 } GrangaSwork;
 
 typedef enum GrangaFwork {
-    /* 00 */ GRANGA_FWK_00,
+    /* 00 */ GRANGA_FWK_00, // left leg rock angle?
     /* 01 */ GRANGA_FWK_01,
     /* 02 */ GRANGA_FWK_02,
     /* 03 */ GRANGA_FWK_03,
@@ -149,14 +152,27 @@ typedef enum GrangaAttackState {
     /* 3 */ GRANGA_ATTACK_PLASMA,
 } GrangaAttackState;
 
-
 // Carrier Boss:
 
 typedef enum CoCarrierParts {
-    /* 0 */ CARRIER_0,
-    /* 1 */ CARRIER_1,
-    /* 2 */ CARRIER_2,
-    /* 3 */ CARRIER_3
+    /* 0 */ CARRIER,       // Boss
+    /* 1 */ CARRIER_LEFT,  // Left launch bay
+    /* 2 */ CARRIER_UPPER, // Right upper launch bay
+    /* 3 */ CARRIER_BOTTOM // Right lower launch bay
 } CarrierParts;
+
+typedef enum CoCarrierStates {
+    /* 0 */ CARRIER_STATE_0,
+    /* 1 */ CARRIER_STATE_1,
+    /* 2 */ CARRIER_STATE_2, // positioning
+    /* 3 */ CARRIER_STATE_3, // Close launch bays
+    /* 4 */ CARRIER_STATE_4, // Open left launch bay
+    /* 5 */ CARRIER_STATE_5, // open right launch bays
+    /* 6 */ CARRIER_STATE_6,
+    /* 7 */ CARRIER_STATE_7, // go around beam attack
+    /* 8 */ CARRIER_STATE_8, // Dying
+    /* 9 */ CARRIER_STATE_9, // Dying cutscene
+    /* 10 */ CARRIER_EXPLODE // BOOM!
+} CoCarrierStates;
 
 #endif

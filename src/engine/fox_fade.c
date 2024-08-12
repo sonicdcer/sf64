@@ -41,7 +41,7 @@ void Wipe_Draw(WipeMode mode, s32 frame) {
                 Wipe_Vertical(frame);
                 break;
             default:
-                (void) "そのような フェード は ない (%d)\n"; // There is no such fade
+                PRINTF("そのような フェード は ない (%d)\n"); // There is no such fade
                 break;
         }
     }

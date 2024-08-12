@@ -499,23 +499,20 @@ void func_80009124(s16** arg0);
 
 void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
     s32 i;
-    f32 temp_ft0;
-    f32* var_v0;
-    f32* var_v0_2;
-    s32 temp_v0;
-    void* var_s0;
 
-    var_s0 = arg0;
     if (arg1->unk_0 != NULL) {
         arg1->unk_C = arg1->unk_0;
         arg1->unk_0 = 0;
     }
+
     arg1->unk18 += D_8014C1B4;
     while (arg1->unk18 > 0x1000) {
         func_80009124(&arg1->unk_C);
         arg1->unk18 -= 0x1000;
     }
+
     func_80008364(D_80145D48, D_80146148, 8, D_80146548);
+
     for (i = 0; i < 0x100; i++) {
         if (D_80145D48[i] > 32767.0f) {
             D_80145D48[i] = 32767.0f;
@@ -524,6 +521,7 @@ void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
             D_80145D48[i] = -32767.0f;
         }
     }
+
     for (i = 0; i < 0x100; i++, arg0++) {
         *arg0 = D_80145D48[i];
     }

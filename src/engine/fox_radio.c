@@ -769,7 +769,7 @@ void Radio_Draw(void) {
         }
         if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
             (gCurrentRadioPortrait != RCID_1000)) {
-            func_hud_8008AD94();
+            HUD_RadioCharacterName_Draw();
         }
     }
 
