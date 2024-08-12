@@ -423,7 +423,7 @@ static Vec3f D_demo_800C9FA0[] = {
 void func_demo_80049630(ActorCutscene* this) {
     Vec3f sp3C;
     Vec3f sp30;
-msgPrint = "80049630";
+// msgPrint = "80049630";
     switch (this->state) {
         case 0:
             this->vwork[0].x = gPlayer[0].pos.x + D_demo_800C9FA0[this->index].x;
@@ -4186,7 +4186,7 @@ void func_demo_8004F05C(Actor* actor) {
 
 void func_demo_8004F798(Actor* actor) {
     actor->iwork[11] = 2;
-msgPrint = "8004F798";
+// msgPrint = "8004F798";
     switch (actor->state) {
         case 0:
             Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0], 0.05f, 50.0f, 0.0f);
@@ -4528,7 +4528,7 @@ void func_demo_8004FCB8(Actor* actor, s32 arg1) {
     f32 angle;
     f32 scale;
     s32 i;
-msgPrint = "8004FCB8";
+// msgPrint = "8004FCB8";
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 32;
         actor->fwork[5] = 0.3f;
