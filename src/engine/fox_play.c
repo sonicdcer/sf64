@@ -733,16 +733,20 @@ void Play_ClearObjectData(void) {
     }
 }
 
-#if ENABLE_60FPS == 1 // 
+#if ENABLE_60FPS == 1 // Play_UpdateFillScreen
 void Play_UpdateFillScreen(void) {
     if (gFillScreenAlpha != gFillScreenAlphaTarget) {
         if (gFillScreenAlpha < gFillScreenAlphaTarget) {
-            gFillScreenAlpha += gFillScreenAlphaStep DIV_FRAME_FACTOR;
+            if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+            gFillScreenAlpha += gFillScreenAlphaStep ;
+            }
             if (gFillScreenAlpha >= gFillScreenAlphaTarget) {
                 gFillScreenAlpha = gFillScreenAlphaTarget;
             }
         } else {
-            gFillScreenAlpha -= gFillScreenAlphaStep DIV_FRAME_FACTOR;
+            if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+            gFillScreenAlpha -= gFillScreenAlphaStep ;
+            }
             if (gFillScreenAlphaTarget >= gFillScreenAlpha) {
                 gFillScreenAlpha = gFillScreenAlphaTarget;
             }
@@ -5705,7 +5709,7 @@ void Player_ArwingBoost(Player* player) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = true;
             }
-            player->contrailScale += 0.04f DIV_FRAME_FACTOR;
+            player->contrailScale += 0.04f;
             if (player->contrailScale > 0.6f) {
                 player->contrailScale = 0.6f;
             }
@@ -6746,7 +6750,7 @@ void Player_Update(Player* player) {
     }
     switch (player->state_1C8) {
         case PLAYERSTATE_1C8_STANDBY:
-            gVIsPerFrame = 2; // 60fps VI
+            gVIsPerFrame = 2 DIV_FRAME_FACTOR; // 60fps VI
             player->draw = false;
             gShowHud = 0;
             gPauseEnabled = false;
@@ -8551,10 +8555,10 @@ void freeze(void) {
             gPlayer[0].baseSpeed = gArwingSpeed;
         }
     }
-    if (gControllerPress[0].button & U_JPAD) {
-        gPlayer[0].shields = PLAYERSTATE_1C8_DOWN;
-        Player_ApplyDamage(gPlayer, 1, 5000);
-    }
+    //if (gControllerPress[0].button & U_JPAD) {
+    //    gPlayer[0].shields = PLAYERSTATE_1C8_DOWN;
+    //    Player_ApplyDamage(gPlayer, 1, 5000);
+    //}
 }
 #endif
 

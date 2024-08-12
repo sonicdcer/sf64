@@ -13,14 +13,16 @@
 #define TOSTRING(x) STRINGIFY(x)
 
 // Define the names and corresponding variables
-#define name1 gBosses[0].state // Show Boss Case
-#define name2 0
+
+// gBosses[0].state // Show Boss Case
+#define name2 gActors[0].iwork[0]
 #define name3 0
-#define name4 0
+#define name4 gPlayer[0].csState
 #define name5 0
 #define name6 0
 #define name7 0
 #define name8 0
+#define name1 gSceneSetup
 
 // Function to convert a character to uppercase
 char my_toupper(char ch) {
@@ -92,7 +94,9 @@ void Display_Text(void) { // theboy181 Display Text
     int values[NUM_NAMES];
     int base_x, base_y, y_offset, i, j, number_x_position, y_position;
     int total_names = 0;
-
+if ((gGameState != GSTATE_PLAY) || (gPlayState <= PLAY_INIT)) {
+    return;
+}
     // Initialize names array with corresponding variable names and count valid names
     names[0] = TOSTRING(name1); if (name1 != 0) total_names++;
     names[1] = TOSTRING(name2); if (name2 != 0) total_names++;
@@ -121,6 +125,7 @@ void Display_Text(void) { // theboy181 Display Text
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_80);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 35, 245, 255);
+
 
     for (i = 0, j = 0; i < NUM_NAMES; i++) {
         if (values[i] == 0) continue; // Skip names with zero values

@@ -1266,26 +1266,27 @@ void Meteo_8018978C(Boss* boss) {
     Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if ((gGameFrameCount & (16 MUL_FRAME_FACTOR)) != 0) {
-        boss->swork[19] += 32 DIV_FRAME_FACTOR ;
+if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+    if ((gGameFrameCount & (16 )) != 0) {
+        boss->swork[19] += 32  ;
         if (boss->swork[19] > 128 ) {
             boss->swork[19] = 128 ;
         }
     } else {
-        boss->swork[19] -= 32 DIV_FRAME_FACTOR;
+        boss->swork[19] -= 32 ;
         if (boss->swork[19] < 0) {
             boss->swork[19] = 0;
         }
     }
 
-    if ((gGameFrameCount & (56 MUL_FRAME_FACTOR)) == 0) {
+    if ((gGameFrameCount & (56 )) == 0) {
         boss->fwork[3] = D_i2_80195534[gGameFrameCount % 8U];
         boss->fwork[4] = D_i2_80195534[gGameFrameCount % 8U];
         boss->fwork[5] = D_i2_80195534[gGameFrameCount % 8U];
         boss->fwork[6] = D_i2_80195534[gGameFrameCount % 8U];
     }
 
-    if (((gGameFrameCount + 20) & (56 MUL_FRAME_FACTOR)) == 0) {
+    if (((gGameFrameCount + 20) & (56 )) == 0) {
         boss->fwork[7] = D_i2_80195534[(gGameFrameCount + 20) % 8U];
         boss->fwork[8] = D_i2_80195534[(gGameFrameCount + 20) % 8U];
     }
@@ -1324,14 +1325,13 @@ void Meteo_8018978C(Boss* boss) {
             Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BURNER_L);
         }
     }
-
     if (boss->swork[1] > 5) {
         boss->swork[1] = boss->swork[1] - 1;
         if (boss->swork[1] == 5) {
             Audio_KillSfxBySourceAndId(boss->sfxSource, NA_SE_EN_BURNER_L);
         }
     }
-
+}
     if (boss->dmgType != DMG_NONE) {
         boss->dmgType = DMG_NONE;
         if ((boss->dmgPart != 7) && (boss->dmgPart >= 5) && (boss->dmgPart != 5)) {
@@ -2688,7 +2688,7 @@ void Meteo_8018B7C4(s32 arg0) {
     f32 effect = arg0 * 0.83333f; // approx 5 / 6
 
     if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
-        effect *= PROPER_DIV_FRAME_FACTOR(1.1f);
+        effect *= IMPROPER_DIV_FRAME_FACTOR(1.1f);
     }
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);

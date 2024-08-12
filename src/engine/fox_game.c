@@ -627,7 +627,11 @@ void Game_Update(void) {
         Map_LevelSelect();
     }
 #endif
+#if BOSS_KILLER == 1
+        KillBoss();
+#endif
 }
+
 
 #if MODS_FPS_COUNTER == 1
 #include "../mods/fpscounter.c"
@@ -640,6 +644,12 @@ void Game_Update(void) {
 #if MODS_RAM_MOD == 1
 #include "../mods/object_ram.c"
 #endif
+
+#if BOSS_KILLER == 1
+#include "../mods/bosskiller.c"
+#endif
+
+
 
 Actor* Game_SpawnActor(ObjectId objId) {
     Actor* actor = gActors;

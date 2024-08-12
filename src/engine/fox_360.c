@@ -44,7 +44,7 @@ f32 gSzMissileB;
 u8 gKaKilledAlly;
 u8 gKaAllyKillCount;
 s32 gAllRangeCheckpoint;
-s32 gAllRangeEventTimer;
+s32 gAllRangeEventTimer; // SEMI GLOBAL
 s32 gAllRangeCountdown[3];
 bool gShowAllRangeCountdown;
 s32 gAllRangeFrameCount;
@@ -294,6 +294,26 @@ void AllRange_GreatFoxRepair(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
+#if ENABLE_60FPS == 1 // AllRange_FortunaIntro
+void AllRange_FortunaIntro(Player* player) {
+    Vec3f sp24;
+
+    Math_Vec3fFromAngles(&sp24, 0.0f, player->yRot_114 + 180.0f, 40.0f);
+    player->vel.x = sp24.x;
+    player->vel.z = sp24.z;
+    player->vel.y = sp24.y;
+    player->pos.x += player->vel.x DIV_FRAME_FACTOR;
+    player->pos.y += player->vel.y DIV_FRAME_FACTOR;
+    player->pos.z += player->vel.z DIV_FRAME_FACTOR;
+    player->trueZpos = player->pos.z;
+    player->cam.eye.x = -200.0f;
+    player->cam.eye.y = 500.0f;
+    player->cam.eye.z = 7000.0f;
+    player->cam.at.x = player->pos.x;
+    player->cam.at.y = player->pos.y;
+    player->cam.at.z = player->pos.z;
+}
+#else
 void AllRange_FortunaIntro(Player* player) {
     Vec3f sp24;
 
@@ -312,6 +332,7 @@ void AllRange_FortunaIntro(Player* player) {
     player->cam.at.y = player->pos.y;
     player->cam.at.z = player->pos.z;
 }
+#endif
 
 void AllRange_ClearRadio(void) {
     sStarWolfKillTimer = gRadioState = gActors[1].iwork[1] = gActors[2].iwork[1] = gActors[3].iwork[1] = 0;
@@ -816,7 +837,7 @@ void ActorAllRange_UpdateEvents(Actor* this) {
         Object_Kill(&this->obj, this->sfxSource);
         return;
     }
-    if (((gGameFrameCount % 2) == 0)) { // 60fps HACK
+    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
     gAllRangeEventTimer++;
     }
     switch (gCurrentLevel) {
@@ -1402,7 +1423,7 @@ void ActorAllRange_Update(Actor* this) {
         }
     }
     if ((this->lockOnTimers[TEAM_ID_FOX] != 0) && (gCurrentLevel != LEVEL_VENOM_2) && (this->aiType < AI360_10) &&
-        (this->lockOnTimers[TEAM_ID_FOX] < 5) && ((gGameFrameCount % 32) == 0)) {
+        (this->lockOnTimers[TEAM_ID_FOX] < 5) && (((gGameFrameCount  DIV_FRAME_FACTOR) % 32 MUL_FRAME_FACTOR) == 0)) {
         this->iwork[16] = STATE360_10;
     }
     if ((this->iwork[16] != STATE360_0) && (this->state < STATE360_7)) {
@@ -1447,11 +1468,15 @@ void ActorAllRange_Update(Actor* this) {
     this->iwork[16] = STATE360_0;
     spCC = spC8 = spC4 = 0.0f;
     if (this->iwork[7] != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
         this->iwork[7]--;
+        }
         this->fwork[22] = 1.0f;
     }
     if (this->iwork[3] != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
         this->iwork[3]--;
+        }
     }
     Math_SmoothStepToF(&this->fwork[10], 0.0f, 0.1f DIV_FRAME_FACTOR, 0.2f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
     Math_SmoothStepToF(&this->fwork[9], this->fwork[10], 0.1f DIV_FRAME_FACTOR, 2.0f DIV_FRAME_FACTOR, 0.00001f DIV_FRAME_FACTOR);
@@ -1546,7 +1571,9 @@ void ActorAllRange_Update(Actor* this) {
                 this->fwork[6] = sSectorZRetreatPath[this->unk_046].z;
                 if ((fabsf(this->obj.pos.x - sSectorZRetreatPath[this->unk_046].x) < 800.0f) &&
                     (fabsf(this->obj.pos.z - sSectorZRetreatPath[this->unk_046].z) < 800.0f)) {
+                    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                     this->unk_046++;
+                    }
                     if (this->unk_046 >= 4) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
@@ -1643,9 +1670,9 @@ void ActorAllRange_Update(Actor* this) {
                     }
                     if ((this->aiType >= AI360_WOLF) && (this->aiType != AI360_KATT) &&
                         !((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType == AI360_WOLF))) {
-                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
-                        spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 100.0f;
-                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 100.0f;
+                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount DIV_FRAME_FACTOR) * 100.0f;
+                        spC8 = COS_DEG((this->index * 45) + ((gGameFrameCount DIV_FRAME_FACTOR) * 2)) * 100.0f;
+                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount DIV_FRAME_FACTOR) * 100.0f;
                     }
                     if (!gPlayer[0].somersault) {
                         this->fwork[4] = gPlayer[0].pos.x + spCC;
@@ -1673,9 +1700,9 @@ void ActorAllRange_Update(Actor* this) {
                     }
                 } else if (this->aiIndex != AI360_GREAT_FOX) {
                     if (this->aiType >= AI360_10) {
-                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
-                        spC8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * 200.0f;
-                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount) * 200.0f;
+                        spCC = SIN_DEG((this->index * 45) + gGameFrameCount DIV_FRAME_FACTOR) * 200.0f;
+                        spC8 = COS_DEG((this->index * 45) + ((gGameFrameCount DIV_FRAME_FACTOR) * 2)) * 200.0f;
+                        spC4 = SIN_DEG((this->index * 45) + gGameFrameCount DIV_FRAME_FACTOR) * 200.0f;
                     }
                     this->fwork[4] = gActors[this->aiIndex].obj.pos.x + spCC;
                     this->fwork[5] = gActors[this->aiIndex].obj.pos.y + spC8;
@@ -1720,7 +1747,7 @@ void ActorAllRange_Update(Actor* this) {
                     if ((spE8 < spF4) && (spEC < spF4)) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
-                        if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
+                        if (!((this->index + gGameFrameCount DIV_FRAME_FACTOR) & sp10F) && (Rand_ZeroOne() < spF0) &&
                             func_360_80031900(this) &&
                             ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->aiIndex == AI360_FOX) && (gCurrentLevel != LEVEL_TRAINING)) {
@@ -2065,7 +2092,7 @@ void ActorAllRange_Update(Actor* this) {
         if (gCurrentLevel == LEVEL_VENOM_2) {
             var_v0 = 2 - 1;
         }
-        if (((this->index + gGameFrameCount) & var_v0) == 0) {
+        if (((this->index + gGameFrameCount DIV_FRAME_FACTOR) & var_v0) == 0) {
             this->fwork[19] = Math_RadToDeg(Math_Atan2F(spE4, spDC));
             this->fwork[20] = Math_RadToDeg(Math_Atan2F(spE0, sqrtf(SQ(spE4) + SQ(spDC))));
         }
@@ -2112,7 +2139,7 @@ void ActorAllRange_Update(Actor* this) {
             spD0 = 360.0f - spD0;
         }
         if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
-            if ((((gGameFrameCount + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {  // 60fps??????
+            if (((((gGameFrameCount DIV_FRAME_FACTOR) + 15) % 32) == 0) && (gCurrentLevel != LEVEL_VENOM_2)) {  // 60fps??????
                 this->lockOnTimers[TEAM_ID_FOX] = 0;
             }
         } else {
@@ -2127,7 +2154,7 @@ void ActorAllRange_Update(Actor* this) {
     }
     if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
         Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f DIV_FRAME_FACTOR, 100.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
-        if ((this->aiType == AI360_KATT) && ((gGameFrameCount % 2) == 0)) { // 60fps??????
+        if ((this->aiType == AI360_KATT) && (((gGameFrameCount  DIV_FRAME_FACTOR) % 2 MUL_FRAME_FACTOR) == 0)) { // 60fps??????
             if ((this->fwork[7] > 10.0f) && (this->fwork[7] < 350.0f)) {
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);

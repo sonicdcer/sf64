@@ -5344,7 +5344,7 @@ void Corneria_LevelStart(Player* player) {
 
             if (player->csTimer == 0) {
                 gFillScreenAlphaTarget = 255;
-                gFillScreenAlphaStep = 48;
+                gFillScreenAlphaStep = 48 ;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
             }
 

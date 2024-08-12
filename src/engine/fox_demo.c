@@ -423,7 +423,7 @@ static Vec3f D_demo_800C9FA0[] = {
 void func_demo_80049630(ActorCutscene* this) {
     Vec3f sp3C;
     Vec3f sp30;
-
+msgPrint = "80049630";
     switch (this->state) {
         case 0:
             this->vwork[0].x = gPlayer[0].pos.x + D_demo_800C9FA0[this->index].x;
@@ -3386,7 +3386,7 @@ static f32 D_demo_800CA098[] = { 1.0f, -0.9f, 0.7f };
 static f32 D_demo_800CA0A4[] = { 150.0f, 100.0f, 200.0f };
 static f32 D_demo_800CA0B0[] = { 200.0f, 300.0f, 500.0f };
 
-#if ENABLE_60FPS == 1 // func_demo_8004E4D4 *no change yet :Cornaria all Range Mode?
+#if ENABLE_60FPS == 1 // func_demo_8004E4D4 
 void func_demo_8004E4D4(ActorCutscene* this) {
     Vec3f sp54;
     Vec3f sp48;
@@ -4186,7 +4186,7 @@ void func_demo_8004F05C(Actor* actor) {
 
 void func_demo_8004F798(Actor* actor) {
     actor->iwork[11] = 2;
-
+msgPrint = "8004F798";
     switch (actor->state) {
         case 0:
             Math_SmoothStepToF(&actor->obj.pos.x, actor->fwork[0], 0.05f, 50.0f, 0.0f);
@@ -4260,7 +4260,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     break;
 
                 case LEVEL_FORTUNA:
-                    if (this->animFrame == 11 MUL_FRAME_FACTOR) {
+                    if (this->animFrame == 11) {
                         switch (this->state) {
                             case 0:
                                 if (gCsFrameCount == 100 MUL_FRAME_FACTOR) {
@@ -4280,7 +4280,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                                 }
 
-                                this->iwork[0] -= 2;
+                                this->iwork[0] -= 2 DIV_FRAME_FACTOR;
                                 if (this->iwork[0] < 0) {
                                     this->iwork[0] = 0;
                                     this->scale = 0.0f;
@@ -4528,7 +4528,7 @@ void func_demo_8004FCB8(Actor* actor, s32 arg1) {
     f32 angle;
     f32 scale;
     s32 i;
-
+msgPrint = "8004FCB8";
     if (actor->timer_0BC == 0) {
         actor->timer_0BC = 32;
         actor->fwork[5] = 0.3f;
@@ -4717,7 +4717,7 @@ void ActorCutscene_Draw(Actor* actor) {
 
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 
-            switch (((gGameFrameCount DIV_FRAME_FACTOR) >> 3) % 4U) {
+            switch (((gGameFrameCount DIV_FRAME_FACTOR) >> 3) % (4U MUL_FRAME_FACTOR)) {
                 case 0:
                     sp2DC = 255.0f;
                     sp2D8 = 0.0f;
@@ -4913,7 +4913,7 @@ void ActorCutscene_Draw(Actor* actor) {
 
             if (actor->iwork[0] != 0) {
                 actor->iwork[0] -= 7  DIV_FRAME_FACTOR; // not even
-                msgPrint = "THIS IS WHAT IT DOES";
+                // msgPrint = "THIS IS WHAT IT DOES";  // Sector Y intro
             }
             actor->fwork[0] += 0.2f DIV_FRAME_FACTOR;
             break;
@@ -5325,6 +5325,95 @@ void ActorCutscene_Draw(Actor* actor) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // Cutscene_DrawGreatFox ??????
+void Cutscene_DrawGreatFox(void) {
+    Vec3f* var_s6_2;
+    s32 i;
+    s32 j;
+    f32 sp9C[4];
+    Gfx* var_fp;
+
+    (void) "Demo_Time=%d\n";
+    (void) "Demo_Time=%d\n";
+    (void) "d Enm->wrk0 %d\n";
+
+    if (gGameState == GSTATE_TITLE) {
+        var_fp = D_TITLE_60320E0;
+    } else if (gGameState == GSTATE_ENDING) {
+        var_fp = D_END_7010970;
+    } else {
+        var_fp = D_1024AC0;
+    }
+
+    if (gCurrentLevel == LEVEL_TITANIA) {
+        RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, 1005);
+    }
+
+    if (gGreatFoxIntact) {
+        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
+    } else {
+        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
+    }
+
+    if ((gCurrentLevel != LEVEL_AQUAS) &&
+        ((gCurrentLevel != LEVEL_SECTOR_Z) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE))) {
+        RCP_SetupDL_49();
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+        for (i = 0, var_s6_2 = D_demo_800CA0BC; i < ARRAY_COUNT(sp9C); i++, var_s6_2++) {
+            if ((i != 1) || gGreatFoxIntact) {
+                sp9C[i] = 0.0f;
+                if (i < 2) {
+                    if ((gGameFrameCount DIV_FRAME_FACTOR & ((64 - 1) & ~(8 - 1))) == 0) { // ??????
+                        sp9C[i] = D_demo_800CA170[gGameFrameCount % (8U )];
+                    }
+                    gDPSetEnvColor(gMasterDisp++, 255, 32, 32, 128);
+                } else {
+                    if (((gGameFrameCount DIV_FRAME_FACTOR  + 32) & 0x38) == 0) { // ??????
+                        sp9C[i] = D_demo_800CA170[gGameFrameCount DIV_FRAME_FACTOR  % (8U )];
+                    }
+                    gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 128);
+                }
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, var_s6_2->x, var_s6_2->y, var_s6_2->z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, sp9C[i], sp9C[i], 1.0f, MTXF_APPLY);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, var_fp);
+                Matrix_Pop(&gGfxMatrix);
+            }
+        }
+
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 48);
+        gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 48);
+        for (i = 0, var_s6_2 = D_demo_800CA0EC; i < 3; i++, var_s6_2++) {
+            sp9C[i] = D_demo_800CA190[gGameFrameCount DIV_FRAME_FACTOR  % (2U)];
+            Matrix_Push(&gGfxMatrix);
+            Matrix_Translate(gGfxMatrix, var_s6_2->x, var_s6_2->y, var_s6_2->z, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, sp9C[i], sp9C[i], 1.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, var_fp);
+
+            for (j = 0; j < 4; j++) {
+                Matrix_Push(&gGfxMatrix);
+                Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_demo_800CA1B4[2 * j], MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, D_demo_800CA1D4[2 * j], D_demo_800CA1D4[2 * j], 1.0f, MTXF_APPLY);
+                Matrix_SetGfxMtx(&gMasterDisp);
+                gSPDisplayList(gMasterDisp++, var_fp);
+                Matrix_Pop(&gGfxMatrix);
+            }
+            Matrix_Pop(&gGfxMatrix);
+        }
+
+        if ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].csEventTimer != 0)) {
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 32, 128);
+            Matrix_Translate(gGfxMatrix, D_ctx_80177A48[3] * (-74.0f), -232.0f, 1190.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, D_demo_800CA198[gPlayer[0].csEventTimer], D_demo_800CA198[gPlayer[0].csEventTimer], 1.0f, MTXF_APPLY);
+            Matrix_SetGfxMtx(&gMasterDisp);
+            gSPDisplayList(gMasterDisp++, var_fp);
+        }
+    }
+}
+#else
 void Cutscene_DrawGreatFox(void) {
     Vec3f* var_s6_2;
     s32 i;
@@ -5413,3 +5502,4 @@ void Cutscene_DrawGreatFox(void) {
         }
     }
 }
+#endif

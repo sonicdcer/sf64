@@ -2966,8 +2966,7 @@ void func_hud_8008B2F0(void) {
                 D_801617A4 = 1.0f;
             }
 
-            Math_SmoothStepToF(&D_801617A8, D_801617A4, (0.02f DIV_FRAME_FACTOR), (1000.0f DIV_FRAME_FACTOR),
-                               (0.001f DIV_FRAME_FACTOR)); // 60fps   need testing with side by side.
+            Math_SmoothStepToF(&D_801617A8, D_801617A4, (0.02f DIV_FRAME_FACTOR), (1000.0f DIV_FRAME_FACTOR), (0.001f DIV_FRAME_FACTOR)); // 60fps   need testing with side by side.
 
             var_fv0 = gPlayer[0].shields;
             if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
@@ -3923,25 +3922,27 @@ void HUD_DisplayCountdown(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
     }
 }
 
+#if ENABLE_60FPS == 1 // HUD_DrawCountdown
 void HUD_DrawCountdown(s32* countdown, f32 scale) {
     //! FAKE:
     if (1) {}
-
-    if (gPlayState != PLAY_PAUSE) {
-        countdown[2] -= 3;
-        if (countdown[2] >= 3) {
-        } else {
-            countdown[2] = 99;
-            countdown[1]--;
-            if (countdown[1] >= 0) {
+    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+        if (gPlayState != PLAY_PAUSE) {
+            countdown[2] -= 3;
+            if (countdown[2] >= 3) {
             } else {
-                countdown[1] = 59;
-                countdown[0]--;
-                if (countdown[0] >= 0) {
+                countdown[2] = 99;
+                countdown[1]--;
+                if (countdown[1] >= 0) {
                 } else {
-                    countdown[0] = 0;
-                    countdown[1] = 0;
-                    countdown[2] = 0;
+                    countdown[1] = 59;
+                    countdown[0]--;
+                    if (countdown[0] >= 0) {
+                    } else {
+                        countdown[0] = 0;
+                        countdown[1] = 0;
+                        countdown[2] = 0;
+                    }
                 }
             }
         }
@@ -3951,6 +3952,35 @@ void HUD_DrawCountdown(s32* countdown, f32 scale) {
         HUD_DisplayCountdown(176.0f, 22.0f, countdown, scale);
     }
 }
+#else
+void HUD_DrawCountdown(s32* countdown, f32 scale) {
+    //! FAKE:
+    if (1) {}
+        if (gPlayState != PLAY_PAUSE) {
+            countdown[2] -= 3;
+            if (countdown[2] >= 3) {
+            } else {
+                countdown[2] = 99;
+                countdown[1]--;
+                if (countdown[1] >= 0) {
+                } else {
+                    countdown[1] = 59;
+                    countdown[0]--;
+                    if (countdown[0] >= 0) {
+                    } else {
+                        countdown[0] = 0;
+                        countdown[1] = 0;
+                        countdown[2] = 0;
+                    }
+                }
+            }
+        }
+
+    if (gPlayState != PLAY_PAUSE) {
+        HUD_DisplayCountdown(176.0f, 22.0f, countdown, scale);
+    }
+}
+#endif
 
 void func_hud_8008E5E8(void) {
     if (gVersusMode) {
@@ -4454,6 +4484,113 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
     }
 }
 
+#if ENABLE_60FPS == 1 // func_hud_80090200
+s32 func_hud_80090200(Boss* boss) {
+    Vec3f dest, src;
+    Player* player;
+    s32 ret = 0;
+
+    if (boss->swork[0] == 1) {
+        func_hud_8008FFF0(boss, 8596);
+        player = &gPlayer[0];
+        ret = 1;
+
+        switch (boss->swork[1]) {
+            case 0:
+                AUDIO_PLAY_SFX(NA_SE_EARTHQUAKE, boss->sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO, boss->sfxSource, 0);
+                SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
+                SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
+
+                player->cam.eye.x = boss->fwork[4] = boss->obj.pos.x;
+                player->cam.eye.y = boss->fwork[5] = boss->obj.pos.y + 500.0f;
+                player->cam.eye.z = boss->fwork[6] = boss->obj.pos.z + 4000.0f;
+
+                player->cam.at.x = boss->obj.pos.x;
+                player->cam.at.y = boss->obj.pos.y;
+                player->cam.at.z = boss->obj.pos.z;
+
+                boss->fwork[7] = 0.0f;
+                boss->fwork[8] = 0.0f;
+                boss->fwork[9] = 10.0f;
+
+                boss->timer_050 = 1000;
+
+                boss->swork[1] = 1;
+                break;
+
+            case 1:
+                if (boss->timer_050 == 930) {
+                    boss->swork[1] = 2;
+                }
+
+                boss->fwork[7] += 0.5f DIV_FRAME_FACTOR;
+                if (boss->fwork[7] >= 360.0f) {
+                    boss->fwork[7] = 0.0f;
+                }
+
+                Math_SmoothStepToF(&boss->fwork[9], 80.0f, 0.01f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 0.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 500.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                break;
+
+            case 2:
+                if (boss->timer_050 == 870) {
+                    boss->swork[1] = 3;
+                }
+
+                boss->fwork[7] += 3.0f DIV_FRAME_FACTOR;
+                if (boss->fwork[7] >= 360.0f) {
+                    boss->fwork[7] = 0.0f;
+                }
+
+                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 0.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 1500.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                break;
+
+            case 3:
+                if (boss->timer_050 == 770) {
+                    boss->swork[1] = 4;
+                }
+
+                Math_SmoothStepToF(&boss->fwork[9], 10.0f, 0.01f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[4], boss->obj.pos.x + 4000.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[5], boss->obj.pos.y + 2000.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                Math_SmoothStepToF(&boss->fwork[6], boss->obj.pos.z + 1500.0f, 0.02f DIV_FRAME_FACTOR, 10000.0f DIV_FRAME_FACTOR, 0.0f);
+                break;
+
+            case 4:
+                ret = 2;
+        }
+
+        if (boss->swork[1] < 4) {
+            src.x = boss->fwork[4] - boss->obj.pos.x;
+            src.y = boss->fwork[5] - boss->obj.pos.y;
+            src.z = boss->fwork[6] - boss->obj.pos.z;
+
+            Matrix_Translate(gCalcMatrix, boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, MTXF_NEW);
+            Matrix_RotateY(gCalcMatrix, M_DTOR * boss->fwork[7], MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, M_DTOR * boss->fwork[8], MTXF_APPLY);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+
+            player->cam.eye.x = dest.x;
+            player->cam.eye.y = dest.y;
+            player->cam.eye.z = dest.z;
+
+            player->cam.at.x = boss->obj.pos.x;
+            player->cam.at.y = boss->obj.pos.x;
+            player->cam.at.z = boss->obj.pos.x;
+
+            player->cam.at.x += (COS_DEG(boss->timer_050 * 60.0f) * boss->fwork[9]) DIV_FRAME_FACTOR;
+            player->cam.at.y += (SIN_DEG(boss->timer_050 * 179.0f) * boss->fwork[9] DIV_FRAME_FACTOR);
+        }
+    }
+
+    return ret;
+}
+#else
 s32 func_hud_80090200(Boss* boss) {
     Vec3f dest, src;
     Player* player;
@@ -4559,6 +4696,7 @@ s32 func_hud_80090200(Boss* boss) {
 
     return ret;
 }
+#endif
 
 void HUD_BossFO_Update(Boss* boss) {
     switch (boss->state) {

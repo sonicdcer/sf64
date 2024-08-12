@@ -1030,7 +1030,7 @@ void ActorDebris_Update(ActorDebris* this) {
                     }
 
                     this->vel.y *= PROPER_DIV_FRAME_FACTOR(-0.2f);
-                    this->obj.pos.y += PROPER_DIV_FRAME_FACTOR(this->vel.y * 5.0f);
+                    this->obj.pos.y += (this->vel.y * 5.0f) DIV_FRAME_FACTOR ;
                     this->iwork[0]++;
 
                     if (this->iwork[0] >= 2) {
@@ -4363,7 +4363,11 @@ void ActorEvent_80072474(ActorEvent* this) {
 
 static Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
 
+
 #if ENABLE_60FPS == 1 // ActorEvent_Update
+char buffer[50];
+
+
 void ActorEvent_Update(ActorEvent* this) {
     s32 spFC;
     f32 var_fv0;
@@ -4383,6 +4387,9 @@ void ActorEvent_Update(ActorEvent* this) {
     Vec3f spB8;
     Vec3f spAC;
     Vec3f spA0;
+sprintf(buffer, "State: %d", this->state);
+RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+Graphics_DisplaySmallText(80, 220, 1.0f, 1.0f, buffer);
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || gKillEventActors) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -4484,12 +4491,16 @@ void ActorEvent_Update(ActorEvent* this) {
 
                 if ((spE4 < 305.0f) && (spE4 >= 180.0f)) {
                     spE4 = 305.0f;
+                    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                     spFC++;
+                    }
                 }
 
                 if ((spE4 > 30.0f) && (spE4 <= 180.0f)) {
                     spE4 = 30.0f;
+                    if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                     spFC++;
+                    }
                 }
 
                 this->obj.rot.x = 0.0f;
@@ -4787,14 +4798,14 @@ void ActorEvent_Update(ActorEvent* this) {
     this->fwork[14] -= (this->fwork[14] * 0.1f) DIV_FRAME_FACTOR;
 
     if (this->iwork[5] == EV_ZMODE(EMZ_RELATIVE)) {
-        this->vel.z -= this->fwork[22] DIV_FRAME_FACTOR;
+        this->vel.z -= this->fwork[22] ;
         if ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPathVelZ < 0.0f)) {
-            this->vel.z -= gPathVelZ DIV_FRAME_FACTOR; //??????
+            this->vel.z -= gPathVelZ ; //??????
         }
     }
 
     if (this->iwork[5] == EV_ZMODE(EMZ_PLAYER)) {
-        this->vel.z -= gPathVelZ  DIV_FRAME_FACTOR; //???????
+        this->vel.z -= gPathVelZ  ; //???????
     }
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
@@ -4879,12 +4890,12 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVID_31:
-            this->obj.rot.z = gGameFrameCount;
+            this->obj.rot.z = gGameFrameCount DIV_FRAME_FACTOR; //??????
             break;
 
         case EVID_A6_MISSILE:
         case EVID_A6_ROCKET:
-            this->obj.rot.z = gGameFrameCount * 3.0f; //?????
+            this->obj.rot.z = (gGameFrameCount * 3.0f) DIV_FRAME_FACTOR; //?????
             break;
 
         case EVID_3:
@@ -4987,7 +4998,9 @@ void ActorEvent_Update(ActorEvent* this) {
                                 effect->unk_60.z = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
                             }
                         }
+                        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                         this->unk_046++; //?????
+                        }
                     }
                     break;
             }
@@ -5018,7 +5031,7 @@ void ActorEvent_Update(ActorEvent* this) {
                         effect->unk_60.z = -effect->unk_60.z;
                     }
 
-                    if (gGameFrameCount & 2) { //???????
+                    if (gGameFrameCount & 2 MUL_FRAME_FACTOR) { //???????
                         effect->vel.y = -effect->vel.y;
                     }
                 }
@@ -5043,7 +5056,7 @@ void ActorEvent_Update(ActorEvent* this) {
                             effect->unk_60.z = -effect->unk_60.z;
                         }
 
-                        if ((gGameFrameCount & 4) != 0) {
+                        if ((gGameFrameCount & 4 MUL_FRAME_FACTOR) != 0) {
                             effect->vel.y = -effect->vel.y;
                         }
                     }
@@ -5075,7 +5088,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
         case EVID_AQ_CLAM: //??????
             if (this->health <= 0) {
-                if (this->animFrame == (20 MUL_FRAME_FACTOR)) {
+                if (this->animFrame == (20)) {
                     spD4 = this->obj.pos.z;
                     spD8 = this->obj.pos.y;
 
@@ -5086,14 +5099,14 @@ void ActorEvent_Update(ActorEvent* this) {
                     this->obj.pos.z = spD4;
                 }
 
-                if ((this->animFrame >= (18 MUL_FRAME_FACTOR)) && (this->animFrame < (24 MUL_FRAME_FACTOR))) {
+                if ((this->animFrame >= (18 )) && (this->animFrame < (24 ))) {
                     func_effect_8007BC7C(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 60.0f, 20.0f);
                 }
 
-                if (this->animFrame < 49 MUL_FRAME_FACTOR) {
+                if (this->animFrame < 49 ) {
                     this->animFrame++;
-                    if (this->animFrame >= 49 MUL_FRAME_FACTOR) {
-                        this->animFrame = 49 MUL_FRAME_FACTOR;
+                    if (this->animFrame >= 49 ) {
+                        this->animFrame = 49 ;
                     }
                     if ((gGameFrameCount % (2 MUL_FRAME_FACTOR)) != 0) {
                         Aquas_801AC8A8(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,

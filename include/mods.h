@@ -13,6 +13,7 @@
 #define DISP_MESSAGE2                   0
 #define MODS_SPAWNER                    0
 #define ENABLE_FREEZE                   0
+#define BOSS_KILLER                     0
 #define MODS_LEVEL_SELECT               0
 #define MODS_RAM_MOD                    0
 #define MODS_ENABLE_ALL_RANGE_MODE      0
@@ -29,7 +30,7 @@
  * state. Two presets (map and main menu) are provided.
  * For the full list of game states, see sf64thread.h.
  */
- // #define MODS_BOOT_STATE 3  // main menu
+// #define MODS_BOOT_STATE 3  // main menu
 // #define MODS_BOOT_STATE 4  // map
 // #define MODS_BOOT_STATE GSTATE_PLAY  // DEMO 
 
@@ -141,12 +142,16 @@ extern char* msgPrint;
 void Spawner(void);
 #endif
 
+#if BOSS_KILLER == 1
+void KillBoss(void);
+#endif
+
 #if ENABLE_60FPS == 1
 #define FRAME_FACTOR 2
 #define DIV_FRAME_FACTOR / FRAME_FACTOR
 #define MUL_FRAME_FACTOR * FRAME_FACTOR
-#define PROPER_DIV_FRAME_FACTOR(x) ((x + 1.0f)  DIV_FRAME_FACTOR)
-#define IMPROPER_DIV_FRAME_FACTOR(x) (1.0f + (x - 1.0f)  DIV_FRAME_FACTOR)
+#define PROPER_DIV_FRAME_FACTOR(x) ((x + 1.0f)  DIV_FRAME_FACTOR) // under 1.0
+#define IMPROPER_DIV_FRAME_FACTOR(x) (1.0f + (x - 1.0f)  DIV_FRAME_FACTOR) // over 1.0
 extern int gGameFrameCountHack;
 #else
 #define DIV_FRAME_FACTOR
