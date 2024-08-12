@@ -1125,7 +1125,7 @@ typedef Actor MeLaserCannon1;
 typedef Actor MeLaserCannon2;
 typedef Actor Actor188;
 typedef Actor ActorDebris;
-typedef Actor Actor190;
+typedef Actor ActorMissileSeekTeam;
 typedef Actor ActorMissileSeekPlayer;
 typedef Actor ActorSkibot;
 typedef Actor CoRadar;
@@ -1133,7 +1133,7 @@ typedef Actor MeMora;
 typedef Actor ActorCutscene;
 typedef Actor ActorMoleMissile;
 typedef Actor ActorAllRange;
-typedef Actor ActorTeamBoss;
+typedef Actor ActorTeamBoss; // Teammates in a boss battle
 typedef Actor Actor199;
 typedef Actor ActorEvent;
 typedef Actor MeteoBall;

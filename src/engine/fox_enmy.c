@@ -1456,7 +1456,7 @@ void func_enmy_800654E4(Object* obj) {
     }
 }
 
-void func_enmy_800655C8(Actor190* this, f32 xPos, f32 yPos, f32 zPos, s32 eventType) {
+void func_enmy_800655C8(ActorMissileSeekTeam* this, f32 xPos, f32 yPos, f32 zPos, s32 eventType) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_MISSILE_SEEK_TEAM;

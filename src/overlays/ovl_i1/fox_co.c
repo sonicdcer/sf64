@@ -398,7 +398,7 @@ ObjectId Corneria_CoGranga_ChooseMissileTarget(CoGranga* this) {
     if (this->swork[GRANGA_MISSILE_COUNT] >= 5) {
         this->swork[GRANGA_MISSILE_COUNT] = 0;
         return OBJ_MISSILE_SEEK_PLAYER;
-    } else if (Hud_MissileSeekModeCheck(0) < 4) {
+    } else if (ActorMissileSeek_ModeCheck(0) < 4) {
         return OBJ_MISSILE_SEEK_TEAM;
     } else {
         return 0;
@@ -1644,7 +1644,7 @@ void Corneria_CoCarrier_ChooseMissileTarget(CoCarrier* this, f32 xPos, f32 yPos,
                                             s32 eventType) {
     ObjectId objId = OBJ_MISSILE_SEEK_PLAYER;
 
-    if (Hud_MissileSeekModeCheck(0) < 4) {
+    if (ActorMissileSeek_ModeCheck(0) < 4) {
         objId = OBJ_MISSILE_SEEK_TEAM;
     }
 

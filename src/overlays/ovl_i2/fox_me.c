@@ -1038,7 +1038,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
     if (this->swork[18] != 0) {
         s32 objId;
 
-        if (Hud_MissileSeekModeCheck(0) >= 4) {
+        if (ActorMissileSeek_ModeCheck(0) >= 4) {
             objId = OBJ_MISSILE_SEEK_PLAYER;
         } else {
             objId = OBJ_MISSILE_SEEK_TEAM;

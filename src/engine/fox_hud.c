@@ -1834,7 +1834,7 @@ void func_hud_80089D28(void) {
     gSPDisplayList(gMasterDisp++, D_1024230);
 }
 
-void RadarMark_Draw(s32 arg0) {
+void HUD_RadarMark_Draw(s32 arg0) {
     s32 var_a1;
     s32 var_a1_2;
 
@@ -2149,7 +2149,7 @@ s32 func_hud_8008A4DC(void) {
         Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        RadarMark_Draw(gRadarMarks[i].type);
+        HUD_RadarMark_Draw(gRadarMarks[i].type);
         Matrix_Pop(&gGfxMatrix);
 
         gRadarMarks[i].status = 0;
@@ -2160,7 +2160,7 @@ s32 func_hud_8008A4DC(void) {
 }
 
 // Why is this function here in fox_hud? Weird.
-s32 Hud_MissileSeekModeCheck(s32 missileSeekMode) {
+s32 ActorMissileSeek_ModeCheck(s32 missileSeekMode) {
     Actor* actor;
     s32 i;
     s32 ret = 0;
@@ -2191,7 +2191,7 @@ s32 Hud_MissileSeekModeCheck(s32 missileSeekMode) {
     return ret;
 }
 
-void func_hud_8008AD94(void) {
+void HUD_RadioCharacterName_Draw(void) {
     if (gGameState == GSTATE_PLAY) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -2316,7 +2316,7 @@ s32 D_800D1EB8 = 255;
 s32 D_800D1EBC = 255;
 
 void func_hud_8008B2F0(void) {
-    f32 var_fv0;
+    f32 shields;
 
     switch (D_hud_80161730) {
         case 0:
@@ -2330,8 +2330,8 @@ void func_hud_8008B2F0(void) {
                 D_801617A4 = D_801617A8 = 1.0f;
             }
 
-            var_fv0 = gPlayer[0].shields;
-            D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
+            shields = gPlayer[0].shields;
+            D_801617AC = shields / ((256.0f * D_801617A8) - 1.0f);
 
             if (gGoldRingCount[0] >= 3) {
                 D_hud_80161730 = 2;
@@ -2354,7 +2354,7 @@ void func_hud_8008B2F0(void) {
                 }
             }
 
-            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && (gGameFrameCount & 2)) {
+            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && ((gGameFrameCount & 2) != 0)) {
                 D_800D1EB4 = 0;
                 D_800D1EB8 = 255;
                 D_800D1EBC = 0;
@@ -2368,11 +2368,11 @@ void func_hud_8008B2F0(void) {
 
             Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
 
-            var_fv0 = gPlayer[0].shields;
-            if (var_fv0 > (256.0f * D_801617A8) - 1.0f) {
-                var_fv0 = (256.0f * D_801617A8) - 1.0f;
+            shields = gPlayer[0].shields;
+            if (shields > (256.0f * D_801617A8) - 1.0f) {
+                shields = (256.0f * D_801617A8) - 1.0f;
             }
-            D_801617AC = var_fv0 / ((256.0f * D_801617A8) - 1.0f);
+            D_801617AC = shields / ((256.0f * D_801617A8) - 1.0f);
             break;
     }
 }
@@ -2465,7 +2465,7 @@ s32 func_hud_8008B774(void) {
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {
-                    if (gActors[i].timer_0C6) {
+                    if (gActors[i].timer_0C6 != 0) {
                         ret = 1;
                     } else {
                         ret = 0;
@@ -2489,7 +2489,7 @@ s32 func_hud_8008B774(void) {
         case 6:
         case 7:
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                if (gActors[i].timer_0C6) {
+                if (gActors[i].timer_0C6 != 0) {
                     ret = 1;
                 }
                 if ((ret == 1) && (gActors[i].health <= 0)) {
@@ -2503,11 +2503,12 @@ s32 func_hud_8008B774(void) {
             break;
 
         default:
-            if (gActors[i].timer_0C6) {
+            if (gActors[i].timer_0C6 != 0) {
                 ret = 1;
             }
             break;
     }
+
     return ret;
 }
 
@@ -2973,6 +2974,7 @@ void func_hud_8008D4F0(f32 arg0, f32 arg1) {
     if (temp_fs0 > 0.01f) {
         func_hud_800857DC(D_800D2108[var_v1] + temp + 1.0f, D_800D211C[var_v1] + sp60, temp_fs0, 1.0f);
     }
+
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     func_hud_80085740(D_800D2108[var_v1], D_800D211C[var_v1], 1.0f, 1.0f);
@@ -3656,7 +3658,7 @@ void HUD_FoBase_Draw(Boss* boss) {
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 }
 
-void func_hud_8008FFF0(Boss* boss, s32 arg1) {
+void func_hud_8008FFF0(FoBase* this, s32 arg1) {
     Vec3s D_800D21C8[] = {
         { -385, 54, 233 },   { -324, 148, 193 },  { -267, 186, 136 },  { -128, 430, 180 },  { -231, 584, 140 },
         { -431, 551, -120 }, { -285, 516, -32 },  { -285, 601, 18 },   { 300, 596, 18 },    { 300, 529, -65 },
@@ -3680,33 +3682,34 @@ void func_hud_8008FFF0(Boss* boss, s32 arg1) {
 
         temp = temp2 / 1596.0f;
 
-        if (boss->swork[0] != 1) {
+        if (this->swork[0] != 1) {
             temp /= 2.0f;
         }
 
         i = RAND_INT(36.0f);
 
         if ((gGameFrameCount & 2) == 0) {
-            Effect_Effect390_Spawn(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
-                                   boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
+            Effect_Effect390_Spawn(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
+                                   this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
         }
 
-        if (((gGameFrameCount % 8) == 0)) {
-            Effect386_Spawn1(boss->obj.pos.x + D_800D21C8[i].x, boss->obj.pos.y + D_800D21C8[i].y,
-                             boss->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
+        if ((gGameFrameCount % 8) == 0) {
+            Effect386_Spawn1(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
+                             this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
     }
 }
 
 s32 HUD_FoBase_ExplodeCs(FoBase* this) {
-    Vec3f dest, src;
+    Vec3f dest;
+    Vec3f src;
     Player* player;
-    s32 ret = 0;
+    s32 csState = 0;
 
     if (this->swork[0] == 1) {
         func_hud_8008FFF0(this, 8596);
         player = &gPlayer[0];
-        ret = 1;
+        csState = 1;
 
         switch (this->swork[1]) {
             case 0:
@@ -3775,7 +3778,7 @@ s32 HUD_FoBase_ExplodeCs(FoBase* this) {
                 break;
 
             case 4:
-                ret = 2;
+                csState = 2;
                 break;
         }
 
@@ -3802,7 +3805,7 @@ s32 HUD_FoBase_ExplodeCs(FoBase* this) {
         }
     }
 
-    return ret;
+    return csState;
 }
 
 void HUD_FoBase_Update(FoBase* this) {
@@ -3829,12 +3832,12 @@ void HUD_FoBase_Update(FoBase* this) {
     func_hud_8008FFF0(this, gAllRangeEventTimer);
 }
 
-bool func_hud_8009092C(Actor* actor) {
-    bool var_s5 = false;
+bool func_hud_8009092C(ActorTeamBoss* this) {
+    bool ret = false;
     Boss* boss;
     s32 i = 0;
 
-    if (actor->aiIndex != 0) {
+    if (this->aiIndex != 0) {
         return true;
     }
 
@@ -3842,143 +3845,142 @@ bool func_hud_8009092C(Actor* actor) {
 
     for (i = 1; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if (boss->obj.status == OBJ_ACTIVE) {
-            var_s5 = true;
-            if (actor->aiIndex == 0) {
-                actor->aiIndex = i;
+            ret = true;
+            if (this->aiIndex == 0) {
+                this->aiIndex = i;
             } else if (Rand_ZeroOne() > 0.4f) {
-                actor->aiIndex = i;
+                this->aiIndex = i;
             }
-            actor->state = 0;
+            this->state = 0;
         }
     }
 
-    return var_s5;
+    return ret;
 }
 
-bool func_hud_80090A00(Actor* actor) {
-    switch (actor->iwork[5]) {
+bool func_hud_80090A00(ActorTeamBoss* this) {
+    switch (this->iwork[5]) {
         case 0:
-            actor->fwork[8] = 0.0f;
-            actor->fwork[7] = 360.0f;
-            actor->timer_0BC = 8;
-            actor->rot_0F4.y = 100.0f;
-            actor->rot_0F4.x = 300.0f;
-            actor->iwork[4] = 1;
-            actor->iwork[5] = 1;
+            this->fwork[8] = 0.0f;
+            this->fwork[7] = 360.0f;
+            this->timer_0BC = 8;
+            this->rot_0F4.y = 100.0f;
+            this->rot_0F4.x = 300.0f;
+            this->iwork[4] = 1;
+            this->iwork[5] = 1;
 
         case 1:
-            if (actor->timer_0BC == 0.0f) {
-                actor->fwork[1] = 20.0f;
-                actor->fwork[3] = 3.6f;
-                actor->iwork[2] = 0;
-                actor->iwork[3] = 36;
-                actor->iwork[5] = 2;
+            if (this->timer_0BC == 0.0f) {
+                this->fwork[1] = 20.0f;
+                this->fwork[3] = 3.6f;
+                this->iwork[2] = 0;
+                this->iwork[3] = 36;
+                this->iwork[5] = 2;
             } else {
-                actor->obj.pos.y -= 8.0f;
+                this->obj.pos.y -= 8.0f;
                 break;
             }
 
         case 2:
-            actor->fwork[4] = gBosses[0].obj.pos.x + 1000.0f;
-            actor->fwork[5] = 300.0f;
-            actor->fwork[6] = actor->obj.pos.z - 10000.0f;
-            actor->iwork[2]++;
-            if (actor->iwork[2] == actor->iwork[3]) {
-                actor->iwork[5] = 3;
-                actor->iwork[3] = 40;
-                actor->iwork[2] = 0;
-            } else if (actor->iwork[2] == 6) {
-                actor->iwork[1] = 1;
+            this->fwork[4] = gBosses[0].obj.pos.x + 1000.0f;
+            this->fwork[5] = 300.0f;
+            this->fwork[6] = this->obj.pos.z - 10000.0f;
+            this->iwork[2]++;
+            if (this->iwork[2] == this->iwork[3]) {
+                this->iwork[5] = 3;
+                this->iwork[3] = 40;
+                this->iwork[2] = 0;
+            } else if (this->iwork[2] == 6) {
+                this->iwork[1] = 1;
             }
             break;
 
         case 3:
-            actor->fwork[4] = gBosses[0].obj.pos.x - 1000.0f;
-            actor->fwork[5] = 400.0f;
-            actor->fwork[6] = gBosses[0].obj.pos.z;
-            actor->iwork[2]++;
-            if (actor->iwork[2] == actor->iwork[3]) {
-                actor->iwork[5] = 4;
-            } else if (actor->iwork[2] == 20) {
-                actor->fwork[1] = 30.0f;
+            this->fwork[4] = gBosses[0].obj.pos.x - 1000.0f;
+            this->fwork[5] = 400.0f;
+            this->fwork[6] = gBosses[0].obj.pos.z;
+            this->iwork[2]++;
+            if (this->iwork[2] == this->iwork[3]) {
+                this->iwork[5] = 4;
+            } else if (this->iwork[2] == 20) {
+                this->fwork[1] = 30.0f;
             }
             break;
 
         case 4:
-            actor->fwork[6] = gPlayer[0].trueZpos;
-            actor->fwork[5] = 100.0f;
-            actor->fwork[4] = gPlayer[0].pos.x;
-            if ((fabsf(actor->obj.pos.x - gPlayer[0].pos.x) < 300.0f) &&
-                (fabsf(actor->obj.pos.z - gPlayer[0].trueZpos) < 300.0f)) {
-                actor->iwork[5] = 5;
-                actor->iwork[3] = 20;
-                actor->iwork[2] = 0;
+            this->fwork[6] = gPlayer[0].trueZpos;
+            this->fwork[5] = 100.0f;
+            this->fwork[4] = gPlayer[0].pos.x;
+            if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 300.0f) &&
+                (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 300.0f)) {
+                this->iwork[5] = 5;
+                this->iwork[3] = 20;
+                this->iwork[2] = 0;
             }
             break;
 
         case 5:
-            actor->fwork[6] = gPlayer[0].trueZpos + 1000.0f;
-            actor->fwork[5] = 1000.0f;
-            actor->fwork[4] = gPlayer[0].pos.x - 1000.0f;
-            actor->iwork[2]++;
-            if (actor->iwork[2] == actor->iwork[3]) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            this->fwork[6] = gPlayer[0].trueZpos + 1000.0f;
+            this->fwork[5] = 1000.0f;
+            this->fwork[4] = gPlayer[0].pos.x - 1000.0f;
+            this->iwork[2]++;
+            if (this->iwork[2] == this->iwork[3]) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
     return false;
 }
 
-bool func_hud_80090CCC(Actor* actor) {
+bool func_hud_80090CCC(ActorTeamBoss* this) {
     bool ret = false;
 
-    if (func_hud_8009092C(actor)) {
-        actor->fwork[6] = gBosses[actor->aiIndex].obj.pos.z;
-        actor->fwork[5] = gBosses[actor->aiIndex].obj.pos.y;
-        actor->fwork[4] = gBosses[actor->aiIndex].obj.pos.x;
+    if (func_hud_8009092C(this)) {
+        this->fwork[6] = gBosses[this->aiIndex].obj.pos.z;
+        this->fwork[5] = gBosses[this->aiIndex].obj.pos.y;
+        this->fwork[4] = gBosses[this->aiIndex].obj.pos.x;
     } else {
-        actor->fwork[6] = gBosses[0].obj.pos.z;
-        actor->fwork[5] = gBosses[0].obj.pos.y;
-        actor->fwork[4] = gBosses[0].obj.pos.x;
+        this->fwork[6] = gBosses[0].obj.pos.z;
+        this->fwork[5] = gBosses[0].obj.pos.y;
+        this->fwork[4] = gBosses[0].obj.pos.x;
     }
 
-    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 2000.0f) &&
-        (fabsf(actor->obj.pos.z - actor->fwork[6]) < 2000.0f)) {
-        actor->iwork[6]++;
-        if (actor->iwork[6] >= 9) {
-            actor->iwork[0] = 1;
-            actor->iwork[6] = 0;
+    if ((fabsf(this->obj.pos.x - this->fwork[4]) < 2000.0f) && (fabsf(this->obj.pos.z - this->fwork[6]) < 2000.0f)) {
+        this->iwork[6]++;
+        if (this->iwork[6] >= 9) {
+            this->iwork[0] = 1;
+            this->iwork[6] = 0;
         }
     }
 
-    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) && (fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f)) {
-        actor->state = 1;
-        actor->iwork[6] = 0;
+    if ((fabsf(this->obj.pos.x - this->fwork[4]) < 700.0f) && (fabsf(this->obj.pos.x - this->fwork[4]) < 700.0f)) {
+        this->state = 1;
+        this->iwork[6] = 0;
         ret = true;
     }
 
-    if (actor->timer_0BE == 0) {
-        actor->timer_0BE = RAND_INT(200.0f) + 200;
-        actor->fwork[10] = 30.0f;
+    if (this->timer_0BE == 0) {
+        this->timer_0BE = RAND_INT(200.0f) + 200;
+        this->fwork[10] = 30.0f;
     }
 
-    if (gBosses[actor->aiIndex].obj.status == OBJ_FREE) {
-        actor->state = 1;
-        actor->aiIndex = 0;
-        actor->iwork[6] = 0;
+    if (gBosses[this->aiIndex].obj.status == OBJ_FREE) {
+        this->state = 1;
+        this->aiIndex = 0;
+        this->iwork[6] = 0;
         ret = true;
     }
 
     return ret;
 }
 
-s32 func_hud_80090E8C(Actor* actor) {
+s32 func_hud_80090E8C(ActorTeamBoss* this) {
     f32 x;
     f32 y;
     f32 z;
     f32 var_fv1_2;
 
-    if (actor->timer_0BC == 0) {
+    if (this->timer_0BC == 0) {
         if (gLevelType == LEVELTYPE_SPACE) {
             x = RAND_FLOAT_CENTERED(20000.0f);
             y = RAND_FLOAT_CENTERED(5000.0f);
@@ -3989,95 +3991,94 @@ s32 func_hud_80090E8C(Actor* actor) {
             z = RAND_FLOAT_CENTERED(10000.0f);
         }
 
-        if ((fabsf(actor->obj.pos.x - x) > 2000.0f) && (fabsf(actor->obj.pos.z - z) > 2000.0f)) {
-            actor->fwork[4] = x;
-            actor->fwork[5] = y;
-            actor->fwork[6] = z;
-            actor->timer_0BC = RAND_INT(20.0f) + 10;
+        if ((fabsf(this->obj.pos.x - x) > 2000.0f) && (fabsf(this->obj.pos.z - z) > 2000.0f)) {
+            this->fwork[4] = x;
+            this->fwork[5] = y;
+            this->fwork[6] = z;
+            this->timer_0BC = RAND_INT(20.0f) + 10;
         }
     }
 
-    if (actor->aiType == AI360_FALCO) {
+    if (this->aiType == AI360_FALCO) {
         var_fv1_2 = 3000.0f;
     } else {
         var_fv1_2 = 5000.0f;
     }
 
-    if ((var_fv1_2 < fabsf(actor->obj.pos.x - gBosses[0].obj.pos.x)) &&
-        (var_fv1_2 < fabsf(actor->obj.pos.z - gBosses[0].obj.pos.z))) {
-        actor->state = 0;
+    if ((var_fv1_2 < fabsf(this->obj.pos.x - gBosses[0].obj.pos.x)) &&
+        (var_fv1_2 < fabsf(this->obj.pos.z - gBosses[0].obj.pos.z))) {
+        this->state = 0;
     }
 
-    if (actor->timer_0BE == 0) {
-        actor->timer_0BE = RAND_INT(200.0f) + 200;
-        actor->fwork[10] = 30.0f;
+    if (this->timer_0BE == 0) {
+        this->timer_0BE = RAND_INT(200.0f) + 200;
+        this->fwork[10] = 30.0f;
     }
     return false;
 }
 
-bool func_hud_800910C0(Actor* actor) {
+bool func_hud_800910C0(ActorTeamBoss* this) {
     f32 var_fv1;
 
-    if (actor->timer_0BC == 0) {
-        actor->vwork[28].x = RAND_FLOAT_CENTERED(2000.0f);
-        actor->vwork[28].y = RAND_FLOAT(1000.0f) + 200.0f;
-        actor->vwork[28].z = RAND_FLOAT_CENTERED(2000.0f);
-        actor->timer_0BC = RAND_INT(20.0f) + 10;
+    if (this->timer_0BC == 0) {
+        this->vwork[28].x = RAND_FLOAT_CENTERED(2000.0f);
+        this->vwork[28].y = RAND_FLOAT(1000.0f) + 200.0f;
+        this->vwork[28].z = RAND_FLOAT_CENTERED(2000.0f);
+        this->timer_0BC = RAND_INT(20.0f) + 10;
     }
 
-    actor->fwork[4] = gBosses[0].obj.pos.x + actor->vwork[28].x;
-    actor->fwork[5] = actor->vwork[28].y;
-    actor->fwork[6] = gBosses[0].obj.pos.z + actor->vwork[28].z;
+    this->fwork[4] = gBosses[0].obj.pos.x + this->vwork[28].x;
+    this->fwork[5] = this->vwork[28].y;
+    this->fwork[6] = gBosses[0].obj.pos.z + this->vwork[28].z;
 
-    if (actor->aiType == AI360_FALCO) {
+    if (this->aiType == AI360_FALCO) {
         var_fv1 = 1500.0f;
     } else {
         var_fv1 = 3000.0f;
     }
 
-    if ((var_fv1 < fabsf(actor->obj.pos.x - actor->fwork[4])) &&
-        (var_fv1 < fabsf(actor->obj.pos.z - actor->fwork[6]))) {
-        actor->state = 0;
+    if ((var_fv1 < fabsf(this->obj.pos.x - this->fwork[4])) && (var_fv1 < fabsf(this->obj.pos.z - this->fwork[6]))) {
+        this->state = 0;
     }
 
-    if (actor->timer_0BE == 0) {
-        actor->timer_0BE = RAND_INT(200.0f) + 200;
-        actor->fwork[10] = 30.0f;
+    if (this->timer_0BE == 0) {
+        this->timer_0BE = RAND_INT(200.0f) + 200;
+        this->fwork[10] = 30.0f;
     }
     return false;
 }
 
-void func_hud_80091254(Actor* actor) {
+void func_hud_80091254(ActorTeamBoss* this) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        func_hud_80090E8C(actor);
+        func_hud_80090E8C(this);
     } else {
-        func_hud_800910C0(actor);
+        func_hud_800910C0(this);
     }
 }
 
-bool func_hud_80091298(Actor* actor) {
-    actor->fwork[1] = gPlayer[0].baseSpeed + 10.0f;
-    actor->fwork[3] = 3.6f;
-    actor->fwork[4] = gPlayer[0].pos.x + ((f32) (actor->aiType - 2) * 700.0f);
-    actor->fwork[5] = gPlayer[0].pos.y;
-    actor->fwork[6] = gPlayer[0].trueZpos;
+bool func_hud_80091298(ActorTeamBoss* this) {
+    this->fwork[1] = gPlayer[0].baseSpeed + 10.0f;
+    this->fwork[3] = 3.6f;
+    this->fwork[4] = gPlayer[0].pos.x + ((f32) (this->aiType - 2) * 700.0f);
+    this->fwork[5] = gPlayer[0].pos.y;
+    this->fwork[6] = gPlayer[0].trueZpos;
 
-    if ((fabsf(actor->obj.pos.x - actor->fwork[4]) < 700.0f) || (fabsf(actor->obj.pos.z - actor->fwork[6]) < 700.0f)) {
-        actor->fwork[1] = gPlayer[0].baseSpeed - 10.0f;
-        actor->fwork[3] = 1.2f;
+    if ((fabsf(this->obj.pos.x - this->fwork[4]) < 700.0f) || (fabsf(this->obj.pos.z - this->fwork[6]) < 700.0f)) {
+        this->fwork[1] = gPlayer[0].baseSpeed - 10.0f;
+        this->fwork[3] = 1.2f;
     }
     return false;
 }
 
-bool func_hud_80091368(Actor* actor) {
-    switch (actor->iwork[5]) {
+bool func_hud_80091368(ActorTeamBoss* this) {
+    switch (this->iwork[5]) {
         case 0:
-            actor->fwork[5] = 20000.0f;
-            actor->iwork[1] = 1;
-            actor->iwork[5] = 1;
-            gTeamShields[actor->aiType] = 1;
+            this->fwork[5] = 20000.0f;
+            this->iwork[1] = 1;
+            this->iwork[5] = 1;
+            gTeamShields[this->aiType] = 1;
 
-            switch (actor->aiType) {
+            switch (this->aiType) {
                 case AI360_FALCO:
                     Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                     break;
@@ -4090,65 +4091,65 @@ bool func_hud_80091368(Actor* actor) {
                     Radio_PlayMessage(gMsg_ID_20222, RCID_SLIPPY);
                     break;
             }
-            gTeamShields[actor->aiType] = -1;
+            gTeamShields[this->aiType] = -1;
             break;
 
         case 1:
-            if (actor->fwork[29] < 2.0f) {
-                actor->fwork[29] = 2.0f;
+            if (this->fwork[29] < 2.0f) {
+                this->fwork[29] = 2.0f;
             }
 
-            if (actor->timer_0BC == 0) {
-                actor->timer_0BC = RAND_INT(20.0f) + 30;
-                actor->fwork[7] = 360.0f;
-                actor->fwork[8] = 0.0f;
+            if (this->timer_0BC == 0) {
+                this->timer_0BC = RAND_INT(20.0f) + 30;
+                this->fwork[7] = 360.0f;
+                this->fwork[8] = 0.0f;
             }
 
-            if (actor->obj.pos.y > 3000.0f) {
-                Object_Kill(&actor->obj, actor->sfxSource);
+            if (this->obj.pos.y > 3000.0f) {
+                Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
     return false;
 }
 
-void func_hud_800914FC(Actor* actor) {
-    switch (actor->state) {
+void func_hud_800914FC(ActorTeamBoss* this) {
+    switch (this->state) {
         case 0:
-            if (!func_hud_80090CCC(actor)) {
+            if (!func_hud_80090CCC(this)) {
                 break;
             }
         case 1:
-            func_hud_80091254(actor);
+            func_hud_80091254(this);
             break;
 
         case 2:
-            func_hud_80091298(actor);
+            func_hud_80091298(this);
             break;
 
         case 3:
-            func_hud_80091368(actor);
+            func_hud_80091368(this);
             break;
 
         case 7:
-            func_hud_80090A00(actor);
+            func_hud_80090A00(this);
             break;
     }
 
-    if ((gTeamShields[actor->aiType] <= 0) && (actor->state != 3)) {
-        actor->iwork[5] = 0;
-        actor->state = 3;
+    if ((gTeamShields[this->aiType] <= 0) && (this->state != 3)) {
+        this->iwork[5] = 0;
+        this->state = 3;
     }
 
     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-        if ((actor->state != 2) && (actor->state != 3)) {
-            actor->iwork[4] = 1;
-            actor->state = 2;
+        if ((this->state != 2) && (this->state != 3)) {
+            this->iwork[4] = 1;
+            this->state = 2;
         }
     }
 }
 
-bool func_hud_800915FC(Actor* actor) {
+bool func_hud_800915FC(ActorTeamBoss* this) {
     s32 i;
     f32 y;
     Vec3f vec;
@@ -4156,7 +4157,7 @@ bool func_hud_800915FC(Actor* actor) {
     Scenery360* scenery360;
     bool ret = false;
 
-    Math_Vec3fFromAngles(&vec, 0.0f, actor->rot_0F4.y, 650.0f + actor->fwork[9] * 10.0f);
+    Math_Vec3fFromAngles(&vec, 0.0f, this->rot_0F4.y, 650.0f + this->fwork[9] * 10.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         for (i = 0, scenery360 = &gScenery360[0]; i < 200; i++, scenery360++) {
@@ -4164,15 +4165,15 @@ bool func_hud_800915FC(Actor* actor) {
                 continue;
             }
 
-            if (fabsf(scenery360->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1200.0f) {
+            if (fabsf(scenery360->obj.pos.x - (this->obj.pos.x + vec.x)) > 1200.0f) {
                 continue;
             }
 
-            if (fabsf(scenery360->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1200.0f) {
+            if (fabsf(scenery360->obj.pos.z - (this->obj.pos.z + vec.z)) > 1200.0f) {
                 continue;
             }
 
-            if (actor->obj.pos.y + vec.y < 650.0f) {
+            if (this->obj.pos.y + vec.y < 650.0f) {
                 ret = true;
             }
         }
@@ -4185,7 +4186,7 @@ bool func_hud_800915FC(Actor* actor) {
     boss = &gBosses[0];
 
     y = 650.0f;
-    if (actor->aiType < AI360_KATT) {
+    if (this->aiType < AI360_KATT) {
         y = 720.0f;
     }
 
@@ -4193,16 +4194,16 @@ bool func_hud_800915FC(Actor* actor) {
         y = 280.0f;
     }
 
-    if (!(fabsf(boss->obj.pos.x - (actor->obj.pos.x + vec.x)) > 1000.0f) &&
-        !(fabsf(boss->obj.pos.z - (actor->obj.pos.z + vec.z)) > 1000.0f) &&
-        !(fabsf(boss->obj.pos.y - (actor->obj.pos.y)) > y)) {
+    if (!(fabsf(boss->obj.pos.x - (this->obj.pos.x + vec.x)) > 1000.0f) &&
+        !(fabsf(boss->obj.pos.z - (this->obj.pos.z + vec.z)) > 1000.0f) &&
+        !(fabsf(boss->obj.pos.y - (this->obj.pos.y)) > y)) {
         ret = true;
     }
 
     return ret;
 }
 
-bool func_hud_80091864(Actor* actor) {
+bool func_hud_80091864(ActorTeamBoss* this) {
     f32 sp44;
     f32 sp40;
     f32 sp3C;
@@ -4212,26 +4213,25 @@ bool func_hud_80091864(Actor* actor) {
     f32 sp2C;
     f32 sp28;
 
-    x = actor->fwork[4] - actor->obj.pos.x;
-    y = actor->fwork[5] - actor->obj.pos.y;
-    z = actor->fwork[6] - actor->obj.pos.z;
+    x = this->fwork[4] - this->obj.pos.x;
+    y = this->fwork[5] - this->obj.pos.y;
+    z = this->fwork[6] - this->obj.pos.z;
 
     sp40 = Math_RadToDeg(Math_Atan2F(x, z));
     sp44 = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
 
-    if ((func_hud_800915FC(actor) != 0) && (actor->iwork[4] == 0)) {
+    if ((func_hud_800915FC(this) != 0) && (this->iwork[4] == 0)) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;
-        } else if ((actor->obj.pos.y < (gGroundHeight + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) &&
-                   (sp44 > 180.0f)) {
+        } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (gLevelType == LEVELTYPE_PLANET) && (sp44 > 180.0f)) {
             sp44 = 0.0f;
         }
-        actor->iwork[0] = 0;
+        this->iwork[0] = 0;
     }
 
-    sp3C = Math_SmoothStepToAngle(&actor->rot_0F4.y, sp40, 0.5f, actor->fwork[2], 0.001f) * 30.0f;
-    Math_SmoothStepToAngle(&actor->rot_0F4.x, sp44, 0.5f, actor->fwork[2], 0.0001f);
+    sp3C = Math_SmoothStepToAngle(&this->rot_0F4.y, sp40, 0.5f, this->fwork[2], 0.001f) * 30.0f;
+    Math_SmoothStepToAngle(&this->rot_0F4.x, sp44, 0.5f, this->fwork[2], 0.0001f);
     sp2C = sp28 = 0.0f;
 
     if (sp3C < 0.0f) {
@@ -4240,10 +4240,10 @@ bool func_hud_80091864(Actor* actor) {
         sp28 = sp3C;
     }
 
-    Math_SmoothStepToF(&actor->fwork[15], sp2C, 0.2f, 30.0f, 0.00f);
-    Math_SmoothStepToF(&actor->fwork[26], -sp2C, 0.2f, 30.0f, 0.00f);
-    Math_SmoothStepToF(&actor->fwork[16], sp28, 0.2f, 30.0f, 0.00f);
-    Math_SmoothStepToF(&actor->fwork[27], -sp28, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&this->fwork[15], sp2C, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&this->fwork[26], -sp2C, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&this->fwork[16], sp28, 0.2f, 30.0f, 0.00f);
+    Math_SmoothStepToF(&this->fwork[27], -sp28, 0.2f, 30.0f, 0.00f);
 
     if (sp3C < 0.0f) {
         sp3C *= -1.0f;
@@ -4251,101 +4251,101 @@ bool func_hud_80091864(Actor* actor) {
         sp3C = 360.0f - sp3C;
     }
 
-    Math_SmoothStepToF(&actor->fwork[7], actor->fwork[8], 0.2f, 30.0f, 0.0001f);
+    Math_SmoothStepToF(&this->fwork[7], this->fwork[8], 0.2f, 30.0f, 0.0001f);
 
-    if ((actor->fwork[7] > 0.01f) && (actor->fwork[7] < 359.9f)) {
-        Math_SmoothStepToAngle(&actor->obj.rot.z, actor->fwork[7], 0.2f, 100.0f, 0.01f);
+    if ((this->fwork[7] > 0.01f) && (this->fwork[7] < 359.9f)) {
+        Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[7], 0.2f, 100.0f, 0.01f);
     } else {
-        Math_SmoothStepToAngle(&actor->obj.rot.z, sp3C, 0.1f, 3.0f, 0.01f);
+        Math_SmoothStepToAngle(&this->obj.rot.z, sp3C, 0.1f, 3.0f, 0.01f);
     }
 
     return false;
 }
 
-bool func_hud_80091B90(Actor* actor) {
+bool func_hud_80091B90(ActorTeamBoss* this) {
     Vec3f vec;
 
-    actor->obj.rot.x = -actor->rot_0F4.x;
-    actor->obj.rot.y = actor->rot_0F4.y;
+    this->obj.rot.x = -this->rot_0F4.x;
+    this->obj.rot.y = this->rot_0F4.y;
 
-    Math_SmoothStepToF(&actor->fwork[0], actor->fwork[1], 0.2f, 1.0f, 0.0f);
-    Math_SmoothStepToF(&actor->fwork[2], actor->fwork[3], 1.0f, 1.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.2f, 1.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[2], this->fwork[3], 1.0f, 1.0f, 0.0f);
 
-    Math_Vec3fFromAngles(&vec, actor->obj.rot.x, actor->obj.rot.y, actor->fwork[0] + actor->fwork[9]);
+    Math_Vec3fFromAngles(&vec, this->obj.rot.x, this->obj.rot.y, this->fwork[0] + this->fwork[9]);
 
-    actor->vel.y = actor->fwork[14] + vec.y;
-    actor->vel.x = actor->fwork[13] + vec.x;
-    actor->vel.z = actor->fwork[12] + vec.z;
+    this->vel.y = this->fwork[14] + vec.y;
+    this->vel.x = this->fwork[13] + vec.x;
+    this->vel.z = this->fwork[12] + vec.z;
 
-    actor->fwork[13] -= actor->fwork[13] * 0.1f;
-    actor->fwork[14] -= actor->fwork[14] * 0.1f;
-    actor->fwork[12] -= actor->fwork[12] * 0.1f;
+    this->fwork[13] -= this->fwork[13] * 0.1f;
+    this->fwork[14] -= this->fwork[14] * 0.1f;
+    this->fwork[12] -= this->fwork[12] * 0.1f;
 
-    if ((actor->obj.pos.y < gGroundHeight + 40.0f) && (actor->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
-        actor->obj.pos.y = gGroundHeight + 40.0f;
-        actor->vel.y = 0.0f;
+    if ((this->obj.pos.y < gGroundHeight + 40.0f) && (this->vel.y < 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
+        this->obj.pos.y = gGroundHeight + 40.0f;
+        this->vel.y = 0.0f;
     }
-    actor->vel.z -= gPathVelZ;
+    this->vel.z -= gPathVelZ;
 
     return false;
 }
 
-bool func_hud_80091CF8(Actor* actor) {
-    if (actor->iwork[1] != 0) {
-        if (actor->fwork[10] < 0.1f) {
-            actor->fwork[10] = 20.0f;
-            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
-            actor->fwork[29] = 5.0f;
+bool func_hud_80091CF8(ActorTeamBoss* this) {
+    if (this->iwork[1] != 0) {
+        if (this->fwork[10] < 0.1f) {
+            this->fwork[10] = 20.0f;
+            AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
+            this->fwork[29] = 5.0f;
         }
-        actor->iwork[1] = 0;
+        this->iwork[1] = 0;
     }
 
-    Math_SmoothStepToF(&actor->fwork[10], 0.0f, 0.1f, 0.2f, 0.0f);
-    Math_SmoothStepToF(&actor->fwork[9], actor->fwork[10], 0.1f, 2.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[10], 0.0f, 0.1f, 0.2f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[9], this->fwork[10], 0.1f, 2.0f, 0.0f);
 
-    if (actor->fwork[10] < 0.1f) {
-        actor->iwork[11] = 1;
-    }
-    return false;
-}
-
-bool func_hud_80091DF4(Actor* actor) {
-    Vec3f sp44;
-    Vec3f sp38;
-
-    if ((actor->iwork[0] != 0) && (gBossHealthBar > 70)) {
-        actor->iwork[0] = 0;
-        sp44.x = 0.0f;
-        sp44.y = 0.0f;
-        sp44.z = 100.0f;
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-        Actor_SpawnPlayerLaser(actor->aiType, actor->obj.pos.x + (sp38.x * 1.5), actor->obj.pos.y + (sp38.y * 1.5),
-                               actor->obj.pos.z + (sp38.z * 1.5), sp38.x, sp38.y, sp38.z, actor->obj.rot.x,
-                               actor->obj.rot.y, actor->obj.rot.z);
+    if (this->fwork[10] < 0.1f) {
+        this->iwork[11] = 1;
     }
     return false;
 }
 
-bool func_hud_80091F00(Actor* actor) {
-    u8 temp_v0 = actor->dmgType;
+bool func_hud_80091DF4(ActorTeamBoss* this) {
+    Vec3f src;
+    Vec3f dest;
+
+    if ((this->iwork[0] != 0) && (gBossHealthBar > 70)) {
+        this->iwork[0] = 0;
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = 100.0f;
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        Actor_SpawnPlayerLaser(this->aiType, this->obj.pos.x + (dest.x * 1.5), this->obj.pos.y + (dest.y * 1.5),
+                               this->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, this->obj.rot.x,
+                               this->obj.rot.y, this->obj.rot.z);
+    }
+    return false;
+}
+
+bool func_hud_80091F00(ActorTeamBoss* this) {
+    u8 temp_v0 = this->dmgType;
     Vec3f sp40;
     Vec3f sp34;
 
-    actor->dmgType = DMG_NONE;
+    this->dmgType = DMG_NONE;
 
-    if ((actor->state == 3) || (temp_v0 == DMG_EXPLOSION)) {
+    if ((this->state == 3) || (temp_v0 == DMG_EXPLOSION)) {
         return false;
     }
 
-    actor->health -= actor->damage;
-    if (actor->health <= 0) {
-        actor->health = -1;
+    this->health -= this->damage;
+    if (this->health <= 0) {
+        this->health = -1;
     }
-    actor->timer_0C6 = 20;
+    this->timer_0C6 = 20;
 
-    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, actor->sfxSource, 4);
-    func_effect_8007D10C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.5f);
-    Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, MTXF_NEW);
+    AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
+    func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
+    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
 
     if (Rand_ZeroOne() < 0.5f) {
         sp40.x = -20.0f;
@@ -4358,18 +4358,18 @@ bool func_hud_80091F00(Actor* actor) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp34);
 
-    actor->fwork[13] = sp34.x;
-    actor->fwork[14] = sp34.y;
-    actor->fwork[12] = sp34.z;
+    this->fwork[13] = sp34.x;
+    this->fwork[14] = sp34.y;
+    this->fwork[12] = sp34.z;
 
-    gTeamShields[actor->aiType] = actor->health;
+    gTeamShields[this->aiType] = this->health;
 
     if (gRadioState != 0) {
         return false;
     }
 
-    if ((actor->dmgType == DMG_COLLISION) && (actor->dmgSource == AI360_FOX + 1)) {
-        switch (actor->aiType) {
+    if ((this->dmgType == DMG_COLLISION) && (this->dmgSource == AI360_FOX + 1)) {
+        switch (this->aiType) {
             case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20210, RCID_FALCO);
                 break;
@@ -4382,8 +4382,8 @@ bool func_hud_80091F00(Actor* actor) {
         }
     }
 
-    if ((actor->dmgType != DMG_COLLISION) && (actor->dmgSource == AI360_FOX + 1)) {
-        switch (actor->aiType) {
+    if ((this->dmgType != DMG_COLLISION) && (this->dmgSource == AI360_FOX + 1)) {
+        switch (this->aiType) {
             case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20060, RCID_FALCO);
                 break;
@@ -4396,8 +4396,8 @@ bool func_hud_80091F00(Actor* actor) {
         }
     }
 
-    if ((actor->dmgSource == DMG_SRC_2) || (actor->dmgSource == DMG_SRC_100)) {
-        switch (actor->aiType) {
+    if ((this->dmgSource == DMG_SRC_2) || (this->dmgSource == DMG_SRC_100)) {
+        switch (this->aiType) {
             case AI360_FALCO:
                 Radio_PlayMessage(gMsg_ID_20030, RCID_FALCO);
                 break;
@@ -4409,279 +4409,278 @@ bool func_hud_80091F00(Actor* actor) {
                 break;
         }
     }
-    actor->iwork[8] = 20;
+    this->iwork[8] = 20;
 
     return false;
 }
 
-void func_hud_80092244(Actor* actor) {
-    gRadarMarks[actor->index].status = 1;
-    gRadarMarks[actor->index].type = actor->aiType;
-    gRadarMarks[actor->index].pos.x = actor->obj.pos.x;
-    gRadarMarks[actor->index].pos.y = actor->obj.pos.y;
-    gRadarMarks[actor->index].pos.z = actor->obj.pos.z;
-    gRadarMarks[actor->index].yRot = actor->rot_0F4.y + 180.0f;
+void func_hud_80092244(ActorTeamBoss* this) {
+    gRadarMarks[this->index].status = 1;
+    gRadarMarks[this->index].type = this->aiType;
+    gRadarMarks[this->index].pos.x = this->obj.pos.x;
+    gRadarMarks[this->index].pos.y = this->obj.pos.y;
+    gRadarMarks[this->index].pos.z = this->obj.pos.z;
+    gRadarMarks[this->index].yRot = this->rot_0F4.y + 180.0f;
 }
 
-void func_hud_800922F4(Actor* actor) {
-    s32 temp;
+void func_hud_800922F4(ActorTeamBoss* this) {
+    s32 mask;
 
-    if ((gTeamShields[actor->aiType] < 64) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-        temp = 8 - 1;
-        if (gTeamShields[actor->aiType] > 16) {
-            temp = 16 - 1;
+    if ((gTeamShields[this->aiType] < 64) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+        mask = 8 - 1;
+        if (gTeamShields[this->aiType] > 16) {
+            mask = 16 - 1;
         }
-        if (gTeamShields[actor->aiType] > 32) {
-            temp = 32 - 1;
+        if (gTeamShields[this->aiType] > 32) {
+            mask = 32 - 1;
         }
-        if (gTeamShields[actor->aiType] > 48) {
-            temp = 64 - 1;
-        }
-
-        if ((gGameFrameCount & temp) == 0) {
-            func_effect_8007D10C(actor->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
-                                 actor->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.2f);
+        if (gTeamShields[this->aiType] > 48) {
+            mask = 64 - 1;
         }
 
-        if (!(gGameFrameCount & (temp >> 2)) && (Rand_ZeroOne() < 0.5f)) {
-            Effect_Effect390_Spawn(actor->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), actor->obj.pos.y + RAND_FLOAT(10.0f),
-                                   actor->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), actor->vel.x, actor->vel.y,
-                                   actor->vel.z, actor->scale * 0.07f, 3);
+        if ((gGameFrameCount & mask) == 0) {
+            func_effect_8007D10C(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
+                                 this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.2f);
+        }
+
+        if (!(gGameFrameCount & (mask >> 2)) && (Rand_ZeroOne() < 0.5f)) {
+            Effect_Effect390_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
+                                   this->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), this->vel.x, this->vel.y, this->vel.z,
+                                   this->scale * 0.07f, 3);
         }
     }
 }
 
-bool func_hud_800924E0(Actor* actor) {
+bool func_hud_800924E0(ActorTeamBoss* this) {
     Vec3f src;
     Vec3f dest;
     f32 var_fv0;
     bool ret = false;
 
-    if (actor->iwork[7] == 0) {
-        actor->vwork[29].x = actor->obj.rot.x;
-        actor->iwork[7] = 1;
-        actor->iwork[1] = 1;
+    if (this->iwork[7] == 0) {
+        this->vwork[29].x = this->obj.rot.x;
+        this->iwork[7] = 1;
+        this->iwork[1] = 1;
     }
 
-    if (actor->fwork[29] < 2.0f) {
-        actor->fwork[29] = 2.0f;
+    if (this->fwork[29] < 2.0f) {
+        this->fwork[29] = 2.0f;
     }
 
     var_fv0 = 60.0f;
 
-    if (actor->fwork[19] > 240.0f) {
+    if (this->fwork[19] > 240.0f) {
         var_fv0 = -50.0f;
     }
 
-    Math_SmoothStepToF(&actor->fwork[15], var_fv0, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&actor->fwork[26], var_fv0, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&actor->fwork[16], var_fv0, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&actor->fwork[27], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[15], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[26], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[16], var_fv0, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&this->fwork[27], var_fv0, 0.3f, 100.0f, 0.0f);
 
-    if (actor->fwork[19] < 180.0f) {
-        actor->obj.pos.y += 2.0f;
+    if (this->fwork[19] < 180.0f) {
+        this->obj.pos.y += 2.0f;
     }
 
-    if (Math_SmoothStepToF(&actor->fwork[19], 360.0f, 0.1f, 5.0f, 0.01f) == 0.0f) {
-        actor->obj.rot.x = actor->vwork[29].x;
-        actor->fwork[19] = actor->vwork[29].x = 0.0f;
+    if (Math_SmoothStepToF(&this->fwork[19], 360.0f, 0.1f, 5.0f, 0.01f) == 0.0f) {
+        this->obj.rot.x = this->vwork[29].x;
+        this->fwork[19] = this->vwork[29].x = 0.0f;
         ret = true;
-        actor->iwork[7] = 0;
-        actor->fwork[29] = 1.0f;
+        this->iwork[7] = 0;
+        this->fwork[29] = 1.0f;
     }
 
-    if (actor->iwork[7] != 0) {
-        Math_SmoothStepToAngle(&actor->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
-        Math_SmoothStepToAngle(&actor->obj.rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
-        actor->obj.rot.x = actor->vwork[29].x + (360.0f - actor->fwork[19]);
+    if (this->iwork[7] != 0) {
+        Math_SmoothStepToAngle(&this->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
+        Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 5.0f, 0.0f);
+        this->obj.rot.x = this->vwork[29].x + (360.0f - this->fwork[19]);
 
-        Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((actor->rot_0F4.x + actor->vwork[29].x) + actor->fwork[19])),
-                       MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * ((this->rot_0F4.x + this->vwork[29].x) + this->fwork[19])), MTXF_APPLY);
 
-        src.z = actor->fwork[1];
+        src.z = this->fwork[1];
         src.y = 0.0f;
         src.x = 0.0f;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-        actor->vel.x = dest.x;
-        actor->vel.y = dest.y;
-        actor->vel.z = dest.z;
+        this->vel.x = dest.x;
+        this->vel.y = dest.y;
+        this->vel.z = dest.z;
 
-        if (actor->obj.pos.y < gGroundHeight + 50.0f) {
-            actor->obj.pos.y = gGroundHeight + 50.0f;
-            actor->vel.y = 0.0f;
+        if (this->obj.pos.y < gGroundHeight + 50.0f) {
+            this->obj.pos.y = gGroundHeight + 50.0f;
+            this->vel.y = 0.0f;
         }
     }
 
     return ret;
 }
 
-bool func_hud_800927A0(Actor* actor) {
+bool func_hud_800927A0(ActorTeamBoss* this) {
     Vec3f src;
     Vec3f dest;
     f32 sp54;
     f32 sp50;
     bool ret = false;
 
-    if (actor->iwork[11] == 0) {
-        actor->unk_046 = 0;
-        actor->iwork[11] = 1;
-        actor->iwork[1] = 1;
-        actor->vwork[29].x = actor->obj.rot.x;
-        actor->vwork[29].y = actor->obj.rot.y;
-        actor->vwork[29].z = actor->obj.rot.z;
+    if (this->iwork[11] == 0) {
+        this->unk_046 = 0;
+        this->iwork[11] = 1;
+        this->iwork[1] = 1;
+        this->vwork[29].x = this->obj.rot.x;
+        this->vwork[29].y = this->obj.rot.y;
+        this->vwork[29].z = this->obj.rot.z;
     } else {
-        Math_SmoothStepToAngle(&actor->vwork[29].z, 0.0f, 0.1f, 5.0f, 0.0f);
-        Math_SmoothStepToAngle(&actor->vwork[29].y, 0.0f, 0.1f, 5.0f, 0.0f);
-        Math_SmoothStepToAngle(&actor->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
-        sp50 = Math_RadToDeg(Math_Atan2F(0.0f - actor->obj.pos.x, 0.0f - actor->obj.pos.z));
+        Math_SmoothStepToAngle(&this->vwork[29].z, 0.0f, 0.1f, 5.0f, 0.0f);
+        Math_SmoothStepToAngle(&this->vwork[29].y, 0.0f, 0.1f, 5.0f, 0.0f);
+        Math_SmoothStepToAngle(&this->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
+        sp50 = Math_RadToDeg(Math_Atan2F(0.0f - this->obj.pos.x, 0.0f - this->obj.pos.z));
 
-        switch (actor->unk_046) {
+        switch (this->unk_046) {
             case 0:
-                if (actor->unk_04A != 0) {
-                    actor->timer_0BC = 30;
+                if (this->unk_04A != 0) {
+                    this->timer_0BC = 30;
                 } else {
-                    actor->timer_0BC = 10;
+                    this->timer_0BC = 10;
                 }
-                actor->unk_046 = 1;
-                if (actor->fwork[19] > 180.0f) {
-                    actor->fwork[19] = actor->fwork[19] - 360.0f;
+                this->unk_046 = 1;
+                if (this->fwork[19] > 180.0f) {
+                    this->fwork[19] = this->fwork[19] - 360.0f;
                 }
 
             case 1:
-                if (actor->timer_0BC == 0) {
-                    actor->unk_046 = 2;
-                    if (actor->unk_04A != 0) {
-                        actor->timer_0BC = 80;
+                if (this->timer_0BC == 0) {
+                    this->unk_046 = 2;
+                    if (this->unk_04A != 0) {
+                        this->timer_0BC = 80;
                     } else {
-                        actor->timer_0BC = 60;
+                        this->timer_0BC = 60;
                     }
-                    Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
+                    Math_SmoothStepToF(&this->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
                 }
                 break;
 
             case 2:
-                if (actor->fwork[19] > 140.0f) {
+                if (this->fwork[19] > 140.0f) {
                     sp54 = 0.0f;
                 } else {
                     sp54 = 60.0f;
                 }
 
-                Math_SmoothStepToF(&actor->fwork[15], sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[26], sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[16], sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[27], sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[19], 190.0f, 0.1f, 6.0f, 0.001f);
-                Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[15], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[26], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[16], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[27], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[19], 190.0f, 0.1f, 6.0f, 0.001f);
+                Math_SmoothStepToF(&this->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
 
-                if (actor->fwork[19] > 180.0f) {
-                    actor->rot_0F4.y += 180.0f;
-                    if (actor->rot_0F4.y >= 360.0f) {
-                        actor->rot_0F4.y = actor->rot_0F4.y - 360.0f;
+                if (this->fwork[19] > 180.0f) {
+                    this->rot_0F4.y += 180.0f;
+                    if (this->rot_0F4.y >= 360.0f) {
+                        this->rot_0F4.y = this->rot_0F4.y - 360.0f;
                     }
 
-                    actor->fwork[19] -= 180.0f;
+                    this->fwork[19] -= 180.0f;
 
-                    if ((sp50 - actor->rot_0F4.y) < 180.0f) {
-                        actor->fwork[20] = 180.0f;
+                    if ((sp50 - this->rot_0F4.y) < 180.0f) {
+                        this->fwork[20] = 180.0f;
                     } else {
-                        actor->fwork[20] = -180.0f;
+                        this->fwork[20] = -180.0f;
                     }
-                    actor->iwork[1] = 1;
-                    actor->unk_046 = 3;
+                    this->iwork[1] = 1;
+                    this->unk_046 = 3;
                 }
-                actor->fwork[28] -= 0.2f;
+                this->fwork[28] -= 0.2f;
                 break;
 
             case 3:
-                if (actor->fwork[29] < 2.0f) {
-                    actor->fwork[29] = 2.0f;
+                if (this->fwork[29] < 2.0f) {
+                    this->fwork[29] = 2.0f;
                 }
-                Math_SmoothStepToF(&actor->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[20], 0.0f, 0.1f, 15.0f, 0.0f);
 
-                sp54 = actor->fwork[20] * 0.3f;
+                sp54 = this->fwork[20] * 0.3f;
 
-                Math_SmoothStepToF(&actor->fwork[15], sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[26], sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[16], -sp54, 0.3f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&actor->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[15], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[26], sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[16], -sp54, 0.3f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&this->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
 
-                if (actor->unk_04A != 0) {
-                    Math_SmoothStepToAngle(&actor->rot_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
+                if (this->unk_04A != 0) {
+                    Math_SmoothStepToAngle(&this->rot_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
                 }
 
-                if (actor->obj.pos.y < gPlayer[0].pathHeight) {
-                    if (actor->fwork[28] < 0.0f) {
-                        actor->fwork[28] = actor->fwork[28] + 0.2f;
+                if (this->obj.pos.y < gPlayer[0].pathHeight) {
+                    if (this->fwork[28] < 0.0f) {
+                        this->fwork[28] = this->fwork[28] + 0.2f;
                     }
                 } else {
-                    actor->fwork[28] -= 0.2f;
+                    this->fwork[28] -= 0.2f;
                 }
 
-                if (actor->timer_0BC == 0) {
+                if (this->timer_0BC == 0) {
                     ret = true;
-                    actor->iwork[11] = 0;
-                    actor->unk_046 = 0;
-                    actor->fwork[28] = 0.0f;
-                    actor->fwork[20] = 0.0f;
-                    actor->fwork[29] = 1.0f;
+                    this->iwork[11] = 0;
+                    this->unk_046 = 0;
+                    this->fwork[28] = 0.0f;
+                    this->fwork[20] = 0.0f;
+                    this->fwork[29] = 1.0f;
                 }
                 break;
         }
 
-        actor->obj.rot.x = actor->vwork[29].x - actor->fwork[19];
-        actor->obj.rot.y = actor->rot_0F4.y;
-        actor->obj.rot.z = actor->vwork[29].z + actor->fwork[20];
-        actor->obj.pos.y += actor->fwork[28];
+        this->obj.rot.x = this->vwork[29].x - this->fwork[19];
+        this->obj.rot.y = this->rot_0F4.y;
+        this->obj.rot.z = this->vwork[29].z + this->fwork[20];
+        this->obj.pos.y += this->fwork[28];
 
-        Matrix_RotateY(gCalcMatrix, actor->rot_0F4.y * M_DTOR, 0U);
-        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (actor->rot_0F4.x + actor->vwork[29].x + actor->fwork[19])), MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, 0U);
+        Matrix_RotateX(gCalcMatrix, -(M_DTOR * (this->rot_0F4.x + this->vwork[29].x + this->fwork[19])), MTXF_APPLY);
 
-        src.z = actor->fwork[1];
+        src.z = this->fwork[1];
         src.y = 0.0f;
         src.x = 0.0f;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-        actor->vel.x = dest.x;
-        actor->vel.y = dest.y;
-        actor->vel.z = dest.z;
+        this->vel.x = dest.x;
+        this->vel.y = dest.y;
+        this->vel.z = dest.z;
     }
     return ret;
 }
 
-void ActorTeamBoss_Init(Actor* actor) {
+void ActorTeamBoss_Init(ActorTeamBoss* this) {
     s32 D_800D22A8[] = { TEAM_ID_FALCO, TEAM_ID_SLIPPY, TEAM_ID_PEPPY };
 
     if (gCurrentLevel != LEVEL_TITANIA) {
-        actor->fwork[1] = 40.0f;
-        actor->fwork[3] = 1.2f;
-        actor->aiType = (D_hud_800D1970 % 4U) + 1;
+        this->fwork[1] = 40.0f;
+        this->fwork[3] = 1.2f;
+        this->aiType = (D_hud_800D1970 % 4U) + 1;
         D_hud_800D1970++;
     } else {
-        actor->state = 7;
-        actor->aiType = AI360_SLIPPY;
-        actor->iwork[5] = 0;
+        this->state = 7;
+        this->aiType = AI360_SLIPPY;
+        this->iwork[5] = 0;
         gTeamShields[TEAM_ID_SLIPPY] = 255;
     }
 
-    actor->iwork[12] = D_800D22A8[actor->aiType - 1];
-    actor->iwork[11] = 1;
+    this->iwork[12] = D_800D22A8[this->aiType - 1];
+    this->iwork[11] = 1;
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        actor->drawShadow = true;
+        this->drawShadow = true;
     }
 
-    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
+    AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 
     if (((s32) (D_hud_800D1970 % 4U) == AI360_SLIPPY) && (gCurrentLevel == LEVEL_SECTOR_X)) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+        Object_Kill(&this->obj, this->sfxSource);
     }
 
-    if (gTeamShields[actor->aiType] <= 0) {
-        Object_Kill(&actor->obj, actor->sfxSource);
+    if (gTeamShields[this->aiType] <= 0) {
+        Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
@@ -4763,64 +4762,63 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
     this->iwork[10] = 0;
 }
 
-void func_hud_80093164(Actor* actor) {
+void func_hud_80093164(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
     Player* player = &gPlayer[0];
 
-    if (actor->state == 0) {
-        switch (actor->animFrame) {
+    if (this->state == 0) {
+        switch (this->animFrame) {
             case 1:
-                if ((player->state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) || (actor->animFrame != 1)) {
+                if ((player->state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) || (this->animFrame != 1)) {
                     if (gCsFrameCount > 1588) {
-                        actor->fwork[0] = 5.0f;
+                        this->fwork[0] = 5.0f;
                     } else {
-                        actor->fwork[0] = 15.0f;
+                        this->fwork[0] = 15.0f;
                     }
-                    actor->fwork[0] = 12.0f;
+                    this->fwork[0] = 12.0f;
                 }
                 break;
 
             case 41:
-                Aquas_CsAqFishGroup_Update(actor);
+                Aquas_CsAqFishGroup_Update(this);
                 break;
 
             case 44:
-                actor->iwork[0]++;
-                if (actor->iwork[0] > 118) {
-                    actor->iwork[0] = 0;
+                this->iwork[0]++;
+                if (this->iwork[0] > 118) {
+                    this->iwork[0] = 0;
                 }
                 break;
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (actor->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(actor->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
     src.x = 0.0f;
     src.y = 0.0f;
-    src.z = actor->fwork[0];
+    src.z = this->fwork[0];
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    actor->vel.x = dest.x;
-    actor->vel.y = dest.y;
-    actor->vel.z = dest.z;
-    actor->obj.rot.x = -actor->rot_0F4.x;
-    actor->obj.rot.y = actor->rot_0F4.y + 180.0f;
-    actor->obj.rot.z = -actor->rot_0F4.z;
+    this->vel.x = dest.x;
+    this->vel.y = dest.y;
+    this->vel.z = dest.z;
+    this->obj.rot.x = -this->rot_0F4.x;
+    this->obj.rot.y = this->rot_0F4.y + 180.0f;
+    this->obj.rot.z = -this->rot_0F4.z;
 }
 
 void func_hud_80093310(void) {
-    Actor* this = &gActors[0];
+    ActorCutscene* actor = &gActors[0];
 
-    Actor_Initialize(this);
-    this->obj.status = OBJ_INIT;
-    this->obj.pos.x = 0.0f;
-    this->obj.pos.y += 1700.0f;
-    this->obj.pos.z -= 5000.0f;
-    gActors[0].animFrame = 1;
-    if (1) {}
-    this->obj.id = OBJ_ACTOR_CUTSCENE;
-    Object_SetInfo(&this->info, this->obj.id);
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
+    Actor_Initialize(actor);
+    actor->obj.status = OBJ_INIT;
+    actor->obj.pos.x = 0.0f;
+    actor->obj.pos.y += 1700.0f;
+    actor->obj.pos.z -= 5000.0f;
+    actor->animFrame = 1;
+    actor->obj.id = OBJ_ACTOR_CUTSCENE;
+    Object_SetInfo(&actor->info, actor->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
 }
 
 void func_hud_800933D8(f32 x, f32 y, f32 z, f32 arg3) {
@@ -5310,74 +5308,74 @@ f32 D_800D24C0[] = { 128.0f, 128.0f, 255.0f, 128.0f };
 s32 D_800D24C8[] = { 0, 900 };
 f32 D_800D24CC = 0.02f;
 
-void Hud_Effect363_Update(Effect* effect) {
+void Hud_Effect363_Update(Effect363* this) {
     Player* player = &gPlayer[0];
 
     if ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) && (player->csState < 2)) {
-        switch (effect->state) {
+        switch (this->state) {
             case 0:
-                effect->unk_44 += effect->unk_46;
-                effect->unk_4A = effect->unk_44;
-                effect->scale2 += 0.01f;
+                this->unk_44 += this->unk_46;
+                this->unk_4A = this->unk_44;
+                this->scale2 += 0.01f;
 
-                if (effect->unk_4A >= 200) {
-                    effect->state = 1;
-                    effect->unk_4A = 200;
+                if (this->unk_4A >= 200) {
+                    this->state = 1;
+                    this->unk_4A = 200;
                 }
                 break;
 
             case 1:
-                effect->unk_4A -= effect->unk_46;
-                effect->scale2 -= 0.1f;
+                this->unk_4A -= this->unk_46;
+                this->scale2 -= 0.1f;
                 break;
         }
 
-        if ((effect->state == 1) && (effect->unk_4A <= 0)) {
-            Object_Kill(&effect->obj, effect->sfxSource);
+        if ((this->state == 1) && (this->unk_4A <= 0)) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
 
-        effect->vel.y += effect->scale1;
-        effect->scale1 -= 0.05f;
+        this->vel.y += this->scale1;
+        this->scale1 -= 0.05f;
 
-        if (effect->scale1 < -1.0f) {
-            effect->scale1 = -1.0f;
+        if (this->scale1 < -1.0f) {
+            this->scale1 = -1.0f;
         }
-        effect->obj.rot.z += effect->unk_48;
+        this->obj.rot.z += this->unk_48;
     } else {
         if (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
-            effect->obj.rot.x = RAD_TO_DEG(player->camPitch);
-            effect->obj.rot.y = RAD_TO_DEG(-player->camYaw);
+            this->obj.rot.x = RAD_TO_DEG(player->camPitch);
+            this->obj.rot.y = RAD_TO_DEG(-player->camYaw);
         }
 
         if (player->state_1C8 == PLAYERSTATE_1C8_NEXT) {
-            effect->unk_46 = 2;
+            this->unk_46 = 2;
             if (player->csState >= 4) {
-                effect->vel.y -= 0.13f;
+                this->vel.y -= 0.13f;
             }
         }
 
-        effect->scale2 += 0.8f;
-        effect->unk_4A -= effect->unk_46;
+        this->scale2 += 0.8f;
+        this->unk_4A -= this->unk_46;
 
-        if ((effect->unk_4A < 0) || ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
-                                     (gCurrentLevel == LEVEL_AQUAS) && (player->csState == 5))) {
-            Object_Kill(&effect->obj, effect->sfxSource);
+        if ((this->unk_4A < 0) || ((player->state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+                                   (gCurrentLevel == LEVEL_AQUAS) && (player->csState == 5))) {
+            Object_Kill(&this->obj, this->sfxSource);
         }
-        effect->obj.rot.z += effect->unk_48;
+        this->obj.rot.z += this->unk_48;
     }
 }
 
-void Hud_Effect363_Draw(Effect* effect) {
+void Hud_Effect363_Draw(Effect363* this) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) &&
         (gPlayer[0].csState < 2)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_68);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, effect->unk_4A);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, this->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
-        Graphics_SetScaleMtx(effect->scale2);
+        Graphics_SetScaleMtx(this->scale2);
         gSPDisplayList(gMasterDisp++, D_1023750);
     } else {
-        Graphics_SetScaleMtx(effect->scale2);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_4A);
+        Graphics_SetScaleMtx(this->scale2);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
         gSPDisplayList(gMasterDisp++, D_1023750);
     }
 }
@@ -5522,15 +5520,15 @@ void func_hud_80094D20(f32 x, f32 y) {
     }
 }
 
-void func_hud_80095350(Actor* actor) {
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->animFrame = 9999;
-    Object_SetInfo(&actor->info, actor->obj.id);
+void func_hud_80095350(ActorCutscene* this) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->animFrame = 9999;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_hud_800953A0(Actor* actor, s32 arg1) {
+void func_hud_800953A0(ActorCutscene* this, s32 arg1) {
     Vec3f D_800D2510[] = {
         { 1800.0f, 0.0f, -4000.0f },
         { -1000.0f, 0.0f, -4800.0f },
@@ -5538,31 +5536,31 @@ void func_hud_800953A0(Actor* actor, s32 arg1) {
         { -200.0f, 0.0f, -7000.0f },
     };
 
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos = D_800D2510[arg1];
-    actor->obj.pos.z -= gPathProgress;
-    actor->animFrame = 45;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.pos = D_800D2510[arg1];
+    this->obj.pos.z -= gPathProgress;
+    this->animFrame = 45;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_hud_8009546C(Actor* actor, s32 arg1) {
+void func_hud_8009546C(ActorCutscene* this, s32 arg1) {
     Vec3f D_800D2540[] = {
         { 1300.0f, 0.0f, -2000.0f },  { -1000.0f, 0.0f, -3000.0f }, { 800.0f, 0.0f, 0.0f },
         { -1200.0f, 0.0f, -1000.0f }, { -1400.0f, 0.0f, 700.0f },
     };
 
-    Actor_Initialize(actor);
-    actor->obj.status = OBJ_ACTIVE;
-    actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos = D_800D2540[arg1];
-    actor->obj.pos.z -= gPathProgress;
-    actor->animFrame = 46;
-    Object_SetInfo(&actor->info, actor->obj.id);
+    Actor_Initialize(this);
+    this->obj.status = OBJ_ACTIVE;
+    this->obj.id = OBJ_ACTOR_CUTSCENE;
+    this->obj.pos = D_800D2540[arg1];
+    this->obj.pos.z -= gPathProgress;
+    this->animFrame = 46;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_hud_80095538(Actor* actor, s32 arg1) {
+void func_hud_80095538(Actor* actor, s32 index) {
     Vec3f D_800D257C[] = {
         { 0.0f, 0.0f, -200.0f },    { -300.0f, 0.0f, -700.0f },  { 400.0f, 0.0f, -900.0f },
         { 300.0f, 0.0f, -1700.0f }, { -260.0f, 0.0f, -2000.0f }, { -200.0f, 0.0f, -2600.0f },
@@ -5571,7 +5569,7 @@ void func_hud_80095538(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
-    actor->obj.pos = D_800D257C[arg1];
+    actor->obj.pos = D_800D257C[index];
     actor->obj.pos.z -= gPathProgress;
     actor->animFrame = 47;
     Object_SetInfo(&actor->info, actor->obj.id);
