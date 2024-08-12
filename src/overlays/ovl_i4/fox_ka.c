@@ -996,6 +996,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 this->fwork[BOSS_Y_ROT_SPEED_TARGET] = 0.0f;
                 this->obj.rot.y = 217.0f;
 
+                // Kill remaining enemies from past phase
                 for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].animFrame == 0) {
                         Object_Kill(&gActors[i].obj, gActors[i].sfxSource);
