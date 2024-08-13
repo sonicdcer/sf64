@@ -4717,26 +4717,26 @@ void ActorCutscene_Draw(Actor* actor) {
 
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 
-            switch (((gGameFrameCount DIV_FRAME_FACTOR) >> 3) % (4U MUL_FRAME_FACTOR)) {
+            switch (((gGameFrameCount) >> 3) % (4U MUL_FRAME_FACTOR)) {
                 case 0:
                     sp2DC = 255.0f;
                     sp2D8 = 0.0f;
                     sp2D4 = 0.0f;
                     break;
 
-                case 1:
+                case 1 MUL_FRAME_FACTOR:
                     sp2DC = 0.0f;
                     sp2D8 = 255.0f;
                     sp2D4 = 0.0f;
                     break;
 
-                case 2:
+                case 2 MUL_FRAME_FACTOR:
                     sp2DC = 0.0f;
                     sp2D8 = 0.0f;
                     sp2D4 = 255.0f;
                     break;
 
-                case 3:
+                case 3 MUL_FRAME_FACTOR:
                     sp2DC = 255.0f;
                     sp2D8 = 255.0f;
                     sp2D4 = 0.0f;

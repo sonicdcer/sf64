@@ -596,7 +596,7 @@ void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale) {
             if (gEffects[i].obj.status == OBJ_FREE) {
                 Effect_Initialize(&gEffects[i]);
                 gEffects[i].obj.status = OBJ_INIT;
-                gEffects[i].obj.id = OBJ_EFFECT_348;
+                gEffects[i].obj.id = OBJ_EFFECT_348; // handled
                 gEffects[i].obj.pos.x = xPos;
                 gEffects[i].obj.pos.y = gGroundHeight + 3.0f;
                 gEffects[i].obj.pos.z = zPos;

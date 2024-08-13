@@ -230,7 +230,7 @@ extern s32 gCullObjects;
 extern UNK_TYPE F_80161AC0[16];
 extern Scenery gScenery[50];
 extern Sprite gSprites[40];
-extern Actor gActors[60];
+extern Actor gActors[60]; // gActors limit 
 extern Boss gBosses[4];
 extern Effect gEffects[100];
 extern Item gItems[20];

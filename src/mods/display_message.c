@@ -12,17 +12,25 @@
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 
+
+extern s32 actorcounter;
+
 // Define the names and corresponding variables
 
 // gBosses[0].state // Show Boss Case
-#define name2 gActors[0].iwork[0]
-#define name3 0
+// gActors[0].iwork[0]
+
+
+#define name2 gBosses[0].state // Show Boss Case
+#define name3 gBosses[2].state // Show Boss Case
 #define name4 gPlayer[0].csState
 #define name5 0
 #define name6 0
 #define name7 0
 #define name8 0
-#define name1 gSceneSetup
+#define name1 0
+
+
 
 // Function to convert a character to uppercase
 char my_toupper(char ch) {

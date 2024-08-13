@@ -584,7 +584,13 @@ void Play_InitEnvironment(void) {
 #endif
 
 #if MOD_FOG_FIX == 1
+if (gCurrentLevel == LEVEL_SECTOR_Y){
+    gProjectNear = 10.0f / 1.25;
+    gProjectFar = 12800.0f * 1.25;
+}else{
+    gProjectNear = 10.0f;
     gProjectFar = 12800.0f / 1.25; // theboy181 Adjust the Draw Distance impacts FOG
+}
 #endif
 
     gLight2colorStep = 40;

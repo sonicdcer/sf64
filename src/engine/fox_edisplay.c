@@ -1204,6 +1204,101 @@ void Actor_DrawOnRails(Actor* this) {
     }
 }
 
+#if MODS_WIDESCREEN == 1 // Actor_DrawAllRange
+void Actor_DrawAllRange(Actor* this) {
+    s32 playerNum;
+    Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
+    f32 var_fa1;
+    f32 var_ft5;
+    f32 var_fv0;
+    f32 var_fv1;
+
+    sDrewActor = false;
+    if (this->info.drawType == 2) {
+        Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, gPathProgress, MTXF_APPLY);
+        Matrix_Translate(gCalcMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_NEW);
+        Matrix_Push(&gGfxMatrix);
+        Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
+        Matrix_MultVec3f(gGfxMatrix, &sp50, &sViewPos);
+        Matrix_Pop(&gGfxMatrix);
+        var_fv0 = 0.0f;
+        var_fv1 = -12000.0f MUL_FRAME_FACTOR;
+        if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) {
+            var_fv0 = 1000.0f MUL_FRAME_FACTOR;
+            var_fv1 = -25000.0f MUL_FRAME_FACTOR;
+        }
+        if ((var_fv0 > sViewPos.z) && (sViewPos.z > var_fv1)) {
+            if (fabsf(sViewPos.x) < (fabsf(sViewPos.z * 0.5f) + 500.0f)) {
+                if (fabsf(sViewPos.y) < (fabsf(sViewPos.z * 0.5f) + 500.0f)) {
+                    Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
+                    this->info.draw(&this->obj);
+                    sDrewActor = true;
+                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->obj.id == OBJ_ACTOR_ALLRANGE) &&
+                        (this->aiType == AI360_MISSILE)) {
+                        gTeamArrowsViewPos[0] = sViewPos;
+                    }
+                }
+            }
+        }
+    } else {
+        Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
+        Matrix_MultVec3f(gGfxMatrix, &sp50, &sViewPos);
+        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
+            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) ||
+            ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) ||
+            ((this->obj.id == OBJ_ACTOR_CUTSCENE) && (this->info.bonus != 0))) {
+            var_ft5 = var_fv0 = 3000.0f MUL_FRAME_FACTOR;
+            var_fv1 = -29000.0f MUL_FRAME_FACTOR;
+            var_fa1 = 0.7f MUL_FRAME_FACTOR;
+        } else {
+            var_ft5 = 500.0f MUL_FRAME_FACTOR;
+            var_fv0 = 0.0f;
+            var_fv1 = -20000.0f MUL_FRAME_FACTOR;
+            var_fa1 = 0.5f MUL_FRAME_FACTOR;
+        }
+        if ((var_fv0 > sViewPos.z) && (sViewPos.z > var_fv1)) {
+            if (fabsf(sViewPos.x) < (fabsf(sViewPos.z * var_fa1) + var_ft5)) {
+                if (fabsf(sViewPos.y) < (fabsf(sViewPos.z * var_fa1) + var_ft5)) {
+                    if (this->info.draw != NULL) {
+                        Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
+                        Matrix_SetGfxMtx(&gMasterDisp);
+                        this->info.draw(&this->obj);
+                        sDrewActor = true;
+                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) &&
+                            (((this->obj.id == OBJ_ACTOR_ALLRANGE) &&
+                              ((this->aiType <= AI360_PEPPY) || (this->aiType == AI360_KATT) ||
+                               (this->aiType == AI360_BILL))) ||
+                             (this->obj.id == OBJ_ACTOR_TEAM_BOSS))) {
+                            gTeamArrowsViewPos[this->aiType] = sViewPos;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (!sDrewActor) {
+        this->lockOnTimers[gPlayerNum] = 0;
+        if ((this->obj.id == OBJ_ACTOR_DEBRIS) || (this->obj.id == OBJ_ACTOR_286)) {
+            Object_Kill(&this->obj, this->sfxSource);
+        }
+    }
+    for (playerNum = 0; playerNum < gCamCount; playerNum++) {
+        if (this->lockOnTimers[playerNum] != 0) {
+            gLockOnTargetViewPos[playerNum] = sViewPos;
+            gLockOnTargetViewPos[playerNum].y += this->info.targetOffset;
+            if ((playerNum == gPlayerNum) && (gLockOnTargetViewPos[playerNum].z > -300.0f)) {
+                this->lockOnTimers[playerNum] = 0;
+            }
+        }
+    }
+    Object_SetSfxSourceToView(this->sfxSource, &sViewPos);
+    this->iwork[24] = sDrewActor;
+}
+#else
 void Actor_DrawAllRange(Actor* this) {
     s32 playerNum;
     Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
@@ -1297,6 +1392,7 @@ void Actor_DrawAllRange(Actor* this) {
     Object_SetSfxSourceToView(this->sfxSource, &sViewPos);
     this->iwork[24] = sDrewActor;
 }
+#endif
 
 void Boss_Draw(Boss* this, s32 arg1) {
     f32 var_fa1;

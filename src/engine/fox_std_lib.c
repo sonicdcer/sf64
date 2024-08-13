@@ -27,7 +27,7 @@ s32 Graphics_Printf(const char* fmt, ...) {
 }
 
 #if ENABLE_60FPS == 1 // Texture_Scroll
-void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
+void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) { // GLOBAL
     u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
     u16 tempPxl;
     s32 u;

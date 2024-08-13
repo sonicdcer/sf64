@@ -4952,6 +4952,7 @@ void Corneria_LevelStart(Player* player) {
     D_ctx_80177A48[7] += fabsf(sp40) DIV_FRAME_FACTOR; // 60fps??????
 
     // cloud reflection
+    
     if (sp2C >= 0.0f) {
         Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
         Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
@@ -4959,9 +4960,9 @@ void Corneria_LevelStart(Player* player) {
         Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
         Texture_Scroll(D_arwing_30184D8, 64, 32, 3);
     }
-
+if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
     for (i = 0; (i < 40 && D_ctx_80177A48[6] >= 0.2f );
-         i++, D_ctx_80177A48[6] -= 0.2f ) {
+         i++, D_ctx_80177A48[6] -= 0.2f DIV_FRAME_FACTOR) {
         if (sp44 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 2);
         } else {
@@ -4970,14 +4971,14 @@ void Corneria_LevelStart(Player* player) {
     }
 
     for (i = 0; (i < 40 && D_ctx_80177A48[7] >= 0.3f );
-         i++, D_ctx_80177A48[7] -= 0.3f ) {
+         i++, D_ctx_80177A48[7] -= 0.3f DIV_FRAME_FACTOR) {
         if (sp40 >= 0) {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 0);
         } else {
             Texture_Scroll(D_arwing_30184D8, 64, 32, 1);
         }
     }
-
+}
     D_ctx_80177A48[4] = Math_RadToDeg(sp2C);
     D_ctx_80177A48[5] = Math_RadToDeg(sp30);
 

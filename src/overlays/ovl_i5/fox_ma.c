@@ -3228,7 +3228,7 @@ void Macbeth_801A5AF0(Effect* effect) {
 
 #if ENABLE_60FPS == 1 // Macbeth_801A5B4C
 void Macbeth_801A5B4C(Effect* effect) {
-    msgPrint = "801A5B4C";
+    //msgPrint = "801A5B4C";
     if ((gPlayer[0].trueZpos - effect->obj.pos.z) < -2000.0f) {
         Object_Kill(&effect->obj, effect->sfxSource);
     }

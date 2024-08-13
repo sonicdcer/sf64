@@ -248,6 +248,80 @@ void func_effect_80077A7C(Effect* effect) {
 void func_effect_80077B78(Effect* effect) {
 }
 
+#if ENABLE_60FPS == 1 // func_effect_80077B84
+void func_effect_80077B84(Effect* effect) {
+    Graphics_SetScaleMtx(effect->scale2);
+
+    if ((effect->scale1 == 71.0f) ||
+        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCurrentLevel == LEVEL_CORNERIA))) {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_38);
+    } else {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_67);
+    }
+
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, effect->unk_44);
+
+    switch (effect->unk_4C) {
+        case 0:
+            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, effect->unk_44);
+            break;
+        case 1:
+            gDPSetEnvColor(gMasterDisp++, 255, 64, 255, effect->unk_44);
+            break;
+        case 2:
+            gDPSetEnvColor(gMasterDisp++, 255, 128, 0, effect->unk_44);
+            break;
+        case 3:
+            gDPSetEnvColor(gMasterDisp++, 255, 48, 48, effect->unk_44);
+            break;
+        case 4:
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 48, effect->unk_44);
+            break;
+        case 5:
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, effect->unk_44);
+            gDPSetEnvColor(gMasterDisp++, 255, 32, 32, effect->unk_44);
+            break;
+        case 6:
+            if (gCurrentLevel == LEVEL_BOLSE) {
+                RCP_SetupDL(&gMasterDisp, SETUPDL_38);
+            }
+            switch ((effect->index + gGameFrameCount DIV_FRAME_FACTOR) % 4U) {
+                case 0:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 0, 0, effect->unk_44);
+                    break;
+                case 1:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, effect->unk_44);
+                    break;
+                case 2:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 255, effect->unk_44);
+                    break;
+                case 3:
+                    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, effect->unk_44);
+                    break;
+            }
+            gDPSetEnvColor(gMasterDisp++, 0, 0, 0, effect->unk_44);
+            break;
+        case 7:
+            gDPSetEnvColor(gMasterDisp++, 48, 48, 255, effect->unk_44);
+            break;
+        case 10:
+            gDPSetEnvColor(gMasterDisp++, 255, 255, 32, effect->unk_44);
+            break;
+        case 11:
+            gDPSetEnvColor(gMasterDisp++, 255, 32, 32, effect->unk_44);
+            break;
+        case 12:
+            gDPSetEnvColor(gMasterDisp++, 32, 255, 32, effect->unk_44);
+            break;
+        case 13:
+            gDPSetEnvColor(gMasterDisp++, 32, 32, 255, effect->unk_44);
+            break;
+    }
+
+    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+}
+#else
 void func_effect_80077B84(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
 
@@ -320,6 +394,7 @@ void func_effect_80077B84(Effect* effect) {
     gSPDisplayList(gMasterDisp++, D_1024AC0);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
+#endif
 
 void func_effect_80078038(Effect* effect) {
     Graphics_SetScaleMtx(effect->scale2);
@@ -521,7 +596,7 @@ void func_effect_80078AE0(void* effect) {
 
 #if ENABLE_60FPS == 1 // func_effect_80078AEC ????
 void func_effect_80078AEC(Effect* effect) {
-    msgPrint == "80078AEC";
+    //msgPrint == "80078AEC";
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 180);
     Graphics_SetScaleMtx(effect->scale2 * (13.0f + ((s32) (gGameFrameCount % (2U MUL_FRAME_FACTOR)) * 2.5f)));
     gSPDisplayList(gMasterDisp++, D_102ED50);
@@ -1084,7 +1159,7 @@ void func_effect_8007A3C0(Effect* effect) {
 void func_effect_8007A4B8(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_383;
+    effect->obj.id = OBJ_EFFECT_383; // handled
     effect->scale1 = scale1;
     effect->timer_50 = 50;
     effect->unk_44 = 200;
@@ -1422,7 +1497,7 @@ void func_effect_8007B228(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
 void func_effect_8007B2BC(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1, s32 arg5) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_384;
+    effect->obj.id = OBJ_EFFECT_384; // handled
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -1775,6 +1850,17 @@ void func_effect_8007BCE8(Effect* effect) {
     effect->vel.y += 0.2f;
 }
 
+#if ENABLE_60FPS == 1 // func_effect_8007BDE0 *fortuna
+void func_effect_8007BDE0(Effect* effect) {
+    effect->scale2 += 0.04f DIV_FRAME_FACTOR;
+    effect->unk_4A -= 2 DIV_FRAME_FACTOR; // not a float
+    if (effect->unk_4A < 0) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+    }
+    effect->obj.rot.z += effect->unk_48 DIV_FRAME_FACTOR;
+    effect->vel.y += effect->scale1 DIV_FRAME_FACTOR;
+}
+#else
 void func_effect_8007BDE0(Effect* effect) {
     effect->scale2 += 0.04f;
     effect->unk_4A -= 2;
@@ -1784,6 +1870,7 @@ void func_effect_8007BDE0(Effect* effect) {
     effect->obj.rot.z += effect->unk_48;
     effect->vel.y += effect->scale1;
 }
+#endif
 
 void func_effect_8007BE54(Effect* effect) {
     effect->scale2 += 0.02f;
@@ -1835,7 +1922,7 @@ void func_effect_8007C088(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 xVel
                           s32 timer50) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_390;
+    effect->obj.id = OBJ_EFFECT_390; // handeld
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -2121,7 +2208,7 @@ void func_effect_8007CAF0(Effect* effect) {
 void func_effect_8007CC00(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE;
+    effect->obj.id = OBJ_EFFECT_FIRE_SMOKE; // handled
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
@@ -3387,6 +3474,52 @@ void func_effect_8007F6B0(Effect* effect) {
 }
 #endif
 
+#if ENABLE_60FPS == 1 // func_effect_8007F958
+void func_effect_8007F958(Effect* effect) {
+    s32 i;
+    f32 x;
+    f32 z;
+    f32 y;
+    f32 temp;
+    f32 cos;
+    f32 sin;
+    f32 randFloat;
+    f32 yPos;
+
+    effect->scale2 += effect->scale1 DIV_FRAME_FACTOR;
+    effect->scale1 -= 0.08f DIV_FRAME_FACTOR;
+    if (effect->scale1 < 0.1f) {
+        effect->scale1 = 0.1f;
+    }
+
+    effect->unk_44 -= 9 DIV_FRAME_FACTOR;
+    if (effect->unk_44 < 0) {
+        Object_Kill(&effect->obj, effect->sfxSource);
+        return;
+    }
+
+    if (((gGameFrameCount % 2 MUL_FRAME_FACTOR) == 0)) {
+        randFloat = RAND_FLOAT(144.0f);
+        for (i = 0; i < 5; i++) {
+            temp = (i * 72.0f * M_DTOR) + randFloat;
+            sin = __sinf(temp) * effect->scale2 * 16.0f;
+            cos = __cosf(temp) * effect->scale2 * 16.0f;
+            yPos = gGroundHeight + 10.0f;
+
+            if (gGroundType == 4) {
+                Ground_801B6E20(effect->obj.pos.x + sin, effect->obj.pos.z + cos + gPathProgress, &x, &y, &z);
+                yPos = y + 10.0f;
+            }
+
+            if (gCurrentLevel == LEVEL_FORTUNA) {
+                func_effect_8007BC7C(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f);
+            } else if (gCurrentLevel == LEVEL_TITANIA) {
+                func_effect_8007A900(effect->obj.pos.x + sin, yPos, effect->obj.pos.z + cos, 8.0f, 255, 15, 0);
+            }
+        }
+    }
+}
+#else
 void func_effect_8007F958(Effect* effect) {
     s32 i;
     f32 x;
@@ -3431,6 +3564,7 @@ void func_effect_8007F958(Effect* effect) {
         }
     }
 }
+#endif
 
 void func_effect_8007FBE0(Effect* effect) {
     s32 i;
@@ -3440,6 +3574,7 @@ void func_effect_8007FBE0(Effect* effect) {
     f32 randFloat;
     f32 yPos;
 
+    //msgPrint = "8007FBE0";
     effect->scale2 += effect->scale1;
     effect->scale1 -= .1f;
     if (effect->scale1 < 0.1f) {

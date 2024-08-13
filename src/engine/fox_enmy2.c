@@ -434,7 +434,7 @@ void Actor194_Dying(Actor194* this) {
 #if ENABLE_60FPS == 1 // Actor194_8006B46C ?????
 void Actor194_8006B46C(Actor194* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7, f32 scale, s32 arg9) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
-msgPrint = "8006B46C";
+//msgPrint = "8006B46C";
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, xTrans, yTrans, zTrans + gPathProgress, MTXF_APPLY);
 
@@ -967,7 +967,9 @@ void ActorDebris_Update(ActorDebris* this) {
 
         default:
             if (this->unk_046 == 0) {
+                if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                 this->unk_046++;
+                }
                 this->fwork[10] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[11] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[12] = RAND_FLOAT_CENTERED(30.0f);
@@ -2788,6 +2790,52 @@ void ActorEvent_SpawnTIMine(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
+#if ENABLE_60FPS == 1 // Actor_SetupPlayerShot
+void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel,
+                           f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot) {
+    PlayerShot_Initialize(shot);
+    shot->obj.status = SHOT_ACTIVE;
+
+    shot->vel.z = zVel;
+    shot->vel.x = xVel;
+    shot->vel.y = yVel;
+
+    shot->obj.pos.x = xPos;
+    shot->obj.pos.y = yPos;
+    shot->obj.pos.z = zPos;
+
+    shot->obj.rot.x = xRot + 180.0f;
+    shot->obj.rot.y = yRot;
+    shot->obj.rot.z = -zRot;
+
+    shot->obj.id = objId;
+    shot->unk_58 = 1;
+    shot->unk_60 = 0;
+
+    if (objId == PLAYERSHOT_GFOX_LASER) {
+        shot->timer = 120 MUL_FRAME_FACTOR;
+    } else {
+        shot->timer = 30 MUL_FRAME_FACTOR;
+    }
+    shot->sourceId = actorId + NPC_SHOT_ID;
+
+    if (gLevelMode == LEVELMODE_ALL_RANGE) {
+        if (actorId + NPC_SHOT_ID <= AI360_PEPPY + NPC_SHOT_ID) {
+            AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
+        } else {
+            AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
+        }
+    } else if ((actorId < ARRAY_COUNT(gActors)) && (gActors[actorId].obj.id == OBJ_ACTOR_EVENT) &&
+               (gActors[actorId].iwork[12] >= TEAM_ID_FALCO)) {
+        AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
+    } else if (actorId + NPC_SHOT_ID == CS_SHOT_ID + NPC_SHOT_ID) {
+        shot->sourceId = CS_SHOT_ID;
+        AUDIO_PLAY_SFX(NA_SE_GREATFOX_SHOT_DEMO, shot->sfxSource, 0);
+    } else {
+        AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
+    }
+}
+#else
 void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel,
                            f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot) {
     PlayerShot_Initialize(shot);
@@ -2832,6 +2880,7 @@ void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f3
         AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
     }
 }
+#endif
 
 void Actor_SpawnPlayerLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
                             f32 zRot) {
@@ -4387,9 +4436,6 @@ void ActorEvent_Update(ActorEvent* this) {
     Vec3f spB8;
     Vec3f spAC;
     Vec3f spA0;
-sprintf(buffer, "State: %d", this->state);
-RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-Graphics_DisplaySmallText(80, 220, 1.0f, 1.0f, buffer);
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || gKillEventActors) {
         Object_Kill(&this->obj, this->sfxSource);

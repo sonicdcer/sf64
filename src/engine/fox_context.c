@@ -278,7 +278,7 @@ UNK_TYPE F_80161AF0[4];
 UNK_TYPE P_800D31A4 = 0;
 Scenery gScenery[50];
 Sprite gSprites[40];
-Actor gActors[60];
+Actor gActors[60]; // Actors limit
 Boss gBosses[4];
 Effect gEffects[100];
 Item gItems[20];
@@ -296,7 +296,7 @@ f32 gActor194zRot[2][100];
 UNK_TYPE P_800D31A8 = 0;
 u16 gEnemyShotSpeed; // enemy shot speed?
 u8 gShowLevelClearStatusScreen;
-s32 gLevelStartStatusScreenTimer;
+s32 gLevelStartStatusScreenTimer; //GLOBAL
 s32 gLevelClearScreenTimer; //GLOBAL  timer for mission accomplished screen
 s32 gBossHealthBar;
 s32 D_ctx_80177850;    // bonus text related. set to 15 but never read

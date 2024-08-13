@@ -30,7 +30,7 @@ void KillBoss(void) {
 
 
     // gRingPassCount = 7; // for LEVEL_CORNERIA
-    player->mercyTimer = 1000;
+    // player->mercyTimer = 1000; // Invincable
     gLaserStrength[0] = 2;
 
 #if 0
@@ -210,12 +210,12 @@ if (gControllerPress[0].button & D_JPAD) {
 
                 // Press the killButton to get the Saucerer in position
                 if (boss[1].state == 1) {
-                    boss[1].obj.pos.z = 4499;
+                boss[1].obj.pos.z = 4499;
                 }
 
                 // Boss in position
                 if (boss[1].state >= 6) {
-#if 0
+#if 1
                     // Good ending
                     boss[1].state = 20;
                     boss[1].timer_050 = 10;

@@ -134,7 +134,9 @@ Gfx D_800D1A40[] = {
     gsSPEndDisplayList(),
 };
 
+
 void func_hud_80084930(f32 arg0, f32 arg1, s32 arg2) {
+
     u8* D_800D1A58[] = {
         D_arwing_3000000,
         D_blue_marine_3000000,
@@ -170,6 +172,7 @@ void func_hud_80084930(f32 arg0, f32 arg1, s32 arg2) {
 
     TextureRect_CI4(&gMasterDisp, D_800D1A58[var_t0], D_800D1A64[var_t0], 16, 16, arg0, arg1 - 2.0f, 1.0f, 1.0f);
     TextureRect_CI4(&gMasterDisp, D_1011ED0, D_1011F08, 16, 7, arg0 + 16.0f, arg1 + 7.0f, 1.0f, 1.0f);
+
 
     if (arg2 >= 0) {
         arg0 += 11.0f;
@@ -1676,9 +1679,9 @@ void func_hud_80088970(void) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaTarget = 255;
-                gFillScreenAlphaStep = 32;
+                gFillScreenAlphaStep = 32 DIV_FRAME_FACTOR;
 
-                gFillScreenAlpha += 32;
+                gFillScreenAlpha += 32 DIV_FRAME_FACTOR;
                 if (gFillScreenAlpha < 255) {
                     break;
                 }
@@ -1752,21 +1755,21 @@ void func_hud_80088970(void) {
                 }
                 break;
 
-            case 4:
+            case 4: // take away Arwing
                 Graphics_FillRectangle(&gMasterDisp, 0, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0, 0, 0, 255);
-                if (D_80161838[0] < 140) {
+                if (D_80161838[0] < 140 MUL_FRAME_FACTOR) {
                     break;
                 }
 
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaTarget = 255;
-                gFillScreenAlphaStep = 32;
+                gFillScreenAlphaStep = 32 DIV_FRAME_FACTOR;
 
-                gFillScreenAlpha += 32;
+                gFillScreenAlpha += 32 DIV_FRAME_FACTOR;
                 if (gFillScreenAlpha > 255) {
                     gFillScreenAlpha = 255;
                 }
-                if (D_80161838[0] < 160) {
+                if (D_80161838[0] < 160 MUL_FRAME_FACTOR) { // Death sequence timer
                     break;
                 }
 
@@ -1893,8 +1896,7 @@ void func_hud_80088970(void) {
                 TextureRect_IA8(&gMasterDisp, D_1000000, 64, 10, x0 - 12.0f, y0, 1.0f, 1.0f);
 
                 if (D_80161810[1] == 1) {
-                    temp =
-                        ((D_80161838[0] DIV_FRAME_FACTOR) % 20); // 60fps *Using frame skipping to reduce the frequency
+                    temp =((D_80161838[0] DIV_FRAME_FACTOR) % 20); // 60fps *Using frame skipping to reduce the frequency
                     if (temp >= 10) {
                         temp = 20 - temp;
                     }

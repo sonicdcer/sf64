@@ -1418,7 +1418,9 @@ void ActorAllRange_Update(Actor* this) {
         }
         this->iwork[17] = 0;
         if (this->iwork[18] != 0) {
+            if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
             this->iwork[18]--;  // 60fps??????
+            }
             this->iwork[16] = STATE360_0;
         }
     }
@@ -1747,7 +1749,7 @@ void ActorAllRange_Update(Actor* this) {
                     if ((spE8 < spF4) && (spEC < spF4)) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
-                        if (!((this->index + gGameFrameCount DIV_FRAME_FACTOR) & sp10F) && (Rand_ZeroOne() < spF0) &&
+                        if (!((this->index + (gGameFrameCount DIV_FRAME_FACTOR)) & sp10F) && (Rand_ZeroOne() < spF0) &&
                             func_360_80031900(this) &&
                             ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->aiIndex == AI360_FOX) && (gCurrentLevel != LEVEL_TRAINING)) {
@@ -2092,7 +2094,7 @@ void ActorAllRange_Update(Actor* this) {
         if (gCurrentLevel == LEVEL_VENOM_2) {
             var_v0 = 2 - 1;
         }
-        if (((this->index + gGameFrameCount DIV_FRAME_FACTOR) & var_v0) == 0) {
+        if (((this->index + (gGameFrameCount DIV_FRAME_FACTOR)) & var_v0) == 0) {
             this->fwork[19] = Math_RadToDeg(Math_Atan2F(spE4, spDC));
             this->fwork[20] = Math_RadToDeg(Math_Atan2F(spE0, sqrtf(SQ(spE4) + SQ(spDC))));
         }
@@ -2244,7 +2246,9 @@ void ActorAllRange_Update(Actor* this) {
     radarMark->pos.z = this->obj.pos.z;
     radarMark->yRot = this->rot_0F4.y + 180.0f;
     if (this->iwork[1] != 0) {
-        this->iwork[1]--;
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+        this->iwork[1]--; //??????
+        }
         if ((this->iwork[1] == 0) && (gActors[0].state == STATE360_2) && (gRadioState == 0)) {
             switch (this->aiType) {
                 case AI360_FALCO:
@@ -2305,7 +2309,9 @@ void ActorAllRange_Update(Actor* this) {
     Math_SmoothStepToF(&this->fwork[22], 0.0f, 0.8f DIV_FRAME_FACTOR, 0.05f DIV_FRAME_FACTOR, 1e-7f DIV_FRAME_FACTOR);
     Math_SmoothStepToF(&this->fwork[23], 0.0f, 1.0f DIV_FRAME_FACTOR, 30.0f DIV_FRAME_FACTOR, 0.01f DIV_FRAME_FACTOR);
     if (this->iwork[8] != 0) {
+        if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
         this->iwork[8]--; // 60fps ??????
+        }
     }
 }
 #else
@@ -3445,7 +3451,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                         Actor_DrawEngineGlow(this, 3);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40068F0);
+                        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40068F0); // training enemy
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                         Actor_DrawEngineGlow(this, 2);
                     }
