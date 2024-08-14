@@ -1169,14 +1169,14 @@ void Katina_BossHandleDamage(Saucerer* this) {
 
 void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
     s32 i;
-    ActorAllRange* actor = &gActors[200];
+    ActorAllRange* actor = &gActors[100];
     // Originally spawns 38 enemies in:
     // gActors[20 to 58]
 
     // We're gonna spawn 78 Enemies
     // gActors[20 to 98]
 
-    for (i = 0; i <= 38; i++, actor++) {
+    for (i = 0; i <= 550; i++, actor++) {
         if (actor->obj.status == OBJ_FREE) {
             
             Actor_Initialize(actor);
@@ -1192,12 +1192,13 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
             actor->rot_0F4.y = arg2;
             actor->rot_0F4.x = -30.0f;
 
-            actor->aiType = 10+ RAND_INT(30);
+            actor->aiType =10  + RAND_INT(30);
             switch(actor->aiType) {
                 case AI360_GREAT_FOX:
                 case AI360_MISSILE:
                 case AI360_EVENT_HANDLER:
                     actor->obj.status = OBJ_FREE;
+                    return;
             }
             actor->animFrame = 0;
             actor->aiIndex = -1;
@@ -1208,6 +1209,7 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
                 case 2:
                 case 3:
                     actor->aiIndex = AI360_SLIPPY;
+                    break;
 
 
                 case 4:
@@ -1215,12 +1217,14 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
                 case 6:
                 case 7:
                     actor->aiIndex = AI360_FALCO;
+                    break;
                 
                 case 8:
                 case 9:
                 case 10:
                 case 11:
                     actor->aiIndex = AI360_PEPPY;
+                    break;
 
             }
 
@@ -1229,7 +1233,7 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
                 actor->health = 1000;
             }
 
-            actor->drawShadow = true;
+            actor->drawShadow = false;
 
             if (D_i4_801A0540 < 9600) {
                 actor->itemDrop = DROP_SILVER_RING_10p;
@@ -1474,7 +1478,7 @@ void Katina_BossUpdate(Saucerer* this) {
                 AUDIO_PLAY_BGM(NA_BGM_BOSS_KA);
             }
 
-            if ((this->timer_050 == 0) && ((this->timer_052 % 4) == 0)) {
+            if ((this->timer_050 == 0) && ((this->timer_052 % 2) == 0)) {
               //  if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                 Katina_SetOutcomingEnemyAngle(this);
                // }

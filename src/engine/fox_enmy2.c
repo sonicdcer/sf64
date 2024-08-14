@@ -6403,7 +6403,7 @@ void func_enmy2_800763A4(Actor* actor) {
         actor->timer_0C2 = 10000;
         return;
     }
-
+    
     if (actor->timer_0BE != 0) {
         actor->vel.z = 0.0f;
         actor->vel.x = 0.0f;
@@ -6414,9 +6414,9 @@ void func_enmy2_800763A4(Actor* actor) {
             Actor_Despawn(actor);
 
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
-                D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-                D_ctx_80178130[actor->index + 1] = 1001.0f;
+            //    D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
+            //    D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
+            //    D_ctx_80178130[actor->index + 1] = 1001.0f;
             }
             return;
         }
@@ -6615,11 +6615,11 @@ void func_enmy2_800763A4(Actor* actor) {
             }
         }
     }
-
+        
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
-        D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-        D_ctx_80178130[actor->index + 1] = actor->rot_0F4.y + 180.0f;
+    //    D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
+    //    D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
+    //    D_ctx_80178130[actor->index + 1] = actor->rot_0F4.y + 180.0f;
     }
 
     if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {

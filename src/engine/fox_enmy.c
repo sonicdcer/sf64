@@ -3280,7 +3280,7 @@ void Actor_Update(Actor* this) {
             }
             break;
         case OBJ_DYING:
-            Actor_Move(this);
+            //Actor_Move(this);
             if (this->obj.status != OBJ_FREE) {
                 Object_Dying(this->index, this->obj.id);
             }

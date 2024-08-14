@@ -354,7 +354,7 @@ void ActorAllRange_SetShadowData(Actor* this) {
     f32 spA0[2];
     Vec3f sp94 = { 0.0f, -10.0f, 0.0f };
     s32 pad1;
-    s32 pad2;return;
+    s32 pad2;
 
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
     if (this->drawShadow && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
@@ -797,7 +797,7 @@ void ActorAllRange_SpawnSupplies(Actor* this) {
     if (gAllRangeSupplyTimer != 0) {
         gAllRangeSupplyTimer--;
         if (gAllRangeSupplyTimer == 0) {
-            for (i = 20, supplies = &gActors[20]; i < 60; i++, supplies++) {
+            for (i = 20, supplies = &gActors[20]; i < ARRAY_COUNT(gActors); i++, supplies++) {
                 if (supplies->obj.status == OBJ_FREE) {
                     Actor_Initialize(supplies);
                     supplies->obj.status = OBJ_INIT;

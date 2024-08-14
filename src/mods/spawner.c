@@ -288,7 +288,7 @@ void Spawner(void) {
         sObjId++;
     } else if (gControllerPress[0].button & D_JPAD) {
         sFreeze ^= 1; // Freeze arwing.
-    } else if (0) {
+    } else if (gControllerPress[0].button & U_JPAD) {
         Spawner_ObjKill();
     } else if (gControllerPress[0].button & R_CBUTTONS) {
         sObjType++;

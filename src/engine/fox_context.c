@@ -278,14 +278,14 @@ UNK_TYPE F_80161AF0[4];
 UNK_TYPE P_800D31A4 = 0;
 Scenery gScenery[50];
 Sprite gSprites[40];
-Actor gActors[500]; // Actors limit
-Boss gBosses[4];
-Effect gEffects[100];
-Item gItems[20];
-PlayerShot gPlayerShots[16];
-TexturedLine gTexturedLines[100];
-RadarMark gRadarMarks[65];
-BonusText gBonusText[10];
+// Actor gActors[600]; // Actors limit
+// Boss gBosses[4];
+// Effect gEffects[100];
+// Item gItems[20];
+// PlayerShot gPlayerShots[16];
+// TexturedLine gTexturedLines[100];
+// RadarMark gRadarMarks[65];
+// BonusText gBonusText[10];
 s32 gActor194Status[2];
 f32 gActor194xPos[2][100];
 f32 gActor194yPos[2][100];

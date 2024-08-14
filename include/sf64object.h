@@ -776,9 +776,9 @@ typedef enum AllRangeAi {
     /*   8 */ AI360_KATT,
     /*   9 */ AI360_BILL,
     /*  10 */ AI360_10,
-    /* 100 */ AI360_GREAT_FOX = 100,
-    /* 200 */ AI360_MISSILE = 200,
-    /* 200 */ AI360_EVENT_HANDLER = 1000,
+    /* 100 */ AI360_GREAT_FOX = 1000,
+    /* 200 */ AI360_MISSILE = 2000,
+    /* 200 */ AI360_EVENT_HANDLER = 10000,
 } AllRangeAi;
 
 Actor* Game_SpawnActor(ObjectId);

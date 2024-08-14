@@ -18,7 +18,7 @@
 #define MODS_RAM_MOD                    1
 #define MODS_ENABLE_ALL_RANGE_MODE      1
 #define MODS_PLAYER_NO_CLIP             1
-#define MODS_WIDESCREEN                 1
+#define MODS_WIDESCREEN                 0
 #define DPAD_CONTROL                    1
 #define ENABLE_60FPS                    1
 #define MOD_FOG_FIX                     1
