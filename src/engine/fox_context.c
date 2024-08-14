@@ -278,7 +278,7 @@ UNK_TYPE F_80161AF0[4];
 UNK_TYPE P_800D31A4 = 0;
 Scenery gScenery[50];
 Sprite gSprites[40];
-Actor gActors[60]; // Actors limit
+Actor gActors[500]; // Actors limit
 Boss gBosses[4];
 Effect gEffects[100];
 Item gItems[20];

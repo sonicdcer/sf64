@@ -7,10 +7,10 @@
 /* ************************* */
 
 #define MODS_SFX_JUKEBOX                0
-#define MODS_AUTO_DEBUGGER              0
+#define MODS_AUTO_DEBUGGER              1
 #define MODS_FPS_COUNTER                0
 #define DISP_MESSAGE                    0
-#define DISP_MESSAGE2                   0
+#define DISP_MESSAGE2                   1
 #define MODS_SPAWNER                    1
 #define ENABLE_FREEZE                   1
 #define BOSS_KILLER                     1

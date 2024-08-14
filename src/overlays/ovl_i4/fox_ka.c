@@ -1169,10 +1169,16 @@ void Katina_BossHandleDamage(Saucerer* this) {
 
 void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
     s32 i;
-    ActorAllRange* actor = &gActors[20];
+    ActorAllRange* actor = &gActors[200];
+    // Originally spawns 38 enemies in:
+    // gActors[20 to 58]
 
-    for (i = 10; i < 49; i++, actor++) {
+    // We're gonna spawn 78 Enemies
+    // gActors[20 to 98]
+
+    for (i = 0; i <= 38; i++, actor++) {
         if (actor->obj.status == OBJ_FREE) {
+            
             Actor_Initialize(actor);
             actor->obj.status = OBJ_ACTIVE;
             actor->obj.id = OBJ_ACTOR_ALLRANGE;
@@ -1186,9 +1192,37 @@ void Katina_BossSpawnEnemies(Saucerer* this, Vec3f* pos, f32 arg2) {
             actor->rot_0F4.y = arg2;
             actor->rot_0F4.x = -30.0f;
 
-            actor->aiType = i + AI360_10;
-            actor->animFrame = D_i4_8019F198[i - 10];
-            actor->aiIndex = sEnemySpawnTargets[i - 10];
+            actor->aiType = 10+ RAND_INT(30);
+            switch(actor->aiType) {
+                case AI360_GREAT_FOX:
+                case AI360_MISSILE:
+                case AI360_EVENT_HANDLER:
+                    actor->obj.status = OBJ_FREE;
+            }
+            actor->animFrame = 0;
+            actor->aiIndex = -1;
+
+            switch(i) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    actor->aiIndex = AI360_SLIPPY;
+
+
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    actor->aiIndex = AI360_FALCO;
+                
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                    actor->aiIndex = AI360_PEPPY;
+
+            }
 
             actor->health = 24;
             if (actor->animFrame >= 2) {
@@ -1440,10 +1474,10 @@ void Katina_BossUpdate(Saucerer* this) {
                 AUDIO_PLAY_BGM(NA_BGM_BOSS_KA);
             }
 
-            if ((this->timer_050 == 0) && ((this->timer_052 % 16) == 0)) {
-                if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
+            if ((this->timer_050 == 0) && ((this->timer_052 % 4) == 0)) {
+              //  if (((gGameFrameCountHack % FRAME_FACTOR) == 0)) { // 60fps HACK
                 Katina_SetOutcomingEnemyAngle(this);
-                }
+               // }
             }
 
             if (this->timer_052 == 0) {
@@ -4151,13 +4185,13 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
 
     ActorAllRange_ApplyDamage(this);
 
-    radarMark = &gRadarMarks[this->index];
-    radarMark->status = 1;
-    radarMark->type = this->aiType;
-    radarMark->pos.x = this->obj.pos.x;
-    radarMark->pos.y = this->obj.pos.y;
-    radarMark->pos.z = this->obj.pos.z;
-    radarMark->yRot = this->rot_0F4.y + 180.0f;
+    //radarMark = &gRadarMarks[this->index];
+    //radarMark->status = 1;
+    //radarMark->type = this->aiType;
+    //radarMark->pos.x = this->obj.pos.x;
+    //radarMark->pos.y = this->obj.pos.y;
+    //radarMark->pos.z = this->obj.pos.z;
+    //radarMark->yRot = this->rot_0F4.y + 180.0f;
 
     if (this->iwork[KA_ACTOR_IWORK_8] != 0) {
         this->iwork[KA_ACTOR_IWORK_8]--;

@@ -411,7 +411,7 @@
   - name: buffers
     exclusive_ram_id: buffer
     type: code
-    vram: 0x80281000
+    vram: 0x80481000
     bss_size: 0x17F000
     subsegments:
     - { type: .bss, vram: 0x80281000, name: buffers }

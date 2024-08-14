@@ -261,7 +261,7 @@ Spawner_Playground(void) {
 }
 
 void Spawner(void) {
-    static bool sFreeze = true;
+    static bool sFreeze = false;
     static s32 sHoldTimer = 0;
     ObjCount counter;
 
@@ -288,7 +288,7 @@ void Spawner(void) {
         sObjId++;
     } else if (gControllerPress[0].button & D_JPAD) {
         sFreeze ^= 1; // Freeze arwing.
-    } else if (gControllerPress[0].button & U_JPAD) {
+    } else if (0) {
         Spawner_ObjKill();
     } else if (gControllerPress[0].button & R_CBUTTONS) {
         sObjType++;
@@ -338,46 +338,46 @@ void Spawner(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
-    /* Spawners */
-    switch (sObjType) {
-        case OBJ_SPAWN_SCENERY:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SCENERY:");
-            Graphics_DisplaySmallNumber(80, 220, sObjId);
-            Spawner_Scenery(sObjId);
-            break;
-        case OBJ_SPAWN_SPRITE:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SPRITE:");
-            Graphics_DisplaySmallNumber(65, 220, sObjId);
-            Spawner_Sprite(sObjId);
-            break;
-        case OBJ_SPAWN_ACTOR:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "ACTOR:");
-            Graphics_DisplaySmallNumber(60, 220, sObjId);
-            Spawner_Actor(sObjId);
-            break;
-        case OBJ_SPAWN_BOSS:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "BOSS:");
-            Graphics_DisplaySmallNumber(55, 220, sObjId);
-            Spawner_Boss(sObjId);
-            break;
-        case OBJ_SPAWN_ITEM:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "ITEM:");
-            Graphics_DisplaySmallNumber(50, 220, sObjId);
-            Spawner_Item(sObjId);
-            break;
-        case OBJ_SPAWN_EFFECT:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "EFFECT:");
-            Graphics_DisplaySmallNumber(65, 220, sObjId);
-            Spawner_Effect(sObjId);
-            break;
-        case OBJ_SPAWN_EVENT:
-            Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "EVENT:");
-            Graphics_DisplaySmallNumber(60, 220, sObjId);
-            Spawner_Event(sObjId);
-            break;
-        default:
-            break;
-    }
+// /* Spawners */
+// switch (sObjType) {
+//     case OBJ_SPAWN_SCENERY:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SCENERY:");
+//         Graphics_DisplaySmallNumber(80, 220, sObjId);
+//         Spawner_Scenery(sObjId);
+//         break;
+//     case OBJ_SPAWN_SPRITE:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "SPRITE:");
+//         Graphics_DisplaySmallNumber(65, 220, sObjId);
+//         Spawner_Sprite(sObjId);
+//         break;
+//     case OBJ_SPAWN_ACTOR:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "ACTOR:");
+//         Graphics_DisplaySmallNumber(60, 220, sObjId);
+//         Spawner_Actor(sObjId);
+//         break;
+//     case OBJ_SPAWN_BOSS:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "BOSS:");
+//         Graphics_DisplaySmallNumber(55, 220, sObjId);
+//         Spawner_Boss(sObjId);
+//         break;
+//     case OBJ_SPAWN_ITEM:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "ITEM:");
+//         Graphics_DisplaySmallNumber(50, 220, sObjId);
+//         Spawner_Item(sObjId);
+//         break;
+//     case OBJ_SPAWN_EFFECT:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "EFFECT:");
+//         Graphics_DisplaySmallNumber(65, 220, sObjId);
+//         Spawner_Effect(sObjId);
+//         break;
+//     case OBJ_SPAWN_EVENT:
+//         Graphics_DisplaySmallText(10, 220, 1.0f, 1.0f, "EVENT:");
+//         Graphics_DisplaySmallNumber(60, 220, sObjId);
+//         Spawner_Event(sObjId);
+//         break;
+//     default:
+//         break;
+// }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 

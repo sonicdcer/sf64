@@ -354,7 +354,7 @@ void ActorAllRange_SetShadowData(Actor* this) {
     f32 spA0[2];
     Vec3f sp94 = { 0.0f, -10.0f, 0.0f };
     s32 pad1;
-    s32 pad2;
+    s32 pad2;return;
 
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
     if (this->drawShadow && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {

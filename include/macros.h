@@ -6,7 +6,7 @@
 
 #define SCREEN_WIDTH  320
 #define SCREEN_HEIGHT 240
-#define SCREEN_MARGIN 8 //theboy181 remove bars screen margins
+#define SCREEN_MARGIN 0 //theboy181 remove bars screen margins
 
 
 

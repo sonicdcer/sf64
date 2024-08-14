@@ -21,8 +21,7 @@ void KillBoss(void) {
     Player* player = &gPlayer[0];
     Boss* boss = &gBosses[0];
 
-    u16 killButton = L_JPAD;
-    u16 killButton1 = R_CBUTTONS;
+    u16 killButton = L_TRIG;
     s32 i;
 
     if (PreventExecution())
@@ -53,7 +52,7 @@ if (gControllerPress[0].button & D_JPAD) {
     if (gControllerPress[0].button & START_BUTTON)
         bossMercyTimer = 0;
 
-    if ((gControllerHold[0].button & killButton) && (gControllerHold[0].button & killButton1)) {
+    if ((gControllerHold[0].button & killButton) ) {
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
                 if (boss[0].obj.status != OBJ_ACTIVE)
