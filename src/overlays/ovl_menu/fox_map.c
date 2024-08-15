@@ -2215,7 +2215,7 @@ void Map_801A0D14(void) {
 
 void Map_801A116C(void) {
     static f32 D_menu_801B6970 = 35.0f;
-    WingInfo wings;
+    ArwingInfo wings;
     Vec3f dest;
     Vec3f src;
     s32 colR = 30, colG = 9, colB = 5;

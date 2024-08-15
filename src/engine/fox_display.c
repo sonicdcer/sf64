@@ -450,7 +450,7 @@ void Display_SetCullingMode(void) {
 }
 
 bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
-    WingInfo* wings = (WingInfo*) wingData;
+    ArwingInfo* wings = (ArwingInfo*) wingData;
 
     if (D_display_800CA22C && (gPlayer[0].dmgEffect == 0)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -558,7 +558,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
     return false;
 }
 
-void Display_ArwingWings(WingInfo* wings) {
+void Display_ArwingWings(ArwingInfo* wings) {
     Vec3f sp68[30];
     s32 modelId;
 

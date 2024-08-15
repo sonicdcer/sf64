@@ -3,7 +3,7 @@
 #include "assets/ast_ending_expert.h"
 #include "assets/ast_allies.h"
 
-WingInfo D_ending_80198590;
+ArwingInfo D_ending_80198590;
 Vec3f D_ending_801985D0;
 Vec3f D_ending_801985E0;
 Vec3f D_ending_801985F0;

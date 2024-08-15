@@ -2232,7 +2232,7 @@ void Title_8018CD9C(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3) {
 }
 
 void Title_8018D2B8(s32 arg0) {
-    WingInfo wings;
+    ArwingInfo wings;
 
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
                        gAmbientR, gAmbientG, gAmbientB);

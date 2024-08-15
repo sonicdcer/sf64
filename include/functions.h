@@ -86,7 +86,7 @@ void ActorCutscene_Draw(Actor*);
 void Cutscene_DrawGreatFox(void);
 
 // fox_display
-void Display_ArwingWings(WingInfo*);
+void Display_ArwingWings(ArwingInfo*);
 void Display_DrawEngineGlow(s32);
 void Display_SetupPlayerSfxPos(Player*);
 void Display_Update(void);

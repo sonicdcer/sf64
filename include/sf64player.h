@@ -127,7 +127,7 @@ typedef struct PlayerShot {
     /* 0x6C */ u8 bonus;
 } PlayerShot; // size = 0x70
 
-typedef struct WingInfo { // ArwingInfo
+typedef struct ArwingInfo { // ArArwingInfo
     /* 0x00 */ u8 rightState; // rightWingState
     /* 0x01 */ u8 leftState; // leftWingState
     /* 0x04 */ f32 unk_04; // upperRightFlapYrot
@@ -144,7 +144,7 @@ typedef struct WingInfo { // ArwingInfo
     /* 0x30 */ f32 unk_30; // teamFaceXrot
     /* 0x34 */ f32 unk_34; // teamFaceYrot
     /* 0x38 */ f32 unk_38; // windshieldXrot
-} WingInfo; // size = 0x3C
+} ArwingInfo; // size = 0x3C
 
 typedef struct PlayerSfx {
     /* 0x00 */ u8 levelType;
@@ -316,7 +316,7 @@ typedef struct Player {
     /* 0x46C */ f32 sfxVel[3];
     /* 0x478 */ PlayerSfx sfx;
     /* 0x498 */ s32 mercyTimer;
-    /* 0x49C */ WingInfo wings;
+    /* 0x49C */ ArwingInfo wings;
     /* 0x4D8 */ f32 aerobaticPitch;
     /* 0x4DC */ bool somersault;
 } Player; // size = 0x4E0

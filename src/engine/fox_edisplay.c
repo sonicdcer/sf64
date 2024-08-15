@@ -26,7 +26,7 @@ Vec3f D_edisplay_801615D0;
 Vec3f sViewPos;
 bool sDrewActor;
 Matrix D_edisplay_801615F0;
-WingInfo D_edisplay_80161630;
+ArwingInfo D_edisplay_80161630;
 
 char D_edisplay_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
