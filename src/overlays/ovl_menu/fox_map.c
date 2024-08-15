@@ -2272,7 +2272,7 @@ void Map_801A116C(void) {
         arwing.rightWingState = arwing.leftWingState = WINGSTATE_INTACT;
         // clang-format off
         arwing.unk_18 = arwing.unk_1C = arwing.unk_20 = arwing.unk_24 = arwing.upperRightFlapYrot =
-        arwing.bottomRightFlapYrot = arwing.unk_0C = arwing.unk_10 = arwing.unk_28 = 0.0f;
+        arwing.bottomRightFlapYrot = arwing.upperLeftFlapYrot = arwing.unk_10 = arwing.unk_28 = 0.0f;
         // clang-format on
 
         arwing.unk_14 = 0.0f;

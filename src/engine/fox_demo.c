@@ -778,7 +778,7 @@ void Cutscene_AllRangeMode(Player* player) {
     }
     player->arwing.unk_10 = 0.0f;
     player->arwing.bottomRightFlapYrot = 0.0f;
-    player->arwing.unk_0C = 0.0f;
+    player->arwing.upperLeftFlapYrot = 0.0f;
     player->arwing.upperRightFlapYrot = 0.0f;
 
     Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
@@ -919,7 +919,7 @@ void Cutscene_CoComplete2(Player* player) {
             D_ctx_80177A48[2] = 0.0f;
             player->csState++;
             player->arwing.upperRightFlapYrot = 0.0f;
-            player->arwing.unk_0C = 0.0f;
+            player->arwing.upperLeftFlapYrot = 0.0f;
             player->arwing.bottomRightFlapYrot = 0.0f;
             player->arwing.unk_10 = 0.0f;
             player->zRotBarrelRoll = 0.0f;
@@ -1022,7 +1022,7 @@ void Cutscene_CoComplete2(Player* player) {
                 player->csTimer = 150;
                 player->arwing.unk_10 = 0.0f;
                 player->arwing.bottomRightFlapYrot = 0.0f;
-                player->arwing.unk_0C = 0.0f;
+                player->arwing.upperLeftFlapYrot = 0.0f;
                 player->arwing.upperRightFlapYrot = 0.0f;
             }
             break;
@@ -1450,7 +1450,7 @@ void Cutscene_UTurn(Player* player) {
 
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_0C, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->aerobaticPitch, 190.0f, 0.1f, 6.0f, 0.001f);
@@ -1484,7 +1484,7 @@ void Cutscene_UTurn(Player* player) {
 
             sp58.z = -sp58.y;
 
-            Math_SmoothStepToF(&player->arwing.unk_0C, sp58.z, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, sp58.z, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, sp58.z, 0.3f, 100.0f, 0.0f);
 
             player->unk_190 = 2.0f;

@@ -3857,7 +3857,7 @@ void Andross_80193C4C(Player* player) {
 
     Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
-    player->arwing.upperRightFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_0C = player->arwing.unk_10 = 0.0f;
+    player->arwing.upperRightFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.unk_10 = 0.0f;
 
     switch (player->csState) {
         case 0:

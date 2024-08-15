@@ -304,7 +304,7 @@ void Venom2_LevelComplete(Player* player) {
 
     Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -var_fa0 + sp74, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -var_fa0 - sp74, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->arwing.unk_0C, -var_fa0 + sp70, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, -var_fa0 + sp70, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_10, -var_fa0 - sp70, 0.1f, 100.0f, 0.0f);
     sp94 = player->pos.x - gBosses[0].obj.pos.x;
     sp90 = player->pos.y - (gBosses[0].obj.pos.y + 700.0f);
@@ -313,7 +313,7 @@ void Venom2_LevelComplete(Player* player) {
     switch (player->csState) {
         case 0:
             player->csState++;
-            player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
+            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
                 0.0f;
             player->arwing.modelId = 1;
 

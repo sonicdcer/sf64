@@ -3365,7 +3365,7 @@ void Player_ArwingBank(Player* player) {
         if (player->zRotBank < 70.0f) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -70.0f, 0.3f, 100.0f, 0.f);
-            Math_SmoothStepToF(&player->arwing.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->arwing.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
             if (player->pos.y < (gGroundHeight + 70.0f)) {
                 player->pos.y += 6.0f;
@@ -3379,7 +3379,7 @@ void Player_ArwingBank(Player* player) {
         if (player->zRotBank > -70.0f) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 70.0f, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
             if (player->pos.y < (gGroundHeight + 70.0f)) {
                 player->pos.y += 6.0f;
@@ -3600,7 +3600,7 @@ void Player_MoveArwing360(Player* player) {
     Math_SmoothStepToF(&player->arwing.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -sp60 + sp5C, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -sp60 - sp5C, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->arwing.unk_0C, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_10, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
 
     scale = 0.1f;
@@ -3735,7 +3735,7 @@ void Player_PerformLoop(Player* player) {
 
     Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->arwing.unk_0C, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_10, sp58, 0.3f, 100.0f, 0.0f);
 
     if (player->aerobaticPitch < 180.0f) {
@@ -3863,7 +3863,7 @@ void Player_MoveArwingOnRails(Player* player) {
         Math_SmoothStepToF(&player->arwing.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->arwing.unk_0C, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
     }
 
@@ -5036,7 +5036,7 @@ void Player_ArwingBoost(Player* player) {
                 player->arwing.unk_28 += (35.0f - player->arwing.unk_28) * 0.1f;
                 Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&player->arwing.unk_0C, 0.0f, 0.5f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.5f, 100.0f, 0.0f);
             }
             player->boostMeter += sp28;
@@ -5134,7 +5134,7 @@ void Player_ArwingBrake(Player* player) {
         if (gLevelType == LEVELTYPE_PLANET) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -90.0f, 0.2f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_0C, 90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, -90.0f, 0.2f, 100.0f, 0.0f);
         }
 
@@ -5866,7 +5866,7 @@ void Player_Update(Player* player) {
 
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->arwing.unk_0C, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.1f, 5.0f, 0);
 
             Player_UpdateShields(player);

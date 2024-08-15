@@ -1801,7 +1801,7 @@ void Katina_LevelComplete(Player* player) {
     f32 angle;
 
     player->arwing.unk_10 = 0.0f;
-    player->arwing.unk_0C = 0.0f;
+    player->arwing.upperLeftFlapYrot = 0.0f;
     player->arwing.bottomRightFlapYrot = 0.0f;
     player->arwing.upperRightFlapYrot = 0.0f;
 

@@ -6515,7 +6515,7 @@ void Macbeth_LevelComplete2(Player* player) {
             player->aerobaticPitch = 0.0f;
             player->camRoll = 0.0f;
             player->boostSpeed = 0.0f;
-            player->arwing.unk_0C = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 = player->zRotBarrelRoll =
+            player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 = player->zRotBarrelRoll =
                 player->zRotBank = 0.0f;
             player->yBob = 0.0f;
             player->rockAngle = 0.0f;
@@ -6951,7 +6951,7 @@ void Macbeth_LevelComplete2(Player* player) {
                     player->yRot_114 = player->aerobaticPitch = player->camRoll = player->unk_174 = player->unk_178 =
                         player->unk_17C = player->unk_180 = player->unk_184 = player->arwing.upperRightFlapYrot =
                             player->unk_170 = player->unk_16C = player->rockAngle = player->yBob =
-                                player->arwing.unk_0C = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
+                                player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
                                     player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
 
                 player->baseSpeed = 5.0f;
