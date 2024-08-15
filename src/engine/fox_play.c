@@ -5422,7 +5422,7 @@ void Player_UpdateEffects(Player* player) {
             player->xShake = 0.0f;
         }
 
-        if ((gLevelMode != LEVELMODE_UNK_2) &&
+        if ((gLevelMode != LEVELMODE_TURRET) &&
             ((player->knockback.x != 0.f) || (player->knockback.y != 0.f) || (player->knockback.z != 0.f)) &&
             ((player->dmgType >= 40) || (player->dmgType == 21))) {
             player->boostCooldown = true;
@@ -5843,7 +5843,7 @@ void Player_Update(Player* player) {
                     }
                     break;
 
-                case LEVELMODE_UNK_2:
+                case LEVELMODE_TURRET:
                     gLoadLevelObjects = true;
                     Turret_Update(player);
                     Player_CollisionCheck(player);
@@ -6531,7 +6531,7 @@ void Camera_Update(Player* player) {
                     Camera_Update360(player, false);
                     break;
 
-                case LEVELMODE_UNK_2:
+                case LEVELMODE_TURRET:
                     Turret_UpdateCamera(player);
                     break;
             }

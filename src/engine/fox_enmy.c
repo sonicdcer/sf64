@@ -146,7 +146,7 @@ bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
 void Object_SetInfo(ObjectInfo* info, u32 objId) {
     *info = gObjectInfo[objId];
     info->hitbox = SEGMENTED_TO_VIRTUAL(gObjectInfo[objId].hitbox);
-    if (gLevelMode == LEVELMODE_UNK_2) {
+    if (gLevelMode == LEVELMODE_TURRET) {
         info->cullDistance += 200.0f;
     }
 }

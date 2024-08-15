@@ -1890,7 +1890,7 @@ void Display_Update(void) {
         }
     }
 
-    if ((gLevelMode == LEVELMODE_UNK_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
+    if ((gLevelMode == LEVELMODE_TURRET) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
         Turret_Draw(gPlayer);
     }
 

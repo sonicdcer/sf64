@@ -5,10 +5,10 @@ OSContPad gControllerPress[4];
 u8 gControllerPlugged[4];
 u32 gControllerLock;
 u8 gControllerRumbleEnabled[4];
-OSContPad sNextController[4];      //
-OSContPad sPrevController[4];      //
-OSContStatus sControllerStatus[4]; //
-OSPfs sControllerMotor[4];         //
+OSContPad sNextController[4];
+OSContPad sPrevController[4];
+OSContStatus sControllerStatus[4];
+OSPfs sControllerMotor[4];
 
 void Controller_AddDeadZone(s32 contrNum) {
     s32 temp_v0 = gControllerHold[contrNum].stick_x;

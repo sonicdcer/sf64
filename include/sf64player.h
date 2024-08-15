@@ -54,7 +54,7 @@ typedef enum DrawMode {
 typedef enum LevelMode {
     /* 0 */ LEVELMODE_ON_RAILS,
     /* 1 */ LEVELMODE_ALL_RANGE,
-    /* 2 */ LEVELMODE_UNK_2,
+    /* 2 */ LEVELMODE_TURRET, // Unused scrapped turret mode
     /* 3 */ LEVELMODE_MAX,
 } LevelMode;
 

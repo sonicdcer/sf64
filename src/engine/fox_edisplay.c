@@ -1634,7 +1634,7 @@ void Object_DrawAll(s32 arg0) {
             }
             switch (gLevelMode) {
                 case LEVELMODE_ON_RAILS:
-                case LEVELMODE_UNK_2:
+                case LEVELMODE_TURRET:
                     Matrix_Push(&gGfxMatrix);
                     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
                         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {

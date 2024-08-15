@@ -2237,7 +2237,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
-            if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_UNK_2)) &&
+            if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_TURRET)) &&
                 (this->eventType != EVID_A6_MISSILE) && (this->eventType != EVID_23)) {
                 this->fwork[13] = 20.0f;
                 if (this->obj.pos.x < this->hitPos.x) {
@@ -3362,7 +3362,7 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     if (this->iwork[6] != 0) {
-        if ((gLevelMode == LEVELMODE_UNK_2) && (this->eventType == EVID_200)) {
+        if ((gLevelMode == LEVELMODE_TURRET) && (this->eventType == EVID_200)) {
             Math_SmoothStepToAngle(&this->obj.rot.x, this->rot_0F4.x, 0.1f, 10.0f, 0.00001f);
             Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_0F4.y, 0.1f, 10.0f, 0.00001f);
         } else {

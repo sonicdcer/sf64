@@ -3514,7 +3514,7 @@ void func_hud_8008F96C(void) {
 
     RCP_SetupDL_36();
 
-    if ((gLevelMode != LEVELMODE_UNK_2) && (D_hud_80161708 != 0)) {
+    if ((gLevelMode != LEVELMODE_TURRET) && (D_hud_80161708 != 0)) {
         func_hud_8008D4F0(246.0f, 28.0f);
         func_hud_8008EA14(250.0f, 38.0f);
     }
