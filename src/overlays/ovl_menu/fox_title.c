@@ -2253,7 +2253,7 @@ void Title_8018D2B8(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    arwing.rightState = arwing.leftState = WINGSTATE_INTACT;
+    arwing.rightWingState = arwing.leftState = WINGSTATE_INTACT;
     arwing.unk_18 = arwing.unk_1C = arwing.unk_20 = arwing.unk_24 = arwing.unk_04 = arwing.unk_08 = arwing.unk_0C =
         arwing.unk_10 = arwing.unk_28 = 0.0f;
 

@@ -169,7 +169,7 @@ void Player_WingEffects(Player* player) {
         if ((gLevelType == LEVELTYPE_PLANET) ||
             ((player->alternateView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
-            if ((player->arwing.rightState <= WINGSTATE_BROKEN) || (player->arwing.leftState <= WINGSTATE_BROKEN)) {
+            if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) || (player->arwing.leftState <= WINGSTATE_BROKEN)) {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 5.0f;
             } else {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
@@ -183,7 +183,7 @@ void Player_DamageEffects(Player* player) {
     f32 sp40;
 
     if (!player->alternateView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
-        if (player->arwing.rightState <= WINGSTATE_BROKEN) {
+        if (player->arwing.rightWingState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (gRightWingDebrisTimer[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
                                      player->hit1.z, 1.0f);
@@ -823,11 +823,11 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
     if ((player->form == FORM_ARWING) && (gShieldAlpha[player->num] < 1.0f)) {
         if (side == 1) {
             gRightWingFlashTimer[player->num] = 30;
-            if (player->arwing.rightState == WINGSTATE_INTACT) {
+            if (player->arwing.rightWingState == WINGSTATE_INTACT) {
                 gRightWingHealth[player->num] -= damage;
                 if (gRightWingHealth[player->num] <= 0) {
                     Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
-                    player->arwing.rightState = WINGSTATE_BROKEN;
+                    player->arwing.rightWingState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
                     gRightWingDebrisTimer[player->num] = 50;
                     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_WING_BROKEN, player->num);
@@ -1632,7 +1632,7 @@ void Player_UpdateHitbox(Player* player) {
         }
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit2);
 
-        if (player->arwing.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             sp3C.x = -40.0f;
         } else {
             sp3C.x = -30.0f;
@@ -3293,7 +3293,7 @@ bool Player_UpdateLockOn(Player* player) {
 void Player_Shoot(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
-            if ((player->arwing.rightState <= WINGSTATE_BROKEN) || (player->arwing.leftState <= WINGSTATE_BROKEN)) {
+            if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) || (player->arwing.leftState <= WINGSTATE_BROKEN)) {
                 gLaserStrength[player->num] = LASERS_SINGLE;
             }
 
@@ -3349,9 +3349,9 @@ void Player_ArwingBank(Player* player) {
     f32 sp38;
 
     sp3C = 0.0f;
-    if ((player->arwing.rightState <= WINGSTATE_BROKEN) && (player->arwing.leftState == WINGSTATE_INTACT)) {
+    if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) && (player->arwing.leftState == WINGSTATE_INTACT)) {
         sp3C = -17.0f;
-    } else if ((player->arwing.leftState <= WINGSTATE_BROKEN) && (player->arwing.rightState == WINGSTATE_INTACT)) {
+    } else if ((player->arwing.leftState <= WINGSTATE_BROKEN) && (player->arwing.rightWingState == WINGSTATE_INTACT)) {
         sp3C = 17.0f;
     }
 
@@ -3668,7 +3668,7 @@ void Player_MoveArwing360(Player* player) {
     sp4C.x = 0.0f;
     sp4C.y = 0.0f;
 
-    if (player->arwing.rightState <= WINGSTATE_BROKEN) {
+    if (player->arwing.rightWingState <= WINGSTATE_BROKEN) {
         sp4C.x -= 2.5f;
         sp4C.y -= 2.5f;
     }
@@ -3943,7 +3943,7 @@ void Player_MoveArwingOnRails(Player* player) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
 
-    if (player->arwing.rightState <= WINGSTATE_BROKEN) {
+    if (player->arwing.rightWingState <= WINGSTATE_BROKEN) {
         player->vel.x += 2.5f;
         player->vel.y -= 2.5f;
     }
@@ -4416,7 +4416,7 @@ void Player_Setup(Player* playerx) {
         }
     }
 
-    player->arwing.rightState = WINGSTATE_INTACT;
+    player->arwing.rightWingState = WINGSTATE_INTACT;
     player->arwing.leftState = WINGSTATE_INTACT;
 
     if (gExpertMode) {
@@ -4520,7 +4520,7 @@ void Player_Setup(Player* playerx) {
         if (D_ctx_80177C9C != 0) {
             player->shields = D_ctx_80177C9C - 1;
             gGoldRingCount[0] = D_ctx_80177C94;
-            player->arwing.rightState = D_ctx_80177CAC;
+            player->arwing.rightWingState = D_ctx_80177CAC;
             player->arwing.leftState = D_ctx_80177CB4;
             gRightWingHealth[0] = D_ctx_80177CBC;
             gLeftWingHealth[0] = D_ctx_80177CC4;

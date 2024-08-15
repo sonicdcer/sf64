@@ -124,7 +124,7 @@ void Venom2_UpdateEvents(ActorAllRange* this) {
                 D_ctx_80177C94 = gGoldRingCount[0];
                 D_ctx_80177C9C = player->shields + 1;
                 D_play_80161A5C = D_ctx_80177CA4 = gHitCount;
-                D_ctx_80177CAC = player->arwing.rightState;
+                D_ctx_80177CAC = player->arwing.rightWingState;
                 D_ctx_80177CB4 = player->arwing.leftState;
                 D_ctx_80177CBC = gRightWingHealth[0];
                 D_ctx_80177CC4 = gLeftWingHealth[0];

@@ -2376,7 +2376,7 @@ void Venom1_80198414(void) {
     D_ctx_80177C94 = gGoldRingCount[0];
     D_ctx_80177C9C = gPlayer[0].shields + 1;
     D_ctx_80177CA4 = gHitCount;
-    D_ctx_80177CAC = gPlayer[0].arwing.rightState;
+    D_ctx_80177CAC = gPlayer[0].arwing.rightWingState;
     D_ctx_80177CB4 = gPlayer[0].arwing.leftState;
     D_ctx_80177CBC = gRightWingHealth[0];
     D_ctx_80177CC4 = gLeftWingHealth[0];

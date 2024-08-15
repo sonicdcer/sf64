@@ -1689,9 +1689,9 @@ void Cutscene_ArwingDown360(Player* player) {
             func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 3.0f);
         }
 
-        if (player->arwing.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
-            player->arwing.rightState = WINGSTATE_BROKEN;
+            player->arwing.rightWingState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
         if (player->arwing.leftState == WINGSTATE_INTACT) {
@@ -1796,9 +1796,9 @@ void Cutscene_ArwingDownOnRails(Player* player) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }
 
-        if (player->arwing.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
-            player->arwing.rightState = WINGSTATE_NONE;
+            player->arwing.rightWingState = WINGSTATE_NONE;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
 

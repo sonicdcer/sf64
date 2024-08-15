@@ -2107,7 +2107,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
             Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
 
-            if (((player[0].arwing.rightState <= WINGSTATE_BROKEN) ||
+            if (((player[0].arwing.rightWingState <= WINGSTATE_BROKEN) ||
                  (player[0].arwing.leftState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
                 this->itemDrop = DROP_WING_REPAIR;
@@ -2161,9 +2161,9 @@ void ActorSupplies_Draw(Actor* this) {
 void func_enmy_80067A40(void) {
     AUDIO_PLAY_SFX(NA_SE_WING_REPAIR, gPlayer[0].sfxSource, 0);
 
-    if (gPlayer[0].arwing.rightState <= WINGSTATE_BROKEN) {
+    if (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN) {
         gRightWingFlashTimer[0] = 1050;
-        gPlayer[0].arwing.rightState = WINGSTATE_INTACT;
+        gPlayer[0].arwing.rightWingState = WINGSTATE_INTACT;
     }
     if (gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN) {
         gLeftWingFlashTimer[0] = 1050;
@@ -2261,7 +2261,7 @@ void ItemPickup_Update(Item* this) {
 
 void ItemLasers_Update(ItemLasers* this) {
     if (!gVersusMode &&
-        ((gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.rightState <= WINGSTATE_BROKEN))) {
+        ((gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN))) {
         this->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&this->info, this->obj.id);
         this->timer_48 = 2000;

@@ -402,7 +402,7 @@ void CheatRam_Select(void) {
 }
 
 void CheatRam_RepairWings(void) {
-    if ((gPlayer[0].arwing.rightState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN)) {
+    if ((gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN)) {
         func_enmy_80067A40();
     }
 }

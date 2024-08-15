@@ -459,10 +459,10 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
     switch (limbIndex) {
         case 13:
-            if (arwing->rightState == WINGSTATE_NONE) {
+            if (arwing->rightWingState == WINGSTATE_NONE) {
                 *gfxPtr = NULL;
             }
-            if (arwing->rightState == WINGSTATE_BROKEN) {
+            if (arwing->rightWingState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3015120;
             }
             if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
@@ -478,7 +478,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
         case 1:
         case 2:
-            if (arwing->rightState != 2) {
+            if (arwing->rightWingState != 2) {
                 *gfxPtr = NULL;
             }
             if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
@@ -493,7 +493,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
             break;
 
         case 12:
-            if (arwing->rightState == WINGSTATE_NONE) { // should be leftState?
+            if (arwing->rightWingState == WINGSTATE_NONE) { // should be leftState?
                 *gfxPtr = NULL;
             }
             if (arwing->leftState == WINGSTATE_BROKEN) {
@@ -679,12 +679,12 @@ void Display_Arwing(Player* player, s32 reflectY) {
         }
     } else {
         if (gVersusMode) {
-            if ((player->arwing.rightState == WINGSTATE_INTACT) && (player->arwing.leftState == WINGSTATE_INTACT)) {
+            if ((player->arwing.rightWingState == WINGSTATE_INTACT) && (player->arwing.leftState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_300EE80);
-            } else if ((player->arwing.rightState <= WINGSTATE_BROKEN) &&
+            } else if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) &&
                        (player->arwing.leftState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_3010A90);
-            } else if ((player->arwing.rightState == WINGSTATE_INTACT) &&
+            } else if ((player->arwing.rightWingState == WINGSTATE_INTACT) &&
                        (player->arwing.leftState <= WINGSTATE_BROKEN)) {
                 gSPDisplayList(gMasterDisp++, D_versus_3011470);
             } else {
@@ -1245,7 +1245,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             Matrix_Pop(&gGfxMatrix);
         }
-        if (player->arwing.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, -sp5C, sp58, -100.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);

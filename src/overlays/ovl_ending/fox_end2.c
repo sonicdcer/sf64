@@ -1079,7 +1079,7 @@ void Ending_801926D4(void) {
         if (!gClearPlayerInfo) {
             D_ending_80198590 = gPlayer[0].arwing;
         } else {
-            D_ending_80198590.rightState = D_ending_80198590.leftState = WINGSTATE_INTACT;
+            D_ending_80198590.rightWingState = D_ending_80198590.leftState = WINGSTATE_INTACT;
         }
         AUDIO_PLAY_BGM(NA_BGM_STAFF_ROLL);
     }

@@ -2594,9 +2594,9 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 this->swork[8] = 0;
                 gControllerRumbleTimers[0] = 30;
 
-                if (player->arwing.rightState == 2) {
+                if (player->arwing.rightWingState == 2) {
                     gRightWingHealth[0] = 0;
-                    player->arwing.rightState = 1;
+                    player->arwing.rightWingState = 1;
                     Andross_Effect396_Spawn2(this->obj.pos.x, this->obj.pos.y - 200.0f, this->obj.pos.z,
                                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f), 10.0f, 8);
                 }

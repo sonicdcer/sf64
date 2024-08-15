@@ -199,7 +199,7 @@ void AllRange_GreatFoxRepair(Player* player) {
                 gCsCamEyeZ = 305.0f;
 
                 player->shields = Play_GetMaxShields();
-                player->arwing.rightState = WINGSTATE_INTACT;
+                player->arwing.rightWingState = WINGSTATE_INTACT;
                 player->arwing.leftState = WINGSTATE_INTACT;
 
                 if (gExpertMode) {
