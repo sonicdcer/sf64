@@ -130,7 +130,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 0.0f;
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
             gCsFrameCount = 0;
             /* fallthrough */
         case 1:
@@ -776,10 +776,10 @@ void Cutscene_AllRangeMode(Player* player) {
             }
         }
     }
-    player->wings.unk_10 = 0.0f;
-    player->wings.unk_08 = 0.0f;
-    player->wings.unk_0C = 0.0f;
-    player->wings.unk_04 = 0.0f;
+    player->arwing.unk_10 = 0.0f;
+    player->arwing.unk_08 = 0.0f;
+    player->arwing.unk_0C = 0.0f;
+    player->arwing.unk_04 = 0.0f;
 
     Math_SmoothStepToF(&player->rot.x, 0.0f, 0.1f, 5.0f, 0.0f);
     Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 5.0f, 0.0f);
@@ -796,7 +796,7 @@ void Cutscene_AllRangeMode(Player* player) {
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 60.0f;
             D_ctx_80177A48[3] = 0.0f;
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
             player->csState++;
             gCsFrameCount = 0;
             /* fallthrough */
@@ -918,14 +918,14 @@ void Cutscene_CoComplete2(Player* player) {
         case 10:
             D_ctx_80177A48[2] = 0.0f;
             player->csState++;
-            player->wings.unk_04 = 0.0f;
-            player->wings.unk_0C = 0.0f;
-            player->wings.unk_08 = 0.0f;
-            player->wings.unk_10 = 0.0f;
+            player->arwing.unk_04 = 0.0f;
+            player->arwing.unk_0C = 0.0f;
+            player->arwing.unk_08 = 0.0f;
+            player->arwing.unk_10 = 0.0f;
             player->zRotBarrelRoll = 0.0f;
             player->zRotBank = 0.0f;
             player->boostSpeed = 0.0f;
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
             player->baseSpeed = 40.0f;
             /* fallthrough */
 
@@ -1020,10 +1020,10 @@ void Cutscene_CoComplete2(Player* player) {
             if (player->csTimer == 0) {
                 player->csState = 1;
                 player->csTimer = 150;
-                player->wings.unk_10 = 0.0f;
-                player->wings.unk_08 = 0.0f;
-                player->wings.unk_0C = 0.0f;
-                player->wings.unk_04 = 0.0f;
+                player->arwing.unk_10 = 0.0f;
+                player->arwing.unk_08 = 0.0f;
+                player->arwing.unk_0C = 0.0f;
+                player->arwing.unk_04 = 0.0f;
             }
             break;
 
@@ -1448,10 +1448,10 @@ void Cutscene_UTurn(Player* player) {
                 sp58.y = 60.0f;
             }
 
-            Math_SmoothStepToF(&player->wings.unk_04, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_0C, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_10, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_04, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_0C, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_10, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->aerobaticPitch, 190.0f, 0.1f, 6.0f, 0.001f);
 
@@ -1479,13 +1479,13 @@ void Cutscene_UTurn(Player* player) {
 
             sp58.y = player->zRotBank * 0.3f;
 
-            Math_SmoothStepToF(&player->wings.unk_04, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_04, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
 
             sp58.z = -sp58.y;
 
-            Math_SmoothStepToF(&player->wings.unk_0C, sp58.z, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_10, sp58.z, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_0C, sp58.z, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_10, sp58.z, 0.3f, 100.0f, 0.0f);
 
             player->unk_190 = 2.0f;
             player->cam.eye.x += player->vel.x * 0.1f;
@@ -1689,14 +1689,14 @@ void Cutscene_ArwingDown360(Player* player) {
             func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 3.0f);
         }
 
-        if (player->wings.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightState == WINGSTATE_INTACT) {
             Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
-            player->wings.rightState = WINGSTATE_BROKEN;
+            player->arwing.rightState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
-        if (player->wings.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftState == WINGSTATE_INTACT) {
             Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
-            player->wings.leftState = WINGSTATE_BROKEN;
+            player->arwing.leftState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) ||
@@ -1796,15 +1796,15 @@ void Cutscene_ArwingDownOnRails(Player* player) {
             func_enmy_80062C38(player->pos.x, player->pos.z);
         }
 
-        if (player->wings.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightState == WINGSTATE_INTACT) {
             Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
-            player->wings.rightState = WINGSTATE_NONE;
+            player->arwing.rightState = WINGSTATE_NONE;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
 
-        if (player->wings.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftState == WINGSTATE_INTACT) {
             Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
-            player->wings.leftState = WINGSTATE_NONE;
+            player->arwing.leftState = WINGSTATE_NONE;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) || (player->csEventTimer == 0)) &&

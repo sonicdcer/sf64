@@ -124,8 +124,8 @@ void Venom2_UpdateEvents(ActorAllRange* this) {
                 D_ctx_80177C94 = gGoldRingCount[0];
                 D_ctx_80177C9C = player->shields + 1;
                 D_play_80161A5C = D_ctx_80177CA4 = gHitCount;
-                D_ctx_80177CAC = player->wings.rightState;
-                D_ctx_80177CB4 = player->wings.leftState;
+                D_ctx_80177CAC = player->arwing.rightState;
+                D_ctx_80177CB4 = player->arwing.leftState;
                 D_ctx_80177CBC = gRightWingHealth[0];
                 D_ctx_80177CC4 = gLeftWingHealth[0];
             }
@@ -302,10 +302,10 @@ void Venom2_LevelComplete(Player* player) {
         sp70 = temp_fv1;
     }
 
-    Math_SmoothStepToF(&player->wings.unk_04, -var_fa0 + sp74, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_08, -var_fa0 - sp74, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_0C, -var_fa0 + sp70, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_10, -var_fa0 - sp70, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_04, -var_fa0 + sp74, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_08, -var_fa0 - sp74, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_0C, -var_fa0 + sp70, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_10, -var_fa0 - sp70, 0.1f, 100.0f, 0.0f);
     sp94 = player->pos.x - gBosses[0].obj.pos.x;
     sp90 = player->pos.y - (gBosses[0].obj.pos.y + 700.0f);
     sp8C = player->pos.z - gBosses[0].obj.pos.z;
@@ -313,8 +313,8 @@ void Venom2_LevelComplete(Player* player) {
     switch (player->csState) {
         case 0:
             player->csState++;
-            player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 = 0.0f;
-            player->wings.modelId = 1;
+            player->arwing.unk_04 = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 = 0.0f;
+            player->arwing.modelId = 1;
 
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.1f;

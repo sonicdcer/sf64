@@ -1800,10 +1800,10 @@ void Katina_LevelComplete(Player* player) {
     Vec3f dest;
     f32 angle;
 
-    player->wings.unk_10 = 0.0f;
-    player->wings.unk_0C = 0.0f;
-    player->wings.unk_08 = 0.0f;
-    player->wings.unk_04 = 0.0f;
+    player->arwing.unk_10 = 0.0f;
+    player->arwing.unk_0C = 0.0f;
+    player->arwing.unk_08 = 0.0f;
+    player->arwing.unk_04 = 0.0f;
 
     player->aerobaticPitch = 0.0f;
 

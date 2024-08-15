@@ -2594,15 +2594,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 this->swork[8] = 0;
                 gControllerRumbleTimers[0] = 30;
 
-                if (player->wings.rightState == 2) {
+                if (player->arwing.rightState == 2) {
                     gRightWingHealth[0] = 0;
-                    player->wings.rightState = 1;
+                    player->arwing.rightState = 1;
                     Andross_Effect396_Spawn2(this->obj.pos.x, this->obj.pos.y - 200.0f, this->obj.pos.z,
                                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f), 10.0f, 8);
                 }
-                if (player->wings.leftState == 2) {
+                if (player->arwing.leftState == 2) {
                     gLeftWingHealth[0] = 0;
-                    player->wings.leftState = 1;
+                    player->arwing.leftState = 1;
                     Andross_Effect396_Spawn2(this->obj.pos.x, this->obj.pos.y - 200.0f, this->obj.pos.z,
                                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f), 10.0f, 9);
                 }
@@ -3857,12 +3857,12 @@ void Andross_80193C4C(Player* player) {
 
     Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
-    player->wings.unk_04 = player->wings.unk_08 = player->wings.unk_0C = player->wings.unk_10 = 0.0f;
+    player->arwing.unk_04 = player->arwing.unk_08 = player->arwing.unk_0C = player->arwing.unk_10 = 0.0f;
 
     switch (player->csState) {
         case 0:
             gCsFrameCount = 0;
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
             D_ctx_80177A48[0] = 0.0f;
             if (player->aerobaticPitch > 180.0f) {
                 player->aerobaticPitch -= 360.0f;

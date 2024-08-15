@@ -3149,7 +3149,7 @@ void Solar_LevelComplete(Player* player) {
             player->camRoll = player->aerobaticPitch = 0.0f;
             player->baseSpeed = 40.0f;
 
-            player->wings.unk_04 = player->wings.unk_0C = player->wings.unk_08 = player->wings.unk_10 =
+            player->arwing.unk_04 = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
             player->draw = true;
 
@@ -3243,7 +3243,7 @@ void Solar_LevelComplete(Player* player) {
                 player->pos.y = 200.0f;
                 player->pos.z = -(gPathProgress - 500.0f);
                 player->csState++;
-                player->wings.modelId = 1;
+                player->arwing.modelId = 1;
 
                 Audio_StartPlayerNoise(0);
 
@@ -3278,7 +3278,7 @@ void Solar_LevelComplete(Player* player) {
             gFillScreenAlphaStep = 4;
 
             if (gMsgCharIsPrinting) {
-                player->wings.unk_30 = (s32) (gGameFrameCount % 2U) * 5.0f;
+                player->arwing.unk_30 = (s32) (gGameFrameCount % 2U) * 5.0f;
             }
 
             switch (gCsFrameCount) {

@@ -450,7 +450,7 @@ void Display_SetCullingMode(void) {
 }
 
 bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
-    ArwingInfo* wings = (ArwingInfo*) wingData;
+    ArwingInfo* arwing = (ArwingInfo*) wingData;
 
     if (D_display_800CA22C && (gPlayer[0].dmgEffect == 0)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -459,10 +459,10 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
     switch (limbIndex) {
         case 13:
-            if (wings->rightState == WINGSTATE_NONE) {
+            if (arwing->rightState == WINGSTATE_NONE) {
                 *gfxPtr = NULL;
             }
-            if (wings->rightState == WINGSTATE_BROKEN) {
+            if (arwing->rightState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3015120;
             }
             if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
@@ -478,7 +478,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
         case 1:
         case 2:
-            if (wings->rightState != 2) {
+            if (arwing->rightState != 2) {
                 *gfxPtr = NULL;
             }
             if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
@@ -493,10 +493,10 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
             break;
 
         case 12:
-            if (wings->rightState == WINGSTATE_NONE) { // should be leftState?
+            if (arwing->rightState == WINGSTATE_NONE) { // should be leftState?
                 *gfxPtr = NULL;
             }
-            if (wings->leftState == WINGSTATE_BROKEN) {
+            if (arwing->leftState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3014BF0;
             }
             if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
@@ -512,7 +512,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
         case 5:
         case 6:
-            if (wings->leftState != 2) {
+            if (arwing->leftState != 2) {
                 *gfxPtr = NULL;
             }
             if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
@@ -529,62 +529,62 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
     switch (limbIndex) {
         case 1:
-            rot->y -= wings->unk_04;
+            rot->y -= arwing->unk_04;
             break;
         case 2:
-            rot->y -= wings->unk_08;
+            rot->y -= arwing->unk_08;
             break;
         case 5:
-            rot->y -= wings->unk_10;
+            rot->y -= arwing->unk_10;
             break;
         case 6:
-            rot->y -= wings->unk_0C;
+            rot->y -= arwing->unk_0C;
             break;
         case 12:
-            rot->z += wings->unk_20;
+            rot->z += arwing->unk_20;
             break;
         case 13:
-            rot->z += wings->unk_20;
+            rot->z += arwing->unk_20;
             break;
         case 4:
-            pos->z -= wings->unk_14;
-            pos->x += wings->unk_18;
+            pos->z -= arwing->unk_14;
+            pos->x += arwing->unk_18;
             break;
         case 8:
-            pos->z += wings->unk_14;
-            pos->x += wings->unk_18;
+            pos->z += arwing->unk_14;
+            pos->x += arwing->unk_18;
             break;
     }
     return false;
 }
 
-void Display_ArwingWings(ArwingInfo* wings) {
+void Display_ArwingWings(ArwingInfo* arwing) {
     Vec3f sp68[30];
     s32 modelId;
 
     Matrix_Push(&gGfxMatrix);
 
-    wings->unk_18 = 0.0f;
-    if (wings->unk_14 < -7.0f) {
-        wings->unk_18 = (-wings->unk_14 - 7.0f) * 2.5f;
+    arwing->unk_18 = 0.0f;
+    if (arwing->unk_14 < -7.0f) {
+        arwing->unk_18 = (-arwing->unk_14 - 7.0f) * 2.5f;
     }
 
     if (gGameState == GSTATE_PLAY) {
         Animation_DrawSkeleton(1, D_arwing_3016610, gPlayer[0].jointTable, Display_ArwingWingsOverrideLimbDraw, NULL,
-                               wings, &gIdentityMatrix);
+                               arwing, &gIdentityMatrix);
     } else {
         if (gGameState == GSTATE_MENU) {
             Animation_GetFrameData(&D_arwing_3015AF4, 0, sp68);
         } else {
             Animation_GetFrameData(&D_arwing_3015C28, 0, sp68);
         }
-        Animation_DrawSkeleton(1, D_arwing_3016610, sp68, Display_ArwingWingsOverrideLimbDraw, NULL, wings,
+        Animation_DrawSkeleton(1, D_arwing_3016610, sp68, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
                                &gIdentityMatrix);
     }
 
     D_display_800CA22C = false;
 
-    modelId = wings->modelId;
+    modelId = arwing->modelId;
     if (D_display_800CA220 != 0) {
         modelId = 1;
     }
@@ -592,8 +592,8 @@ void Display_ArwingWings(ArwingInfo* wings) {
     if (modelId != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 6.4f, -16.5f, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, wings->unk_34 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, wings->unk_30 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, arwing->unk_34 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, arwing->unk_30 * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 1.0f / 70.925f, 1.0f / 70.925f, 1.0f / 70.925f, MTXF_APPLY);
         if (gGameState == GSTATE_ENDING) {
             Matrix_Scale(gGfxMatrix, 0.95f, 0.95f, 0.95f, MTXF_APPLY);
@@ -608,7 +608,7 @@ void Display_ArwingWings(ArwingInfo* wings) {
     }
 
     Matrix_Translate(gGfxMatrix, 0.0f, 17.2f, -25.8f, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, wings->unk_38 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, arwing->unk_38 * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_64_2();
 
@@ -679,25 +679,25 @@ void Display_Arwing(Player* player, s32 reflectY) {
         }
     } else {
         if (gVersusMode) {
-            if ((player->wings.rightState == WINGSTATE_INTACT) && (player->wings.leftState == WINGSTATE_INTACT)) {
+            if ((player->arwing.rightState == WINGSTATE_INTACT) && (player->arwing.leftState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_300EE80);
-            } else if ((player->wings.rightState <= WINGSTATE_BROKEN) &&
-                       (player->wings.leftState == WINGSTATE_INTACT)) {
+            } else if ((player->arwing.rightState <= WINGSTATE_BROKEN) &&
+                       (player->arwing.leftState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_3010A90);
-            } else if ((player->wings.rightState == WINGSTATE_INTACT) &&
-                       (player->wings.leftState <= WINGSTATE_BROKEN)) {
+            } else if ((player->arwing.rightState == WINGSTATE_INTACT) &&
+                       (player->arwing.leftState <= WINGSTATE_BROKEN)) {
                 gSPDisplayList(gMasterDisp++, D_versus_3011470);
             } else {
                 gSPDisplayList(gMasterDisp++, D_versus_300D550);
             }
         } else {
             if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_BOLSE)) {
-                player->wings.unk_28 = player->wings.unk_04 = player->wings.unk_08 = player->wings.unk_0C =
-                    player->wings.unk_10 = 0.0f;
+                player->arwing.unk_28 = player->arwing.unk_04 = player->arwing.unk_08 = player->arwing.unk_0C =
+                    player->arwing.unk_10 = 0.0f;
             }
             D_display_800CA22C = true;
             gReflectY = reflectY;
-            Display_ArwingWings(&player->wings);
+            Display_ArwingWings(&player->arwing);
         }
     }
 }
@@ -1017,7 +1017,7 @@ void Display_ArwingLaserCharge(Player* player) {
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
 
         laserStrength = gLaserStrength[player->num];
-        if (player->wings.unk_14 > -8.0f) {
+        if (player->arwing.unk_14 > -8.0f) {
             laserStrength = LASERS_SINGLE;
         }
 
@@ -1232,7 +1232,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
 
-        if (player->wings.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftState == WINGSTATE_INTACT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, sp5C, sp58, -100.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
@@ -1245,7 +1245,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             Matrix_Pop(&gGfxMatrix);
         }
-        if (player->wings.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightState == WINGSTATE_INTACT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, -sp5C, sp58, -100.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
@@ -1619,8 +1619,8 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
 
     switch (D_display_800CA220) {
         case 0:
-            Math_SmoothStepToAngle(&player->wings.unk_30, 0.0f, 0.2f, 3.0f, 0.0f);
-            Math_SmoothStepToAngle(&player->wings.unk_34, 0.0f, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.unk_30, 0.0f, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.unk_34, 0.0f, 0.2f, 3.0f, 0.0f);
             gPlayCamEye.x = player->cam.eye.x;
             gPlayCamEye.y = player->cam.eye.y;
             gPlayCamEye.z = player->cam.eye.z;
@@ -1650,8 +1650,8 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
             }
             sp3C = 360.0f - sp3C;
 
-            Math_SmoothStepToAngle(&player->wings.unk_30, sp38, 0.2f, 6.0f, 0.0f);
-            Math_SmoothStepToAngle(&player->wings.unk_34, sp3C, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.unk_30, sp38, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.unk_34, sp3C, 0.2f, 6.0f, 0.0f);
 
             Math_SmoothStepToF(&D_display_800CA380, gControllerPress[0].stick_y * 0.75f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_display_800CA384, gControllerPress[0].stick_x * 3.0f, 0.1f, 5.0f, 0.0f);

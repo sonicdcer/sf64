@@ -524,8 +524,8 @@ void func_edisplay_8005B388(Actor199* actor) {
                  (gCurrentLevel == LEVEL_KATINA) && (actor->index == 1)) ||
                 ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) &&
                  (actor->state == 5))) {
-                D_edisplay_80161630.rightState = gPlayer[0].wings.rightState;
-                D_edisplay_80161630.leftState = gPlayer[0].wings.leftState;
+                D_edisplay_80161630.rightState = gPlayer[0].arwing.rightState;
+                D_edisplay_80161630.leftState = gPlayer[0].arwing.leftState;
             } else {
                 D_edisplay_80161630.rightState = D_edisplay_80161630.leftState = WINGSTATE_INTACT;
             }

@@ -2232,7 +2232,7 @@ void Title_8018CD9C(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3) {
 }
 
 void Title_8018D2B8(s32 arg0) {
-    ArwingInfo wings;
+    ArwingInfo arwing;
 
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
                        gAmbientR, gAmbientG, gAmbientB);
@@ -2253,17 +2253,17 @@ void Title_8018D2B8(s32 arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    wings.rightState = wings.leftState = WINGSTATE_INTACT;
-    wings.unk_18 = wings.unk_1C = wings.unk_20 = wings.unk_24 = wings.unk_04 = wings.unk_08 = wings.unk_0C =
-        wings.unk_10 = wings.unk_28 = 0.0f;
+    arwing.rightState = arwing.leftState = WINGSTATE_INTACT;
+    arwing.unk_18 = arwing.unk_1C = arwing.unk_20 = arwing.unk_24 = arwing.unk_04 = arwing.unk_08 = arwing.unk_0C =
+        arwing.unk_10 = arwing.unk_28 = 0.0f;
 
-    wings.unk_14 = D_menu_801B84E8[arg0].unk_28;
-    wings.modelId = D_menu_801B84E8[arg0].unk_34;
-    wings.unk_30 = D_menu_801B84E8[arg0].unk_2C;
-    wings.unk_34 = D_menu_801B84E8[arg0].unk_30;
-    wings.unk_38 = D_menu_801B84E8[arg0].unk_24;
+    arwing.unk_14 = D_menu_801B84E8[arg0].unk_28;
+    arwing.modelId = D_menu_801B84E8[arg0].unk_34;
+    arwing.unk_30 = D_menu_801B84E8[arg0].unk_2C;
+    arwing.unk_34 = D_menu_801B84E8[arg0].unk_30;
+    arwing.unk_38 = D_menu_801B84E8[arg0].unk_24;
 
-    Display_ArwingWings(&wings);
+    Display_ArwingWings(&arwing);
 
     Object_UpdateSfxSource(D_menu_801B84E8[arg0].unk_50);
 

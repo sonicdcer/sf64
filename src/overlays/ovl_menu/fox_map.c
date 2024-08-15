@@ -2215,7 +2215,7 @@ void Map_801A0D14(void) {
 
 void Map_801A116C(void) {
     static f32 D_menu_801B6970 = 35.0f;
-    ArwingInfo wings;
+    ArwingInfo arwing;
     Vec3f dest;
     Vec3f src;
     s32 colR = 30, colG = 9, colB = 5;
@@ -2269,19 +2269,19 @@ void Map_801A116C(void) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        wings.rightState = wings.leftState = WINGSTATE_INTACT;
+        arwing.rightState = arwing.leftState = WINGSTATE_INTACT;
         // clang-format off
-        wings.unk_18 = wings.unk_1C = wings.unk_20 = wings.unk_24 = wings.unk_04 =
-        wings.unk_08 = wings.unk_0C = wings.unk_10 = wings.unk_28 = 0.0f;
+        arwing.unk_18 = arwing.unk_1C = arwing.unk_20 = arwing.unk_24 = arwing.unk_04 =
+        arwing.unk_08 = arwing.unk_0C = arwing.unk_10 = arwing.unk_28 = 0.0f;
         // clang-format on
 
-        wings.unk_14 = 0.0f;
-        wings.modelId = 1;
-        wings.unk_30 = 0.0f;
-        wings.unk_34 = 0.0f;
-        wings.unk_38 = 0.0f;
+        arwing.unk_14 = 0.0f;
+        arwing.modelId = 1;
+        arwing.unk_30 = 0.0f;
+        arwing.unk_34 = 0.0f;
+        arwing.unk_38 = 0.0f;
 
-        Display_ArwingWings(&wings);
+        Display_ArwingWings(&arwing);
 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);

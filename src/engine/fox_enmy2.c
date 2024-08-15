@@ -2570,25 +2570,25 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_SINGLE_LASER:
-            if (gPlayer[0].wings.unk_14 > -8.0f) {
+            if (gPlayer[0].arwing.unk_14 > -8.0f) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TWIN_LASER:
-            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_TWIN)) {
+            if ((gPlayer[0].arwing.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_TWIN)) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_HYPER_LASER:
-            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_HYPER)) {
+            if ((gPlayer[0].arwing.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_HYPER)) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_UNK3_LASER:
-            if ((gPlayer[0].wings.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_UNK_3)) {
+            if ((gPlayer[0].arwing.unk_14 < -8.0f) && (gLaserStrength[0] == LASERS_UNK_3)) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
@@ -2688,7 +2688,8 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_WING_BROKEN:
-            if ((gPlayer[0].wings.rightState <= WINGSTATE_BROKEN) || (gPlayer[0].wings.leftState <= WINGSTATE_BROKEN)) {
+            if ((gPlayer[0].arwing.rightState <= WINGSTATE_BROKEN) ||
+                (gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN)) {
                 ActorEvent_TriggerBranch(this);
             }
             break;

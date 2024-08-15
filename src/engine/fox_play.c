@@ -169,7 +169,7 @@ void Player_WingEffects(Player* player) {
         if ((gLevelType == LEVELTYPE_PLANET) ||
             ((player->alternateView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
-            if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
+            if ((player->arwing.rightState <= WINGSTATE_BROKEN) || (player->arwing.leftState <= WINGSTATE_BROKEN)) {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 5.0f;
             } else {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
@@ -183,7 +183,7 @@ void Player_DamageEffects(Player* player) {
     f32 sp40;
 
     if (!player->alternateView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
-        if (player->wings.rightState <= WINGSTATE_BROKEN) {
+        if (player->arwing.rightState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (gRightWingDebrisTimer[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
                                      player->hit1.z, 1.0f);
@@ -194,7 +194,7 @@ void Player_DamageEffects(Player* player) {
                                        RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
             }
         }
-        if (player->wings.leftState <= WINGSTATE_BROKEN) {
+        if (player->arwing.leftState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (gLeftWingDebrisTimer[player->num] != 0)) {
                 func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
                                      player->hit2.z, 1.0f);
@@ -823,11 +823,11 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
     if ((player->form == FORM_ARWING) && (gShieldAlpha[player->num] < 1.0f)) {
         if (side == 1) {
             gRightWingFlashTimer[player->num] = 30;
-            if (player->wings.rightState == WINGSTATE_INTACT) {
+            if (player->arwing.rightState == WINGSTATE_INTACT) {
                 gRightWingHealth[player->num] -= damage;
                 if (gRightWingHealth[player->num] <= 0) {
                     Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
-                    player->wings.rightState = WINGSTATE_BROKEN;
+                    player->arwing.rightState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
                     gRightWingDebrisTimer[player->num] = 50;
                     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_WING_BROKEN, player->num);
@@ -838,11 +838,11 @@ void Player_DamageWings(Player* player, s32 side, s32 damage) {
             }
         } else if (side == 2) {
             gLeftWingFlashTimer[player->num] = 30;
-            if (player->wings.leftState == WINGSTATE_INTACT) {
+            if (player->arwing.leftState == WINGSTATE_INTACT) {
                 gLeftWingHealth[player->num] -= damage;
                 if (gLeftWingHealth[player->num] <= 0) {
                     Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
-                    player->wings.leftState = WINGSTATE_BROKEN;
+                    player->arwing.leftState = WINGSTATE_BROKEN;
                     func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
                     gLeftWingDebrisTimer[player->num] = 50;
                     Player_PlaySfx(player->sfxSource, NA_SE_ARWING_WING_BROKEN, player->num);
@@ -1621,7 +1621,7 @@ void Player_UpdateHitbox(Player* player) {
         Matrix_RotateZ(gCalcMatrix, -(player->bankAngle * M_DTOR), MTXF_APPLY);
         sp3C.y = 0.0f;
         sp3C.z = 0.0f;
-        if (player->wings.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftState == WINGSTATE_INTACT) {
             sp3C.x = 40.0f;
         } else {
             sp3C.y = -10.0f;
@@ -1632,7 +1632,7 @@ void Player_UpdateHitbox(Player* player) {
         }
         Matrix_MultVec3f(gCalcMatrix, &sp3C, &player->hit2);
 
-        if (player->wings.rightState == WINGSTATE_INTACT) {
+        if (player->arwing.rightState == WINGSTATE_INTACT) {
             sp3C.x = -40.0f;
         } else {
             sp3C.x = -30.0f;
@@ -3026,7 +3026,7 @@ void Player_ArwingLaser(Player* player) {
     LaserStrength laser;
 
     laser = gLaserStrength[gPlayerNum];
-    if (player->wings.unk_14 > -8.0f) {
+    if (player->arwing.unk_14 > -8.0f) {
         laser = LASERS_SINGLE;
     }
 
@@ -3293,15 +3293,15 @@ bool Player_UpdateLockOn(Player* player) {
 void Player_Shoot(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
-            if ((player->wings.rightState <= WINGSTATE_BROKEN) || (player->wings.leftState <= WINGSTATE_BROKEN)) {
+            if ((player->arwing.rightState <= WINGSTATE_BROKEN) || (player->arwing.leftState <= WINGSTATE_BROKEN)) {
                 gLaserStrength[player->num] = LASERS_SINGLE;
             }
 
             if (!Player_UpdateLockOn(player)) {
                 if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
-                    Math_SmoothStepToF(&player->wings.unk_14, -10.0f, 1.0f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&player->arwing.unk_14, -10.0f, 1.0f, 0.5f, 0.0f);
                 } else {
-                    Math_SmoothStepToF(&player->wings.unk_14, 0.0f, 1.0f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&player->arwing.unk_14, 0.0f, 1.0f, 0.5f, 0.0f);
                 }
                 if (gShootButton[player->num] & gInputPress->button) {
                     Player_ArwingLaser(player);
@@ -3349,9 +3349,9 @@ void Player_ArwingBank(Player* player) {
     f32 sp38;
 
     sp3C = 0.0f;
-    if ((player->wings.rightState <= WINGSTATE_BROKEN) && (player->wings.leftState == WINGSTATE_INTACT)) {
+    if ((player->arwing.rightState <= WINGSTATE_BROKEN) && (player->arwing.leftState == WINGSTATE_INTACT)) {
         sp3C = -17.0f;
-    } else if ((player->wings.leftState <= WINGSTATE_BROKEN) && (player->wings.rightState == WINGSTATE_INTACT)) {
+    } else if ((player->arwing.leftState <= WINGSTATE_BROKEN) && (player->arwing.rightState == WINGSTATE_INTACT)) {
         sp3C = 17.0f;
     }
 
@@ -3360,10 +3360,10 @@ void Player_ArwingBank(Player* player) {
         sp3C = 90.0f;
         sp38 = 0.2f;
         if (player->zRotBank < 70.0f) {
-            Math_SmoothStepToF(&player->wings.unk_04, -70.0f, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_08, -70.0f, 0.3f, 100.0f, 0.f);
-            Math_SmoothStepToF(&player->wings.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
-            Math_SmoothStepToF(&player->wings.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->arwing.unk_04, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_08, -70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->arwing.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->arwing.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
             if (player->pos.y < (gGroundHeight + 70.0f)) {
                 player->pos.y += 6.0f;
             }
@@ -3374,10 +3374,10 @@ void Player_ArwingBank(Player* player) {
         sp3C = -90.0f;
         sp38 = 0.2f;
         if (player->zRotBank > -70.0f) {
-            Math_SmoothStepToF(&player->wings.unk_04, 70.0f, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_08, 70.0f, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_04, 70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_08, 70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
             if (player->pos.y < (gGroundHeight + 70.0f)) {
                 player->pos.y += 6.0f;
             }
@@ -3594,11 +3594,11 @@ void Player_MoveArwing360(Player* player) {
         sp58 = sp40.x;
     }
 
-    Math_SmoothStepToF(&player->wings.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_04, -sp60 + sp5C, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_08, -sp60 - sp5C, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_0C, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_10, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_04, -sp60 + sp5C, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_08, -sp60 - sp5C, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_0C, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_10, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
 
     scale = 0.1f;
     if ((player->zRotBank > 10.0f) && (sp7C > 0)) {
@@ -3668,11 +3668,11 @@ void Player_MoveArwing360(Player* player) {
     sp4C.x = 0.0f;
     sp4C.y = 0.0f;
 
-    if (player->wings.rightState <= WINGSTATE_BROKEN) {
+    if (player->arwing.rightState <= WINGSTATE_BROKEN) {
         sp4C.x -= 2.5f;
         sp4C.y -= 2.5f;
     }
-    if (player->wings.leftState <= WINGSTATE_BROKEN) {
+    if (player->arwing.leftState <= WINGSTATE_BROKEN) {
         sp4C.x += 2.5f;
         sp4C.y -= 2.5f;
     }
@@ -3730,10 +3730,10 @@ void Player_PerformLoop(Player* player) {
         sp58 = -50.0f;
     }
 
-    Math_SmoothStepToF(&player->wings.unk_04, sp58, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_08, sp58, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_0C, sp58, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->wings.unk_10, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_04, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_08, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_0C, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.unk_10, sp58, 0.3f, 100.0f, 0.0f);
 
     if (player->aerobaticPitch < 180.0f) {
         player->pos.y += 2.0f;
@@ -3857,20 +3857,19 @@ void Player_MoveArwingOnRails(Player* player) {
         if (sp5C.x > 5.0f) {
             sp74 = sp5C.x;
         }
-        Math_SmoothStepToF(&player->wings.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_04, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_08, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_0C, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->wings.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.unk_04, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.unk_08, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.unk_0C, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
     }
 
     sp84 = 0.1f;
-
     if ((player->zRotBank > 10.0f) && (stickX > 0)) {
         sp84 = 0.2f;
         gPlayerTurnRate *= 2.0f;
     }
-    if ((player->zRotBank < (-10.0f)) && (stickX < 0)) {
+    if ((player->zRotBank < -10.0f) && (stickX < 0)) {
         sp84 = 0.2f;
         gPlayerTurnRate *= 2.0f;
     }
@@ -3944,11 +3943,11 @@ void Player_MoveArwingOnRails(Player* player) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp68, &sp50);
 
-    if (player->wings.rightState <= WINGSTATE_BROKEN) {
+    if (player->arwing.rightState <= WINGSTATE_BROKEN) {
         player->vel.x += 2.5f;
         player->vel.y -= 2.5f;
     }
-    if (player->wings.leftState <= WINGSTATE_BROKEN) {
+    if (player->arwing.leftState <= WINGSTATE_BROKEN) {
         player->vel.x -= 2.5f;
         player->vel.y -= 2.5f;
     }
@@ -4417,8 +4416,8 @@ void Player_Setup(Player* playerx) {
         }
     }
 
-    player->wings.rightState = WINGSTATE_INTACT;
-    player->wings.leftState = WINGSTATE_INTACT;
+    player->arwing.rightState = WINGSTATE_INTACT;
+    player->arwing.leftState = WINGSTATE_INTACT;
 
     if (gExpertMode) {
         gLeftWingHealth[gPlayerNum] = 10;
@@ -4521,8 +4520,8 @@ void Player_Setup(Player* playerx) {
         if (D_ctx_80177C9C != 0) {
             player->shields = D_ctx_80177C9C - 1;
             gGoldRingCount[0] = D_ctx_80177C94;
-            player->wings.rightState = D_ctx_80177CAC;
-            player->wings.leftState = D_ctx_80177CB4;
+            player->arwing.rightState = D_ctx_80177CAC;
+            player->arwing.leftState = D_ctx_80177CB4;
             gRightWingHealth[0] = D_ctx_80177CBC;
             gLeftWingHealth[0] = D_ctx_80177CC4;
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
@@ -4791,7 +4790,7 @@ void Player_Setup(Player* playerx) {
     }
 
     if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
-        player->wings.unk_14 = -10.0f;
+        player->arwing.unk_14 = -10.0f;
     }
     gPauseEnabled = false;
 }
@@ -5031,11 +5030,11 @@ void Player_ArwingBoost(Player* player) {
                 }
             }
             if (gLevelType == LEVELTYPE_PLANET) {
-                player->wings.unk_28 += (35.0f - player->wings.unk_28) * 0.1f;
-                Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.5f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.5f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.5f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&player->wings.unk_10, 0.0f, 0.5f, 100.0f, 0.0f);
+                player->arwing.unk_28 += (35.0f - player->arwing.unk_28) * 0.1f;
+                Math_SmoothStepToF(&player->arwing.unk_04, 0.0f, 0.5f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.unk_08, 0.0f, 0.5f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.unk_0C, 0.0f, 0.5f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.5f, 100.0f, 0.0f);
             }
             player->boostMeter += sp28;
             if (player->boostMeter > 90.0f) {
@@ -5130,10 +5129,10 @@ void Player_ArwingBrake(Player* player) {
         }
 
         if (gLevelType == LEVELTYPE_PLANET) {
-            Math_SmoothStepToF(&player->wings.unk_04, 90.0f, 0.2f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_08, -90.0f, 0.2f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_0C, 90.0f, 0.2f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->wings.unk_10, -90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_04, 90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_08, -90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_0C, 90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.unk_10, -90.0f, 0.2f, 100.0f, 0.0f);
         }
 
         player->boostMeter += sp30;
@@ -5782,14 +5781,14 @@ void Player_Update(Player* player) {
         case PLAYERSTATE_1C8_LEVEL_INTRO:
             gShowHud = 0;
             gPauseEnabled = false;
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
             Cutscene_LevelStart(player);
             break;
 
         case PLAYERSTATE_1C8_ACTIVE:
             gShowHud = 1;
             Player_LowHealthMsg(player);
-            player->wings.modelId = 0;
+            player->arwing.modelId = 0;
             D_hud_80161704 = 255;
 
             if ((!gVersusMode || gVsMatchStart) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
@@ -5860,12 +5859,12 @@ void Player_Update(Player* player) {
                 gVsLockOnTimers[player->num][0] = gVsLockOnTimers[player->num][1] = gVsLockOnTimers[player->num][2] =
                     gVsLockOnTimers[player->num][3] = 0;
             }
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
 
-            Math_SmoothStepToF(&player->wings.unk_04, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->wings.unk_08, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->wings.unk_0C, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->wings.unk_10, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.unk_04, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.unk_08, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.unk_0C, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.1f, 5.0f, 0);
 
             Player_UpdateShields(player);
             Cutscene_UTurn(player);

@@ -1741,7 +1741,7 @@ void SectorX_LevelComplete(Player* player) {
             D_ctx_80177A48[2] = 100.0f;
             D_ctx_80177A48[4] = 100.0f;
             D_ctx_80177A48[5] = 0.0f;
-            player->wings.modelId = 1;
+            player->arwing.modelId = 1;
             Play_ClearObjectData();
 
         case 1:

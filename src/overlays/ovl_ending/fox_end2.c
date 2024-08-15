@@ -1077,7 +1077,7 @@ void Ending_801926D4(void) {
     if ((0 <= D_ending_80192E70) && (D_ending_80192E70 < 100)) {
         D_ending_80192E70 = 100;
         if (!gClearPlayerInfo) {
-            D_ending_80198590 = gPlayer[0].wings;
+            D_ending_80198590 = gPlayer[0].arwing;
         } else {
             D_ending_80198590.rightState = D_ending_80198590.leftState = WINGSTATE_INTACT;
         }

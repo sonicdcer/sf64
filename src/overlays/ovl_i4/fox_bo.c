@@ -1461,7 +1461,7 @@ void Bolse_LevelComplete(Player* player) {
                 gCsFrameCount = 0;
                 gGroundHeight = -10000.0f;
                 player->hideShadow = true;
-                player->wings.modelId = 1;
+                player->arwing.modelId = 1;
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_EXPLOSION, actor50->sfxSource, 0);
                 Audio_StartPlayerNoise(0);
             }
