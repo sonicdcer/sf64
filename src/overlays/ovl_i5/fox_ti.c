@@ -2208,7 +2208,7 @@ void Titania_TiPillar_Draw(TiPillar* this) {
                 }
             }
 
-            if (this->unk_44 == 0) {
+            if (this->unk_44 == 0) { // Can never be true, this condition is never going to pass.
                 gSPDisplayList(gMasterDisp++, D_TI1_7002270);
             } else {
                 gSPDisplayList(gMasterDisp++, D_TI1_7000A80);

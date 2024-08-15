@@ -3840,15 +3840,15 @@ bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
 }
 
 void SectorY_SyRobot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
-    Vec3f sp2C = { 40.0f, -30.0f, 0.0f };
-    Vec3f sp20;
+    Vec3f src = { 40.0f, -30.0f, 0.0f };
+    Vec3f dest;
     SyRobot* actor = (SyRobot*) thisx;
 
     if (limbIndex == 1) {
-        Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
-        actor->fwork[16] = sp20.x;
-        actor->fwork[17] = sp20.y;
-        actor->fwork[18] = sp20.z;
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+        actor->fwork[16] = dest.x;
+        actor->fwork[17] = dest.y;
+        actor->fwork[18] = dest.z;
     }
 }
 
@@ -3878,70 +3878,73 @@ void SectorY_SyRobot_Draw(SyRobot* this) {
     }
 }
 
-void SectorY_SyShip3Destroyed_Update(SyShip3Destroyed* scenery) {
+void SectorY_SyShip3Destroyed_Update(SyShip3Destroyed* this) {
     Vec3f src;
     Vec3f dest;
 
-    if (scenery->state == 0) {
-        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, scenery->sfxSource, 4);
-        scenery->state++;
+    if (this->state == 0) {
+        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, this->sfxSource, 4);
+        this->state++;
     }
 
     if ((gGameFrameCount % 4) == 0) {
-        Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateZ(gCalcMatrix, scenery->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
         src.x = RAND_FLOAT_CENTERED(100.0f) + 500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -150.0f;
         src.z = 90.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+
         src.x = RAND_FLOAT_CENTERED(100.0f) + -500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f);
         src.z = 80.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+
         src.x = RAND_FLOAT_CENTERED(100.0f) + 500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -50.0f;
         src.z = 1900.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+
         src.x = RAND_FLOAT_CENTERED(100.0f) + -1000.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -250.0f;
         src.z = 1100.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
     }
 }
 
-void SectorY_SyShip4Destroyed_Update(SyShip2Destroyed* scenery) {
+void SectorY_SyShip4Destroyed_Update(SyShip2Destroyed* this) {
     Vec3f src;
     Vec3f dest;
 
-    if (scenery->state == 0) {
-        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, scenery->sfxSource, 4);
-        scenery->state++;
+    if (this->state == 0) {
+        AUDIO_PLAY_SFX(NA_SE_OB_BROKEN_SPARK_L, this->sfxSource, 4);
+        this->state++;
     }
 
     if ((gGameFrameCount % 4) == 0) {
-        Matrix_RotateY(gCalcMatrix, scenery->obj.rot.y * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, scenery->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateZ(gCalcMatrix, scenery->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
         src.x = RAND_FLOAT_CENTERED(100.0f) + -800.0f;
         src.y = RAND_FLOAT_CENTERED(300.0f) + -100.0f;
         src.z = RAND_FLOAT_CENTERED(5000.0f) + 500.0f;
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.3f, 5);
+        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.3f, 5);
         src.x = RAND_FLOAT_CENTERED(100.0f) + -600.0f;
         src.y = RAND_FLOAT_CENTERED(250.0f) + 300.0f;
         src.z = RAND_FLOAT_CENTERED(1500.0f) + -1650.0f;
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(scenery->obj.pos.x + dest.x, scenery->obj.pos.y + dest.y, scenery->obj.pos.z + dest.z,
-                               scenery->effectVel.x, scenery->effectVel.y, scenery->effectVel.z, 0.2f, 5);
+        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
     }
 }

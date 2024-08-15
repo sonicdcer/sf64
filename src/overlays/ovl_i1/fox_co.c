@@ -2747,7 +2747,7 @@ bool Corneria_CoDoors_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
 void Corneria_CoDoors_Draw(CoDoors* this) {
     Vec3f jointTable[10];
 
-    Animation_GetFrameData(&D_CO_602AA7C, 0, jointTable);
+    Animation_GetFrameData(&aCoDoorsAnim, 0, jointTable);
     Animation_DrawSkeleton(3, aCoDoorsSkel, jointTable, Corneria_CoDoors_OverrideLimbDraw, NULL, this, gCalcMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }

@@ -197,7 +197,7 @@ extern u16 D_Tex_800DACB8[][32];
 extern u16 D_Tex_800D99F8[];
 extern u16 gTextCharPalettes[];
 extern Gfx gRcpInitDL[];
-extern Gfx D_Gfx_800DAC20[];
+extern Gfx aCoHighwayShadowDL[];
 extern Gfx D_Gfx_800D9688[];
 extern u8 D_Tex_800DB4B8[];
 extern Gfx D_Gfx_800D94D0[];

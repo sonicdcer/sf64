@@ -677,14 +677,14 @@ D_AQ_6030BAC:
 aAqActor188Hitbox:
   { type: SF64:HITBOX, offset: 0x6030BE0, symbol: aAqActor188Hitbox }
 
-D_AQ_6030BFC:
-  { type: SF64:HITBOX, offset: 0x6030BFC, symbol: D_AQ_6030BFC }
+aAqActor255Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030BFC, symbol: aAqActor255Hitbox }
 
-D_AQ_6030C18:
-  { type: SF64:HITBOX, offset: 0x6030C18, symbol: D_AQ_6030C18 }
+aAqActor256Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030C18, symbol: aAqActor256Hitbox }
 
-D_AQ_6030C44:
-  { type: SF64:HITBOX, offset: 0x6030C44, symbol: D_AQ_6030C44 }
+aAqActor257Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030C44, symbol: aAqActor257Hitbox }
 
 aAqCoralReef1Hitbox:
   { type: SF64:HITBOX, offset: 0x6030C60, symbol: aAqCoralReef1Hitbox }

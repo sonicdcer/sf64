@@ -2722,8 +2722,8 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
 void Macbeth_MaTower_Draw(Scenery* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_MA_60253E0);
-    gSPDisplayList(gMasterDisp++, D_MA_601C000);
+    gSPDisplayList(gMasterDisp++, aMaTowerBottomDL);
+    gSPDisplayList(gMasterDisp++, aMaTowerTopDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
@@ -2738,46 +2738,46 @@ void Macbeth_IndicatorSign_Draw(Scenery* this) {
 
     switch (this->obj.id) {
         case OBJ_SCENERY_MA_INDICATOR_SIGN:
-            gSPDisplayList(gMasterDisp++, D_MA_60066A0);
+            gSPDisplayList(gMasterDisp++, aMaIndicatorSignDL);
             break;
         case OBJ_SCENERY_MA_DISTANCE_SIGN_1:
-            gSPDisplayList(gMasterDisp++, D_MA_6007430);
+            gSPDisplayList(gMasterDisp++, aMaDistanceSign1DL);
             break;
         case OBJ_SCENERY_MA_DISTANCE_SIGN_2:
-            gSPDisplayList(gMasterDisp++, D_MA_6007360);
+            gSPDisplayList(gMasterDisp++, aMaDistanceSign2DL);
             break;
         case OBJ_SCENERY_MA_DISTANCE_SIGN_3:
-            gSPDisplayList(gMasterDisp++, D_MA_6007290);
+            gSPDisplayList(gMasterDisp++, aMaDistanceSign3DL);
             break;
         case OBJ_SCENERY_MA_DISTANCE_SIGN_4:
-            gSPDisplayList(gMasterDisp++, D_MA_60071C0);
+            gSPDisplayList(gMasterDisp++, aMaDistanceSign4DL);
             break;
         case OBJ_SCENERY_MA_DISTANCE_SIGN_5:
-            gSPDisplayList(gMasterDisp++, D_MA_6007500);
+            gSPDisplayList(gMasterDisp++, aMaDistanceSign5DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_1:
-            gSPDisplayList(gMasterDisp++, D_MA_600AD50);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch1DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_2:
-            gSPDisplayList(gMasterDisp++, D_MA_600AA70);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch2DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_3:
-            gSPDisplayList(gMasterDisp++, D_MA_6003070);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch3DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_4:
-            gSPDisplayList(gMasterDisp++, D_MA_600A7D0);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch4DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_5:
-            gSPDisplayList(gMasterDisp++, D_MA_600A4D0);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch5DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_6:
-            gSPDisplayList(gMasterDisp++, D_MA_600A1F0);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch6DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_7:
-            gSPDisplayList(gMasterDisp++, D_MA_6009F10);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch7DL);
             break;
         case OBJ_SCENERY_MA_RAILROAD_SWITCH_8:
-            gSPDisplayList(gMasterDisp++, D_MA_6009C50);
+            gSPDisplayList(gMasterDisp++, aMaRailroadSwitch8DL);
             break;
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -3777,9 +3777,9 @@ void Macbeth_MaProximityLight_Draw(MaProximityLight* this) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_34);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->vel.x, 0, 0, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_MA_6010700);
+    gSPDisplayList(gMasterDisp++, aMaProximityLightSidesDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
-    gSPDisplayList(gMasterDisp++, D_MA_601F270);
+    gSPDisplayList(gMasterDisp++, aMaProximityLightTopDL);
 }
 
 void Macbeth_801A67BC(s32 arg0) {

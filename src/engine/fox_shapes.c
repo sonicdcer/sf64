@@ -9,7 +9,7 @@ Vtx D_Vtx_800D94A0[] = {
 };
 
 Gfx D_Gfx_800D94D0[] = {
-    // used in fox_ti for the triangular light rays before firing his lazor
+    // used in fox_ti for the triangular light rays before firing his laser
     gsSPVertex(D_Vtx_800D94A0, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -42,7 +42,7 @@ Vtx D_Vtx_800D9658[] = {
 };
 
 Gfx D_Gfx_800D9688[] = {
-    // used fox_fade for unused spinning fade
+    // used in fox_fade for unused spinning fade
     gsSPVertex(D_Vtx_800D9658, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -208,7 +208,7 @@ u16 D_Tex_800D99F8[1024] = {
     0xFFFF, 0xFFFF,
 };
 
-u16 D_Tex_800DA1F8[1024] = {
+u16 aCoHighwayShadowTex[1024] = {
     0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
     0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
     0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001, 0x0001,
@@ -345,19 +345,19 @@ Gfx D_Gfx_800DAB80[] = {
     gsSPEndDisplayList(),
 };
 
-Vtx D_Vtx_800DABE0[] = {
+Vtx aCoHighwayShadowVTX[] = {
     VTX(-170, 0, -170, 0, 255, 0, 127, 0, 0),
     VTX(170, 0, -170, 255, 255, 0, 127, 0, 0),
     VTX(170, 0, 170, 255, 0, 0, 127, 0, 0),
     VTX(-179, 0, 170, 0, 0, 0, 127, 0, 0),
 };
 
-Gfx D_Gfx_800DAC20[] = {
+Gfx aCoHighwayShadowDL[] = {
     // used in fox_edisplay
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 0, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 3, 3,
                   G_TX_NOLOD, G_TX_NOLOD),
-    gsDPLoadTileTexture(D_Tex_800DA1F8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8),
-    gsSPVertex(D_Vtx_800DABE0, 4, 0),
+    gsDPLoadTileTexture(aCoHighwayShadowTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8),
+    gsSPVertex(aCoHighwayShadowVTX, 4, 0),
     gsSP1Triangle(0, 2, 1, 0),
     gsSP1Triangle(0, 3, 2, 0),
     gsSPEndDisplayList(),

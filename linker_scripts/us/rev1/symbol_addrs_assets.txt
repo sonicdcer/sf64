@@ -8,11 +8,11 @@ D_Gfx_800DA9F8 = 0x800DA9F8; // type:Gfx
 D_Gfx_800DAA98 = 0x800DAA98; // type:Gfx
 D_Gfx_800DAB28 = 0x800DAB28; // type:Gfx
 D_Gfx_800DAB80 = 0x800DAB80; // type:Gfx
-D_Gfx_800DAC20 = 0x800DAC20; // type:Gfx
+aCoHighwayShadowDL = 0x800DAC20; // type:Gfx
 D_Gfx_800DACA0 = 0x800DACA0; // type:Gfx
 gRcpInitDL = 0x800DBAA0; // type:Gfx
 
-D_Tex_800DA1F8 = 0x800DA1F8;
+aCoHighwayShadowTex = 0x800DA1F8;
 D_Tex_800D99F8 = 0x800D99F8;
 gTextCharPalettes = 0x800DBA20;
 
@@ -26,7 +26,7 @@ D_Vtx_800D9910 = 0x800D9910;
 D_Vtx_800DAA58 = 0x800DAA58;
 D_Vtx_800DAAF8 = 0x800DAAF8;
 D_Vtx_800DAB40 = 0x800DAB40;
-D_Vtx_800DABE0 = 0x800DABE0;
+aCoHighwayShadowVTX = 0x800DABE0;
 D_Vtx_800DAC80 = 0x800DAC80;
 
 D_Tex_800DACB8 = 0x800DACB8;

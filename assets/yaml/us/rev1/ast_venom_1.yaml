@@ -106,11 +106,11 @@ aVe1SceneryWall3DL:
 D_VE1_60074E8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60074E8, ctype: u16, symbol: D_VE1_60074E8 }
 
-D_VE1_6007CF0:
-  { type: GFX, offset: 0x6007CF0, symbol: D_VE1_6007CF0 }
+aVe1Wall2DL:
+  { type: GFX, offset: 0x6007CF0, symbol: aVe1Wall2DL }
 
-D_VE1_6007D90:
-  { type: GFX, offset: 0x6007D90, symbol: D_VE1_6007D90 }
+aVe1Wall1DL:
+  { type: GFX, offset: 0x6007D90, symbol: aVe1Wall1DL }
 
 D_VE1_6007E30:
   { type: SF64:ENVIRONMENT, offset: 0x6007E30, symbol: D_VE1_6007E30 }
@@ -133,11 +133,11 @@ D_VE1_601B474:
 D_VE1_601B4C4:
   { type: SF64:HITBOX, offset: 0x601B4C4, symbol: D_VE1_601B4C4 }
 
-aVe1SceneryWall1Hitbox:
-  { type: SF64:HITBOX, offset: 0x601B4E0, symbol: aVe1SceneryWall1Hitbox }
+Ve1Wall1Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B4E0, symbol: Ve1Wall1Hitbox }
 
-aVe1SceneryWall2Hitbox:
-  { type: SF64:HITBOX, offset: 0x601B4FC, symbol: aVe1SceneryWall2Hitbox }
+aVe1Wall2Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B4FC, symbol: aVe1Wall2Hitbox }
 
 aVe1SceneryWall3Hitbox:
   { type: SF64:HITBOX, offset: 0x601B518, symbol: aVe1SceneryWall3Hitbox }

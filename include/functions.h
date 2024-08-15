@@ -92,8 +92,8 @@ void Display_SetupPlayerSfxPos(Player*);
 void Display_Update(void);
 
 // fox_edata
-void Ve1SceneryWall1_Draw(Scenery*);
-void Ve1SceneryWall2_Draw(Scenery*);
+void Ve1Wall1_Draw(Scenery*);
+void Ve1Wall2_Draw(Scenery*);
 void Object_ApplyWaterDistortion(void);
 void AndJamesTrigger_Draw(Actor*);
 
@@ -230,7 +230,7 @@ void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVe
 void ActorEvent_SpawnEffect347(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
 void ActorEvent_8006F254(Actor*);
 void ActorEvent_Update(Actor*);
-s32 Scenery111_Draw(Scenery*);
+s32 SyShipDebris_Draw(Scenery*);
 void ActorEvent_Draw(Actor*);
 void func_enmy2_800763A4(Actor*);
 void ActorEvent_Dying(Actor*);

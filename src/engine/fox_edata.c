@@ -4,21 +4,22 @@
 
 f32* D_edata_800CF964[] = { NULL }; // Likely a scrapped array of scenery shadow boxes
 
-void Ve1SceneryWall1_Draw(Scenery* scenery) {
+void Ve1Wall1_Draw(Ve1Wall1* this) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_VE1_6007D90);
+    gSPDisplayList(gMasterDisp++, aVe1Wall1DL);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void Ve1SceneryWall2_Draw(Scenery* scenery) {
+void Ve1Wall2_Draw(Ve1Wall2* this) {
     RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_VE1_6007CF0);
+    gSPDisplayList(gMasterDisp++, aVe1Wall2DL);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void AndJamesTrigger_Draw(Actor* actor) {
+void AndJamesTrigger_Draw(AndJamesTrigger* this) {
+    /* Unimplemented */
 }

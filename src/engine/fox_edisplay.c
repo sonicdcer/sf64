@@ -53,6 +53,7 @@ void Graphics_SetScaleMtx(f32 scale) {
 void Sprite168_Draw(Sprite168* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 60);
+    // Missing DList
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
@@ -99,7 +100,7 @@ void ActorHopBot_Draw(ActorHopBot* this) {
 }
 
 void MeteoTunnel_Draw(MeTunnel* this) {
-    gSPDisplayList(gMasterDisp++, D_ME_601AE40);
+    gSPDisplayList(gMasterDisp++, aMeMeteoTunnelDL);
 }
 
 void Scenery_DrawTitaniaBones(Scenery* scenery) {
@@ -115,12 +116,12 @@ void func_edisplay_80059BB0(void* arg0) {
 }
 
 void CoIBeam_Draw(CoIBeam* this) {
-    gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
+    gSPDisplayList(gMasterDisp++, aCoIBeamDL);
 }
 
 void CoMoleMissile_Draw(CoMoleMissile* this) {
     if (this->animFrame != 0) {
-        gSPDisplayList(gMasterDisp++, D_CO_6032BC0);
+        gSPDisplayList(gMasterDisp++, CoMoleMissileDL);
     }
 }
 
@@ -128,6 +129,7 @@ void func_edisplay_80059C28(void* arg0) {
 }
 
 void Sprite167_Draw(Sprite167* this) {
+    /* Unimplemented */
 }
 
 void FogShadow_Draw(FogShadow* this) {
@@ -138,38 +140,38 @@ void FogShadow_Draw(FogShadow* this) {
         case OBJ_SCENERY_CO_STONE_ARCH:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
 
         case OBJ_SCENERY_CO_ARCH_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
 
         case OBJ_SCENERY_CO_HIGHWAY_1:
         case OBJ_SCENERY_CO_HIGHWAY_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
+            gSPDisplayList(gMasterDisp++, aCoHighwayShadowDL);
             break;
 
         case OBJ_SCENERY_CO_DOORS:
             Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
 
         case OBJ_SCENERY_CO_ARCH_1:
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
 
         case OBJ_SCENERY_CO_ARCH_3:
             Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
     }
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -178,11 +180,11 @@ void FogShadow_Draw(FogShadow* this) {
 void CoBuilding9_Draw(CoBuilding9* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_CO_602DA20);
+    gSPDisplayList(gMasterDisp++, aCoBuilding9DL);
 }
 
 void CoBuilding10_Draw(CoBuilding10* this) {
-    gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
+    gSPDisplayList(gMasterDisp++, aCoBuilding10DL);
 }
 
 // repurposed into OBJ_SCENERY_CO_BUILDING_6
@@ -600,19 +602,19 @@ void func_edisplay_8005B388(Actor199* this) {
 void MeMolarRock_Draw(MeMolarRock* this) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_ME_6024B60);
+    gSPDisplayList(gMasterDisp++, aMeMolarRockDL);
 }
 
 void MeMeteor2_Draw(MeMeteor2* this) {
     RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, aMeMeteor1DL);
+    gSPDisplayList(gMasterDisp++, aMeMeteorDL);
 }
 
 void MeLaserCannon1_Draw(MeLaserCannon1* this) {
     RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->unk_048, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_ME_6022920);
+    gSPDisplayList(gMasterDisp++, aMeLaserCannon1DL);
 }
 
 void ActorMissileSeek_Draw(Actor* missile) {
@@ -716,7 +718,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             break;
 
         case OBJ_BOSS_CO_GRANGA:
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
 
         case OBJ_BOSS_KA_SAUCERER:
@@ -759,7 +761,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gActors[index].scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_CO_6034B90);
+            gSPDisplayList(gMasterDisp++, aCoShadow1DL);
             break;
 
         case OBJ_ACTOR_TI_BOULDER:
