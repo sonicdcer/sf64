@@ -373,8 +373,8 @@ D_MA_6013060:
 D_MA_6013158:
   { type: TEXTURE, format: IA16, ctype: u16, width: 32, height: 32, offset: 0x6013158, symbol: D_MA_6013158}
 
-D_MA_6013960:
-  {type: GFX, offset: 0x6013960, symbol: D_MA_6013960}
+aMaGuillotineHousingDL:
+  {type: GFX, offset: 0x6013960, symbol: aMaGuillotineHousingDL}
 
 D_MA_6013F58:
   { type: TEXTURE, format: CI8, ctype: u8, width: 16, height: 16, offset: 0x6013F58, symbol: D_MA_6013F58, tlut: 0x6014058}
@@ -916,8 +916,8 @@ aMaActor207Hitbox:
 D_MA_6036818:
   {type: SF64:HITBOX, offset: 0x6036818, symbol: D_MA_6036818}
 
-D_MA_6036894:
-  {type: SF64:HITBOX, offset: 0x6036894, symbol: D_MA_6036894}
+aMaGuillotineHousingHitbox:
+  {type: SF64:HITBOX, offset: 0x6036894, symbol: aMaGuillotineHousingHitbox}
 
 aMaGuillotineHitbox:
   {type: SF64:HITBOX, offset: 0x60368E0, symbol: aMaGuillotineHitbox}

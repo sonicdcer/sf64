@@ -910,7 +910,7 @@ void func_tank_80046704(Player* player) {
                 }
             }
             if ((scenery->obj.id == OBJ_SCENERY_MA_BUILDING_1) || (scenery->obj.id == OBJ_SCENERY_MA_BUILDING_2) ||
-                (scenery->obj.id == OBJ_SCENERY_MA_TOWER) || (scenery->obj.id == OBJ_SCENERY_63) ||
+                (scenery->obj.id == OBJ_SCENERY_MA_TOWER) || (scenery->obj.id == OBJ_SCENERY_GUILLOTINE_HOUSING) ||
                 (scenery->obj.id == OBJ_SCENERY_MA_TRAIN_TRACK_13) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_2) ||
                 (scenery->obj.id == OBJ_SCENERY_MA_WALL_3) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_4)) {
                 s32 temp_v0;
@@ -937,7 +937,8 @@ void func_tank_80046704(Player* player) {
                         break;
                     case 3:
                         if ((scenery->obj.id == OBJ_SCENERY_MA_BUILDING_1) ||
-                            (scenery->obj.id == OBJ_SCENERY_MA_BUILDING_2) || (scenery->obj.id == OBJ_SCENERY_63) ||
+                            (scenery->obj.id == OBJ_SCENERY_MA_BUILDING_2) ||
+                            (scenery->obj.id == OBJ_SCENERY_GUILLOTINE_HOUSING) ||
                             (scenery->obj.id == OBJ_SCENERY_MA_WALL_2) || (scenery->obj.id == OBJ_SCENERY_MA_WALL_4)) {
                             Player_ApplyDamage(player, temp_v0, 5);
                         }
@@ -1346,7 +1347,7 @@ void func_tank_800481F4(Player* player) {
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_TI_BRIDGE) &&
                 (scenery->obj.id != OBJ_SCENERY_MA_TRAIN_TRACK_13) && (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_1) &&
-                (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_2) && (scenery->obj.id != OBJ_SCENERY_63) &&
+                (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_2) && (scenery->obj.id != OBJ_SCENERY_GUILLOTINE_HOUSING) &&
                 (scenery->obj.id != OBJ_SCENERY_MA_WALL_2) && (scenery->obj.id != OBJ_SCENERY_MA_WALL_3) &&
                 (scenery->obj.id != OBJ_SCENERY_MA_WALL_4) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_1) &&
                 (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_3) && (scenery->obj.id != OBJ_SCENERY_MA_FLOOR_2) &&

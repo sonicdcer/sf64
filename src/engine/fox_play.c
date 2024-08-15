@@ -1425,7 +1425,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_MA_BUILDING_2:
         case OBJ_SCENERY_MA_TOWER:
         case OBJ_SCENERY_MA_WALL_1:
-        case OBJ_SCENERY_63:
+        case OBJ_SCENERY_GUILLOTINE_HOUSING:
         case OBJ_SCENERY_MA_GUILLOTINE:
         case OBJ_SCENERY_MA_PROXIMITY_LIGHT:
         case OBJ_SCENERY_MA_WALL_2:

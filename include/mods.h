@@ -58,7 +58,7 @@
 
 /**
  * Spawner:
- * Spawn Scenery, Actors, Bosses, Sprites, Items, Effects or even Event Actors.
+ * Spawn Scenery, Actors, Bosses, Sprites, Items, Effects and even Event Actors.
  * 
  * Controls:
  * D-Pad left and right to set the object Id.
