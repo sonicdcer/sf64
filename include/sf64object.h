@@ -1127,11 +1127,11 @@ typedef Actor Actor188;
 typedef Actor ActorDebris;
 typedef Actor ActorMissileSeekTeam;
 typedef Actor ActorMissileSeekPlayer;
-typedef Actor ActorSkibot;
+typedef Actor CoSkibot;
 typedef Actor CoRadar;
 typedef Actor MeMora;
 typedef Actor ActorCutscene;
-typedef Actor ActorMoleMissile;
+typedef Actor CoMoleMissile;
 typedef Actor ActorAllRange;
 typedef Actor ActorTeamBoss; // Teammates in a boss battle
 typedef Actor Actor199;

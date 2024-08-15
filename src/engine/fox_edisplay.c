@@ -118,7 +118,7 @@ void CoIBeam_Draw(CoIBeam* this) {
     gSPDisplayList(gMasterDisp++, D_CO_6023AC0);
 }
 
-void ActorMoleMissile_Draw(ActorMoleMissile* this) {
+void CoMoleMissile_Draw(CoMoleMissile* this) {
     if (this->animFrame != 0) {
         gSPDisplayList(gMasterDisp++, D_CO_6032BC0);
     }
@@ -133,33 +133,39 @@ void Sprite167_Draw(Sprite167* this) {
 void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_47(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 180);
+
     switch (this->sceneryId) {
         case OBJ_SCENERY_CO_STONE_ARCH:
             Matrix_Scale(gGfxMatrix, 2.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
+
         case OBJ_SCENERY_CO_ARCH_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.7f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
+
         case OBJ_SCENERY_CO_HIGHWAY_1:
         case OBJ_SCENERY_CO_HIGHWAY_2:
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 10.55f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_Gfx_800DAC20);
             break;
+
         case OBJ_SCENERY_CO_DOORS:
             Matrix_Scale(gGfxMatrix, 1.6f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
+
         case OBJ_SCENERY_CO_ARCH_1:
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
+
         case OBJ_SCENERY_CO_ARCH_3:
             Matrix_Scale(gGfxMatrix, 2.2f, 1.0f, 1.4f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -169,19 +175,19 @@ void FogShadow_Draw(FogShadow* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void CoBuilding9_Draw(Scenery* scenery) {
+void CoBuilding9_Draw(CoBuilding9* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -95.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_CO_602DA20);
 }
 
-void CoBuilding10_Draw(Scenery* scenery) {
+void CoBuilding10_Draw(CoBuilding10* this) {
     gSPDisplayList(gMasterDisp++, D_CO_6035DA0);
 }
 
 // repurposed into OBJ_SCENERY_CO_BUILDING_6
-void func_edisplay_8005A010(Sprite* sprite) {
-    if (!sprite->toLeft) {
+void func_edisplay_8005A010(Sprite* this) {
+    if (!this->toLeft) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aCoBuilding6DL);
@@ -245,19 +251,23 @@ void ActorDebris_Draw(ActorDebris* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_arwing_3016660);
             break;
+
         case 1:
             Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_arwing_3015D80);
             break;
+
         case 2:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_arwing_30155E0);
             break;
+
         case 3:
             gSPDisplayList(gMasterDisp++, D_arwing_3011720);
             break;
+
         case 4:
             Graphics_SetScaleMtx(this->scale);
             if ((this->index % 2) != 0) {
@@ -266,10 +276,12 @@ void ActorDebris_Draw(ActorDebris* this) {
                 gSPDisplayList(gMasterDisp++, D_1024290);
             }
             break;
+
         case 39:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFAC4[this->unk_048]);
             break;
+
         case 40:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
             switch (this->unk_048) {
@@ -287,6 +299,7 @@ void ActorDebris_Draw(ActorDebris* this) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_33);
                     break;
             }
+
             if (gCurrentLevel != LEVEL_SOLAR) {
                 gSPDisplayList(gMasterDisp++, D_TI_801B769C[this->unk_046]);
             } else {
@@ -303,25 +316,31 @@ void ActorDebris_Draw(ActorDebris* this) {
                 gSPDisplayList(gMasterDisp++, D_edisplay_800CFB40[this->unk_046]);
             }
             break;
+
         case 41:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFADC[this->unk_048]);
             break;
+
         case 42:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFB08[this->unk_048]);
             break;
+
         case 43:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFB14[this->unk_048]);
             break;
+
         case 44:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFB28[this->unk_048]);
             break;
+
         case 45:
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
             break;
+
         case 46:
             if ((this->unk_048 == 2) || (this->unk_048 == 3) || (this->unk_048 == 4)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_33);
@@ -329,19 +348,24 @@ void ActorDebris_Draw(ActorDebris* this) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, D_TI_801B7584[this->unk_048]);
             break;
+
         case 47:
             gSPDisplayList(gMasterDisp++, D_TI_801B7608[this->unk_048]);
             break;
+
         case 48:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFB64[this->unk_048]);
             break;
+
         case 49:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFB88[this->unk_048]);
             break;
+
         case 50:
             Graphics_SetScaleMtx(0.7f);
+
             if (this->iwork[1] == 1) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
@@ -350,6 +374,7 @@ void ActorDebris_Draw(ActorDebris* this) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 Graphics_SetScaleMtx(0.7f);
             }
+
             switch (this->iwork[0]) {
                 case 0:
                     gSPDisplayList(gMasterDisp++, D_VE1_90234D0);
@@ -364,31 +389,38 @@ void ActorDebris_Draw(ActorDebris* this) {
                     gSPDisplayList(gMasterDisp++, D_VE1_9010FD0);
                     break;
             }
+
             if (this->iwork[1] != 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Graphics_SetScaleMtx(0.7f);
             }
             break;
+
         case 51:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFBA8[this->unk_048]);
             break;
+
         case 52:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFBE4[this->unk_048]);
             break;
+
         case 53:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFC0C[this->unk_048]);
             break;
+
         case 54:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFC40[this->unk_048]);
             break;
+
         case 55:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFC50[this->unk_048]);
             break;
+
         case 56:
             Graphics_SetScaleMtx(this->scale);
             RCP_SetupDL(&gMasterDisp, SETUPDL_41);
@@ -396,22 +428,27 @@ void ActorDebris_Draw(ActorDebris* this) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, 255);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFC64[this->unk_048]);
             break;
+
         case 58:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_AQ_60148B0);
             break;
+
         case 59:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_edisplay_800CFC7C[this->unk_048]);
             break;
+
         case 70:
             gSPDisplayList(gMasterDisp++, D_10177C0);
             break;
+
         case 57:
             gSPDisplayList(gMasterDisp++, D_VE1_8019A008[this->unk_048]);
             break;
+
         default:
             if (this->state >= 10) {
                 if (this->state == 36) {
@@ -423,35 +460,38 @@ void ActorDebris_Draw(ActorDebris* this) {
     }
 }
 
-void Actor_DrawEngineAndContrails(Actor* actor) {
+void Actor_DrawEngineAndContrails(Actor* this) {
     f32 sp5C;
     f32 temp1;
     f32 sp54;
     s32 pad[5]; // fake? seems like a lot of padding
 
-    if ((actor->iwork[11] != 0) && (actor->obj.status == OBJ_ACTIVE)) {
+    if ((this->iwork[11] != 0) && (this->obj.status == OBJ_ACTIVE)) {
         temp1 = 652.5f * 0.001f; // 0.65250003f;
-        if (actor->iwork[11] >= 2) {
+        if (this->iwork[11] >= 2) {
             temp1 = 1.3050001f;
         }
-        Math_SmoothStepToF(&actor->fwork[29], temp1, 0.3f, 5.0f, 0.0f);
-        sp5C = actor->fwork[29];
+
+        Math_SmoothStepToF(&this->fwork[29], temp1, 0.3f, 5.0f, 0.0f);
+
+        sp5C = this->fwork[29];
         if ((gGameFrameCount % 2) != 0) {
             sp5C *= 1.111f;
         }
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, sp5C, sp5C * 0.7f, sp5C, MTXF_APPLY);
-        Matrix_RotateZ(gGfxMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -this->obj.rot.z * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -this->obj.rot.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -this->obj.rot.y * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         Display_DrawEngineGlow(gLevelType);
         Matrix_Pop(&gGfxMatrix);
     }
-    sp5C = actor->fwork[21];
+
+    sp5C = this->fwork[21];
     if ((sp5C != 0.0f) && (gLevelType == LEVELTYPE_PLANET)) {
         sp54 = 0.0f;
         if ((gGameFrameCount % 2) != 0) {
@@ -507,23 +547,23 @@ void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
     }
 }
 
-void func_edisplay_8005B388(Actor199* actor) {
-    Vec3f sp3C = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp30;
+void func_edisplay_8005B388(Actor199* this) {
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
 
-    Matrix_MultVec3f(gGfxMatrix, &sp3C, &sp30);
+    Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-    if ((((fabsf(sp30.z) < 3000.0f) && (fabsf(sp30.x) < 3000.0f) && !gBossActive) ||
+    if ((((fabsf(dest.z) < 3000.0f) && (fabsf(dest.x) < 3000.0f) && !gBossActive) ||
          (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
          (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
-        if (actor->obj.id == OBJ_ACTOR_CUTSCENE) {
+        if (this->obj.id == OBJ_ACTOR_CUTSCENE) {
             if (((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
-                 (actor->index == 10)) ||
+                 (this->index == 10)) ||
                 ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gPlayer[0].csState >= 100) &&
-                 (gCurrentLevel == LEVEL_KATINA) && (actor->index == 1)) ||
+                 (gCurrentLevel == LEVEL_KATINA) && (this->index == 1)) ||
                 ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) &&
-                 (actor->state == 5))) {
+                 (this->state == 5))) {
                 D_edisplay_80161630.rightWingState = gPlayer[0].arwing.rightWingState;
                 D_edisplay_80161630.leftWingState = gPlayer[0].arwing.leftWingState;
             } else {
@@ -532,16 +572,16 @@ void func_edisplay_8005B388(Actor199* actor) {
         } else {
             D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftWingState = WINGSTATE_INTACT;
         }
-        D_edisplay_80161630.upperRightFlapYrot = actor->fwork[15];
-        D_edisplay_80161630.upperLeftFlapYrot = actor->fwork[16];
-        D_edisplay_80161630.bottomRightFlapYrot = actor->fwork[26];
-        D_edisplay_80161630.bottomLeftFlapYrot = actor->fwork[27];
+        D_edisplay_80161630.upperRightFlapYrot = this->fwork[15];
+        D_edisplay_80161630.upperLeftFlapYrot = this->fwork[16];
+        D_edisplay_80161630.bottomRightFlapYrot = this->fwork[26];
+        D_edisplay_80161630.bottomLeftFlapYrot = this->fwork[27];
         D_edisplay_80161630.laserGunsYpos = D_edisplay_80161630.laserGunsXpos = D_edisplay_80161630.wingsXrot =
             D_edisplay_80161630.wingsYrot = D_edisplay_80161630.windshieldXrot = D_edisplay_80161630.wingsZrot = 0.0f;
-        D_edisplay_80161630.unk_28 = actor->fwork[17];
-        D_edisplay_80161630.drawFace = actor->iwork[14];
-        D_edisplay_80161630.teamFaceXrot = actor->fwork[20];
-        D_edisplay_80161630.teamFaceYrot = actor->fwork[19];
+        D_edisplay_80161630.unk_28 = this->fwork[17];
+        D_edisplay_80161630.drawFace = this->iwork[14];
+        D_edisplay_80161630.teamFaceXrot = this->fwork[20];
+        D_edisplay_80161630.teamFaceYrot = this->fwork[19];
         if (gLevelType == LEVELTYPE_SPACE) {
             D_edisplay_80161630.upperRightFlapYrot = D_edisplay_80161630.bottomRightFlapYrot =
                 D_edisplay_80161630.upperLeftFlapYrot = D_edisplay_80161630.bottomLeftFlapYrot = 0.0f;
@@ -554,34 +594,35 @@ void func_edisplay_8005B388(Actor199* actor) {
     } else {
         gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
     }
-    Actor_DrawEngineAndContrails(actor);
+    Actor_DrawEngineAndContrails(this);
 }
 
-void MeMolarRock_Draw(Actor* actor) {
+void MeMolarRock_Draw(MeMolarRock* this) {
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_ME_6024B60);
 }
 
-void MeMeteor2_Draw(Actor* actor) {
-    RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
+void MeMeteor2_Draw(MeMeteor2* this) {
+    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->unk_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, aMeMeteor1DL);
 }
 
-void MeLaserCannon1_Draw(Actor* actor) {
-    RCP_SetupDL_29(actor->unk_046, gFogGreen, gFogBlue, gFogAlpha, actor->unk_048, gFogFar);
+void MeLaserCannon1_Draw(MeLaserCannon1* this) {
+    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->unk_048, gFogFar);
     gSPDisplayList(gMasterDisp++, D_ME_6022920);
 }
 
-void ActorMissileSeek_Draw(Actor* actor) {
+void ActorMissileSeek_Draw(Actor* missile) {
     f32 scale;
 
-    switch (actor->eventType) {
+    switch (missile->eventType) {
         case 0:
             gSPDisplayList(gMasterDisp++, D_1028230);
             break;
+
         case 1:
             if (gCurrentLevel == LEVEL_AREA_6) {
                 gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400B390);
@@ -590,24 +631,26 @@ void ActorMissileSeek_Draw(Actor* actor) {
             }
             break;
     }
+
     scale = 2.0f;
     if ((gGameFrameCount % 2) != 0) {
         scale = 1.7f;
     }
+
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-    actor->iwork[11] = 1;
+    missile->iwork[11] = 1;
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
-    Actor_DrawEngineGlow(actor, 2);
+    Actor_DrawEngineGlow(missile, 2);
 }
 
-void ActorSkibot_Draw(Actor* actor) {
+void CoSkibot_Draw(CoSkibot* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
-    Animation_GetFrameData(&D_CO_6029528, actor->animFrame, actor->vwork);
-    Animation_DrawSkeleton(1, D_CO_6029674, actor->vwork, NULL, NULL, actor, &gIdentityMatrix);
+    Animation_GetFrameData(&D_CO_6029528, this->animFrame, this->vwork);
+    Animation_DrawSkeleton(1, D_CO_6029674, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
-void ActorRadar_Draw(Actor* actor) {
-    if (actor->timer_0BC != 0) {
+void CoRadar_Draw(CoRadar* this) {
+    if (this->timer_0BC != 0) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
@@ -636,6 +679,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             }
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
+
         case OBJ_ACTOR_CUTSCENE:
         case OBJ_ACTOR_TEAM_BOSS:
         case OBJ_ACTOR_EVENT:
@@ -646,6 +690,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_102A010);
                     break;
+
                 case EVID_81:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_48);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
@@ -656,6 +701,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, D_1024AC0);
                     break;
+
                 default:
                     temp1 = D_edisplay_800CFCCC[gGameFrameCount % 8U];
                     temp2 = D_edisplay_800CFCCC[(gGameFrameCount + 4) % 8U];
@@ -668,9 +714,11 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     break;
             }
             break;
+
         case OBJ_BOSS_CO_GRANGA:
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
+
         case OBJ_BOSS_KA_SAUCERER:
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_64);
@@ -680,16 +728,19 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Graphics_SetScaleMtx(150.0f);
             gSPDisplayList(gMasterDisp++, D_102A8A0);
             break;
+
         case OBJ_BOSS_CO_CARRIER:
         case OBJ_BOSS_CO_CARRIER_LEFT:
         case OBJ_BOSS_CO_CARRIER_UPPER:
         case OBJ_BOSS_CO_CARRIER_BOTTOM:
             COS_DEG(gBosses[index].obj.rot.z);
+
             if (gGroundSurface == SURFACE_WATER) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 90);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             }
+
             switch (objId) {
                 case OBJ_BOSS_CO_CARRIER:
                     gSPDisplayList(gMasterDisp++, D_CO_6036840);
@@ -703,12 +754,14 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     break;
             }
             break;
+
         case OBJ_ACTOR_CO_SKIBOT:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 150);
             Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, gActors[index].scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_CO_6034B90);
             break;
+
         case OBJ_ACTOR_TI_BOULDER:
             RCP_SetupDL_48();
             RCP_SetupDL(&gMasterDisp, SETUPDL_69);
@@ -722,6 +775,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
+
         case OBJ_ACTOR_TI_DESERT_CRAWLER:
             RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -736,6 +790,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
+
         case OBJ_ACTOR_TI_BOMB:
             RCP_SetupDL(&gMasterDisp, SETUPDL_69);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
@@ -748,6 +803,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
+
         case OBJ_ACTOR_MA_BOULDER:
             RCP_SetupDL_48();
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
@@ -756,6 +812,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_1024AC0);
             break;
+
         case OBJ_BOSS_VE1_GOLEMECH:
             Venom1_Ve1Golemech_SetShadow(&gBosses[index]);
             break;
@@ -862,7 +919,9 @@ void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
     } else {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
+
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING);
+
     for (i = 0; i < 7; i++) {
         Matrix_Push(&gGfxMatrix);
         Matrix_RotateZ(gGfxMatrix, (i * 360.0f / 7.0f) * M_DTOR, MTXF_APPLY);
@@ -871,6 +930,7 @@ void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
         gSPDisplayList(gMasterDisp++, D_102FE80);
         Matrix_Pop(&gGfxMatrix);
     }
+
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING);
 }
 
@@ -946,14 +1006,17 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
     this->obj.pos.y += gCameraShakeY;
     func_edisplay_8005D008(&this->obj, this->info.drawType);
     this->obj.pos.y -= gCameraShakeY;
+
     if (this->info.drawType == 0) {
         if ((this->obj.id == OBJ_SCENERY_CO_TOWER) || (this->obj.id == OBJ_SCENERY_CO_ROCKWALL) ||
             (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_4) || (this->obj.id == OBJ_SCENERY_VE1_WALL_3)) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
+
             if (arg1 < 0) {
                 Object_ApplyWaterDistortion();
             }
+
             gSPDisplayList(gMasterDisp++, this->info.dList);
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         } else {
@@ -963,11 +1026,15 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
                 }
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
+
             Object_SetCullDirection(arg1);
+
             if (arg1 < 0) {
                 Object_ApplyWaterDistortion();
             }
+
             gSPDisplayList(gMasterDisp++, this->info.dList);
+
             if (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
@@ -983,6 +1050,7 @@ void Sprite_Draw(Sprite* this, s32 arg1) {
         this->obj.pos.y += gCameraShakeY;
         func_edisplay_8005D008(&this->obj, 0);
         this->obj.pos.y -= gCameraShakeY;
+
         if (this->info.drawType == 0) {
             gSPDisplayList(gMasterDisp++, this->info.dList);
         } else if (this->info.draw != NULL) {
@@ -1003,6 +1071,7 @@ void Actor_DrawOnRails(Actor* this) {
                 Zoness_ZoDodora_Draw(this);
                 return;
         }
+
         if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
             MeMora_Draw(this);
         } else {
@@ -1016,6 +1085,7 @@ void Actor_DrawOnRails(Actor* this) {
             } else {
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
             }
+
             if (this->info.drawType == 0) {
                 gSPDisplayList(gMasterDisp++, this->info.dList);
                 Object_UpdateSfxSource(this->sfxSource);
@@ -1028,6 +1098,7 @@ void Actor_DrawOnRails(Actor* this) {
                     Matrix_MultVec3f(gGfxMatrix, &sp34, &gTeamArrowsViewPos[this->aiType]);
                 }
             }
+
             if ((this->lockOnTimers[TEAM_ID_FOX] != 0) && (gReflectY > 0)) {
                 sp34.y += this->info.targetOffset;
                 Matrix_MultVec3f(gGfxMatrix, &sp34, &gLockOnTargetViewPos[TEAM_ID_FOX]);
@@ -1041,26 +1112,29 @@ void Actor_DrawOnRails(Actor* this) {
 
 void Actor_DrawAllRange(Actor* this) {
     s32 playerNum;
-    Vec3f sp50 = { 0.0f, 0.0f, 0.0f };
+    Vec3f srcViewPos = { 0.0f, 0.0f, 0.0f };
     f32 var_fa1;
     f32 var_ft5;
     f32 var_fv0;
     f32 var_fv1;
 
     sDrewActor = false;
+
     if (this->info.drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, gPathProgress, MTXF_APPLY);
         Matrix_Translate(gCalcMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_NEW);
         Matrix_Push(&gGfxMatrix);
         Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
-        Matrix_MultVec3f(gGfxMatrix, &sp50, &sViewPos);
+        Matrix_MultVec3f(gGfxMatrix, &srcViewPos, &sViewPos);
         Matrix_Pop(&gGfxMatrix);
+
         var_fv0 = 0.0f;
         var_fv1 = -12000.0f;
         if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) {
             var_fv0 = 1000.0f;
             var_fv1 = -25000.0f;
         }
+
         if ((var_fv0 > sViewPos.z) && (sViewPos.z > var_fv1)) {
             if (fabsf(sViewPos.x) < (fabsf(sViewPos.z * 0.5f) + 500.0f)) {
                 if (fabsf(sViewPos.y) < (fabsf(sViewPos.z * 0.5f) + 500.0f)) {
@@ -1078,7 +1152,8 @@ void Actor_DrawAllRange(Actor* this) {
         }
     } else {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
-        Matrix_MultVec3f(gGfxMatrix, &sp50, &sViewPos);
+        Matrix_MultVec3f(gGfxMatrix, &srcViewPos, &sViewPos);
+
         if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) ||
             ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) ||
@@ -1092,6 +1167,7 @@ void Actor_DrawAllRange(Actor* this) {
             var_fv1 = -20000.0f;
             var_fa1 = 0.5f;
         }
+
         if ((var_fv0 > sViewPos.z) && (sViewPos.z > var_fv1)) {
             if (fabsf(sViewPos.x) < (fabsf(sViewPos.z * var_fa1) + var_ft5)) {
                 if (fabsf(sViewPos.y) < (fabsf(sViewPos.z * var_fa1) + var_ft5)) {
@@ -1114,12 +1190,14 @@ void Actor_DrawAllRange(Actor* this) {
             }
         }
     }
+
     if (!sDrewActor) {
         this->lockOnTimers[gPlayerNum] = 0;
         if ((this->obj.id == OBJ_ACTOR_DEBRIS) || (this->obj.id == OBJ_ACTOR_AND_BRAIN_WASTE)) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
+
     for (playerNum = 0; playerNum < gCamCount; playerNum++) {
         if (this->lockOnTimers[playerNum] != 0) {
             gLockOnTargetViewPos[playerNum] = sViewPos;
@@ -1129,6 +1207,7 @@ void Actor_DrawAllRange(Actor* this) {
             }
         }
     }
+
     Object_SetSfxSourceToView(this->sfxSource, &sViewPos);
     this->iwork[24] = sDrewActor;
 }
@@ -1148,8 +1227,10 @@ void Boss_Draw(Boss* this, s32 arg1) {
     } else {
         func_edisplay_8005D1F0(&this->obj, this->info.drawType);
     }
+
     Matrix_MultVec3f(&D_edisplay_801615F0, &origin, &D_edisplay_801615D0);
     Object_SetSfxSourceToView(this->sfxSource, &D_edisplay_801615D0);
+
     if ((this->obj.id == OBJ_BOSS_KA_SAUCERER) || (this->obj.id == OBJ_BOSS_KA_FLBASE)) {
         var_fa1 = 6000.0f;
         var_fv0 = 6000.0f;
@@ -1166,6 +1247,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
         var_fv0 = 1000.0f;
         var_fv1 = -15000.0f;
     }
+
     sp3C = -1.0f;
     if ((D_edisplay_801615D0.z < var_fv0) && (var_fv1 < D_edisplay_801615D0.z)) {
         if (fabsf(D_edisplay_801615D0.x) < (fabsf(D_edisplay_801615D0.z * var_ft5) + var_fa1)) {
@@ -1187,6 +1269,7 @@ void Boss_Draw(Boss* this, s32 arg1) {
         }
     }
     D_edisplay_801615D0.y = sp3C;
+
     if (this->obj.id == OBJ_BOSS_BO_BASE) {
         this->vwork[30] = D_edisplay_801615D0;
         Display_SetSecondLight(&this->obj.pos);
@@ -1199,6 +1282,7 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
     if ((arg1 < 0) && (this->obj.pos.y < 7.0f)) {
         return;
     }
+
     if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER_1) || (this->obj.id == OBJ_EFFECT_369)) {
         func_edisplay_8005D3CC(&this->obj, this->unk_60.x, this->unk_60.y, this->unk_60.z, 0);
     } else if (this->info.unk_14 == -1) {
@@ -1208,14 +1292,15 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
     } else {
         func_edisplay_8005D008(&this->obj, 0);
     }
+
     if (this->info.draw != NULL) {
         this->info.draw(&this->obj);
     }
 }
 
 void Effect_DrawAllRange(Effect* this) {
-    Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp40;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
     f32 minZ;
     u8 drawn = false;
 
@@ -1225,15 +1310,18 @@ void Effect_DrawAllRange(Effect* this) {
     } else {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress, MTXF_APPLY);
     }
-    Matrix_MultVec3f(gGfxMatrix, &sp4C, &sp40);
+
+    Matrix_MultVec3f(gGfxMatrix, &src, &dest);
+
     if ((gCurrentLevel == LEVEL_SECTOR_Z) || (gCurrentLevel == LEVEL_BOLSE)) {
         minZ = -20000.0f;
     } else {
         minZ = -10000.0f;
     }
-    if ((0.0f > sp40.z) && (sp40.z > minZ)) {
-        if (fabsf(sp40.x) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
-            if (fabsf(sp40.y) < (fabsf(sp40.z * 0.5f) + 500.0f)) {
+
+    if ((dest.z < 0.0f) && (minZ < dest.z)) {
+        if (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 500.0f)) {
+            if (fabsf(dest.y) < (fabsf(dest.z * 0.5f) + 500.0f)) {
                 if (this->info.draw != NULL) {
                     Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -1245,23 +1333,27 @@ void Effect_DrawAllRange(Effect* this) {
             }
         }
     }
-    Object_SetSfxSourceToView(this->sfxSource, &sp40);
+
+    Object_SetSfxSourceToView(this->sfxSource, &dest);
+
     if (!drawn && (this->obj.id != OBJ_EFFECT_CLOUDS) && (this->obj.id != OBJ_EFFECT_TIMED_SFX) && (!gVersusMode)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
 void Item_Draw(Item* this, s32 arg1) {
-    Vec3f sp44 = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp38;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
     u8 drawn;
 
     Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress, MTXF_APPLY);
-    Matrix_MultVec3f(gGfxMatrix, &sp44, &sp38);
+    Matrix_MultVec3f(gGfxMatrix, &src, &dest);
+
     drawn = false;
-    if ((0.0f > sp38.z) && (sp38.z > -12000.0f)) {
-        if (fabsf(sp38.x) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
-            if (fabsf(sp38.y) < (fabsf(sp38.z * 0.5f) + 500.0f)) {
+
+    if ((dest.z < 0.0f) && (dest.z > -12000.0f)) {
+        if (fabsf(dest.x) < (fabsf(dest.z * 0.5f) + 500.0f)) {
+            if (fabsf(dest.y) < (fabsf(dest.z * 0.5f) + 500.0f)) {
                 if (this->info.draw != NULL) {
                     Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -1277,7 +1369,9 @@ void Item_Draw(Item* this, s32 arg1) {
             }
         }
     }
-    Object_SetSfxSourceToView(this->sfxSource, &sp38);
+
+    Object_SetSfxSourceToView(this->sfxSource, &dest);
+
     if (!drawn && (gLevelMode == LEVELMODE_ALL_RANGE) && (gCamCount == 1) && (this->obj.id < OBJ_ITEM_GOLD_RING) &&
         (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
         Object_Kill(&this->obj, this->sfxSource);
@@ -1286,16 +1380,19 @@ void Item_Draw(Item* this, s32 arg1) {
 
 void ActorAllRange_DrawShadow(Actor* actor) {
     Matrix_Translate(gGfxMatrix, actor->obj.pos.x, actor->fwork[25] + 3.0f, actor->obj.pos.z, MTXF_APPLY);
+
     if (gCurrentLevel == LEVEL_FORTUNA) {
         Matrix_RotateY(gGfxMatrix, actor->fwork[27], MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, actor->fwork[26], MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, actor->fwork[28], MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, -actor->fwork[27], MTXF_APPLY);
     }
+
     Matrix_Scale(gGfxMatrix, 1.4f, 0.0f, 1.4f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, (actor->obj.rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix, actor->obj.rot.z * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
+
     if (actor->aiType <= AI360_PEPPY) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -1318,6 +1415,7 @@ void ActorAllRange_DrawShadow(Actor* actor) {
 void Object_DrawShadow(s32 index, Object* obj) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_66);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 180);
+
     if (obj->id == OBJ_ACTOR_ALLRANGE) {
         ActorAllRange_DrawShadow(&gActors[index]);
     } else {
@@ -1326,23 +1424,28 @@ void Object_DrawShadow(s32 index, Object* obj) {
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gActors[index].fwork[1],
                                  obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
+
             case OBJ_ACTOR_TI_DESERT_CRAWLER:
             case OBJ_ACTOR_TI_BOMB:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gActors[index].fwork[0],
                                  obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
+
             case OBJ_BOSS_KA_SAUCERER:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f + gCameraShakeY, obj->pos.z, MTXF_APPLY);
                 break;
+
             default:
                 Matrix_Translate(gGfxMatrix, obj->pos.x, gGroundHeight + 2.0f, obj->pos.z + gPathProgress, MTXF_APPLY);
                 break;
         }
+
         if ((gGroundType != 4) || (obj->id == OBJ_ACTOR_EVENT) || (obj->id == OBJ_ACTOR_CUTSCENE) ||
             (obj->id == OBJ_ACTOR_TEAM_BOSS)) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);
         }
+
         if ((obj->id < OBJ_ACTOR_MAX) && (obj->id != OBJ_ACTOR_TI_BOULDER) &&
             (obj->id != OBJ_ACTOR_TI_DESERT_CRAWLER) && (obj->id != OBJ_ACTOR_TI_BOMB)) {
             Matrix_RotateX(gGfxMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
@@ -1375,37 +1478,37 @@ void Object_ClampSfxSource(f32* sfxSrc) {
 }
 
 void Object_SetSfxSourceToPos(f32* sfxSrc, Vec3f* pos) {
-    Vec3f sp2C;
-    Vec3f sp20;
+    Vec3f src;
+    Vec3f dest;
 
     if (gCamCount != 1) {
         sfxSrc[0] = sfxSrc[1] = sfxSrc[2] = 0.0f;
     } else {
         Matrix_RotateY(gCalcMatrix, gPlayer[0].camYaw, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, gPlayer[0].camPitch, MTXF_APPLY);
-        sp2C.x = pos->x - gPlayCamEye.x;
-        sp2C.y = pos->y - gPlayCamEye.y;
-        sp2C.z = pos->z + gPathProgress - gPlayCamEye.z;
-        Matrix_MultVec3f(gCalcMatrix, &sp2C, &sp20);
-        sfxSrc[0] = sp20.x;
-        sfxSrc[1] = sp20.y;
-        sfxSrc[2] = sp20.z;
+        src.x = pos->x - gPlayCamEye.x;
+        src.y = pos->y - gPlayCamEye.y;
+        src.z = pos->z + gPathProgress - gPlayCamEye.z;
+        Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+        sfxSrc[0] = dest.x;
+        sfxSrc[1] = dest.y;
+        sfxSrc[2] = dest.z;
     }
     Object_ClampSfxSource(sfxSrc);
 }
 
 void Object_UpdateSfxSource(f32* sfxSrc) {
-    Vec3f origin = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp20;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
     s32 pad;
 
     if (gCamCount != 1) {
         sfxSrc[0] = sfxSrc[1] = sfxSrc[2] = 0.0f;
     } else {
-        Matrix_MultVec3f(&D_edisplay_801615F0, &origin, &sp20);
-        sfxSrc[0] = sp20.x;
-        sfxSrc[1] = sp20.y;
-        sfxSrc[2] = sp20.z;
+        Matrix_MultVec3f(&D_edisplay_801615F0, &src, &dest);
+        sfxSrc[0] = dest.x;
+        sfxSrc[1] = dest.y;
+        sfxSrc[2] = dest.z;
     }
     Object_ClampSfxSource(sfxSrc);
 }
@@ -1442,12 +1545,15 @@ void Scenery360_Draw(Scenery360* this) {
         sp3C = 6000.0f;
         sp38 = 0.9f;
     }
+
     if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + gCameraShakeY, this->obj.pos.z, MTXF_APPLY);
     } else {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
     }
+
     Matrix_MultVec3f(gGfxMatrix, &sp54, &sp48);
+
     if ((sp48.z < sp44) && (sp40 < sp48.z)) {
         if (fabsf(sp48.y) < (fabsf(sp48.z * sp38) + sp3C)) {
             if (fabsf(sp48.x) < (fabsf(sp48.z * sp38) + sp3C)) {
@@ -1487,55 +1593,69 @@ void Display_SetSecondLight(Vec3f* pos) {
         sp9C.x = pos->x - gLight3x;
         sp9C.y = pos->y - gLight3y;
         sp9C.z = pos->z - gLight3z;
+
         lightDist = VEC3F_MAG(&sp9C);
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
             lightFade = 700.0f / lightDist;
         } else {
             lightFade = 200.0f / lightDist;
         }
+
         if (lightFade > 1.0f) {
             lightFade = 1.0f;
         }
+
         if (gGroundClipMode == 2) {
             lightFade = 1.0f;
         }
+
         sp94 = Math_Atan2F(sp9C.x, sp9C.z);
         sp98 = -Math_Atan2F(sp9C.y, sqrtf(SQ(sp9C.x) + SQ(sp9C.z)));
+
         Matrix_Push(&gCalcMatrix);
         Matrix_RotateZ(gCalcMatrix, gPlayer[gPlayerNum].camRoll * D_ctx_80177950 * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, -gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
         Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw + sp94, MTXF_APPLY);
         Matrix_RotateX(gCalcMatrix, sp98, MTXF_APPLY);
+
         sp6C.x = 0.0f;
         sp6C.y = 0.0f;
         sp6C.z = -100.0f;
+
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp84);
+
         Matrix_Pop(&gCalcMatrix);
+
         temp1 = gLight3R * gLight3Brightness * lightFade;
         temp2 = gLight3G * gLight3Brightness * lightFade;
         temp3 = gLight3B * gLight3Brightness * lightFade;
+
         Lights_SetTwoLights(&gMasterDisp, gLight1x, gLight1y, gLight1z, sp84.x, sp84.y, sp84.z, gLight1R, gLight1G,
                             gLight1B, temp1, temp2, temp3, gAmbientR, gAmbientG, gAmbientB);
     }
 }
 
 bool func_edisplay_8005F9DC(Vec3f* arg0) {
-    Vec3f sp2C;
-    Vec3f sp20;
+    Vec3f src;
+    Vec3f dest;
 
     Matrix_RotateY(gCalcMatrix, gPlayer[gPlayerNum].camYaw, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
-    sp2C.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
-    sp2C.y = arg0->y - gPlayer[gPlayerNum].cam.eye.y;
-    sp2C.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp2C, &sp20);
-    if ((sp20.z < 1000.0f) && (sp20.z > -13000.0f)) {
-        if (fabsf(sp20.x) < (fabsf(sp20.z * 0.4f) + 2000.0f)) {
-            if (fabsf(sp20.y) < (fabsf(sp20.y * 0.4f) + 2000.0f)) {
+
+    src.x = arg0->x - gPlayer[gPlayerNum].cam.eye.x;
+    src.y = arg0->y - gPlayer[gPlayerNum].cam.eye.y;
+    src.z = arg0->z - gPlayer[gPlayerNum].cam.eye.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+
+    if ((dest.z < 1000.0f) && (dest.z > -13000.0f)) {
+        if (fabsf(dest.x) < (fabsf(dest.z * 0.4f) + 2000.0f)) {
+            if (fabsf(dest.y) < (fabsf(dest.y * 0.4f) + 2000.0f)) {
                 return true;
             }
         }
     }
+
     return false;
 }
 
@@ -1552,9 +1672,11 @@ void Object_DrawAll(s32 arg0) {
 
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+
         if (gDrawBackdrop == 5) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
+
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) && (scenery360->obj.id != OBJ_SCENERY_147)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
@@ -1571,6 +1693,7 @@ void Object_DrawAll(s32 arg0) {
         }
     } else {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
+
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if (scenery->obj.status >= OBJ_ACTIVE) {
                 if (arg0 > 0) {
@@ -1583,6 +1706,7 @@ void Object_DrawAll(s32 arg0) {
             }
         }
     }
+
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id != OBJ_BOSS_BO_BASE_SHIELD)) {
             if ((boss->timer_05C % 2) == 0) {
@@ -1591,6 +1715,7 @@ void Object_DrawAll(s32 arg0) {
                 RCP_SetupDL_27();
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
             }
+
             Object_SetCullDirection(arg0);
             Matrix_Push(&gGfxMatrix);
             Boss_Draw(boss, arg0);
@@ -1602,20 +1727,25 @@ void Object_DrawAll(s32 arg0) {
             }
         }
     }
+
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
+
     for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
         if ((sprite->obj.status >= OBJ_ACTIVE) && func_enmy_80060FE4(&sprite->obj.pos, -12000.0f)) {
             Matrix_Push(&gGfxMatrix);
+
             if ((sprite->obj.id == OBJ_SPRITE_CO_RUIN1) || (sprite->obj.id == OBJ_SPRITE_CO_RUIN2)) {
                 RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             } else {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
+
             Sprite_Draw(sprite, arg0);
             Matrix_Pop(&gGfxMatrix);
         }
     }
+
     for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
         if (actor->obj.status >= OBJ_ACTIVE) {
             if ((actor->timer_0C6 % 2) == 0) {
@@ -1626,29 +1756,35 @@ void Object_DrawAll(s32 arg0) {
                 }
             } else {
                 RCP_SetupDL_27();
+
                 if (actor->scale >= 0.0f) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
                 }
             }
+
             switch (gLevelMode) {
                 case LEVELMODE_ON_RAILS:
                 case LEVELMODE_TURRET:
                     Matrix_Push(&gGfxMatrix);
+
                     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
                         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {
                         Display_SetSecondLight(&actor->obj.pos);
                     }
+
                     Object_SetCullDirection(arg0);
                     Actor_DrawOnRails(actor);
                     Matrix_Pop(&gGfxMatrix);
+
                     if (actor->drawShadow) {
                         Matrix_Push(&gGfxMatrix);
                         Object_DrawShadow(i, &actor->obj);
                         Matrix_Pop(&gGfxMatrix);
                     }
                     break;
+
                 case LEVELMODE_ALL_RANGE:
                     Matrix_Push(&gGfxMatrix);
                     Actor_DrawAllRange(actor);
@@ -1663,9 +1799,12 @@ void Object_DrawAll(s32 arg0) {
             }
         }
     }
+
     gDPSetFogColor(gMasterDisp++, gFogRed, gFogGreen, gFogBlue, gFogAlpha);
     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
+
     Lights_SetOneLight(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);
+
     for (i = 0, item = gItems; i < ARRAY_COUNT(gItems); i++, item++) {
         if (item->obj.status >= OBJ_ACTIVE) {
             Matrix_Push(&gGfxMatrix);
@@ -1675,6 +1814,7 @@ void Object_DrawAll(s32 arg0) {
             Matrix_Pop(&gGfxMatrix);
         }
     }
+
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
 }
@@ -1685,12 +1825,14 @@ void Effect_DrawAll(s32 arg0) {
     Effect* effect;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
+
     for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status >= OBJ_ACTIVE) {
             if (effect->info.unk_14 == 1) {
                 effect->obj.rot.y = RAD_TO_DEG(-gPlayer[gPlayerNum].camYaw);
                 effect->obj.rot.x = RAD_TO_DEG(gPlayer[gPlayerNum].camPitch);
             }
+
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
                 Matrix_Push(&gGfxMatrix);
                 Effect_DrawAllRange(effect);
@@ -1708,6 +1850,7 @@ void Effect_DrawAll(s32 arg0) {
             }
         }
     }
+
     for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id == OBJ_BOSS_BO_BASE_SHIELD)) {
             if ((boss->timer_05C % 2) == 0) {
@@ -1726,6 +1869,7 @@ void Effect_DrawAll(s32 arg0) {
 void Object_Draw(s32 arg0) {
     gReflectY = 1;
     Object_DrawAll(1);
+
     if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
         gReflectY = -1;
         Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
@@ -1776,6 +1920,7 @@ void TexturedLine_Draw(void) {
     } else {
         RCP_SetupDL_14();
     }
+
     for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
         TexturedLine* texLine = &gTexturedLines[i];
 
@@ -1828,7 +1973,9 @@ void TexturedLine_DrawPath(s32 index) {
     } else {
         RCP_SetupDL(&gMasterDisp, SETUPDL_14);
     }
+
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b, texLine->prim.a);
+
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, texLine->posAA.x, texLine->posAA.y, texLine->posAA.z, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, texLine->yRot, MTXF_APPLY);
@@ -1836,8 +1983,10 @@ void TexturedLine_DrawPath(s32 index) {
     Matrix_RotateZ(gGfxMatrix, texLine->xRot, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, texLine->xyScale, 1.0f, texLine->zScale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
+
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
+
     Matrix_Pop(&gGfxMatrix);
 }

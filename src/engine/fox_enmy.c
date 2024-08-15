@@ -1780,7 +1780,7 @@ void Actor_Despawn(Actor* this) {
     }
 }
 
-void ActorSkibot_Update(ActorSkibot* this) {
+void CoSkibot_Update(CoSkibot* this) {
     this->gravity = 0.4f;
 
     if (this->obj.pos.y <= gGroundHeight + 130.0f) {
@@ -1848,7 +1848,7 @@ void ActorSkibot_Update(ActorSkibot* this) {
     }
 }
 
-void func_enmy_8006684C(ActorSkibot* this) {
+void func_enmy_8006684C(CoSkibot* this) {
     s32 pad;
 
     if (this->timer_0BE != 0) {
@@ -1874,7 +1874,7 @@ void func_enmy_8006684C(ActorSkibot* this) {
     }
 }
 
-void ActorRadar_Update(CoRadar* this) {
+void CoRadar_Update(CoRadar* this) {
     if (this->timer_0BC != 0) {
         if (this->timer_0BC == 1) {
             Object_Kill(&this->obj, this->sfxSource);

@@ -396,7 +396,7 @@ void func_enmy2_8006BB1C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void ActorMoleMissile_Update(ActorMoleMissile* this) {
+void CoMoleMissile_Update(CoMoleMissile* this) {
     Vec3f sp44;
 
     switch (this->state) {
