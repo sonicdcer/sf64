@@ -1694,9 +1694,9 @@ void Cutscene_ArwingDown360(Player* player) {
             player->arwing.rightWingState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
-        if (player->arwing.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
-            player->arwing.leftState = WINGSTATE_BROKEN;
+            player->arwing.leftWingState = WINGSTATE_BROKEN;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) ||
@@ -1802,9 +1802,9 @@ void Cutscene_ArwingDownOnRails(Player* player) {
             func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
 
-        if (player->arwing.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
-            player->arwing.leftState = WINGSTATE_NONE;
+            player->arwing.leftWingState = WINGSTATE_NONE;
             func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) || (player->csEventTimer == 0)) &&

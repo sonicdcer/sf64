@@ -525,12 +525,12 @@ void func_edisplay_8005B388(Actor199* actor) {
                 ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) &&
                  (actor->state == 5))) {
                 D_edisplay_80161630.rightWingState = gPlayer[0].arwing.rightWingState;
-                D_edisplay_80161630.leftState = gPlayer[0].arwing.leftState;
+                D_edisplay_80161630.leftWingState = gPlayer[0].arwing.leftWingState;
             } else {
-                D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftState = WINGSTATE_INTACT;
+                D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftWingState = WINGSTATE_INTACT;
             }
         } else {
-            D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftState = WINGSTATE_INTACT;
+            D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftWingState = WINGSTATE_INTACT;
         }
         D_edisplay_80161630.unk_04 = actor->fwork[15];
         D_edisplay_80161630.unk_0C = actor->fwork[16];

@@ -2689,7 +2689,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 
         case EVC_WING_BROKEN:
             if ((gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN) ||
-                (gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN)) {
+                (gPlayer[0].arwing.leftWingState <= WINGSTATE_BROKEN)) {
                 ActorEvent_TriggerBranch(this);
             }
             break;

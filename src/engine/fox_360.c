@@ -200,7 +200,7 @@ void AllRange_GreatFoxRepair(Player* player) {
 
                 player->shields = Play_GetMaxShields();
                 player->arwing.rightWingState = WINGSTATE_INTACT;
-                player->arwing.leftState = WINGSTATE_INTACT;
+                player->arwing.leftWingState = WINGSTATE_INTACT;
 
                 if (gExpertMode) {
                     gRightWingHealth[0] = gLeftWingHealth[0] = 10;

@@ -2108,7 +2108,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
             func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
 
             if (((player[0].arwing.rightWingState <= WINGSTATE_BROKEN) ||
-                 (player[0].arwing.leftState <= WINGSTATE_BROKEN)) &&
+                 (player[0].arwing.leftWingState <= WINGSTATE_BROKEN)) &&
                 (player[0].form != FORM_LANDMASTER)) {
                 this->itemDrop = DROP_WING_REPAIR;
             } else if (gPlayer[0].shields < 128) {
@@ -2165,9 +2165,9 @@ void func_enmy_80067A40(void) {
         gRightWingFlashTimer[0] = 1050;
         gPlayer[0].arwing.rightWingState = WINGSTATE_INTACT;
     }
-    if (gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN) {
+    if (gPlayer[0].arwing.leftWingState <= WINGSTATE_BROKEN) {
         gLeftWingFlashTimer[0] = 1050;
-        gPlayer[0].arwing.leftState = WINGSTATE_INTACT;
+        gPlayer[0].arwing.leftWingState = WINGSTATE_INTACT;
     }
 
     if (gExpertMode) {
@@ -2261,7 +2261,7 @@ void ItemPickup_Update(Item* this) {
 
 void ItemLasers_Update(ItemLasers* this) {
     if (!gVersusMode &&
-        ((gPlayer[0].arwing.leftState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN))) {
+        ((gPlayer[0].arwing.leftWingState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN))) {
         this->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&this->info, this->obj.id);
         this->timer_48 = 2000;

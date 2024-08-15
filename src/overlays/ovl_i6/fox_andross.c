@@ -2600,9 +2600,9 @@ void Andross_AndAndross_Update(AndAndross* this) {
                     Andross_Effect396_Spawn2(this->obj.pos.x, this->obj.pos.y - 200.0f, this->obj.pos.z,
                                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f), 10.0f, 8);
                 }
-                if (player->arwing.leftState == 2) {
+                if (player->arwing.leftWingState == 2) {
                     gLeftWingHealth[0] = 0;
-                    player->arwing.leftState = 1;
+                    player->arwing.leftWingState = 1;
                     Andross_Effect396_Spawn2(this->obj.pos.x, this->obj.pos.y - 200.0f, this->obj.pos.z,
                                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT_CENTERED(10.0f), 10.0f, 9);
                 }

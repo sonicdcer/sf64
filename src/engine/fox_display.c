@@ -493,10 +493,10 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
             break;
 
         case 12:
-            if (arwing->rightWingState == WINGSTATE_NONE) { // should be leftState?
+            if (arwing->rightWingState == WINGSTATE_NONE) { // should be leftWingState?
                 *gfxPtr = NULL;
             }
-            if (arwing->leftState == WINGSTATE_BROKEN) {
+            if (arwing->leftWingState == WINGSTATE_BROKEN) {
                 *gfxPtr = D_arwing_3014BF0;
             }
             if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
@@ -512,7 +512,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
         case 5:
         case 6:
-            if (arwing->leftState != 2) {
+            if (arwing->leftWingState != 2) {
                 *gfxPtr = NULL;
             }
             if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
@@ -679,13 +679,13 @@ void Display_Arwing(Player* player, s32 reflectY) {
         }
     } else {
         if (gVersusMode) {
-            if ((player->arwing.rightWingState == WINGSTATE_INTACT) && (player->arwing.leftState == WINGSTATE_INTACT)) {
+            if ((player->arwing.rightWingState == WINGSTATE_INTACT) && (player->arwing.leftWingState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_300EE80);
             } else if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) &&
-                       (player->arwing.leftState == WINGSTATE_INTACT)) {
+                       (player->arwing.leftWingState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_3010A90);
             } else if ((player->arwing.rightWingState == WINGSTATE_INTACT) &&
-                       (player->arwing.leftState <= WINGSTATE_BROKEN)) {
+                       (player->arwing.leftWingState <= WINGSTATE_BROKEN)) {
                 gSPDisplayList(gMasterDisp++, D_versus_3011470);
             } else {
                 gSPDisplayList(gMasterDisp++, D_versus_300D550);
@@ -1232,7 +1232,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
 
-        if (player->arwing.leftState == WINGSTATE_INTACT) {
+        if (player->arwing.leftWingState == WINGSTATE_INTACT) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, sp5C, sp58, -100.0f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp50, MTXF_APPLY);
