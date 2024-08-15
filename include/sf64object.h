@@ -1111,9 +1111,9 @@ typedef Sprite Ve1BossTrigger2;
 typedef Sprite Ve1BossTrigger3;
 typedef Sprite Ve1BossTrigger4;
 typedef Sprite GfoxTarget;
-typedef Actor CoGaruda1;
-typedef Actor CoGaruda2;
-typedef Actor CoGaruda3;
+typedef Actor CoGaruda1; // Robot that pushes buildings.
+typedef Actor CoGaruda2; // Robot that throws I-Beams.
+typedef Actor CoGaruda3; // Robot that spins I-Beams.
 typedef Actor CoGarudaDestroy;
 typedef Actor MeMolarRock;
 typedef Actor MeMeteor1;
@@ -1248,7 +1248,7 @@ typedef Boss BoBase;
 typedef Boss BoBaseShield;
 typedef Boss BoBaseCore;
 typedef Boss Ve2Base;
-typedef Boss GreatFoxSZ;
+typedef Boss SzGreatFox;
 typedef Boss SyShogun;
 typedef Boss SoVulkain;
 typedef Boss KaSaucerer;
