@@ -130,7 +130,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 0.0f;
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
             gCsFrameCount = 0;
             /* fallthrough */
         case 1:
@@ -796,7 +796,7 @@ void Cutscene_AllRangeMode(Player* player) {
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 60.0f;
             D_ctx_80177A48[3] = 0.0f;
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
             player->csState++;
             gCsFrameCount = 0;
             /* fallthrough */
@@ -925,7 +925,7 @@ void Cutscene_CoComplete2(Player* player) {
             player->zRotBarrelRoll = 0.0f;
             player->zRotBank = 0.0f;
             player->boostSpeed = 0.0f;
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
             player->baseSpeed = 40.0f;
             /* fallthrough */
 

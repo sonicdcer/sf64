@@ -539,7 +539,7 @@ void func_edisplay_8005B388(Actor199* actor) {
         D_edisplay_80161630.laserGunsYpos = D_edisplay_80161630.laserGunsXpos = D_edisplay_80161630.wingsXrot =
             D_edisplay_80161630.wingsYrot = D_edisplay_80161630.windshieldXrot = D_edisplay_80161630.wingsZrot = 0.0f;
         D_edisplay_80161630.unk_28 = actor->fwork[17];
-        D_edisplay_80161630.teamFaceId = actor->iwork[14];
+        D_edisplay_80161630.drawFace = actor->iwork[14];
         D_edisplay_80161630.teamFaceXrot = actor->fwork[20];
         D_edisplay_80161630.teamFaceYrot = actor->fwork[19];
         if (gLevelType == LEVELTYPE_SPACE) {

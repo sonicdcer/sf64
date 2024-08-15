@@ -559,8 +559,8 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 }
 
 void Display_ArwingWings(ArwingInfo* arwing) {
-    Vec3f sp68[30];
-    s32 teamFaceId;
+    Vec3f frameTable[30];
+    s32 drawFace;
 
     Matrix_Push(&gGfxMatrix);
 
@@ -574,22 +574,22 @@ void Display_ArwingWings(ArwingInfo* arwing) {
                                arwing, &gIdentityMatrix);
     } else {
         if (gGameState == GSTATE_MENU) {
-            Animation_GetFrameData(&D_arwing_3015AF4, 0, sp68);
+            Animation_GetFrameData(&D_arwing_3015AF4, 0, frameTable);
         } else {
-            Animation_GetFrameData(&D_arwing_3015C28, 0, sp68);
+            Animation_GetFrameData(&D_arwing_3015C28, 0, frameTable);
         }
-        Animation_DrawSkeleton(1, D_arwing_3016610, sp68, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
+        Animation_DrawSkeleton(1, D_arwing_3016610, frameTable, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
                                &gIdentityMatrix);
     }
 
     D_display_800CA22C = false;
 
-    teamFaceId = arwing->teamFaceId;
+    drawFace = arwing->drawFace;
     if (D_display_800CA220 != 0) {
-        teamFaceId = 1;
+        drawFace = true;
     }
 
-    if (teamFaceId != 0) {
+    if (drawFace != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 6.4f, -16.5f, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, arwing->teamFaceYrot * M_DTOR, MTXF_APPLY);
@@ -600,9 +600,9 @@ void Display_ArwingWings(ArwingInfo* arwing) {
         }
         Matrix_SetGfxMtx(&gMasterDisp);
         if (gExpertMode) {
-            gSPDisplayList(gMasterDisp++, D_display_800CA27C[teamFaceId - 1]);
+            gSPDisplayList(gMasterDisp++, D_display_800CA27C[drawFace - 1]);
         } else {
-            gSPDisplayList(gMasterDisp++, D_display_800CA26C[teamFaceId - 1]);
+            gSPDisplayList(gMasterDisp++, D_display_800CA26C[drawFace - 1]);
         }
         Matrix_Pop(&gGfxMatrix);
     }

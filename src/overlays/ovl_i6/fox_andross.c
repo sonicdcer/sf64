@@ -3863,7 +3863,7 @@ void Andross_80193C4C(Player* player) {
     switch (player->csState) {
         case 0:
             gCsFrameCount = 0;
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
             D_ctx_80177A48[0] = 0.0f;
             if (player->aerobaticPitch > 180.0f) {
                 player->aerobaticPitch -= 360.0f;

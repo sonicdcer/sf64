@@ -3244,7 +3244,7 @@ void Solar_LevelComplete(Player* player) {
                 player->pos.y = 200.0f;
                 player->pos.z = -(gPathProgress - 500.0f);
                 player->csState++;
-                player->arwing.teamFaceId = 1;
+                player->arwing.drawFace = true;
 
                 Audio_StartPlayerNoise(0);
 

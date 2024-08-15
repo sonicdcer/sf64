@@ -5784,14 +5784,14 @@ void Player_Update(Player* player) {
         case PLAYERSTATE_1C8_LEVEL_INTRO:
             gShowHud = 0;
             gPauseEnabled = false;
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
             Cutscene_LevelStart(player);
             break;
 
         case PLAYERSTATE_1C8_ACTIVE:
             gShowHud = 1;
             Player_LowHealthMsg(player);
-            player->arwing.teamFaceId = 0;
+            player->arwing.drawFace = false;
             D_hud_80161704 = 255;
 
             if ((!gVersusMode || gVsMatchStart) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
@@ -5862,7 +5862,7 @@ void Player_Update(Player* player) {
                 gVsLockOnTimers[player->num][0] = gVsLockOnTimers[player->num][1] = gVsLockOnTimers[player->num][2] =
                     gVsLockOnTimers[player->num][3] = 0;
             }
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
 
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);

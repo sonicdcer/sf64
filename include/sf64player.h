@@ -140,7 +140,7 @@ typedef struct ArwingInfo {
     /* 0x20 */ f32 wingsYrot;
     /* 0x24 */ f32 wingsZrot;
     /* 0x28 */ f32 unk_28;
-    /* 0x2C */ u8 teamFaceId;
+    /* 0x2C */ u8 drawFace;
     /* 0x30 */ f32 teamFaceXrot;
     /* 0x34 */ f32 teamFaceYrot;
     /* 0x38 */ f32 windshieldXrot;

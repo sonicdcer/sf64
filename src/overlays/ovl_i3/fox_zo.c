@@ -4825,7 +4825,7 @@ void Zoness_LevelComplete(Player* player) {
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->csTimer = 20;
-                player->arwing.teamFaceId = 1;
+                player->arwing.drawFace = true;
                 player->baseSpeed = 0.0f;
                 player->rot.x = 0.0f;
                 player->rot.y = 0.0f;

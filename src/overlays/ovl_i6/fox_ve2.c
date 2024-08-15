@@ -315,7 +315,7 @@ void Venom2_LevelComplete(Player* player) {
             player->csState++;
             player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot =
                 player->arwing.bottomLeftFlapYrot = 0.0f;
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
 
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.1f;

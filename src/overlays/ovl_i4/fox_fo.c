@@ -682,7 +682,7 @@ void Fortuna_LevelComplete(Player* player) {
 
     switch (player->csState) {
         case -1:
-            player->arwing.teamFaceId = 1;
+            player->arwing.drawFace = true;
             player->rot.y = 0.0f;
             player->baseSpeed = 30.0f;
             player->yRot_114 = 180.0f;
@@ -841,7 +841,7 @@ void Fortuna_LevelComplete(Player* player) {
                 }
                 player->pos.z = -10000.0f;
                 gCsFrameCount = 0;
-                player->arwing.teamFaceId = 1;
+                player->arwing.drawFace = true;
                 player->wingPosition = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);

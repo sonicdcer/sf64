@@ -856,9 +856,9 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
     D_ending_80198590.laserGunsXpos = D_ending_80198590.wingsXrot;
 
     if ((arg0 > 520) && (arg0 < 720)) {
-        D_ending_80198590.teamFaceId = 1;
+        D_ending_80198590.drawFace = true;
     } else {
-        D_ending_80198590.teamFaceId = 0;
+        D_ending_80198590.drawFace = false;
     }
 
     D_ending_80198590.windshieldXrot = 0.0f;

@@ -2193,7 +2193,7 @@ void SectorY_LevelComplete(Player* player) {
                 D_ctx_80177A48[7] = 25.0f;
                 D_ctx_80177A48[8] = 500.0f;
                 D_ctx_80177A48[9] = 3600.0f;
-                player->arwing.teamFaceId = 1;
+                player->arwing.drawFace = true;
             }
             break;
 

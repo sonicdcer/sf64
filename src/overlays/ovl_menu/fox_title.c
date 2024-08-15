@@ -2258,7 +2258,7 @@ void Title_8018D2B8(s32 arg0) {
         arwing.bottomRightFlapYrot = arwing.upperLeftFlapYrot = arwing.bottomLeftFlapYrot = arwing.unk_28 = 0.0f;
 
     arwing.laserGunsYpos = D_menu_801B84E8[arg0].unk_28;
-    arwing.teamFaceId = D_menu_801B84E8[arg0].unk_34;
+    arwing.drawFace = D_menu_801B84E8[arg0].unk_34;
     arwing.teamFaceXrot = D_menu_801B84E8[arg0].unk_2C;
     arwing.teamFaceYrot = D_menu_801B84E8[arg0].unk_30;
     arwing.windshieldXrot = D_menu_801B84E8[arg0].unk_24;

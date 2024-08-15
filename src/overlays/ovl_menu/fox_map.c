@@ -2276,7 +2276,7 @@ void Map_801A116C(void) {
         // clang-format on
 
         arwing.laserGunsYpos = 0.0f;
-        arwing.teamFaceId = 1;
+        arwing.drawFace = true;
         arwing.teamFaceXrot = 0.0f;
         arwing.teamFaceYrot = 0.0f;
         arwing.windshieldXrot = 0.0f;
