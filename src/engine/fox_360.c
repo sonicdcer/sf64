@@ -170,7 +170,7 @@ void AllRange_GreatFoxRepair(Player* player) {
             player->pos.z = 0.0f;
             gCsCamAtZ = 0.0f;
             D_ctx_80177A48[0] = 1.0f;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             player->csState++;
             break;
 
@@ -230,7 +230,7 @@ void AllRange_GreatFoxRepair(Player* player) {
             player->rot.x += 0.4f;
             if (gCsFrameCount >= 130) {
                 player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
-                player->arwing.modelId = 0;
+                player->arwing.teamFaceId = 0;
                 player->unk_014 = 0;
                 player->unk_018 = 0;
                 player->unk_01C = 0;

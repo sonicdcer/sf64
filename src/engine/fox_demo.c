@@ -130,7 +130,7 @@ void Cutscene_WarpZoneComplete(Player* player) {
             D_ctx_80177A48[0] = 0.0f;
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 0.0f;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             gCsFrameCount = 0;
             /* fallthrough */
         case 1:
@@ -776,7 +776,7 @@ void Cutscene_AllRangeMode(Player* player) {
             }
         }
     }
-    player->arwing.unk_10 = 0.0f;
+    player->arwing.bottomLeftFlapYrot = 0.0f;
     player->arwing.bottomRightFlapYrot = 0.0f;
     player->arwing.upperLeftFlapYrot = 0.0f;
     player->arwing.upperRightFlapYrot = 0.0f;
@@ -796,7 +796,7 @@ void Cutscene_AllRangeMode(Player* player) {
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 60.0f;
             D_ctx_80177A48[3] = 0.0f;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             player->csState++;
             gCsFrameCount = 0;
             /* fallthrough */
@@ -921,11 +921,11 @@ void Cutscene_CoComplete2(Player* player) {
             player->arwing.upperRightFlapYrot = 0.0f;
             player->arwing.upperLeftFlapYrot = 0.0f;
             player->arwing.bottomRightFlapYrot = 0.0f;
-            player->arwing.unk_10 = 0.0f;
+            player->arwing.bottomLeftFlapYrot = 0.0f;
             player->zRotBarrelRoll = 0.0f;
             player->zRotBank = 0.0f;
             player->boostSpeed = 0.0f;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             player->baseSpeed = 40.0f;
             /* fallthrough */
 
@@ -1020,7 +1020,7 @@ void Cutscene_CoComplete2(Player* player) {
             if (player->csTimer == 0) {
                 player->csState = 1;
                 player->csTimer = 150;
-                player->arwing.unk_10 = 0.0f;
+                player->arwing.bottomLeftFlapYrot = 0.0f;
                 player->arwing.bottomRightFlapYrot = 0.0f;
                 player->arwing.upperLeftFlapYrot = 0.0f;
                 player->arwing.upperRightFlapYrot = 0.0f;
@@ -1451,7 +1451,7 @@ void Cutscene_UTurn(Player* player) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_10, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&player->aerobaticPitch, 190.0f, 0.1f, 6.0f, 0.001f);
 
@@ -1485,7 +1485,7 @@ void Cutscene_UTurn(Player* player) {
             sp58.z = -sp58.y;
 
             Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, sp58.z, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_10, sp58.z, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, sp58.z, 0.3f, 100.0f, 0.0f);
 
             player->unk_190 = 2.0f;
             player->cam.eye.x += player->vel.x * 0.1f;

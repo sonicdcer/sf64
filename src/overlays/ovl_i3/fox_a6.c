@@ -2653,7 +2653,7 @@ void Area6_LevelComplete(Player* player) {
         case 0:
             gCsFrameCount = 0;
             player->csState = 1;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             player->unk_194 = 5.0f;
             player->unk_190 = 2.0f;
             player->baseSpeed = 60.0f;

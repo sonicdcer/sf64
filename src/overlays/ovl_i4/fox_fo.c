@@ -676,13 +676,13 @@ void Fortuna_LevelComplete(Player* player) {
     player->arwing.upperRightFlapYrot = 0.0f;
     player->arwing.upperLeftFlapYrot = 0.0f;
     player->arwing.bottomRightFlapYrot = 0.0f;
-    player->arwing.unk_10 = 0.0f;
+    player->arwing.bottomLeftFlapYrot = 0.0f;
 
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);
 
     switch (player->csState) {
         case -1:
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             player->rot.y = 0.0f;
             player->baseSpeed = 30.0f;
             player->yRot_114 = 180.0f;
@@ -841,7 +841,7 @@ void Fortuna_LevelComplete(Player* player) {
                 }
                 player->pos.z = -10000.0f;
                 gCsFrameCount = 0;
-                player->arwing.modelId = 1;
+                player->arwing.teamFaceId = 1;
                 player->wingPosition = 1;
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 100);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 100);

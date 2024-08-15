@@ -845,25 +845,25 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     D_ending_80198590.unk_28 = 0.0f;
-    D_ending_80198590.unk_10 = D_ending_80198590.unk_28;
-    D_ending_80198590.unk_14 = 0.0f;
-    D_ending_80198590.upperLeftFlapYrot = D_ending_80198590.unk_10;
+    D_ending_80198590.bottomLeftFlapYrot = D_ending_80198590.unk_28;
+    D_ending_80198590.laserGunsYpos = 0.0f;
+    D_ending_80198590.upperLeftFlapYrot = D_ending_80198590.bottomLeftFlapYrot;
     D_ending_80198590.bottomRightFlapYrot = D_ending_80198590.upperLeftFlapYrot;
     D_ending_80198590.upperRightFlapYrot = D_ending_80198590.bottomRightFlapYrot;
-    D_ending_80198590.unk_24 = D_ending_80198590.upperRightFlapYrot;
-    D_ending_80198590.unk_20 = D_ending_80198590.unk_24;
-    D_ending_80198590.unk_1C = D_ending_80198590.unk_20;
-    D_ending_80198590.unk_18 = D_ending_80198590.unk_1C;
+    D_ending_80198590.wingsZrot = D_ending_80198590.upperRightFlapYrot;
+    D_ending_80198590.wingsYrot = D_ending_80198590.wingsZrot;
+    D_ending_80198590.wingsXrot = D_ending_80198590.wingsYrot;
+    D_ending_80198590.laserGunsXpos = D_ending_80198590.wingsXrot;
 
     if ((arg0 > 520) && (arg0 < 720)) {
-        D_ending_80198590.modelId = 1;
+        D_ending_80198590.teamFaceId = 1;
     } else {
-        D_ending_80198590.modelId = 0;
+        D_ending_80198590.teamFaceId = 0;
     }
 
-    D_ending_80198590.unk_38 = 0.0f;
-    D_ending_80198590.unk_30 = +D_ending_801985F0.x;
-    D_ending_80198590.unk_34 = -D_ending_801985F0.y;
+    D_ending_80198590.windshieldXrot = 0.0f;
+    D_ending_80198590.teamFaceXrot = +D_ending_801985F0.x;
+    D_ending_80198590.teamFaceYrot = -D_ending_801985F0.y;
 
     Display_ArwingWings(&D_ending_80198590);
 }

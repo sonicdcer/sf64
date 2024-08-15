@@ -2087,8 +2087,8 @@ void SectorY_LevelComplete(Player* player) {
             player->camRoll = 0.0f;
             player->baseSpeed = 40.0f;
             player->boostSpeed = 0.0f;
-            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
-                player->zRotBarrelRoll = player->zRotBank = 0.0f;
+            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot =
+                player->arwing.bottomLeftFlapYrot = player->zRotBarrelRoll = player->zRotBank = 0.0f;
             player->draw = true;
             D_ctx_80177A48[8] = Math_RadToDeg(
                 Math_Atan2F(gPlayer[0].cam.eye.x - boss->obj.pos.x, gPlayer[0].cam.eye.z - boss->obj.pos.z));
@@ -2193,13 +2193,13 @@ void SectorY_LevelComplete(Player* player) {
                 D_ctx_80177A48[7] = 25.0f;
                 D_ctx_80177A48[8] = 500.0f;
                 D_ctx_80177A48[9] = 3600.0f;
-                player->arwing.modelId = 1;
+                player->arwing.teamFaceId = 1;
             }
             break;
 
         case 3:
             if ((gCsFrameCount < 720) && gMsgCharIsPrinting) {
-                player->arwing.unk_30 = (f32) (gGameFrameCount & 2) * 5.0f;
+                player->arwing.teamFaceXrot = (f32) (gGameFrameCount & 2) * 5.0f;
             }
 
             gFillScreenAlphaTarget = 0;

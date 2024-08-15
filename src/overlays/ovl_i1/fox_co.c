@@ -2964,7 +2964,7 @@ void Corneria_LevelStart(Player* player) {
 
     Corneria_SpawnClouds();
 
-    player->arwing.unk_30 = 0;
+    player->arwing.teamFaceXrot = 0;
 
     switch (player->csState) {
         case 0: // LevelStart initialization
@@ -3037,7 +3037,7 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if ((player->csTimer < 190) && (player->csTimer > 150)) {
-                Math_SmoothStepToF(&player->arwing.unk_24, 2.0f, 0.2f, 0.5f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.wingsZrot, 2.0f, 0.2f, 0.5f, 0.0f);
             }
 
             if (player->csTimer < 150) {
@@ -3082,7 +3082,7 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                player->arwing.unk_30 = 5.0f;
+                player->arwing.teamFaceXrot = 5.0f;
             }
             break;
 
@@ -3094,7 +3094,7 @@ void Corneria_LevelStart(Player* player) {
             }
 
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                player->arwing.unk_30 = 5.0f;
+                player->arwing.teamFaceXrot = 5.0f;
             }
 
             gCsCamEyeY = player->pos.y + 10.0f;
@@ -3103,7 +3103,7 @@ void Corneria_LevelStart(Player* player) {
 
         case 4:
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                player->arwing.unk_30 = 5.0f;
+                player->arwing.teamFaceXrot = 5.0f;
             }
 
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.001f, 0.0f);
@@ -3250,9 +3250,9 @@ void Corneria_LevelStart(Player* player) {
             }
 
             // Fox's head rotates back and forth as he speaks.
-            player->arwing.unk_30 = 0.0f;
+            player->arwing.teamFaceXrot = 0.0f;
             if (gMsgCharIsPrinting && ((gGameFrameCount & 2) != 0)) {
-                player->arwing.unk_30 = 5.0f;
+                player->arwing.teamFaceXrot = 5.0f;
             }
 
             if (player->csTimer == 80) {
@@ -3366,7 +3366,7 @@ void Corneria_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, D_ctx_80177A48[2], 0.2f, 1.0f, 0.0f);
 
     player->arwing.bottomRightFlapYrot = player->arwing.upperRightFlapYrot;
-    player->arwing.unk_10 = player->arwing.upperLeftFlapYrot;
+    player->arwing.bottomLeftFlapYrot = player->arwing.upperLeftFlapYrot;
 
     player->cam.eye.y -= 3.0f;
     player->cam.at.y -= 3.0f;
@@ -3450,7 +3450,8 @@ void Corneria_LevelComplete1(Player* player) {
     f32 temp_fa1;
     f32 temp_deg;
 
-    player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 = 0.0f;
+    player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot =
+        player->arwing.bottomLeftFlapYrot = 0.0f;
 
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);

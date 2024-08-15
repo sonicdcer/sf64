@@ -4763,8 +4763,9 @@ void Zoness_LevelComplete(Player* player) {
             player->camRoll = 0.0f;
             player->baseSpeed = 40.0f;
             player->draw = true;
-            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
-                player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
+            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot =
+                player->arwing.bottomLeftFlapYrot = player->zRotBarrelRoll = player->zRotBank = player->boostSpeed =
+                    0.0f;
 
             gCsCamEyeX = player->cam.eye.x;
             gCsCamEyeY = player->cam.eye.y;
@@ -4824,7 +4825,7 @@ void Zoness_LevelComplete(Player* player) {
                 Audio_KillSfxBySource(player->sfxSource);
                 gFillScreenAlpha = 250;
                 player->csTimer = 20;
-                player->arwing.modelId = 1;
+                player->arwing.teamFaceId = 1;
                 player->baseSpeed = 0.0f;
                 player->rot.x = 0.0f;
                 player->rot.y = 0.0f;

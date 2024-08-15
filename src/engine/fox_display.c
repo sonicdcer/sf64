@@ -535,24 +535,24 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
             rot->y -= arwing->bottomRightFlapYrot;
             break;
         case 5:
-            rot->y -= arwing->unk_10;
+            rot->y -= arwing->bottomLeftFlapYrot;
             break;
         case 6:
             rot->y -= arwing->upperLeftFlapYrot;
             break;
         case 12:
-            rot->z += arwing->unk_20;
+            rot->z += arwing->wingsYrot;
             break;
         case 13:
-            rot->z += arwing->unk_20;
+            rot->z += arwing->wingsYrot;
             break;
         case 4:
-            pos->z -= arwing->unk_14;
-            pos->x += arwing->unk_18;
+            pos->z -= arwing->laserGunsYpos;
+            pos->x += arwing->laserGunsXpos;
             break;
         case 8:
-            pos->z += arwing->unk_14;
-            pos->x += arwing->unk_18;
+            pos->z += arwing->laserGunsYpos;
+            pos->x += arwing->laserGunsXpos;
             break;
     }
     return false;
@@ -560,13 +560,13 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
 void Display_ArwingWings(ArwingInfo* arwing) {
     Vec3f sp68[30];
-    s32 modelId;
+    s32 teamFaceId;
 
     Matrix_Push(&gGfxMatrix);
 
-    arwing->unk_18 = 0.0f;
-    if (arwing->unk_14 < -7.0f) {
-        arwing->unk_18 = (-arwing->unk_14 - 7.0f) * 2.5f;
+    arwing->laserGunsXpos = 0.0f;
+    if (arwing->laserGunsYpos < -7.0f) {
+        arwing->laserGunsXpos = (-arwing->laserGunsYpos - 7.0f) * 2.5f;
     }
 
     if (gGameState == GSTATE_PLAY) {
@@ -584,31 +584,31 @@ void Display_ArwingWings(ArwingInfo* arwing) {
 
     D_display_800CA22C = false;
 
-    modelId = arwing->modelId;
+    teamFaceId = arwing->teamFaceId;
     if (D_display_800CA220 != 0) {
-        modelId = 1;
+        teamFaceId = 1;
     }
 
-    if (modelId != 0) {
+    if (teamFaceId != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 6.4f, -16.5f, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, arwing->unk_34 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, arwing->unk_30 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, arwing->teamFaceYrot * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, arwing->teamFaceXrot * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 1.0f / 70.925f, 1.0f / 70.925f, 1.0f / 70.925f, MTXF_APPLY);
         if (gGameState == GSTATE_ENDING) {
             Matrix_Scale(gGfxMatrix, 0.95f, 0.95f, 0.95f, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
         if (gExpertMode) {
-            gSPDisplayList(gMasterDisp++, D_display_800CA27C[modelId - 1]);
+            gSPDisplayList(gMasterDisp++, D_display_800CA27C[teamFaceId - 1]);
         } else {
-            gSPDisplayList(gMasterDisp++, D_display_800CA26C[modelId - 1]);
+            gSPDisplayList(gMasterDisp++, D_display_800CA26C[teamFaceId - 1]);
         }
         Matrix_Pop(&gGfxMatrix);
     }
 
     Matrix_Translate(gGfxMatrix, 0.0f, 17.2f, -25.8f, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, arwing->unk_38 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, arwing->windshieldXrot * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_64_2();
 
@@ -694,7 +694,7 @@ void Display_Arwing(Player* player, s32 reflectY) {
         } else {
             if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_BOLSE)) {
                 player->arwing.unk_28 = player->arwing.upperRightFlapYrot = player->arwing.bottomRightFlapYrot =
-                    player->arwing.upperLeftFlapYrot = player->arwing.unk_10 = 0.0f;
+                    player->arwing.upperLeftFlapYrot = player->arwing.bottomLeftFlapYrot = 0.0f;
             }
             D_display_800CA22C = true;
             gReflectY = reflectY;
@@ -1018,7 +1018,7 @@ void Display_ArwingLaserCharge(Player* player) {
         Matrix_Copy(gCalcMatrix, &D_display_80161418[player->num]);
 
         laserStrength = gLaserStrength[player->num];
-        if (player->arwing.unk_14 > -8.0f) {
+        if (player->arwing.laserGunsYpos > -8.0f) {
             laserStrength = LASERS_SINGLE;
         }
 
@@ -1620,8 +1620,8 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
 
     switch (D_display_800CA220) {
         case 0:
-            Math_SmoothStepToAngle(&player->arwing.unk_30, 0.0f, 0.2f, 3.0f, 0.0f);
-            Math_SmoothStepToAngle(&player->arwing.unk_34, 0.0f, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.teamFaceXrot, 0.0f, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.teamFaceYrot, 0.0f, 0.2f, 3.0f, 0.0f);
             gPlayCamEye.x = player->cam.eye.x;
             gPlayCamEye.y = player->cam.eye.y;
             gPlayCamEye.z = player->cam.eye.z;
@@ -1651,8 +1651,8 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
             }
             sp3C = 360.0f - sp3C;
 
-            Math_SmoothStepToAngle(&player->arwing.unk_30, sp38, 0.2f, 6.0f, 0.0f);
-            Math_SmoothStepToAngle(&player->arwing.unk_34, sp3C, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.teamFaceXrot, sp38, 0.2f, 6.0f, 0.0f);
+            Math_SmoothStepToAngle(&player->arwing.teamFaceYrot, sp3C, 0.2f, 6.0f, 0.0f);
 
             Math_SmoothStepToF(&D_display_800CA380, gControllerPress[0].stick_y * 0.75f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&D_display_800CA384, gControllerPress[0].stick_x * 3.0f, 0.1f, 5.0f, 0.0f);

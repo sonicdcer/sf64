@@ -2020,7 +2020,7 @@ void Meteo_LevelStart(Player* player) {
             }
 
             if (gCsFrameCount > 660) {
-                player->arwing.modelId = 0;
+                player->arwing.teamFaceId = 0;
             }
 
             if (gCsFrameCount == 340) {
@@ -2238,7 +2238,7 @@ void Meteo_LevelComplete(Player* player) {
             D_ctx_80177A48[1] = 0.0f;
             D_ctx_80177A48[2] = 0.0f;
 
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
 
             gCsFrameCount = 0;
 

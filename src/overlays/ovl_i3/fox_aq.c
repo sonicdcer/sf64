@@ -700,7 +700,7 @@ void Aquas_801AA4BC(Player* player) {
                 Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 70.0f, 0.3f, 100.0f, 0);
-                Math_SmoothStepToF(&player->arwing.unk_10, 70.0f, 0.3f, 100.0f, 0);
+                Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, 70.0f, 0.3f, 100.0f, 0);
             }
         }
 
@@ -711,7 +711,7 @@ void Aquas_801AA4BC(Player* player) {
                 Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, -70.0f, 0.3f, 100.0f, 0);
-                Math_SmoothStepToF(&player->arwing.unk_10, -70.0f, 0.3f, 100.0f, 0);
+                Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, -70.0f, 0.3f, 100.0f, 0);
             }
         }
 

@@ -3149,8 +3149,9 @@ void Solar_LevelComplete(Player* player) {
             player->camRoll = player->aerobaticPitch = 0.0f;
             player->baseSpeed = 40.0f;
 
-            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
-                player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
+            player->arwing.upperRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.bottomRightFlapYrot =
+                player->arwing.bottomLeftFlapYrot = player->zRotBarrelRoll = player->zRotBank = player->boostSpeed =
+                    0.0f;
             player->draw = true;
 
             gCsCamEyeX = player->cam.eye.x;
@@ -3243,7 +3244,7 @@ void Solar_LevelComplete(Player* player) {
                 player->pos.y = 200.0f;
                 player->pos.z = -(gPathProgress - 500.0f);
                 player->csState++;
-                player->arwing.modelId = 1;
+                player->arwing.teamFaceId = 1;
 
                 Audio_StartPlayerNoise(0);
 
@@ -3278,7 +3279,7 @@ void Solar_LevelComplete(Player* player) {
             gFillScreenAlphaStep = 4;
 
             if (gMsgCharIsPrinting) {
-                player->arwing.unk_30 = (s32) (gGameFrameCount % 2U) * 5.0f;
+                player->arwing.teamFaceXrot = (s32) (gGameFrameCount % 2U) * 5.0f;
             }
 
             switch (gCsFrameCount) {

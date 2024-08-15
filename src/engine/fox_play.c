@@ -3027,7 +3027,7 @@ void Player_ArwingLaser(Player* player) {
     LaserStrength laser;
 
     laser = gLaserStrength[gPlayerNum];
-    if (player->arwing.unk_14 > -8.0f) {
+    if (player->arwing.laserGunsYpos > -8.0f) {
         laser = LASERS_SINGLE;
     }
 
@@ -3301,9 +3301,9 @@ void Player_Shoot(Player* player) {
 
             if (!Player_UpdateLockOn(player)) {
                 if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
-                    Math_SmoothStepToF(&player->arwing.unk_14, -10.0f, 1.0f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&player->arwing.laserGunsYpos, -10.0f, 1.0f, 0.5f, 0.0f);
                 } else {
-                    Math_SmoothStepToF(&player->arwing.unk_14, 0.0f, 1.0f, 0.5f, 0.0f);
+                    Math_SmoothStepToF(&player->arwing.laserGunsYpos, 0.0f, 1.0f, 0.5f, 0.0f);
                 }
                 if (gShootButton[player->num] & gInputPress->button) {
                     Player_ArwingLaser(player);
@@ -3366,7 +3366,7 @@ void Player_ArwingBank(Player* player) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 70.0f, 0.3f, 100.0f, 0.f);
-            Math_SmoothStepToF(&player->arwing.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
+            Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, 70.0f, 0.3f, 100.0f, 0.f);
             if (player->pos.y < (gGroundHeight + 70.0f)) {
                 player->pos.y += 6.0f;
             }
@@ -3380,7 +3380,7 @@ void Player_ArwingBank(Player* player) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, -70.0f, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, -70.0f, 0.3f, 100.0f, 0.0f);
             if (player->pos.y < (gGroundHeight + 70.0f)) {
                 player->pos.y += 6.0f;
             }
@@ -3601,7 +3601,7 @@ void Player_MoveArwing360(Player* player) {
     Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -sp60 + sp5C, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -sp60 - sp5C, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->arwing.unk_10, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
 
     scale = 0.1f;
     if ((player->zRotBank > 10.0f) && (sp7C > 0)) {
@@ -3736,7 +3736,7 @@ void Player_PerformLoop(Player* player) {
     Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->arwing.unk_10, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
 
     if (player->aerobaticPitch < 180.0f) {
         player->pos.y += 2.0f;
@@ -3864,7 +3864,7 @@ void Player_MoveArwingOnRails(Player* player) {
         Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->arwing.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
     }
 
     sp84 = 0.1f;
@@ -4793,7 +4793,7 @@ void Player_Setup(Player* playerx) {
     }
 
     if (gLaserStrength[gPlayerNum] > LASERS_SINGLE) {
-        player->arwing.unk_14 = -10.0f;
+        player->arwing.laserGunsYpos = -10.0f;
     }
     gPauseEnabled = false;
 }
@@ -5037,7 +5037,7 @@ void Player_ArwingBoost(Player* player) {
                 Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
-                Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.5f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
             }
             player->boostMeter += sp28;
             if (player->boostMeter > 90.0f) {
@@ -5135,7 +5135,7 @@ void Player_ArwingBrake(Player* player) {
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, -90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 90.0f, 0.2f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_10, -90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, -90.0f, 0.2f, 100.0f, 0.0f);
         }
 
         player->boostMeter += sp30;
@@ -5784,14 +5784,14 @@ void Player_Update(Player* player) {
         case PLAYERSTATE_1C8_LEVEL_INTRO:
             gShowHud = 0;
             gPauseEnabled = false;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             Cutscene_LevelStart(player);
             break;
 
         case PLAYERSTATE_1C8_ACTIVE:
             gShowHud = 1;
             Player_LowHealthMsg(player);
-            player->arwing.modelId = 0;
+            player->arwing.teamFaceId = 0;
             D_hud_80161704 = 255;
 
             if ((!gVersusMode || gVsMatchStart) && !player->somersault && (gInputPress->button & U_CBUTTONS) &&
@@ -5862,12 +5862,12 @@ void Player_Update(Player* player) {
                 gVsLockOnTimers[player->num][0] = gVsLockOnTimers[player->num][1] = gVsLockOnTimers[player->num][2] =
                     gVsLockOnTimers[player->num][3] = 0;
             }
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
 
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 0.0f, 0.1f, 5.0f, 0);
-            Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, 0.0f, 0.1f, 5.0f, 0);
 
             Player_UpdateShields(player);
             Cutscene_UTurn(player);

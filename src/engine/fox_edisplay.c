@@ -535,16 +535,16 @@ void func_edisplay_8005B388(Actor199* actor) {
         D_edisplay_80161630.upperRightFlapYrot = actor->fwork[15];
         D_edisplay_80161630.upperLeftFlapYrot = actor->fwork[16];
         D_edisplay_80161630.bottomRightFlapYrot = actor->fwork[26];
-        D_edisplay_80161630.unk_10 = actor->fwork[27];
-        D_edisplay_80161630.unk_14 = D_edisplay_80161630.unk_18 = D_edisplay_80161630.unk_1C =
-            D_edisplay_80161630.unk_20 = D_edisplay_80161630.unk_38 = D_edisplay_80161630.unk_24 = 0.0f;
+        D_edisplay_80161630.bottomLeftFlapYrot = actor->fwork[27];
+        D_edisplay_80161630.laserGunsYpos = D_edisplay_80161630.laserGunsXpos = D_edisplay_80161630.wingsXrot =
+            D_edisplay_80161630.wingsYrot = D_edisplay_80161630.windshieldXrot = D_edisplay_80161630.wingsZrot = 0.0f;
         D_edisplay_80161630.unk_28 = actor->fwork[17];
-        D_edisplay_80161630.modelId = actor->iwork[14];
-        D_edisplay_80161630.unk_30 = actor->fwork[20];
-        D_edisplay_80161630.unk_34 = actor->fwork[19];
+        D_edisplay_80161630.teamFaceId = actor->iwork[14];
+        D_edisplay_80161630.teamFaceXrot = actor->fwork[20];
+        D_edisplay_80161630.teamFaceYrot = actor->fwork[19];
         if (gLevelType == LEVELTYPE_SPACE) {
-            D_edisplay_80161630.upperRightFlapYrot = D_edisplay_80161630.bottomRightFlapYrot = D_edisplay_80161630.upperLeftFlapYrot =
-                D_edisplay_80161630.unk_10 = 0.0f;
+            D_edisplay_80161630.upperRightFlapYrot = D_edisplay_80161630.bottomRightFlapYrot =
+                D_edisplay_80161630.upperLeftFlapYrot = D_edisplay_80161630.bottomLeftFlapYrot = 0.0f;
         }
         Display_ArwingWings(&D_edisplay_80161630);
     } else if (gLevelType == LEVELTYPE_PLANET) {

@@ -3857,12 +3857,13 @@ void Andross_80193C4C(Player* player) {
 
     Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
-    player->arwing.upperRightFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.upperLeftFlapYrot = player->arwing.unk_10 = 0.0f;
+    player->arwing.upperRightFlapYrot = player->arwing.bottomRightFlapYrot = player->arwing.upperLeftFlapYrot =
+        player->arwing.bottomLeftFlapYrot = 0.0f;
 
     switch (player->csState) {
         case 0:
             gCsFrameCount = 0;
-            player->arwing.modelId = 1;
+            player->arwing.teamFaceId = 1;
             D_ctx_80177A48[0] = 0.0f;
             if (player->aerobaticPitch > 180.0f) {
                 player->aerobaticPitch -= 360.0f;

@@ -2271,15 +2271,15 @@ void Map_801A116C(void) {
 
         arwing.rightWingState = arwing.leftWingState = WINGSTATE_INTACT;
         // clang-format off
-        arwing.unk_18 = arwing.unk_1C = arwing.unk_20 = arwing.unk_24 = arwing.upperRightFlapYrot =
-        arwing.bottomRightFlapYrot = arwing.upperLeftFlapYrot = arwing.unk_10 = arwing.unk_28 = 0.0f;
+        arwing.laserGunsXpos = arwing.wingsXrot = arwing.wingsYrot = arwing.wingsZrot = arwing.upperRightFlapYrot =
+        arwing.bottomRightFlapYrot = arwing.upperLeftFlapYrot = arwing.bottomLeftFlapYrot = arwing.unk_28 = 0.0f;
         // clang-format on
 
-        arwing.unk_14 = 0.0f;
-        arwing.modelId = 1;
-        arwing.unk_30 = 0.0f;
-        arwing.unk_34 = 0.0f;
-        arwing.unk_38 = 0.0f;
+        arwing.laserGunsYpos = 0.0f;
+        arwing.teamFaceId = 1;
+        arwing.teamFaceXrot = 0.0f;
+        arwing.teamFaceYrot = 0.0f;
+        arwing.windshieldXrot = 0.0f;
 
         Display_ArwingWings(&arwing);
 

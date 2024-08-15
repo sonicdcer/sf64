@@ -2254,14 +2254,14 @@ void Title_8018D2B8(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     arwing.rightWingState = arwing.leftWingState = WINGSTATE_INTACT;
-    arwing.unk_18 = arwing.unk_1C = arwing.unk_20 = arwing.unk_24 = arwing.upperRightFlapYrot = arwing.bottomRightFlapYrot =
-        arwing.upperLeftFlapYrot = arwing.unk_10 = arwing.unk_28 = 0.0f;
+    arwing.laserGunsXpos = arwing.wingsXrot = arwing.wingsYrot = arwing.wingsZrot = arwing.upperRightFlapYrot =
+        arwing.bottomRightFlapYrot = arwing.upperLeftFlapYrot = arwing.bottomLeftFlapYrot = arwing.unk_28 = 0.0f;
 
-    arwing.unk_14 = D_menu_801B84E8[arg0].unk_28;
-    arwing.modelId = D_menu_801B84E8[arg0].unk_34;
-    arwing.unk_30 = D_menu_801B84E8[arg0].unk_2C;
-    arwing.unk_34 = D_menu_801B84E8[arg0].unk_30;
-    arwing.unk_38 = D_menu_801B84E8[arg0].unk_24;
+    arwing.laserGunsYpos = D_menu_801B84E8[arg0].unk_28;
+    arwing.teamFaceId = D_menu_801B84E8[arg0].unk_34;
+    arwing.teamFaceXrot = D_menu_801B84E8[arg0].unk_2C;
+    arwing.teamFaceYrot = D_menu_801B84E8[arg0].unk_30;
+    arwing.windshieldXrot = D_menu_801B84E8[arg0].unk_24;
 
     Display_ArwingWings(&arwing);
 
