@@ -2087,7 +2087,7 @@ void SectorY_LevelComplete(Player* player) {
             player->camRoll = 0.0f;
             player->baseSpeed = 40.0f;
             player->boostSpeed = 0.0f;
-            player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 =
+            player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = 0.0f;
             player->draw = true;
             D_ctx_80177A48[8] = Math_RadToDeg(

@@ -4763,7 +4763,7 @@ void Zoness_LevelComplete(Player* player) {
             player->camRoll = 0.0f;
             player->baseSpeed = 40.0f;
             player->draw = true;
-            player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 =
+            player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 =
                 player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
 
             gCsCamEyeX = player->cam.eye.x;

@@ -675,7 +675,7 @@ void Fortuna_LevelComplete(Player* player) {
 
     player->arwing.upperRightFlapYrot = 0.0f;
     player->arwing.unk_0C = 0.0f;
-    player->arwing.unk_08 = 0.0f;
+    player->arwing.bottomRightFlapYrot = 0.0f;
     player->arwing.unk_10 = 0.0f;
 
     Math_SmoothStepToF(&player->boostSpeed, 0.0f, 0.1f, 1.5f, 0.0f);

@@ -777,7 +777,7 @@ void Cutscene_AllRangeMode(Player* player) {
         }
     }
     player->arwing.unk_10 = 0.0f;
-    player->arwing.unk_08 = 0.0f;
+    player->arwing.bottomRightFlapYrot = 0.0f;
     player->arwing.unk_0C = 0.0f;
     player->arwing.upperRightFlapYrot = 0.0f;
 
@@ -920,7 +920,7 @@ void Cutscene_CoComplete2(Player* player) {
             player->csState++;
             player->arwing.upperRightFlapYrot = 0.0f;
             player->arwing.unk_0C = 0.0f;
-            player->arwing.unk_08 = 0.0f;
+            player->arwing.bottomRightFlapYrot = 0.0f;
             player->arwing.unk_10 = 0.0f;
             player->zRotBarrelRoll = 0.0f;
             player->zRotBank = 0.0f;
@@ -1021,7 +1021,7 @@ void Cutscene_CoComplete2(Player* player) {
                 player->csState = 1;
                 player->csTimer = 150;
                 player->arwing.unk_10 = 0.0f;
-                player->arwing.unk_08 = 0.0f;
+                player->arwing.bottomRightFlapYrot = 0.0f;
                 player->arwing.unk_0C = 0.0f;
                 player->arwing.upperRightFlapYrot = 0.0f;
             }
@@ -1449,7 +1449,7 @@ void Cutscene_UTurn(Player* player) {
             }
 
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_0C, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, sp58.y, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
@@ -1480,7 +1480,7 @@ void Cutscene_UTurn(Player* player) {
             sp58.y = player->zRotBank * 0.3f;
 
             Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
-            Math_SmoothStepToF(&player->arwing.unk_08, sp58.y, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.bottomRightFlapYrot, sp58.y, 0.3f, 100.0f, 0.0f);
 
             sp58.z = -sp58.y;
 

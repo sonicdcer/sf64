@@ -3365,7 +3365,7 @@ void Corneria_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, D_ctx_80177A48[1], 0.2f, 1.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_0C, D_ctx_80177A48[2], 0.2f, 1.0f, 0.0f);
 
-    player->arwing.unk_08 = player->arwing.upperRightFlapYrot;
+    player->arwing.bottomRightFlapYrot = player->arwing.upperRightFlapYrot;
     player->arwing.unk_10 = player->arwing.unk_0C;
 
     player->cam.eye.y -= 3.0f;
@@ -3450,7 +3450,7 @@ void Corneria_LevelComplete1(Player* player) {
     f32 temp_fa1;
     f32 temp_deg;
 
-    player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 = 0.0f;
+    player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.bottomRightFlapYrot = player->arwing.unk_10 = 0.0f;
 
     Math_SmoothStepToF(&player->zRotBarrelRoll, 0.0f, 0.1f, 15.0f, 0.0f);
     Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
