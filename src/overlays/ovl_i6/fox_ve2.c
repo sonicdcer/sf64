@@ -22,8 +22,8 @@ bool Venom2_Ve2Base_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec
 }
 
 void Venom2_Ve2Base_Draw(Ve2Base* this) {
-    Animation_GetFrameData(&D_VE2_6014904, 0, this->vwork);
-    Animation_DrawSkeleton(3, D_VE2_60149D0, this->vwork, Venom2_Ve2Base_OverrideLimbDraw, NULL, this, gCalcMatrix);
+    Animation_GetFrameData(&aVe2BaseAnim, 0, this->vwork);
+    Animation_DrawSkeleton(3, aVe2BaseSkel, this->vwork, Venom2_Ve2Base_OverrideLimbDraw, NULL, this, gCalcMatrix);
 }
 
 void Venom2_UpdateStarWolfEvents(ActorAllRange* this) {

@@ -240,8 +240,8 @@ aCoArch1DL:
 D_CO_6020760:
   { type: GFX, offset: 0x6020760, symbol: D_CO_6020760 }
 
-D_CO_6020B40:
-  { type: GFX, offset: 0x6020B40, symbol: D_CO_6020B40 }
+aCoRadarDL:
+  { type: GFX, offset: 0x6020B40, symbol: aCoRadarDL }
 
 D_CO_6021188:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06021188, symbol: D_CO_6021188 }
@@ -279,11 +279,11 @@ D_CO_6028260:
 D_CO_6028A60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028A60, symbol: D_CO_6028A60 }
 
-D_CO_6029528:
-  { type: SF64:ANIM, offset: 0x6029528, symbol: D_CO_6029528 }
+aCoSkibotAnim:
+  { type: SF64:ANIM, offset: 0x6029528, symbol: aCoSkibotAnim }
 
-D_CO_6029674:
-  { type: SF64:SKELETON, offset: 0x6029674, symbol: D_CO_6029674 }
+aCoSkibotSkel:
+  { type: SF64:SKELETON, offset: 0x6029674, symbol: aCoSkibotSkel }
 
 aCoGaruda1Anim:
   { type: SF64:ANIM, offset: 0x602991C, symbol: aCoGaruda1Anim }
@@ -306,8 +306,8 @@ aCoDoorsSkel:
 aCoGrangaWalkingAnim:
   { type: SF64:ANIM, offset: 0x602BC18, symbol: aCoGrangaWalkingAnim }
 
-D_CO_602BE64:
-  { type: SF64:SKELETON, offset: 0x602BE64, symbol: D_CO_602BE64 }
+aCoGrangaSkel:
+  { type: SF64:SKELETON, offset: 0x602BE64, symbol: aCoGrangaSkel }
 
 aCoGrangaStationaryAnim:
   { type: SF64:ANIM, offset: 0x602C0D0, symbol: aCoGrangaStationaryAnim }

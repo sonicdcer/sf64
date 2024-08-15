@@ -95,8 +95,8 @@ D_VE1_900C700:
 aVe1MonkeyStatueAnim:
   {type: SF64:ANIM, offset: 0x900D098, symbol: aVe1MonkeyStatueAnim}
 
-D_VE1_900D164:
-  {type: SF64:SKELETON, offset: 0x900D164, symbol: D_VE1_900D164}
+aVe1MonkeyStatueSkel:
+  {type: SF64:SKELETON, offset: 0x900D164, symbol: aVe1MonkeyStatueSkel}
 
 D_VE1_900D180:
   {type: GFX, offset: 0x900D180, symbol: D_VE1_900D180}

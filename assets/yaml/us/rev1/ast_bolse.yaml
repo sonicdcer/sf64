@@ -25,11 +25,11 @@ D_BO_6000D80:
 D_BO_6001908:
   { type: TEXTURE, format: RGBA16, offset: 0x6001908, width: 16, height: 16, ctype: u16, symbol: D_BO_6001908 }
 
-D_BO_6001C64:
-  { type: SF64:ANIM, offset: 0x6001C64, symbol: D_BO_6001C64 }
+aBoBaseCoreAnim:
+  { type: SF64:ANIM, offset: 0x6001C64, symbol: aBoBaseCoreAnim }
     
-D_BO_6001FB0: 
-  { type: SF64:SKELETON, offset: 0x6001FB0, symbol: D_BO_6001FB0 }
+aBoBaseCoreSkel: 
+  { type: SF64:SKELETON, offset: 0x6001FB0, symbol: aBoBaseCoreSkel }
 
 D_BO_6002020:
   { type: GFX, offset: 0x6002020, symbol: D_BO_6002020 }

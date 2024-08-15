@@ -453,7 +453,7 @@ typedef enum ObjectId {
     /* 144 */ OBJ_SCENERY_VS_SPACE_JUNK_1,
     /* 145 */ OBJ_SCENERY_VS_SPACE_JUNK_2,
     /* 146 */ OBJ_SCENERY_VS_SPACE_JUNK_3,
-    /* 147 */ OBJ_SCENERY_147,
+    /* 147 */ OBJ_SCENERY_LEVEL_OBJECTS, // Level specific scenery objects, used in Andross and Versus
     /* 148 */ OBJ_SCENERY_FO_MOUNTAIN_1,
     /* 149 */ OBJ_SCENERY_FO_MOUNTAIN_2,
     /* 150 */ OBJ_SCENERY_FO_MOUNTAIN_3,
@@ -505,11 +505,11 @@ typedef enum ObjectId {
     /* 196 */ OBJ_ACTOR_CO_MOLE_MISSILE,
     /* 197 */ OBJ_ACTOR_ALLRANGE,
     /* 198 */ OBJ_ACTOR_TEAM_BOSS,
-    /* 199 */ OBJ_ACTOR_199,
+    /* 199 */ OBJ_ACTOR_TEAM_ARWING,
     /* 200 */ OBJ_ACTOR_EVENT,
     /* 201 */ OBJ_ACTOR_ME_METEO_BALL,
     /* 202 */ OBJ_ACTOR_ME_HOPBOT,
-    /* 203 */ OBJ_ACTOR_SLIPPY_SX,
+    /* 203 */ OBJ_ACTOR_SX_SLIPPY,
     /* 204 */ OBJ_ACTOR_SY_ROBOT,
     /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,
     /* 206 */ OBJ_ACTOR_MA_TRAIN_CAR_1,
@@ -525,7 +525,7 @@ typedef enum ObjectId {
     /* 216 */ OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR,
     /* 217 */ OBJ_ACTOR_MA_VERTICAL_LOCK_BAR,
     /* 218 */ OBJ_ACTOR_MA_BARRIER,
-    /* 219 */ OBJ_ACTOR_219,
+    /* 219 */ OBJ_ACTOR_MA_FALLING_BOULDER,
     /* 220 */ OBJ_ACTOR_MA_BOMBDROP,
     /* 221 */ OBJ_ACTOR_MA_SPEAR,
     /* 222 */ OBJ_ACTOR_MA_SHOCK_BOX,
@@ -1134,10 +1134,10 @@ typedef Actor ActorCutscene;
 typedef Actor CoMoleMissile;
 typedef Actor ActorAllRange;
 typedef Actor ActorTeamBoss; // Teammates in a boss battle
-typedef Actor Actor199;
+typedef Actor ActorTeamArwing;
 typedef Actor ActorEvent;
 typedef Actor MeteoBall;
-typedef Actor ActorHopBot;
+typedef Actor MeHopBot;
 typedef Actor SxSlippy;
 typedef Actor SyRobot;
 typedef Actor MaLocomotive;
@@ -1154,7 +1154,7 @@ typedef Actor MaBoulder;
 typedef Actor MaHorizontalLockBar;
 typedef Actor MaVerticalLockBar;
 typedef Actor MaBarrier;
-typedef Actor Actor219;
+typedef Actor MaFallingBoulder;
 typedef Actor MaBombDrop;
 typedef Actor MaSpear;
 typedef Actor MaShockBox;
@@ -1171,7 +1171,7 @@ typedef Actor TiRasco;
 typedef Actor TiFekuda;
 typedef Actor TiGreatFox;
 typedef Actor ZoBird;
-typedef Actor ZoDodora;
+typedef Actor ZoDodora; // Snake type enemy
 typedef Actor Actor237;
 typedef Actor ZoFish;
 typedef Actor ZoDodoraWpCount;

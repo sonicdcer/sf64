@@ -494,8 +494,8 @@ D_1017698:
 D_1017798:
   { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1017798, ctype: u16, symbol: D_1017798 }
 
-D_10177C0:
-  { type: GFX, offset: 0x10177C0, symbol: D_10177C0 }
+aActorSuppliesDL:
+  { type: GFX, offset: 0x10177C0, symbol: aActorSuppliesDL }
 
 D_1017A38:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1017A38, symbol: D_1017A38 }

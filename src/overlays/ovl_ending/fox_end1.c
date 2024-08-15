@@ -1767,11 +1767,11 @@ void Ending_8018C21C(void) {
                         Matrix_SetGfxMtx(&gMasterDisp);
 
                         if (gGreatFoxIntact) {
-                            gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
+                            gSPDisplayList(gMasterDisp++, aGreatFoxIntactDL);
                         }
 
                         if (!gGreatFoxIntact) {
-                            gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
+                            gSPDisplayList(gMasterDisp++, aGreatFoxDamagedDL);
                         }
 
                         RCP_SetupDL(&gMasterDisp, SETUPDL_49);

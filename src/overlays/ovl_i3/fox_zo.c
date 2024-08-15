@@ -521,53 +521,53 @@ bool Zoness_ZoBird_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3
 }
 
 void Zoness_ZoBird_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
-    Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
     ZoBird* this = (ZoBird*) thisx;
 
     if (this->state == 1) {
         switch (limbIndex) {
             case 0:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[0]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
                 break;
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[1]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
                 break;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[2]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
                 break;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[3]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
                 break;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[4]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
                 break;
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[5]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
                 break;
             case 6:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[6]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[6]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
                 break;
             case 7:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[7]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[7]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[18]);
                 break;
             case 8:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[8]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[8]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[19]);
                 break;
             case 9:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[9]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[9]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[20]);
                 break;
             case 10:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[10]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[10]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[21]);
                 break;
         }
@@ -578,9 +578,9 @@ void Zoness_ZoBird_Draw(ZoBird* this) {
     Vec3f frameTable[30];
 
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_ZO_600E5EC, this->animFrame, frameTable);
-    Animation_DrawSkeleton(3, D_ZO_600E7D8, frameTable, Zoness_ZoBird_OverrideLimbDraw, Zoness_ZoBird_PostLimbDraw,
-                           this, gCalcMatrix);
+    Animation_GetFrameData(&aZoBirdAnim, this->animFrame, frameTable);
+    Animation_DrawSkeleton(3, aZoBirdSkel, frameTable, Zoness_ZoBird_OverrideLimbDraw, Zoness_ZoBird_PostLimbDraw, this,
+                           gCalcMatrix);
 }
 
 void Zoness_ZoBird_Update(ZoBird* this) {
@@ -618,7 +618,7 @@ void Zoness_ZoBird_Update(ZoBird* this) {
 
     this->animFrame++;
 
-    if (Animation_GetFrameCount(&D_ZO_600E5EC) < this->animFrame) {
+    if (Animation_GetFrameCount(&aZoBirdAnim) < this->animFrame) {
         this->animFrame = 0;
     }
 
@@ -638,10 +638,10 @@ void Zoness_ZoBird_Update(ZoBird* this) {
 
 void Zoness_80190790(ZoDodora* this) {
     s32 pad[2];
-    f32 temp1;
-    PosRot* snakePosRot;
-    Vec3f sp44;
-    Vec3f sp38;
+    f32 angle;
+    PosRot* zoDodoraPosRotPtr;
+    Vec3f src;
+    Vec3f dest;
     s32 i;
     Actor* otherActor;
 
@@ -656,12 +656,14 @@ void Zoness_80190790(ZoDodora* this) {
     this->fwork[1] += 5.0f;
     this->rot_0F4.z = SIN_DEG(this->fwork[1]) * 30.0f;
 
-    for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
+    for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
         if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_ZO_DODORA_WP_COUNT) &&
             (otherActor->iwork[0] == this->iwork[0])) {
-            temp1 = Math_RadToDeg(
+            angle = Math_RadToDeg(
                 Math_Atan2F(otherActor->obj.pos.x - this->obj.pos.x, otherActor->obj.pos.z - this->obj.pos.z));
-            Math_SmoothStepToAngle(&this->rot_0F4.y, temp1, 0.2f, 3.0f, 0.0f);
+
+            Math_SmoothStepToAngle(&this->rot_0F4.y, angle, 0.2f, 3.0f, 0.0f);
+
             if ((fabsf(this->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
                 (fabsf(this->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
                 otherActor->obj.status = OBJ_FREE;
@@ -673,22 +675,22 @@ void Zoness_80190790(ZoDodora* this) {
 
     Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
 
-    sp44.x = 0.f;
-    sp44.y = 0.f;
-    sp44.z = 20.0f;
+    src.x = 0.f;
+    src.y = 0.f;
+    src.z = 20.0f;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    this->vel.x = sp38.x;
-    this->vel.z = sp38.z;
+    this->vel.x = dest.x;
+    this->vel.z = dest.z;
 
-    snakePosRot = &gZoDodoraPosRots[this->counter_04E];
-    snakePosRot->pos.x = this->obj.pos.x;
-    snakePosRot->pos.y = this->obj.pos.y;
-    snakePosRot->pos.z = this->obj.pos.z;
-    snakePosRot->rot.x = this->rot_0F4.x;
-    snakePosRot->rot.y = this->rot_0F4.y;
-    snakePosRot->rot.z = this->rot_0F4.z;
+    zoDodoraPosRotPtr = &gZoDodoraPosRots[this->counter_04E];
+    zoDodoraPosRotPtr->pos.x = this->obj.pos.x;
+    zoDodoraPosRotPtr->pos.y = this->obj.pos.y;
+    zoDodoraPosRotPtr->pos.z = this->obj.pos.z;
+    zoDodoraPosRotPtr->rot.x = this->rot_0F4.x;
+    zoDodoraPosRotPtr->rot.y = this->rot_0F4.y;
+    zoDodoraPosRotPtr->rot.z = this->rot_0F4.z;
 }
 
 void Zoness_ZoDodora_Update(ZoDodora* this) {
@@ -708,6 +710,7 @@ void Zoness_ZoDodora_Update(ZoDodora* this) {
 
     Zoness_80190790(this);
 
+    // Invulnerable
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
         AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
@@ -717,12 +720,13 @@ void Zoness_ZoDodora_Update(ZoDodora* this) {
 s16 D_i3_801BF56C[20] = {
     0, 190, 180, 170, 160, 150, 140, 130, 120, 110, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10,
 };
-u8 D_i3_801BF594[20] = {
+u8 sZoDodoraPartIdx[20] = {
     0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2,
 };
-Gfx* D_i3_801BF5A8[3] = { D_ZO_60012A0, D_ZO_60239E0, D_ZO_6023730 };
+Gfx* sZoDodoraParts[3] = { aZoDodoraHeadDL, aZoDodoraBodyDL, aZoDodoraTailDL };
 
-void Zoness_80190B4C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 arg6, s32 arg7) {
+void Zoness_ZoDodora_DrawParts(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 partIdx,
+                               bool colorFlicker) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + gPathProgress, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
@@ -732,11 +736,11 @@ void Zoness_80190B4C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot,
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 
-    if (arg7 != 0) {
+    if (colorFlicker) {
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 40, 40, 255, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_i3_801BF5A8[arg6]);
+    gSPDisplayList(gMasterDisp++, sZoDodoraParts[partIdx]);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -745,29 +749,32 @@ typedef struct {
     Hitbox boxes[1];
 } JntHitbox;
 
-void Zoness_80190D0C(ZoDodora* this) {
+void Zoness_ZoDodora_Draw2(ZoDodora* this) {
     Hitbox* hitbox = (((JntHitbox*) SEGMENTED_TO_VIRTUAL(aZoDodoraHitbox))->boxes);
     s32 i;
     s32 k;
-    PosRot* temp_s0;
+    PosRot* zoDodoraPosRots;
 
     for (i = this->unk_04A = 0; i < 20; i++, hitbox++) {
         k = (D_i3_801BF56C[i] + this->counter_04E) % 200;
-        temp_s0 = &gZoDodoraPosRots[k];
+        zoDodoraPosRots = &gZoDodoraPosRots[k];
 
-        hitbox->z.offset = temp_s0->pos.z - this->obj.pos.z;
-        hitbox->y.offset = temp_s0->pos.y - this->obj.pos.y;
-        hitbox->x.offset = temp_s0->pos.x - this->obj.pos.x;
-        Zoness_80190B4C(temp_s0->pos.x, temp_s0->pos.y, temp_s0->pos.z, temp_s0->rot.x, temp_s0->rot.y, temp_s0->rot.z,
-                        D_i3_801BF594[i], this->timer_0C6 % 2U);
+        hitbox->z.offset = zoDodoraPosRots->pos.z - this->obj.pos.z;
+        hitbox->y.offset = zoDodoraPosRots->pos.y - this->obj.pos.y;
+        hitbox->x.offset = zoDodoraPosRots->pos.x - this->obj.pos.x;
+
+        Zoness_ZoDodora_DrawParts(zoDodoraPosRots->pos.x, zoDodoraPosRots->pos.y, zoDodoraPosRots->pos.z,
+                                  zoDodoraPosRots->rot.x, zoDodoraPosRots->rot.y, zoDodoraPosRots->rot.z,
+                                  sZoDodoraPartIdx[i], this->timer_0C6 % 2U);
+
         if (gPlayState != PLAY_PAUSE) {
-            Math_SmoothStepToF(&temp_s0->pos.y, this->fwork[2], 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&zoDodoraPosRots->pos.y, this->fwork[2], 1.0f, 10.0f, 0.0f);
         }
     }
 }
 
 void Zoness_ZoDodora_Draw(ZoDodora* this) {
-    Zoness_80190D0C(this);
+    Zoness_ZoDodora_Draw2(this);
 }
 
 void Zoness_ZoFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
@@ -2014,7 +2021,7 @@ void Zoness_ZoSarumarine_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 void Zoness_ZoSarumarine_Draw(ZoSarumarine* this) {
     Matrix_Translate(gCalcMatrix, 0.0f, this->fwork[ZO_FWK_3], 0.0f, MTXF_APPLY);
     Matrix_Scale(gCalcMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
-    Animation_DrawSkeleton(3, D_ZO_6019E18, this->vwork, Zoness_ZoSarumarine_OverrideLimbDraw,
+    Animation_DrawSkeleton(3, aZoSarumarineSkel, this->vwork, Zoness_ZoSarumarine_OverrideLimbDraw,
                            Zoness_ZoSarumarine_PostLimbDraw, this, gCalcMatrix);
 }
 

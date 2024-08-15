@@ -1798,7 +1798,7 @@ void CoSkibot_Update(CoSkibot* this) {
             }
 
             this->animFrame++;
-            if (Animation_GetFrameCount(&D_CO_6029528) < this->animFrame) {
+            if (Animation_GetFrameCount(&aCoSkibotAnim) < this->animFrame) {
                 this->animFrame = 0;
             }
 
@@ -2150,7 +2150,7 @@ void ActorSupplies_Draw(Actor* this) {
         Matrix_RotateY(gGfxMatrix, D_enmy_800CFF0C[i].y * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, D_enmy_800CFF0C[i].x * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_10177C0);
+        gSPDisplayList(gMasterDisp++, aActorSuppliesDL);
         Matrix_Pop(&gGfxMatrix);
     }
 

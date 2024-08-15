@@ -325,7 +325,7 @@ void Play_InitVsStage(void) {
         if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (gLevelObjects[j].id == OBJ_SCENERY_147) {
+        if (gLevelObjects[j].id == OBJ_SCENERY_LEVEL_OBJECTS) {
             Scenery360_Initialize(&gScenery360[i]);
             gScenery360[i].obj.status = OBJ_ACTIVE;
             gScenery360[i].obj.id = gLevelObjects[j].id;
@@ -341,7 +341,7 @@ void Play_InitVsStage(void) {
         if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
-        if (gLevelObjects[j].id != OBJ_SCENERY_147) {
+        if (gLevelObjects[j].id != OBJ_SCENERY_LEVEL_OBJECTS) {
             Scenery360_Initialize(&gScenery360[i]);
             gScenery360[i].obj.status = OBJ_ACTIVE;
             gScenery360[i].obj.id = gLevelObjects[j].id;
@@ -975,6 +975,7 @@ void Player_ApplyDamage(Player* player, s32 direction, s32 damage) {
             player->knockback.x = sp38.x;
             player->knockback.y = sp38.y;
             player->knockback.z = sp38.z;
+
             if (Rand_ZeroOne() < 0.5f) {
                 Player_DamageWings(player, 1, 15);
             } else {
@@ -1030,14 +1031,14 @@ void Player_GroundedCollision(Player* player, u32 arg1, f32 arg2, f32 arg3) {
     }
 }
 
-bool Play_CheckDynaFloorCollision(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 zPos) {
-    Vtx* spA4;
-    u16* spA0;
-    s32 sp9C;
-    s32 sp98;
-    f32 sp94;
-    f32 sp90;
-    s32 sp8C;
+bool Play_CheckDynaFloorCollision(f32* floorHeight, s32* triangleIndex, f32 xPos, f32 yPos, f32 zPos) {
+    Vtx* vertexData;
+    u16* indexData;
+    s32 gridX;
+    s32 gridZ;
+    f32 modZ;
+    f32 modX;
+    s32 vertIndex;
     f32 x0;
     f32 y0;
     f32 z0;
@@ -1047,80 +1048,85 @@ bool Play_CheckDynaFloorCollision(f32* arg0, s32* arg1, f32 xPos, f32 yPos, f32 
     f32 x2;
     f32 y2;
     f32 z2;
-    f32 temp1;
-    f32 dz21;
-    f32 dx10;
-    f32 dx21;
-    f32 dy10;
-    f32 dy21;
-    f32 dz10;
-    f32 sp48;
-    f32 crz;
-    f32 cry;
-    f32 crx;
+    f32 tempVar;
+    f32 deltaZ21;
+    f32 deltaX10;
+    f32 deltaX21;
+    f32 deltaY10;
+    f32 deltaY21;
+    f32 deltaZ10;
+    f32 heightVal;
+    f32 crossProductX;
+    f32 crossProductY;
+    f32 crossProductZ;
 
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
-            spA4 = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
-            spA0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
+            vertexData = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
+            indexData = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
             break;
+
         case LEVEL_ZONESS:
-            spA4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
-            spA0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
+            vertexData = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
+            indexData = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
             break;
+
         default:
             return false;
     }
 
-    sp9C = (s32) ((xPos + 2400.0f) / 300.0f);
-    sp98 = (s32) ((zPos + gPathProgress + 1500.0f + 2400.0f) / 300.0f);
+    gridX = (s32) ((xPos + 2400.0f) / 300.0f);
+    gridZ = (s32) ((zPos + gPathProgress + 1500.0f + 2400.0f) / 300.0f);
 
-    if ((sp9C < 0) || (sp9C >= 16) || (sp98 < 0) || (sp98 >= 16)) {
+    if ((gridX < 0) || (gridX >= 16) || (gridZ < 0) || (gridZ >= 16)) {
         return false;
     }
 
-    sp90 = Math_ModF(xPos + 2400.0f, 300.0f);
-    sp94 = Math_ModF(zPos + gPathProgress + 1500.0f + 2400.0f, 300.0f);
-    sp8C = (sp98 * 17) + sp9C;
+    modX = Math_ModF(xPos + 2400.0f, 300.0f);
+    modZ = Math_ModF(zPos + gPathProgress + 1500.0f + 2400.0f, 300.0f);
 
-    x0 = spA4[spA0[sp8C]].n.ob[0] * 3.0f;
-    y0 = spA4[spA0[sp8C]].n.ob[1] * 2.0f;
-    z0 = spA4[spA0[sp8C]].n.ob[2] * 3.0f;
+    vertIndex = (gridZ * 17) + gridX;
 
-    if (sp90 < sp94) {
-        x1 = spA4[spA0[sp8C + 18]].n.ob[0] * 3.0f;
-        y1 = spA4[spA0[sp8C + 18]].n.ob[1] * 2.0f;
-        z1 = spA4[spA0[sp8C + 18]].n.ob[2] * 3.0f;
-        x2 = spA4[spA0[sp8C + 17]].n.ob[0] * 3.0f;
-        y2 = spA4[spA0[sp8C + 17]].n.ob[1] * 2.0f;
-        z2 = spA4[spA0[sp8C + 17]].n.ob[2] * 3.0f;
+    x0 = vertexData[indexData[vertIndex]].n.ob[0] * 3.0f;
+    y0 = vertexData[indexData[vertIndex]].n.ob[1] * 2.0f;
+    z0 = vertexData[indexData[vertIndex]].n.ob[2] * 3.0f;
+
+    if (modX < modZ) {
+        x1 = vertexData[indexData[vertIndex + 18]].n.ob[0] * 3.0f;
+        y1 = vertexData[indexData[vertIndex + 18]].n.ob[1] * 2.0f;
+        z1 = vertexData[indexData[vertIndex + 18]].n.ob[2] * 3.0f;
+        x2 = vertexData[indexData[vertIndex + 17]].n.ob[0] * 3.0f;
+        y2 = vertexData[indexData[vertIndex + 17]].n.ob[1] * 2.0f;
+        z2 = vertexData[indexData[vertIndex + 17]].n.ob[2] * 3.0f;
     } else {
-        x1 = spA4[spA0[sp8C + 1]].n.ob[0] * 3.0f;
-        y1 = spA4[spA0[sp8C + 1]].n.ob[1] * 2.0f;
-        z1 = spA4[spA0[sp8C + 1]].n.ob[2] * 3.0f;
-        x2 = spA4[spA0[sp8C + 18]].n.ob[0] * 3.0f;
-        y2 = spA4[spA0[sp8C + 18]].n.ob[1] * 2.0f;
-        z2 = spA4[spA0[sp8C + 18]].n.ob[2] * 3.0f;
+        x1 = vertexData[indexData[vertIndex + 1]].n.ob[0] * 3.0f;
+        y1 = vertexData[indexData[vertIndex + 1]].n.ob[1] * 2.0f;
+        z1 = vertexData[indexData[vertIndex + 1]].n.ob[2] * 3.0f;
+        x2 = vertexData[indexData[vertIndex + 18]].n.ob[0] * 3.0f;
+        y2 = vertexData[indexData[vertIndex + 18]].n.ob[1] * 2.0f;
+        z2 = vertexData[indexData[vertIndex + 18]].n.ob[2] * 3.0f;
     }
-    dx10 = x1 - x0;
-    dx21 = x2 - x1;
-    dy10 = y1 - y0;
 
-    dy21 = y2 - y1;
-    dz10 = z1 - z0;
-    dz21 = z2 - z1;
+    deltaX10 = x1 - x0;
+    deltaX21 = x2 - x1;
+    deltaY10 = y1 - y0;
+    deltaY21 = y2 - y1;
+    deltaZ10 = z1 - z0;
+    deltaZ21 = z2 - z1;
 
-    crx = (dy10 * dz21) - (dz10 * dy21);
-    cry = (dz10 * dx21) - (dx10 * dz21);
-    crz = (dx10 * dy21) - (dy10 * dx21);
+    crossProductX = (deltaY10 * deltaZ21) - (deltaZ10 * deltaY21);
+    crossProductY = (deltaZ10 * deltaX21) - (deltaX10 * deltaZ21);
+    crossProductZ = (deltaX10 * deltaY21) - (deltaY10 * deltaX21);
 
-    temp1 = -crx * x0 - cry * y0 - crz * z0;
-    sp48 = (-temp1 - crx * xPos - crz * (zPos + gPathProgress + 1500.0f)) / cry;
-    if (yPos < sp48) {
-        *arg0 = sp48;
-        *arg1 = sp8C;
+    tempVar = -crossProductX * x0 - crossProductY * y0 - crossProductZ * z0;
+    heightVal = (-tempVar - crossProductX * xPos - crossProductZ * (zPos + gPathProgress + 1500.0f)) / crossProductY;
+
+    if (yPos < heightVal) {
+        *floorHeight = heightVal;
+        *triangleIndex = vertIndex;
         return true;
     }
+
     return false;
 }
 
@@ -1401,7 +1407,7 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
         case OBJ_SCENERY_VS_SPACE_JUNK_1:
         case OBJ_SCENERY_VS_SPACE_JUNK_2:
         case OBJ_SCENERY_VS_SPACE_JUNK_3:
-        case OBJ_SCENERY_147:
+        case OBJ_SCENERY_LEVEL_OBJECTS:
         case OBJ_SCENERY_FO_MOUNTAIN_1:
         case OBJ_SCENERY_CO_BUILDING_9:
         case OBJ_SCENERY_CO_BUILDING_10:
@@ -1448,9 +1454,9 @@ bool Play_CheckPolyCollision(ObjectId objId, f32 arg1, f32 arg2, f32 arg3, f32 a
     return false;
 }
 
-s32 Player_CheckPolyCollision(Player* player, ObjectId objId, f32 x, f32 y, f32 z, f32 arg5, f32 arg6, f32 arg7) {
+s32 Player_CheckPolyCollision(Player* player, ObjectId objId, f32 x, f32 y, f32 z, f32 arg5, f32 angle, f32 arg7) {
     Vec3f sp84;
-    Vec3f sp78;
+    Vec3f src;
     Vec3f sp6C;
     Vec3f sp60;
     Vec3f sp54;
@@ -1459,20 +1465,20 @@ s32 Player_CheckPolyCollision(Player* player, ObjectId objId, f32 x, f32 y, f32 
     sp84.y = y;
     sp84.z = z;
 
-    Matrix_RotateY(gCalcMatrix, -arg6 * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, -angle * M_DTOR, MTXF_NEW);
 
-    sp78.x = player->vel.x;
-    sp78.y = player->vel.y;
-    sp78.z = player->vel.z;
+    src.x = player->vel.x;
+    src.y = player->vel.y;
+    src.z = player->vel.z;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp54);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &sp54);
 
     if ((player->form == FORM_LANDMASTER) || (player->form == FORM_ON_FOOT)) {
-        sp78.x = player->pos.x - sp84.x;
-        sp78.y = player->pos.y - sp84.y;
-        sp78.z = player->trueZpos - sp84.z;
+        src.x = player->pos.x - sp84.x;
+        src.y = player->pos.y - sp84.y;
+        src.z = player->trueZpos - sp84.z;
 
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &sp6C);
 
         if (Play_CheckPolyCollision(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z,
                                     &sp60, &sp54)) {
@@ -1490,43 +1496,43 @@ s32 Player_CheckPolyCollision(Player* player, ObjectId objId, f32 x, f32 y, f32 
         }
     }
 
-    sp78.x = player->hit3.x - sp84.x;
-    sp78.y = player->hit3.y - sp84.y;
-    sp78.z = player->hit3.z - sp84.z;
+    src.x = player->hit3.x - sp84.x;
+    src.y = player->hit3.y - sp84.y;
+    src.z = player->hit3.z - sp84.z;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &sp6C);
     if (Play_CheckPolyCollision(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60,
                                 &sp54)) {
         return 3;
     }
 
-    sp78.x = player->hit4.x - sp84.x;
-    sp78.y = player->hit4.y - sp84.y;
-    sp78.z = player->hit4.z - sp84.z;
+    src.x = player->hit4.x - sp84.x;
+    src.y = player->hit4.y - sp84.y;
+    src.z = player->hit4.z - sp84.z;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &sp6C);
 
     if (Play_CheckPolyCollision(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60,
                                 &sp54)) {
         return 4;
     }
 
-    sp78.x = player->hit1.x - sp84.x;
-    sp78.y = player->hit1.y - sp84.y;
-    sp78.z = player->hit1.z - sp84.z;
+    src.x = player->hit1.x - sp84.x;
+    src.y = player->hit1.y - sp84.y;
+    src.z = player->hit1.z - sp84.z;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &sp6C);
 
     if (Play_CheckPolyCollision(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60,
                                 &sp54)) {
         return 1;
     }
 
-    sp78.x = player->hit2.x - sp84.x;
-    sp78.y = player->hit2.y - sp84.y;
-    sp78.z = player->hit2.z - sp84.z;
+    src.x = player->hit2.x - sp84.x;
+    src.y = player->hit2.y - sp84.y;
+    src.z = player->hit2.z - sp84.z;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &sp6C);
 
     if (Play_CheckPolyCollision(objId, sp84.x, sp84.y, sp84.z, sp6C.x + sp84.x, sp6C.y + sp84.y, sp6C.z + sp84.z, &sp60,
                                 &sp54)) {

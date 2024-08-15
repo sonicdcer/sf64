@@ -186,8 +186,8 @@ D_SX_601C690:
 D_SX_60206DC:
   { type: SF64:ANIM, offset: 0x60206DC, symbol: D_SX_60206DC }
 
-D_SX_6020C68:
-  { type: SF64:SKELETON, offset: 0x6020C68, symbol: D_SX_6020C68 }
+aSxSpyborgSkel:
+  { type: SF64:SKELETON, offset: 0x6020C68, symbol: aSxSpyborgSkel }
 
 D_SX_6020D20:
   { type: GFX, offset: 0x6020D20, symbol: D_SX_6020D20 }

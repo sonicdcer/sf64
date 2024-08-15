@@ -192,7 +192,7 @@ void Andross_80187C5C(void) {
             scenery360->obj.pos.z += gLevelObjects[i].zPos2;
             scenery360->obj.pos.y = gLevelObjects[i].yPos;
             scenery360->obj.rot.y = gLevelObjects[i].rot.y;
-            if (scenery360->obj.id == OBJ_SCENERY_147) {
+            if (scenery360->obj.id == OBJ_SCENERY_LEVEL_OBJECTS) {
                 scenery360->pathIndex = gLevelObjects[i].rot.z;
             }
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
@@ -240,7 +240,7 @@ void Andross_80187C5C(void) {
     }
 }
 
-void Andross_Actor199_Update(Actor199* this) {
+void Andross_ActorTeamArwing_Update(ActorTeamArwing* this) {
     s32 i;
     f32 xDisplacement;
     f32 yDisplacement;
@@ -253,7 +253,7 @@ void Andross_Actor199_Update(Actor199* this) {
     f32 temp_fv1;
 
     for (scenery360 = gScenery360, i = 0; i < 200; i++, scenery360++) {
-        if ((scenery360->obj.id == OBJ_SCENERY_147) && (scenery360->pathIndex == (u8) this->counter_04E)) {
+        if ((scenery360->obj.id == OBJ_SCENERY_LEVEL_OBJECTS) && (scenery360->pathIndex == (u8) this->counter_04E)) {
             this->fwork[3] = scenery360->obj.pos.x;
             this->fwork[4] = scenery360->obj.pos.y;
             this->fwork[5] = scenery360->obj.pos.z;
@@ -289,6 +289,7 @@ void Andross_Actor199_Update(Actor199* this) {
     Math_SmoothStepToAngle(&this->rot_0F4.x,
                            Math_RadToDeg(Math_Atan2F(yDisplacement, sqrtf(SQ(xDisplacement) + SQ(zDisplacement)))),
                            0.1f, this->fwork[2], 0.0f);
+
     temp_fv1 = Math_SmoothStepToAngle(&this->rot_0F4.y, yaw, 0.1f, this->fwork[2], 0.0001f) * 40.0f;
     if (temp_fv1 < 0.0f) {
         var_fv0 = temp_fv1 * -1.0f;
@@ -314,8 +315,8 @@ void Andross_Actor199_Update(Actor199* this) {
     this->vel.z = vel.z;
 }
 
-void Andross_Actor199_Draw(Actor199* this) {
-    func_edisplay_8005B388(this);
+void Andross_ActorTeamArwing_Draw(ActorTeamArwing* this) {
+    ActorTeamArwing_Draw(this);
 }
 
 void Andross_80188468(void) {
@@ -328,7 +329,7 @@ void Andross_80188468(void) {
     actor->obj.pos.z = -11959.0f;
     actor->iwork[11] = 1;
     actor->iwork[14] = 1;
-    actor->obj.id = OBJ_ACTOR_199;
+    actor->obj.id = OBJ_ACTOR_TEAM_ARWING;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
@@ -360,7 +361,7 @@ void Andross_AndBrainWaste_Draw(AndBrainWaste* this) {
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_VE2_6009300);
+    gSPDisplayList(gMasterDisp++, aAndBrainWasteDL);
 }
 
 void Andross_AndBrainWaste_Setup(AndBrainWaste* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel) {
@@ -3625,7 +3626,7 @@ void Andross_AndLaserEmitter_Update(AndLaserEmitter* this) {
 }
 
 void Andross_AndLaserEmitter_Draw(AndLaserEmitter* this) {
-    gSPDisplayList(gMasterDisp++, D_VE2_6007E20);
+    gSPDisplayList(gMasterDisp++, aAndLaserEmitterDL);
 
     if (this->timer_0BC != 0) {
         f32 scale = 2.5f;

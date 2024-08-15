@@ -14,8 +14,8 @@ D_ENMY_SPACE_4000080:
 D_ENMY_SPACE_400014C: 
   { type: SF64:SKELETON, offset: 0x400014C, symbol: D_ENMY_SPACE_400014C }
 
-D_ENMY_SPACE_4000170:
-  { type: GFX, offset: 0x4000170, symbol: D_ENMY_SPACE_4000170 }
+aEnmySpMeMora1DL:
+  { type: GFX, offset: 0x4000170, symbol: aEnmySpMeMora1DL }
 
 D_ENMY_SPACE_4000650:
   { type: GFX, offset: 0x4000650, symbol: D_ENMY_SPACE_4000650 }
@@ -89,8 +89,8 @@ D_ENMY_SPACE_4007870:
 D_ENMY_SPACE_4006FE8:
   { type: TEXTURE, format: RGBA16, offset: 0x4006FE8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4006FE8 }
 
-D_ENMY_SPACE_40084D0:
-  { type: GFX, offset: 0x40084D0, symbol: D_ENMY_SPACE_40084D0 }
+aEnmySpMeMora2DL:
+  { type: GFX, offset: 0x40084D0, symbol: aEnmySpMeMora2DL }
 
 D_ENMY_SPACE_4008550:
   { type: TEXTURE, format: RGBA16, offset: 0x04008550, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4008550 }
@@ -116,8 +116,8 @@ D_ENMY_SPACE_400A30C:
 D_ENMY_SPACE_400A398:
   { type: SF64:SKELETON, offset: 0x400A398, symbol: D_ENMY_SPACE_400A398 }
 
-D_ENMY_SPACE_400A630:
-  { type: GFX, offset: 0x400A630, symbol: D_ENMY_SPACE_400A630 }
+aEnmySpMeMora3DL:
+  { type: GFX, offset: 0x400A630, symbol: aEnmySpMeMora3DL }
 
   
 D_ENMY_SPACE_400AAE0:

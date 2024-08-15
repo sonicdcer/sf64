@@ -3744,15 +3744,13 @@ void Aquas_AqSculpin_Draw(AqSculpin* this) {
     Vec3f jointTable[30];
 
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_AQ_6005954, this->animFrame, jointTable);
-    Animation_DrawSkeleton(3, D_AQ_6005A80, jointTable, Aquas_AqSculpin_OverrideLimbDraw, Aquas_AqSculpin_PostLimbDraw,
-                           this, gCalcMatrix);
+    Animation_GetFrameData(&aAqSculpinAnim, this->animFrame, jointTable);
+    Animation_DrawSkeleton(3, aAqSculpinSkel, jointTable, Aquas_AqSculpin_OverrideLimbDraw,
+                           Aquas_AqSculpin_PostLimbDraw, this, gCalcMatrix);
 }
 
 f32 D_i3_801C025C[2] = { 120.0f, 0.0f };
-s32 D_i3_801C0264[19] = {
-    0, 0, 3, 4, 0, 5, 6, 7, 1, 2, 0, 0, 0, 0, 0, 0, 8, 9, 0,
-};
+s32 D_i3_801C0264[19] = { 0, 0, 3, 4, 0, 5, 6, 7, 1, 2, 0, 0, 0, 0, 0, 0, 8, 9, 0 };
 
 void Aquas_AqSculpin_Update(AqSculpin* this) {
     s32 i;
@@ -3814,10 +3812,12 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
             Math_SmoothStepToF(&this->obj.pos.y, this->fwork[0], 1.0f, D_i3_801C0224[this->iwork[1]], 0);
             this->fwork[1] += 10.0f;
             this->vel.x = COS_DEG(this->fwork[1]) * this->iwork[1] * 0.1f;
+
             if ((this->fwork[0] - 1.0f) <= this->obj.pos.y) {
                 this->state = 5;
             }
-            if (((gGameFrameCount % 8) == 0)) {
+
+            if ((gGameFrameCount % 8) == 0) {
                 Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                       this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
                                       this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 1);
@@ -3826,9 +3826,11 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
 
         case 5:
             this->vel.z = gPlayer[0].vel.z;
+
             Math_SmoothStepToF(&this->obj.pos.z, gPlayer[0].trueZpos - 1000.0f, 0.1f, 100.0f, 0);
             Math_SmoothStepToF(&this->vel.x, 0.0f, 1.0f, 2.0f, 0.001f);
             Math_SmoothStepToAngle(&this->obj.rot.x, D_i3_801C025C[this->iwork[0]], 1.0f, 20.0f, 0);
+
             if (this->obj.rot.x == D_i3_801C025C[this->iwork[0]]) {
                 this->iwork[0]++;
                 if (this->iwork[0] >= 2) {
@@ -3853,7 +3855,8 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
         case 6:
             Math_SmoothStepToAngle(&this->obj.rot.x, this->fwork[3], 1.0f, 5.0f, 0);
             Math_SmoothStepToAngle(&this->obj.rot.y, this->fwork[2], 1.0f, 5.0f, 0);
-            if (((gGameFrameCount % 4) == 0)) {
+
+            if ((gGameFrameCount % 4) == 0) {
                 Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                       this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
                                       this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 1);
@@ -3880,7 +3883,7 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
         } else {
             this->animFrame += 3;
         }
-        if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6005954)) {
+        if (this->animFrame >= Animation_GetFrameCount(&aAqSculpinAnim)) {
             this->animFrame = 0;
         }
     }
@@ -4037,14 +4040,14 @@ f32 D_i3_801C02C8[2] = { 255.0f, 68.0f };
 s32 D_i3_801C02D0[2] = { 70, 100 };
 
 void Aquas_AqAnglerFish_Draw(AqAnglerFish* this) {
-    Vec3f sp40[30];
+    Vec3f frameTable[30];
 
     Matrix_Push(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
-    Animation_GetFrameData(&D_AQ_6002628, this->animFrame, sp40);
-    Animation_DrawSkeleton(3, D_AQ_6002874, sp40, Aquas_AqAnglerFish_OverrideLimbDraw, Aquas_AqAnglerFish_PostLimbDraw,
-                           this, gCalcMatrix);
+    Animation_GetFrameData(&aAqAnglerFishAnim, this->animFrame, frameTable);
+    Animation_DrawSkeleton(3, aAqAnglerFishSkel, frameTable, Aquas_AqAnglerFish_OverrideLimbDraw,
+                           Aquas_AqAnglerFish_PostLimbDraw, this, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Pop(&gCalcMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -4127,7 +4130,7 @@ void Aquas_AqAnglerFish_Update(AqAnglerFish* this) {
     }
 
     this->animFrame++;
-    if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6002628)) {
+    if (this->animFrame >= Animation_GetFrameCount(&aAqAnglerFishAnim)) {
         this->animFrame = 0;
     }
 
@@ -4373,7 +4376,7 @@ void Aquas_AqSpindlyFish_Update(AqSpindlyFish* this) {
     }
 
     this->animFrame++;
-    if (Animation_GetFrameCount(&D_AQ_60260EC) < this->animFrame) {
+    if (Animation_GetFrameCount(&aAqSpindlyFishAnim) < this->animFrame) {
         this->animFrame = 0;
     }
 
@@ -4491,15 +4494,15 @@ void Aquas_AqSpindlyFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 void Aquas_AqSpindlyFish_Draw(Actor* this) {
-    Vec3f sp30[30];
+    Vec3f frameTable[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     if ((this->timer_0C6 % 2) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_61);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    Animation_GetFrameData(&D_AQ_60260EC, this->animFrame, sp30);
-    Animation_DrawSkeleton(3, D_AQ_60263F8, sp30, Aquas_AqSpindlyFish_OverrideLimbDraw,
+    Animation_GetFrameData(&aAqSpindlyFishAnim, this->animFrame, frameTable);
+    Animation_DrawSkeleton(3, aAqSpindlyFishSkel, frameTable, Aquas_AqSpindlyFish_OverrideLimbDraw,
                            Aquas_AqSpindlyFish_PostLimbDraw, this, gCalcMatrix);
 }
 
@@ -4935,17 +4938,17 @@ void Aquas_AqGaroa_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 void Aquas_AqGaroa_Draw(AqGaroa* this) {
-    Vec3f sp30[30];
+    Vec3f frameTable[30];
 
     if ((this->state >= 3) && (this->state < 5)) {
-        Animation_GetFrameData(&D_AQ_602AC28, this->animFrame, sp30);
+        Animation_GetFrameData(&D_AQ_602AC28, this->animFrame, frameTable);
     } else {
-        Animation_GetFrameData(&D_AQ_6024F80, this->animFrame, sp30);
+        Animation_GetFrameData(&D_AQ_6024F80, this->animFrame, frameTable);
     }
 
     Matrix_Translate(gCalcMatrix, 0.0f, -150.0f, 100.0f, MTXF_APPLY);
-    Animation_DrawSkeleton(3, D_AQ_602512C, sp30, Aquas_AqGaroa_OverrideLimbDraw, Aquas_AqGaroa_PostLimbDraw, this,
-                           gCalcMatrix);
+    Animation_DrawSkeleton(3, aAqGaroaSkel, frameTable, Aquas_AqGaroa_OverrideLimbDraw, Aquas_AqGaroa_PostLimbDraw,
+                           this, gCalcMatrix);
 }
 
 void Aquas_AqSquid_Update(AqSquid* this) {
@@ -5028,7 +5031,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
 
         case 1:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6000AE4)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAqSquidAnim)) {
                 this->animFrame = 0;
             }
             if (this->animFrame == 36) {
@@ -5076,7 +5079,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
 
         case 2:
             this->animFrame++;
-            if ((this->animFrame >= Animation_GetFrameCount(&D_AQ_6000AE4)) && (this->fwork[8] < 1.0f)) {
+            if ((this->animFrame >= Animation_GetFrameCount(&aAqSquidAnim)) && (this->fwork[8] < 1.0f)) {
                 this->animFrame = 0;
             }
             if (this->animFrame == 40) {
@@ -5215,7 +5218,7 @@ void Aquas_AqSquid_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 void Aquas_AqSquid_Draw(AqSquid* this) {
-    Vec3f sp40[30];
+    Vec3f frameTable[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     if ((this->timer_0C6 % 2) != 0) {
@@ -5232,8 +5235,8 @@ void Aquas_AqSquid_Draw(AqSquid* this) {
         Matrix_RotateX(gCalcMatrix, (this->obj.rot.x + 90.0f) * M_DTOR, MTXF_APPLY);
     }
 
-    Animation_GetFrameData(&D_AQ_6000AE4, this->animFrame, sp40);
-    Animation_DrawSkeleton(3, D_AQ_6000DB0, sp40, NULL, Aquas_AqSquid_PostLimbDraw, this, gCalcMatrix);
+    Animation_GetFrameData(&aAqSquidAnim, this->animFrame, frameTable);
+    Animation_DrawSkeleton(3, aAqSquidSkel, frameTable, NULL, Aquas_AqSquid_PostLimbDraw, this, gCalcMatrix);
 }
 
 void Aquas_AqSeaweed_Update(AqSeaweed* this) {
@@ -5281,7 +5284,7 @@ void Aquas_AqSeaweed_Update(AqSeaweed* this) {
 
 void Aquas_AqSeaweed_Draw(AqSeaweed* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Animation_DrawSkeleton(1, D_AQ_6020C6C, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aAqSeaweedSkel, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 

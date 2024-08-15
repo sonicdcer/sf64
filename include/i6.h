@@ -40,8 +40,8 @@ void Turret_Update(Player*);
 void Turret_UpdateCamera(Player*);
 void Turret_Draw(Player *);
 
-void Andross_Actor199_Update(Actor*);
-void Andross_Actor199_Draw(Actor*);
+void Andross_ActorTeamArwing_Update(Actor*);
+void Andross_ActorTeamArwing_Draw(Actor*);
 void Andross_AndBrainWaste_Update(Actor*);
 void Andross_AndBrainWaste_Draw(Actor*);
 void Andross_AndBossTimer_Update(Actor*);

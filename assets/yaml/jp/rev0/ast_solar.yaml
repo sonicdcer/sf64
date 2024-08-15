@@ -127,8 +127,8 @@ D_SO_60151A0:
 D_SO_6015810:
   { type: GFX, offset: 0x6015810, symbol: D_SO_6015810}
 
-D_SO_6016CF0:
-  { type: GFX, offset: 0x6016CF0, symbol: D_SO_6016CF0}
+aSoRock3DL:
+  { type: GFX, offset: 0x6016CF0, symbol: aSoRock3DL}
 
 D_SO_6016F08:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6016F08, symbol: D_SO_6016F08}
@@ -136,8 +136,8 @@ D_SO_6016F08:
 D_SO_6017008:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6017008, symbol: D_SO_6017008}
 
-D_SO_6017090:
-  { type: GFX, offset: 0x6017090, symbol: D_SO_6017090}
+aSoRock2DL:
+  { type: GFX, offset: 0x6017090, symbol: aSoRock2DL}
 
 D_SO_6017200:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6017200, symbol: D_SO_6017200}
@@ -145,8 +145,8 @@ D_SO_6017200:
 D_SO_6017300:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x6017300, symbol: D_SO_6017300}
 
-D_SO_6017370:
-  { type: GFX, offset: 0x6017370, symbol: D_SO_6017370}
+aSoRock1DL:
+  { type: GFX, offset: 0x6017370, symbol: aSoRock1DL}
 
 D_SO_60174E0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 8, height: 8, offset: 0x60174E0, symbol: D_SO_60174E0}

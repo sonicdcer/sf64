@@ -2394,7 +2394,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
             case AI360_SLIPPY:
             case AI360_PEPPY:
                 Matrix_Push(&gGfxMatrix);
-                func_edisplay_8005B388(this);
+                ActorTeamArwing_Draw(this);
                 Matrix_Pop(&gGfxMatrix);
                 ActorAllRange_DrawBarrelRoll(this);
                 break;

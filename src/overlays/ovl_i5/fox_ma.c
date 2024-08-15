@@ -1723,7 +1723,7 @@ void Macbeth_8019F164(MaTrainCar6* this) {
     sp6C.z = gPlayer[0].trueZpos - 500.0f - this->obj.pos.z;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        if ((gActors[i].obj.id == OBJ_ACTOR_219) && (gActors[i].obj.status == OBJ_ACTIVE)) {
+        if ((gActors[i].obj.id == OBJ_ACTOR_MA_FALLING_BOULDER) && (gActors[i].obj.status == OBJ_ACTIVE)) {
             if ((this->obj.pos.z < (gActors[i].obj.pos.z + 3000.0f)) &&
                 ((gActors[i].obj.pos.z - this->obj.pos.z) < 5000.0f)) {
                 sp6C.x = gActors[i].obj.pos.x - this->obj.pos.x + this->fwork[25];
@@ -3319,7 +3319,7 @@ void Macbeth_MaBoulder_Draw(MaBoulder* this) {
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
-        gSPDisplayList(gMasterDisp++, D_MA_601A2B0);
+        gSPDisplayList(gMasterDisp++, aMaBoulderDL);
     }
 }
 
@@ -3785,7 +3785,7 @@ void Macbeth_MaProximityLight_Draw(MaProximityLight* this) {
 void Macbeth_801A67BC(s32 arg0) {
 }
 
-void Macbeth_Actor219_Update(Actor219* this) {
+void Macbeth_MaFallingBoulder_Update(MaFallingBoulder* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -300.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3804,7 +3804,8 @@ void Macbeth_Actor219_Update(Actor219* this) {
     }
 }
 
-void Macbeth_Actor219_Draw(Actor219* this) {
+void Macbeth_MaFallingBoulder_Draw(MaFallingBoulder* this) {
+    /* Unimplemented */
 }
 
 void Macbeth_801A68F8(Actor207* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {

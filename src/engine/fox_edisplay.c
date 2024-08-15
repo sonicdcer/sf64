@@ -1,5 +1,6 @@
 #include "prevent_bss_reordering.h"
 #include "global.h"
+#include "sf64object.h"
 #include "assets/ast_katina.h"
 #include "assets/ast_venom_1.h"
 #include "assets/ast_venom_2.h"
@@ -26,7 +27,7 @@ Vec3f D_edisplay_801615D0;
 Vec3f sViewPos;
 bool sDrewActor;
 Matrix D_edisplay_801615F0;
-ArwingInfo D_edisplay_80161630;
+ArwingInfo gActorTeamArwing;
 
 char D_edisplay_800CF970[] = "$Id: fox_edisplay.c,v 1.196 1997/05/08 08:31:50 morita Exp $";
 
@@ -62,11 +63,11 @@ void Object_dummy_800598DC(s32 arg0) {
 
 void MeteoBall_Draw(MeteoBall* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_MA_6025B50);
+    gSPDisplayList(gMasterDisp++, aMeMeteoBallDL);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
 
-void ActorHopBot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* index) {
+void MeHopBot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* index) {
     Vec3f sp24;
     Vec3f sp18;
 
@@ -89,14 +90,14 @@ f32 D_edisplay_800CFA2C[] = {
     1.0f, 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f,
 };
 
-void ActorHopBot_Draw(ActorHopBot* this) {
+void MeHopBot_Draw(MeHopBot* this) {
     Vec3f sp30[30];
     f32 temp = D_edisplay_800CF9B0[this->animFrame] - 114.0f;
 
     Matrix_Translate(gGfxMatrix, 0.f, -temp, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&D_ME_601E8C4, this->animFrame, sp30);
-    Animation_DrawSkeleton(1, D_ME_601E9D0, sp30, NULL, ActorHopBot_PostLimbDraw, &this->index, &gIdentityMatrix);
+    Animation_GetFrameData(&aMeHopBotAnim, this->animFrame, sp30);
+    Animation_DrawSkeleton(1, aMeHopBotSkel, sp30, NULL, MeHopBot_PostLimbDraw, &this->index, &gIdentityMatrix);
 }
 
 void MeteoTunnel_Draw(MeTunnel* this) {
@@ -444,7 +445,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             break;
 
         case 70:
-            gSPDisplayList(gMasterDisp++, D_10177C0);
+            gSPDisplayList(gMasterDisp++, aActorSuppliesDL);
             break;
 
         case 57:
@@ -549,7 +550,7 @@ void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
     }
 }
 
-void func_edisplay_8005B388(Actor199* this) {
+void ActorTeamArwing_Draw(ActorTeamArwing* this) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     Vec3f dest;
 
@@ -566,29 +567,31 @@ void func_edisplay_8005B388(Actor199* this) {
                  (gCurrentLevel == LEVEL_KATINA) && (this->index == 1)) ||
                 ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) &&
                  (this->state == 5))) {
-                D_edisplay_80161630.rightWingState = gPlayer[0].arwing.rightWingState;
-                D_edisplay_80161630.leftWingState = gPlayer[0].arwing.leftWingState;
+                gActorTeamArwing.rightWingState = gPlayer[0].arwing.rightWingState;
+                gActorTeamArwing.leftWingState = gPlayer[0].arwing.leftWingState;
             } else {
-                D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftWingState = WINGSTATE_INTACT;
+                gActorTeamArwing.rightWingState = gActorTeamArwing.leftWingState = WINGSTATE_INTACT;
             }
         } else {
-            D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftWingState = WINGSTATE_INTACT;
+            gActorTeamArwing.rightWingState = gActorTeamArwing.leftWingState = WINGSTATE_INTACT;
         }
-        D_edisplay_80161630.upperRightFlapYrot = this->fwork[15];
-        D_edisplay_80161630.upperLeftFlapYrot = this->fwork[16];
-        D_edisplay_80161630.bottomRightFlapYrot = this->fwork[26];
-        D_edisplay_80161630.bottomLeftFlapYrot = this->fwork[27];
-        D_edisplay_80161630.laserGunsYpos = D_edisplay_80161630.laserGunsXpos = D_edisplay_80161630.wingsXrot =
-            D_edisplay_80161630.wingsYrot = D_edisplay_80161630.windshieldXrot = D_edisplay_80161630.wingsZrot = 0.0f;
-        D_edisplay_80161630.unk_28 = this->fwork[17];
-        D_edisplay_80161630.drawFace = this->iwork[14];
-        D_edisplay_80161630.teamFaceXrot = this->fwork[20];
-        D_edisplay_80161630.teamFaceYrot = this->fwork[19];
+
+        gActorTeamArwing.upperRightFlapYrot = this->fwork[15];
+        gActorTeamArwing.upperLeftFlapYrot = this->fwork[16];
+        gActorTeamArwing.bottomRightFlapYrot = this->fwork[26];
+        gActorTeamArwing.bottomLeftFlapYrot = this->fwork[27];
+        gActorTeamArwing.laserGunsYpos = gActorTeamArwing.laserGunsXpos = gActorTeamArwing.wingsXrot =
+            gActorTeamArwing.wingsYrot = gActorTeamArwing.windshieldXrot = gActorTeamArwing.wingsZrot = 0.0f;
+        gActorTeamArwing.unk_28 = this->fwork[17];
+        gActorTeamArwing.drawFace = this->iwork[14];
+        gActorTeamArwing.teamFaceXrot = this->fwork[20];
+        gActorTeamArwing.teamFaceYrot = this->fwork[19];
+
         if (gLevelType == LEVELTYPE_SPACE) {
-            D_edisplay_80161630.upperRightFlapYrot = D_edisplay_80161630.bottomRightFlapYrot =
-                D_edisplay_80161630.upperLeftFlapYrot = D_edisplay_80161630.bottomLeftFlapYrot = 0.0f;
+            gActorTeamArwing.upperRightFlapYrot = gActorTeamArwing.bottomRightFlapYrot =
+                gActorTeamArwing.upperLeftFlapYrot = gActorTeamArwing.bottomLeftFlapYrot = 0.0f;
         }
-        Display_ArwingWings(&D_edisplay_80161630);
+        Display_ArwingWings(&gActorTeamArwing);
     } else if (gLevelType == LEVELTYPE_PLANET) {
         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
     } else if (gPlayer[0].wingPosition == 2) {
@@ -647,8 +650,8 @@ void ActorMissileSeek_Draw(Actor* missile) {
 
 void CoSkibot_Draw(CoSkibot* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -124.0f, 0.0f, MTXF_APPLY);
-    Animation_GetFrameData(&D_CO_6029528, this->animFrame, this->vwork);
-    Animation_DrawSkeleton(1, D_CO_6029674, this->vwork, NULL, NULL, this, &gIdentityMatrix);
+    Animation_GetFrameData(&aCoSkibotAnim, this->animFrame, this->vwork);
+    Animation_DrawSkeleton(1, aCoSkibotSkel, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
 void CoRadar_Draw(CoRadar* this) {
@@ -656,7 +659,7 @@ void CoRadar_Draw(CoRadar* this) {
         RCP_SetupDL_27();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_CO_6020B40);
+    gSPDisplayList(gMasterDisp++, aCoRadarDL);
 }
 
 void func_edisplay_8005BAAC(void) {
@@ -1095,7 +1098,7 @@ void Actor_DrawOnRails(Actor* this) {
                 this->info.draw(&this->obj);
                 Object_UpdateSfxSource(this->sfxSource);
                 if (((this->obj.id == OBJ_ACTOR_TEAM_BOSS) ||
-                     ((this->obj.id == OBJ_ACTOR_SLIPPY_SX) && (this->animFrame > 0))) &&
+                     ((this->obj.id == OBJ_ACTOR_SX_SLIPPY) && (this->animFrame > 0))) &&
                     (gReflectY > 0)) {
                     Matrix_MultVec3f(gGfxMatrix, &sp34, &gTeamArrowsViewPos[this->aiType]);
                 }
@@ -1680,7 +1683,7 @@ void Object_DrawAll(s32 arg0) {
         }
 
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
-            if ((scenery360->obj.status == OBJ_ACTIVE) && (scenery360->obj.id != OBJ_SCENERY_147)) {
+            if ((scenery360->obj.status == OBJ_ACTIVE) && (scenery360->obj.id != OBJ_SCENERY_LEVEL_OBJECTS)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
                     spAC.x = scenery360->sfxSource[0];
                     spAC.y = scenery360->sfxSource[1];

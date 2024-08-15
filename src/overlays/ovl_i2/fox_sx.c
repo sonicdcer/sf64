@@ -23,7 +23,7 @@ void SectorX_8018F030(void) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_SLIPPY_SX;
+            actor->obj.id = OBJ_ACTOR_SX_SLIPPY;
             actor->animFrame = 1;
             actor->obj.rot.y = 180.0f;
             actor->obj.pos.x = gPlayer[0].cam.eye.x - 300.0f;
@@ -43,7 +43,7 @@ void SectorX_SxSlippy_Setup(void) {
 
     Actor_Initialize(slippy);
     slippy->obj.status = OBJ_INIT;
-    slippy->obj.id = OBJ_ACTOR_SLIPPY_SX;
+    slippy->obj.id = OBJ_ACTOR_SX_SLIPPY;
     slippy->animFrame = -1;
 
     slippy->obj.pos.x = gPlayer[0].cam.eye.x + 3000.0f;
@@ -174,7 +174,7 @@ void SectorX_SxSlippy_Draw(SxSlippy* this) {
         case 1:
         case 2:
         case 10:
-            func_edisplay_8005B388(this);
+            ActorTeamArwing_Draw(this);
             break;
 
         case -1:
@@ -205,7 +205,7 @@ void SectorX_8018FA04(f32 x, f32 y, f32 z) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_SLIPPY_SX;
+            actor->obj.id = OBJ_ACTOR_SX_SLIPPY;
             actor->obj.pos.x = x;
             actor->obj.pos.y = y;
             actor->obj.pos.z = z;
@@ -307,7 +307,7 @@ bool SectorX_8018FF40(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void SectorX_SxSpyborgLeftArm_Draw(SxSpyborgLeftArm* this) {
-    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FF40, SectorX_SxSpyborg_PostLimbDraw, this,
+    Animation_DrawSkeleton(3, aSxSpyborgSkel, this->vwork, SectorX_8018FF40, SectorX_SxSpyborg_PostLimbDraw, this,
                            gCalcMatrix);
 }
 
@@ -320,7 +320,7 @@ bool SectorX_8018FFDC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 }
 
 void SectorX_SxSpyborgRightArm_Draw(SxSpyborgRightArm* this) {
-    Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_8018FFDC, SectorX_SxSpyborg_PostLimbDraw, this,
+    Animation_DrawSkeleton(3, aSxSpyborgSkel, this->vwork, SectorX_8018FFDC, SectorX_SxSpyborg_PostLimbDraw, this,
                            gCalcMatrix);
 }
 
@@ -1103,7 +1103,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
 
     D_i2_80195640 = 1;
 
-    Animation_DrawSkeleton(1, D_SX_6020C68, this->vwork, SectorX_SxSpyborg_OverrideLimbDraw,
+    Animation_DrawSkeleton(1, aSxSpyborgSkel, this->vwork, SectorX_SxSpyborg_OverrideLimbDraw,
                            SectorX_SxSpyborg_PostLimbDraw, this, &gIdentityMatrix);
 
     if (((this->swork[1] != 0) && (this->swork[3] > 0)) && ((this->fwork[4] < 45.0f) || (this->fwork[4] > 315.0f))) {
@@ -1369,7 +1369,8 @@ void SectorX_SxSpyborg_Draw(SxSpyborg* this) {
 
     if (this->swork[5] == 0) {
         D_i2_80195640 = 0;
-        Animation_DrawSkeleton(3, D_SX_6020C68, this->vwork, SectorX_SxSpyborg_OverrideLimbDraw, 0, this, gCalcMatrix);
+        Animation_DrawSkeleton(3, aSxSpyborgSkel, this->vwork, SectorX_SxSpyborg_OverrideLimbDraw, 0, this,
+                               gCalcMatrix);
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 96);
 

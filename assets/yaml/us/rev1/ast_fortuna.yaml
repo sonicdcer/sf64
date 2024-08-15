@@ -32,8 +32,8 @@ D_FO_6002090:
 D_FO_6002890:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6002890, ctype: u16, symbol: D_FO_6002890 }
 
-D_FO_6003090:
-  { type: GFX, offset: 0x6003090, symbol: D_FO_6003090 }
+aFoBaseDL2:
+  { type: GFX, offset: 0x6003090, symbol: aFoBaseDL2 }
 
 D_FO_6003EC0:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003EC0, ctype: u16, symbol: D_FO_6003EC0 }
@@ -131,8 +131,8 @@ D_FO_600B5C0:
 D_FO_600C5C0:
   { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600C5C0, ctype: u16, symbol: D_FO_600C5C0 }
 
-D_FO_600D5C0:
-  { type: GFX, offset: 0x600D5C0, symbol: D_FO_600D5C0 }
+aFoBaseDL1:
+  { type: GFX, offset: 0x600D5C0, symbol: aFoBaseDL1 }
 
 D_FO_600D7E8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600D7E8, ctype: u16, symbol: D_FO_600D7E8 }

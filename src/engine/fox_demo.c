@@ -2535,7 +2535,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case 0:
-            func_edisplay_8005B388(this);
+            ActorTeamArwing_Draw(this);
             break;
 
         case 1:
@@ -2866,7 +2866,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 44:
             Animation_GetFrameData(&D_AQ_6020A40, this->iwork[0], this->vwork);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            Animation_DrawSkeleton(1, D_AQ_6020C6C, this->vwork, 0, 0, &this->index, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, aAqSeaweedSkel, this->vwork, 0, 0, &this->index, &gIdentityMatrix);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             break;
 
@@ -2891,18 +2891,18 @@ void Cutscene_DrawGreatFox(void) {
     s32 i;
     s32 j;
     f32 sp9C[4];
-    Gfx* var_fp;
+    Gfx* dList;
 
     PRINTF("Demo_Time=%d\n");
     PRINTF("Demo_Time=%d\n");
     PRINTF("d Enm->wrk0 %d\n");
 
     if (gGameState == GSTATE_TITLE) {
-        var_fp = D_TITLE_60320E0;
+        dList = D_TITLE_60320E0;
     } else if (gGameState == GSTATE_ENDING) {
-        var_fp = D_END_7010970;
+        dList = D_END_7010970;
     } else {
-        var_fp = D_1024AC0;
+        dList = D_1024AC0;
     }
 
     if (gCurrentLevel == LEVEL_TITANIA) {
@@ -2910,18 +2910,20 @@ void Cutscene_DrawGreatFox(void) {
     }
 
     if (gGreatFoxIntact) {
-        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E000000);
+        gSPDisplayList(gMasterDisp++, aGreatFoxIntactDL);
     } else {
-        gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E003AB0);
+        gSPDisplayList(gMasterDisp++, aGreatFoxDamagedDL);
     }
 
     if ((gCurrentLevel != LEVEL_AQUAS) &&
         ((gCurrentLevel != LEVEL_SECTOR_Z) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE))) {
         RCP_SetupDL_49();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
+
         for (i = 0, var_s6_2 = D_demo_800CA0BC; i < ARRAY_COUNT(sp9C); i++, var_s6_2++) {
             if ((i != 1) || gGreatFoxIntact) {
                 sp9C[i] = 0.0f;
+
                 if (i < 2) {
                     if ((gGameFrameCount & ((64 - 1) & ~(8 - 1))) == 0) {
                         sp9C[i] = D_demo_800CA170[gGameFrameCount % 8U];
@@ -2933,11 +2935,12 @@ void Cutscene_DrawGreatFox(void) {
                     }
                     gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 128);
                 }
+
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, var_s6_2->x, var_s6_2->y, var_s6_2->z, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, sp9C[i], sp9C[i], 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, var_fp);
+                gSPDisplayList(gMasterDisp++, dList);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -2951,14 +2954,14 @@ void Cutscene_DrawGreatFox(void) {
             Matrix_Translate(gGfxMatrix, var_s6_2->x, var_s6_2->y, var_s6_2->z, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, sp9C[i], sp9C[i], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, var_fp);
+            gSPDisplayList(gMasterDisp++, dList);
 
             for (j = 0; j < 4; j++) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_demo_800CA1B4[2 * j], MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, D_demo_800CA1D4[2 * j], D_demo_800CA1D4[2 * j], 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, var_fp);
+                gSPDisplayList(gMasterDisp++, dList);
                 Matrix_Pop(&gGfxMatrix);
             }
             Matrix_Pop(&gGfxMatrix);
@@ -2971,7 +2974,7 @@ void Cutscene_DrawGreatFox(void) {
             Matrix_Scale(gGfxMatrix, D_demo_800CA198[gPlayer[0].csEventTimer], D_demo_800CA198[gPlayer[0].csEventTimer],
                          1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, var_fp);
+            gSPDisplayList(gMasterDisp++, dList);
         }
     }
 }

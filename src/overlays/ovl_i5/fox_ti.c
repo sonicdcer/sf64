@@ -428,15 +428,15 @@ void Titania_TiFekuda_Update(TiFekuda* this) {
 }
 
 void Titania_TiFekuda_Draw(TiFekuda* this) {
-    gSPDisplayList(gMasterDisp++, D_TI1_700C4B0);
+    gSPDisplayList(gMasterDisp++, aTi1FekudaDL);
     Matrix_Translate(gGfxMatrix, 0.0f, -50.0f, 178.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, this->fwork[4] * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, this->fwork[3] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     if (this->health != 0) {
-        gSPDisplayList(gMasterDisp++, D_TI1_700B9C0);
+        gSPDisplayList(gMasterDisp++, aTi1FekudaGun1DL);
         RCP_SetupDL(&gMasterDisp, SETUPDL_33);
-        gSPDisplayList(gMasterDisp++, D_TI1_700C980);
+        gSPDisplayList(gMasterDisp++, aTi1FekudaGun2DL);
     }
 }
 
@@ -598,7 +598,7 @@ void Titania_TiBoulder_Draw(TiBoulder* this) {
         Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
     }
-    gSPDisplayList(gMasterDisp++, D_TI1_700E3F0);
+    gSPDisplayList(gMasterDisp++, aTiBoulderDL);
 }
 
 void Titania_TiLandmine_Update(TiLandmine* this) {
@@ -853,7 +853,7 @@ void Titania_TiRasco_Update(Actor* this) {
                 sp38->obj.pos.z = this->obj.pos.z + dest.z;
             }
 
-            if (++this->animFrame >= Animation_GetFrameCount(&D_TI1_700D534)) {
+            if (++this->animFrame >= Animation_GetFrameCount(&aTiRascoAnim)) {
                 this->state++;
             }
             break;
@@ -864,7 +864,7 @@ void Titania_TiRasco_Update(Actor* this) {
 
     if (this->health == 0) {
         this->obj.status = OBJ_DYING;
-        Animation_GetFrameData(&D_TI1_700D534, this->animFrame, this->vwork);
+        Animation_GetFrameData(&aTiRascoAnim, this->animFrame, this->vwork);
         Animation_DrawSkeleton(0, aTiRascoSkel, this->vwork, Titania_8018AFD4, Titania_8018B1B4, this,
                                &gIdentityMatrix);
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
@@ -874,7 +874,7 @@ void Titania_TiRasco_Update(Actor* this) {
 }
 
 void Titania_TiRasco_Draw(TiRasco* this) {
-    Animation_GetFrameData(&D_TI1_700D534, this->animFrame, this->vwork);
+    Animation_GetFrameData(&aTiRascoAnim, this->animFrame, this->vwork);
     Animation_DrawSkeleton(0, aTiRascoSkel, this->vwork, Titania_TiRasco_OverrideLimbDraw, Titania_TiRasco_PostLimbDraw,
                            this, &gIdentityMatrix);
 }
@@ -1057,12 +1057,12 @@ void Titania_TiBomb_Draw(TiBomb* this) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_TI1_7009D60);
+    gSPDisplayList(gMasterDisp++, aTi1Bomb1DL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_34);
     index = this->iwork[0];
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_i5_801B75E4[0][index], D_i5_801B75E4[1][index],
                     D_i5_801B75E4[2][index], 255);
-    gSPDisplayList(gMasterDisp++, aTi1BombDL);
+    gSPDisplayList(gMasterDisp++, aTi1Bomb2DL);
 }
 
 void Titania_TiDesertCrawler_Init(TiDesertCrawler* this) {

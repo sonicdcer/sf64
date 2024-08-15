@@ -144,13 +144,16 @@ void MeteoBall_Update(MeteoBall* this) {
                     sqrtf(SQ(gPlayer[0].cam.eye.z - sp2C) + SQ(gPlayer[0].cam.eye.x - this->obj.pos.x))));
 }
 
-void ActorHopBot_Update(ActorHopBot* this) {
+void MeHopBot_Update(MeHopBot* this) {
     bool sp34;
 
     this->gravity = 1.5f;
+
     sp34 = false;
+
     this->obj.rot.y = Math_RadToDeg(
         Math_Atan2F(gPlayer[gPlayerNum].pos.x - this->obj.pos.x, gPlayer[gPlayerNum].trueZpos - this->obj.pos.z));
+
     if (this->obj.pos.y < -500.0f) {
         this->obj.pos.y = -500.0f;
         this->vel.y = 0.0f;
@@ -237,11 +240,11 @@ void MeMora_Update(MeMora* this) {
 static s16 D_800CFF94[16] = {
     0, 98, 96, 94, 92, 90, 88, 86, 84, 82, 80, 78, 76, 74, 72, 70,
 };
-static u8 D_800CFFB4[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
-static f32 D_800CFFC4[16] = {
+static u8 gMeMoraPartIdx[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
+static f32 gMeMoraScale[16] = {
     1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.99f, 0.98f, 0.94f, 0.88f, 0.8f, 1.0f,
 };
-static Gfx* D_800D0004[3] = { D_ENMY_SPACE_4000170, D_ENMY_SPACE_40084D0, D_ENMY_SPACE_400A630 };
+static Gfx* gMemoraPartDL[3] = { aEnmySpMeMora1DL, aEnmySpMeMora2DL, aEnmySpMeMora3DL };
 
 void MeMora_Dying(MeMora* this) {
     Vec3f sp34;
@@ -292,14 +295,14 @@ void MeMora_Dying(MeMora* this) {
     }
 }
 
-void MeMora_8006B46C(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 arg7, f32 scale,
-                     s32 arg9) {
-    Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
+void Memora_DrawParts(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 partIdx,
+                      f32 scale, bool colorFlicker) {
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, xTrans, yTrans, zTrans + gPathProgress, MTXF_APPLY);
 
-    if (arg7 != 1) {
+    if (partIdx != 1) {
         Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, M_DTOR * zRot, MTXF_APPLY);
@@ -308,11 +311,11 @@ void MeMora_8006B46C(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot,
     Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    if (arg7 != 1) {
+    if (partIdx != 1) {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-        if ((arg7 == 0) && (this->lockOnTimers[TEAM_ID_FOX] != 0)) {
-            sp34.y += this->info.targetOffset;
-            Matrix_MultVec3f(gGfxMatrix, &sp34, &gLockOnTargetViewPos[TEAM_ID_FOX]);
+        if ((partIdx == 0) && (this->lockOnTimers[TEAM_ID_FOX] != 0)) {
+            src.y += this->info.targetOffset;
+            Matrix_MultVec3f(gGfxMatrix, &src, &gLockOnTargetViewPos[TEAM_ID_FOX]);
             if (gLockOnTargetViewPos[TEAM_ID_FOX].z > -500.0f) {
                 this->lockOnTimers[TEAM_ID_FOX] = 0;
             }
@@ -321,12 +324,12 @@ void MeMora_8006B46C(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot,
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     }
 
-    if (arg9 != 0) {
+    if (colorFlicker) {
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
-    gSPDisplayList(gMasterDisp++, D_800D0004[arg7]);
+    gSPDisplayList(gMasterDisp++, gMemoraPartDL[partIdx]);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 }
@@ -337,9 +340,9 @@ void MeMora_Draw(MeMora* this) {
 
     for (i = this->unk_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
-        MeMora_8006B46C(this, gMeMoraXpos[this->unk_046][j], gMeMoraYpos[this->unk_046][j],
-                        gMeMoraZpos[this->unk_046][j], gMeMoraXrot[this->unk_046][j], gMeMoraYrot[this->unk_046][j],
-                        gMeMoraZrot[this->unk_046][j], D_800CFFB4[i], D_800CFFC4[i], this->timer_0C6 % 2U);
+        Memora_DrawParts(this, gMeMoraXpos[this->unk_046][j], gMeMoraYpos[this->unk_046][j],
+                         gMeMoraZpos[this->unk_046][j], gMeMoraXrot[this->unk_046][j], gMeMoraYrot[this->unk_046][j],
+                         gMeMoraZrot[this->unk_046][j], gMeMoraPartIdx[i], gMeMoraScale[i], this->timer_0C6 % 2U);
     }
 }
 
@@ -1040,7 +1043,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  95 */ { D_WZ_70008F0, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
     /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
     /*  97 */ { D_ME_600AC70, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  98 */ { D_MA_601A2B0, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /*  98 */ { aMaBoulderDL, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
     /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* 100 */ { D_VE1_60043F0, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* 101 */ { D_VE1_6004310, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -3579,7 +3582,7 @@ void ActorEvent_Update(ActorEvent* this) {
         case EVID_79:
             if (this->timer_0C4 == 0) {
                 this->animFrame++;
-                if (Animation_GetFrameCount(&D_ZO_600E5EC) < this->animFrame) {
+                if (Animation_GetFrameCount(&aZoBirdAnim) < this->animFrame) {
                     this->animFrame = 0;
                 }
             }
@@ -3942,7 +3945,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                         this->fwork[16] += (-this->obj.rot.z * 0.7f - this->fwork[16]) * 0.2f;
                         this->fwork[27] += (this->obj.rot.z * 0.7f - this->fwork[27]) * 0.2f;
                     }
-                    func_edisplay_8005B388(this);
+                    ActorTeamArwing_Draw(this);
                     break;
 
                 case EVID_TEAMMATE:

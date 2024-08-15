@@ -1244,7 +1244,7 @@ void Corneria_CoGranga_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
 
 void Corneria_CoGranga_Draw(CoGranga* this) {
     Matrix_Translate(gCalcMatrix, 0.0f, 700.0f, 0.0f, MTXF_APPLY);
-    Animation_DrawSkeleton(2, D_CO_602BE64, this->vwork, Corneria_CoGranga_OverrideLimbDraw,
+    Animation_DrawSkeleton(2, aCoGrangaSkel, this->vwork, Corneria_CoGranga_OverrideLimbDraw,
                            Corneria_CoGranga_PostLimbDraw, this, gCalcMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);

@@ -66,8 +66,8 @@ D_VE2_6006E20:
 D_VE2_6007650:
   { type: GFX, offset: 0x6007650, symbol: D_VE2_6007650 }
 
-D_VE2_6007E20:
-  { type: GFX, offset: 0x6007E20, symbol: D_VE2_6007E20 }
+aAndLaserEmitterDL:
+  { type: GFX, offset: 0x6007E20, symbol: aAndLaserEmitterDL }
 
 D_VE2_6008170:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6008170, ctype: u16, symbol: D_VE2_6008170 }
@@ -78,8 +78,8 @@ aVe2TowerDL:
 D_VE2_6008AF8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6008AF8, ctype: u16, symbol: D_VE2_6008AF8 }
 
-D_VE2_6009300:
-  { type: GFX, offset: 0x6009300, symbol: D_VE2_6009300 }
+aAndBrainWasteDL:
+  { type: GFX, offset: 0x6009300, symbol: aAndBrainWasteDL }
 
 D_VE2_6009390:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6009390, ctype: u16, symbol: D_VE2_6009390 }
@@ -180,11 +180,11 @@ D_VE2_6014658:
 D_VE2_6014844:
   { type: SF64:SKELETON, offset: 0x6014844, symbol: D_VE2_6014844 }
 
-D_VE2_6014904:
-  { type: SF64:ANIM, offset: 0x6014904, symbol: D_VE2_6014904 }
+aVe2BaseAnim:
+  { type: SF64:ANIM, offset: 0x6014904, symbol: aVe2BaseAnim }
 
-D_VE2_60149D0:
-  { type: SF64:SKELETON, offset: 0x60149D0, symbol: D_VE2_60149D0 }
+aVe2BaseSkel:
+  { type: SF64:SKELETON, offset: 0x60149D0, symbol: aVe2BaseSkel }
 
 D_VE2_6014D50:
   { type: SF64:ENVIRONMENT, offset: 0x6014D50, symbol: D_VE2_6014D50 }

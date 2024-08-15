@@ -9,8 +9,8 @@
       - '#include "sf64object.h"'
 
 # Great Fox Model
-D_GREAT_FOX_E000000:
-  { type: GFX, offset: 0xE000000, symbol: D_GREAT_FOX_E000000 }
+aGreatFoxIntactDL:
+  { type: GFX, offset: 0xE000000, symbol: aGreatFoxIntactDL }
 
 D_GREAT_FOX_E0094B0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E0094B0, symbol: D_GREAT_FOX_E0094B0 }
@@ -50,8 +50,8 @@ D_GREAT_FOX_E007430:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E007430, symbol: D_GREAT_FOX_E007430 }
 
 # Great Fox Model (damaged)
-D_GREAT_FOX_E003AB0:
-  { type: GFX, offset: 0xE003AB0, symbol: D_GREAT_FOX_E003AB0 }
+aGreatFoxDamagedDL:
+  { type: GFX, offset: 0xE003AB0, symbol: aGreatFoxDamagedDL }
 
 D_GREAT_FOX_E0074B0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E0074B0, symbol: D_GREAT_FOX_E0074B0 }

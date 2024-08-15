@@ -24,8 +24,8 @@ D_ZO_6000E98:
 D_ZO_6001098:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6001098, symbol: D_ZO_6001098}
 
-D_ZO_60012A0:
-  { type: GFX, offset: 0x60012A0, symbol: D_ZO_60012A0}
+aZoDodoraHeadDL:
+  { type: GFX, offset: 0x60012A0, symbol: aZoDodoraHeadDL}
 
 D_ZO_6001810:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001810, symbol: D_ZO_6001810}
@@ -135,11 +135,11 @@ D_ZO_600C780:
 D_ZO_600D990:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600D990, symbol: D_ZO_600D990}
 
-D_ZO_600E5EC:
-  { type: SF64:ANIM, offset: 0x600E5EC, symbol: D_ZO_600E5EC}
+aZoBirdAnim:
+  { type: SF64:ANIM, offset: 0x600E5EC, symbol: aZoBirdAnim}
 
-D_ZO_600E7D8:
-  { type: SF64:SKELETON, offset: 0x600E7D8, symbol: D_ZO_600E7D8}
+aZoBirdSkel:
+  { type: SF64:SKELETON, offset: 0x600E7D8, symbol: aZoBirdSkel}
 
 aZoOilRig3DL:
   { type: GFX, offset: 0x600E820, symbol: aZoOilRig3DL}
@@ -273,8 +273,8 @@ D_ZO_6019738:
 D_ZO_601996C:
   { type: SF64:ANIM, offset: 0x601996C, symbol: D_ZO_601996C}
 
-D_ZO_6019E18:
-  { type: SF64:SKELETON, offset: 0x6019E18, symbol: D_ZO_6019E18}
+aZoSarumarineSkel:
+  { type: SF64:SKELETON, offset: 0x6019E18, symbol: aZoSarumarineSkel}
 
 D_ZO_6019EB0:
   { type: GFX, offset: 0x6019EB0, symbol: D_ZO_6019EB0}
@@ -450,14 +450,14 @@ D_ZO_6023488:
 D_ZO_6023690:
   { type: GFX, offset: 0x6023690, symbol: D_ZO_6023690}
 
-D_ZO_6023730:
-  { type: GFX, offset: 0x6023730, symbol: D_ZO_6023730}
+aZoDodoraTailDL:
+  { type: GFX, offset: 0x6023730, symbol: aZoDodoraTailDL}
 
 D_ZO_60237E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x60237E0, symbol: D_ZO_60237E0}
 
-D_ZO_60239E0:
-  { type: GFX, offset: 0x60239E0, symbol: D_ZO_60239E0}
+aZoDodoraBodyDL:
+  { type: GFX, offset: 0x60239E0, symbol: aZoDodoraBodyDL}
 
 D_ZO_6023D50:
   { type: GFX, offset: 0x6023D50, symbol: D_ZO_6023D50}

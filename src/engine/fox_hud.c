@@ -3649,12 +3649,12 @@ void HUD_Draw(void) {
 
 void HUD_FoBase_Draw(Boss* boss) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_FO_6003090);
+    gSPDisplayList(gMasterDisp++, aFoBaseDL2);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) boss->fwork[1], (s32) boss->fwork[2], 255);
-    gSPDisplayList(gMasterDisp++, D_FO_600D5C0);
+    gSPDisplayList(gMasterDisp++, aFoBaseDL1);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 }
 

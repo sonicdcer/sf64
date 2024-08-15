@@ -2040,12 +2040,12 @@ void Bolse_BoBaseCore_PostLimbDraw(s32 index, Vec3f* vec, void* thisx) {
 }
 
 void Bolse_BoBaseCore_Draw(BoBaseCore* this) {
-    Animation_GetFrameData(&D_BO_6001C64, 0, this->vwork);
+    Animation_GetFrameData(&aBoBaseCoreAnim, 0, this->vwork);
     if (this->state >= 2) {
-        Animation_DrawSkeleton(3, D_BO_6001FB0, this->vwork, Bolse_BoBaseCore_OverrideLimbDraw,
+        Animation_DrawSkeleton(3, aBoBaseCoreSkel, this->vwork, Bolse_BoBaseCore_OverrideLimbDraw,
                                Bolse_BoBaseCore_PostLimbDraw, this, gCalcMatrix);
     } else {
-        Animation_DrawSkeleton(3, D_BO_6001FB0, this->vwork, NULL, NULL, this, gCalcMatrix);
+        Animation_DrawSkeleton(3, aBoBaseCoreSkel, this->vwork, NULL, NULL, this, gCalcMatrix);
     }
 }
 

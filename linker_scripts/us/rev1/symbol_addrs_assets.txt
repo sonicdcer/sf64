@@ -55,9 +55,9 @@ gHeadsetPanVolume = 0x800DD280; // size:0x200 type:f32
 gStereoPanVolume = 0x800DD480; // size:0x200 type:f32
 gDefaultPanVolume = 0x800DD680; // size:0x200 type:f32
 
-D_AQ_6000AE4 = 0x06000AE4;
-D_AQ_6002628 = 0x06002628;
-D_AQ_60260EC = 0x060260EC;
+aAqSquidAnim = 0x06000AE4;
+aAqAnglerFishAnim = 0x06002628;
+aAqSpindlyFishAnim = 0x060260EC;
 D_AQ_60314AC = 0x060314AC;
 D_TI1_70067C4 = 0x70067C4;
 aTi1DesertCrawlerSkel = 0x7006990;

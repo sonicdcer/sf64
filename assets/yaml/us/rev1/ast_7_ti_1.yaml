@@ -152,14 +152,14 @@ aTiDelphorDL:
 D_TI1_7009B58:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x07009B58, symbol: D_TI1_7009B58 }
 
-D_TI1_7009D60:
-  { type: GFX, offset: 0x7009D60, symbol: D_TI1_7009D60 }
+aTi1Bomb1DL:
+  { type: GFX, offset: 0x7009D60, symbol: aTi1Bomb1DL }
 
 D_TI1_700A190:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0700A190, symbol: D_TI1_700A190 }
 
-aTi1BombDL:
-  { type: GFX, offset: 0x700A990, symbol: aTi1BombDL }
+aTi1Bomb2DL:
+  { type: GFX, offset: 0x700A990, symbol: aTi1Bomb2DL }
 
 D_TI1_700AAD8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x700AAD8, symbol: D_TI1_700AAD8, tlut: 0x700AB58 }
@@ -182,8 +182,8 @@ D_TI1_700B5B8:
 D_TI1_700B7B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700B7B8, symbol: D_TI1_700B7B8 }
 
-D_TI1_700B9C0:
-  { type: GFX, offset: 0x700B9C0, symbol: D_TI1_700B9C0 }
+aTi1FekudaGun1DL:
+  { type: GFX, offset: 0x700B9C0, symbol: aTi1FekudaGun1DL }
 
 D_TI1_700BB10:
   { type: GFX, offset: 0x700BB10, symbol: D_TI1_700BB10 }
@@ -197,8 +197,8 @@ D_TI1_700BFB0:
 D_TI1_700C3B0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 128, offset: 0x0700C3B0, symbol: D_TI1_700C3B0 }
 
-D_TI1_700C4B0:
-  { type: GFX, offset: 0x700C4B0, symbol: D_TI1_700C4B0 }
+aTi1FekudaDL:
+  { type: GFX, offset: 0x700C4B0, symbol: aTi1FekudaDL }
 
 aTi1DesertRoverAnim:
   { type: SF64:ANIM, offset: 0x700C8D8, symbol: aTi1DesertRoverAnim }
@@ -206,8 +206,8 @@ aTi1DesertRoverAnim:
 aTi1DesertRoverSkel:
   { type: SF64:SKELETON, offset: 0x700C964, symbol: aTi1DesertRoverSkel }
 
-D_TI1_700C980:
-  { type: GFX, offset: 0x700C980, symbol: D_TI1_700C980 }
+aTi1FekudaGun2DL:
+  { type: GFX, offset: 0x700C980, symbol: aTi1FekudaGun2DL }
 
 D_TI1_700CAF4:
   { type: SF64:ANIM, offset: 0x700CAF4, symbol: D_TI1_700CAF4}
@@ -215,8 +215,8 @@ D_TI1_700CAF4:
 D_TI1_700CB60:
   {type: SF64:SKELETON, offset: 0x700CB60, symbol: D_TI1_700CB60}
 
-D_TI1_700D534:
-  { type: SF64:ANIM, offset: 0x700D534, symbol: D_TI1_700D534 }
+aTiRascoAnim:
+  { type: SF64:ANIM, offset: 0x700D534, symbol: aTiRascoAnim }
 
 aTiRascoSkel:
   {type: SF64:SKELETON, offset: 0x700D700, symbol: aTiRascoSkel}
@@ -257,8 +257,8 @@ D_TI1_700E030:
 D_TI1_700E1E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E1E8, symbol: D_TI1_700E1E8 }
 
-D_TI1_700E3F0:
-  { type: GFX, offset: 0x700E3F0, symbol: D_TI1_700E3F0 }
+aTiBoulderDL:
+  { type: GFX, offset: 0x700E3F0, symbol: aTiBoulderDL }
 
 D_TI1_700E858:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0700E858, symbol: D_TI1_700E858 }

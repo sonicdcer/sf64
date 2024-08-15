@@ -516,7 +516,7 @@ void Solar_SoRock_Draw(SoRock1* this) {
 
         switch (this->obj.id) {
             case OBJ_ACTOR_SO_ROCK_1:
-                gSPDisplayList(gMasterDisp++, D_SO_6017370);
+                gSPDisplayList(gMasterDisp++, aSoRock1DL);
                 break;
 
             case OBJ_ACTOR_SO_ROCK_2:
@@ -524,11 +524,11 @@ void Solar_SoRock_Draw(SoRock1* this) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_41);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 }
-                gSPDisplayList(gMasterDisp++, D_SO_6017090);
+                gSPDisplayList(gMasterDisp++, aSoRock2DL);
                 break;
 
             case OBJ_ACTOR_SO_ROCK_3:
-                gSPDisplayList(gMasterDisp++, D_SO_6016CF0);
+                gSPDisplayList(gMasterDisp++, aSoRock3DL);
                 break;
         }
 

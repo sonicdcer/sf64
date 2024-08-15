@@ -182,11 +182,11 @@ D_ME_601C8E0:
 D_ME_601D800:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0601D800, symbol: D_ME_601D800 }
 
-D_ME_601E8C4:
-  { type: SF64:ANIM, offset: 0x601E8C4, symbol: D_ME_601E8C4 }
+aMeHopBotAnim:
+  { type: SF64:ANIM, offset: 0x601E8C4, symbol: aMeHopBotAnim }
 
-D_ME_601E9D0:
-  { type: SF64:SKELETON, offset: 0x601E9D0, symbol: D_ME_601E9D0 }
+aMeHopBotSkel:
+  { type: SF64:SKELETON, offset: 0x601E9D0, symbol: aMeHopBotSkel }
 
 # Beta Meteo background, unused
 D_ME_601EA00:
@@ -253,8 +253,8 @@ aMeMolarRockDL:
   { type: GFX, offset: 0x06024B60, symbol: aMeMolarRockDL }
 
 # Unused Meteo Ball
-D_ME_6025B50:
-  { type: GFX, offset: 0x06025B50, symbol: D_ME_6025B50 }
+aMeMeteoBallDL:
+  { type: GFX, offset: 0x06025B50, symbol: aMeMeteoBallDL }
 
 D_ME_6025350:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6025350, symbol: D_ME_6025350 }

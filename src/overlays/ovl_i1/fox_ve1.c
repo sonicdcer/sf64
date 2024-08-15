@@ -689,7 +689,7 @@ void Venom1_Ve1MonkeyStatue_Update(Ve1MonkeyStatue* this) {
 
 void Venom1_Ve1MonkeyStatue_Draw(Ve1MonkeyStatue* this) {
     Matrix_Translate(gGfxMatrix, 0.0f, -488.0f, 0.0f, MTXF_APPLY);
-    Animation_DrawSkeleton(0, D_VE1_900D164, this->vwork, NULL, NULL, this, &gIdentityMatrix);
+    Animation_DrawSkeleton(0, aVe1MonkeyStatueSkel, this->vwork, NULL, NULL, this, &gIdentityMatrix);
 }
 
 void Venom1_Ve1Generator_Update(Ve1Generator* this) {
