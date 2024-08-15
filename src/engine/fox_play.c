@@ -169,7 +169,8 @@ void Player_WingEffects(Player* player) {
         if ((gLevelType == LEVELTYPE_PLANET) ||
             ((player->alternateView == true) && (gLevelMode == LEVELMODE_ON_RAILS))) {
             player->yBob = -SIN_DEG(player->bobPhase) * 0.5f;
-            if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) || (player->arwing.leftWingState <= WINGSTATE_BROKEN)) {
+            if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) ||
+                (player->arwing.leftWingState <= WINGSTATE_BROKEN)) {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 5.0f;
             } else {
                 player->rockAngle = SIN_DEG(player->rockPhase) * 1.5f;
@@ -3293,7 +3294,8 @@ bool Player_UpdateLockOn(Player* player) {
 void Player_Shoot(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
-            if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) || (player->arwing.leftWingState <= WINGSTATE_BROKEN)) {
+            if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) ||
+                (player->arwing.leftWingState <= WINGSTATE_BROKEN)) {
                 gLaserStrength[player->num] = LASERS_SINGLE;
             }
 
@@ -3351,7 +3353,8 @@ void Player_ArwingBank(Player* player) {
     sp3C = 0.0f;
     if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) && (player->arwing.leftWingState == WINGSTATE_INTACT)) {
         sp3C = -17.0f;
-    } else if ((player->arwing.leftWingState <= WINGSTATE_BROKEN) && (player->arwing.rightWingState == WINGSTATE_INTACT)) {
+    } else if ((player->arwing.leftWingState <= WINGSTATE_BROKEN) &&
+               (player->arwing.rightWingState == WINGSTATE_INTACT)) {
         sp3C = 17.0f;
     }
 
@@ -3360,7 +3363,7 @@ void Player_ArwingBank(Player* player) {
         sp3C = 90.0f;
         sp38 = 0.2f;
         if (player->zRotBank < 70.0f) {
-            Math_SmoothStepToF(&player->arwing.unk_04, -70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_08, -70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->arwing.unk_0C, 70.0f, 0.3f, 100.0f, 0.f);
             Math_SmoothStepToF(&player->arwing.unk_10, 70.0f, 0.3f, 100.0f, 0.f);
@@ -3374,7 +3377,7 @@ void Player_ArwingBank(Player* player) {
         sp3C = -90.0f;
         sp38 = 0.2f;
         if (player->zRotBank > -70.0f) {
-            Math_SmoothStepToF(&player->arwing.unk_04, 70.0f, 0.3f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_08, 70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_0C, -70.0f, 0.3f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, -70.0f, 0.3f, 100.0f, 0.0f);
@@ -3595,7 +3598,7 @@ void Player_MoveArwing360(Player* player) {
     }
 
     Math_SmoothStepToF(&player->arwing.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
-    Math_SmoothStepToF(&player->arwing.unk_04, -sp60 + sp5C, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -sp60 + sp5C, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_08, -sp60 - sp5C, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_0C, -sp60 + sp58, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_10, -sp60 - sp58, 0.1f, 100.0f, 0.0f);
@@ -3730,7 +3733,7 @@ void Player_PerformLoop(Player* player) {
         sp58 = -50.0f;
     }
 
-    Math_SmoothStepToF(&player->arwing.unk_04, sp58, 0.3f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_08, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_0C, sp58, 0.3f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_10, sp58, 0.3f, 100.0f, 0.0f);
@@ -3858,7 +3861,7 @@ void Player_MoveArwingOnRails(Player* player) {
             sp74 = sp5C.x;
         }
         Math_SmoothStepToF(&player->arwing.unk_28, 0.0f, 0.1f, 100.0f, 0.0f);
-        Math_SmoothStepToF(&player->arwing.unk_04, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
+        Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, (-sp7C) + sp78, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.unk_08, (-sp7C) - sp78, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.unk_0C, (-sp7C) + sp74, 0.1f, 100.0f, 0.0f);
         Math_SmoothStepToF(&player->arwing.unk_10, (-sp7C) - sp74, 0.1f, 100.0f, 0.0f);
@@ -5031,7 +5034,7 @@ void Player_ArwingBoost(Player* player) {
             }
             if (gLevelType == LEVELTYPE_PLANET) {
                 player->arwing.unk_28 += (35.0f - player->arwing.unk_28) * 0.1f;
-                Math_SmoothStepToF(&player->arwing.unk_04, 0.0f, 0.5f, 100.0f, 0.0f);
+                Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.unk_08, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.unk_0C, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.5f, 100.0f, 0.0f);
@@ -5129,7 +5132,7 @@ void Player_ArwingBrake(Player* player) {
         }
 
         if (gLevelType == LEVELTYPE_PLANET) {
-            Math_SmoothStepToF(&player->arwing.unk_04, 90.0f, 0.2f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_08, -90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_0C, 90.0f, 0.2f, 100.0f, 0.0f);
             Math_SmoothStepToF(&player->arwing.unk_10, -90.0f, 0.2f, 100.0f, 0.0f);
@@ -5861,7 +5864,7 @@ void Player_Update(Player* player) {
             }
             player->arwing.modelId = 1;
 
-            Math_SmoothStepToF(&player->arwing.unk_04, 0.0f, 0.1f, 5.0f, 0);
+            Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.unk_08, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.unk_0C, 0.0f, 0.1f, 5.0f, 0);
             Math_SmoothStepToF(&player->arwing.unk_10, 0.0f, 0.1f, 5.0f, 0);

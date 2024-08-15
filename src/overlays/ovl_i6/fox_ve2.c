@@ -302,7 +302,7 @@ void Venom2_LevelComplete(Player* player) {
         sp70 = temp_fv1;
     }
 
-    Math_SmoothStepToF(&player->arwing.unk_04, -var_fa0 + sp74, 0.1f, 100.0f, 0.0f);
+    Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -var_fa0 + sp74, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_08, -var_fa0 - sp74, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_0C, -var_fa0 + sp70, 0.1f, 100.0f, 0.0f);
     Math_SmoothStepToF(&player->arwing.unk_10, -var_fa0 - sp70, 0.1f, 100.0f, 0.0f);
@@ -313,7 +313,8 @@ void Venom2_LevelComplete(Player* player) {
     switch (player->csState) {
         case 0:
             player->csState++;
-            player->arwing.unk_04 = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 = 0.0f;
+            player->arwing.upperRightFlapYrot = player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 =
+                0.0f;
             player->arwing.modelId = 1;
 
             D_ctx_80177A48[0] = 0.0f;

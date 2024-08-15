@@ -849,8 +849,8 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
     D_ending_80198590.unk_14 = 0.0f;
     D_ending_80198590.unk_0C = D_ending_80198590.unk_10;
     D_ending_80198590.unk_08 = D_ending_80198590.unk_0C;
-    D_ending_80198590.unk_04 = D_ending_80198590.unk_08;
-    D_ending_80198590.unk_24 = D_ending_80198590.unk_04;
+    D_ending_80198590.upperRightFlapYrot = D_ending_80198590.unk_08;
+    D_ending_80198590.unk_24 = D_ending_80198590.upperRightFlapYrot;
     D_ending_80198590.unk_20 = D_ending_80198590.unk_24;
     D_ending_80198590.unk_1C = D_ending_80198590.unk_20;
     D_ending_80198590.unk_18 = D_ending_80198590.unk_1C;

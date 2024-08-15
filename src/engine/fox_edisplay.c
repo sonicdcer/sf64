@@ -532,7 +532,7 @@ void func_edisplay_8005B388(Actor199* actor) {
         } else {
             D_edisplay_80161630.rightWingState = D_edisplay_80161630.leftWingState = WINGSTATE_INTACT;
         }
-        D_edisplay_80161630.unk_04 = actor->fwork[15];
+        D_edisplay_80161630.upperRightFlapYrot = actor->fwork[15];
         D_edisplay_80161630.unk_0C = actor->fwork[16];
         D_edisplay_80161630.unk_08 = actor->fwork[26];
         D_edisplay_80161630.unk_10 = actor->fwork[27];
@@ -543,7 +543,7 @@ void func_edisplay_8005B388(Actor199* actor) {
         D_edisplay_80161630.unk_30 = actor->fwork[20];
         D_edisplay_80161630.unk_34 = actor->fwork[19];
         if (gLevelType == LEVELTYPE_SPACE) {
-            D_edisplay_80161630.unk_04 = D_edisplay_80161630.unk_08 = D_edisplay_80161630.unk_0C =
+            D_edisplay_80161630.upperRightFlapYrot = D_edisplay_80161630.unk_08 = D_edisplay_80161630.unk_0C =
                 D_edisplay_80161630.unk_10 = 0.0f;
         }
         Display_ArwingWings(&D_edisplay_80161630);

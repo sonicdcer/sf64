@@ -697,7 +697,7 @@ void Aquas_801AA4BC(Player* player) {
             rotBankTarget = 90.0f;
             rotBankScale = 0.2f;
             if (player->zRotBank < 70.0f) {
-                Math_SmoothStepToF(&player->arwing.unk_04, -70.0f, 0.3f, 100.0f, 0);
+                Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, -70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.unk_08, -70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.unk_0C, 70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.unk_10, 70.0f, 0.3f, 100.0f, 0);
@@ -708,7 +708,7 @@ void Aquas_801AA4BC(Player* player) {
             rotBankTarget = -90.0f;
             rotBankScale = 0.2f;
             if (player->zRotBank > -70.0f) {
-                Math_SmoothStepToF(&player->arwing.unk_04, 70.0f, 0.3f, 100.0f, 0);
+                Math_SmoothStepToF(&player->arwing.upperRightFlapYrot, 70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.unk_08, 70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.unk_0C, -70.0f, 0.3f, 100.0f, 0);
                 Math_SmoothStepToF(&player->arwing.unk_10, -70.0f, 0.3f, 100.0f, 0);

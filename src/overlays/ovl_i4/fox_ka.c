@@ -1803,7 +1803,7 @@ void Katina_LevelComplete(Player* player) {
     player->arwing.unk_10 = 0.0f;
     player->arwing.unk_0C = 0.0f;
     player->arwing.unk_08 = 0.0f;
-    player->arwing.unk_04 = 0.0f;
+    player->arwing.upperRightFlapYrot = 0.0f;
 
     player->aerobaticPitch = 0.0f;
 

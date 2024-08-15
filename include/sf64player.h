@@ -130,7 +130,7 @@ typedef struct PlayerShot {
 typedef struct ArwingInfo { // ArArwingInfo
     /* 0x00 */ u8 rightWingState; // rightWingState
     /* 0x01 */ u8 leftWingState; // leftWingState
-    /* 0x04 */ f32 unk_04; // upperRightFlapYrot
+    /* 0x04 */ f32 upperRightFlapYrot; // upperRightFlapYrot
     /* 0x08 */ f32 unk_08; // bottomRightFlapYrot
     /* 0x0C */ f32 unk_0C; // upperLeftFlapYrot
     /* 0x10 */ f32 unk_10; // bottomLeftFlapYrot

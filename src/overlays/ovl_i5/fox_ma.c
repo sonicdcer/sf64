@@ -6521,7 +6521,7 @@ void Macbeth_LevelComplete2(Player* player) {
             player->rockAngle = 0.0f;
             player->unk_16C = 0.0f;
             player->unk_170 = 0.0f;
-            player->arwing.unk_04 = 0.0f;
+            player->arwing.upperRightFlapYrot = 0.0f;
             /* fallthrough */
         case 1:
             gShowBossHealth = false;
@@ -6949,10 +6949,10 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->savedAlternateView = player->pathChangeTimer = 0;
                 player->unk_190 = player->unk_194 = player->unk_188 = player->unk_18C = player->pathChangeYaw =
                     player->yRot_114 = player->aerobaticPitch = player->camRoll = player->unk_174 = player->unk_178 =
-                        player->unk_17C = player->unk_180 = player->unk_184 = player->arwing.unk_04 = player->unk_170 =
-                            player->unk_16C = player->rockAngle = player->yBob = player->arwing.unk_0C =
-                                player->arwing.unk_08 = player->arwing.unk_10 = player->zRotBarrelRoll =
-                                    player->zRotBank = player->boostSpeed = 0.0f;
+                        player->unk_17C = player->unk_180 = player->unk_184 = player->arwing.upperRightFlapYrot =
+                            player->unk_170 = player->unk_16C = player->rockAngle = player->yBob =
+                                player->arwing.unk_0C = player->arwing.unk_08 = player->arwing.unk_10 =
+                                    player->zRotBarrelRoll = player->zRotBank = player->boostSpeed = 0.0f;
 
                 player->baseSpeed = 5.0f;
 

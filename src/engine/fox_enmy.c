@@ -2260,8 +2260,8 @@ void ItemPickup_Update(Item* this) {
 }
 
 void ItemLasers_Update(ItemLasers* this) {
-    if (!gVersusMode &&
-        ((gPlayer[0].arwing.leftWingState <= WINGSTATE_BROKEN) || (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN))) {
+    if (!gVersusMode && ((gPlayer[0].arwing.leftWingState <= WINGSTATE_BROKEN) ||
+                         (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN))) {
         this->obj.id = OBJ_ITEM_WING_REPAIR;
         Object_SetInfo(&this->info, this->obj.id);
         this->timer_48 = 2000;

@@ -529,7 +529,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
 
     switch (limbIndex) {
         case 1:
-            rot->y -= arwing->unk_04;
+            rot->y -= arwing->upperRightFlapYrot;
             break;
         case 2:
             rot->y -= arwing->unk_08;
@@ -679,7 +679,8 @@ void Display_Arwing(Player* player, s32 reflectY) {
         }
     } else {
         if (gVersusMode) {
-            if ((player->arwing.rightWingState == WINGSTATE_INTACT) && (player->arwing.leftWingState == WINGSTATE_INTACT)) {
+            if ((player->arwing.rightWingState == WINGSTATE_INTACT) &&
+                (player->arwing.leftWingState == WINGSTATE_INTACT)) {
                 gSPDisplayList(gMasterDisp++, D_versus_300EE80);
             } else if ((player->arwing.rightWingState <= WINGSTATE_BROKEN) &&
                        (player->arwing.leftWingState == WINGSTATE_INTACT)) {
@@ -692,8 +693,8 @@ void Display_Arwing(Player* player, s32 reflectY) {
             }
         } else {
             if ((gLevelType == LEVELTYPE_SPACE) || (gCurrentLevel == LEVEL_BOLSE)) {
-                player->arwing.unk_28 = player->arwing.unk_04 = player->arwing.unk_08 = player->arwing.unk_0C =
-                    player->arwing.unk_10 = 0.0f;
+                player->arwing.unk_28 = player->arwing.upperRightFlapYrot = player->arwing.unk_08 =
+                    player->arwing.unk_0C = player->arwing.unk_10 = 0.0f;
             }
             D_display_800CA22C = true;
             gReflectY = reflectY;
