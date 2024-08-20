@@ -2545,7 +2545,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
             if ((this->animFrame == 45) && (this->swork[8] == 2)) {
                 this->state = 18;
                 this->animFrame = 0;
-                this->unk_044 = 0;
+                this->work_044 = 0;
                 this->timer_050 = 40;
                 this->fwork[9] = 0.0f;
             }
@@ -2739,13 +2739,13 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
-            switch (this->unk_044) {
+            switch (this->work_044) {
                 case 0:
                     if (this->timer_050 != 0) {
                         limbCount = Animation_GetFrameData(&D_ANDROSS_C00DE48, 45, spD0);
                         Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
                     } else {
-                        this->unk_044 = 1;
+                        this->work_044 = 1;
                         this->timer_050 = 30;
                         this->swork[9] = 20;
                         this->fwork[9] = 0.0f;
@@ -2759,7 +2759,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
                         limbCount = Animation_GetFrameData(&D_ANDROSS_C017430, 0, spD0);
                         Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
                     } else {
-                        this->unk_044 = 2;
+                        this->work_044 = 2;
                         this->timer_050 = 70;
                         this->fwork[9] = 0.0f;
                         AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_EXCITE, this->sfxSource, 4);

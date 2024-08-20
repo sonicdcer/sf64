@@ -227,7 +227,7 @@ typedef struct Boss {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
-    /* 0x044 */ s16 unk_044;
+    /* 0x044 */ s16 work_044;
     /* 0x046 */ s16 work_046;
     /* 0x048 */ s16 work_048;
     /* 0x04A */ s16 work_04A;

@@ -4778,7 +4778,7 @@ void Titania_80193DF0(TiGoras* this) {
                 this->obj.status = OBJ_DYING;
                 D_i5_801BBEF4[12] = 0.0f;
                 this->fwork[35] = 0.0f;
-                this->unk_044 = 0;
+                this->work_044 = 0;
                 this->timer_050 = 280;
                 D_i5_801BBEF0[16] = 0;
                 D_i5_801BBEF0[17] = 0;
@@ -5477,7 +5477,7 @@ void Titania_801990DC(TiGoras* this) {
     Vec3f sp60;
     Actor* actor;
 
-    if (this->unk_044 == 0) {
+    if (this->work_044 == 0) {
         AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DW_CRY, this->sfxSource, 4);
 
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
@@ -5536,7 +5536,7 @@ void Titania_801990DC(TiGoras* this) {
                 D_i5_801BBF00[i].unk_26 = 4;
             }
         }
-        this->unk_044 = 1;
+        this->work_044 = 1;
     } else {
         this->obj.pos.z = gPlayer[0].pos.z;
     }

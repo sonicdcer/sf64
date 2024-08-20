@@ -1002,7 +1002,7 @@ void SectorY_8019AEC0(SyShogun* this) {
     this->vel.x = 0.0f;
     this->vel.y = 0.0f;
     this->vel.z = 0.0f;
-    this->unk_044 = 0;
+    this->work_044 = 0;
 }
 
 void SectorY_8019AEEC(SyShogun* this) {

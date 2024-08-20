@@ -520,7 +520,7 @@ void Meteo_MeCrusher_Init(MeCrusher* this) {
     this->fwork[9] = -3000.0f;
     this->fwork[15] = 8.0f;
 
-    i = this->unk_044 = 1;
+    i = this->work_044 = 1;
 
     Boss_Initialize(&gBosses[i]);
 
@@ -1109,7 +1109,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 if (this->fwork[0] >= 0.0f) {
                     this->state = 2;
                     this->timer_050 = 50;
-                    gBosses[this->unk_044].state = 1;
+                    gBosses[this->work_044].state = 1;
                 }
             }
 
@@ -1165,7 +1165,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 }
             }
 
-            if (gBosses[this->unk_044].state < 3) {
+            if (gBosses[this->work_044].state < 3) {
                 var_v0 = 0;
                 if (this->swork[2] == 0) {
                     var_v0 = 1;
@@ -1184,14 +1184,14 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                     this->obj.rot.z += 0.1f;
                 }
                 if (var_v0 == 4) {
-                    gBosses[this->unk_044].state = 3;
+                    gBosses[this->work_044].state = 3;
                     this->state = 4;
                     this->timer_050 = 250;
                     this->timer_05A = 30;
                     this->fwork[10] = 0;
                 }
 
-                if ((this->timer_050 == 0) && (gBosses[this->unk_044].state == 2)) {
+                if ((this->timer_050 == 0) && (gBosses[this->work_044].state == 2)) {
                     this->fwork[2] = 90.0f;
                     this->timer_050 = D_i2_80195520[var_v0] + 45;
                     AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL, this->sfxSource, 4);
@@ -1199,7 +1199,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
 
                 if (this->fwork[2] > 0.0f) {
                     this->fwork[2] -= 2.0f;
-                    gBosses[this->unk_044].rot_078.z -= 2.0f;
+                    gBosses[this->work_044].rot_078.z -= 2.0f;
                 }
             }
 
