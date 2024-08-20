@@ -126,9 +126,11 @@ void PlayerShot_Impact(PlayerShot* shot) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
+
     shot->obj.pos.z = gShotHitPosZ; // strange order on the globals
     shot->obj.pos.y = gShotHitPosY;
     shot->obj.pos.x = gShotHitPosX;
+
     if ((shot->obj.id == PLAYERSHOT_BOMB) ||
         ((gCurrentLevel != LEVEL_AQUAS) && (shot->obj.id == PLAYERSHOT_LOCK_ON) && (shot->unk_5C != 0))) {
         if (shot->obj.id == PLAYERSHOT_LOCK_ON) {
@@ -138,10 +140,13 @@ void PlayerShot_Impact(PlayerShot* shot) {
         PlayerShot_ExplodeBomb(shot);
     } else if (shot->obj.id == PLAYERSHOT_LOCK_ON) {
         shot->scale = 7.5f;
+
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             gActors[i].lockOnTimers[shot->sourceId] = 0;
         }
+
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
+
         if (gCurrentLevel == LEVEL_AQUAS) {
             gLight3R = gLight3G = gLight3B = 0;
             Effect_Effect384_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
@@ -195,7 +200,7 @@ void PlayerShot_SpawnEffect344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4,
     }
 }
 
-void PlayerShot_SetupEffect345(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
+void PlayerShot_LaserMark1_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_LASER_MARK_1;
@@ -216,7 +221,7 @@ void PlayerShot_HitGround(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
         (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                PlayerShot_SetupEffect345(&gEffects[i], xPos, yPos, zPos, yRot, scale);
+                PlayerShot_LaserMark1_Setup(&gEffects[i], xPos, yPos, zPos, yRot, scale);
                 func_effect_8007D10C(xPos, yPos, zPos, 2.0f);
                 break;
             }
@@ -363,6 +368,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
         (fabsf(shot->obj.pos.y - actor->obj.pos.y) < 2000.0f) &&
         (fabsf(shot->obj.pos.x - actor->obj.pos.x) < 2000.0f)) {
         hitboxData = actor->info.hitbox;
+
         count = *hitboxData++;
         if (count != 0) {
             xySizeMod = 0.0f;
@@ -373,6 +379,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     xySizeMod += 30.0f;
                 }
             }
+
             for (i = 0; i < count; i++, hitboxData += 6) {
                 if (actor->info.unk_16 == 1) {
                     shotPx = shot->obj.pos.x;
@@ -407,6 +414,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     shotPy = actor->obj.pos.y + sp70.y;
                     shotPz = actor->obj.pos.z + sp70.z;
                 }
+
                 hitbox = (Hitbox*) hitboxData;
                 if ((fabsf(hitbox->z.offset + actor->obj.pos.z - shotPz) < (hitbox->z.size + 50.0f)) &&
                     (fabsf(hitbox->x.offset + actor->obj.pos.x - shotPx) < (hitbox->x.size + xySizeMod)) &&
@@ -2267,12 +2275,14 @@ void PlayerShot_Update(PlayerShot* shot) {
     switch (shot->obj.status) {
         case SHOT_FREE:
             break;
+
         case SHOT_ACTIVE:
             ticks = 1;
             switch (shot->obj.id) {
                 case PLAYERSHOT_GFOX_LASER:
                     ticks = 4;
                     break;
+
                 case PLAYERSHOT_SINGLE_LASER:
                 case PLAYERSHOT_TWIN_LASER:
                     if ((shot->unk_58 == 0) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) {
@@ -2281,10 +2291,12 @@ void PlayerShot_Update(PlayerShot* shot) {
                         ticks = 3;
                     }
                     break;
+
                 case PLAYERSHOT_TANK:
                     ticks = 2;
                     break;
             }
+
             for (i = 0; i < ticks && (shot->obj.status == SHOT_ACTIVE); i++) {
                 if (shot->timer > 0) {
                     shot->timer--;
@@ -2295,6 +2307,7 @@ void PlayerShot_Update(PlayerShot* shot) {
                 PlayerShot_UpdateShot(shot, i);
             }
             break;
+
         case SHOT_HITMARK:
             PlayerShot_UpdateHitmark(shot);
             break;

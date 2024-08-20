@@ -110,8 +110,8 @@ D_FO_6008150:
 D_FO_6009070:
   { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6009070, ctype: u16, symbol: D_FO_6009070 }
 
-D_FO_6009F90:
-  { type: GFX, offset: 0x6009F90, symbol: D_FO_6009F90 }
+aFoEnemyShadowDL:
+  { type: GFX, offset: 0x6009F90, symbol: aFoEnemyShadowDL }
 
 D_FO_600A018:
   { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600A018, ctype: u8, symbol: D_FO_600A018 }

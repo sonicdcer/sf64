@@ -56,8 +56,8 @@ D_STAR_WOLF_F00D3C0:
 D_STAR_WOLF_F00E2E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00E2E0, symbol: D_STAR_WOLF_F00E2E0 }
 
-D_STAR_WOLF_F00F200:
-  { type: GFX, offset: 0xF00F200, symbol: D_STAR_WOLF_F00F200 }
+aStarWolfStandardShipDL:
+  { type: GFX, offset: 0xF00F200, symbol: aStarWolfStandardShipDL }
 
 D_STAR_WOLF_F0101D0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0F0101D0, symbol: D_STAR_WOLF_F0101D0 }
@@ -68,8 +68,8 @@ D_STAR_WOLF_F011E80:
 D_STAR_WOLF_F011680:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011680, symbol: D_STAR_WOLF_F011680 }
 
-D_STAR_WOLF_F0103D0:
-  { type: GFX, offset: 0xF0103D0, symbol: D_STAR_WOLF_F0103D0 }
+aStarWolfUpgradedShipDL:
+  { type: GFX, offset: 0xF0103D0, symbol: aStarWolfUpgradedShipDL }
 
 D_STAR_WOLF_F011F00:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011F00, symbol: D_STAR_WOLF_F011F00 }
@@ -89,14 +89,14 @@ D_STAR_WOLF_F013180:
 D_STAR_WOLF_F013980:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F013980, symbol: D_STAR_WOLF_F013980 }
 
-D_STAR_WOLF_F014180:
-  { type: GFX, offset: 0xF014180, symbol: D_STAR_WOLF_F014180 }
+aStarWolfRadarMarkDL:
+  { type: GFX, offset: 0xF014180, symbol: aStarWolfRadarMarkDL }
 
 D_STAR_WOLF_F014208:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0F014208, symbol: D_STAR_WOLF_F014208 }
 
-D_STAR_WOLF_F014310:
-  { type: GFX, offset: 0xF014310, symbol: D_STAR_WOLF_F014310 }
+aStarWolfShadowDL:
+  { type: GFX, offset: 0xF014310, symbol: aStarWolfShadowDL }
 
-D_STAR_WOLF_F014398:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 32, offset: 0x0F014398, symbol: D_STAR_WOLF_F014398 }
+aStarWolfShadowTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 32, offset: 0x0F014398, symbol: aStarWolfShadowTex }

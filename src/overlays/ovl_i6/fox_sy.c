@@ -2027,9 +2027,9 @@ void SectorY_8019EB80(void) {
     s32 actorCount;
 
     if (gHitCount >= 100) {
-        actorCount = 9;
+        actorCount = 9; // Teammates + Cornerian ships
     } else {
-        actorCount = 2;
+        actorCount = 2; // Teammates only
     }
 
     Rand_SetSeed(1, 29100, 9786);

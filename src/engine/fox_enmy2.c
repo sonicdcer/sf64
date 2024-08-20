@@ -77,7 +77,7 @@ void Actor237_Draw(Actor237* this) {
     /* Unimplemented */
 }
 
-void Obj54_8006A984(Effect* this, f32 xPos, f32 yPos, f32 zPos) {
+void Obj54_8006A984(Effect365* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_365;
@@ -2104,7 +2104,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
         this->dmgType = DMG_NONE;
     }
 
-    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_AQ_CLAM) && (this->timer_0C2 >= 2)) {
+    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_AQ_OYSTER) && (this->timer_0C2 >= 2)) {
         this->dmgType = DMG_NONE;
     }
 
@@ -2116,7 +2116,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
         if ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY)) {
             gTeamShields[this->iwork[12]] -= this->damage;
-        } else if ((this->eventType == EVID_AQ_CLAM) && ((this->damage == 30) || (this->damage == 31))) {
+        } else if ((this->eventType == EVID_AQ_OYSTER) && ((this->damage == 30) || (this->damage == 31))) {
             this->health = 0;
         } else {
             this->health -= this->damage;
@@ -2130,7 +2130,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 D_ctx_80177850 = 15;
             }
 
-            if (this->eventType != EVID_AQ_CLAM) {
+            if (this->eventType != EVID_AQ_OYSTER) {
                 if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
                     AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, this->sfxSource, 4);
                 } else {
@@ -2221,7 +2221,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
             }
 
-            if (this->eventType == EVID_82) {
+            if (this->eventType == EVID_MA_LASER_TURRET) {
                 AUDIO_PLAY_SFX(NA_SE_OB_SMOKE, this->sfxSource, 0);
                 this->dmgType = DMG_BEAM;
                 Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
@@ -2236,7 +2236,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             }
 
-            if ((this->eventType != EVID_13) && (this->eventType != EVID_61) && (this->eventType != EVID_AQ_CLAM)) {
+            if ((this->eventType != EVID_13) && (this->eventType != EVID_61) && (this->eventType != EVID_AQ_OYSTER)) {
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
@@ -3717,7 +3717,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_AQ_CLAM:
+        case EVID_AQ_OYSTER:
             if (this->health <= 0) {
                 if (this->animFrame == 20) {
                     spD4 = this->obj.pos.z;
@@ -3866,7 +3866,7 @@ void ActorEvent_Draw(ActorEvent* this) {
     if (this->timer_0C6 && (this->eventType != EVID_90) && (this->eventType != EVID_68) &&
         (this->eventType != EVID_72)) {
         if ((this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
-            (this->eventType != EVID_62) && (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_98) &&
+            (this->eventType != EVID_62) && (this->eventType != EVID_AQ_OYSTER) && (this->eventType != EVID_98) &&
             (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&
             (gPlayState != PLAY_PAUSE)) {
             Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
@@ -3874,7 +3874,7 @@ void ActorEvent_Draw(ActorEvent* this) {
         }
 
         if ((this->eventType != EVID_A6_MISSILE) && (this->eventType != EVID_23) && (this->eventType != EVID_79) &&
-            (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_27) && (this->eventType != EVID_51) &&
+            (this->eventType != EVID_AQ_OYSTER) && (this->eventType != EVID_27) && (this->eventType != EVID_51) &&
             (this->eventType != EVID_13) && (this->eventType != EVID_72) && (this->eventType != EVID_28) &&
             (this->scale > 0.5f)) {
             sp40 = SIN_DEG(this->timer_0C6 * 400.0f) * this->timer_0C6;
@@ -3892,7 +3892,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
     if ((this->eventType == EVID_29) || (this->eventType == EVID_59) || (this->eventType == EVID_60)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    } else if ((this->eventType == EVID_82) || (this->eventType == EVID_90) ||
+    } else if ((this->eventType == EVID_MA_LASER_TURRET) || (this->eventType == EVID_90) ||
                ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -4130,32 +4130,32 @@ void ActorEvent_Draw(ActorEvent* this) {
                     }
                     break;
 
-                case EVID_82:
+                case EVID_MA_LASER_TURRET:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_MA_600DA10);
+                    gSPDisplayList(gMasterDisp++, aMaLaserTurretDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
-                case EVID_AQ_CLAM:
+                case EVID_AQ_OYSTER:
                     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
                     Animation_GetFrameData(&aAqOysterAnim, this->animFrame, sp114);
                     Animation_DrawSkeleton(1, aAqOysterSkel, sp114, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
                 case EVID_BILL:
-                    gSPDisplayList(gMasterDisp++, D_D00B880);
+                    gSPDisplayList(gMasterDisp++, aBillShipDL);
                     Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EVID_KATT:
-                    gSPDisplayList(gMasterDisp++, D_D009A40);
+                    gSPDisplayList(gMasterDisp++, aKattShipDL);
                     Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EVID_AQ_STARFISH:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_22);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->unk_046, this->unk_046, this->unk_046, 255);
-                    gSPDisplayList(gMasterDisp++, D_AQ_6008970);
+                    gSPDisplayList(gMasterDisp++, aAqStarfishDL);
                     break;
 
                 case EVID_89:
@@ -4198,244 +4198,244 @@ void ActorEvent_Draw(ActorEvent* this) {
     }
 }
 
-void func_enmy2_800763A4(Actor* actor) {
-    s32 var_s0;
+void func_enmy2_800763A4(Actor* this) {
+    s32 i;
     s32 sp60;
-    s32 sp5C;
-    f32 sp58;
-    Vec3f sp4C;
+    s32 triangleIndex;
+    f32 floorHeight;
+    Vec3f vel;
     s32 pad;
 
-    if (actor->eventType == EVID_27) {
-        actor->obj.pos.y -= actor->vel.y;
-        actor->obj.status = OBJ_ACTIVE;
-        func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
-                             actor->scale * 5.0f);
-        actor->timer_0C2 = 10000;
+    if (this->eventType == EVID_27) {
+        this->obj.pos.y -= this->vel.y;
+        this->obj.status = OBJ_ACTIVE;
+        func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                             this->scale * 5.0f);
+        this->timer_0C2 = 10000;
         return;
     }
 
-    if (actor->timer_0BE != 0) {
-        actor->vel.z = 0.0f;
-        actor->vel.x = 0.0f;
-        actor->vel.y = 0.0f;
+    if (this->timer_0BE != 0) {
+        this->vel.z = 0.0f;
+        this->vel.x = 0.0f;
+        this->vel.y = 0.0f;
 
-        if (actor->timer_0BE == 1) {
-            Object_Kill(&actor->obj, actor->sfxSource);
-            Actor_Despawn(actor);
+        if (this->timer_0BE == 1) {
+            Object_Kill(&this->obj, this->sfxSource);
+            Actor_Despawn(this);
 
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
-                D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-                D_ctx_80178130[actor->index + 1] = 1001.0f;
+                D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
+                D_ctx_80178028[this->index + 1] = this->obj.pos.z;
+                D_ctx_80178130[this->index + 1] = 1001.0f;
             }
             return;
         }
     } else {
         if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
-            actor->gravity = 0.4f;
+            this->gravity = 0.4f;
         }
-        switch (actor->timer_04C) {
+
+        switch (this->timer_04C) {
             case 0:
             case 1:
-                if ((actor->index % 2) != 0) {
-                    actor->obj.rot.z -= 8.0f;
+                if ((this->index % 2) != 0) {
+                    this->obj.rot.z -= 8.0f;
                 } else {
-                    actor->obj.rot.z += 8.0f;
+                    this->obj.rot.z += 8.0f;
                 }
                 break;
 
             case 2:
-                actor->obj.rot.y += 5.0f;
-                actor->obj.rot.x += 7.3f;
+                this->obj.rot.y += 5.0f;
+                this->obj.rot.x += 7.3f;
                 break;
 
             case 3:
-                actor->obj.rot.y += 6.0f;
-                actor->obj.rot.x += 18.3f;
-                actor->gravity = 0.7f;
+                this->obj.rot.y += 6.0f;
+                this->obj.rot.x += 18.3f;
+                this->gravity = 0.7f;
                 break;
 
             case 4:
-                actor->obj.rot.x += (-90.0f - actor->obj.rot.x) * 0.1f;
+                this->obj.rot.x += (-90.0f - this->obj.rot.x) * 0.1f;
                 break;
         }
 
-        if (((actor->timer_0BC % 4U) == 1) && (actor->eventType != EVID_13) && (actor->eventType != EVID_61)) {
-            func_effect_8007D24C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.2f);
+        if (((this->timer_0BC % 4U) == 1) && (this->eventType != EVID_13) && (this->eventType != EVID_61)) {
+            func_effect_8007D24C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.2f);
         }
 
-        if (gUseDynaFloor &&
-            Play_CheckDynaFloorCollision(&sp58, &sp5C, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
-            Effect386_Spawn1(actor->obj.pos.x, sp58 + 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, actor->scale * 3.0f,
-                             5);
-            Effect_Effect381_Spawn(actor->obj.pos.x, sp58, actor->obj.pos.z, 2.0f);
-            actor->timer_0BE = 2;
-            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        if (gUseDynaFloor && Play_CheckDynaFloorCollision(&floorHeight, &triangleIndex, this->obj.pos.x,
+                                                          this->obj.pos.y, this->obj.pos.z)) {
+            Effect386_Spawn1(this->obj.pos.x, floorHeight + 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                             this->scale * 3.0f, 5);
+            Effect_Effect381_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z, 2.0f);
+            this->timer_0BE = 2;
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             return;
         }
 
         if (gGroundType == 4) {
-            if (Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y - 10.0f, actor->obj.pos.z + gPathProgress) != 0) {
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 20.0f, actor->obj.pos.z, actor->scale * 6.0f);
-                Effect386_Spawn1(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                 actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, actor->scale * 4.0f, 20);
-                func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
-                actor->timer_0BE = 2;
-                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+            if (Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y - 10.0f, this->obj.pos.z + gPathProgress) != 0) {
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 20.0f, this->obj.pos.z, this->scale * 6.0f);
+                Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                                 0.0f, 0.0f, 0.0f, this->scale * 4.0f, 20);
+                func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
+                this->timer_0BE = 2;
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 return;
             }
         } else {
-            sp4C.x = actor->vel.x;
-            sp4C.y = actor->vel.y;
-            sp4C.z = actor->vel.z;
+            vel.x = this->vel.x;
+            vel.y = this->vel.y;
+            vel.z = this->vel.z;
 
-            sp60 = Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 0);
+            sp60 = Object_CheckCollision(this->index, &this->obj.pos, &vel, 0);
 
-            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundHeight + 30.0f))) {
-                if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
+            if ((sp60 != 0) || (this->obj.pos.y < (gGroundHeight + 30.0f))) {
+                if ((Rand_ZeroOne() < 0.5f) && (this->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
                     (sp60 != 999) && (gGroundSurface != SURFACE_WATER) &&
-                    ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
+                    ((this->vel.z < -20.0f) || (this->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
-                        func_enmy2_8006BF7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z);
-                        func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
+                        func_enmy2_8006BF7C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z);
+                        func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
                     }
 
-                    actor->obj.pos.y -= actor->vel.y;
-                    actor->vel.y = RAND_FLOAT(10.0f);
-                    actor->timer_04C = 3;
+                    this->obj.pos.y -= this->vel.y;
+                    this->vel.y = RAND_FLOAT(10.0f);
+                    this->timer_04C = 3;
 
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        func_effect_8007D2C8(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y,
-                                             actor->obj.pos.z - actor->vel.z, actor->scale * 3.0f);
+                        func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y,
+                                             this->obj.pos.z - this->vel.z, this->scale * 3.0f);
                     }
 
-                    func_effect_8007D2C8(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y,
-                                         actor->obj.pos.z - actor->vel.z, actor->scale * 3.0f);
+                    func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
+                                         this->scale * 3.0f);
 
-                    if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+                    if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
-                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SLIPPY_METEO)) {
-                        if (actor->fwork[17] < 360.0f) {
-                            Play_SpawnDebris(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
-                            actor->fwork[17] = 777.0f;
+                    if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_SLIPPY_METEO)) {
+                        if (this->fwork[17] < 360.0f) {
+                            Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
+                            this->fwork[17] = 777.0f;
                         }
-                        if (actor->fwork[18] < 360.0f) {
-                            Play_SpawnDebris(0, actor->obj.pos.x - 20.0f, actor->obj.pos.y, actor->obj.pos.z);
-                            actor->fwork[18] = 777.0f;
+                        if (this->fwork[18] < 360.0f) {
+                            Play_SpawnDebris(0, this->obj.pos.x - 20.0f, this->obj.pos.y, this->obj.pos.z);
+                            this->fwork[18] = 777.0f;
                         }
                     }
                 } else {
-                    if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
-                        actor->vel.z = 0.0f;
+                    if ((this->obj.pos.y < (gGroundHeight + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
+                        this->vel.z = 0.0f;
                         if (gGroundSurface == SURFACE_WATER) {
-                            Effect_Effect367_Spawn(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f,
-                                                   20.0f, 0);
-                            Effect_Effect367_Spawn(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f,
-                                                   20.0f, 10);
-                            Effect_Effect367_Spawn(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f,
-                                                   20.0f, 20);
-                            Effect_Effect372_Spawn2(actor->obj.pos.x, gGroundHeight, actor->obj.pos.z, 0.1f, 3.0f);
+                            Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
+                                                   0);
+                            Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
+                                                   10);
+                            Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
+                                                   20);
+                            Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
                         } else {
-                            PlayerShot_SpawnEffect344(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
-                                                      actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
+                            PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
+                                                      this->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
                         }
-                        Effect_Effect390_Spawn(actor->obj.pos.x, 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                               actor->scale * 0.05f, 30);
+                        Effect_Effect390_Spawn(this->obj.pos.x, 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                               this->scale * 0.05f, 30);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
-                            Effect_Effect387_Spawn(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 3.0f, 60);
+                            Effect_Effect387_Spawn(this->obj.pos.x, gGroundHeight + 30.0f, this->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
-                                func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
+                                func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
                             }
                         }
                     }
 
-                    actor->obj.pos.y -= actor->vel.y;
-                    func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                         actor->obj.pos.z - actor->vel.z, actor->scale * 5.0f);
+                    this->obj.pos.y -= this->vel.y;
+                    func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                         this->obj.pos.z - this->vel.z, this->scale * 5.0f);
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x,
-                                         10.0f, actor->vel.z, actor->scale * 3.0f, 20);
+                        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, this->vel.x, 10.0f,
+                                         this->vel.z, this->scale * 3.0f, 20);
                         if (sp60 == 999) {
-                            Effect_Effect387_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                                   actor->scale * 3.0f, 70);
+                            Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                                   this->scale * 3.0f, 70);
                         }
-                        for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                        for (i = 0; i < 4; i++) {
                             if (Rand_ZeroOne() < 0.7f) {
                                 if (gCurrentLevel == LEVEL_FORTUNA) {
-                                    Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                                    Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
                                 } else {
-                                    Effect_Effect357_Spawn50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                                             1.0f);
+                                    Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
                                 }
                             }
                         }
                     } else {
-                        Effect386_Spawn1(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                         (actor->obj.pos.z - actor->vel.z) + 48.0f, 0.0f, 0.0f, 0.0f,
-                                         actor->scale * 3.0f, 5);
+                        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                         (this->obj.pos.z - this->vel.z) + 48.0f, 0.0f, 0.0f, 0.0f, this->scale * 3.0f,
+                                         5);
                     }
 
-                    actor->timer_0BE = 2;
+                    this->timer_0BE = 2;
 
-                    if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+                    if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
                 }
             }
         }
-        if ((actor->dmgType != DMG_NONE) || (actor->timer_0BC == 0) ||
-            ((actor->itemDrop != DROP_NONE) && (actor->obj.id != OBJ_ACTOR_ALLRANGE))) {
+        if ((this->dmgType != DMG_NONE) || (this->timer_0BC == 0) ||
+            ((this->itemDrop != DROP_NONE) && (this->obj.id != OBJ_ACTOR_ALLRANGE))) {
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                for (i = 0; i < 4; i++) {
                     if (Rand_ZeroOne() < 0.7f) {
                         if (gCurrentLevel == LEVEL_FORTUNA) {
-                            Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                            Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
                         } else {
-                            Effect_Effect357_Spawn50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
+                            Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
                         }
                     }
                 }
 
-                Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
-                                 actor->vel.z, 5.0f, 15);
-                func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                 this->vel.z, 5.0f, 15);
+                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
             } else {
-                if ((actor->eventType != EVID_13) && (actor->eventType != EVID_61)) {
-                    func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z,
-                                         actor->scale * 5.0f);
+                if ((this->eventType != EVID_13) && (this->eventType != EVID_61)) {
+                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
+                                         this->scale * 5.0f);
                 }
 
-                if (actor->eventType == EVID_36) {
-                    Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
-                                     actor->vel.z, 5.0f, 15);
+                if (this->eventType == EVID_36) {
+                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                     this->vel.z, 5.0f, 15);
                 }
             }
 
-            actor->timer_0BE = 2;
+            this->timer_0BE = 2;
 
-            if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+            if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             } else {
-                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
         }
     }
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
-        D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-        D_ctx_80178130[actor->index + 1] = actor->rot_0F4.y + 180.0f;
+        D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
+        D_ctx_80178028[this->index + 1] = this->obj.pos.z;
+        D_ctx_80178130[this->index + 1] = this->rot_0F4.y + 180.0f;
     }
 
-    if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
-        ActorAllRange_SetShadowData(actor);
+    if (this->obj.id == OBJ_ACTOR_ALLRANGE) {
+        ActorAllRange_SetShadowData(this);
     }
 }
 

@@ -142,8 +142,8 @@ D_SZ_6006BD8:
 D_SZ_6006CD8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x06006CD8, symbol: D_SZ_6006CD8 }
 
-D_SZ_6006D64:
-  { type: SF64:ANIM, offset: 0x6006D64, symbol: D_SZ_6006D64 }
+aSzMissileAnim:
+  { type: SF64:ANIM, offset: 0x6006D64, symbol: aSzMissileAnim }
 
 aSzMissileSkel: 
   { type: SF64:SKELETON, offset: 0x6006E50, symbol: aSzMissileSkel }

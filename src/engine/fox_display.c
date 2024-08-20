@@ -780,7 +780,7 @@ void Display_PlayerShadow_Draw(Player* player) {
             Matrix_Scale(gGfxMatrix, 1.5f * 1.67f, 1.5f, 1.5f * 1.67f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1032780);
+            gSPDisplayList(gMasterDisp++, aArwingShadowDL);
             break;
 
         case FORM_LANDMASTER:

@@ -554,7 +554,7 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
     }
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_D009A40);
+    gSPDisplayList(gMasterDisp++, aKattShipDL);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
@@ -621,7 +621,7 @@ void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
     }
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_D00B880);
+    gSPDisplayList(gMasterDisp++, aBillShipDL);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -50.0f, MTXF_APPLY);

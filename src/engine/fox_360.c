@@ -2404,7 +2404,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
             case AI360_PIGMA:
             case AI360_ANDREW:
                 if (gCurrentLevel == LEVEL_VENOM_2) {
-                    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F0103D0);
+                    gSPDisplayList(gMasterDisp++, aStarWolfUpgradedShipDL);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, 2);
@@ -2416,7 +2416,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     ActorAllRange_DrawBarrelRoll(this);
                     ActorAllRange_DrawShield(this);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
+                    gSPDisplayList(gMasterDisp++, aStarWolfStandardShipDL);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     if (gCurrentLevel == LEVEL_BOLSE) {
                         Actor_DrawEngineGlow(this, 3);
@@ -2427,12 +2427,12 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 break;
 
             case AI360_KATT:
-                gSPDisplayList(gMasterDisp++, D_D009A40);
+                gSPDisplayList(gMasterDisp++, aKattShipDL);
                 Actor_DrawEngineAndContrails(this);
                 break;
 
             case AI360_BILL:
-                gSPDisplayList(gMasterDisp++, D_D00B880);
+                gSPDisplayList(gMasterDisp++, aBillShipDL);
                 Actor_DrawEngineAndContrails(this);
                 break;
 
@@ -2443,7 +2443,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 break;
 
             case AI360_MISSILE:
-                Animation_GetFrameData(&D_SZ_6006D64, 0, jointTable);
+                Animation_GetFrameData(&aSzMissileAnim, 0, jointTable);
                 Animation_DrawSkeleton(3, aSzMissileSkel, jointTable, ActorAllRange_MissileOverrideLimbDraw, NULL, this,
                                        gCalcMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, MTXF_APPLY);
@@ -2494,7 +2494,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     gSPDisplayList(gMasterDisp++, D_versus_3015740);
                 } else if (gCurrentLevel == LEVEL_TRAINING) {
                     if (this->aiIndex == AI360_FOX) {
-                        gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F00F200);
+                        gSPDisplayList(gMasterDisp++, aStarWolfStandardShipDL);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                         Actor_DrawEngineGlow(this, 3);
                     } else {

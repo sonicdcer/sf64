@@ -2572,7 +2572,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case 24:
-            gSPDisplayList(gMasterDisp++, D_D009A40);
+            gSPDisplayList(gMasterDisp++, aKattShipDL);
             Actor_DrawEngineAndContrails(this);
             break;
 
@@ -2729,7 +2729,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
 
         case 33:
             if ((this->index == 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                gSPDisplayList(gMasterDisp++, D_D00B880);
+                gSPDisplayList(gMasterDisp++, aBillShipDL);
             } else {
                 gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
             }

@@ -59,8 +59,8 @@ D_D0098B0:
 D_D009938:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0D009938, symbol: D_D009938 }
 
-D_D009A40:
-  { type: GFX, offset: 0xD009A40, symbol: D_D009A40 }
+aKattShipDL:
+  { type: GFX, offset: 0xD009A40, symbol: aKattShipDL }
 
 D_D00A3B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0D00A3B8, symbol: D_D00A3B8 }
@@ -97,8 +97,8 @@ aJamesMarkTex:
 aJamesMarkTLUT:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD00B870, symbol: aJamesMarkTLUT }
 
-D_D00B880:
-  { type: GFX, offset: 0xD00B880, symbol: D_D00B880 }
+aBillShipDL:
+  { type: GFX, offset: 0xD00B880, symbol: aBillShipDL }
 
 ast_allies_seg13_vtx_BB70:
   { type: VTX, count: 144, offset: 0xD00BB70, symbol: ast_allies_seg13_vtx_BB70 }

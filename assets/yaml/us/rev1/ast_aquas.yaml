@@ -98,8 +98,8 @@ D_AQ_6003FF0:
 D_AQ_6008168:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6008168, symbol: D_AQ_6008168 }
 
-D_AQ_6008970:
-  { type: GFX, offset: 0x6008970, symbol: D_AQ_6008970 }
+aAqStarfishDL:
+  { type: GFX, offset: 0x6008970, symbol: aAqStarfishDL }
 
 D_AQ_6008EC8:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6008EC8, symbol: D_AQ_6008EC8, tlut: 0x6008FC8 }

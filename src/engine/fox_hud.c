@@ -1778,7 +1778,7 @@ void func_hud_80089AF4(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014180);
+    gSPDisplayList(gMasterDisp++, aStarWolfRadarMarkDL);
 }
 
 void func_hud_80089B94(void) {

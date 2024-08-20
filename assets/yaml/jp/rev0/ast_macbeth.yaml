@@ -274,8 +274,8 @@ D_MA_600D878:
 D_MA_600D978:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 72, offset: 0x600D978, symbol: D_MA_600D978}
 
-D_MA_600DA10:
-  {type: GFX, offset: 0x600DA10, symbol: D_MA_600DA10}
+aMaLaserTurretDL:
+  {type: GFX, offset: 0x600DA10, symbol: aMaLaserTurretDL}
 
 D_MA_600DF60:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 32, offset: 0x600DF60, symbol: D_MA_600DF60, tlut: 0x600E360}

@@ -1843,7 +1843,7 @@ void Ending_8018C21C(void) {
                     Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_D00B880);
+                    gSPDisplayList(gMasterDisp++, aBillShipDL);
                     Matrix_Push(&gGfxMatrix);
                     RCP_SetupDL(&gMasterDisp, SETUPDL_49);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
