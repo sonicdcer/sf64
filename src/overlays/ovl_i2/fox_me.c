@@ -86,9 +86,9 @@ void Meteo_MeMeteor2_Update(MeMeteor2* this) {
         this->unk_046 = 0;
     }
 
-    this->unk_048 += 8;
-    if (this->unk_048 > 995) {
-        this->unk_048 = 995;
+    this->work_048 += 8;
+    if (this->work_048 > 995) {
+        this->work_048 = 995;
     }
 
     if ((this->timer_0BC % 4U) == 1) {
@@ -181,9 +181,9 @@ void Meteo_80187B08(MeLaserCannon1* this) {
         this->unk_046 = 0;
     }
 
-    this->unk_048 += 4;
-    if (this->unk_048 > 995) {
-        this->unk_048 = 995;
+    this->work_048 += 4;
+    if (this->work_048 > 995) {
+        this->work_048 = 995;
     }
 
     if ((this->timer_0BC % 4) == 0) {

@@ -1424,7 +1424,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                 actor->obj.rot.z = D_i1_8019B838[spF4].unk_30[0].z;
                 actor->state = 57;
                 actor->iwork[0] = 0;
-                actor->unk_048 = spF4;
+                actor->work_048 = spF4;
                 if (this->swork[25] == 0) {
                     actor->vel.x = RAND_FLOAT_CENTERED(5.0f);
                     actor->vel.y = 10.0f + RAND_FLOAT_CENTERED(2.0f);

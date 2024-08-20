@@ -4689,7 +4689,7 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
 
     this->health = gTeamShields[this->aiType];
 
-    switch (this->unk_048) {
+    switch (this->work_048) {
         case 0:
             func_hud_800914FC(this);
             func_hud_80091864(this);
@@ -4724,21 +4724,21 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
 
             if ((this->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (this->iwork[9] == 0) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                this->unk_048 = 2;
+                this->work_048 = 2;
                 this->work_04A = 0;
             }
 
             if ((gLevelMode == LEVELMODE_ALL_RANGE) &&
                 (fabsf(this->obj.pos.x > var_fv1) || fabsf(this->obj.pos.z > var_fv1)) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                this->unk_048 = 2;
+                this->work_048 = 2;
                 this->work_04A = 1;
             }
             break;
 
         case 1:
             if (func_hud_800924E0(this) != 0) {
-                this->unk_048 = 0;
+                this->work_048 = 0;
                 this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;
@@ -4746,7 +4746,7 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
         case 2:
             if (func_hud_800927A0(this) != 0) {
                 this->work_04A = 0;
-                this->unk_048 = this->work_04A;
+                this->work_048 = this->work_04A;
                 this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;

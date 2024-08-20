@@ -1180,7 +1180,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_ME_METEOR_2:
         case OBJ_ACTOR_ME_LASER_CANNON_1:
             gActors[index].unk_046 = gFogRed;
-            gActors[index].unk_048 = gFogNear;
+            gActors[index].work_048 = gFogNear;
             gActors[index].obj.rot.x = RAND_FLOAT(360.0f);
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
             break;
@@ -1426,7 +1426,7 @@ void func_enmy_80065380(MeMeteor2* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4,
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
     this->unk_046 = 255;
-    this->unk_048 = 900;
+    this->work_048 = 900;
     this->obj.rot.z = RAND_FLOAT(360.0f);
     this->obj.rot.y = RAND_FLOAT(360.0f);
     Object_SetInfo(&this->info, this->obj.id);

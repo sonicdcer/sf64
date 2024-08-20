@@ -3225,9 +3225,9 @@ void Macbeth_MaBoulder_Init(MaBoulder* this) {
     this->work_04A = this->unk_046;
     this->health = 60;
     if (this->fwork[0] < 0.0f) {
-        this->unk_048 = 0;
+        this->work_048 = 0;
     } else {
-        this->unk_048 = 1;
+        this->work_048 = 1;
     }
 }
 
@@ -3266,7 +3266,7 @@ void Macbeth_MaBoulder_Update(MaBoulder* this) {
                     }
                 }
 
-                if (this->unk_048 != 0) {
+                if (this->work_048 != 0) {
                     this->obj.rot.z -= 0.5f * this->vel.x;
                 } else {
                     this->obj.rot.z -= 0.5f * this->vel.x;
@@ -3278,7 +3278,7 @@ void Macbeth_MaBoulder_Update(MaBoulder* this) {
             }
 
             if (this->unk_046 == 7) {
-                if (this->unk_048 != 0) {
+                if (this->work_048 != 0) {
                     this->obj.rot.z -= 1.0f;
                 } else {
                     this->obj.rot.z += 1.0f;

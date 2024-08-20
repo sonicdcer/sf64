@@ -894,7 +894,7 @@ void Titania_TiRasco_Dying(TiRasco* this) {
         if (actorPtr != NULL) {
             actorPtr->obj.status = OBJ_ACTIVE;
             actorPtr->state = 46;
-            actorPtr->unk_048 = i;
+            actorPtr->work_048 = i;
             Matrix_MultVec3f(gCalcMatrix, &var_s1->pos, &sp70);
             actorPtr->obj.pos.x = this->obj.pos.x + sp70.x;
             actorPtr->obj.pos.y = this->obj.pos.y + sp70.y;
@@ -1611,7 +1611,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                         actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if ((actorPtr != NULL) && D_i5_801B7630[i][1] == 1) {
                             actorPtr->state = 47;
-                            actorPtr->unk_048 = i;
+                            actorPtr->work_048 = i;
                             Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
                             actorPtr->obj.pos.x = this->obj.pos.x + sp158.x;
                             actorPtr->obj.pos.y = this->obj.pos.y + sp158.y;
@@ -1647,7 +1647,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                             actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                             if (actorPtr != NULL) {
                                 actorPtr->state = 47;
-                                actorPtr->unk_048 = 9;
+                                actorPtr->work_048 = 9;
                                 Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
                                 actorPtr->obj.pos.x = this->obj.pos.x + sp158.x;
                                 actorPtr->obj.pos.y = this->obj.pos.y + sp158.y;
@@ -3837,7 +3837,7 @@ void Titania_80193DF0(TiGoras* this) {
             if (actor != NULL) {
                 actor->state = 40;
                 actor->unk_046 = D_i5_801B7770[i][5];
-                actor->unk_048 = D_i5_801B7770[i][1];
+                actor->work_048 = D_i5_801B7770[i][1];
                 if (D_i5_801B7770[i][0] == 85) {
                     actor->fwork[0] = 5.0f;
                     actor->fwork[1] = 5.0f;
@@ -4216,7 +4216,7 @@ void Titania_80193DF0(TiGoras* this) {
                     actor->obj.pos.z = this->obj.pos.z + 2000.0f;
                     actor->info.cullDistance = 5000.0f;
                     actor->unk_046 = D_i5_801B7770[D_i5_801B8198[i].unk_00][5];
-                    actor->unk_048 = D_i5_801B7770[D_i5_801B8198[i].unk_00][1];
+                    actor->work_048 = D_i5_801B7770[D_i5_801B8198[i].unk_00][1];
                     D_i5_801B8198[i].unk_0C = D_i5_801B8198[i].unk_04;
                     actor->vel.z = this->vel.z;
                     D_i5_801BBF00[D_i5_801B8198[i].unk_00].unk_26 |= 1;
@@ -5502,7 +5502,7 @@ void Titania_801990DC(TiGoras* this) {
                     actor->state = 40;
 
                     actor->unk_046 = D_i5_801B7770[i][5];
-                    actor->unk_048 = D_i5_801B7770[i][1];
+                    actor->work_048 = D_i5_801B7770[i][1];
 
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[i].unk_00.pos, &sp60);
@@ -5551,7 +5551,7 @@ void Titania_801990DC(TiGoras* this) {
                 actor->state = 40;
 
                 actor->unk_046 = 25;
-                actor->unk_048 = 0;
+                actor->work_048 = 0;
                 actor->work_04A = 4 | 2;
 
                 actor->fwork[3] = 0.0f;
@@ -5578,7 +5578,7 @@ void Titania_801990DC(TiGoras* this) {
                 actor->state = 40;
 
                 actor->unk_046 = 2;
-                actor->unk_048 = 1;
+                actor->work_048 = 1;
                 actor->work_04A = 4 | 2;
 
                 actor->iwork[1] = (s32) 1;
@@ -5605,7 +5605,7 @@ void Titania_801990DC(TiGoras* this) {
                 actor->state = 40;
 
                 actor->unk_046 = 2;
-                actor->unk_048 = 1;
+                actor->work_048 = 1;
                 actor->work_04A = 4 | 2;
 
                 actor->iwork[1] = 2;

@@ -653,7 +653,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
 
             if (this->iwork[2] == 1) {
-                if ((this->iwork[1] == 1) && ((this->unk_048 == 8) || (this->unk_048 == 9))) {
+                if ((this->iwork[1] == 1) && ((this->work_048 == 8) || (this->work_048 == 9))) {
                     func_effect_8007D2C8(this->obj.pos.x, sp48 + 20.0f, this->obj.pos.z, 8.0f);
                 }
                 Object_Kill(&this->obj, this->sfxSource);
@@ -1301,13 +1301,13 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 break;
             }
 
-            this->unk_048 = actorScript[this->aiIndex + 1];
+            this->work_048 = actorScript[this->aiIndex + 1];
 
-            if (this->unk_048 == EVACT_3) {
+            if (this->work_048 == EVACT_3) {
                 this->work_04C = 4;
             }
 
-            if (this->unk_048 == EVACT_TI_DROP_MINE) {
+            if (this->work_048 == EVACT_TI_DROP_MINE) {
                 this->timer_0BE = 50;
             }
 
@@ -1841,13 +1841,13 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_52) &&
         (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
         (this->eventType != EVID_48) && (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
-        switch (this->unk_048) {
+        switch (this->work_048) {
             case EVACT_NONE:
                 break;
 
             case EVACT_1: // shoot forward
                 ActorEvent_8006F254(this);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_2: // shoot at player
@@ -1855,7 +1855,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                       gEnemyShotSpeed);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_3: // ally shoots forward
@@ -1872,14 +1872,14 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     this->timer_0C2 = 2;
                     this->work_04C--;
                     if (this->work_04C <= 0) {
-                        this->unk_048 = EVACT_NONE;
+                        this->work_048 = EVACT_NONE;
                     }
                 }
                 break;
 
             case EVACT_4: // shoot blue energy balls
                 ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_5:
@@ -1898,7 +1898,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                      this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
                                      this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp6C.x,
                                      sp6C.y, sp6C.z, 1.0f);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_6:
@@ -1906,14 +1906,14 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     Effect_EnemyLaser(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                       gEnemyShotSpeed);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_7:
                 if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                     Effect_EnemyLaser(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_8:
@@ -1925,7 +1925,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                   gEnemyShotSpeed);
                 gPlayer[0].pos.x = sp6C.x;
                 gPlayer[0].pos.y = sp6C.y;
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_9:
@@ -1970,7 +1970,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     ActorEvent_SpawnTIMine(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
                 }
                 if (this->timer_0BE == 0) {
-                    this->unk_048 = EVACT_NONE;
+                    this->work_048 = EVACT_NONE;
                 }
                 break;
 
@@ -1979,7 +1979,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                   this->obj.pos.z + 220.0f, gEnemyShotSpeed);
                 Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
                                   this->obj.pos.z + 220.0f, gEnemyShotSpeed);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_17:
@@ -1987,7 +1987,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     func_effect_8007F20C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                          gEnemyShotSpeed);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_GFOX_COVER_FIRE:
@@ -2019,12 +2019,12 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     }
                 }
 
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_19: // projectile ring used by bee enemies
                 func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
         }
     }
@@ -2155,7 +2155,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 this->timer_0C2 = 10;
                 this->timer_0BE = 0;
                 this->unk_046 = 255;
-                this->unk_048 = 900;
+                this->work_048 = 900;
                 this->drawShadow = true;
 
                 if (gLevelType == LEVELTYPE_PLANET) {
@@ -2982,8 +2982,8 @@ void ActorEvent_SpawnEffect365(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
 void ActorEvent_80072474(ActorEvent* this) {
     f32 var_fv1;
 
-    if (this->unk_048 != EVACT_NONE) {
-        switch (this->unk_048) {
+    if (this->work_048 != EVACT_NONE) {
+        switch (this->work_048) {
             case EVACT_1:
                 this->fwork[16] = 45.0f;
                 break;
@@ -2997,7 +2997,7 @@ void ActorEvent_80072474(ActorEvent* this) {
                 this->iwork[15] = 0;
                 break;
         }
-        this->unk_048 = EVACT_NONE;
+        this->work_048 = EVACT_NONE;
     }
 
     if (this->iwork[15] != 0) {

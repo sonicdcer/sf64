@@ -32,7 +32,7 @@ void Andross_80193710(void);
 void Andross_80187530(ActorEvent* this) {
     s32 index;
 
-    switch (this->unk_048) {
+    switch (this->work_048) {
         case 0:
             break;
 

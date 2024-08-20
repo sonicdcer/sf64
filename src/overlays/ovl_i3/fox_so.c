@@ -1801,7 +1801,7 @@ void Solar_801A3128(SoVulkain* this) {
 
 void Solar_801A3468(SoVulkain* this) {
     this->swork[SO_SWK_0] = 4;
-    this->unk_048 = 0;
+    this->work_048 = 0;
 
     if ((this->swork[SO_SWK_2] != 0) || (this->swork[SO_SWK_3] != 0)) {
         if (this->swork[SO_SWK_3] != 0) {
@@ -1811,7 +1811,7 @@ void Solar_801A3468(SoVulkain* this) {
         }
     } else {
         if (Rand_ZeroOne() >= 0.5f) {
-            this->unk_048 = 1;
+            this->work_048 = 1;
             this->swork[SO_SWK_1] = 5;
         } else {
             this->timer_050 = 0;
@@ -1885,7 +1885,7 @@ void Solar_801A3510(SoVulkain* this) {
                 }
             }
 
-            if ((this->unk_048 != 0) && (this->animFrame == 68)) {
+            if ((this->work_048 != 0) && (this->animFrame == 68)) {
                 this->swork[SO_SWK_1] = 9;
                 this->fwork[SO_FWK_0] = 0.01f;
                 this->animFrame = 20;

@@ -3496,8 +3496,8 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         this->iwork[18]--;
     }
 
-    if ((this->unk_048 != 0) && (this->unk_046 != 3)) {
-        switch (this->unk_048) {
+    if ((this->work_048 != 0) && (this->unk_046 != 3)) {
+        switch (this->work_048) {
             case 1:
                 this->unk_046 = 1;
                 this->timer_0BE = 50;
@@ -3559,7 +3559,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                 this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
         }
-        this->unk_048 = 0;
+        this->work_048 = 0;
         this->fwork[15] = 0.0f;
     }
 
@@ -3612,7 +3612,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                     gPlayer[0].pos.y = sp1E0;
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
                 }
-                this->unk_048 = 0;
+                this->work_048 = 0;
             }
 
             if (this->timer_0BE == 0) {
@@ -3789,7 +3789,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
 
             if (this->health <= 0) {
                 this->unk_046 = 3;
-                this->unk_048 = 0;
+                this->work_048 = 0;
                 this->animFrame = 0;
                 this->timer_0BE = 50;
                 this->fwork[15] = 0.0f;

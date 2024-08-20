@@ -282,12 +282,12 @@ void ActorDebris_Draw(ActorDebris* this) {
 
         case 39:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFAC4[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFAC4[this->work_048]);
             break;
 
         case 40:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-            switch (this->unk_048) {
+            switch (this->work_048) {
                 case 0:
                     break;
                 case 1:
@@ -322,22 +322,22 @@ void ActorDebris_Draw(ActorDebris* this) {
 
         case 41:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFADC[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFADC[this->work_048]);
             break;
 
         case 42:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB08[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB08[this->work_048]);
             break;
 
         case 43:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB14[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB14[this->work_048]);
             break;
 
         case 44:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB28[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB28[this->work_048]);
             break;
 
         case 45:
@@ -345,25 +345,25 @@ void ActorDebris_Draw(ActorDebris* this) {
             break;
 
         case 46:
-            if ((this->unk_048 == 2) || (this->unk_048 == 3) || (this->unk_048 == 4)) {
+            if ((this->work_048 == 2) || (this->work_048 == 3) || (this->work_048 == 4)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_33);
             }
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_TI_801B7584[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_TI_801B7584[this->work_048]);
             break;
 
         case 47:
-            gSPDisplayList(gMasterDisp++, D_TI_801B7608[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_TI_801B7608[this->work_048]);
             break;
 
         case 48:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB64[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB64[this->work_048]);
             break;
 
         case 49:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB88[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB88[this->work_048]);
             break;
 
         case 50:
@@ -401,27 +401,27 @@ void ActorDebris_Draw(ActorDebris* this) {
 
         case 51:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFBA8[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFBA8[this->work_048]);
             break;
 
         case 52:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFBE4[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFBE4[this->work_048]);
             break;
 
         case 53:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC0C[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC0C[this->work_048]);
             break;
 
         case 54:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC40[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC40[this->work_048]);
             break;
 
         case 55:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC50[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC50[this->work_048]);
             break;
 
         case 56:
@@ -429,7 +429,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, 255);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC64[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC64[this->work_048]);
             break;
 
         case 58:
@@ -441,7 +441,7 @@ void ActorDebris_Draw(ActorDebris* this) {
         case 59:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC7C[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC7C[this->work_048]);
             break;
 
         case 70:
@@ -449,7 +449,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             break;
 
         case 57:
-            gSPDisplayList(gMasterDisp++, D_VE1_8019A008[this->unk_048]);
+            gSPDisplayList(gMasterDisp++, D_VE1_8019A008[this->work_048]);
             break;
 
         default:
@@ -609,14 +609,14 @@ void MeMolarRock_Draw(MeMolarRock* this) {
 }
 
 void MeMeteor2_Draw(MeMeteor2* this) {
-    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->unk_048, gFogFar);
+    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, aMeMeteorDL);
 }
 
 void MeLaserCannon1_Draw(MeLaserCannon1* this) {
-    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->unk_048, gFogFar);
+    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
     gSPDisplayList(gMasterDisp++, aMeLaserCannon1DL);
 }
 

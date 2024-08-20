@@ -488,7 +488,7 @@ void Zoness_ActorDebris_Setup(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVe
 
     this->state = state;
     this->scale = scale;
-    this->unk_048 = unk48;
+    this->work_048 = unk48;
     this->obj.pos = *pos;
     this->obj.rot = *rot;
     this->vel.x = xVel;
