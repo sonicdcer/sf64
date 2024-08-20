@@ -632,7 +632,7 @@ void ActorMissileSeek_Draw(Actor* missile) {
             if (gCurrentLevel == LEVEL_AREA_6) {
                 gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400B390);
             } else {
-                gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4007AF0);
+                gSPDisplayList(gMasterDisp++, aGrangaFighterDL);
             }
             break;
     }
@@ -645,7 +645,7 @@ void ActorMissileSeek_Draw(Actor* missile) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
     missile->iwork[11] = 1;
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
-    Actor_DrawEngineGlow(missile, ENGINEGLOW_GREEN);
+    Actor_DrawEngineGlow(missile, EG_GREEN);
 }
 
 void CoSkibot_Draw(CoSkibot* this) {

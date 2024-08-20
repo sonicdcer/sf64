@@ -52,10 +52,10 @@ typedef enum DrawMode {
 } DrawMode;
 
 typedef enum EngineGlowColor {
-    /* 0 */ ENGINEGLOW_RED,
-    /* 1 */ ENGINEGLOW_BLUE,
-    /* 2 */ ENGINEGLOW_GREEN,
-    /* 3 */ ENGINEGLOW_LIGHT_RED
+    /* 0 */ EG_RED,
+    /* 1 */ EG_BLUE,
+    /* 2 */ EG_GREEN,
+    /* 3 */ EG_ORANGE
 } EngineGlowColor;
 
 typedef enum LevelMode {

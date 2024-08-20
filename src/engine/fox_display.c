@@ -820,16 +820,16 @@ void Display_DrawEngineGlow(EngineGlowColor color) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
     switch (color) {
-        case ENGINEGLOW_RED:
+        case EG_RED:
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             break;
-        case ENGINEGLOW_BLUE:
+        case EG_BLUE:
             gDPSetEnvColor(gMasterDisp++, 0, 0, 255, 255);
             break;
-        case ENGINEGLOW_GREEN:
+        case EG_GREEN:
             gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 255);
             break;
-        case ENGINEGLOW_LIGHT_RED:
+        case EG_ORANGE:
             gDPSetEnvColor(gMasterDisp++, 255, 64, 0, 255);
             break;
     }

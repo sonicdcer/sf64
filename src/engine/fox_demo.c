@@ -2587,13 +2587,13 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 26:
             gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
+            Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
         case 28:
             gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
             Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
+            Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
         case 30:
@@ -2734,7 +2734,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
                 gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
             }
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, ENGINEGLOW_RED);
+            Actor_DrawEngineGlow(this, EG_RED);
             break;
 
         case 34:

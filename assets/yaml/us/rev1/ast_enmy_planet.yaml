@@ -15,11 +15,11 @@ D_ENMY_PLANET_4000290:
 ast_enmy_planet_seg4_vtx_8F8:
   { type: VTX, count: 90, offset: 0x40008F8, symbol: ast_enmy_planet_seg4_vtx_8F8 }
 
-D_ENMY_PLANET_40001A4:
-  { type: SF64:ANIM, offset: 0x40001A4, symbol: D_ENMY_PLANET_40001A4 }
+aButterflyAnim:
+  { type: SF64:ANIM, offset: 0x40001A4, symbol: aButterflyAnim }
 
-D_ENMY_PLANET_4000270: 
-  { type: SF64:SKELETON, offset: 0x4000270, symbol: D_ENMY_PLANET_4000270 }
+aButterflySkel: 
+  { type: SF64:SKELETON, offset: 0x4000270, symbol: aButterflySkel }
 
 D_ENMY_PLANET_4000710:
   { type: GFX, offset: 0x4000710, symbol: D_ENMY_PLANET_4000710 }
@@ -60,11 +60,11 @@ D_ENMY_PLANET_4004538:
 D_ENMY_PLANET_4004D38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04004D38, symbol: D_ENMY_PLANET_4004D38 }
 
-D_ENMY_PLANET_40057AC:
-  { type: SF64:ANIM, offset: 0x40057AC, symbol: D_ENMY_PLANET_40057AC }
+aFirebirdAnim:
+  { type: SF64:ANIM, offset: 0x40057AC, symbol: aFirebirdAnim }
 
-D_ENMY_PLANET_40058B8: 
-  { type: SF64:SKELETON, offset: 0x40058B8, symbol: D_ENMY_PLANET_40058B8 }
+aFirebirdSkel: 
+  { type: SF64:SKELETON, offset: 0x40058B8, symbol: aFirebirdSkel }
 
 D_ENMY_PLANET_4005E78:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04005E78, symbol: D_ENMY_PLANET_4005E78 }
@@ -81,8 +81,8 @@ D_ENMY_PLANET_40064E8:
 D_ENMY_PLANET_40066E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x040066E8, symbol: D_ENMY_PLANET_40066E8 }
 
-D_ENMY_PLANET_40068F0:
-  { type: GFX, offset: 0x40068F0, symbol: D_ENMY_PLANET_40068F0 }
+aVenomFighter1DL:
+  { type: GFX, offset: 0x40068F0, symbol: aVenomFighter1DL }
 
 D_ENMY_PLANET_4006E90:
   { type: GFX, offset: 0x4006E90, symbol: D_ENMY_PLANET_4006E90 }
@@ -90,8 +90,8 @@ D_ENMY_PLANET_4006E90:
 D_ENMY_PLANET_40073C0:
   { type: GFX, offset: 0x40073C0, symbol: D_ENMY_PLANET_40073C0 }
 
-D_ENMY_PLANET_4007AF0:
-  { type: GFX, offset: 0x4007AF0, symbol: D_ENMY_PLANET_4007AF0 }
+aGrangaFighterDL:
+  { type: GFX, offset: 0x4007AF0, symbol: aGrangaFighterDL }
 
 D_ENMY_PLANET_4008100:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04008100, symbol: D_ENMY_PLANET_4008100 }

@@ -111,8 +111,8 @@ aCoHighway5DL:
 D_CO_6011790:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06011790, symbol: D_CO_6011790 }
 
-D_CO_6011F90:
-  { type: GFX, offset: 0x6011F90, symbol: D_CO_6011F90 }
+aCoCornerianFighterDL:
+  { type: GFX, offset: 0x6011F90, symbol: aCoCornerianFighterDL }
 
 D_CO_6012640:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012640, symbol: D_CO_6012640 }

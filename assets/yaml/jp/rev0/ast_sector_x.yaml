@@ -135,8 +135,8 @@ D_SX_600B2B0:
 D_SX_600B540:
   { type: GFX, offset: 0x600B540, symbol: D_SX_600B540 }
 
-D_SX_600B830:
-  { type: GFX, offset: 0x600B830, symbol: D_SX_600B830 }
+aSxBorzoiFighterDL:
+  { type: GFX, offset: 0x600B830, symbol: aSxBorzoiFighterDL }
 
 D_SX_600C000:
   { type: GFX, offset: 0x600C000, symbol: D_SX_600C000 }
@@ -199,11 +199,11 @@ D_SX_6020FB0:
 D_SX_6021ED0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06021ED0, symbol: D_SX_6021ED0 }
 
-D_SX_6022DF0:
-  { type: GFX, offset: 0x6022DF0, symbol: D_SX_6022DF0 }
+aSxCanineDL:
+  { type: GFX, offset: 0x6022DF0, symbol: aSxCanineDL }
 
-D_SX_6023500:
-  { type: GFX, offset: 0x6023500, symbol: D_SX_6023500 }
+aSxSpyEyeDL:
+  { type: GFX, offset: 0x6023500, symbol: aSxSpyEyeDL }
 
 D_SX_6023C30:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06023C30, symbol: D_SX_6023C30 }

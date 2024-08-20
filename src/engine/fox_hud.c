@@ -2461,7 +2461,7 @@ s32 func_hud_8008B774(void) {
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
-                if ((gActors[i].eventType == EVID_SLIPPY_METEO) || (gActors[i].eventType == EVID_TEAMMATE) ||
+                if ((gActors[i].eventType == EVID_ME_SLIPPY) || (gActors[i].eventType == EVID_TEAMMATE) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {

@@ -695,7 +695,8 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
     actor->hitPos.y = shot->obj.pos.y;
     actor->hitPos.z = shot->obj.pos.z;
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
-         ((actor->eventType == EVID_48) || (actor->eventType == EVID_49) || (actor->eventType == EVID_50))) ||
+         ((actor->eventType == EVID_SY_ROBOT_1) || (actor->eventType == EVID_SY_ROBOT_2) ||
+          (actor->eventType == EVID_SY_ROBOT_3))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
         ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->eventType == EVID_METEO_FLIP_BOT)) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_SCULPIN) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&

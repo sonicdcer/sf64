@@ -3828,7 +3828,7 @@ bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
     if (limbIndex == 17) {
         rot->x += actor->fwork[28];
         rot->y -= actor->fwork[29];
-        if (actor->eventType == EVID_48) {
+        if (actor->eventType == EVID_SY_ROBOT_1) {
             *dList = D_SY_6014BD0;
         }
     }

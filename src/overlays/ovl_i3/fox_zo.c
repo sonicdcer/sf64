@@ -960,7 +960,7 @@ void Zoness_ZGull_Update(ZGull* this) {
     }
 
     this->animFrame++;
-    if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
+    if (this->animFrame >= Animation_GetFrameCount(&aFirebirdAnim)) {
         this->animFrame = 0;
     }
 
@@ -1035,8 +1035,8 @@ void Zoness_ZGull_Update(ZGull* this) {
 }
 
 void Zoness_ZGull_Draw(ZGull* this) {
-    Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->animFrame, this->vwork);
-    Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
+    Animation_GetFrameData(&aFirebirdAnim, this->animFrame, this->vwork);
+    Animation_DrawSkeleton(1, aFirebirdSkel, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
 }
 
 void Zoness_ZoEnergyBall_Init2(ZoEnergyBall* this) {

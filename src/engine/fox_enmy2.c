@@ -944,14 +944,14 @@ typedef struct {
 } EventActorInfo; // size = 0x20
 
 static EventActorInfo sEventActorInfo[108] = {
-    /*   0 */ { D_ENMY_PLANET_40068F0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*   0 */ { aVenomFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*   1 */ { D_ENMY_PLANET_4006E90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*   2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
     /*   3 */ { D_ENMY_PLANET_4009800, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*   4 */ { D_ENMY_PLANET_40073C0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   5 */ { D_ENMY_PLANET_4007AF0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*   5 */ { aGrangaFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*   6 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*   7 */ { D_CO_6011F90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*   7 */ { aCoCornerianFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*   8 */ { D_ENMY_PLANET_4000710, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
     /*   9 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
     /*  10 */ { D_ENMY_SPACE_400BD20, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
@@ -962,8 +962,8 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  15 */ { D_ENMY_SPACE_400AAE0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  16 */ { D_ENMY_SPACE_4000650, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
     /*  17 */ { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
-    /*  18 */ { D_SX_6023500, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  19 */ { D_SX_6022DF0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  18 */ { aSxSpyEyeDL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  19 */ { aSxCanineDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  20 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  21 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  22 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
@@ -981,7 +981,7 @@ static EventActorInfo sEventActorInfo[108] = {
     /*  34 */ { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  35 */ { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  36 */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  37 */ { D_SX_600B830, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  37 */ { aSxBorzoiFighterDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  40 */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -1173,7 +1173,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
             }
 
-            if ((this->eventType == EVID_SLIPPY_METEO) || (this->eventType == EVID_TEAMMATE)) {
+            if ((this->eventType == EVID_ME_SLIPPY) || (this->eventType == EVID_TEAMMATE)) {
                 this->drawShadow = true;
                 this->iwork[11] = 1;
             }
@@ -1217,7 +1217,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
                 switch (sEventActorInfo[this->eventType].sfx) {
                     case EISFX_EN_ENGINE_01:
-                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->eventType == EVID_6) ||
+                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->eventType == EVID_FIREBIRD) ||
                               ((gCurrentLevel == LEVEL_CORNERIA) && (this->eventType == EVID_8)))) {
                             AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
                         }
@@ -1840,7 +1840,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
     if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_SARUMARINE_PERISCOPE) &&
         (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
-        (this->eventType != EVID_48) && (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
+        (this->eventType != EVID_SY_ROBOT_1) && (this->eventType != EVID_SY_ROBOT_2) &&
+        (this->eventType != EVID_SY_ROBOT_3)) {
         switch (this->work_048) {
             case EVACT_NONE:
                 break;
@@ -2131,7 +2132,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             }
 
             if (this->eventType != EVID_AQ_OYSTER) {
-                if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+                if ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR)) {
                     AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, this->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
@@ -2160,7 +2161,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
                 if (gLevelType == LEVELTYPE_PLANET) {
                     this->work_04C = RAND_INT(2.9f);
-                    if (this->eventType == EVID_SLIPPY_METEO) {
+                    if (this->eventType == EVID_ME_SLIPPY) {
                         this->work_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
@@ -2228,7 +2229,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             }
         } else {
             this->timer_0C6 = 20;
-            if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
             } else if (this->health < 20) {
                 AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, this->sfxSource, 4);
@@ -3461,8 +3462,8 @@ void ActorEvent_Update(ActorEvent* this) {
         if (this->scale <= -1.999f) {
             ActorEvent_80070BA8(this);
         } else {
-            if ((this->dmgType == DMG_BEAM) && (this->scale < 0.5f) && (this->eventType != EVID_48) &&
-                (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
+            if ((this->dmgType == DMG_BEAM) && (this->scale < 0.5f) && (this->eventType != EVID_SY_ROBOT_1) &&
+                (this->eventType != EVID_SY_ROBOT_2) && (this->eventType != EVID_SY_ROBOT_3)) {
                 this->dmgType = DMG_NONE;
                 if (gCurrentLevel == LEVEL_METEO) {
                     AUDIO_PLAY_SFX(NA_SE_ROCK_REFLECT, this->sfxSource, 4);
@@ -3541,24 +3542,24 @@ void ActorEvent_Update(ActorEvent* this) {
             this->obj.rot.y -= 10.0f;
             break;
 
-        case EVID_6:
+        case EVID_FIREBIRD:
             this->animFrame++;
             if (gCurrentLevel == LEVEL_SOLAR) {
-                if (this->animFrame >= Animation_GetFrameCount(&D_SO_600636C)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aSoGoreAnim)) {
                     this->animFrame = 0;
                 }
                 if ((gGameFrameCount % 3) == 0) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
                                    RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                 }
-            } else if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
+            } else if (this->animFrame >= Animation_GetFrameCount(&aFirebirdAnim)) {
                 this->animFrame = 0;
             }
             break;
 
-        case EVID_9:
+        case EVID_BUTTERFLY:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40001A4)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aButterflyAnim)) {
                 this->animFrame = 0;
             }
             if (this->iwork[6] == 0) {
@@ -3566,9 +3567,9 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_48:
-        case EVID_49:
-        case EVID_50:
+        case EVID_SY_ROBOT_1:
+        case EVID_SY_ROBOT_2:
+        case EVID_SY_ROBOT_3:
             SectorY_SyRobot_Update(this);
             break;
 
@@ -3895,7 +3896,7 @@ void ActorEvent_Draw(ActorEvent* this) {
     if ((this->eventType == EVID_29) || (this->eventType == EVID_59) || (this->eventType == EVID_60)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     } else if ((this->eventType == EVID_MA_LASER_TURRET) || (this->eventType == EVID_90) ||
-               ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR))) {
+               ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         } else {
@@ -3927,12 +3928,12 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Cutscene_DrawGreatFox();
                     break;
 
-                case EVID_0:
+                case EVID_VENOM_FIGHTER_1:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_SLIPPY_METEO:
+                case EVID_ME_SLIPPY:
                     this->fwork[15] -= this->fwork[15] * 0.1f;
                     this->fwork[26] -= this->fwork[26] * 0.1f;
                     this->fwork[16] -= this->fwork[16] * 0.1f;
@@ -3959,56 +3960,55 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_5:
+                case EVID_GRANGA_FIGHTER:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_6:
+                case EVID_FIREBIRD:
                     if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                        Animation_GetFrameData(&D_SO_600636C, this->animFrame, frameTable);
-                        Animation_DrawSkeleton(1, D_SO_6006558, frameTable, NULL, NULL, this, &gIdentityMatrix);
+                        Animation_GetFrameData(&aSoGoreAnim, this->animFrame, frameTable);
+                        Animation_DrawSkeleton(1, aSoGoreSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     } else {
-                        Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->animFrame, frameTable);
-                        Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, frameTable, NULL, NULL, this,
-                                               &gIdentityMatrix);
+                        Animation_GetFrameData(&aFirebirdAnim, this->animFrame, frameTable);
+                        Animation_DrawSkeleton(1, aFirebirdSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     }
                     break;
 
-                case EVID_7:
+                case EVID_CORNERIAN_FIGHTER:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_9:
+                case EVID_BUTTERFLY:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&D_ENMY_PLANET_40001A4, this->animFrame, frameTable);
-                    Animation_DrawSkeleton(1, D_ENMY_PLANET_4000270, frameTable, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_GetFrameData(&aButterflyAnim, this->animFrame, frameTable);
+                    Animation_DrawSkeleton(1, aButterflySkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
-                case EVID_18:
+                case EVID_SPY_EYE:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
-                        Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
+                        Actor_DrawEngineGlow(this, EG_GREEN);
                     }
                     break;
 
-                case EVID_19:
+                case EVID_SX_CANINE:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
-                        Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
+                        Actor_DrawEngineGlow(this, EG_GREEN);
                     }
                     break;
 
-                case EVID_20:
+                case EVID_SPACE_MINE:
                     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-                    gSPDisplayList(gMasterDisp++, D_A6_601A120);
+                    gSPDisplayList(gMasterDisp++, aA6SpaceMineDL);
                     break;
 
                 case EVID_A6_NINJIN_MISSILE:
@@ -4017,16 +4017,16 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
-                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
+                    Actor_DrawEngineGlow(this, EG_GREEN);
                     break;
 
                 case EVID_A6_ROCKET:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_A6_6019730);
+                    gSPDisplayList(gMasterDisp++, aA6RocketDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
-                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
+                    Actor_DrawEngineGlow(this, EG_GREEN);
                     break;
 
                 case EVID_SX_LASER:
@@ -4070,9 +4070,9 @@ void ActorEvent_Draw(ActorEvent* this) {
                     ActorEvent_DrawEVID_SX_WARP_GATE(this);
                     break;
 
-                case EVID_48:
-                case EVID_49:
-                case EVID_50:
+                case EVID_SY_ROBOT_1:
+                case EVID_SY_ROBOT_2:
+                case EVID_SY_ROBOT_3:
                     SectorY_SyRobot_Draw(this);
                     break;
 
@@ -4324,7 +4324,7 @@ void func_enmy2_800763A4(Actor* this) {
                         Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
-                    if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_SLIPPY_METEO)) {
+                    if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_ME_SLIPPY)) {
                         if (this->fwork[17] < 360.0f) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[17] = 777.0f;
@@ -4444,7 +4444,8 @@ void func_enmy2_800763A4(Actor* this) {
 }
 
 void ActorEvent_Dying(ActorEvent* this) {
-    if ((this->eventType == EVID_48) || (this->eventType == EVID_49) || (this->eventType == EVID_50)) {
+    if ((this->eventType == EVID_SY_ROBOT_1) || (this->eventType == EVID_SY_ROBOT_2) ||
+        (this->eventType == EVID_SY_ROBOT_3)) {
         SectorY_SyRobot_Update(this);
     } else {
         func_enmy2_800763A4(this);

@@ -304,16 +304,16 @@ typedef enum EventAction {
 } EventAction;
 
 typedef enum EventActorId {
-    /*   0 */ EVID_0,
+    /*   0 */ EVID_VENOM_FIGHTER_1,
     /*   1 */ EVID_1,
-    /*   2 */ EVID_SLIPPY_METEO,
+    /*   2 */ EVID_ME_SLIPPY,
     /*   3 */ EVID_3,
     /*   4 */ EVID_4,
-    /*   5 */ EVID_5,
-    /*   6 */ EVID_6,
-    /*   7 */ EVID_7,
+    /*   5 */ EVID_GRANGA_FIGHTER, // Also called Dragon II in the jp Player's Guide
+    /*   6 */ EVID_FIREBIRD, // Handles Firebird from Corneria and Gore from Solar
+    /*   7 */ EVID_CORNERIAN_FIGHTER, // Seems unused?
     /*   8 */ EVID_8,
-    /*   9 */ EVID_9,
+    /*   9 */ EVID_BUTTERFLY,
     /*  10 */ EVID_10,
     /*  11 */ EVID_11,
     /*  12 */ EVID_12,
@@ -322,9 +322,9 @@ typedef enum EventActorId {
     /*  15 */ EVID_15,
     /*  16 */ EVID_16,
     /*  17 */ EVID_17,
-    /*  18 */ EVID_18,
-    /*  19 */ EVID_19,
-    /*  20 */ EVID_20,
+    /*  18 */ EVID_SPY_EYE,
+    /*  19 */ EVID_SX_CANINE,
+    /*  20 */ EVID_SPACE_MINE,
     /*  21 */ EVID_A6_NINJIN_MISSILE,
     /*  22 */ EVID_A6_ROCKET,
     /*  23 */ EVID_23,
@@ -352,9 +352,9 @@ typedef enum EventActorId {
     /*  45 */ EVID_45,
     /*  46 */ EVID_46,
     /*  47 */ EVID_47,
-    /*  48 */ EVID_48,
-    /*  49 */ EVID_49,
-    /*  50 */ EVID_50,
+    /*  48 */ EVID_SY_ROBOT_1,
+    /*  49 */ EVID_SY_ROBOT_2,
+    /*  50 */ EVID_SY_ROBOT_3,
     /*  51 */ EVID_51,
     /*  52 */ EVID_SARUMARINE_PERISCOPE,
     /*  53 */ EVID_53,
@@ -396,11 +396,11 @@ typedef enum EventActorId {
     /*  89 */ EVID_AQ_SHELL,
     /*  90 */ EVID_90,
     /*  91 */ EVID_91,
-    /*  92 */ EVID_92,
-    /*  93 */ EVID_93,
-    /*  94 */ EVID_94,
-    /*  95 */ EVID_95,
-    /*  96 */ EVID_96,
+    /*  92 */ EVID_92, // Warpzone related
+    /*  93 */ EVID_93, // Warpzone related
+    /*  94 */ EVID_94, // Warpzone related
+    /*  95 */ EVID_95, // Warpzone related
+    /*  96 */ EVID_96, // Warpzone related
     /*  97 */ EVID_97,
     /*  98 */ EVID_98,
     /*  99 */ EVID_99,

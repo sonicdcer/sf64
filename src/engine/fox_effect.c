@@ -3915,7 +3915,7 @@ void Effect_Effect395_Draw(Effect395* this) {
 
         case 3:
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_A6_601A120);
+            gSPDisplayList(gMasterDisp++, aA6SpaceMineDL);
             break;
 
         case 4:

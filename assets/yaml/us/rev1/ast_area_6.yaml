@@ -162,8 +162,8 @@ D_A6_6019330:
 D_A6_6019530:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019530, symbol: D_A6_6019530 }
 
-D_A6_6019730:
-  { type: GFX, offset: 0x6019730, symbol: D_A6_6019730 }
+aA6RocketDL:
+  { type: GFX, offset: 0x6019730, symbol: aA6RocketDL }
 
 D_A6_6019B20:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019B20, symbol: D_A6_6019B20 }
@@ -174,8 +174,8 @@ D_A6_6019D20:
 D_A6_6019F20:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019F20, symbol: D_A6_6019F20 }
 
-D_A6_601A120:
-  { type: GFX, offset: 0x601A120, symbol: D_A6_601A120 }
+aA6SpaceMineDL:
+  { type: GFX, offset: 0x601A120, symbol: aA6SpaceMineDL }
 
 D_A6_601A220:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601A220, symbol: D_A6_601A220 }
