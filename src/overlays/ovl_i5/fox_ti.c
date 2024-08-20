@@ -5552,7 +5552,7 @@ void Titania_801990DC(TiGoras* this) {
 
                 actor->unk_046 = 25;
                 actor->unk_048 = 0;
-                actor->unk_04A = 4 | 2;
+                actor->work_04A = 4 | 2;
 
                 actor->fwork[3] = 0.0f;
                 actor->fwork[4] = -200.0f;
@@ -5579,7 +5579,7 @@ void Titania_801990DC(TiGoras* this) {
 
                 actor->unk_046 = 2;
                 actor->unk_048 = 1;
-                actor->unk_04A = 4 | 2;
+                actor->work_04A = 4 | 2;
 
                 actor->iwork[1] = (s32) 1;
                 actor->fwork[3] = -150.0f;
@@ -5606,7 +5606,7 @@ void Titania_801990DC(TiGoras* this) {
 
                 actor->unk_046 = 2;
                 actor->unk_048 = 1;
-                actor->unk_04A = 4 | 2;
+                actor->work_04A = 4 | 2;
 
                 actor->iwork[1] = 2;
                 actor->fwork[3] = 100.0f;

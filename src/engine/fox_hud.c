@@ -4539,7 +4539,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
 
         switch (this->unk_046) {
             case 0:
-                if (this->unk_04A != 0) {
+                if (this->work_04A != 0) {
                     this->timer_0BC = 30;
                 } else {
                     this->timer_0BC = 10;
@@ -4552,7 +4552,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
             case 1:
                 if (this->timer_0BC == 0) {
                     this->unk_046 = 2;
-                    if (this->unk_04A != 0) {
+                    if (this->work_04A != 0) {
                         this->timer_0BC = 80;
                     } else {
                         this->timer_0BC = 60;
@@ -4607,7 +4607,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
                 Math_SmoothStepToF(&this->fwork[16], -sp54, 0.3f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&this->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
 
-                if (this->unk_04A != 0) {
+                if (this->work_04A != 0) {
                     Math_SmoothStepToAngle(&this->rot_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
                 }
 
@@ -4725,14 +4725,14 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
             if ((this->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (this->iwork[9] == 0) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 this->unk_048 = 2;
-                this->unk_04A = 0;
+                this->work_04A = 0;
             }
 
             if ((gLevelMode == LEVELMODE_ALL_RANGE) &&
                 (fabsf(this->obj.pos.x > var_fv1) || fabsf(this->obj.pos.z > var_fv1)) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 this->unk_048 = 2;
-                this->unk_04A = 1;
+                this->work_04A = 1;
             }
             break;
 
@@ -4745,8 +4745,8 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
 
         case 2:
             if (func_hud_800927A0(this) != 0) {
-                this->unk_04A = 0;
-                this->unk_048 = this->unk_04A;
+                this->work_04A = 0;
+                this->unk_048 = this->work_04A;
                 this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;

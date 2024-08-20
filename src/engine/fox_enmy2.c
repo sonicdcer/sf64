@@ -274,8 +274,8 @@ void MeMora_Dying(MeMora* this) {
     this->vel.z = sp34.z;
 
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
-        index = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
-        if (this->unk_04A == 0) {
+        index = (D_800CFF94[this->work_04A] + this->counter_04E) % 100;
+        if (this->work_04A == 0) {
             func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
                                  gMeMoraZpos[this->unk_046][index], 7.0f);
         } else {
@@ -284,9 +284,9 @@ void MeMora_Dying(MeMora* this) {
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
-        this->unk_04A++;
+        this->work_04A++;
 
-        if (this->unk_04A > 15) {
+        if (this->work_04A > 15) {
             Object_Kill(&this->obj, this->sfxSource);
             gMeMoraStatus[this->unk_046] = 0;
             gHitCount += this->info.bonus;
@@ -338,7 +338,7 @@ void MeMora_Draw(MeMora* this) {
     s16 i;
     s16 j;
 
-    for (i = this->unk_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
+    for (i = this->work_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
         Memora_DrawParts(this, gMeMoraXpos[this->unk_046][j], gMeMoraYpos[this->unk_046][j],
                          gMeMoraZpos[this->unk_046][j], gMeMoraXrot[this->unk_046][j], gMeMoraYrot[this->unk_046][j],
@@ -548,7 +548,7 @@ void ActorDebris_Update(ActorDebris* this) {
 
     switch (this->state) {
         case 40:
-            if (this->unk_04A & 4) {
+            if (this->work_04A & 4) {
                 this->obj.pos.x = gPlayer[0].pos.x + this->fwork[3];
                 this->obj.pos.z = gPlayer[0].trueZpos + this->fwork[4];
             }
@@ -557,7 +557,7 @@ void ActorDebris_Update(ActorDebris* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            if (((this->unk_04A % 2U) == 1) && ((this->timer_0BC & 3) == 0)) {
+            if (((this->work_04A % 2U) == 1) && ((this->timer_0BC & 3) == 0)) {
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
             }
 
@@ -571,7 +571,7 @@ void ActorDebris_Update(ActorDebris* this) {
                     this->vel.z = 0.0f;
                     this->gravity = 0.0f;
                 } else {
-                    if (this->unk_04A & 4) {
+                    if (this->work_04A & 4) {
                         switch (this->unk_046) {
                             case 2:
                                 AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
@@ -588,14 +588,14 @@ void ActorDebris_Update(ActorDebris* this) {
                     this->obj.pos.y = 0.0f;
                     this->iwork[0]++;
                     if (this->vel.y < 0.0f) {
-                        if (this->unk_04A & 2) {
+                        if (this->work_04A & 2) {
                             this->vel.y = this->vel.y * -0.05f;
                         } else {
                             this->vel.y = this->vel.y * -0.3f;
                         }
                     }
                 }
-                this->unk_04A &= ~4;
+                this->work_04A &= ~4;
             }
             break;
 
@@ -3750,17 +3750,17 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVID_AQ_STARFISH:
-            if (this->unk_04A == 0) {
+            if (this->work_04A == 0) {
                 this->unk_046 += 4;
                 if (this->unk_046 >= 255) {
                     this->unk_046 = 255;
-                    this->unk_04A = 1;
+                    this->work_04A = 1;
                 }
             } else {
                 this->unk_046 -= 4;
                 if (this->unk_046 <= 0) {
                     this->unk_046 = 0;
-                    this->unk_04A = 0;
+                    this->work_04A = 0;
                 }
             }
             break;

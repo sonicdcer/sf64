@@ -755,7 +755,7 @@ void Zoness_ZoDodora_Draw2(ZoDodora* this) {
     s32 k;
     PosRot* zoDodoraPosRots;
 
-    for (i = this->unk_04A = 0; i < 20; i++, hitbox++) {
+    for (i = this->work_04A = 0; i < 20; i++, hitbox++) {
         k = (D_i3_801BF56C[i] + this->counter_04E) % 200;
         zoDodoraPosRots = &gZoDodoraPosRots[k];
 

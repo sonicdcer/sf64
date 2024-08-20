@@ -2277,9 +2277,9 @@ void ActorAllRange_Update(ActorAllRange* this) {
     if (gCurrentLevel == LEVEL_FORTUNA) {
         ActorAllRange_SetShadowData(this);
     } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-        this->unk_04A++;
-        if (this->unk_04A >= Animation_GetFrameCount(&D_VE2_600C200)) {
-            this->unk_04A = 0;
+        this->work_04A++;
+        if (this->work_04A >= Animation_GetFrameCount(&D_VE2_600C200)) {
+            this->work_04A = 0;
         }
     }
 
@@ -2487,7 +2487,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     Matrix_Pop(&gGfxMatrix);
                     ActorAllRange_DrawShield(this);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                    Animation_GetFrameData(&D_VE2_600C200, this->unk_04A, this->vwork);
+                    Animation_GetFrameData(&D_VE2_600C200, this->work_04A, this->vwork);
                     Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
                     Animation_DrawSkeleton(0, D_VE2_600C2AC, this->vwork, NULL, NULL, this, &gIdentityMatrix);
                 } else if (gCurrentLevel == LEVEL_VERSUS) {

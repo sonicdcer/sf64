@@ -625,7 +625,7 @@ void SectorY_80199438(SyShogun* this) {
             if (this->index != 0) {
                 Object_Kill(&gActors[D_ctx_80177A10[9]].obj, gActors[D_ctx_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
-                    gBosses[0].unk_04A = 1;
+                    gBosses[0].work_04A = 1;
                     gScenery360[0].info.dList = D_SY_601F3D0;
                     gScenery360[0].info.drawType = 0;
                 } else {
@@ -1007,10 +1007,10 @@ void SectorY_8019AEC0(SyShogun* this) {
 
 void SectorY_8019AEEC(SyShogun* this) {
     if ((this->obj.pos.y != 365.0f) && (this->swork[21] != 1)) {
-        if (this->unk_04A != 0) {
-            if (this->unk_04A == 1) {
+        if (this->work_04A != 0) {
+            if (this->work_04A == 1) {
                 Audio_PlaySequence(SEQ_PLAYER_BGM, NA_BGM_REAL_BOSS, 0, 0);
-                this->unk_04A++;
+                this->work_04A++;
                 gPlayer[0].cam.eye.x = 0.0f;
                 gPlayer[0].cam.eye.y = 200.0f;
                 gPlayer[0].cam.eye.z = -20000.0f;
@@ -1696,7 +1696,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
         if ((gBossFrameCount >= 350) || (this->swork[34] != 0)) {
             if (this->swork[34] != 0) {
                 gBossHealthBar = this->health * 1.7f;
-            } else if (gBosses[0].unk_04A == 0) {
+            } else if (gBosses[0].work_04A == 0) {
                 gBossHealthBar = (gBosses[1].health + gBosses[2].health) * 1.275f;
             }
         }

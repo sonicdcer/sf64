@@ -394,15 +394,15 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
                 this->timer_054 = 5;
                 this->swork[0] += 32;
 
-                Audio_SetTransposeAndPlaySfx(this->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, this->unk_04A);
+                Audio_SetTransposeAndPlaySfx(this->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, this->work_04A);
 
-                this->unk_04A++;
-                if (this->unk_04A > 7) {
-                    this->unk_04A = 7;
+                this->work_04A++;
+                if (this->work_04A > 7) {
+                    this->work_04A = 7;
                 }
 
                 if (this->swork[0] >= 255) {
-                    this->unk_04A = 0;
+                    this->work_04A = 0;
 
                     Audio_KillSfxBySource(this->sfxSource);
 

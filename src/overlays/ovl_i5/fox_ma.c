@@ -3222,7 +3222,7 @@ void Macbeth_MaRailroadSwitch_Draw(MaRailroadSwitch* this) {
 
 void Macbeth_MaBoulder_Init(MaBoulder* this) {
     this->gravity = 0;
-    this->unk_04A = this->unk_046;
+    this->work_04A = this->unk_046;
     this->health = 60;
     if (this->fwork[0] < 0.0f) {
         this->unk_048 = 0;
@@ -3272,7 +3272,7 @@ void Macbeth_MaBoulder_Update(MaBoulder* this) {
                     this->obj.rot.z -= 0.5f * this->vel.x;
                 }
 
-                if (this->unk_046 != this->unk_04A) {
+                if (this->unk_046 != this->work_04A) {
                     this->obj.rot.x = this->obj.rot.x + (0.1 * this->vel.z);
                 }
             }

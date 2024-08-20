@@ -1289,7 +1289,7 @@ void Solar_801A1CD8(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f
 
     this->state = 40;
     this->unk_046 = unk46;
-    this->unk_04A = 3;
+    this->work_04A = 3;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
