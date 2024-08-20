@@ -49,7 +49,7 @@ void SectorY_80197B30(ActorCutscene* this, s32 timer) {
     this->obj.rot.z = gPlayer[0].rot.z;
 
     this->state = 5;
-    this->timer_04C = timer;
+    this->work_04C = timer;
     this->iwork[11] = 1;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
@@ -2437,8 +2437,8 @@ void SectorY_8019FF00(ActorCutscene* this) {
 
         case 5:
             Math_SmoothStepToF(&this->rot_0F4.x, 0.0f, 0.1f, 5.0f, 0.0f);
-            x = this->obj.pos.x - gBosses[this->timer_04C].obj.pos.x;
-            z = this->obj.pos.z - gBosses[this->timer_04C].obj.pos.z;
+            x = this->obj.pos.x - gBosses[this->work_04C].obj.pos.x;
+            z = this->obj.pos.z - gBosses[this->work_04C].obj.pos.z;
             Math_SmoothStepToAngle(
                 &this->rot_0F4.z,
                 Math_SmoothStepToAngle(&this->rot_0F4.y, Math_RadToDeg(Math_Atan2F(x, z)), 0.5f, 2.0f, 0.0001f) * 30.0f,

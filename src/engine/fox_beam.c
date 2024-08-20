@@ -1937,7 +1937,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
                     actor->obj.status = OBJ_DYING;
                     actor->timer_0BC = RAND_INT(15.0f) + 10;
                     actor->timer_0BE = 0;
-                    actor->timer_04C = 4;
+                    actor->work_04C = 4;
                     actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
                     if (actor->info.bonus != 0) {
                         shot->bonus++;

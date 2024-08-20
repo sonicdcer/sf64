@@ -1304,7 +1304,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->unk_048 = actorScript[this->aiIndex + 1];
 
             if (this->unk_048 == EVACT_3) {
-                this->timer_04C = 4;
+                this->work_04C = 4;
             }
 
             if (this->unk_048 == EVACT_TI_DROP_MINE) {
@@ -1870,8 +1870,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                            sp6C.y, sp6C.z, this->rot_0F4.x, this->rot_0F4.y,
                                            this->vwork[29].z + this->rot_0F4.z);
                     this->timer_0C2 = 2;
-                    this->timer_04C--;
-                    if (this->timer_04C <= 0) {
+                    this->work_04C--;
+                    if (this->work_04C <= 0) {
                         this->unk_048 = EVACT_NONE;
                     }
                 }
@@ -2159,9 +2159,9 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 this->drawShadow = true;
 
                 if (gLevelType == LEVELTYPE_PLANET) {
-                    this->timer_04C = RAND_INT(2.9f);
+                    this->work_04C = RAND_INT(2.9f);
                     if (this->eventType == EVID_SLIPPY_METEO) {
-                        this->timer_04C = 1;
+                        this->work_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[17] = 777.0f;
@@ -2186,7 +2186,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                     }
 
                     if (this->eventType == EVID_90) {
-                        this->timer_04C = 999;
+                        this->work_04C = 999;
                     }
                 } else {
                     switch (this->eventType) {
@@ -2212,7 +2212,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
                         default:
                             this->timer_0BC = 35;
-                            this->timer_04C = 2;
+                            this->work_04C = 2;
                             this->vel.y = RAND_FLOAT_CENTERED(20.0f);
                             this->vel.x = RAND_FLOAT_CENTERED(20.0f);
                             this->vel.z = 0.0f;
@@ -4236,7 +4236,7 @@ void func_enmy2_800763A4(Actor* this) {
             this->gravity = 0.4f;
         }
 
-        switch (this->timer_04C) {
+        switch (this->work_04C) {
             case 0:
             case 1:
                 if ((this->index % 2) != 0) {
@@ -4294,7 +4294,7 @@ void func_enmy2_800763A4(Actor* this) {
             sp60 = Object_CheckCollision(this->index, &this->obj.pos, &vel, 0);
 
             if ((sp60 != 0) || (this->obj.pos.y < (gGroundHeight + 30.0f))) {
-                if ((Rand_ZeroOne() < 0.5f) && (this->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
+                if ((Rand_ZeroOne() < 0.5f) && (this->work_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
                     (sp60 != 999) && (gGroundSurface != SURFACE_WATER) &&
                     ((this->vel.z < -20.0f) || (this->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
@@ -4304,7 +4304,7 @@ void func_enmy2_800763A4(Actor* this) {
 
                     this->obj.pos.y -= this->vel.y;
                     this->vel.y = RAND_FLOAT(10.0f);
-                    this->timer_04C = 3;
+                    this->work_04C = 3;
 
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
                         func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y,

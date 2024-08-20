@@ -945,7 +945,7 @@ void ActorAllRange_ApplyDamage(ActorAllRange* this) {
 
                 this->timer_0C2 = 10;
                 this->timer_0BE = 0;
-                this->timer_04C = RAND_INT(2.9f);
+                this->work_04C = RAND_INT(2.9f);
 
                 switch (RAND_INT(4.0f)) {
                     case 0:
