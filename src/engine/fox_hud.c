@@ -4525,7 +4525,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
     bool ret = false;
 
     if (this->iwork[11] == 0) {
-        this->unk_046 = 0;
+        this->work_046 = 0;
         this->iwork[11] = 1;
         this->iwork[1] = 1;
         this->vwork[29].x = this->obj.rot.x;
@@ -4537,21 +4537,21 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
         Math_SmoothStepToAngle(&this->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
         sp50 = Math_RadToDeg(Math_Atan2F(0.0f - this->obj.pos.x, 0.0f - this->obj.pos.z));
 
-        switch (this->unk_046) {
+        switch (this->work_046) {
             case 0:
                 if (this->work_04A != 0) {
                     this->timer_0BC = 30;
                 } else {
                     this->timer_0BC = 10;
                 }
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 if (this->fwork[19] > 180.0f) {
                     this->fwork[19] = this->fwork[19] - 360.0f;
                 }
 
             case 1:
                 if (this->timer_0BC == 0) {
-                    this->unk_046 = 2;
+                    this->work_046 = 2;
                     if (this->work_04A != 0) {
                         this->timer_0BC = 80;
                     } else {
@@ -4589,7 +4589,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
                         this->fwork[20] = -180.0f;
                     }
                     this->iwork[1] = 1;
-                    this->unk_046 = 3;
+                    this->work_046 = 3;
                 }
                 this->fwork[28] -= 0.2f;
                 break;
@@ -4622,7 +4622,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
                 if (this->timer_0BC == 0) {
                     ret = true;
                     this->iwork[11] = 0;
-                    this->unk_046 = 0;
+                    this->work_046 = 0;
                     this->fwork[28] = 0.0f;
                     this->fwork[20] = 0.0f;
                     this->fwork[29] = 1.0f;

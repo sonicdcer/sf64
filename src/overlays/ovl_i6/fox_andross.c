@@ -3791,7 +3791,7 @@ void Andross_801939A0(s32 actorIndex) {
     }
     if (actorIndex == 1) {
         actor->state = 1;
-        actor->unk_046 = 255;
+        actor->work_046 = 255;
         actor->animFrame = 1000;
     }
 
@@ -4442,9 +4442,9 @@ void Andross_80195E44(ActorCutscene* this) {
         case 2:
             Math_SmoothStepToF(&this->rot_0F4.x, 180.0f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&this->rot_0F4.y, 200.0f, 0.1f, 1.0f, 0.0f);
-            this->unk_046 -= 5;
-            if (this->unk_046 < 0) {
-                this->unk_046 = 0;
+            this->work_046 -= 5;
+            if (this->work_046 < 0) {
+                this->work_046 = 0;
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;

@@ -2526,10 +2526,10 @@ void ActorCutscene_Draw(ActorCutscene* this) {
     switch (this->animFrame) {
         case 1000:
             RCP_SetupDL(&gMasterDisp, SETUPDL_45);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_046);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->work_046);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
 
-            if (this->unk_046 > 50) {
+            if (this->work_046 > 50) {
                 Actor_DrawEngineAndContrails(this);
             }
             break;
@@ -2599,7 +2599,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 30:
             Display_SetSecondLight(&this->obj.pos);
 
-            if (this->unk_046 != 0) {
+            if (this->work_046 != 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_55);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 Rand_SetSeed(1, 29000, 9876);

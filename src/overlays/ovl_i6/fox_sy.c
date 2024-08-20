@@ -3496,66 +3496,66 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         this->iwork[18]--;
     }
 
-    if ((this->work_048 != 0) && (this->unk_046 != 3)) {
+    if ((this->work_048 != 0) && (this->work_046 != 3)) {
         switch (this->work_048) {
             case 1:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 50;
                 this->iwork[19] = 0;
                 break;
 
             case 2:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 20;
                 this->iwork[19] = 0;
                 break;
 
             case 3:
-                this->unk_046 = 2;
+                this->work_046 = 2;
                 this->animFrame = 0;
                 break;
 
             case 4:
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 this->animFrame = 0;
                 break;
 
             case 8:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 50;
                 this->iwork[19] = 1;
                 break;
 
             case 9:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 20;
                 this->iwork[19] = 1;
                 break;
 
             case 10:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 50;
                 this->iwork[19] = -1;
                 break;
 
             case 11:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 20;
                 this->iwork[19] = -1;
                 break;
 
             case 6:
-                this->unk_046 = 4;
+                this->work_046 = 4;
                 this->animFrame = 0;
                 break;
 
             case 5:
-                this->unk_046 = 5;
+                this->work_046 = 5;
                 this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
 
             case 7:
-                this->unk_046 = 6;
+                this->work_046 = 6;
                 this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
         }
@@ -3563,7 +3563,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         this->fwork[15] = 0.0f;
     }
 
-    switch (this->unk_046) {
+    switch (this->work_046) {
         case 0:
             i = this->iwork[17];
             if (i != 0) {
@@ -3617,7 +3617,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
 
             if (this->timer_0BE == 0) {
                 this->animFrame = 0;
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 this->fwork[15] = 0.0f;
             }
             break;
@@ -3632,7 +3632,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         case 4:
             this->animFrame++;
             if (this->animFrame >= (Animation_GetFrameCount(&D_SY_602B778) - 1)) {
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 this->iwork[17] = 0;
                 this->fwork[15] = 0.0f;
             }
@@ -3644,12 +3644,12 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             this->animFrame--;
             if (this->animFrame < 8) {
                 this->fwork[15] = 0.1f;
-                if (this->unk_046 == 5) {
+                if (this->work_046 == 5) {
                     this->iwork[17] = 1;
                 } else {
                     this->iwork[17] = 2;
                 }
-                this->unk_046 = 0;
+                this->work_046 = 0;
             }
             sp4C = Animation_GetFrameData(&D_SY_602B778, this->animFrame, sp68);
             break;
@@ -3686,7 +3686,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             break;
     }
 
-    if ((this->unk_046 == 1) || (this->unk_046 == 2)) {
+    if ((this->work_046 == 1) || (this->work_046 == 2)) {
         Matrix_RotateZ(gCalcMatrix, -this->vwork[29].z * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -3740,7 +3740,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
     Math_SmoothStepToAngle(&this->fwork[29], sp1D8, 0.2f, 5.0f, 0.0f);
     Math_SmoothStepToVec3fArray(sp68, this->vwork, 1, sp4C, this->fwork[15], 100.0f, 0.0f);
 
-    if ((this->unk_046 == 6) || (this->unk_046 == 5)) {
+    if ((this->work_046 == 6) || (this->work_046 == 5)) {
         Math_SmoothStepToF(&this->fwork[15], 0.3f, 1.0f, 0.05f, 0.0f);
     } else {
         Math_SmoothStepToF(&this->fwork[15], 0.2f, 1.0f, 0.015f, 0.0f);
@@ -3754,7 +3754,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
     }
 
     this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotHitbox);
-    if (this->unk_046 == 1) {
+    if (this->work_046 == 1) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603421C);
     }
 
@@ -3766,11 +3766,11 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60341A8);
         }
     }
-    if (this->unk_046 == 2) {
+    if (this->work_046 == 2) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60340C0);
     }
 
-    if ((this->dmgType != DMG_NONE) && (this->unk_046 != 3)) {
+    if ((this->dmgType != DMG_NONE) && (this->work_046 != 3)) {
 
         if (this->dmgType == DMG_EXPLOSION) {
             this->dmgPart = 1;
@@ -3788,7 +3788,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             this->health -= this->damage;
 
             if (this->health <= 0) {
-                this->unk_046 = 3;
+                this->work_046 = 3;
                 this->work_048 = 0;
                 this->animFrame = 0;
                 this->timer_0BE = 50;

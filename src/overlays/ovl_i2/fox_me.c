@@ -80,10 +80,10 @@ void Meteo_MeMeteor2_Update(MeMeteor2* this) {
 
     this->obj.rot.y += 1.7f;
     this->obj.rot.x += 3.3f;
-    this->unk_046 -= 15;
+    this->work_046 -= 15;
 
-    if (this->unk_046 < 0) {
-        this->unk_046 = 0;
+    if (this->work_046 < 0) {
+        this->work_046 = 0;
     }
 
     this->work_048 += 8;
@@ -175,10 +175,10 @@ void Meteo_80187B08(MeLaserCannon1* this) {
     this->obj.rot.y += 7.0f;
     this->obj.rot.x += 3.3f;
 
-    this->unk_046 -= 11;
+    this->work_046 -= 11;
 
-    if (this->unk_046 < 0) {
-        this->unk_046 = 0;
+    if (this->work_046 < 0) {
+        this->work_046 = 0;
     }
 
     this->work_048 += 4;

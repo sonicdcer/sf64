@@ -304,7 +304,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             }
 
             if (gCurrentLevel != LEVEL_SOLAR) {
-                gSPDisplayList(gMasterDisp++, D_TI_801B769C[this->unk_046]);
+                gSPDisplayList(gMasterDisp++, D_TI_801B769C[this->work_046]);
             } else {
                 if (gBosses[0].fwork[3] < 4800.0f) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_30);
@@ -316,7 +316,7 @@ void ActorDebris_Draw(ActorDebris* this) {
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 }
                 Graphics_SetScaleMtx(this->scale);
-                gSPDisplayList(gMasterDisp++, D_edisplay_800CFB40[this->unk_046]);
+                gSPDisplayList(gMasterDisp++, D_edisplay_800CFB40[this->work_046]);
             }
             break;
 
@@ -609,14 +609,14 @@ void MeMolarRock_Draw(MeMolarRock* this) {
 }
 
 void MeMeteor2_Draw(MeMeteor2* this) {
-    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
+    RCP_SetupDL_29(this->work_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, aMeMeteorDL);
 }
 
 void MeLaserCannon1_Draw(MeLaserCannon1* this) {
-    RCP_SetupDL_29(this->unk_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
+    RCP_SetupDL_29(this->work_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
     gSPDisplayList(gMasterDisp++, aMeLaserCannon1DL);
 }
 

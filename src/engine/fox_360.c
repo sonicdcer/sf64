@@ -1336,7 +1336,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                 if (this->rot_0F4.x > 180.0f) {
                     this->rot_0F4.x -= 360.0f;
                 }
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 break;
 
             case STATE360_9:
@@ -1462,7 +1462,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
             this->fwork[7] = 360.0f;
             this->fwork[8] = 0.0f;
             AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
-            this->unk_046 = 0;
+            this->work_046 = 0;
         }
         gTeamShields[this->aiType] = -1;
         gTeamDamage[this->aiType] = 0;
@@ -1479,13 +1479,13 @@ void ActorAllRange_Update(ActorAllRange* this) {
             gTeamShields[this->aiType] = -1;
             gTeamDamage[this->aiType] = 0;
             if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                this->fwork[4] = sSectorZRetreatPath[this->unk_046].x;
-                this->fwork[5] = sSectorZRetreatPath[this->unk_046].y;
-                this->fwork[6] = sSectorZRetreatPath[this->unk_046].z;
-                if ((fabsf(this->obj.pos.x - sSectorZRetreatPath[this->unk_046].x) < 800.0f) &&
-                    (fabsf(this->obj.pos.z - sSectorZRetreatPath[this->unk_046].z) < 800.0f)) {
-                    this->unk_046++;
-                    if (this->unk_046 >= 4) {
+                this->fwork[4] = sSectorZRetreatPath[this->work_046].x;
+                this->fwork[5] = sSectorZRetreatPath[this->work_046].y;
+                this->fwork[6] = sSectorZRetreatPath[this->work_046].z;
+                if ((fabsf(this->obj.pos.x - sSectorZRetreatPath[this->work_046].x) < 800.0f) &&
+                    (fabsf(this->obj.pos.z - sSectorZRetreatPath[this->work_046].z) < 800.0f)) {
+                    this->work_046++;
+                    if (this->work_046 >= 4) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                 }
@@ -1989,7 +1989,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                 Math_SmoothStepToAngle(&this->obj.rot.z, 5.0f, 0.1f, 3.0f, 0.01f);
             }
 
-            switch (this->unk_046) {
+            switch (this->work_046) {
                 case 0:
                     Math_SmoothStepToF(&this->rot_0F4.x, 200.0f, 0.1f, 6.0f, 0.0001f);
                     if (this->rot_0F4.x > 190.0f) {
@@ -2003,7 +2003,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                             this->obj.rot.z -= 360.0f;
                         }
                         this->timer_0BC = 40;
-                        this->unk_046++;
+                        this->work_046++;
                     }
                     this->obj.pos.y -= 3.0f;
                     break;

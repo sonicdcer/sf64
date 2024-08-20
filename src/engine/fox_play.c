@@ -2059,7 +2059,7 @@ void Player_CollisionCheck(Player* player) {
                             if ((temp_v0 < 0) && (actor->eventType == EVID_SX_WARP_GATE)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
                                 if (gRingPassCount >= 0) {
-                                    actor->unk_046 = 2;
+                                    actor->work_046 = 2;
                                     gRingPassCount++;
                                     if (gRingPassCount == 3) {
                                         Radio_PlayMessage(gMsg_ID_5504, RCID_FALCO);

@@ -256,12 +256,12 @@ void MeMora_Dying(MeMora* this) {
         this->counter_04E = 0;
     }
 
-    gMeMoraXpos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-    gMeMoraYpos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-    gMeMoraZpos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-    gMeMoraXrot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-    gMeMoraYrot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-    gMeMoraZrot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+    gMeMoraXpos[this->work_046][this->counter_04E] = this->obj.pos.x;
+    gMeMoraYpos[this->work_046][this->counter_04E] = this->obj.pos.y;
+    gMeMoraZpos[this->work_046][this->counter_04E] = this->obj.pos.z;
+    gMeMoraXrot[this->work_046][this->counter_04E] = this->obj.rot.x;
+    gMeMoraYrot[this->work_046][this->counter_04E] = this->obj.rot.y;
+    gMeMoraZrot[this->work_046][this->counter_04E] = this->obj.rot.z;
 
     this->obj.rot.x -= 10.0f;
     this->obj.rot.y += 3.0f;
@@ -276,11 +276,11 @@ void MeMora_Dying(MeMora* this) {
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
         index = (D_800CFF94[this->work_04A] + this->counter_04E) % 100;
         if (this->work_04A == 0) {
-            func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
-                                 gMeMoraZpos[this->unk_046][index], 7.0f);
+            func_effect_8007D2C8(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
+                                 gMeMoraZpos[this->work_046][index], 7.0f);
         } else {
-            func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
-                                 gMeMoraZpos[this->unk_046][index], 4.0f);
+            func_effect_8007D2C8(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
+                                 gMeMoraZpos[this->work_046][index], 4.0f);
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
@@ -288,7 +288,7 @@ void MeMora_Dying(MeMora* this) {
 
         if (this->work_04A > 15) {
             Object_Kill(&this->obj, this->sfxSource);
-            gMeMoraStatus[this->unk_046] = 0;
+            gMeMoraStatus[this->work_046] = 0;
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         }
@@ -340,9 +340,9 @@ void MeMora_Draw(MeMora* this) {
 
     for (i = this->work_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
-        Memora_DrawParts(this, gMeMoraXpos[this->unk_046][j], gMeMoraYpos[this->unk_046][j],
-                         gMeMoraZpos[this->unk_046][j], gMeMoraXrot[this->unk_046][j], gMeMoraYrot[this->unk_046][j],
-                         gMeMoraZrot[this->unk_046][j], gMeMoraPartIdx[i], gMeMoraScale[i], this->timer_0C6 % 2U);
+        Memora_DrawParts(this, gMeMoraXpos[this->work_046][j], gMeMoraYpos[this->work_046][j],
+                         gMeMoraZpos[this->work_046][j], gMeMoraXrot[this->work_046][j], gMeMoraYrot[this->work_046][j],
+                         gMeMoraZrot[this->work_046][j], gMeMoraPartIdx[i], gMeMoraScale[i], this->timer_0C6 % 2U);
     }
 }
 
@@ -409,18 +409,18 @@ void CoMoleMissile_Update(CoMoleMissile* this) {
             break;
 
         case 1:
-            switch (this->unk_046) {
+            switch (this->work_046) {
                 case 0:
                     this->fwork[0] += 2.0f;
                     if (this->fwork[0] > 10.0f) {
-                        this->unk_046 = 1;
+                        this->work_046 = 1;
                     }
                     break;
 
                 case 1:
                     this->fwork[0] -= 2.0f;
                     if (this->fwork[0] < -10.0f) {
-                        this->unk_046 = 0;
+                        this->work_046 = 0;
                     }
                     break;
             }
@@ -572,7 +572,7 @@ void ActorDebris_Update(ActorDebris* this) {
                     this->gravity = 0.0f;
                 } else {
                     if (this->work_04A & 4) {
-                        switch (this->unk_046) {
+                        switch (this->work_046) {
                             case 2:
                                 AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
                                 break;
@@ -687,8 +687,8 @@ void ActorDebris_Update(ActorDebris* this) {
             break;
 
         case 58:
-            if (this->unk_046 == 0) {
-                this->unk_046++;
+            if (this->work_046 == 0) {
+                this->work_046++;
                 this->fwork[0] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[1] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[2] = RAND_FLOAT_CENTERED(30.0f);
@@ -762,8 +762,8 @@ void ActorDebris_Update(ActorDebris* this) {
             break;
 
         default:
-            if (this->unk_046 == 0) {
-                this->unk_046++;
+            if (this->work_046 == 0) {
+                this->work_046++;
                 this->fwork[10] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[11] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[12] = RAND_FLOAT_CENTERED(30.0f);
@@ -1149,14 +1149,14 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->aiIndex += 2;
 
             if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
-                this->unk_046 = 100;
+                this->work_046 = 100;
                 this->info.hitbox = gCubeHitbox200;
                 this->info.targetOffset = 1.0f;
 
                 for (i = 0; i < 2; i++) {
                     if (gMeMoraStatus[i] == 0) {
                         gMeMoraStatus[i] = 1;
-                        this->unk_046 = i;
+                        this->work_046 = i;
                         for (j = 0; j < 100; j++) {
                             gMeMoraYpos[i][j] = this->obj.pos.y;
                             gMeMoraZpos[i][j] = this->obj.pos.z;
@@ -1168,7 +1168,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                     }
                 }
 
-                if (this->unk_046 == 100) {
+                if (this->work_046 == 100) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             }
@@ -2154,7 +2154,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
                 this->timer_0C2 = 10;
                 this->timer_0BE = 0;
-                this->unk_046 = 255;
+                this->work_046 = 255;
                 this->work_048 = 900;
                 this->drawShadow = true;
 
@@ -2902,7 +2902,7 @@ void ActorEvent_80071DC0(ActorEvent* this) {
 }
 
 void ActorEvent_800720E8(ActorEvent* this) {
-    switch (this->unk_046) {
+    switch (this->work_046) {
         case 0:
             if (this->dmgType != DMG_NONE) {
                 if (this->dmgType == DMG_EXPLOSION) {
@@ -2923,7 +2923,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 }
 
                 if (this->health <= 0) {
-                    this->unk_046 = 1;
+                    this->work_046 = 1;
                     this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
                     AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                 } else {
@@ -3061,12 +3061,12 @@ void ActorEvent_Update(ActorEvent* this) {
             this->counter_04E = 0;
         }
 
-        gMeMoraXpos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-        gMeMoraYpos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-        gMeMoraZpos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-        gMeMoraXrot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-        gMeMoraYrot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-        gMeMoraZrot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+        gMeMoraXpos[this->work_046][this->counter_04E] = this->obj.pos.x;
+        gMeMoraYpos[this->work_046][this->counter_04E] = this->obj.pos.y;
+        gMeMoraZpos[this->work_046][this->counter_04E] = this->obj.pos.z;
+        gMeMoraXrot[this->work_046][this->counter_04E] = this->obj.rot.x;
+        gMeMoraYrot[this->work_046][this->counter_04E] = this->obj.rot.y;
+        gMeMoraZrot[this->work_046][this->counter_04E] = this->obj.rot.z;
 
         if (this->dmgType != DMG_NONE) {
             this->dmgType = DMG_NONE;
@@ -3595,7 +3595,7 @@ void ActorEvent_Update(ActorEvent* this) {
             Vec3f sp78;
             s32 sp74;
 
-            switch (this->unk_046) {
+            switch (this->work_046) {
                 case 1:
                     break;
 
@@ -3631,7 +3631,7 @@ void ActorEvent_Update(ActorEvent* this) {
                                 effect->unk_60.z = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
                             }
                         }
-                        this->unk_046++;
+                        this->work_046++;
                     }
                     break;
             }
@@ -3702,16 +3702,16 @@ void ActorEvent_Update(ActorEvent* this) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_VE1_601B4C4);
             }
 
-            if (this->unk_046 == 0) {
+            if (this->work_046 == 0) {
                 this->fwork[16] += 4.0f;
                 if (this->fwork[16] >= 100.0f) {
-                    this->unk_046 = 1;
+                    this->work_046 = 1;
                     this->fwork[16] = 100.0f;
                 }
             } else {
                 this->fwork[16] -= 4.0f;
                 if (this->fwork[16] <= 0.0f) {
-                    this->unk_046 = 0;
+                    this->work_046 = 0;
                     this->fwork[16] = 0.0f;
                 }
             }
@@ -3751,15 +3751,15 @@ void ActorEvent_Update(ActorEvent* this) {
 
         case EVID_AQ_STARFISH:
             if (this->work_04A == 0) {
-                this->unk_046 += 4;
-                if (this->unk_046 >= 255) {
-                    this->unk_046 = 255;
+                this->work_046 += 4;
+                if (this->work_046 >= 255) {
+                    this->work_046 = 255;
                     this->work_04A = 1;
                 }
             } else {
-                this->unk_046 -= 4;
-                if (this->unk_046 <= 0) {
-                    this->unk_046 = 0;
+                this->work_046 -= 4;
+                if (this->work_046 <= 0) {
+                    this->work_046 = 0;
                     this->work_04A = 0;
                 }
             }
@@ -4154,7 +4154,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_AQ_STARFISH:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_22);
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->unk_046, this->unk_046, this->unk_046, 255);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->work_046, this->work_046, this->work_046, 255);
                     gSPDisplayList(gMasterDisp++, aAqStarfishDL);
                     break;
 

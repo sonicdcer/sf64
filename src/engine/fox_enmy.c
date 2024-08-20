@@ -1179,7 +1179,7 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_ME_METEOR_2:
         case OBJ_ACTOR_ME_LASER_CANNON_1:
-            gActors[index].unk_046 = gFogRed;
+            gActors[index].work_046 = gFogRed;
             gActors[index].work_048 = gFogNear;
             gActors[index].obj.rot.x = RAND_FLOAT(360.0f);
             gActors[index].obj.rot.y = RAND_FLOAT(360.0f);
@@ -1218,11 +1218,11 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_ACTOR_ME_MORA:
-            gActors[index].unk_046 = 100;
+            gActors[index].work_046 = 100;
             for (i = 0; i < 2; i++) {
                 if (gMeMoraStatus[i] == 0) {
                     gMeMoraStatus[i] = 1;
-                    gActors[index].unk_046 = i;
+                    gActors[index].work_046 = i;
                     for (j = 0; j < 100; j++) {
                         gMeMoraYpos[i][j] = gActors[index].obj.pos.y;
                         gMeMoraZpos[i][j] = gActors[index].obj.pos.z;
@@ -1230,7 +1230,7 @@ void Object_Init(s32 index, ObjectId objId) {
                     break;
                 }
             }
-            if (gActors[index].unk_046 == 100) {
+            if (gActors[index].work_046 == 100) {
                 gActors[index].obj.status = OBJ_FREE;
             }
             break;
@@ -1425,7 +1425,7 @@ void func_enmy_80065380(MeMeteor2* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4,
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
-    this->unk_046 = 255;
+    this->work_046 = 255;
     this->work_048 = 900;
     this->obj.rot.z = RAND_FLOAT(360.0f);
     this->obj.rot.y = RAND_FLOAT(360.0f);
@@ -2680,13 +2680,13 @@ void Actor_Move(Actor* this) {
                 break;
 
             case OBJ_ACTOR_ME_MORA:
-                gMeMoraStatus[this->unk_046] = 0;
+                gMeMoraStatus[this->work_046] = 0;
                 break;
 
             case OBJ_ACTOR_EVENT:
                 if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
-                    gMeMoraStatus[this->unk_046] = 0;
-                } else if ((this->eventType == EVID_SX_WARP_GATE) && (this->unk_046 != 2)) {
+                    gMeMoraStatus[this->work_046] = 0;
+                } else if ((this->eventType == EVID_SX_WARP_GATE) && (this->work_046 != 2)) {
                     gRingPassCount = -1;
                 }
                 break;

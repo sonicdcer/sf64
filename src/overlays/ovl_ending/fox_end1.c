@@ -1470,7 +1470,7 @@ void Ending_8018B6D8(Actor* actor, s32 arg1) {
     actor->iwork[1] = 100;
     actor->fwork[0] = 30.0f;
     actor->iwork[0] = sp20[arg1];
-    actor->unk_046 = arg1;
+    actor->work_046 = arg1;
 }
 
 void Ending_8018B860(void) {
@@ -1857,7 +1857,7 @@ void Ending_8018C21C(void) {
                     spE4 = gActors[i].fwork[1];
                     RCP_SetupDL(&gMasterDisp, SETUPDL_41);
 
-                    switch (gActors[i].unk_046) {
+                    switch (gActors[i].work_046) {
                         case 0:
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 200, 0, 0, gActors[i].iwork[1]);
                             break;

@@ -228,7 +228,7 @@ typedef struct Boss {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ s16 unk_044;
-    /* 0x046 */ s16 unk_046;
+    /* 0x046 */ s16 work_046;
     /* 0x048 */ s16 work_048;
     /* 0x04A */ s16 work_04A;
     /* 0x04C */ s16 animFrame;
@@ -268,10 +268,10 @@ typedef struct Actor {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ u8 itemDrop;
-    /* 0x046 */ s16 unk_046; // work var
-    /* 0x048 */ s16 work_048; // work var
-    /* 0x04A */ s16 work_04A; // work var
-    /* 0x04C */ s16 work_04C; // work var
+    /* 0x046 */ s16 work_046;
+    /* 0x048 */ s16 work_048;
+    /* 0x04A */ s16 work_04A;
+    /* 0x04C */ s16 work_04C;
     /* 0x04E */ s16 counter_04E;
     /* 0x050 */ s32 iwork[25];
     /* 0x0B4 */ s16 eventType;

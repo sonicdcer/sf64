@@ -4620,7 +4620,7 @@ void Zoness_ZoBarrier_Init(ZoBarrier* this) {
 
             gActors[i].state = 1;
 
-            this->unk_046 = i + 1;
+            this->work_046 = i + 1;
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
             gActors[i].info.hitbox = SEGMENTED_TO_VIRTUAL(D_ZO_602C028);
             break;
@@ -4647,8 +4647,8 @@ void Zoness_ZoBarrier_Update(ZoBarrier* this) {
             }
         }
 
-        if (this->unk_046 != 0) {
-            otherActor = &gActors[this->unk_046 - 1];
+        if (this->work_046 != 0) {
+            otherActor = &gActors[this->work_046 - 1];
             otherActor->obj.pos.y += this->fwork[1] * 0.3f;
             if (otherActor->obj.pos.y > this->fwork[2] + 370.0f) {
                 otherActor->obj.pos.y = this->fwork[2] + 370.0f;

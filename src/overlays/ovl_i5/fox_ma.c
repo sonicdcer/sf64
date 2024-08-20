@@ -1227,7 +1227,7 @@ void Macbeth_MaBoulder_Setup(MaBoulder* this, f32 xPos, f32 yPos, f32 zPos, f32 
     this->timer_0BE = 20;
     this->fwork[0] = arg4;
     this->vel.z = zVel;
-    this->unk_046 = arg9;
+    this->work_046 = arg9;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -3111,7 +3111,7 @@ bool Macbeth_801A3C20(f32 arg0) {
 
 void Macbeth_MaMaRailroadSwitch_Init(MaRailroadSwitch* this) {
     this->state = 0;
-    this->unk_046 = D_i5_801BA1D8;
+    this->work_046 = D_i5_801BA1D8;
     D_i5_801BA1D8++;
 }
 
@@ -3144,7 +3144,7 @@ void Macbeth_MaRailroadSwitch_Update(MaRailroadSwitch* this) {
                 Math_SmoothStepToF(&this->fwork[2], 41.0f, 0.6f, 8.0f, 0.0f);
                 if (this->fwork[2] >= 40.0f) {
                     this->state = 3;
-                    D_i5_801BE308[this->unk_046] = 1;
+                    D_i5_801BE308[this->work_046] = 1;
                 }
             } else {
                 this->iwork[0]--;
@@ -3222,7 +3222,7 @@ void Macbeth_MaRailroadSwitch_Draw(MaRailroadSwitch* this) {
 
 void Macbeth_MaBoulder_Init(MaBoulder* this) {
     this->gravity = 0;
-    this->work_04A = this->unk_046;
+    this->work_04A = this->work_046;
     this->health = 60;
     if (this->fwork[0] < 0.0f) {
         this->work_048 = 0;
@@ -3243,17 +3243,17 @@ void Macbeth_MaBoulder_Update(MaBoulder* this) {
                 Math_SmoothStepToF(&this->gravity, 5.0f, 0.08f, 1.0f, 0.0f);
 
                 if (this->obj.pos.y < 80.0f) {
-                    if (this->unk_046 != 0) {
+                    if (this->work_046 != 0) {
                         AUDIO_PLAY_SFX(NA_SE_OB_ROCK_BOUND, this->sfxSource, 0);
                         this->obj.pos.y = 80.0f;
                         if (this->vel.y < 0) {
-                            this->vel.y = -this->vel.y * (this->unk_046 * 0.07f);
+                            this->vel.y = -this->vel.y * (this->work_046 * 0.07f);
                         }
 
                         this->fwork[0] /= 1.2f + RAND_FLOAT(1.0f) / 2;
-                        this->unk_046--;
+                        this->work_046--;
                         this->vel.z /= 1.5f;
-                        if (this->unk_046 == 0) {
+                        if (this->work_046 == 0) {
                             this->timer_0BE = RAND_INT(30.0f);
                         }
                     } else {
@@ -3272,12 +3272,12 @@ void Macbeth_MaBoulder_Update(MaBoulder* this) {
                     this->obj.rot.z -= 0.5f * this->vel.x;
                 }
 
-                if (this->unk_046 != this->work_04A) {
+                if (this->work_046 != this->work_04A) {
                     this->obj.rot.x = this->obj.rot.x + (0.1 * this->vel.z);
                 }
             }
 
-            if (this->unk_046 == 7) {
+            if (this->work_046 == 7) {
                 if (this->work_048 != 0) {
                     this->obj.rot.z -= 1.0f;
                 } else {
@@ -5835,7 +5835,7 @@ void Macbeth_MaBombDrop_Update(MaBombDrop* this) {
 
                 this->state = 1;
                 this->timer_0BC = 200;
-                this->unk_046 = 192;
+                this->work_046 = 192;
                 this->scale = 2.5f;
                 this->fwork[0] = 2.5f;
 
@@ -5858,8 +5858,8 @@ void Macbeth_MaBombDrop_Update(MaBombDrop* this) {
             this->scale += ((20.0f - this->scale) * 0.1f);
             if (this->scale > 19.0f) {
                 this->fwork[0] -= 0.3f;
-                this->unk_046 -= 20;
-                if (this->unk_046 < 0) {
+                this->work_046 -= 20;
+                if (this->work_046 < 0) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             }
