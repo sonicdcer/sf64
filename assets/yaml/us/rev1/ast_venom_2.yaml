@@ -174,11 +174,11 @@ D_VE2_60114A0:
 D_VE2_6013AF8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6013AF8, ctype: u16, symbol: D_VE2_6013AF8 }
 
-D_VE2_6014658:
-  { type: SF64:ANIM, offset: 0x6014658, symbol: D_VE2_6014658 }
+aVe2AndrossGateAnim:
+  { type: SF64:ANIM, offset: 0x6014658, symbol: aVe2AndrossGateAnim }
 
-D_VE2_6014844:
-  { type: SF64:SKELETON, offset: 0x6014844, symbol: D_VE2_6014844 }
+aVe2AndrossGateSkel:
+  { type: SF64:SKELETON, offset: 0x6014844, symbol: aVe2AndrossGateSkel }
 
 aVe2BaseAnim:
   { type: SF64:ANIM, offset: 0x6014904, symbol: aVe2BaseAnim }

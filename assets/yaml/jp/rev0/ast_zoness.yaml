@@ -351,11 +351,11 @@ D_ZO_601F420:
 D_ZO_601F620:
   { type: GFX, offset: 0x601F620, symbol: D_ZO_601F620}
 
-D_ZO_601F874:
-  { type: SF64:ANIM, offset: 0x601F874, symbol: D_ZO_601F874}
+aZoSarumarinePeriscopeAnim:
+  { type: SF64:ANIM, offset: 0x601F874, symbol: aZoSarumarinePeriscopeAnim}
 
-D_ZO_601F920:
-  { type: SF64:SKELETON, offset: 0x601F920, symbol: D_ZO_601F920}
+aZoSarumarinePeriscopeSkel:
+  { type: SF64:SKELETON, offset: 0x601F920, symbol: aZoSarumarinePeriscopeSkel}
 
 D_ZO_601F940:
   { type: GFX, offset: 0x601F940, symbol: D_ZO_601F940}

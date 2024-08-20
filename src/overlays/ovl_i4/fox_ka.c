@@ -2652,7 +2652,7 @@ void Katina_EnemyDraw(ActorAllRange* this) {
         case 1:
             gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, 0);
+            Actor_DrawEngineGlow(this, ENGINEGLOW_RED);
             break;
     }
 }

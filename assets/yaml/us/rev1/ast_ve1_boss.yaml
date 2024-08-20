@@ -29,8 +29,8 @@ D_VE1_90012F0:
 D_VE1_9002CD8:
   {type: SF64:ANIM, offset: 0x9002CD8, symbol: D_VE1_9002CD8}
 
-D_VE1_9002CF0:
-  {type: GFX, offset: 0x9002CF0, symbol: D_VE1_9002CF0}
+aVe1BlockerDL:
+  {type: GFX, offset: 0x9002CF0, symbol: aVe1BlockerDL}
 
 D_VE1_9002F30:
   {type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x9002F30, symbol: D_VE1_9002F30, tlut: 0x9003330}
@@ -128,8 +128,8 @@ D_VE1_9010FC4:
 D_VE1_9010FD0:
   {type: GFX, offset: 0x9010FD0, symbol: D_VE1_9010FD0}
 
-D_VE1_9011200:
-  {type: GFX, offset: 0x9011200, symbol: D_VE1_9011200}
+aVe1PillarDL:
+  {type: GFX, offset: 0x9011200, symbol: aVe1PillarDL}
 
 D_VE1_9011980:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x9011980, symbol: D_VE1_9011980}

@@ -2658,7 +2658,7 @@ void Actor_Move(Actor* this) {
 
     var_fv0 = 4000.0f;
     if ((this->obj.id == OBJ_ACTOR_ZO_DODORA) || (gCurrentLevel == LEVEL_MACBETH) ||
-        ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_56))) {
+        ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_TI_GREAT_FOX))) {
         var_fv0 = 8000.0f;
     } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
         var_fv0 = 100000.0f;

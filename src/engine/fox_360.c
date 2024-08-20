@@ -2407,11 +2407,11 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     gSPDisplayList(gMasterDisp++, aStarWolfUpgradedShipDL);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 30.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, -30.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                     Matrix_Pop(&gGfxMatrix);
                     ActorAllRange_DrawBarrelRoll(this);
                     ActorAllRange_DrawShield(this);
@@ -2419,9 +2419,9 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     gSPDisplayList(gMasterDisp++, aStarWolfStandardShipDL);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     if (gCurrentLevel == LEVEL_BOLSE) {
-                        Actor_DrawEngineGlow(this, 3);
+                        Actor_DrawEngineGlow(this, ENGINEGLOW_LIGHT_RED);
                     } else {
-                        Actor_DrawEngineGlow(this, 2);
+                        Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                     }
                 }
                 break;
@@ -2448,7 +2448,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                                        gCalcMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -400.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->fwork[29], this->fwork[29], this->fwork[29], MTXF_APPLY);
-                Actor_DrawEngineGlow(this, 3);
+                Actor_DrawEngineGlow(this, ENGINEGLOW_LIGHT_RED);
                 break;
 
             default:
@@ -2458,7 +2458,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     gSPDisplayList(gMasterDisp++, D_FO_6006BE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (this->animFrame) {
                         case 0:
@@ -2467,7 +2467,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                         case 1:
                             gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                            Actor_DrawEngineGlow(this, 0);
+                            Actor_DrawEngineGlow(this, ENGINEGLOW_RED);
                             break;
                         case 3:
                             gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
@@ -2478,12 +2478,12 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
                     gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
                     gSPDisplayList(gMasterDisp++, D_BO_6008770);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                     Matrix_Pop(&gGfxMatrix);
                     ActorAllRange_DrawShield(this);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
@@ -2496,11 +2496,11 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     if (this->aiIndex == AI360_FOX) {
                         gSPDisplayList(gMasterDisp++, aStarWolfStandardShipDL);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                        Actor_DrawEngineGlow(this, 3);
+                        Actor_DrawEngineGlow(this, ENGINEGLOW_LIGHT_RED);
                     } else {
                         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40068F0);
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-                        Actor_DrawEngineGlow(this, 2);
+                        Actor_DrawEngineGlow(this, ENGINEGLOW_GREEN);
                     }
                 }
                 break;

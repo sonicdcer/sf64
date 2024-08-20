@@ -30,8 +30,8 @@ D_SX_60010C0:
 D_SX_6001150:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001150, symbol: D_SX_6001150 }
 
-D_SX_6001950:
-  { type: GFX, offset: 0x6001950, symbol: D_SX_6001950 }
+aSxLaserDestroyedDL:
+  { type: GFX, offset: 0x6001950, symbol: aSxLaserDestroyedDL }
 
 D_SX_6001AD8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6001AD8, symbol: D_SX_6001AD8 }
@@ -75,8 +75,8 @@ D_SX_6004EE8:
 D_SX_6005EE8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6005EE8, symbol: D_SX_6005EE8 }
 
-D_SX_60066F0:
-  { type: GFX, offset: 0x60066F0, symbol: D_SX_60066F0 }
+aSxLaserDL:
+  { type: GFX, offset: 0x60066F0, symbol: aSxLaserDL }
 
 D_SX_6006810:
   { type: GFX, offset: 0x6006810, symbol: D_SX_6006810 }

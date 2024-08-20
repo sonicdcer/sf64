@@ -815,21 +815,21 @@ void Display_PlayerShadow_Draw(Player* player) {
     }
 }
 
-void Display_DrawEngineGlow(s32 levelType) {
+void Display_DrawEngineGlow(EngineGlowColor color) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
 
-    switch (levelType) {
-        case LEVELTYPE_PLANET:
+    switch (color) {
+        case ENGINEGLOW_RED:
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             break;
-        case LEVELTYPE_SPACE:
+        case ENGINEGLOW_BLUE:
             gDPSetEnvColor(gMasterDisp++, 0, 0, 255, 255);
             break;
-        case LEVELTYPE_UNK2:
+        case ENGINEGLOW_GREEN:
             gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 255);
             break;
-        case LEVELTYPE_UNK3:
+        case ENGINEGLOW_LIGHT_RED:
             gDPSetEnvColor(gMasterDisp++, 255, 64, 0, 255);
             break;
     }

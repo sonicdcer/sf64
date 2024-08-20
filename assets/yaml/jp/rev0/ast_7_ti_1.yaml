@@ -209,11 +209,11 @@ aTi1DesertRoverSkel:
 aTi1FekudaGun2DL:
   { type: GFX, offset: 0x700C980, symbol: aTi1FekudaGun2DL }
 
-D_TI1_700CAF4:
-  { type: SF64:ANIM, offset: 0x700CAF4, symbol: D_TI1_700CAF4}
+aTiBomberAnim:
+  { type: SF64:ANIM, offset: 0x700CAF4, symbol: aTiBomberAnim}
 
-D_TI1_700CB60:
-  {type: SF64:SKELETON, offset: 0x700CB60, symbol: D_TI1_700CB60}
+aTiBomberSkel:
+  {type: SF64:SKELETON, offset: 0x700CB60, symbol: aTiBomberSkel}
 
 aTiRascoAnim:
   { type: SF64:ANIM, offset: 0x700D534, symbol: aTiRascoAnim }

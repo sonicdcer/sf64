@@ -62,8 +62,8 @@ D_ME_60080C0:
 D_ME_6008A18:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x06008A18, symbol: D_ME_6008A18 }
 
-D_ME_6008AA0:
-  { type: GFX, offset: 0x6008AA0, symbol: D_ME_6008AA0 }
+aMeFlipBot1DL:
+  { type: GFX, offset: 0x6008AA0, symbol: aMeFlipBot1DL }
 
 D_ME_6009228:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009228, symbol: D_ME_6009228 }
@@ -74,8 +74,8 @@ D_ME_6009A28:
 D_ME_6009C28:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06009C28, symbol: D_ME_6009C28 }
 
-D_ME_6009E30:
-  { type: GFX, offset: 0x6009E30, symbol: D_ME_6009E30 }
+aMeFlipBot2DL:
+  { type: GFX, offset: 0x6009E30, symbol: aMeFlipBot2DL }
 
 D_ME_6009F50:
   { type: GFX, offset: 0x6009F50, symbol: D_ME_6009F50 }
@@ -92,17 +92,17 @@ D_ME_600BD40:
 D_ME_600BF30:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0600BF30, symbol: D_ME_600BF30 }
 
-D_ME_600C130:
-  { type: GFX, offset: 0x600C130, symbol: D_ME_600C130 }
+aMeRockGull2DL:
+  { type: GFX, offset: 0x600C130, symbol: aMeRockGull2DL }
 
 D_ME_600C2A0:
   { type: GFX, offset: 0x600C2A0, symbol: D_ME_600C2A0 }
 
-D_ME_600C740:
-  { type: GFX, offset: 0x600C740, symbol: D_ME_600C740 }
+aMeRockGull3DL:
+  { type: GFX, offset: 0x600C740, symbol: aMeRockGull3DL }
 
-D_ME_600CAA0:
-  { type: GFX, offset: 0x600CAA0, symbol: D_ME_600CAA0 }
+aMeRockGull1DL:
+  { type: GFX, offset: 0x600CAA0, symbol: aMeRockGull1DL }
 
 aMeMeteorShower3DL:
   { type: GFX, offset: 0x600CD60, symbol: aMeMeteorShower3DL }

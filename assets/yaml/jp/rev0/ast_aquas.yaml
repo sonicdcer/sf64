@@ -22,8 +22,8 @@ aAqSquidAnim:
 aAqSquidSkel:
   { type: SF64:SKELETON, offset: 0x6000DB0, symbol: aAqSquidSkel }
 
-D_AQ_6000E10:
-  { type: GFX, offset: 0x6000E10, symbol: D_AQ_6000E10 }
+aAqShellDL:
+  { type: GFX, offset: 0x6000E10, symbol: aAqShellDL }
 
 D_AQ_6001130:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001130, symbol: D_AQ_6001130 }

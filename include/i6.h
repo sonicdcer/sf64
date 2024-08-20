@@ -22,7 +22,7 @@ void SectorY_LevelComplete(Player*);
 void SectorY_8019FF00(Actor*);
 void SectorY_801A0AC0(Player*);
 
-void Andross_8018769C(Actor*);
+void Andross_Gate_Draw(Actor*);
 void OvlI6_CallFunction(u32 mode, void* ptr);
 void Andross_801878A8(void);
 void Andross_801888F4(Actor *);

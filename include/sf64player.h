@@ -51,6 +51,13 @@ typedef enum DrawMode {
     /* 9 */ DRAW_MAX,
 } DrawMode;
 
+typedef enum EngineGlowColor {
+    /* 0 */ ENGINEGLOW_RED,
+    /* 1 */ ENGINEGLOW_BLUE,
+    /* 2 */ ENGINEGLOW_GREEN,
+    /* 3 */ ENGINEGLOW_LIGHT_RED
+} EngineGlowColor;
+
 typedef enum LevelMode {
     /* 0 */ LEVELMODE_ON_RAILS,
     /* 1 */ LEVELMODE_ALL_RANGE,

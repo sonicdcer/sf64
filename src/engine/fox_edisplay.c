@@ -467,7 +467,7 @@ void Actor_DrawEngineAndContrails(Actor* this) {
     f32 sp5C;
     f32 temp1;
     f32 sp54;
-    s32 pad[5]; // fake? seems like a lot of padding
+    s32 pad[5];
 
     if ((this->iwork[11] != 0) && (this->obj.status == OBJ_ACTIVE)) {
         temp1 = 652.5f * 0.001f; // 0.65250003f;
@@ -527,7 +527,7 @@ f32 D_edisplay_800CFCA0[] = {
     1.7f, 1.8f, 2.0f, 3.0f, 3.0f, 3.0f, 3.0f, 3.0f,
 };
 
-void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
+void Actor_DrawEngineGlow(Actor* actor, EngineGlowColor color) {
     f32 scale;
 
     if ((actor->iwork[11] != 0) && (actor->obj.status == OBJ_ACTIVE)) {
@@ -545,7 +545,7 @@ void Actor_DrawEngineGlow(Actor* actor, s32 levelType) {
         Matrix_RotateY(gGfxMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        Display_DrawEngineGlow(levelType);
+        Display_DrawEngineGlow(color);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -645,7 +645,7 @@ void ActorMissileSeek_Draw(Actor* missile) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
     missile->iwork[11] = 1;
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
-    Actor_DrawEngineGlow(missile, 2);
+    Actor_DrawEngineGlow(missile, ENGINEGLOW_GREEN);
 }
 
 void CoSkibot_Draw(CoSkibot* this) {
@@ -696,7 +696,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     gSPDisplayList(gMasterDisp++, D_102A010);
                     break;
 
-                case EVID_81:
+                case EVID_VE1_BLOCKER:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_48);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
@@ -1084,7 +1084,7 @@ void Actor_DrawOnRails(Actor* this) {
                 this->obj.pos.y += gCameraShakeY;
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
-            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_31)) {
+            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_UMBRA_CLASS_STATION)) {
                 func_edisplay_8005D3CC(&this->obj, this->vwork[29].x, this->vwork[29].y,
                                        this->vwork[29].z + this->rot_0F4.z, this->info.drawType);
             } else {

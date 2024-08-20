@@ -8,8 +8,6 @@
 typedef enum LevelType {
     /* 0 */ LEVELTYPE_PLANET,
     /* 1 */ LEVELTYPE_SPACE,
-    /* 2 */ LEVELTYPE_UNK2,
-    /* 3 */ LEVELTYPE_UNK3,
 } LevelType;
 
 typedef enum MissionStatus {

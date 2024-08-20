@@ -8,11 +8,11 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_ENMY_SPACE_4000080:
-  { type: SF64:ANIM, offset: 0x4000080, symbol: D_ENMY_SPACE_4000080 }
+aKillerBeeAnim:
+  { type: SF64:ANIM, offset: 0x4000080, symbol: aKillerBeeAnim }
 
-D_ENMY_SPACE_400014C: 
-  { type: SF64:SKELETON, offset: 0x400014C, symbol: D_ENMY_SPACE_400014C }
+aKillerBeeSkel: 
+  { type: SF64:SKELETON, offset: 0x400014C, symbol: aKillerBeeSkel }
 
 aEnmySpMeMora1DL:
   { type: GFX, offset: 0x4000170, symbol: aEnmySpMeMora1DL }
@@ -110,11 +110,11 @@ D_ENMY_SPACE_40098B8:
 D_ENMY_SPACE_4009AB8:
   { type: TEXTURE, format: RGBA16, offset: 0x04009AB8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4009AB8 }
 
-D_ENMY_SPACE_400A30C:
-  { type: SF64:ANIM, offset: 0x400A30C, symbol: D_ENMY_SPACE_400A30C }
+aCruiserGunAnim:
+  { type: SF64:ANIM, offset: 0x400A30C, symbol: aCruiserGunAnim }
 
-D_ENMY_SPACE_400A398:
-  { type: SF64:SKELETON, offset: 0x400A398, symbol: D_ENMY_SPACE_400A398 }
+aCruiserGunSkel:
+  { type: SF64:SKELETON, offset: 0x400A398, symbol: aCruiserGunSkel }
 
 aEnmySpMeMora3DL:
   { type: GFX, offset: 0x400A630, symbol: aEnmySpMeMora3DL }

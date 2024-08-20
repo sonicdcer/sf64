@@ -401,7 +401,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     }
                     if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->rot_0F4.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->eventType != EVID_31)) {
+                        (actor->eventType != EVID_UMBRA_CLASS_STATION)) {
                         Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->rot_0F4.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -697,8 +697,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
          ((actor->eventType == EVID_48) || (actor->eventType == EVID_49) || (actor->eventType == EVID_50))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
-         (actor->eventType == EVID_METEO_PYRAMID_SHIP)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->eventType == EVID_METEO_FLIP_BOT)) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_SCULPIN) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_GAROA) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {

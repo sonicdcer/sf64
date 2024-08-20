@@ -57,8 +57,8 @@ D_A6_6009718:
 D_A6_6009B18:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009B18, symbol: D_A6_6009B18 }
 
-D_A6_600E0C0:
-  { type: GFX, offset: 0x600E0C0, symbol: D_A6_600E0C0 }
+aA6UmbraClassStationDL:
+  { type: GFX, offset: 0x600E0C0, symbol: aA6UmbraClassStationDL }
 
 D_A6_600EBE8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x0600EBE8, symbol: D_A6_600EBE8 }
@@ -150,8 +150,8 @@ D_A6_6018994:
 D_A6_6018BA0:
   { type: SF64:SKELETON, offset: 0x6018BA0, symbol: D_A6_6018BA0 }
 
-D_A6_6018BF0:
-  { type: GFX, offset: 0x6018BF0, symbol: D_A6_6018BF0 }
+aA6NinjinMissileDL:
+  { type: GFX, offset: 0x6018BF0, symbol: aA6NinjinMissileDL }
 
 D_A6_6019130:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019130, symbol: D_A6_6019130 }
