@@ -1,6 +1,6 @@
 #include "global.h"
 
-extern void SectorY_80198F5C(SyShogun* this);
+extern void SectorY_80198F5C(Boss* this);
 
 /* Prevent execution before gameplay */
 bool PreventExecution(void) {
@@ -21,27 +21,40 @@ void KillBoss(void) {
     Player* player = &gPlayer[0];
     Boss* boss = &gBosses[0];
 
-    u16 killButton = L_TRIG;
+    u16 killButton = L_TRIG; // L_JPAD;
+    u16 killButton1 = R_CBUTTONS;
     s32 i;
 
     if (PreventExecution())
         return;
 
-    RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-    Graphics_DisplaySmallNumber(20, 220, bossMercyTimer);
-
     // gRingPassCount = 7; // for LEVEL_CORNERIA
-    player->mercyTimer = 1000;
+    // player->mercyTimer = 1000; // Invincable
     gLaserStrength[0] = 2;
 
+#if 1
     if (gControllerPress[0].button & U_JPAD) {
-        // player->state_1C8 = PLAYERSTATE_1C8_START_360;
-        player->baseSpeed += 50;
+        player->baseSpeed += 60;
     }
     if (gControllerPress[0].button & D_JPAD) {
-        player->baseSpeed -= 50;
+        player->baseSpeed -= 60;
+        if (player->baseSpeed < 0) {
+            player->baseSpeed = 0; // baseSpeed doesn't go below zero
+        }
     }
+#endif
+
+// Prints
+#if 1
+    {
+        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+        Graphics_DisplaySmallText(20, 220, 1.0f, 1.0f, "MERCY:");
+        Graphics_DisplaySmallNumber(70, 220, bossMercyTimer);
+        Graphics_DisplaySmallText(20, 210, 1.0f, 1.0f, "HEALTH:");
+        Graphics_DisplaySmallNumber(80, 210, (s32) boss[0].health);
+    }
+#endif
 
     if (bossMercyTimer != 0) {
         bossMercyTimer--;
@@ -50,7 +63,10 @@ void KillBoss(void) {
     if (gControllerPress[0].button & START_BUTTON)
         bossMercyTimer = 0;
 
-    if (gControllerPress[0].button & killButton) {
+    if ((gControllerPress[0].button & killButton) && (1 /*gControllerPress[0].button & killButton1*/)) {
+        if (bossMercyTimer != 0) {
+            return;
+        }
         switch (gCurrentLevel) {
             case LEVEL_CORNERIA:
                 if (boss[0].obj.status != OBJ_ACTIVE)
@@ -80,6 +96,7 @@ void KillBoss(void) {
                     boss[3].state = 1;
                     gShowBossHealth = false;
                 }
+                bossMercyTimer = 100;
                 break;
 
             case LEVEL_METEO:
@@ -90,10 +107,12 @@ void KillBoss(void) {
                 boss[0].swork[8] = 0;
                 boss[0].health = 0;
                 boss[0].state = 9;
+                bossMercyTimer = 100;
                 break;
 
             case LEVEL_SECTOR_X:
-                if (boss[0].obj.status != OBJ_ACTIVE) break;
+                if (boss[0].obj.status != OBJ_ACTIVE)
+                    break;
 
                 // Spyborg's fake death
                 if ((eventState == 0) && (bossMercyTimer == 0)) {
@@ -173,11 +192,11 @@ void KillBoss(void) {
                     break;
                 }
 
-#if 0
+#if 1
                 // Good Ending
                 if ((eventState != 0) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (bossMercyTimer == 0)) {
                     eventState = 0;
-                    gAllRangeEventTimer = (10090 * 2) / gVIsPerFrame;
+                    gAllRangeEventTimer = (10090);
                     for (i = 0; i < 4; i++) {
                         gStarWolfTeamAlive[i] = 0;
                     }
@@ -212,7 +231,7 @@ void KillBoss(void) {
 
                 // Boss in position
                 if (boss[1].state >= 6) {
-#if 0
+#if 1
                     // Good ending
                     boss[1].state = 20;
                     boss[1].timer_050 = 10;
@@ -228,9 +247,53 @@ void KillBoss(void) {
 
                 break;
 
-            case LEVEL_SOLAR:
+            case LEVEL_SOLAR: 
+                {
+                s32 i;
+                s32 distance = fabsf(gBosses[0].obj.pos.z - gPlayer[0].pos.z);
 
-                break;
+                if ((gBosses[0].swork[1] == 0) || (bossMercyTimer != 0) || (distance > 3000)) {
+                    break;
+                }
+
+                // ARMS
+                if (boss[0].swork[2] > 0) {
+                    // RIGHT ARM
+                    for (i = 0; i < 4; i++) {
+                        if (i == 0) {
+                            boss[0].swork[2] -= 500;
+                        }
+                        boss[0].dmgType = DMG_BEAM;
+                        boss[0].dmgPart = i;
+                    }
+
+                    bossMercyTimer = (120 * 2) / gVIsPerFrame;
+                } else if (boss[0].swork[3] > 0) {
+                    // LEFT ARM
+                    for (i = 3; i < 7; i++) {
+                        if (i == 3) {
+                            boss[0].swork[3] -= 500;
+                        }
+                        boss[0].dmgType = DMG_BEAM;
+                        boss[0].dmgPart = i;
+                    }
+
+                    bossMercyTimer = (120 * 2) / gVIsPerFrame;
+                } else if ((boss[0].swork[2] <= 0) && (boss[0].swork[3] <= 0)) {
+                    // HEAD
+                    boss[0].swork[2] = 0;
+                    boss[0].swork[3] = 0;
+                    
+                    if (boss[0].health > 500) {
+                        boss[0].health -= 599;
+                    }
+                    boss[0].dmgPart = 8;
+                    boss[0].state = 2;
+                    boss[0].swork[10] = 20;
+                    boss[0].dmgType = DMG_BEAM;
+                }
+            } 
+            break;
         }
     }
 }
