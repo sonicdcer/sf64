@@ -2673,10 +2673,12 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                     break;
             }
 
-            if (((gCurrentLevel != LEVEL_CORNERIA) || (gTeamShields[TEAM_ID_FALCO] > 0)) &&
-                (gRingPassCount >= ringRequirement)) {
-                ActorEvent_TriggerBranch(this);
+            if (((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] <= 0)) ||
+                (gRingPassCount < ringRequirement)) {
+                break;
             }
+
+            ActorEvent_TriggerBranch(this);
             break;
 
         case EVC_ATTACK_GROUP_CLEARED:
