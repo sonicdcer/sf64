@@ -2673,6 +2673,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
                     break;
             }
 
+            // Abort if Falco is dead or the requirement is not met.
             if (((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] <= 0)) ||
                 (gRingPassCount < ringRequirement)) {
                 break;
