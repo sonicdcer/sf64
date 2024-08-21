@@ -2035,14 +2035,14 @@ void Player_CollisionCheck(Player* player) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                     }
                 } else if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    if (actor->eventType == EVID_42) {
+                    if (actor->eventType == EVID_SY_SHIP_2) {
                         temp_v0 = Player_CheckPolyCollision(player, ACTOR_EVENT_ID, actor->obj.pos.x, actor->obj.pos.y,
                                                             actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y,
                                                             actor->obj.rot.z);
                         if (temp_v0 != 0) {
                             Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         }
-                    } else if (actor->eventType == EVID_63) {
+                    } else if (actor->eventType == EVID_ME_BIG_METEOR) {
                         spfD4.x = fabsf(actor->obj.pos.x - player->pos.x);
                         spfD4.y = fabsf(actor->obj.pos.y - player->pos.y);
                         spfD4.z = fabsf(actor->obj.pos.z - player->trueZpos);

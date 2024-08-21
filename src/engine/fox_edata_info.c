@@ -1,3 +1,26 @@
+/**
+ * Glossary:
+ *
+ * Level Prefixes:
+ * CO: Corneria
+ * ME: Meteo
+ * SX: Sector X
+ * SY: Sector Y
+ * SZ: Sector Z
+ * KA: Katina
+ * AQ: Aquas
+ * A6: Area 6
+ * FO: Fortuna
+ * SO: Solar
+ * MA: Macbeth
+ * TI: Titania
+ * BO: Bolse
+ * ZO: Zoness
+ * VE1: Venom 1
+ * VE2: Venom 2
+ * AND: Venom Andross
+ */
+
 #include "global.h"
 
 #include "assets/ast_versus.h"
@@ -77,17 +100,17 @@ f32 gTeamHitbox[] = {
 f32 gActorAllRangeHItbox[] = {
     1.0f, 0.0f, 40.0f, 0.0f, 40.0f, 0.0f, 40.0f,
 };
-f32 gWarpZoneEvent94Hitbox[] = {
+f32 aWzMeteor1Hitbox[] = {
     1.0f, 0.0f, 140.0f, 0.0f, 170.0f, 0.0f, 140.0f,
 };
-f32 gWarpZoneEvent96Hitbox[] = {
+f32 aWzGateHitbox[] = {
     4.0f, 0.0f,   140.0f, -675.0f, 140.0f, 0.0f,   810.0f, 0.0f,   140.0f, 675.0f, 140.0f,  0.0f,   810.0f,
     0.0f, 140.0f, 0.0f,   810.0f,  675.0f, 140.0f, 0.0f,   140.0f, 0.0f,   810.0f, -675.0f, 140.0f,
 };
-f32 gWarpZoneEvent92Hitbox[] = {
+f32 aWzPillar1Hitbox[] = {
     1.0f, 0.0f, 140.0f, 0.0f, 140.0f, 0.0f, 1800.0f,
 };
-f32 gWarpZoneEvent93Hitbox[] = {
+f32 aWzPillar2Hitbox[] = {
     2.0f, 0.0f, 140.0f, 0.0f, 140.0f, 0.0f, 1800.0f, 1.0f, 141.0f, 1.0f, 1800.0f, 1.0f, 140.0f,
 };
 
@@ -157,7 +180,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_SCENERY_MA_TOWER,  */  {(void*) Macbeth_MaTower_Draw, 1, (ObjectFunc)          NULL,        aMaTowerHitbox,   200.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_SCENERY_MA_WALL_1,  */  {(void*)     aMaWall1DL, 0, (ObjectFunc)          NULL,       gNoHitbox,  1500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_SCENERY_GUILLOTINE_HOUSING,  */  {(void*)     aMaGuillotineHousingDL, 0, (ObjectFunc)          NULL,        aMaGuillotineHousingHitbox,   500.0f,  0, 0,  5, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_MA_GUILLOTINE,  */  {(void*)     aMaGuillotineDL, 0, (ObjectFunc)          NULL,        aMaGuillotineHitbox,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_MA_GUILLOTINE,  */  {(void*)     aMaGuillotine1DL, 0, (ObjectFunc)          NULL,        aMaGuillotineHitbox,   100.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_MA_PROXIMITY_LIGHT,  */  {(void*) Macbeth_MaProximityLight_Draw, 1, (ObjectFunc)          NULL,        aMaProximityLightHitbox,   400.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_SCENERY_MA_WALL_2,  */  {(void*)     aMaWall2DL, 0, (ObjectFunc)          NULL,        aMaWall2Hitbox,  2500.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_SCENERY_MA_WALL_3,  */  {(void*)     aMaWall3DL, 0, (ObjectFunc)          NULL,        aMaWall3Hitbox,  2000.0f,  0, 0,  5, 0,   0.0f,  0 },
@@ -208,7 +231,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_SCENERY_SY_SHIP_2_DESTROYED  */  {(void*)     aSyShip4DestroyedDL, 0, (ObjectFunc) SectorY_SyShip4Destroyed_Update,        aSyShip4DestroyedHitbox,  4000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_SPRITE_SY_SHIP_2  */  {(void*)     aSyShip2SpriteDL, 0, (ObjectFunc)          NULL,       gNoHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SPRITE_SY_SHIP_3  */  {(void*)     aSyShip3SpriteDL, 0, (ObjectFunc)          NULL,       gNoHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_SY_SHIP_PROJECTILE  */  {(void*)     aSyShipProjectileDL, 0, (ObjectFunc)          NULL,        aSyShipProjectileHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_SY_SHIP_MISSILE  */  {(void*)     aSyShipMissileDL, 0, (ObjectFunc)          NULL,        aSyShipMissileHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_SY_SHIP_WINDOWS  */  {(void*)     aSyShipWindowsDL, 0, (ObjectFunc)          NULL,        aSyShipWindowsHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_AQ_CORAL_REEF_1  */  {(void*)     aAqCoralReef1DL, 0, (ObjectFunc)          NULL,        aAqCoralReef1Hitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_AQ_TUNNEL_1  */  {(void*)     aAqTunnel1DL, 0, (ObjectFunc)          NULL,        aAqTunnel1Hitbox,  2000.0f,  0, 0, 41, 0,   0.0f,  0 },
@@ -274,7 +297,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_CO_GARUDA_3 */  {(void*) Corneria_CoGaruda3_Draw, 2, (ObjectFunc) Corneria_CoGaruda3_Update,        CoGarudaHitbox,   500.0f,  0, 0, 39, 1, 200.0f,  1 },
   /* OBJ_ACTOR_CO_GARUDA_DESTROY */  {(void*) Corneria_CoGarudaDestroy_Draw, 2, (ObjectFunc) Corneria_CoGarudaDestroy_Update,        aCoGarudaDestroyHitbox,   500.0f,  0, 0, 39, 1,   0.0f,  1 },
   /* OBJ_ACTOR_ME_MOLAR_ROCK */  {(void*) MeMolarRock_Draw, 1, (ObjectFunc) MeMolarRock_Update,       gNoHitbox,  1000.0f,  0, 0, 39, 0,   0.0f,  1 },
-  /* OBJ_ACTOR_ME_METEOR_1 */  {(void*)     aMeMeteorDL, 0, (ObjectFunc) Meteo_MeMeteor1_Update,        aMeMeteor1Hitbox,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
+  /* OBJ_ACTOR_ME_METEOR_1 */  {(void*)     aMeMeteor1DL, 0, (ObjectFunc) Meteo_MeMeteor1_Update,        aMeMeteor1Hitbox,   200.0f,  0, 0, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_ME_METEOR_2 */  {(void*) MeMeteor2_Draw, 1, (ObjectFunc) Meteo_MeMeteor2_Update,        aMeMeteor2Hitbox,   100.0f,  0, 1, 39, 0,   1.0f,  1 },
   /* OBJ_ACTOR_ME_METEOR_SHOWER_1 */  {(void*) Meteo_MeMeteorShower1_Draw, 1, (ObjectFunc) Meteo_MeteorShower_Update,       gNoHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  1 },
   /* OBJ_ACTOR_ME_METEOR_SHOWER_2 */  {(void*) Meteo_MeMeteorShower2_Draw, 1, (ObjectFunc) Meteo_MeteorShower_Update,       gNoHitbox,   100.0f,  0, 1, 39, 0,   0.0f,  1 },

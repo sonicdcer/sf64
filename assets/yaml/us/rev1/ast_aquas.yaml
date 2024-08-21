@@ -659,14 +659,14 @@ D_AQ_60308B8:
 aBoss301Hitbox:
   { type: SF64:HITBOX, offset: 0x6030B10, symbol: aBoss301Hitbox }
 
-D_AQ_6030B14_f32:
-  { type: SF64:HITBOX, offset: 0x6030B14, symbol: D_AQ_6030B14_f32 }
+aAqShellHitbox:
+  { type: SF64:HITBOX, offset: 0x6030B14, symbol: aAqShellHitbox }
 
-D_AQ_6030B30:
-  { type: SF64:HITBOX, offset: 0x6030B30, symbol: D_AQ_6030B30 }
+aAqStarfishHitbox:
+  { type: SF64:HITBOX, offset: 0x6030B30, symbol: aAqStarfishHitbox }
 
-D_AQ_6030B4C:
-  { type: SF64:HITBOX, offset: 0x6030B4C, symbol: D_AQ_6030B4C }
+aAqOysterEvHitbox:
+  { type: SF64:HITBOX, offset: 0x6030B4C, symbol: aAqOysterEvHitbox }
 
 D_AQ_6030B68:
   { type: SF64:HITBOX, offset: 0x6030B68, symbol: D_AQ_6030B68 }

@@ -612,7 +612,7 @@ void MeMeteor2_Draw(MeMeteor2* this) {
     RCP_SetupDL_29(this->work_046, gFogGreen, gFogBlue, gFogAlpha, this->work_048, gFogFar);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, aMeMeteorDL);
+    gSPDisplayList(gMasterDisp++, aMeMeteor1DL);
 }
 
 void MeLaserCannon1_Draw(MeLaserCannon1* this) {
@@ -630,9 +630,9 @@ void ActorMissileSeek_Draw(Actor* missile) {
 
         case 1:
             if (gCurrentLevel == LEVEL_AREA_6) {
-                gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400B390);
+                gSPDisplayList(gMasterDisp++, aAttacker3DL);
             } else {
-                gSPDisplayList(gMasterDisp++, aGrangaFighterDL);
+                gSPDisplayList(gMasterDisp++, aGrangaFighter2DL);
             }
             break;
     }
@@ -689,7 +689,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
         case OBJ_ACTOR_TEAM_BOSS:
         case OBJ_ACTOR_EVENT:
             switch (gActors[index].eventType) {
-                case EVID_3:
+                case EVID_SPY_EYE:
                     Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -1084,7 +1084,7 @@ void Actor_DrawOnRails(Actor* this) {
                 this->obj.pos.y += gCameraShakeY;
                 func_edisplay_8005D008(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
-            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_UMBRA_CLASS_STATION)) {
+            } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_A6_UMBRA_STATION)) {
                 func_edisplay_8005D3CC(&this->obj, this->vwork[29].x, this->vwork[29].y,
                                        this->vwork[29].z + this->rot_0F4.z, this->info.drawType);
             } else {

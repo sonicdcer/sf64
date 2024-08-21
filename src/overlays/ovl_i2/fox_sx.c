@@ -168,7 +168,7 @@ void SectorX_SxSlippy_Update(SxSlippy* this) {
 void SectorX_SxSlippy_Draw(SxSlippy* this) {
     switch (this->animFrame) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_SX_6020D20);
+            gSPDisplayList(gMasterDisp++, aSxBaseWallTile1DL);
             break;
 
         case 1:
@@ -210,7 +210,7 @@ void SectorX_8018FA04(f32 x, f32 y, f32 z) {
             actor->obj.pos.y = y;
             actor->obj.pos.z = z;
             Object_SetInfo(&actor->info, actor->obj.id);
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_60328CC);
+            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxBaseWallTile1Hitbox);
             xRot = Math_Atan2F(gPlayer[0].pos.x - x, gPlayer[0].trueZpos - z);
             pad = sqrtf(SQ(gPlayer[0].pos.x - x) + SQ(gPlayer[0].trueZpos - z));
             yRot = -Math_Atan2F(gPlayer[0].pos.y - y, pad);

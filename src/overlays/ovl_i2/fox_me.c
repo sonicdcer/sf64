@@ -199,7 +199,8 @@ void Meteo_80187B08(MeLaserCannon1* this) {
     }
 }
 
-void Meteo_80187C68(Actor* this, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 timerBC, s32 arg8, s32 objId) {
+void Meteo_80187C68(Actor* this, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 timerBC, s32 eventType,
+                    s32 objId) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = objId;
@@ -213,7 +214,7 @@ void Meteo_80187C68(Actor* this, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yR
 
     this->timer_0BC = timerBC;
     this->timer_0BE = 20;
-    this->eventType = arg8;
+    this->eventType = eventType;
     this->fwork[5] = arg4;
     Object_SetInfo(&this->info, this->obj.id);
 }

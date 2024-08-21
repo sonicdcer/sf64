@@ -626,7 +626,7 @@ void SectorY_80199438(SyShogun* this) {
                 Object_Kill(&gActors[D_ctx_80177A10[9]].obj, gActors[D_ctx_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
                     gBosses[0].work_04A = 1;
-                    gScenery360[0].info.dList = D_SY_601F3D0;
+                    gScenery360[0].info.dList = aSySaruzinDL;
                     gScenery360[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -3761,7 +3761,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
     i = this->iwork[17];
     if (i != 0) {
         if (i == 1) {
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034124);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobot4Hitbox);
         } else if (i == 2) {
             this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60341A8);
         }

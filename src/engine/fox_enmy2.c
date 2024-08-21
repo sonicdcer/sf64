@@ -943,117 +943,120 @@ typedef struct {
     /* 0x1C */ u8 bonus;
 } EventActorInfo; // size = 0x20
 
+// clang-format off
+
 static EventActorInfo sEventActorInfo[108] = {
     /*   0 */ { aVenomFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   1 */ { D_ENMY_PLANET_4006E90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*   1 */ { aVenomFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*   2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*   3 */ { D_ENMY_PLANET_4009800, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*   4 */ { D_ENMY_PLANET_40073C0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   5 */ { aGrangaFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*   3 */ { aSpyEyeDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*   4 */ { aGrangaFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*   5 */ { aGrangaFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*   6 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*   7 */ { aCoCornerianFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*   8 */ { D_ENMY_PLANET_4000710, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
+    /*   8 */ { aVenomTankDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
     /*   9 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  10 */ { D_ENMY_SPACE_400BD20, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  11 */ { D_ENMY_SPACE_4001310, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  12 */ { D_ENMY_SPACE_400B390, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  13 */ { aMeMeteorDL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  14 */ { D_ME_601F2A0, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  15 */ { D_ENMY_SPACE_400AAE0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  16 */ { D_ENMY_SPACE_4000650, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  17 */ { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
+    /*  10 */ { aAttacker1DL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  11 */ { aAttacker2DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /*  12 */ { aAttacker3DL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  13 */ { aMeMeteor1DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  14 */ { aMeMeteor2DL, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  15 */ { aCommanderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  16 */ { aSpiderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /*  17 */ { aA6ZeramClassCruiserDL, aA6ZeramClassCruiserHitbox, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
     /*  18 */ { aSxSpyEyeDL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  19 */ { aSxCanineDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  20 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  21 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  22 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  23 */ { D_ENMY_SPACE_4008FA0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  24 */ { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  25 */ { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  26 */ { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  27 */ { NULL, D_SX_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  28 */ { D_SX_6001CE0, D_SX_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  29 */ { D_SX_6000840, D_SX_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_NONE, 0, 1.0f, 1 },
-    /*  30 */ { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 2 },
-    /*  31 */ { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 3 },
-    /*  32 */ { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  23 */ { aVenomFighter3DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  24 */ { aSxBaseDebris1DL, aSxBaseDebris1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  25 */ { aSxBaseWall1DL, aSxBaseWall1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  26 */ { aSxBaseDebris2DL, aSxBaseDebris2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  27 */ { NULL, aSxLaserHitbox, 2.5f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  28 */ { aSxWatchPostDL, aSxWatchPostHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  29 */ { aSxSpaceMineDL, aSxSpaceMineHitbox, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_NONE, 0, 1.0f, 1 },
+    /*  30 */ { aA6HarlockFrigateDL, aA6HarlockFrigateHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 2 },
+    /*  31 */ { NULL, aA6UmbraStationHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 3 },
+    /*  32 */ { aSxBaseFloor1DL, aSxBaseFloor1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  33 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  34 */ { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  35 */ { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  34 */ { aSxBaseWall2DL, aSxBaseWall2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  35 */ { aSxBaseWall3DL, aSxBaseWall3Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  36 */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  37 */ { aSxBorzoiFighterDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  38 */ { NULL, aSxWarpGateHitbox, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  39 */ { aSxBaseWallTile1DL, aSxBaseWallTile1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  40 */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  41 */ { aSyShip1DL, aSyShip1Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  42 */ { aSyShip2DL, aSyShip2Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  43 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
     /*  44 */ { aSyShip3DL, aSyShip3Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  45 */ { D_ME_6017B60, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  46 */ { D_ZO_6004D00, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
-    /*  47 */ { D_ME_601A880, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  45 */ { aMeMeteor3DL, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  46 */ { aZoPatrolBoatDL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
+    /*  47 */ { aMeSecretMarker1DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  48 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  49 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  50 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  51 */ { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  52 */ { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  53 */ { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  54 */ { D_ENMY_SPACE_4000EC0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  55 */ { D_ENMY_SPACE_4008D50, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  51 */ { aSyRobot4DL, aSyRobot4Hitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  52 */ { NULL, aZoSarumarinePeriscopeHitbox, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  53 */ { aSxBaseWall4DL, aSxBaseWall4Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  54 */ { aGammaOnDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  55 */ { aGammaOffDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  56 */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, EISFX_GREATFOX_ENGINE, 0, 0.0f, 1 },
     /*  57 */ { aSyShip3DL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  58 */ { D_SY_601F3D0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  59 */ { D_SY_6022B10, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  60 */ { D_SY_60209F0, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  61 */ { D_ME_6019430, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  62 */ { D_ME_6018960, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  63 */ { D_ME_6009F50, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  58 */ { aSySaruzinDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  59 */ { aSyRobotSpriteSideDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  60 */ { aSyRobotSpriteFrontDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  61 */ { aMeMeteor4DL, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  62 */ { aMeMeteor5DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  63 */ { aMeBigMeteorDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  64 */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  65 */ { D_ME_600C2A0, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  66 */ { D_ME_600BD40, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  67 */ { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  65 */ { aMeMeteor6DL, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  66 */ { aMeSecretMarker2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  67 */ { NULL, aMeFlipBotHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  68 */ { aSyLaserTurretDL, aSyLaserTurretHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  69 */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  70 */ { D_SY_601AD70, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  70 */ { aSyDebrisDL, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  71 */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
     /*  72 */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  73 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  74 */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  75 */ { aSyShip2SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  76 */ { aSyShip3SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  77 */
-    { aSyShipProjectileDL, aSyShipProjectileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  77 */ { aSyShipMissileDL, aSyShipMissileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /*  78 */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
     /*  79 */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  81 */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  82 */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  83 */ { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
-    /*  84 */ { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  83 */ { NULL, aAqOysterEvHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
+    /*  84 */ { aVe1Pillar5DL, aVe1Pillar5Hitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  85 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
     /*  86 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  87 */ { D_VE1_900EFC0, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
-    /*  88 */ { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  89 */ { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  90 */ { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  91 */ { aMaGuillotineDL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  92 */ { D_WZ_7000C40, gWarpZoneEvent92Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  93 */ { D_WZ_70010E0, gWarpZoneEvent93Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  94 */ { D_WZ_7000E80, gWarpZoneEvent94Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  95 */ { D_WZ_70008F0, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /*  97 */ { D_ME_600AC70, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  87 */ { aVe1TempleBgDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /*  88 */ { NULL, aAqStarfishHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  89 */ { NULL, aAqShellHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  90 */ { aMaRailroadCartDL, aMaRailroadCartHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  91 */ { aMaGuillotine1DL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  92 */ { aWzPillar1DL, aWzPillar1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  93 */ { aWzPillar2DL, aWzPillar2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  94 */ { aWzMeteor1DL, aWzMeteor1Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  95 */ { aWzMeteor2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /*  96 */ { aWzGateDL, aWzGateHitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /*  97 */ { aMeMeteor7DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /*  98 */ { aMaBoulderDL, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
-    /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 100 */ { D_VE1_60043F0, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 101 */ { D_VE1_6004310, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 102 */ { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  99 */ { aVe1EnemyGateDL, aVe1EnemyGateHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* 100 */ { aVe1EnemyGateDoorRightDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* 101 */ { aVe1EnemyGateDoorLeftDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* 102 */ { aTrBarrierDL, aTrBarrierHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* 103 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
     /* 104 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
     /* 105 */ { NULL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
     /* 106 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ALIEN_FLY, 0, 0.0f, 0 },
-    /* 107 */ { D_MA_6002890, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* 107 */ { aMaGuillotine2DL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
 };
+
+// clang-format on
 
 static Color_RGBA32 sEventTexLineColors[6] = {
     // could be in-function
@@ -1218,7 +1221,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 switch (sEventActorInfo[this->eventType].sfx) {
                     case EISFX_EN_ENGINE_01:
                         if (!((gCurrentLevel == LEVEL_SOLAR) || (this->eventType == EVID_FIREBIRD) ||
-                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->eventType == EVID_8)))) {
+                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->eventType == EVID_VENOM_TANK)))) {
                             AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
                         }
                         break;
@@ -1248,7 +1251,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
                 if (this->info.unk_16 == 0) {
                     this->obj.rot.z = this->fwork[23] = this->rot_0F4.z;
-                    if (this->eventType != EVID_UMBRA_CLASS_STATION) {
+                    if (this->eventType != EVID_A6_UMBRA_STATION) {
                         this->rot_0F4.z = 0.0f;
                     }
                 }
@@ -2101,7 +2104,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
     if (ActorEvent_800700A4(this)) {
         return;
     }
-    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_METEO_FLIP_BOT) && (this->dmgPart == 0)) {
+    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_ME_FLIP_BOT) && (this->dmgPart == 0)) {
         this->dmgType = DMG_NONE;
     }
 
@@ -2146,9 +2149,10 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
 
                 if (((Rand_ZeroOne() < chance) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
-                    (this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
-                    (this->damage <= 30) && (this->eventType != EVID_62) && (this->eventType != EVID_ME_ROCK_GULL) &&
-                    (this->eventType != EVID_72) && (this->eventType != EVID_68)) {
+                    (this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_2) &&
+                    (this->eventType != EVID_ME_METEOR_4) && (this->damage <= 30) &&
+                    (this->eventType != EVID_ME_METEOR_5) && (this->eventType != EVID_ME_ROCK_GULL) &&
+                    (this->eventType != EVID_SY_SHIP_WINDOWS) && (this->eventType != EVID_SY_LASER_TURRET)) {
                     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                     this->dmgType = DMG_NONE;
                 }
@@ -2186,16 +2190,16 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                     }
 
-                    if (this->eventType == EVID_90) {
+                    if (this->eventType == EVID_MA_RAILROAD_CART) {
                         this->work_04C = 999;
                     }
                 } else {
                     switch (this->eventType) {
-                        case EVID_13:
+                        case EVID_ME_METEOR_1:
                             func_enmy_800654E4(&this->obj);
                             break;
 
-                        case EVID_61:
+                        case EVID_ME_METEOR_4:
                             Meteo_Effect346_Spawn(this);
                             break;
 
@@ -2237,12 +2241,13 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             }
 
-            if ((this->eventType != EVID_13) && (this->eventType != EVID_61) && (this->eventType != EVID_AQ_OYSTER)) {
+            if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_4) &&
+                (this->eventType != EVID_AQ_OYSTER)) {
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_TURRET)) &&
-                (this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_23)) {
+                (this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_VENOM_FIGHTER_3)) {
                 this->fwork[13] = 20.0f;
                 if (this->obj.pos.x < this->hitPos.x) {
                     this->fwork[13] *= -1.0f;
@@ -2298,12 +2303,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
             this->dmgType = DMG_BEAM;
-            if (this->eventType == EVID_13) {
+            if (this->eventType == EVID_ME_METEOR_1) {
                 this->obj.id = OBJ_ACTOR_ME_METEOR_2;
                 func_enmy_800654E4(&this->obj);
             }
 
-            if (this->eventType == EVID_61) {
+            if (this->eventType == EVID_ME_METEOR_4) {
                 Meteo_Effect346_Spawn(this);
             }
         }
@@ -2313,7 +2318,8 @@ void ActorEvent_800701E0(ActorEvent* this) {
 void ActorEvent_80070BA8(ActorEvent* this) {
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
-        if ((this->eventType != EVID_17) || ((this->eventType == EVID_17) && (this->dmgPart == 0))) {
+        if ((this->eventType != EVID_ZERAM_CLASS_CRUISER) ||
+            ((this->eventType == EVID_ZERAM_CLASS_CRUISER) && (this->dmgPart == 0))) {
             this->timer_0C6 = 10;
             Effect_Effect390_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
                                    this->vel.z, 0.2f, 10);
@@ -2863,17 +2869,17 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (this->eventType == EVID_30) {
+    if (this->eventType == EVID_A6_HARLOCK_FRIGATE) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1074) - 1.1f); // off by 1 error?
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1074[rInd], &sp38);
     }
 
-    if (this->eventType == EVID_17) {
+    if (this->eventType == EVID_ZERAM_CLASS_CRUISER) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D0DD4) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D0DD4[rInd], &sp38);
     }
 
-    if (this->eventType == EVID_UMBRA_CLASS_STATION) {
+    if (this->eventType == EVID_A6_UMBRA_STATION) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1194) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
@@ -3047,8 +3053,8 @@ void ActorEvent_Update(ActorEvent* this) {
         }
         return;
     }
-    if (((this->eventType == EVID_17) || (this->eventType == EVID_30) ||
-         (this->eventType == EVID_UMBRA_CLASS_STATION)) &&
+    if (((this->eventType == EVID_ZERAM_CLASS_CRUISER) || (this->eventType == EVID_A6_HARLOCK_FRIGATE) ||
+         (this->eventType == EVID_A6_UMBRA_STATION)) &&
         (this->health <= 0)) {
         ActorEvent_80071DC0(this);
         return;
@@ -3111,7 +3117,7 @@ void ActorEvent_Update(ActorEvent* this) {
             spEC = this->obj.pos.y;
             spE8 = this->obj.pos.z;
 
-            if ((this->eventType == EVID_CRUISER_GUN) || (this->eventType == EVID_68)) {
+            if ((this->eventType == EVID_CRUISER_GUN) || (this->eventType == EVID_SY_LASER_TURRET)) {
                 Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -3166,7 +3172,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
 
-                    if (this->eventType == EVID_68) {
+                    if (this->eventType == EVID_SY_LASER_TURRET) {
                         var_fv0 = 80.0f;
                     } else {
                         var_fv0 = 0.0f;
@@ -3400,10 +3406,12 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     if (this->fwork[10] > 0.0f) {
-        if ((this->eventType == EVID_13) || (this->eventType == EVID_14) || (this->eventType == EVID_61) ||
-            (this->eventType == EVID_62) || (this->eventType == EVID_63) || (this->eventType == EVID_ME_ROCK_GULL) ||
-            (this->eventType == EVID_65) || (this->eventType == EVID_66) || (this->eventType == EVID_94) ||
-            (this->eventType == EVID_95) || (this->eventType == EVID_97)) {
+        if ((this->eventType == EVID_ME_METEOR_1) || (this->eventType == EVID_ME_METEOR_2) ||
+            (this->eventType == EVID_ME_METEOR_4) || (this->eventType == EVID_ME_METEOR_5) ||
+            (this->eventType == EVID_ME_BIG_METEOR) || (this->eventType == EVID_ME_ROCK_GULL) ||
+            (this->eventType == EVID_ME_METEOR_6) || (this->eventType == EVID_ME_SECRET_MARKER_2) ||
+            (this->eventType == EVID_WZ_METEOR_1) || (this->eventType == EVID_WZ_METEOR_2) ||
+            (this->eventType == EVID_ME_METEOR_7)) {
             this->obj.rot.y -= this->fwork[11] * this->fwork[12];
             this->obj.rot.x += this->fwork[11] * this->fwork[12];
         } else {
@@ -3474,7 +3482,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
             if ((this->eventType < EVID_200) && (this->eventType != EVID_SUPPLY_CRATE) && (this->scale >= 0.5f)) {
                 switch (this->eventType) {
-                    case EVID_WING_REPAIR:
+                    case EVID_ITEM_WING_REPAIR:
                         ActorEvent_8006FE28(this);
                         break;
                     case EVID_ZO_BIRD:
@@ -3488,11 +3496,11 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
     switch (this->eventType) {
-        case EVID_92:
-        case EVID_93:
-        case EVID_94:
-        case EVID_95:
-        case EVID_96:
+        case EVID_WZ_PILLAR_1:
+        case EVID_WZ_PILLAR_2:
+        case EVID_WZ_METEOR_1:
+        case EVID_WZ_METEOR_2:
+        case EVID_WZ_GATE:
             if ((gGameFrameCount % 8) == 0) {
                 this->fwork[18] = RAND_FLOAT(255.0f);
                 this->fwork[19] = RAND_FLOAT(255.0f);
@@ -3503,7 +3511,7 @@ void ActorEvent_Update(ActorEvent* this) {
             Math_SmoothStepToF(&this->fwork[17], this->fwork[20], 1.0f, 10.0f, 0.0f);
             break;
 
-        case EVID_46:
+        case EVID_ZO_PATROL_BOAT:
             if (Play_CheckDynaFloorCollision(&spEC, &spFC, this->obj.pos.x, -100.0f, this->obj.pos.z)) {
                 spF0 = 10.0f;
 
@@ -3528,7 +3536,7 @@ void ActorEvent_Update(ActorEvent* this) {
             this->obj.rot.y = this->rot_0F4.y;
             break;
 
-        case EVID_UMBRA_CLASS_STATION:
+        case EVID_A6_UMBRA_STATION:
             this->obj.rot.z = gGameFrameCount;
             break;
 
@@ -3537,7 +3545,7 @@ void ActorEvent_Update(ActorEvent* this) {
             this->obj.rot.z = gGameFrameCount * 3.0f;
             break;
 
-        case EVID_3:
+        case EVID_SPY_EYE:
             this->drawShadow = true;
             this->obj.rot.y -= 10.0f;
             break;
@@ -3557,9 +3565,9 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_BUTTERFLY:
+        case EVID_TRIPOD:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&aButterflyAnim)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aTripodAnim)) {
                 this->animFrame = 0;
             }
             if (this->iwork[6] == 0) {
@@ -3834,13 +3842,13 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
 }
 
 void ActorEvent_DrawEVID_SX_WARP_GATE(ActorEvent* this) {
-    Vec3f sp30[10];
+    Vec3f frameTable[10];
 
-    Animation_GetFrameData(&D_SX_6013820, 0, sp30);
-    sp30[6].y += this->fwork[15];
-    sp30[5].z += this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    sp30[4].z -= this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    Animation_DrawSkeleton(1, D_SX_601390C, sp30, ActorEvent_OverrideLimbDraw2, NULL, this, &gIdentityMatrix);
+    Animation_GetFrameData(&D_SX_6013820, 0, frameTable);
+    frameTable[6].y += this->fwork[15];
+    frameTable[5].z += this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    frameTable[4].z -= this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_OverrideLimbDraw2, NULL, this, &gIdentityMatrix);
 }
 
 bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -3854,7 +3862,7 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
 
 s32 SyShipDebris_Draw(SyShipDebris* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
-    gSPDisplayList(gMasterDisp++, D_SY_601AD70);
+    gSPDisplayList(gMasterDisp++, aSyDebrisDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     return 0;
 }
@@ -3866,20 +3874,21 @@ void ActorEvent_Draw(ActorEvent* this) {
     s16 savedState;
     s32 pad;
 
-    if (this->timer_0C6 && (this->eventType != EVID_90) && (this->eventType != EVID_68) &&
-        (this->eventType != EVID_72)) {
-        if ((this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
-            (this->eventType != EVID_62) && (this->eventType != EVID_AQ_OYSTER) && (this->eventType != EVID_98) &&
-            (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&
-            (gPlayState != PLAY_PAUSE)) {
+    if (this->timer_0C6 && (this->eventType != EVID_MA_RAILROAD_CART) && (this->eventType != EVID_SY_LASER_TURRET) &&
+        (this->eventType != EVID_SY_SHIP_WINDOWS)) {
+        if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_2) &&
+            (this->eventType != EVID_ME_METEOR_4) && (this->eventType != EVID_ME_METEOR_5) &&
+            (this->eventType != EVID_AQ_OYSTER) && (this->eventType != EVID_MA_BOULDER) && (this->scale > 0.5f) &&
+            (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) && (gPlayState != PLAY_PAUSE)) {
             Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                    this->vel.z, this->scale * 0.07f, 3);
         }
 
-        if ((this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_23) &&
+        if ((this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_VENOM_FIGHTER_3) &&
             (this->eventType != EVID_ZO_BIRD) && (this->eventType != EVID_AQ_OYSTER) &&
-            (this->eventType != EVID_SX_LASER) && (this->eventType != EVID_51) && (this->eventType != EVID_13) &&
-            (this->eventType != EVID_72) && (this->eventType != EVID_28) && (this->scale > 0.5f)) {
+            (this->eventType != EVID_SX_LASER) && (this->eventType != EVID_SY_ROBOT_4) &&
+            (this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_SY_SHIP_WINDOWS) &&
+            (this->eventType != EVID_SX_WATCH_POST) && (this->scale > 0.5f)) {
             sp40 = SIN_DEG(this->timer_0C6 * 400.0f) * this->timer_0C6;
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
@@ -3893,9 +3902,10 @@ void ActorEvent_Draw(ActorEvent* this) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
-    if ((this->eventType == EVID_29) || (this->eventType == EVID_59) || (this->eventType == EVID_60)) {
+    if ((this->eventType == EVID_SX_SPACE_MINE) || (this->eventType == EVID_SY_ROBOT_SPRITE_SIDE) ||
+        (this->eventType == EVID_SY_ROBOT_SPRITE_FRONT)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    } else if ((this->eventType == EVID_MA_LASER_TURRET) || (this->eventType == EVID_90) ||
+    } else if ((this->eventType == EVID_MA_LASER_TURRET) || (this->eventType == EVID_MA_RAILROAD_CART) ||
                ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -3905,11 +3915,11 @@ void ActorEvent_Draw(ActorEvent* this) {
     }
 
     switch (this->eventType) {
-        case EVID_92:
-        case EVID_93:
-        case EVID_94:
-        case EVID_95:
-        case EVID_96:
+        case EVID_WZ_PILLAR_1:
+        case EVID_WZ_PILLAR_2:
+        case EVID_WZ_METEOR_1:
+        case EVID_WZ_METEOR_2:
+        case EVID_WZ_GATE:
             RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[15], (s32) this->fwork[16],
@@ -3960,7 +3970,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_GRANGA_FIGHTER:
+                case EVID_GRANGA_FIGHTER_2:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
@@ -3982,13 +3992,13 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_BUTTERFLY:
+                case EVID_TRIPOD:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&aButterflyAnim, this->animFrame, frameTable);
-                    Animation_DrawSkeleton(1, aButterflySkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_GetFrameData(&aTripodAnim, this->animFrame, frameTable);
+                    Animation_DrawSkeleton(1, aTripodSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
-                case EVID_SPY_EYE:
+                case EVID_SX_SPY_EYE:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
@@ -4045,10 +4055,10 @@ void ActorEvent_Draw(ActorEvent* this) {
                     }
                     break;
 
-                case EVID_UMBRA_CLASS_STATION:
+                case EVID_A6_UMBRA_STATION:
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, aA6UmbraClassStationDL);
+                    gSPDisplayList(gMasterDisp++, aA6UmbraStationDL);
                     break;
 
                 case EVID_CRUISER_GUN:
@@ -4102,7 +4112,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Matrix_Pop(&gGfxMatrix);
                     break;
 
-                case EVID_METEO_FLIP_BOT:
+                case EVID_ME_FLIP_BOT:
                     gSPDisplayList(gMasterDisp++, aMeFlipBot1DL);
                     RCP_SetupDL(&gMasterDisp, SETUPDL_53);
                     gSPDisplayList(gMasterDisp++, aMeFlipBot2DL);
@@ -4266,7 +4276,8 @@ void func_enmy2_800763A4(Actor* this) {
                 break;
         }
 
-        if (((this->timer_0BC % 4U) == 1) && (this->eventType != EVID_13) && (this->eventType != EVID_61)) {
+        if (((this->timer_0BC % 4U) == 1) && (this->eventType != EVID_ME_METEOR_1) &&
+            (this->eventType != EVID_ME_METEOR_4)) {
             func_effect_8007D24C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.2f);
         }
 
@@ -4411,7 +4422,7 @@ void func_enmy2_800763A4(Actor* this) {
                                  this->vel.z, 5.0f, 15);
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
             } else {
-                if ((this->eventType != EVID_13) && (this->eventType != EVID_61)) {
+                if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_4)) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
                                          this->scale * 5.0f);
                 }

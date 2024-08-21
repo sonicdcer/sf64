@@ -2568,7 +2568,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case 20:
-            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
+            gSPDisplayList(gMasterDisp++, aCommanderDL);
             break;
 
         case 24:
@@ -2591,7 +2591,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case 28:
-            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
+            gSPDisplayList(gMasterDisp++, aCommanderDL);
             Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, MTXF_APPLY);
             Actor_DrawEngineGlow(this, EG_GREEN);
             break;

@@ -401,7 +401,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     }
                     if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->rot_0F4.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->eventType != EVID_UMBRA_CLASS_STATION)) {
+                        (actor->eventType != EVID_A6_UMBRA_STATION)) {
                         Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->rot_0F4.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -698,7 +698,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
          ((actor->eventType == EVID_SY_ROBOT_1) || (actor->eventType == EVID_SY_ROBOT_2) ||
           (actor->eventType == EVID_SY_ROBOT_3))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->eventType == EVID_METEO_FLIP_BOT)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->eventType == EVID_ME_FLIP_BOT)) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_SCULPIN) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_GAROA) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {
@@ -775,13 +775,13 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                         }
                         break;
                     case OBJ_ACTOR_EVENT:
-                        if (actor->eventType == EVID_42) {
+                        if (actor->eventType == EVID_SY_SHIP_2) {
                             if (PlayerShot_CheckPolyCollision(shot, ACTOR_EVENT_ID, &actor->obj)) {
                                 actor->dmgType = DMG_BEAM;
                                 actor->dmgPart = shot->sourceId;
                                 return;
                             }
-                        } else if (actor->eventType == EVID_63) {
+                        } else if (actor->eventType == EVID_ME_BIG_METEOR) {
                             test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
                             test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
                             test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);

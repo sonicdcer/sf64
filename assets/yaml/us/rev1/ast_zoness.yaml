@@ -84,8 +84,8 @@ D_ZO_6004A70:
 D_ZO_6004B00:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6004B00, symbol: D_ZO_6004B00}
 
-D_ZO_6004D00:
-  { type: GFX, offset: 0x6004D00, symbol: D_ZO_6004D00}
+aZoPatrolBoatDL:
+  { type: GFX, offset: 0x6004D00, symbol: aZoPatrolBoatDL}
 
 D_ZO_6005958:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6005958, symbol: D_ZO_6005958}
@@ -535,8 +535,8 @@ D_ZO_602C028:
 aZoSarumarineHitbox:
   { type: SF64:HITBOX, offset: 0x602C044, symbol: aZoSarumarineHitbox}
 
-D_ZO_602C1A0:
-  { type: SF64:HITBOX, offset: 0x602C1A0, symbol: D_ZO_602C1A0}
+aZoSarumarinePeriscopeHitbox:
+  { type: SF64:HITBOX, offset: 0x602C1A0, symbol: aZoSarumarinePeriscopeHitbox}
 
 aZoCargoShipHitbox:
   { type: SF64:HITBOX, offset: 0x602C1D4, symbol: aZoCargoShipHitbox}

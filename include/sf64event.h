@@ -1,3 +1,32 @@
+/**
+ * Glossary:
+ * EVID: Event ID
+ * EVACT: Event Action
+ * EVOP: Event Opcode
+ * EVC: Event Condition
+ * EVSTATE: Event State
+ * 
+ * Level Prefixes:
+ * CO: Corneria
+ * ME: Meteo
+ * SX: Sector X
+ * SY: Sector Y
+ * SZ: Sector Z
+ * KA: Katina
+ * AQ: Aquas
+ * A6: Area 6
+ * FO: Fortuna
+ * SO: Solar
+ * MA: Macbeth
+ * TI: Titania
+ * BO: Bolse
+ * ZO: Zoness
+ * VE1: Venom 1
+ * VE2: Venom 2
+ * AND: Venom Andross
+ * WZ: Warpzone
+ */
+
 #ifndef SF64_EVENT
 #define SF64_EVENT
 
@@ -300,118 +329,118 @@ typedef enum EventAction {
     /* 16 */ EVACT_16,
     /* 17 */ EVACT_17,
     /* 18 */ EVACT_GFOX_COVER_FIRE,
-    /* 19 */ EVACT_19,
+    /* 19 */ EVACT_19,  // projectile ring used by bee enemies
 } EventAction;
 
 typedef enum EventActorId {
     /*   0 */ EVID_VENOM_FIGHTER_1,
-    /*   1 */ EVID_1,
+    /*   1 */ EVID_VENOM_FIGHTER_2,
     /*   2 */ EVID_ME_SLIPPY,
-    /*   3 */ EVID_3,
-    /*   4 */ EVID_4,
-    /*   5 */ EVID_GRANGA_FIGHTER, // Also called Dragon II in the jp Player's Guide
+    /*   3 */ EVID_SPY_EYE, // jp name: Sunfish II
+    /*   4 */ EVID_GRANGA_FIGHTER_1, // jp name: Dragon
+    /*   5 */ EVID_GRANGA_FIGHTER_2, // jp name: Dragon II
     /*   6 */ EVID_FIREBIRD, // Handles Firebird from Corneria and Gore from Solar
     /*   7 */ EVID_CORNERIAN_FIGHTER, // Seems unused?
-    /*   8 */ EVID_8,
-    /*   9 */ EVID_BUTTERFLY,
-    /*  10 */ EVID_10,
-    /*  11 */ EVID_11,
-    /*  12 */ EVID_12,
-    /*  13 */ EVID_13,
-    /*  14 */ EVID_14,
-    /*  15 */ EVID_15,
-    /*  16 */ EVID_16,
-    /*  17 */ EVID_17,
-    /*  18 */ EVID_SPY_EYE,
+    /*   8 */ EVID_VENOM_TANK,
+    /*   9 */ EVID_TRIPOD, // jp name: Butterfly
+    /*  10 */ EVID_ATTACKER_1,
+    /*  11 */ EVID_ATTACKER_2,
+    /*  12 */ EVID_ATTACKER_3,
+    /*  13 */ EVID_ME_METEOR_1,
+    /*  14 */ EVID_ME_METEOR_2,
+    /*  15 */ EVID_COMMANDER,
+    /*  16 */ EVID_SPIDER,
+    /*  17 */ EVID_ZERAM_CLASS_CRUISER,
+    /*  18 */ EVID_SX_SPY_EYE, // jp name: Sunfish I
     /*  19 */ EVID_SX_CANINE,
     /*  20 */ EVID_SPACE_MINE,
     /*  21 */ EVID_A6_NINJIN_MISSILE,
     /*  22 */ EVID_A6_ROCKET,
-    /*  23 */ EVID_23,
-    /*  24 */ EVID_24,
-    /*  25 */ EVID_25,
-    /*  26 */ EVID_26,
+    /*  23 */ EVID_VENOM_FIGHTER_3,
+    /*  24 */ EVID_SX_BASE_DEBRIS_1,
+    /*  25 */ EVID_SX_BASE_WALL_1,
+    /*  26 */ EVID_SX_BASE_DEBRIS_2,
     /*  27 */ EVID_SX_LASER,
-    /*  28 */ EVID_28,
-    /*  29 */ EVID_29,
-    /*  30 */ EVID_30,
-    /*  31 */ EVID_UMBRA_CLASS_STATION,
-    /*  32 */ EVID_32,
+    /*  28 */ EVID_SX_WATCH_POST, // Invented name
+    /*  29 */ EVID_SX_SPACE_MINE,
+    /*  30 */ EVID_A6_HARLOCK_FRIGATE,
+    /*  31 */ EVID_A6_UMBRA_STATION,
+    /*  32 */ EVID_SX_BASE_FLOOR_1,
     /*  33 */ EVID_CRUISER_GUN, // Guns located on Zeram-class Cruisers
-    /*  34 */ EVID_34,
-    /*  35 */ EVID_35,
+    /*  34 */ EVID_SX_BASE_WALL_2,
+    /*  35 */ EVID_SX_BASE_WALL_3,
     /*  36 */ EVID_TI_BOMBER, // Bird-like ship that drops land mines
-    /*  37 */ EVID_37,
+    /*  37 */ EVID_SX_BORZOI_FIGHTER,
     /*  38 */ EVID_SX_WARP_GATE,
-    /*  39 */ EVID_39,
+    /*  39 */ EVID_SX_BASE_WALL_TILE_1,
     /*  40 */ EVID_EVENT_HANDLER,
-    /*  41 */ EVID_41,
-    /*  42 */ EVID_42,
+    /*  41 */ EVID_SY_SHIP_1,
+    /*  42 */ EVID_SY_SHIP_2,
     /*  43 */ EVID_TEAMMATE,
-    /*  44 */ EVID_44,
-    /*  45 */ EVID_45,
-    /*  46 */ EVID_46,
-    /*  47 */ EVID_47,
+    /*  44 */ EVID_SY_SHIP_3,
+    /*  45 */ EVID_ME_METEOR_3,
+    /*  46 */ EVID_ZO_PATROL_BOAT,
+    /*  47 */ EVID_ME_SECRET_MARKER_1, // Metal spheres that mark secret items. Invented name
     /*  48 */ EVID_SY_ROBOT_1,
     /*  49 */ EVID_SY_ROBOT_2,
     /*  50 */ EVID_SY_ROBOT_3,
-    /*  51 */ EVID_51,
+    /*  51 */ EVID_SY_ROBOT_4, // Unclear as to whether it's used or not, only it's hitbox gets used in code
     /*  52 */ EVID_SARUMARINE_PERISCOPE,
-    /*  53 */ EVID_53,
-    /*  54 */ EVID_54,
-    /*  55 */ EVID_55,
-    /*  56 */ EVID_TI_GREAT_FOX,
-    /*  57 */ EVID_57,
-    /*  58 */ EVID_58,
-    /*  59 */ EVID_59,
-    /*  60 */ EVID_60,
-    /*  61 */ EVID_61,
-    /*  62 */ EVID_62,
-    /*  63 */ EVID_63,
+    /*  53 */ EVID_SX_BASE_WALL_4,
+    /*  54 */ EVID_GAMMA_ON, // Andross Army Gamma-Off Formation Leader (Orange Andross Fighter)
+    /*  55 */ EVID_GAMMA_OFF, // Blue Andross Fighter
+    /*  56 */ EVID_TI_GREAT_FOX, // Great Fox that flees after the intro cutscene
+    /*  57 */ EVID_SY_SHIP_3_2, // Another variant of EVID_SY_SHIP_3 without a hitbox, seems unused?
+    /*  58 */ EVID_SY_SARUZIN, // flagship of Sector Y, base of the Shogun Boss
+    /*  59 */ EVID_SY_ROBOT_SPRITE_SIDE, // Robot sprites that appear in Sector Y's background, side variant
+    /*  60 */ EVID_SY_ROBOT_SPRITE_FRONT, // Robot sprites that appear in Sector Y's background, front variant
+    /*  61 */ EVID_ME_METEOR_4,
+    /*  62 */ EVID_ME_METEOR_5,
+    /*  63 */ EVID_ME_BIG_METEOR, // Big meteor that bounces in Meteo
     /*  64 */ EVID_ME_ROCK_GULL, // Enemy laser turret inside a meteorite
-    /*  65 */ EVID_65,
-    /*  66 */ EVID_66,
-    /*  67 */ EVID_METEO_FLIP_BOT,
-    /*  68 */ EVID_68,
-    /*  69 */ EVID_69,
-    /*  70 */ EVID_70,
-    /*  71 */ EVID_WING_REPAIR,
-    /*  72 */ EVID_72,
-    /*  73 */ EVID_73,
-    /*  74 */ EVID_74,
-    /*  75 */ EVID_75,
-    /*  76 */ EVID_76,
-    /*  77 */ EVID_77,
+    /*  65 */ EVID_ME_METEOR_6,
+    /*  66 */ EVID_ME_SECRET_MARKER_2, // Metal spheres that mark secret items. Invented name
+    /*  67 */ EVID_ME_FLIP_BOT,
+    /*  68 */ EVID_SY_LASER_TURRET,
+    /*  69 */ EVID_SY_SHIP_DESTROYED,
+    /*  70 */ EVID_SY_DEBRIS, // Sprite portraying small pieces of debris. Seems unused
+    /*  71 */ EVID_ITEM_WING_REPAIR,
+    /*  72 */ EVID_SY_SHIP_WINDOWS,
+    /*  73 */ EVID_SY_SHIP_4,
+    /*  74 */ EVID_SY_SHIP_4_DESTROYED,
+    /*  75 */ EVID_SY_SHIP_2_SPRITE, // Unused
+    /*  76 */ EVID_SY_SHIP_3_SPRITE, // Unused
+    /*  77 */ EVID_SY_SHIP_MISSILE,
     /*  78 */ EVID_SUPPLY_CRATE,
     /*  79 */ EVID_ZO_BIRD,
     /*  80 */ EVID_VE1_PILLAR,
     /*  81 */ EVID_VE1_BLOCKER,
     /*  82 */ EVID_MA_LASER_TURRET,
     /*  83 */ EVID_AQ_OYSTER,
-    /*  84 */ EVID_84,
+    /*  84 */ EVID_VE1_PILLAR_5,
     /*  85 */ EVID_BILL,
     /*  86 */ EVID_KATT,
-    /*  87 */ EVID_87,
+    /*  87 */ EVID_VE1_TEMPLE_BG, // Background used inside Venom 1 temple to hide drawing popup
     /*  88 */ EVID_AQ_STARFISH,
     /*  89 */ EVID_AQ_SHELL,
-    /*  90 */ EVID_90,
-    /*  91 */ EVID_91,
-    /*  92 */ EVID_92, // Warpzone related
-    /*  93 */ EVID_93, // Warpzone related
-    /*  94 */ EVID_94, // Warpzone related
-    /*  95 */ EVID_95, // Warpzone related
-    /*  96 */ EVID_96, // Warpzone related
-    /*  97 */ EVID_97,
-    /*  98 */ EVID_98,
-    /*  99 */ EVID_99,
-    /* 100 */ EVID_100,
-    /* 101 */ EVID_101,
+    /*  90 */ EVID_MA_RAILROAD_CART,
+    /*  91 */ EVID_MA_GUILLOTINE_1,
+    /*  92 */ EVID_WZ_PILLAR_1,
+    /*  93 */ EVID_WZ_PILLAR_2,
+    /*  94 */ EVID_WZ_METEOR_1,
+    /*  95 */ EVID_WZ_METEOR_2,
+    /*  96 */ EVID_WZ_GATE,
+    /*  97 */ EVID_ME_METEOR_7,
+    /*  98 */ EVID_MA_BOULDER,
+    /*  99 */ EVID_VE1_ENEMY_GATE, // Gate in Venom 1 for outcoming enemies
+    /* 100 */ EVID_ENEMY_GATE_DOOR_RIGHT,
+    /* 101 */ EVID_ENEMY_GATE_DOOR_LEFT,
     /* 102 */ EVID_TR_BARRIER,
     /* 103 */ EVID_ANDROSS_GATE,
     /* 104 */ EVID_ANDROSS_GATE_2,
     /* 105 */ EVID_SX_WARP_ENMY,
     /* 106 */ EVID_KILLER_BEE,
-    /* 107 */ EVID_MA_SHOT_GATE,
+    /* 107 */ EVID_MA_GUILLOTINE_2, // Variant of the Macbeth Guillotine that can be shot at to be opened
     /* 200 */ EVID_200 = 200,
     /* 300 */ EVID_300 = 300,
     /* 4095*/ EVID_FFF = 4095,

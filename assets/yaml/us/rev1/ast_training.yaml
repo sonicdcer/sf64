@@ -25,8 +25,8 @@ D_TR_6000900:
 D_TR_6001820:
   { type: TEXTURE, format: RGBA16, offset: 0x6001820, width: 44, height: 44, ctype: u16, symbol: D_TR_6001820 }
 
-D_TR_6002740:
-  { type: GFX, offset: 0x6002740, symbol: D_TR_6002740 }
+aTrBarrierDL:
+  { type: GFX, offset: 0x6002740, symbol: aTrBarrierDL }
 
 D_TR_60028F0:
   { type: TEXTURE, format: RGBA16, offset: 0x060028F0, width: 32, height: 32, ctype: u16, symbol: D_TR_60028F0 }
@@ -82,7 +82,7 @@ aTrBuildingHitbox:
 aItemTrainingRingHitbox:
   { type: SF64:HITBOX, offset: 0x6009CFC, symbol: aItemTrainingRingHitbox }
 
-D_TR_6009D18:
-  { type: SF64:HITBOX, offset: 0x6009D18, symbol: D_TR_6009D18 }
+aTrBarrierHitbox:
+  { type: SF64:HITBOX, offset: 0x6009D18, symbol: aTrBarrierHitbox }
 
 # size = 0x9D40

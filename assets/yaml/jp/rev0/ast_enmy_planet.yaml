@@ -15,14 +15,14 @@ D_ENMY_PLANET_4000290:
 ast_enmy_planet_seg4_vtx_8F8:
   { type: VTX, count: 90, offset: 0x40008F8, symbol: ast_enmy_planet_seg4_vtx_8F8 }
 
-aButterflyAnim:
-  { type: SF64:ANIM, offset: 0x40001A4, symbol: aButterflyAnim }
+aTripodAnim:
+  { type: SF64:ANIM, offset: 0x40001A4, symbol: aTripodAnim }
 
-aButterflySkel:
-  { type: SF64:SKELETON, offset: 0x4000270, symbol: aButterflySkel }
+aTripodSkel:
+  { type: SF64:SKELETON, offset: 0x4000270, symbol: aTripodSkel }
 
-D_ENMY_PLANET_4000710:
-  { type: GFX, offset: 0x4000710, symbol: D_ENMY_PLANET_4000710 }
+aVenomTankDL:
+  { type: GFX, offset: 0x4000710, symbol: aVenomTankDL }
 
 D_ENMY_PLANET_4001298:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001298, symbol: D_ENMY_PLANET_4001298 }
@@ -84,14 +84,14 @@ D_ENMY_PLANET_40066E8:
 aVenomFighter1DL:
   { type: GFX, offset: 0x40068F0, symbol: aVenomFighter1DL }
 
-D_ENMY_PLANET_4006E90:
-  { type: GFX, offset: 0x4006E90, symbol: D_ENMY_PLANET_4006E90 }
+aVenomFighter2DL:
+  { type: GFX, offset: 0x4006E90, symbol: aVenomFighter2DL }
 
-D_ENMY_PLANET_40073C0:
-  { type: GFX, offset: 0x40073C0, symbol: D_ENMY_PLANET_40073C0 }
+aGrangaFighter1DL:
+  { type: GFX, offset: 0x40073C0, symbol: aGrangaFighter1DL }
 
-aGrangaFighterDL:
-  { type: GFX, offset: 0x4007AF0, symbol: aGrangaFighterDL }
+aGrangaFighter2DL:
+  { type: GFX, offset: 0x4007AF0, symbol: aGrangaFighter2DL }
 
 D_ENMY_PLANET_4008100:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04008100, symbol: D_ENMY_PLANET_4008100 }
@@ -108,5 +108,5 @@ D_ENMY_PLANET_4008FF8:
 D_ENMY_PLANET_4008F70:
   { type: GFX, offset: 0x4008F70, symbol: D_ENMY_PLANET_4008F70 }
 
-D_ENMY_PLANET_4009800:
-  { type: GFX, offset: 0x4009800, symbol: D_ENMY_PLANET_4009800 }
+aSpyEyeDL:
+  { type: GFX, offset: 0x4009800, symbol: aSpyEyeDL }
