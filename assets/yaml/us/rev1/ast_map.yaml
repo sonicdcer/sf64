@@ -412,8 +412,8 @@ D_MAP_604A8D8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x0604A8D8, symbol: D_MAP_604A8D8 }
 
 # Arwing Model, used in the map.
-D_MAP_604A9F0:
-  { type: GFX, offset: 0x604A9F0, symbol: D_MAP_604A9F0 }
+aMapArwingDL:
+  { type: GFX, offset: 0x604A9F0, symbol: aMapArwingDL }
 
 ast_map_seg6_vtx_4AD50:
   { type: VTX, offset: 0x604AD50, count: 124, symbol: ast_map_seg6_vtx_4AD50 }

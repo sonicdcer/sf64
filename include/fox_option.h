@@ -3,46 +3,43 @@
 
 #include "global.h"
 
-//! TODO: RENAME. Member names inferred by Option_DrawCardLabel.
 typedef struct {
-    /* 0x00 */ s32 unk_00; // type
+    /* 0x00 */ s32 type;
     /* 0x04 */ s32 unk_04;
-    /* 0x08 */ void* unk_08; // texture
-    /* 0x0C */ u16* unk_0C; // palette
-    /* 0x10 */ s32 unk_10; // width
-    /* 0x14 */ s32 unk_14; // height
-    /* 0x18 */ f32 unk_18; // xPos
-    /* 0x1C */ f32 unk_1C; // yPos
-    /* 0x20 */ f32 unk_20; // xScale
-    /* 0x24 */ f32 unk_24; // yScale
-    /* 0x28 */ s32 unk_28; // red
-    /* 0x2C */ s32 unk_2C; // green
-    /* 0x30 */ s32 unk_30; // blue
-    /* 0x34 */ s32 unk_34; // alpha
+    /* 0x08 */ void* texture;
+    /* 0x0C */ u16* palette;
+    /* 0x10 */ s32 width;
+    /* 0x14 */ s32 height;
+    /* 0x18 */ f32 xPos;
+    /* 0x1C */ f32 yPos;
+    /* 0x20 */ f32 xScale;
+    /* 0x24 */ f32 yScale;
+    /* 0x28 */ s32 red;
+    /* 0x2C */ s32 green;
+    /* 0x30 */ s32 blue;
+    /* 0x34 */ s32 alpha;
 } OptionTexture; // size = 0x38
 
-//! TODO: RENAME. Member names inferred by Option_DrawMenuCard
 typedef struct {
-    /* 0x00 */ f32 unk_00; // x
-    /* 0x04 */ f32 unk_04; // y
-    /* 0x08 */ f32 unk_08; // z
-    /* 0x0C */ f32 unk_0C; // xScale
-    /* 0x10 */ f32 unk_10; // yScale
+    /* 0x00 */ f32 x;
+    /* 0x04 */ f32 y;
+    /* 0x08 */ f32 z;
+    /* 0x0C */ f32 xScale;
+    /* 0x10 */ f32 yScale;
 } MenuContext_38; // size = 0x14
 
-//! TODO: RENAME. Member names inferred by Option_DrawMenuArwing
 typedef struct {
-    /* 0x0 */ f32 unk_0; // x
-    /* 0x4 */ f32 unk_4; // y
-    /* 0x8 */ f32 unk_8; // range
+    /* 0x0 */ f32 x;
+    /* 0x4 */ f32 y;
+    /* 0x8 */ f32 range;
 } ArwingPosition; // size = 0xC
 
 typedef struct {
     /* 0x00 */ OptionTexture unk_00;
     /* 0x38 */ MenuContext_38 unk_38;
     /* 0x4C */ ArwingPosition unk_4C;
-    /* 0x58 */ s32 unk_58;
-    /* 0x5C */ s32 unk_5C;
+    /* 0x58 */ bool unk_58;
+    /* 0x5C */ bool unk_5C;
 } OptionEntry; // size = 0x60
 
 typedef struct {
@@ -57,22 +54,22 @@ typedef struct {
 } UnkStruct_D_menu_801B9250;
 
 typedef enum OptionId {
-    OPTION_MAIN_MENU = 1000,
-    OPTION_VERSUS_STAGE = 2000,
-    OPTION_MAP = 0,
-    OPTION_TRAINING = 1,
-    OPTION_VERSUS = 2,
-    OPTION_RANKING = 3,
-    OPTION_SOUND = 4,
-    OPTION_DATA = 5,
-    OPTION_EXPERT_SOUND = 6,
-    OPTION_POINT_MATCH = 10,
-    OPTION_BR_MATCH = 20,
-    OPTION_TT_MATCH = 30,
-    OPTION_NAME = 200,
-    OPTION_SCORE = 300,
-    OPTION_INVOICE = 400,
-    OPTION_MAX,
+    /* 1000 */ OPTION_MAIN_MENU = 1000,
+    /* 2000 */ OPTION_VERSUS_STAGE = 2000,
+    /*    0 */ OPTION_MAP = 0,
+    /*    1 */ OPTION_TRAINING = 1,
+    /*    2 */ OPTION_VERSUS = 2,
+    /*    3 */ OPTION_RANKING = 3,
+    /*    4 */ OPTION_SOUND = 4,
+    /*    5 */ OPTION_DATA = 5,
+    /*    6 */ OPTION_EXPERT_SOUND = 6,
+    /*   10 */ OPTION_POINT_MATCH = 10,
+    /*   20 */ OPTION_BR_MATCH = 20,
+    /*   30 */ OPTION_TT_MATCH = 30,
+    /*  200 */ OPTION_NAME = 200,
+    /*  300 */ OPTION_SCORE = 300,
+    /*  400 */ OPTION_INVOICE = 400,
+    /*  401 */ OPTION_MAX,
 } OptionId;
 
 #define OPTION_COUNT ARRAY_COUNT(sOptionCardList)
@@ -81,7 +78,7 @@ extern u8* D_menu_801B68B0[];
 extern u8* D_menu_801B68D4[];
 
 extern s32 D_menu_801B8220[]; // total hits ranking? see Option_80197DE4
-extern s32 D_menu_801B827C; // engine
+extern s32 D_menu_801B827C;   // engine
 extern s32 D_menu_801B8280;
 extern s32 D_menu_801B8284;
 extern s32 D_menu_801B8288;
@@ -98,7 +95,7 @@ extern u8 D_menu_801C9010[96 * 96];
 extern u8 D_menu_801CB410[96 * 96];
 
 void Title_UpdateEntry(void);
- s32 Title_80187ABC(void);
+s32 Title_80187ABC(void);
 void Title_80187B00(void);
 void Title_80187E28(void);
 void Title_801888E8(void);
@@ -194,14 +191,15 @@ void Option_8019B8A0(s32 arg0);
 void Option_8019B8C8(void);
 void Option_DrawMenuLabel(void);
 void Option_DrawMenuCard(MenuContext_38 arg0);
-void Option_DrawMenuArwing(ArwingPosition arg0);
-void Option_8019BC44(f32, f32, f32, f32, f32, f32);
+void Option_DrawMenuArwing(ArwingPosition arwing);
+void Option_DrawArwing(f32, f32, f32, f32, f32, f32);
 void Option_8019BDF0(void);
-void Option_8019BE7C(f32, f32, f32, f32 *, f32 *, f32 *);
+void Option_8019BE7C(f32, f32, f32, f32*, f32*, f32*);
 void Option_8019BF34(void);
 void Option_8019C04C(void);
-void Option_DrawCardLabel(OptionTexture arg0);
-bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, UnkStruct_D_menu_801B9250* arg8);
+void Option_DrawCardLabel(OptionTexture tex);
+bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                     UnkStruct_D_menu_801B9250* arg8);
 s32 Option_8019C5A0(s32*);
 bool Option_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_menu_801B9250* arg3);
 void Option_8019C824(f32*);

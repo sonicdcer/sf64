@@ -2353,13 +2353,13 @@ void ActorEvent_TriggerBranch(ActorEvent* this) {
 
 void ActorEvent_ProcessTriggers(ActorEvent* this) {
     s32 i;
-    s32 var_v1 = 0;
+    s32 teamAliveCount = 0;
     s32 ringRequirement;
     Actor* otherActor;
 
     for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
         if (gTeamShields[i] > 0) {
-            var_v1++;
+            teamAliveCount++;
         }
     }
 
@@ -2382,25 +2382,25 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_TEAM_COUNT_3:
-            if (var_v1 == 3) {
+            if (teamAliveCount == 3) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_2:
-            if (var_v1 == 2) {
+            if (teamAliveCount == 2) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_1:
-            if (var_v1 == 1) {
+            if (teamAliveCount == 1) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_0:
-            if (var_v1 == 0) {
+            if (teamAliveCount == 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;

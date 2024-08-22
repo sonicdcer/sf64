@@ -295,8 +295,8 @@ void ActorAllRange_SetShadowData(Actor* this) {
     Vec3f temp1;
     f32 temp4;
     f32 temp5;
-    Vec3f spE4;
-    Vec3f spD8;
+    Vec3f src;
+    Vec3f dest;
     Vec3f spCC;
     Vec3f spC0;
     Vec3f spB4;
@@ -306,6 +306,7 @@ void ActorAllRange_SetShadowData(Actor* this) {
     s32 pad[2];
 
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
+
     if (this->drawShadow && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
@@ -321,17 +322,17 @@ void ActorAllRange_SetShadowData(Actor* this) {
                 temp4 = scenery360->obj.rot.y;
 
                 Matrix_RotateY(gCalcMatrix, -temp4 * M_DTOR, MTXF_NEW);
-                spE4.x = this->obj.pos.x - temp1.x;
-                spE4.y = 0.0f;
-                spE4.z = this->obj.pos.z - temp1.z;
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &spE4, &spD8);
+                src.x = this->obj.pos.x - temp1.x;
+                src.y = 0.0f;
+                src.z = this->obj.pos.z - temp1.z;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 spC0.x = temp1.x;
                 spC0.y = temp1.y;
 
-                spCC.x = spD8.x + temp1.x;
+                spCC.x = dest.x + temp1.x;
                 spC0.z = temp1.z; // fake? weird ordering
-                spCC.y = spD8.y + temp1.y;
-                spCC.z = spD8.z + temp1.z;
+                spCC.y = dest.y + temp1.y;
+                spCC.z = dest.z + temp1.z;
 
                 if ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
                     (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3)) {
@@ -618,7 +619,11 @@ void ActorAllRange_UpdateEnemyEvents(Actor* this) {
             ActorAllRange* enemy2;
             s32 j;
 
+#ifdef AVOID_UB
+            for (j = 0, enemy2 = &gActors[AI360_ENEMY]; j < 50; j++, enemy2++) {
+#else
             for (j = 0, enemy2 = &gActors[AI360_ENEMY]; j <= 50; j++, enemy2++) { // bug? should be <
+#endif
                 if ((enemy2->obj.status == OBJ_ACTIVE) && (enemy2->state == STATE360_2) &&
                     (enemy2->aiIndex == enemy->aiIndex)) {
                     return;
@@ -742,7 +747,14 @@ void ActorAllRange_UpdateEvents(Actor* this) {
     ActorAllRange_SpawnSupplies(this);
 }
 
-s32 func_360_800301F4(Actor* this) {
+/**
+ *  Checks whether an actor is close to Scenery objects or Bosses in Space Levels.
+ *  Return values:
+ *  1: Object nearby is found below the actor
+ * -1: Object nearby is found above the actor
+ *  0: No objects found
+ */
+s32 ActorAllRange_CheckObjectNearbySpace(Actor* this) {
     Boss* boss;
     f32 temp_ft4;
     f32 temp_ft5;
@@ -775,6 +787,7 @@ s32 func_360_800301F4(Actor* this) {
     }
 
     boss = &gBosses[0];
+    // Check if the actor is close to the Great Fox in Sector Z.
     if ((gCurrentLevel == LEVEL_SECTOR_Z) && (fabsf(boss->obj.pos.x - (this->obj.pos.x + temp_ft4)) < 2000.0f) &&
         (fabsf(boss->obj.pos.z - (this->obj.pos.z + temp_ft5)) < 2000.0f)) {
         if (fabsf(boss->obj.pos.y - this->obj.pos.y) < 1500.0f) {
@@ -788,15 +801,22 @@ s32 func_360_800301F4(Actor* this) {
     return 0;
 }
 
-s32 func_360_8003049C(ActorAllRange* this) {
+/**
+ *  Checks whether an actor is close to Scenery objects or specific Bosses.
+ *  Return values:
+ *  1: Object nearby is found below the actor
+ * -1: Object nearby is found above the actor
+ *  0: No objects found
+ */
+s32 ActorAllRange_CheckObjectNearby(ActorAllRange* this) {
     Scenery360* scenery360;
     s32 i;
-    f32 sp44;
-    f32 sp40;
-    f32 sp3C;
-    f32 temp_fa0;
-    f32 temp_ft4;
-    f32 var_ft5;
+    f32 distThreshold;
+    f32 sinRotY;
+    f32 cosRotY;
+    f32 xOffset;
+    f32 zOffset;
+    f32 yDistThreshold;
     Boss* boss = &gBosses[0];
     s32 pad[4];
 
@@ -805,45 +825,45 @@ s32 func_360_8003049C(ActorAllRange* this) {
     }
 
     if ((gLevelType == LEVELTYPE_SPACE) && (gCurrentLevel != LEVEL_BOLSE)) {
-        return func_360_800301F4(this);
+        return ActorAllRange_CheckObjectNearbySpace(this);
     }
 
-    sp40 = SIN_DEG(this->obj.rot.y);
-    sp3C = COS_DEG(this->obj.rot.y);
+    sinRotY = SIN_DEG(this->obj.rot.y);
+    cosRotY = COS_DEG(this->obj.rot.y);
 
-    temp_fa0 = this->fwork[9] * 10.0f + (sp40 * 650.0f);
-    temp_ft4 = this->fwork[9] * 10.0f + (sp3C * 650.0f);
+    xOffset = this->fwork[9] * 10.0f + (sinRotY * 650.0f);
+    zOffset = this->fwork[9] * 10.0f + (cosRotY * 650.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
-                (fabsf(scenery360->obj.pos.x - (this->obj.pos.x + temp_fa0)) < 1200.0f) &&
-                (fabsf(scenery360->obj.pos.z - (this->obj.pos.z + temp_ft4)) < 1200.0f) && (this->obj.pos.y < 650.0f)) {
+                (fabsf(scenery360->obj.pos.x - (this->obj.pos.x + xOffset)) < 1200.0f) &&
+                (fabsf(scenery360->obj.pos.z - (this->obj.pos.z + zOffset)) < 1200.0f) && (this->obj.pos.y < 650.0f)) {
                 return 1;
             }
         }
     }
 
-    sp44 = 1200.0f;
-    var_ft5 = 650.0f;
+    distThreshold = 1200.0f;
+    yDistThreshold = 650.0f;
 
-    if (this->aiType < AI360_KATT) {
-        var_ft5 = 720.0f;
+    if (this->aiType <= AI360_ANDREW) {
+        yDistThreshold = 720.0f;
     }
 
     if (boss->obj.id == OBJ_BOSS_CO_CARRIER) {
-        var_ft5 = 350.0f;
+        yDistThreshold = 350.0f;
     } else if (boss->obj.id == OBJ_BOSS_BO_BASE) {
-        sp44 = 2000.0f;
-        var_ft5 = 750.0f;
+        distThreshold = 2000.0f;
+        yDistThreshold = 750.0f;
     } else if (boss->obj.id == OBJ_BOSS_KA_FLBASE) {
-        sp44 = 1500.0f;
-        var_ft5 = 700.0f;
+        distThreshold = 1500.0f;
+        yDistThreshold = 700.0f;
     }
 
-    if ((fabsf(boss->obj.pos.x - (this->obj.pos.x + temp_fa0)) < sp44) &&
-        (fabsf(boss->obj.pos.z - (this->obj.pos.z + temp_ft4)) < sp44) &&
-        (fabsf(boss->obj.pos.y - this->obj.pos.y) < var_ft5)) {
+    if ((fabsf(boss->obj.pos.x - (this->obj.pos.x + xOffset)) < distThreshold) &&
+        (fabsf(boss->obj.pos.z - (this->obj.pos.z + zOffset)) < distThreshold) &&
+        (fabsf(boss->obj.pos.y - this->obj.pos.y) < yDistThreshold)) {
         return 1;
     } else {
         return 0;
@@ -1262,7 +1282,7 @@ static Vec3f sSectorZRetreatPath[6] = {
 
 void ActorAllRange_Update(ActorAllRange* this) {
     u8 sp10F;
-    s32 sp108;
+    s32 objectNearby;
     s32 sp104;
     s32 temp_v0_27;
     RadarMark* radarMark;
@@ -2057,12 +2077,12 @@ void ActorAllRange_Update(ActorAllRange* this) {
 
         spD8 = this->fwork[20];
         spD4 = this->fwork[19];
-        sp108 = 0;
+        objectNearby = 0;
 
         if (sp104 == 1) {
             if (this->aiType < AI360_GREAT_FOX) {
-                sp108 = func_360_8003049C(this);
-                if ((sp108 != 0) && (this->aiType < AI360_ENEMY) && (this->timer_0BE == 0) &&
+                objectNearby = ActorAllRange_CheckObjectNearby(this);
+                if ((objectNearby != 0) && (this->aiType < AI360_ENEMY) && (this->timer_0BE == 0) &&
                     ((this->fwork[7] < 0.01f) || (this->fwork[7] > 359.9f))) {
                     this->timer_0BE = RAND_INT(200.0f) + 200;
                     if (Rand_ZeroOne() < 0.5f) {
@@ -2075,11 +2095,11 @@ void ActorAllRange_Update(ActorAllRange* this) {
                 }
             }
 
-            if (sp108 != 0) {
+            if (objectNearby != 0) {
                 if ((this->aiType < AI360_ENEMY) || (gCurrentLevel != LEVEL_FORTUNA)) {
-                    spD8 += 40.0f * sp108;
+                    spD8 += 40.0f * objectNearby;
                 } else {
-                    spD8 += 20.0f * sp108;
+                    spD8 += 20.0f * objectNearby;
                 }
                 if (spD8 >= 360.0f) {
                     spD8 -= 360.0f;

@@ -623,7 +623,7 @@ typedef enum ObjectId {
     /* 314 */ OBJ_BOSS_SY_SHOGUN,
     /* 315 */ OBJ_BOSS_SO_VULKAIN,
     /* 316 */ OBJ_BOSS_KA_SAUCERER,
-    /* 317 */ OBJ_BOSS_KA_FLBASE,
+    /* 317 */ OBJ_BOSS_KA_FLBASE, // Katina FrontLine Base
     /* 318 */ OBJ_BOSS_AQ_BACOON,
     /* 319 */ OBJ_BOSS_VE1_GOLEMECH,
     /* 320 */ OBJ_BOSS_AND_ANDROSS,
