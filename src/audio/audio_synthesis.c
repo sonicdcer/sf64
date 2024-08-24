@@ -513,7 +513,7 @@ void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
 
     func_80008364(D_80145D48, D_80146148, 8, D_80146548);
 
-    for (i = 0; i < 0x100; i++) {
+    for (i = 0; i < 256; i++) {
         if (D_80145D48[i] > 32767.0f) {
             D_80145D48[i] = 32767.0f;
         }
@@ -537,6 +537,7 @@ s32 func_8000967C(s32 length, s16* ramAddr, UnkStruct_800097A8* arg2) {
     for (i = 0; i < arg2->unk_4; i++) {
         ramAddr[i] = temp_t7[i];
     }
+
     var_s1 = arg2->unk_4;
     temp_t0 = (length - arg2->unk_4 + 0xFF) / 256;
     arg2->unk_4 = (temp_t0 * 256) + arg2->unk_4 - length;
@@ -545,6 +546,7 @@ s32 func_8000967C(s32 length, s16* ramAddr, UnkStruct_800097A8* arg2) {
         func_80009504(&ramAddr[var_s1], arg2);
         var_s1 += 0x100;
     }
+
     for (i = 0; i < arg2->unk_4; i++) {
         temp_t7[i] = ramAddr[length + i];
     }
@@ -568,10 +570,13 @@ u8* func_800097A8(Sample* sample, s32 length, u32 flags, UnkStruct_800097A8* arg
             arg3->unk_14->sizeUnused = 0;
         }
     }
+
     if (gSampleDmaReuseQueue1RdPos != gSampleDmaReuseQueue1WrPos) {
         sp1C = &gSampleDmas[gSampleDmaReuseQueue1[gSampleDmaReuseQueue1RdPos++]];
     }
-    if (1) {}
+
+    if (1) {} //! FAKE
+
     sp1C->ttl = 2;
     sp1C->devAddr = sample->sampleAddr;
     sp1C->sizeUnused = length * 2;
@@ -635,6 +640,7 @@ Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen) {
         func_8001678C(i - 1);
         func_80009AAC(gAudioBufferParams.ticksPerUpdate - i);
     }
+
     aiBufPtr = (s32*) aiBufStart;
     for (i = gAudioBufferParams.ticksPerUpdate; i > 0; i--) {
         if (i == 1) {
@@ -646,22 +652,27 @@ Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen) {
         } else {
             chunkLen = gAudioBufferParams.samplesPerTick;
         }
+
         for (j = 0; j < gNumSynthReverbs; j++) {
             if (gSynthReverbs[j].useReverb) {
                 func_800080C0(chunkLen, gAudioBufferParams.ticksPerUpdate - i, j);
             }
         }
+
         aCmdPtr = func_8000A25C((s16*) aiBufPtr, chunkLen, aCmdPtr, gAudioBufferParams.ticksPerUpdate - i);
         aiBufLen -= chunkLen;
         aiBufPtr += chunkLen;
     }
+
     for (j = 0; j < gNumSynthReverbs; j++) {
         if (gSynthReverbs[j].framesToIgnore != 0) {
             gSynthReverbs[j].framesToIgnore--;
         }
         gSynthReverbs[j].curFrame ^= 1;
     }
+
     *cmdCount = aCmdPtr - aList;
+
     return aCmdPtr;
 }
 
@@ -715,6 +726,7 @@ Acmd* func_8000A128(Acmd* aList, s16 reverbIndex, s16 updateIndex) {
                 aList = func_80009984(aList, sp24->lengthA + 0xC90, 0, sp24->lengthB, reverbIndex);
             }
             break;
+
         default:
             aSaveBuffer(aList++, 0xC90,
                         OS_K0_TO_PHYSICAL(gSynthReverbs[reverbIndex]
@@ -724,6 +736,7 @@ Acmd* func_8000A128(Acmd* aList, s16 reverbIndex, s16 updateIndex) {
             gSynthReverbs[reverbIndex].resampleFlags = 0;
             break;
     }
+
     return aList;
 }
 
@@ -731,61 +744,66 @@ Acmd* func_8000A25C(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
     u8 sp84[0x3C];
     NoteSubEu* temp_v0;
     s16 var_s2;
-    s16 var_s3;
-    s32 var_s1;
+    s16 i;
+    s32 j;
 
     var_s2 = 0;
     if (gNumSynthReverbs == 0) {
-        if (gSynthReverbs[var_s3].useReverb) {} // fake?
-        for (var_s1 = 0; var_s1 < gNumNotes; var_s1++) {
-            if (gNoteSubsEu[gNumNotes * updateIndex + var_s1].bitField0.enabled) {
-                sp84[var_s2++] = var_s1;
+        if (gSynthReverbs[i].useReverb) {} // fake?
+        for (j = 0; j < gNumNotes; j++) {
+            if (gNoteSubsEu[gNumNotes * updateIndex + j].bitField0.enabled) {
+                sp84[var_s2++] = j;
             }
         }
     } else {
-        for (var_s3 = 0; var_s3 < gNumSynthReverbs; var_s3++) {
-            for (var_s1 = 0; var_s1 < gNumNotes; var_s1++) {
-                temp_v0 = &gNoteSubsEu[gNumNotes * updateIndex + var_s1];
-                if (temp_v0->bitField0.enabled && (temp_v0->bitField1.reverbIndex == var_s3)) {
-                    sp84[var_s2++] = var_s1;
+        for (i = 0; i < gNumSynthReverbs; i++) {
+            for (j = 0; j < gNumNotes; j++) {
+                temp_v0 = &gNoteSubsEu[gNumNotes * updateIndex + j];
+                if (temp_v0->bitField0.enabled && (temp_v0->bitField1.reverbIndex == i)) {
+                    sp84[var_s2++] = j;
                 }
             }
         }
-        for (var_s1 = 0; var_s1 < gNumNotes; var_s1++) {
-            temp_v0 = &gNoteSubsEu[gNumNotes * updateIndex + var_s1];
+        for (j = 0; j < gNumNotes; j++) {
+            temp_v0 = &gNoteSubsEu[gNumNotes * updateIndex + j];
             if (temp_v0->bitField0.enabled && (temp_v0->bitField1.reverbIndex >= gNumSynthReverbs)) {
-                sp84[var_s2++] = var_s1;
+                sp84[var_s2++] = j;
             }
         }
     }
+
     aClearBuffer(aList++, 0x990, 0x300);
-    var_s1 = 0;
-    for (var_s3 = 0; var_s3 < gNumSynthReverbs; var_s3++) {
-        D_8014C1B2 = gSynthReverbs[var_s3].useReverb;
+
+    j = 0;
+    for (i = 0; i < gNumSynthReverbs; i++) {
+        D_8014C1B2 = gSynthReverbs[i].useReverb;
         if (D_8014C1B2) {
-            aList = func_80009D78(aList, aiBufLen, var_s3, updateIndex);
+            aList = func_80009D78(aList, aiBufLen, i, updateIndex);
         }
-        while (var_s1 < var_s2) {
-            if (var_s3 != gNoteSubsEu[updateIndex * gNumNotes + sp84[var_s1]].bitField1.reverbIndex) {
+        while (j < var_s2) {
+            if (i != gNoteSubsEu[updateIndex * gNumNotes + sp84[j]].bitField1.reverbIndex) {
                 break;
             }
-            aList = func_8000A700(sp84[var_s1], &gNoteSubsEu[updateIndex * gNumNotes + sp84[var_s1]],
-                                  &gNotes[sp84[var_s1]].synthesisState, aiBuf, aiBufLen, aList, updateIndex);
-            var_s1++;
+            aList = func_8000A700(sp84[j], &gNoteSubsEu[updateIndex * gNumNotes + sp84[j]],
+                                  &gNotes[sp84[j]].synthesisState, aiBuf, aiBufLen, aList, updateIndex);
+            j++;
         }
-        if (gSynthReverbs[var_s3].useReverb) {
-            aList = func_8000A128(aList, var_s3, updateIndex);
+        if (gSynthReverbs[i].useReverb) {
+            aList = func_8000A128(aList, i, updateIndex);
         }
     }
-    while (var_s1 < var_s2) {
-        aList = func_8000A700(sp84[var_s1], &gNoteSubsEu[updateIndex * gNumNotes + sp84[var_s1]],
-                              &gNotes[sp84[var_s1]].synthesisState, aiBuf, aiBufLen, aList, updateIndex);
-        var_s1++;
+
+    while (j < var_s2) {
+        aList = func_8000A700(sp84[j], &gNoteSubsEu[updateIndex * gNumNotes + sp84[j]], &gNotes[sp84[j]].synthesisState,
+                              aiBuf, aiBufLen, aList, updateIndex);
+        j++;
     }
-    var_s1 = aiBufLen * 2;
-    aSetBuffer(aList++, 0, 0, 0x450, var_s1);
+
+    j = aiBufLen * 2;
+    aSetBuffer(aList++, 0, 0, 0x450, j);
     aInterleave(aList++, 0, 0x990, 0xB10, 0);
-    aSaveBuffer(aList++, 0x450, OS_K0_TO_PHYSICAL(aiBuf), var_s1 * 2);
+    aSaveBuffer(aList++, 0x450, OS_K0_TO_PHYSICAL(aiBuf), j * 2);
+
     return aList;
 }
 
@@ -1209,8 +1227,10 @@ Acmd* func_8000B51C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
     } else {
         var_a2 = 0;
     }
+
     synthState->curVolLeft = temp_t1 + (var_t0 * (aiBufLen >> 3));
     synthState->curVolRight = temp_t2 + (var_a3 * (aiBufLen >> 3));
+
     if (noteSub->bitField0.usesHeadsetPanEffects) {
         aClearBuffer(aList++, 0x650, 0x180);
         aEnvSetup1(aList++, (temp_a1 & 0x7F), var_a2, var_t0, var_a3);
