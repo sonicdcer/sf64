@@ -77,7 +77,7 @@ void Actor237_Draw(Actor237* this) {
     /* Unimplemented */
 }
 
-void Obj54_8006A984(Effect* this, f32 xPos, f32 yPos, f32 zPos) {
+void Obj54_8006A984(Effect365* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_365;
@@ -256,12 +256,12 @@ void MeMora_Dying(MeMora* this) {
         this->counter_04E = 0;
     }
 
-    gMeMoraXpos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-    gMeMoraYpos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-    gMeMoraZpos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-    gMeMoraXrot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-    gMeMoraYrot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-    gMeMoraZrot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+    gMeMoraXpos[this->work_046][this->counter_04E] = this->obj.pos.x;
+    gMeMoraYpos[this->work_046][this->counter_04E] = this->obj.pos.y;
+    gMeMoraZpos[this->work_046][this->counter_04E] = this->obj.pos.z;
+    gMeMoraXrot[this->work_046][this->counter_04E] = this->obj.rot.x;
+    gMeMoraYrot[this->work_046][this->counter_04E] = this->obj.rot.y;
+    gMeMoraZrot[this->work_046][this->counter_04E] = this->obj.rot.z;
 
     this->obj.rot.x -= 10.0f;
     this->obj.rot.y += 3.0f;
@@ -274,21 +274,21 @@ void MeMora_Dying(MeMora* this) {
     this->vel.z = sp34.z;
 
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
-        index = (D_800CFF94[this->unk_04A] + this->counter_04E) % 100;
-        if (this->unk_04A == 0) {
-            func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
-                                 gMeMoraZpos[this->unk_046][index], 7.0f);
+        index = (D_800CFF94[this->work_04A] + this->counter_04E) % 100;
+        if (this->work_04A == 0) {
+            func_effect_8007D2C8(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
+                                 gMeMoraZpos[this->work_046][index], 7.0f);
         } else {
-            func_effect_8007D2C8(gMeMoraXpos[this->unk_046][index], gMeMoraYpos[this->unk_046][index],
-                                 gMeMoraZpos[this->unk_046][index], 4.0f);
+            func_effect_8007D2C8(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
+                                 gMeMoraZpos[this->work_046][index], 4.0f);
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
-        this->unk_04A++;
+        this->work_04A++;
 
-        if (this->unk_04A > 15) {
+        if (this->work_04A > 15) {
             Object_Kill(&this->obj, this->sfxSource);
-            gMeMoraStatus[this->unk_046] = 0;
+            gMeMoraStatus[this->work_046] = 0;
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         }
@@ -338,11 +338,11 @@ void MeMora_Draw(MeMora* this) {
     s16 i;
     s16 j;
 
-    for (i = this->unk_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
+    for (i = this->work_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
-        Memora_DrawParts(this, gMeMoraXpos[this->unk_046][j], gMeMoraYpos[this->unk_046][j],
-                         gMeMoraZpos[this->unk_046][j], gMeMoraXrot[this->unk_046][j], gMeMoraYrot[this->unk_046][j],
-                         gMeMoraZrot[this->unk_046][j], gMeMoraPartIdx[i], gMeMoraScale[i], this->timer_0C6 % 2U);
+        Memora_DrawParts(this, gMeMoraXpos[this->work_046][j], gMeMoraYpos[this->work_046][j],
+                         gMeMoraZpos[this->work_046][j], gMeMoraXrot[this->work_046][j], gMeMoraYrot[this->work_046][j],
+                         gMeMoraZrot[this->work_046][j], gMeMoraPartIdx[i], gMeMoraScale[i], this->timer_0C6 % 2U);
     }
 }
 
@@ -409,18 +409,18 @@ void CoMoleMissile_Update(CoMoleMissile* this) {
             break;
 
         case 1:
-            switch (this->unk_046) {
+            switch (this->work_046) {
                 case 0:
                     this->fwork[0] += 2.0f;
                     if (this->fwork[0] > 10.0f) {
-                        this->unk_046 = 1;
+                        this->work_046 = 1;
                     }
                     break;
 
                 case 1:
                     this->fwork[0] -= 2.0f;
                     if (this->fwork[0] < -10.0f) {
-                        this->unk_046 = 0;
+                        this->work_046 = 0;
                     }
                     break;
             }
@@ -548,7 +548,7 @@ void ActorDebris_Update(ActorDebris* this) {
 
     switch (this->state) {
         case 40:
-            if (this->unk_04A & 4) {
+            if (this->work_04A & 4) {
                 this->obj.pos.x = gPlayer[0].pos.x + this->fwork[3];
                 this->obj.pos.z = gPlayer[0].trueZpos + this->fwork[4];
             }
@@ -557,7 +557,7 @@ void ActorDebris_Update(ActorDebris* this) {
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
 
-            if (((this->unk_04A % 2U) == 1) && ((this->timer_0BC & 3) == 0)) {
+            if (((this->work_04A % 2U) == 1) && ((this->timer_0BC & 3) == 0)) {
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
             }
 
@@ -571,8 +571,8 @@ void ActorDebris_Update(ActorDebris* this) {
                     this->vel.z = 0.0f;
                     this->gravity = 0.0f;
                 } else {
-                    if (this->unk_04A & 4) {
-                        switch (this->unk_046) {
+                    if (this->work_04A & 4) {
+                        switch (this->work_046) {
                             case 2:
                                 AUDIO_PLAY_SFX(NA_SE_OB_SAND_BOUND_S, this->sfxSource, 4);
                                 break;
@@ -588,14 +588,14 @@ void ActorDebris_Update(ActorDebris* this) {
                     this->obj.pos.y = 0.0f;
                     this->iwork[0]++;
                     if (this->vel.y < 0.0f) {
-                        if (this->unk_04A & 2) {
+                        if (this->work_04A & 2) {
                             this->vel.y = this->vel.y * -0.05f;
                         } else {
                             this->vel.y = this->vel.y * -0.3f;
                         }
                     }
                 }
-                this->unk_04A &= ~4;
+                this->work_04A &= ~4;
             }
             break;
 
@@ -653,7 +653,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
 
             if (this->iwork[2] == 1) {
-                if ((this->iwork[1] == 1) && ((this->unk_048 == 8) || (this->unk_048 == 9))) {
+                if ((this->iwork[1] == 1) && ((this->work_048 == 8) || (this->work_048 == 9))) {
                     func_effect_8007D2C8(this->obj.pos.x, sp48 + 20.0f, this->obj.pos.z, 8.0f);
                 }
                 Object_Kill(&this->obj, this->sfxSource);
@@ -687,8 +687,8 @@ void ActorDebris_Update(ActorDebris* this) {
             break;
 
         case 58:
-            if (this->unk_046 == 0) {
-                this->unk_046++;
+            if (this->work_046 == 0) {
+                this->work_046++;
                 this->fwork[0] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[1] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[2] = RAND_FLOAT_CENTERED(30.0f);
@@ -762,8 +762,8 @@ void ActorDebris_Update(ActorDebris* this) {
             break;
 
         default:
-            if (this->unk_046 == 0) {
-                this->unk_046++;
+            if (this->work_046 == 0) {
+                this->work_046++;
                 this->fwork[10] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[11] = RAND_FLOAT_CENTERED(30.0f);
                 this->fwork[12] = RAND_FLOAT_CENTERED(30.0f);
@@ -943,117 +943,120 @@ typedef struct {
     /* 0x1C */ u8 bonus;
 } EventActorInfo; // size = 0x20
 
+// clang-format off
+
 static EventActorInfo sEventActorInfo[108] = {
-    /*   0 */ { D_ENMY_PLANET_40068F0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   1 */ { D_ENMY_PLANET_4006E90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*   3 */ { D_ENMY_PLANET_4009800, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*   4 */ { D_ENMY_PLANET_40073C0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   5 */ { D_ENMY_PLANET_4007AF0, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*   6 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*   7 */ { D_CO_6011F90, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*   8 */ { D_ENMY_PLANET_4000710, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
-    /*   9 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  10 */ { D_ENMY_SPACE_400BD20, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  11 */ { D_ENMY_SPACE_4001310, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  12 */ { D_ENMY_SPACE_400B390, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  13 */ { aMeMeteorDL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  14 */ { D_ME_601F2A0, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  15 */ { D_ENMY_SPACE_400AAE0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  16 */ { D_ENMY_SPACE_4000650, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  17 */ { D_A6_6016190, D_A6_60282A0, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
-    /*  18 */ { D_SX_6023500, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  19 */ { D_SX_6022DF0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  20 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  21 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  22 */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  23 */ { D_ENMY_SPACE_4008FA0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  24 */ { D_SX_60285F0, D_SX_603298C, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  25 */ { D_SX_600AF70, D_SX_6032904, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  26 */ { D_SX_6023E30, D_SX_6032970, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  27 */ { NULL, D_SX_603285C, 2.5f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  28 */ { D_SX_6001CE0, D_SX_6032938, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  29 */ { D_SX_6000840, D_SX_6032954, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_NONE, 0, 1.0f, 1 },
-    /*  30 */ { D_A6_6012A40, D_A6_6028254, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 2 },
-    /*  31 */ { NULL, D_A6_60280E0, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 3 },
-    /*  32 */ { D_SX_6009950, D_SX_6032878, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  33 */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  34 */ { D_SX_600B2B0, D_SX_6032894, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  35 */ { D_SX_600A2E0, D_SX_60328B0, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  36 */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  37 */ { D_SX_600B830, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  38 */ { NULL, D_SX_603238C, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  39 */ { D_SX_6020D20, D_SX_60328CC, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  40 */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  41 */ { aSyShip1DL, aSyShip1Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  42 */ { aSyShip2DL, aSyShip2Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  43 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  44 */ { aSyShip3DL, aSyShip3Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  45 */ { D_ME_6017B60, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  46 */ { D_ZO_6004D00, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
-    /*  47 */ { D_ME_601A880, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  48 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  49 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  50 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  51 */ { D_SY_6015D60, D_SY_6034124, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  52 */ { NULL, D_ZO_602C1A0, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  53 */ { D_SX_600B540, D_SX_60328E8, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  54 */ { D_ENMY_SPACE_4000EC0, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  55 */ { D_ENMY_SPACE_4008D50, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  56 */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, EISFX_GREATFOX_ENGINE, 0, 0.0f, 1 },
-    /*  57 */ { aSyShip3DL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  58 */ { D_SY_601F3D0, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  59 */ { D_SY_6022B10, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  60 */ { D_SY_60209F0, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  61 */ { D_ME_6019430, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  62 */ { D_ME_6018960, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  63 */ { D_ME_6009F50, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  64 */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  65 */ { D_ME_600C2A0, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  66 */ { D_ME_600BD40, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  67 */ { NULL, D_ME_602F604, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  68 */ { D_SY_60205D0, D_SY_603445C, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  69 */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  70 */ { D_SY_601AD70, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  71 */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
-    /*  72 */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  73 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  74 */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  75 */ { aSyShip2SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  76 */ { aSyShip3SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  77 */
-    { aSyShipProjectileDL, aSyShipProjectileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  78 */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
-    /*  79 */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  80 */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  81 */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  82 */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  83 */ { NULL, D_AQ_6030B4C, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
-    /*  84 */ { D_VE1_9012180, D_VE1_601B43C, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  85 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  86 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  87 */ { D_VE1_900EFC0, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
-    /*  88 */ { NULL, D_AQ_6030B30, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  89 */ { NULL, D_AQ_6030B14_f32, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  90 */ { D_MA_601C520, D_MA_60368FC, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  91 */ { aMaGuillotineDL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  92 */ { D_WZ_7000C40, gWarpZoneEvent92Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  93 */ { D_WZ_70010E0, gWarpZoneEvent93Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  94 */ { D_WZ_7000E80, gWarpZoneEvent94Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  95 */ { D_WZ_70008F0, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /*  96 */ { D_WZ_7000280, gWarpZoneEvent96Hitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /*  97 */ { D_ME_600AC70, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  98 */ { aMaBoulderDL, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
-    /*  99 */ { D_VE1_6002500, D_VE1_601B944, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 100 */ { D_VE1_60043F0, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 101 */ { D_VE1_6004310, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 102 */ { D_TR_6002740, D_TR_6009D18, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /* 103 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /* 104 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /* 105 */ { NULL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /* 106 */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ALIEN_FLY, 0, 0.0f, 0 },
-    /* 107 */ { D_MA_6002890, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_VENOM_FIGHTER_1 */ { aVenomFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_VENOM_FIGHTER_2 */ { aVenomFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_VENOM_FIGHTER_2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /*  EVID_ME_SLIPPY */ { aSpyEyeDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_SPY_EYE */ { aGrangaFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_GRANGA_FIGHTER_2 */ { aGrangaFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_FIREBIRD */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_CORNERIAN_FIGHTER */ { aCoCornerianFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_VENOM_TANK */ { aVenomTankDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
+    /*  EVID_TRIPOD */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /*  EVID_ATTACKER_1 */ { aAttacker1DL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_ATTACKER_2 */ { aAttacker2DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /*  EVID_ATTACKER_3 */ { aAttacker3DL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_ME_METEOR_1 */ { aMeMeteor1DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_ME_METEOR_2 */ { aMeMeteor2DL, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_COMMANDER */ { aCommanderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SPIDER */ { aSpiderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /*  EVID_ZERAM_CLASS_CRUISER */ { aA6ZeramClassCruiserDL, aA6ZeramClassCruiserHitbox, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
+    /*  EVID_SX_SPY_EYE */ { aSxSpyEyeDL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SX_CANINE */ { aSxCanineDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SPACE_MINE */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_A6_NINJIN_MISSILE */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_A6_ROCKET */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_VENOM_FIGHTER_3 */ { aVenomFighter3DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SX_BASE_DEBRIS_1 */ { aSxBaseDebris1DL, aSxBaseDebris1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_BASE_WALL_1 */ { aSxBaseWall1DL, aSxBaseWall1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_BASE_DEBRIS_2 */ { aSxBaseDebris2DL, aSxBaseDebris2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_LASER */ { NULL, aSxLaserHitbox, 2.5f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_SX_WATCH_POST */ { aSxWatchPostDL, aSxWatchPostHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_SX_SPACE_MINE */ { aSxSpaceMineDL, aSxSpaceMineHitbox, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_A6_HARLOCK_FRIGATE */ { aA6HarlockFrigateDL, aA6HarlockFrigateHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 2 },
+    /*  EVID_A6_UMBRA_STATION */ { NULL, aA6UmbraStationHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 3 },
+    /*  EVID_SX_BASE_FLOOR_1 */ { aSxBaseFloor1DL, aSxBaseFloor1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_CRUISER_GUN */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_BASE_WALL_2 */ { aSxBaseWall2DL, aSxBaseWall2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_BASE_WALL_3 */ { aSxBaseWall3DL, aSxBaseWall3Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_TI_BOMBER */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SX_BORZOI_FIGHTER */ { aSxBorzoiFighterDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SX_WARP_GATE */ { NULL, aSxWarpGateHitbox, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_BASE_WALL_TILE_1 */ { aSxBaseWallTile1DL, aSxBaseWallTile1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_EVENT_HANDLER */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_1 */ { aSyShip1DL, aSyShip1Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_2 */ { aSyShip2DL, aSyShip2Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_TEAMMATE */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /*  EVID_SY_SHIP_3 */ { aSyShip3DL, aSyShip3Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_ME_METEOR_3 */ { aMeMeteor3DL, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_ZO_PATROL_BOAT */ { aZoPatrolBoatDL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
+    /*  EVID_ME_SECRET_MARKER_1 */ { aMeSecretMarker1DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_ROBOT_1 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SY_ROBOT_2 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SY_ROBOT_3 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SY_ROBOT_4 */ { aSyRobot4DL, aSyRobot4Hitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SARUMARINE_PERISCOPE */ { NULL, aZoSarumarinePeriscopeHitbox, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SX_BASE_WALL_4 */ { aSxBaseWall4DL, aSxBaseWall4Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_GAMMA_ON */ { aGammaOnDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_GAMMA_OFF */ { aGammaOffDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_TI_GREAT_FOX */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, EISFX_GREATFOX_ENGINE, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_3_2 */ { aSyShip3DL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_SARUZIN */ { aSySaruzinDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_ROBOT_SPRITE_SIDE */ { aSyRobotSpriteSideDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_SY_ROBOT_SPRITE_FRONT */ { aSyRobotSpriteFrontDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_ME_METEOR_4 */ { aMeMeteor4DL, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_ME_METEOR_5 */ { aMeMeteor5DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_ME_BIG_METEOR */ { aMeBigMeteorDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_ME_ROCK_GULL */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_ME_METEOR_6 */ { aMeMeteor6DL, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_ME_SECRET_MARKER_2 */ { aMeSecretMarker2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_ME_FLIP_BOT */ { NULL, aMeFlipBotHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_SY_LASER_TURRET */ { aSyLaserTurretDL, aSyLaserTurretHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_SY_SHIP_DESTROYED */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_DEBRIS */ { aSyDebrisDL, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_ITEM_WING_REPAIR */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_WINDOWS */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_4 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_4_DESTROYED */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_2_SPRITE */ { aSyShip2SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_3_SPRITE */ { aSyShip3SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_SY_SHIP_MISSILE */ { aSyShipMissileDL, aSyShipMissileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /*  EVID_SUPPLY_CRATE */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
+    /*  EVID_ZO_BIRD */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_VE1_PILLAR */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_VE1_BLOCKER */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_MA_LASER_TURRET */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /*  EVID_AQ_OYSTER */ { NULL, aAqOysterEvHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
+    /*  EVID_VE1_PILLAR_5 */ { aVe1Pillar5DL, aVe1Pillar5Hitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_BILL */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /*  EVID_KATT */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /*  EVID_VE1_TEMPLE_BG */ { aVe1TempleBgDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_AQ_STARFISH */ { NULL, aAqStarfishHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_AQ_SHELL */ { NULL, aAqShellHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_MA_RAILROAD_CART */ { aMaRailroadCartDL, aMaRailroadCartHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_MA_GUILLOTINE_1 */ { aMaGuillotine1DL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_WZ_PILLAR_1 */ { aWzPillar1DL, aWzPillar1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_WZ_PILLAR_2 */ { aWzPillar2DL, aWzPillar2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_WZ_METEOR_1 */ { aWzMeteor1DL, aWzMeteor1Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /*  EVID_WZ_METEOR_2 */ { aWzMeteor2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /*  EVID_WZ_GATE */ { aWzGateDL, aWzGateHitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /*  EVID_ME_METEOR_7 */ { aMeMeteor7DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_MA_BOULDER */ { aMaBoulderDL, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /*  EVID_VE1_ENEMY_GATE */ { aVe1EnemyGateDL, aVe1EnemyGateHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ENEMY_GATE_DOOR_RIGHT */ { aVe1EnemyGateDoorRightDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ENEMY_GATE_DOOR_LEFT */ { aVe1EnemyGateDoorLeftDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_TR_BARRIER */ { aTrBarrierDL, aTrBarrierHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ANDROSS_GATE */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /* EVID_ANDROSS_GATE_2 */ { NULL, gNoHitbox, -1.0f, 500.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /* EVID_SX_WARP_ENMY */ { NULL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_KILLER_BEE */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ALIEN_FLY, 0, 0.0f, 0 },
+    /* EVID_MA_GUILLOTINE_2 */ { aMaGuillotine2DL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
 };
+
+// clang-format on
 
 static Color_RGBA32 sEventTexLineColors[6] = {
     // could be in-function
@@ -1139,9 +1142,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->fwork[11] = 0.0f;
             this->fwork[12] = 0.0f;
 
-            if ((this->eventType == EVID_64) || (this->eventType == EVID_81)) {
+            if ((this->eventType == EVID_ME_ROCK_GULL) || (this->eventType == EVID_VE1_BLOCKER)) {
                 this->fwork[15] = 0.0f;
-            } else if (this->eventType == EVID_79) {
+            } else if (this->eventType == EVID_ZO_BIRD) {
                 this->info.drawType = 2;
             }
 
@@ -1149,14 +1152,14 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->aiIndex += 2;
 
             if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
-                this->unk_046 = 100;
+                this->work_046 = 100;
                 this->info.hitbox = gCubeHitbox200;
                 this->info.targetOffset = 1.0f;
 
                 for (i = 0; i < 2; i++) {
                     if (gMeMoraStatus[i] == 0) {
                         gMeMoraStatus[i] = 1;
-                        this->unk_046 = i;
+                        this->work_046 = i;
                         for (j = 0; j < 100; j++) {
                             gMeMoraYpos[i][j] = this->obj.pos.y;
                             gMeMoraZpos[i][j] = this->obj.pos.z;
@@ -1168,17 +1171,17 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                     }
                 }
 
-                if (this->unk_046 == 100) {
+                if (this->work_046 == 100) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             }
 
-            if ((this->eventType == EVID_SLIPPY_METEO) || (this->eventType == EVID_TEAMMATE)) {
+            if ((this->eventType == EVID_ME_SLIPPY) || (this->eventType == EVID_TEAMMATE)) {
                 this->drawShadow = true;
                 this->iwork[11] = 1;
             }
 
-            if (this->eventType == EVID_81) {
+            if (this->eventType == EVID_VE1_BLOCKER) {
                 this->drawShadow = true;
             }
 
@@ -1196,7 +1199,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             }
 
             if (this->eventType == EVID_ANDROSS_GATE_2) {
-                this->animFrame = Animation_GetFrameCount(&D_VE2_6014658) - 1;
+                this->animFrame = Animation_GetFrameCount(&aVe2AndrossGateAnim) - 1;
             }
 
             if (this->eventType < EVID_200) {
@@ -1217,8 +1220,8 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
                 switch (sEventActorInfo[this->eventType].sfx) {
                     case EISFX_EN_ENGINE_01:
-                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->eventType == EVID_6) ||
-                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->eventType == EVID_8)))) {
+                        if (!((gCurrentLevel == LEVEL_SOLAR) || (this->eventType == EVID_FIREBIRD) ||
+                              ((gCurrentLevel == LEVEL_CORNERIA) && (this->eventType == EVID_VENOM_TANK)))) {
                             AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
                         }
                         break;
@@ -1248,7 +1251,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
                 if (this->info.unk_16 == 0) {
                     this->obj.rot.z = this->fwork[23] = this->rot_0F4.z;
-                    if (this->eventType != EVID_31) {
+                    if (this->eventType != EVID_A6_UMBRA_STATION) {
                         this->rot_0F4.z = 0.0f;
                     }
                 }
@@ -1301,13 +1304,13 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 break;
             }
 
-            this->unk_048 = actorScript[this->aiIndex + 1];
+            this->work_048 = actorScript[this->aiIndex + 1];
 
-            if (this->unk_048 == EVACT_3) {
-                this->timer_04C = 4;
+            if (this->work_048 == EVACT_3) {
+                this->work_04C = 4;
             }
 
-            if (this->unk_048 == EVACT_TI_DROP_MINE) {
+            if (this->work_048 == EVACT_TI_DROP_MINE) {
                 this->timer_0BE = 50;
             }
 
@@ -1838,16 +1841,17 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_52) &&
+    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->eventType != EVID_SARUMARINE_PERISCOPE) &&
         (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
-        (this->eventType != EVID_48) && (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
-        switch (this->unk_048) {
+        (this->eventType != EVID_SY_ROBOT_1) && (this->eventType != EVID_SY_ROBOT_2) &&
+        (this->eventType != EVID_SY_ROBOT_3)) {
+        switch (this->work_048) {
             case EVACT_NONE:
                 break;
 
             case EVACT_1: // shoot forward
                 ActorEvent_8006F254(this);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_2: // shoot at player
@@ -1855,7 +1859,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                       gEnemyShotSpeed);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_3: // ally shoots forward
@@ -1870,16 +1874,16 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                            sp6C.y, sp6C.z, this->rot_0F4.x, this->rot_0F4.y,
                                            this->vwork[29].z + this->rot_0F4.z);
                     this->timer_0C2 = 2;
-                    this->timer_04C--;
-                    if (this->timer_04C <= 0) {
-                        this->unk_048 = EVACT_NONE;
+                    this->work_04C--;
+                    if (this->work_04C <= 0) {
+                        this->work_048 = EVACT_NONE;
                     }
                 }
                 break;
 
             case EVACT_4: // shoot blue energy balls
                 ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_5:
@@ -1898,7 +1902,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                      this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
                                      this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp6C.x,
                                      sp6C.y, sp6C.z, 1.0f);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_6:
@@ -1906,14 +1910,14 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     Effect_EnemyLaser(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                       gEnemyShotSpeed);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_7:
                 if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                     Effect_EnemyLaser(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_8:
@@ -1925,7 +1929,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                   gEnemyShotSpeed);
                 gPlayer[0].pos.x = sp6C.x;
                 gPlayer[0].pos.y = sp6C.y;
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_9:
@@ -1970,7 +1974,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     ActorEvent_SpawnTIMine(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
                 }
                 if (this->timer_0BE == 0) {
-                    this->unk_048 = EVACT_NONE;
+                    this->work_048 = EVACT_NONE;
                 }
                 break;
 
@@ -1979,7 +1983,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                                   this->obj.pos.z + 220.0f, gEnemyShotSpeed);
                 Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
                                   this->obj.pos.z + 220.0f, gEnemyShotSpeed);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_17:
@@ -1987,7 +1991,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     func_effect_8007F20C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                          gEnemyShotSpeed);
                 }
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_GFOX_COVER_FIRE:
@@ -2019,12 +2023,12 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     }
                 }
 
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
 
             case EVACT_19: // projectile ring used by bee enemies
                 func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
-                this->unk_048 = EVACT_NONE;
+                this->work_048 = EVACT_NONE;
                 break;
         }
     }
@@ -2100,23 +2104,23 @@ void ActorEvent_800701E0(ActorEvent* this) {
     if (ActorEvent_800700A4(this)) {
         return;
     }
-    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_METEO_PYRAMID_SHIP) && (this->dmgPart == 0)) {
+    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_ME_FLIP_BOT) && (this->dmgPart == 0)) {
         this->dmgType = DMG_NONE;
     }
 
-    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_AQ_CLAM) && (this->timer_0C2 >= 2)) {
+    if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_AQ_OYSTER) && (this->timer_0C2 >= 2)) {
         this->dmgType = DMG_NONE;
     }
 
     if ((this->dmgType != DMG_NONE) &&
-        (((this->eventType == EVID_64) && (this->dmgPart == 2)) || (this->eventType != EVID_64))) {
+        (((this->eventType == EVID_ME_ROCK_GULL) && (this->dmgPart == 2)) || (this->eventType != EVID_ME_ROCK_GULL))) {
         if (this->iwork[12] >= TEAM_ID_KATT) {
             this->damage = 0;
         }
 
         if ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY)) {
             gTeamShields[this->iwork[12]] -= this->damage;
-        } else if ((this->eventType == EVID_AQ_CLAM) && ((this->damage == 30) || (this->damage == 31))) {
+        } else if ((this->eventType == EVID_AQ_OYSTER) && ((this->damage == 30) || (this->damage == 31))) {
             this->health = 0;
         } else {
             this->health -= this->damage;
@@ -2130,8 +2134,8 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 D_ctx_80177850 = 15;
             }
 
-            if (this->eventType != EVID_AQ_CLAM) {
-                if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if (this->eventType != EVID_AQ_OYSTER) {
+                if ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR)) {
                     AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DOWN, this->sfxSource, 4);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_CRASH_DOWN, this->sfxSource, 4);
@@ -2145,23 +2149,24 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
 
                 if (((Rand_ZeroOne() < chance) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
-                    (this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
-                    (this->damage <= 30) && (this->eventType != EVID_62) && (this->eventType != EVID_64) &&
-                    (this->eventType != EVID_72) && (this->eventType != EVID_68)) {
+                    (this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_2) &&
+                    (this->eventType != EVID_ME_METEOR_4) && (this->damage <= 30) &&
+                    (this->eventType != EVID_ME_METEOR_5) && (this->eventType != EVID_ME_ROCK_GULL) &&
+                    (this->eventType != EVID_SY_SHIP_WINDOWS) && (this->eventType != EVID_SY_LASER_TURRET)) {
                     func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                     this->dmgType = DMG_NONE;
                 }
 
                 this->timer_0C2 = 10;
                 this->timer_0BE = 0;
-                this->unk_046 = 255;
-                this->unk_048 = 900;
+                this->work_046 = 255;
+                this->work_048 = 900;
                 this->drawShadow = true;
 
                 if (gLevelType == LEVELTYPE_PLANET) {
-                    this->timer_04C = RAND_INT(2.9f);
-                    if (this->eventType == EVID_SLIPPY_METEO) {
-                        this->timer_04C = 1;
+                    this->work_04C = RAND_INT(2.9f);
+                    if (this->eventType == EVID_ME_SLIPPY) {
+                        this->work_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
                             this->fwork[17] = 777.0f;
@@ -2185,20 +2190,20 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         }
                     }
 
-                    if (this->eventType == EVID_90) {
-                        this->timer_04C = 999;
+                    if (this->eventType == EVID_MA_RAILROAD_CART) {
+                        this->work_04C = 999;
                     }
                 } else {
                     switch (this->eventType) {
-                        case EVID_13:
+                        case EVID_ME_METEOR_1:
                             func_enmy_800654E4(&this->obj);
                             break;
 
-                        case EVID_61:
+                        case EVID_ME_METEOR_4:
                             Meteo_Effect346_Spawn(this);
                             break;
 
-                        case EVID_27:
+                        case EVID_SX_LASER:
                             this->obj.pos.y -= this->vel.y;
                             this->obj.status = OBJ_ACTIVE;
                             func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
@@ -2212,7 +2217,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
                         default:
                             this->timer_0BC = 35;
-                            this->timer_04C = 2;
+                            this->work_04C = 2;
                             this->vel.y = RAND_FLOAT_CENTERED(20.0f);
                             this->vel.x = RAND_FLOAT_CENTERED(20.0f);
                             this->vel.z = 0.0f;
@@ -2221,14 +2226,14 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 }
             }
 
-            if (this->eventType == EVID_82) {
+            if (this->eventType == EVID_MA_LASER_TURRET) {
                 AUDIO_PLAY_SFX(NA_SE_OB_SMOKE, this->sfxSource, 0);
                 this->dmgType = DMG_BEAM;
                 Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 60);
             }
         } else {
             this->timer_0C6 = 20;
-            if ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR)) {
+            if ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
             } else if (this->health < 20) {
                 AUDIO_PLAY_SFX(NA_SE_EN_KNOCK_DOWN, this->sfxSource, 4);
@@ -2236,12 +2241,13 @@ void ActorEvent_800701E0(ActorEvent* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             }
 
-            if ((this->eventType != EVID_13) && (this->eventType != EVID_61) && (this->eventType != EVID_AQ_CLAM)) {
+            if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_4) &&
+                (this->eventType != EVID_AQ_OYSTER)) {
                 func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_TURRET)) &&
-                (this->eventType != EVID_A6_MISSILE) && (this->eventType != EVID_23)) {
+                (this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_VENOM_FIGHTER_3)) {
                 this->fwork[13] = 20.0f;
                 if (this->obj.pos.x < this->hitPos.x) {
                     this->fwork[13] *= -1.0f;
@@ -2297,12 +2303,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->obj.status = OBJ_DYING;
             this->obj.pos.z -= this->vel.z;
             this->dmgType = DMG_BEAM;
-            if (this->eventType == EVID_13) {
+            if (this->eventType == EVID_ME_METEOR_1) {
                 this->obj.id = OBJ_ACTOR_ME_METEOR_2;
                 func_enmy_800654E4(&this->obj);
             }
 
-            if (this->eventType == EVID_61) {
+            if (this->eventType == EVID_ME_METEOR_4) {
                 Meteo_Effect346_Spawn(this);
             }
         }
@@ -2312,7 +2318,8 @@ void ActorEvent_800701E0(ActorEvent* this) {
 void ActorEvent_80070BA8(ActorEvent* this) {
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
-        if ((this->eventType != EVID_17) || ((this->eventType == EVID_17) && (this->dmgPart == 0))) {
+        if ((this->eventType != EVID_ZERAM_CLASS_CRUISER) ||
+            ((this->eventType == EVID_ZERAM_CLASS_CRUISER) && (this->dmgPart == 0))) {
             this->timer_0C6 = 10;
             Effect_Effect390_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
                                    this->vel.z, 0.2f, 10);
@@ -2346,13 +2353,13 @@ void ActorEvent_TriggerBranch(ActorEvent* this) {
 
 void ActorEvent_ProcessTriggers(ActorEvent* this) {
     s32 i;
-    s32 var_v1 = 0;
-    s32 var_v1_4;
+    s32 teamAliveCount = 0;
+    s32 ringRequirement;
     Actor* otherActor;
 
     for (i = TEAM_ID_FALCO; i <= TEAM_ID_PEPPY; i++) {
         if (gTeamShields[i] > 0) {
-            var_v1++;
+            teamAliveCount++;
         }
     }
 
@@ -2375,25 +2382,25 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_TEAM_COUNT_3:
-            if (var_v1 == 3) {
+            if (teamAliveCount == 3) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_2:
-            if (var_v1 == 2) {
+            if (teamAliveCount == 2) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_1:
-            if (var_v1 == 1) {
+            if (teamAliveCount == 1) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_TEAM_COUNT_0:
-            if (var_v1 == 0) {
+            if (teamAliveCount == 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
@@ -2654,26 +2661,29 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_PASSED_ALL_RINGS:
-            var_v1_4 = 7;
+            ringRequirement = 7;
             switch (gCurrentLevel) {
                 case LEVEL_CORNERIA:
                     break;
                 case LEVEL_SECTOR_X:
-                    var_v1_4 = 4;
+                    ringRequirement = 4;
                     break;
                 case LEVEL_TITANIA:
-                    var_v1_4 = 9;
+                    ringRequirement = 9;
                     break;
             }
 
-            if (!((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] <= 0)) &&
-                (gRingPassCount >= var_v1_4)) {
-                ActorEvent_TriggerBranch(this);
+            // Abort if Falco is dead or the requirement is not met.
+            if (((gCurrentLevel == LEVEL_CORNERIA) && (gTeamShields[TEAM_ID_FALCO] <= 0)) ||
+                (gRingPassCount < ringRequirement)) {
+                break;
             }
+
+            ActorEvent_TriggerBranch(this);
             break;
 
         case EVC_ATTACK_GROUP_CLEARED:
-            for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
+            for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if (((otherActor->obj.status == OBJ_DYING) || (otherActor->obj.status == OBJ_FREE)) &&
                     (otherActor->iwork[15] == this->iwork[15]) && (otherActor->iwork[16] != 0)) {
                     ActorEvent_TriggerBranch(this);
@@ -2862,17 +2872,17 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
-    if (this->eventType == EVID_30) {
+    if (this->eventType == EVID_A6_HARLOCK_FRIGATE) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1074) - 1.1f); // off by 1 error?
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1074[rInd], &sp38);
     }
 
-    if (this->eventType == EVID_17) {
+    if (this->eventType == EVID_ZERAM_CLASS_CRUISER) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D0DD4) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D0DD4[rInd], &sp38);
     }
 
-    if (this->eventType == EVID_31) {
+    if (this->eventType == EVID_A6_UMBRA_STATION) {
         rInd = RAND_FLOAT(ARRAY_COUNT(D_800D1194) - 0.1f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
@@ -2902,7 +2912,7 @@ void ActorEvent_80071DC0(ActorEvent* this) {
 }
 
 void ActorEvent_800720E8(ActorEvent* this) {
-    switch (this->unk_046) {
+    switch (this->work_046) {
         case 0:
             if (this->dmgType != DMG_NONE) {
                 if (this->dmgType == DMG_EXPLOSION) {
@@ -2923,7 +2933,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 }
 
                 if (this->health <= 0) {
-                    this->unk_046 = 1;
+                    this->work_046 = 1;
                     this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
                     AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                 } else {
@@ -2982,8 +2992,8 @@ void ActorEvent_SpawnEffect365(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
 void ActorEvent_80072474(ActorEvent* this) {
     f32 var_fv1;
 
-    if (this->unk_048 != EVACT_NONE) {
-        switch (this->unk_048) {
+    if (this->work_048 != EVACT_NONE) {
+        switch (this->work_048) {
             case EVACT_1:
                 this->fwork[16] = 45.0f;
                 break;
@@ -2997,7 +3007,7 @@ void ActorEvent_80072474(ActorEvent* this) {
                 this->iwork[15] = 0;
                 break;
         }
-        this->unk_048 = EVACT_NONE;
+        this->work_048 = EVACT_NONE;
     }
 
     if (this->iwork[15] != 0) {
@@ -3046,7 +3056,8 @@ void ActorEvent_Update(ActorEvent* this) {
         }
         return;
     }
-    if (((this->eventType == EVID_17) || (this->eventType == EVID_30) || (this->eventType == EVID_31)) &&
+    if (((this->eventType == EVID_ZERAM_CLASS_CRUISER) || (this->eventType == EVID_A6_HARLOCK_FRIGATE) ||
+         (this->eventType == EVID_A6_UMBRA_STATION)) &&
         (this->health <= 0)) {
         ActorEvent_80071DC0(this);
         return;
@@ -3061,12 +3072,12 @@ void ActorEvent_Update(ActorEvent* this) {
             this->counter_04E = 0;
         }
 
-        gMeMoraXpos[this->unk_046][this->counter_04E] = this->obj.pos.x;
-        gMeMoraYpos[this->unk_046][this->counter_04E] = this->obj.pos.y;
-        gMeMoraZpos[this->unk_046][this->counter_04E] = this->obj.pos.z;
-        gMeMoraXrot[this->unk_046][this->counter_04E] = this->obj.rot.x;
-        gMeMoraYrot[this->unk_046][this->counter_04E] = this->obj.rot.y;
-        gMeMoraZrot[this->unk_046][this->counter_04E] = this->obj.rot.z;
+        gMeMoraXpos[this->work_046][this->counter_04E] = this->obj.pos.x;
+        gMeMoraYpos[this->work_046][this->counter_04E] = this->obj.pos.y;
+        gMeMoraZpos[this->work_046][this->counter_04E] = this->obj.pos.z;
+        gMeMoraXrot[this->work_046][this->counter_04E] = this->obj.rot.x;
+        gMeMoraYrot[this->work_046][this->counter_04E] = this->obj.rot.y;
+        gMeMoraZrot[this->work_046][this->counter_04E] = this->obj.rot.z;
 
         if (this->dmgType != DMG_NONE) {
             this->dmgType = DMG_NONE;
@@ -3086,7 +3097,7 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
 
-    if ((this->eventType == EVID_27) && (this->timer_0C2 != 0)) {
+    if ((this->eventType == EVID_SX_LASER) && (this->timer_0C2 != 0)) {
         this->state = EVSTATE_READY;
     }
 
@@ -3109,7 +3120,7 @@ void ActorEvent_Update(ActorEvent* this) {
             spEC = this->obj.pos.y;
             spE8 = this->obj.pos.z;
 
-            if ((this->eventType == EVID_33) || (this->eventType == EVID_68)) {
+            if ((this->eventType == EVID_CRUISER_GUN) || (this->eventType == EVID_SY_LASER_TURRET)) {
                 Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -3164,7 +3175,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
 
-                    if (this->eventType == EVID_68) {
+                    if (this->eventType == EVID_SY_LASER_TURRET) {
                         var_fv0 = 80.0f;
                     } else {
                         var_fv0 = 0.0f;
@@ -3398,10 +3409,12 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     if (this->fwork[10] > 0.0f) {
-        if ((this->eventType == EVID_13) || (this->eventType == EVID_14) || (this->eventType == EVID_61) ||
-            (this->eventType == EVID_62) || (this->eventType == EVID_63) || (this->eventType == EVID_64) ||
-            (this->eventType == EVID_65) || (this->eventType == EVID_66) || (this->eventType == EVID_94) ||
-            (this->eventType == EVID_95) || (this->eventType == EVID_97)) {
+        if ((this->eventType == EVID_ME_METEOR_1) || (this->eventType == EVID_ME_METEOR_2) ||
+            (this->eventType == EVID_ME_METEOR_4) || (this->eventType == EVID_ME_METEOR_5) ||
+            (this->eventType == EVID_ME_BIG_METEOR) || (this->eventType == EVID_ME_ROCK_GULL) ||
+            (this->eventType == EVID_ME_METEOR_6) || (this->eventType == EVID_ME_SECRET_MARKER_2) ||
+            (this->eventType == EVID_WZ_METEOR_1) || (this->eventType == EVID_WZ_METEOR_2) ||
+            (this->eventType == EVID_ME_METEOR_7)) {
             this->obj.rot.y -= this->fwork[11] * this->fwork[12];
             this->obj.rot.x += this->fwork[11] * this->fwork[12];
         } else {
@@ -3460,8 +3473,8 @@ void ActorEvent_Update(ActorEvent* this) {
         if (this->scale <= -1.999f) {
             ActorEvent_80070BA8(this);
         } else {
-            if ((this->dmgType == DMG_BEAM) && (this->scale < 0.5f) && (this->eventType != EVID_48) &&
-                (this->eventType != EVID_49) && (this->eventType != EVID_50)) {
+            if ((this->dmgType == DMG_BEAM) && (this->scale < 0.5f) && (this->eventType != EVID_SY_ROBOT_1) &&
+                (this->eventType != EVID_SY_ROBOT_2) && (this->eventType != EVID_SY_ROBOT_3)) {
                 this->dmgType = DMG_NONE;
                 if (gCurrentLevel == LEVEL_METEO) {
                     AUDIO_PLAY_SFX(NA_SE_ROCK_REFLECT, this->sfxSource, 4);
@@ -3472,10 +3485,10 @@ void ActorEvent_Update(ActorEvent* this) {
 
             if ((this->eventType < EVID_200) && (this->eventType != EVID_SUPPLY_CRATE) && (this->scale >= 0.5f)) {
                 switch (this->eventType) {
-                    case EVID_WING_REPAIR:
+                    case EVID_ITEM_WING_REPAIR:
                         ActorEvent_8006FE28(this);
                         break;
-                    case EVID_79:
+                    case EVID_ZO_BIRD:
                         ActorEvent_8006FEEC(this);
                         break;
                     default:
@@ -3486,11 +3499,11 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
     switch (this->eventType) {
-        case EVID_92:
-        case EVID_93:
-        case EVID_94:
-        case EVID_95:
-        case EVID_96:
+        case EVID_WZ_PILLAR_1:
+        case EVID_WZ_PILLAR_2:
+        case EVID_WZ_METEOR_1:
+        case EVID_WZ_METEOR_2:
+        case EVID_WZ_GATE:
             if ((gGameFrameCount % 8) == 0) {
                 this->fwork[18] = RAND_FLOAT(255.0f);
                 this->fwork[19] = RAND_FLOAT(255.0f);
@@ -3501,7 +3514,7 @@ void ActorEvent_Update(ActorEvent* this) {
             Math_SmoothStepToF(&this->fwork[17], this->fwork[20], 1.0f, 10.0f, 0.0f);
             break;
 
-        case EVID_46:
+        case EVID_ZO_PATROL_BOAT:
             if (Play_CheckDynaFloorCollision(&spEC, &spFC, this->obj.pos.x, -100.0f, this->obj.pos.z)) {
                 spF0 = 10.0f;
 
@@ -3526,38 +3539,38 @@ void ActorEvent_Update(ActorEvent* this) {
             this->obj.rot.y = this->rot_0F4.y;
             break;
 
-        case EVID_31:
+        case EVID_A6_UMBRA_STATION:
             this->obj.rot.z = gGameFrameCount;
             break;
 
-        case EVID_A6_MISSILE:
+        case EVID_A6_NINJIN_MISSILE:
         case EVID_A6_ROCKET:
             this->obj.rot.z = gGameFrameCount * 3.0f;
             break;
 
-        case EVID_3:
+        case EVID_SPY_EYE:
             this->drawShadow = true;
             this->obj.rot.y -= 10.0f;
             break;
 
-        case EVID_6:
+        case EVID_FIREBIRD:
             this->animFrame++;
             if (gCurrentLevel == LEVEL_SOLAR) {
-                if (this->animFrame >= Animation_GetFrameCount(&D_SO_600636C)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aSoGoreAnim)) {
                     this->animFrame = 0;
                 }
                 if ((gGameFrameCount % 3) == 0) {
                     Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
                                    RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                 }
-            } else if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
+            } else if (this->animFrame >= Animation_GetFrameCount(&aFirebirdAnim)) {
                 this->animFrame = 0;
             }
             break;
 
-        case EVID_9:
+        case EVID_TRIPOD:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40001A4)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aTripodAnim)) {
                 this->animFrame = 0;
             }
             if (this->iwork[6] == 0) {
@@ -3565,13 +3578,13 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_48:
-        case EVID_49:
-        case EVID_50:
+        case EVID_SY_ROBOT_1:
+        case EVID_SY_ROBOT_2:
+        case EVID_SY_ROBOT_3:
             SectorY_SyRobot_Update(this);
             break;
 
-        case EVID_52:
+        case EVID_SARUMARINE_PERISCOPE:
             ActorEvent_80072474(this);
             break;
 
@@ -3579,7 +3592,7 @@ void ActorEvent_Update(ActorEvent* this) {
             ActorSupplies_Update(this);
             break;
 
-        case EVID_79:
+        case EVID_ZO_BIRD:
             if (this->timer_0C4 == 0) {
                 this->animFrame++;
                 if (Animation_GetFrameCount(&aZoBirdAnim) < this->animFrame) {
@@ -3588,14 +3601,14 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVID_80: {
+        case EVID_VE1_PILLAR: {
             Effect* effect;
             Vec3f sp90;
             Vec3f sp84;
             Vec3f sp78;
             s32 sp74;
 
-            switch (this->unk_046) {
+            switch (this->work_046) {
                 case 1:
                     break;
 
@@ -3631,7 +3644,7 @@ void ActorEvent_Update(ActorEvent* this) {
                                 effect->unk_60.z = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
                             }
                         }
-                        this->unk_046++;
+                        this->work_046++;
                     }
                     break;
             }
@@ -3695,29 +3708,29 @@ void ActorEvent_Update(ActorEvent* this) {
             }
         } break;
 
-        case EVID_81:
+        case EVID_VE1_BLOCKER:
             Math_SmoothStepToF(&this->fwork[15], 1.0f, 0.1f, 0.1f, 0.001f);
 
             if (this->fwork[15] > 0.5f) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_VE1_601B4C4);
             }
 
-            if (this->unk_046 == 0) {
+            if (this->work_046 == 0) {
                 this->fwork[16] += 4.0f;
                 if (this->fwork[16] >= 100.0f) {
-                    this->unk_046 = 1;
+                    this->work_046 = 1;
                     this->fwork[16] = 100.0f;
                 }
             } else {
                 this->fwork[16] -= 4.0f;
                 if (this->fwork[16] <= 0.0f) {
-                    this->unk_046 = 0;
+                    this->work_046 = 0;
                     this->fwork[16] = 0.0f;
                 }
             }
             break;
 
-        case EVID_AQ_CLAM:
+        case EVID_AQ_OYSTER:
             if (this->health <= 0) {
                 if (this->animFrame == 20) {
                     spD4 = this->obj.pos.z;
@@ -3750,17 +3763,17 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVID_AQ_STARFISH:
-            if (this->unk_04A == 0) {
-                this->unk_046 += 4;
-                if (this->unk_046 >= 255) {
-                    this->unk_046 = 255;
-                    this->unk_04A = 1;
+            if (this->work_04A == 0) {
+                this->work_046 += 4;
+                if (this->work_046 >= 255) {
+                    this->work_046 = 255;
+                    this->work_04A = 1;
                 }
             } else {
-                this->unk_046 -= 4;
-                if (this->unk_046 <= 0) {
-                    this->unk_046 = 0;
-                    this->unk_04A = 0;
+                this->work_046 -= 4;
+                if (this->work_046 <= 0) {
+                    this->work_046 = 0;
+                    this->work_04A = 0;
                 }
             }
             break;
@@ -3832,13 +3845,13 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
 }
 
 void ActorEvent_DrawEVID_SX_WARP_GATE(ActorEvent* this) {
-    Vec3f sp30[10];
+    Vec3f frameTable[10];
 
-    Animation_GetFrameData(&D_SX_6013820, 0, sp30);
-    sp30[6].y += this->fwork[15];
-    sp30[5].z += this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    sp30[4].z -= this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    Animation_DrawSkeleton(1, D_SX_601390C, sp30, ActorEvent_OverrideLimbDraw2, NULL, this, &gIdentityMatrix);
+    Animation_GetFrameData(&D_SX_6013820, 0, frameTable);
+    frameTable[6].y += this->fwork[15];
+    frameTable[5].z += this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    frameTable[4].z -= this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_OverrideLimbDraw2, NULL, this, &gIdentityMatrix);
 }
 
 bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -3852,31 +3865,33 @@ bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
 
 s32 SyShipDebris_Draw(SyShipDebris* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
-    gSPDisplayList(gMasterDisp++, D_SY_601AD70);
+    gSPDisplayList(gMasterDisp++, aSyDebrisDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     return 0;
 }
 
 void ActorEvent_Draw(ActorEvent* this) {
-    Vec3f sp114[31];
+    s32 pad2[3];
+    Vec3f frameTable[30];
     f32 sp40;
-    s16 temp_s0;
+    s16 savedState;
     s32 pad;
 
-    if (this->timer_0C6 && (this->eventType != EVID_90) && (this->eventType != EVID_68) &&
-        (this->eventType != EVID_72)) {
-        if ((this->eventType != EVID_13) && (this->eventType != EVID_14) && (this->eventType != EVID_61) &&
-            (this->eventType != EVID_62) && (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_98) &&
-            (this->scale > 0.5f) && (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) &&
-            (gPlayState != PLAY_PAUSE)) {
+    if (this->timer_0C6 && (this->eventType != EVID_MA_RAILROAD_CART) && (this->eventType != EVID_SY_LASER_TURRET) &&
+        (this->eventType != EVID_SY_SHIP_WINDOWS)) {
+        if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_2) &&
+            (this->eventType != EVID_ME_METEOR_4) && (this->eventType != EVID_ME_METEOR_5) &&
+            (this->eventType != EVID_AQ_OYSTER) && (this->eventType != EVID_MA_BOULDER) && (this->scale > 0.5f) &&
+            (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) && (gPlayState != PLAY_PAUSE)) {
             Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                    this->vel.z, this->scale * 0.07f, 3);
         }
 
-        if ((this->eventType != EVID_A6_MISSILE) && (this->eventType != EVID_23) && (this->eventType != EVID_79) &&
-            (this->eventType != EVID_AQ_CLAM) && (this->eventType != EVID_27) && (this->eventType != EVID_51) &&
-            (this->eventType != EVID_13) && (this->eventType != EVID_72) && (this->eventType != EVID_28) &&
-            (this->scale > 0.5f)) {
+        if ((this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_VENOM_FIGHTER_3) &&
+            (this->eventType != EVID_ZO_BIRD) && (this->eventType != EVID_AQ_OYSTER) &&
+            (this->eventType != EVID_SX_LASER) && (this->eventType != EVID_SY_ROBOT_4) &&
+            (this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_SY_SHIP_WINDOWS) &&
+            (this->eventType != EVID_SX_WATCH_POST) && (this->scale > 0.5f)) {
             sp40 = SIN_DEG(this->timer_0C6 * 400.0f) * this->timer_0C6;
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, M_DTOR * sp40, MTXF_APPLY);
@@ -3890,10 +3905,11 @@ void ActorEvent_Draw(ActorEvent* this) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
     }
 
-    if ((this->eventType == EVID_29) || (this->eventType == EVID_59) || (this->eventType == EVID_60)) {
+    if ((this->eventType == EVID_SX_SPACE_MINE) || (this->eventType == EVID_SY_ROBOT_SPRITE_SIDE) ||
+        (this->eventType == EVID_SY_ROBOT_SPRITE_FRONT)) {
         RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    } else if ((this->eventType == EVID_82) || (this->eventType == EVID_90) ||
-               ((this->eventType == EVID_6) && (gCurrentLevel == LEVEL_SOLAR))) {
+    } else if ((this->eventType == EVID_MA_LASER_TURRET) || (this->eventType == EVID_MA_RAILROAD_CART) ||
+               ((this->eventType == EVID_FIREBIRD) && (gCurrentLevel == LEVEL_SOLAR))) {
         if ((this->timer_0C6 % 2) == 0) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_57);
         } else {
@@ -3902,11 +3918,11 @@ void ActorEvent_Draw(ActorEvent* this) {
     }
 
     switch (this->eventType) {
-        case EVID_92:
-        case EVID_93:
-        case EVID_94:
-        case EVID_95:
-        case EVID_96:
+        case EVID_WZ_PILLAR_1:
+        case EVID_WZ_PILLAR_2:
+        case EVID_WZ_METEOR_1:
+        case EVID_WZ_METEOR_2:
+        case EVID_WZ_GATE:
             RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[15], (s32) this->fwork[16],
@@ -3921,16 +3937,16 @@ void ActorEvent_Draw(ActorEvent* this) {
             }
 
             switch (this->eventType) {
-                case EVID_56:
+                case EVID_TI_GREAT_FOX:
                     Cutscene_DrawGreatFox();
                     break;
 
-                case EVID_0:
+                case EVID_VENOM_FIGHTER_1:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_SLIPPY_METEO:
+                case EVID_ME_SLIPPY:
                     this->fwork[15] -= this->fwork[15] * 0.1f;
                     this->fwork[26] -= this->fwork[26] * 0.1f;
                     this->fwork[16] -= this->fwork[16] * 0.1f;
@@ -3957,76 +3973,76 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_5:
+                case EVID_GRANGA_FIGHTER_2:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_6:
+                case EVID_FIREBIRD:
                     if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                        Animation_GetFrameData(&D_SO_600636C, this->animFrame, sp114);
-                        Animation_DrawSkeleton(1, D_SO_6006558, sp114, NULL, NULL, this, &gIdentityMatrix);
+                        Animation_GetFrameData(&aSoGoreAnim, this->animFrame, frameTable);
+                        Animation_DrawSkeleton(1, aSoGoreSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     } else {
-                        Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->animFrame, sp114);
-                        Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, sp114, NULL, NULL, this, &gIdentityMatrix);
+                        Animation_GetFrameData(&aFirebirdAnim, this->animFrame, frameTable);
+                        Animation_DrawSkeleton(1, aFirebirdSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     }
                     break;
 
-                case EVID_7:
+                case EVID_CORNERIAN_FIGHTER:
                     this->iwork[11] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
-                case EVID_9:
+                case EVID_TRIPOD:
                     Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&D_ENMY_PLANET_40001A4, this->animFrame, sp114);
-                    Animation_DrawSkeleton(1, D_ENMY_PLANET_4000270, sp114, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_GetFrameData(&aTripodAnim, this->animFrame, frameTable);
+                    Animation_DrawSkeleton(1, aTripodSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
-                case EVID_18:
+                case EVID_SX_SPY_EYE:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
-                        Actor_DrawEngineGlow(this, 2);
+                        Actor_DrawEngineGlow(this, EG_GREEN);
                     }
                     break;
 
-                case EVID_19:
+                case EVID_SX_CANINE:
                     if (this->fwork[0] > 0.1f) {
                         this->iwork[11] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
-                        Actor_DrawEngineGlow(this, 2);
+                        Actor_DrawEngineGlow(this, EG_GREEN);
                     }
                     break;
 
-                case EVID_20:
+                case EVID_SPACE_MINE:
                     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-                    gSPDisplayList(gMasterDisp++, D_A6_601A120);
+                    gSPDisplayList(gMasterDisp++, aA6SpaceMineDL);
                     break;
 
-                case EVID_A6_MISSILE:
+                case EVID_A6_NINJIN_MISSILE:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_A6_6018BF0);
+                    gSPDisplayList(gMasterDisp++, aA6NinjinMissileDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, EG_GREEN);
                     break;
 
                 case EVID_A6_ROCKET:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_A6_6019730);
+                    gSPDisplayList(gMasterDisp++, aA6RocketDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                     this->iwork[11] = 1;
-                    Actor_DrawEngineGlow(this, 2);
+                    Actor_DrawEngineGlow(this, EG_GREEN);
                     break;
 
-                case EVID_27:
+                case EVID_SX_LASER:
                     if (this->timer_0C2 != 0) {
                         if (((this->timer_0C2 & 3) == 0) && (gPlayState != PLAY_PAUSE)) {
                             func_effect_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.x,
@@ -4036,148 +4052,149 @@ void ActorEvent_Draw(ActorEvent* this) {
                         }
                         RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                        gSPDisplayList(gMasterDisp++, D_SX_6001950);
+                        gSPDisplayList(gMasterDisp++, aSxLaserDestroyedDL);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_SX_60066F0);
+                        gSPDisplayList(gMasterDisp++, aSxLaserDL);
                     }
                     break;
 
-                case EVID_31:
+                case EVID_A6_UMBRA_STATION:
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_A6_600E0C0);
+                    gSPDisplayList(gMasterDisp++, aA6UmbraStationDL);
                     break;
 
-                case EVID_33:
-                    Animation_GetFrameData(&D_ENMY_SPACE_400A30C, this->animFrame, sp114);
+                case EVID_CRUISER_GUN:
+                    Animation_GetFrameData(&aCruiserGunAnim, this->animFrame, frameTable);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
-                    Animation_DrawSkeleton(1, D_ENMY_SPACE_400A398, sp114, ActorEvent_OverrideLimbDraw1, NULL, this,
+                    Animation_DrawSkeleton(1, aCruiserGunSkel, frameTable, ActorEvent_OverrideLimbDraw1, NULL, this,
                                            &gIdentityMatrix);
                     Math_SmoothStepToF(&this->fwork[16], 0.0f, 0.3f, 2.0f, 0.0001f);
                     break;
 
-                case EVID_36:
-                    Animation_GetFrameData(&D_TI1_700CAF4, this->animFrame, sp114);
-                    sp114[2].z += this->fwork[15];
-                    Animation_DrawSkeleton(1, D_TI1_700CB60, sp114, NULL, NULL, this, &gIdentityMatrix);
+                case EVID_TI_BOMBER:
+                    Animation_GetFrameData(&aTiBomberAnim, this->animFrame, frameTable);
+                    frameTable[2].z += this->fwork[15];
+                    Animation_DrawSkeleton(1, aTiBomberSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
                 case EVID_SX_WARP_GATE:
                     ActorEvent_DrawEVID_SX_WARP_GATE(this);
                     break;
 
-                case EVID_48:
-                case EVID_49:
-                case EVID_50:
+                case EVID_SY_ROBOT_1:
+                case EVID_SY_ROBOT_2:
+                case EVID_SY_ROBOT_3:
                     SectorY_SyRobot_Draw(this);
                     break;
 
-                case EVID_52:
-                    Animation_GetFrameData(&D_ZO_601F874, this->animFrame, sp114);
-                    sp114[2].z -= this->fwork[15];
+                case EVID_SARUMARINE_PERISCOPE:
+                    Animation_GetFrameData(&aZoSarumarinePeriscopeAnim, this->animFrame, frameTable);
+                    frameTable[2].z -= this->fwork[15];
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
-                    Animation_DrawSkeleton(1, D_ZO_601F920, sp114, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, aZoSarumarinePeriscopeSkel, frameTable, NULL, NULL, this,
+                                           &gIdentityMatrix);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
-                case EVID_64:
+                case EVID_ME_ROCK_GULL:
                     Matrix_Push(&gGfxMatrix);
                     Matrix_RotateX(gGfxMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_ME_600CAA0);
+                    gSPDisplayList(gMasterDisp++, aMeRockGull1DL);
                     Matrix_Pop(&gGfxMatrix);
-                    gSPDisplayList(gMasterDisp++, D_ME_600C130);
+                    gSPDisplayList(gMasterDisp++, aMeRockGull2DL);
                     Matrix_Translate(gGfxMatrix, 0.0f, -this->fwork[15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_ME_600C740);
+                    gSPDisplayList(gMasterDisp++, aMeRockGull3DL);
                     Matrix_Pop(&gGfxMatrix);
                     break;
 
-                case EVID_METEO_PYRAMID_SHIP:
-                    gSPDisplayList(gMasterDisp++, D_ME_6008AA0);
+                case EVID_ME_FLIP_BOT:
+                    gSPDisplayList(gMasterDisp++, aMeFlipBot1DL);
                     RCP_SetupDL(&gMasterDisp, SETUPDL_53);
-                    gSPDisplayList(gMasterDisp++, D_ME_6009E30);
+                    gSPDisplayList(gMasterDisp++, aMeFlipBot2DL);
                     break;
 
                 case EVID_SUPPLY_CRATE:
                     ActorSupplies_Draw(this);
                     break;
 
-                case EVID_79:
-                    temp_s0 = this->state;
-                    this->state = 2; // actor 235 state
+                case EVID_ZO_BIRD:
+                    savedState = this->state;
+                    this->state = 2;
                     Zoness_ZoBird_Draw(this);
-                    this->state = temp_s0;
+                    this->state = savedState;
                     break;
 
-                case EVID_80:
+                case EVID_VE1_PILLAR:
                     Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_VE1_9011200);
+                    gSPDisplayList(gMasterDisp++, aVe1PillarDL);
                     break;
 
-                case EVID_81:
+                case EVID_VE1_BLOCKER:
                     if (this->fwork[15] > 0.001f) {
                         Matrix_Scale(gGfxMatrix, this->fwork[15], this->fwork[15], this->fwork[15], MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
                         Texture_BlendRGBA16(this->fwork[16], 16 * 11, D_VE1_9003890, D_VE1_9003DF0, D_VE1_9003330);
-                        gSPDisplayList(gMasterDisp++, D_VE1_9002CF0);
+                        gSPDisplayList(gMasterDisp++, aVe1BlockerDL);
                     }
                     break;
 
-                case EVID_82:
+                case EVID_MA_LASER_TURRET:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_MA_600DA10);
+                    gSPDisplayList(gMasterDisp++, aMaLaserTurretDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
-                case EVID_AQ_CLAM:
+                case EVID_AQ_OYSTER:
                     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
-                    Animation_GetFrameData(&aAqOysterAnim, this->animFrame, sp114);
-                    Animation_DrawSkeleton(1, aAqOysterSkel, sp114, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_GetFrameData(&aAqOysterAnim, this->animFrame, frameTable);
+                    Animation_DrawSkeleton(1, aAqOysterSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
                 case EVID_BILL:
-                    gSPDisplayList(gMasterDisp++, D_D00B880);
+                    gSPDisplayList(gMasterDisp++, aBillShipDL);
                     Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EVID_KATT:
-                    gSPDisplayList(gMasterDisp++, D_D009A40);
+                    gSPDisplayList(gMasterDisp++, aKattShipDL);
                     Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EVID_AQ_STARFISH:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_22);
-                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->unk_046, this->unk_046, this->unk_046, 255);
-                    gSPDisplayList(gMasterDisp++, D_AQ_6008970);
+                    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->work_046, this->work_046, this->work_046, 255);
+                    gSPDisplayList(gMasterDisp++, aAqStarfishDL);
                     break;
 
-                case EVID_89:
+                case EVID_AQ_SHELL:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_21);
-                    gSPDisplayList(gMasterDisp++, D_AQ_6000E10);
+                    gSPDisplayList(gMasterDisp++, aAqShellDL);
                     break;
 
                 case EVID_ANDROSS_GATE:
                 case EVID_ANDROSS_GATE_2:
-                    Andross_8018769C(this);
+                    Andross_Gate_Draw(this);
                     break;
 
                 case EVID_SX_WARP_ENMY:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_35);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 143);
                     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-                    gSPDisplayList(gMasterDisp++, D_WZ_7000000);
+                    gSPDisplayList(gMasterDisp++, aWzSxEnemy1DL);
                     break;
 
                 case EVID_KILLER_BEE:
-                    Animation_GetFrameData(&D_ENMY_SPACE_4000080, this->animFrame, sp114);
-                    Animation_DrawSkeleton(1, D_ENMY_SPACE_400014C, sp114, NULL, NULL, this, &gIdentityMatrix);
+                    Animation_GetFrameData(&aKillerBeeAnim, this->animFrame, frameTable);
+                    Animation_DrawSkeleton(1, aKillerBeeSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
                 case EVID_FFF:
@@ -4186,261 +4203,263 @@ void ActorEvent_Draw(ActorEvent* this) {
             }
 
             if ((gReflectY > 0) && ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] < TEAM_ID_MAX))) {
-                Vec3f sp58 = { 0.0f, 0.0f, 0.0f };
+                Vec3f src = { 0.0f, 0.0f, 0.0f };
 
                 if ((this->iwork[12] == TEAM_ID_KATT) || (this->iwork[12] == TEAM_ID_BILL)) {
-                    Matrix_MultVec3f(gGfxMatrix, &sp58, &gTeamArrowsViewPos[this->iwork[12] + 4]);
+                    Matrix_MultVec3f(gGfxMatrix, &src, &gTeamArrowsViewPos[this->iwork[12] + 4]);
                 } else {
-                    Matrix_MultVec3f(gGfxMatrix, &sp58, &gTeamArrowsViewPos[this->iwork[12]]);
+                    Matrix_MultVec3f(gGfxMatrix, &src, &gTeamArrowsViewPos[this->iwork[12]]);
                 }
             }
             break;
     }
 }
 
-void func_enmy2_800763A4(Actor* actor) {
-    s32 var_s0;
+void func_enmy2_800763A4(Actor* this) {
+    s32 i;
     s32 sp60;
-    s32 sp5C;
-    f32 sp58;
-    Vec3f sp4C;
+    s32 triangleIndex;
+    f32 floorHeight;
+    Vec3f vel;
     s32 pad;
 
-    if (actor->eventType == EVID_27) {
-        actor->obj.pos.y -= actor->vel.y;
-        actor->obj.status = OBJ_ACTIVE;
-        func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z - actor->vel.z,
-                             actor->scale * 5.0f);
-        actor->timer_0C2 = 10000;
+    if (this->eventType == EVID_SX_LASER) {
+        this->obj.pos.y -= this->vel.y;
+        this->obj.status = OBJ_ACTIVE;
+        func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                             this->scale * 5.0f);
+        this->timer_0C2 = 10000;
         return;
     }
 
-    if (actor->timer_0BE != 0) {
-        actor->vel.z = 0.0f;
-        actor->vel.x = 0.0f;
-        actor->vel.y = 0.0f;
+    if (this->timer_0BE != 0) {
+        this->vel.z = 0.0f;
+        this->vel.x = 0.0f;
+        this->vel.y = 0.0f;
 
-        if (actor->timer_0BE == 1) {
-            Object_Kill(&actor->obj, actor->sfxSource);
-            Actor_Despawn(actor);
+        if (this->timer_0BE == 1) {
+            Object_Kill(&this->obj, this->sfxSource);
+            Actor_Despawn(this);
 
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
-                D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-                D_ctx_80178130[actor->index + 1] = 1001.0f;
+                D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
+                D_ctx_80178028[this->index + 1] = this->obj.pos.z;
+                D_ctx_80178130[this->index + 1] = 1001.0f;
             }
             return;
         }
     } else {
         if ((gLevelType == LEVELTYPE_PLANET) || (gCurrentLevel == LEVEL_BOLSE)) {
-            actor->gravity = 0.4f;
+            this->gravity = 0.4f;
         }
-        switch (actor->timer_04C) {
+
+        switch (this->work_04C) {
             case 0:
             case 1:
-                if ((actor->index % 2) != 0) {
-                    actor->obj.rot.z -= 8.0f;
+                if ((this->index % 2) != 0) {
+                    this->obj.rot.z -= 8.0f;
                 } else {
-                    actor->obj.rot.z += 8.0f;
+                    this->obj.rot.z += 8.0f;
                 }
                 break;
 
             case 2:
-                actor->obj.rot.y += 5.0f;
-                actor->obj.rot.x += 7.3f;
+                this->obj.rot.y += 5.0f;
+                this->obj.rot.x += 7.3f;
                 break;
 
             case 3:
-                actor->obj.rot.y += 6.0f;
-                actor->obj.rot.x += 18.3f;
-                actor->gravity = 0.7f;
+                this->obj.rot.y += 6.0f;
+                this->obj.rot.x += 18.3f;
+                this->gravity = 0.7f;
                 break;
 
             case 4:
-                actor->obj.rot.x += (-90.0f - actor->obj.rot.x) * 0.1f;
+                this->obj.rot.x += (-90.0f - this->obj.rot.x) * 0.1f;
                 break;
         }
 
-        if (((actor->timer_0BC % 4U) == 1) && (actor->eventType != EVID_13) && (actor->eventType != EVID_61)) {
-            func_effect_8007D24C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 2.2f);
+        if (((this->timer_0BC % 4U) == 1) && (this->eventType != EVID_ME_METEOR_1) &&
+            (this->eventType != EVID_ME_METEOR_4)) {
+            func_effect_8007D24C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.2f);
         }
 
-        if (gUseDynaFloor &&
-            Play_CheckDynaFloorCollision(&sp58, &sp5C, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z)) {
-            Effect386_Spawn1(actor->obj.pos.x, sp58 + 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f, actor->scale * 3.0f,
-                             5);
-            Effect_Effect381_Spawn(actor->obj.pos.x, sp58, actor->obj.pos.z, 2.0f);
-            actor->timer_0BE = 2;
-            Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+        if (gUseDynaFloor && Play_CheckDynaFloorCollision(&floorHeight, &triangleIndex, this->obj.pos.x,
+                                                          this->obj.pos.y, this->obj.pos.z)) {
+            Effect386_Spawn1(this->obj.pos.x, floorHeight + 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                             this->scale * 3.0f, 5);
+            Effect_Effect381_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z, 2.0f);
+            this->timer_0BE = 2;
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             return;
         }
 
         if (gGroundType == 4) {
-            if (Ground_801B6AEC(actor->obj.pos.x, actor->obj.pos.y - 10.0f, actor->obj.pos.z + gPathProgress) != 0) {
-                func_effect_8007D2C8(actor->obj.pos.x, actor->obj.pos.y + 20.0f, actor->obj.pos.z, actor->scale * 6.0f);
-                Effect386_Spawn1(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                 actor->obj.pos.z - actor->vel.z, 0.0f, 0.0f, 0.0f, actor->scale * 4.0f, 20);
-                func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
-                actor->timer_0BE = 2;
-                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+            if (Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y - 10.0f, this->obj.pos.z + gPathProgress) != 0) {
+                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 20.0f, this->obj.pos.z, this->scale * 6.0f);
+                Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                                 0.0f, 0.0f, 0.0f, this->scale * 4.0f, 20);
+                func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
+                this->timer_0BE = 2;
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 return;
             }
         } else {
-            sp4C.x = actor->vel.x;
-            sp4C.y = actor->vel.y;
-            sp4C.z = actor->vel.z;
+            vel.x = this->vel.x;
+            vel.y = this->vel.y;
+            vel.z = this->vel.z;
 
-            sp60 = Object_CheckCollision(actor->index, &actor->obj.pos, &sp4C, 0);
+            sp60 = Object_CheckCollision(this->index, &this->obj.pos, &vel, 0);
 
-            if ((sp60 != 0) || (actor->obj.pos.y < (gGroundHeight + 30.0f))) {
-                if ((Rand_ZeroOne() < 0.5f) && (actor->timer_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
+            if ((sp60 != 0) || (this->obj.pos.y < (gGroundHeight + 30.0f))) {
+                if ((Rand_ZeroOne() < 0.5f) && (this->work_04C < 3) && (gLevelType == LEVELTYPE_PLANET) &&
                     (sp60 != 999) && (gGroundSurface != SURFACE_WATER) &&
-                    ((actor->vel.z < -20.0f) || (actor->vel.z > 0.0f))) {
+                    ((this->vel.z < -20.0f) || (this->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
-                        func_enmy2_8006BF7C(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z);
-                        func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
+                        func_enmy2_8006BF7C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z);
+                        func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
                     }
 
-                    actor->obj.pos.y -= actor->vel.y;
-                    actor->vel.y = RAND_FLOAT(10.0f);
-                    actor->timer_04C = 3;
+                    this->obj.pos.y -= this->vel.y;
+                    this->vel.y = RAND_FLOAT(10.0f);
+                    this->work_04C = 3;
 
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        func_effect_8007D2C8(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y,
-                                             actor->obj.pos.z - actor->vel.z, actor->scale * 3.0f);
+                        func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y,
+                                             this->obj.pos.z - this->vel.z, this->scale * 3.0f);
                     }
 
-                    func_effect_8007D2C8(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y,
-                                         actor->obj.pos.z - actor->vel.z, actor->scale * 3.0f);
+                    func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
+                                         this->scale * 3.0f);
 
-                    if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+                    if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
-                    if ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SLIPPY_METEO)) {
-                        if (actor->fwork[17] < 360.0f) {
-                            Play_SpawnDebris(1, actor->obj.pos.x + 20.0f, actor->obj.pos.y, actor->obj.pos.z);
-                            actor->fwork[17] = 777.0f;
+                    if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_ME_SLIPPY)) {
+                        if (this->fwork[17] < 360.0f) {
+                            Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
+                            this->fwork[17] = 777.0f;
                         }
-                        if (actor->fwork[18] < 360.0f) {
-                            Play_SpawnDebris(0, actor->obj.pos.x - 20.0f, actor->obj.pos.y, actor->obj.pos.z);
-                            actor->fwork[18] = 777.0f;
+                        if (this->fwork[18] < 360.0f) {
+                            Play_SpawnDebris(0, this->obj.pos.x - 20.0f, this->obj.pos.y, this->obj.pos.z);
+                            this->fwork[18] = 777.0f;
                         }
                     }
                 } else {
-                    if ((actor->obj.pos.y < (gGroundHeight + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
-                        actor->vel.z = 0.0f;
+                    if ((this->obj.pos.y < (gGroundHeight + 30.0f)) && (gLevelType == LEVELTYPE_PLANET)) {
+                        this->vel.z = 0.0f;
                         if (gGroundSurface == SURFACE_WATER) {
-                            Effect_Effect367_Spawn(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f,
-                                                   20.0f, 0);
-                            Effect_Effect367_Spawn(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f,
-                                                   20.0f, 10);
-                            Effect_Effect367_Spawn(actor->obj.pos.x, gGroundHeight + 2.0f, actor->obj.pos.z, 3.0f,
-                                                   20.0f, 20);
-                            Effect_Effect372_Spawn2(actor->obj.pos.x, gGroundHeight, actor->obj.pos.z, 0.1f, 3.0f);
+                            Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
+                                                   0);
+                            Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
+                                                   10);
+                            Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
+                                                   20);
+                            Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
                         } else {
-                            PlayerShot_SpawnEffect344(actor->obj.pos.x, 3.0f, actor->obj.pos.z, actor->obj.pos.x,
-                                                      actor->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
+                            PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
+                                                      this->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
                         }
-                        Effect_Effect390_Spawn(actor->obj.pos.x, 20.0f, actor->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                               actor->scale * 0.05f, 30);
+                        Effect_Effect390_Spawn(this->obj.pos.x, 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                               this->scale * 0.05f, 30);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
-                            Effect_Effect387_Spawn(actor->obj.pos.x, gGroundHeight + 30.0f, actor->obj.pos.z, 3.0f, 60);
+                            Effect_Effect387_Spawn(this->obj.pos.x, gGroundHeight + 30.0f, this->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
-                                func_enmy_80062C38(actor->obj.pos.x, actor->obj.pos.z);
+                                func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
                             }
                         }
                     }
 
-                    actor->obj.pos.y -= actor->vel.y;
-                    func_effect_8007D0E0(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                         actor->obj.pos.z - actor->vel.z, actor->scale * 5.0f);
+                    this->obj.pos.y -= this->vel.y;
+                    func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                         this->obj.pos.z - this->vel.z, this->scale * 5.0f);
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y + 30.0f, actor->obj.pos.z, actor->vel.x,
-                                         10.0f, actor->vel.z, actor->scale * 3.0f, 20);
+                        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, this->vel.x, 10.0f,
+                                         this->vel.z, this->scale * 3.0f, 20);
                         if (sp60 == 999) {
-                            Effect_Effect387_Spawn(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                                   actor->scale * 3.0f, 70);
+                            Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                                   this->scale * 3.0f, 70);
                         }
-                        for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                        for (i = 0; i < 4; i++) {
                             if (Rand_ZeroOne() < 0.7f) {
                                 if (gCurrentLevel == LEVEL_FORTUNA) {
-                                    Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                                    Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
                                 } else {
-                                    Effect_Effect357_Spawn50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                                                             1.0f);
+                                    Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
                                 }
                             }
                         }
                     } else {
-                        Effect386_Spawn1(actor->obj.pos.x - actor->vel.x, actor->obj.pos.y + 30.0f,
-                                         (actor->obj.pos.z - actor->vel.z) + 48.0f, 0.0f, 0.0f, 0.0f,
-                                         actor->scale * 3.0f, 5);
+                        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                         (this->obj.pos.z - this->vel.z) + 48.0f, 0.0f, 0.0f, 0.0f, this->scale * 3.0f,
+                                         5);
                     }
 
-                    actor->timer_0BE = 2;
+                    this->timer_0BE = 2;
 
-                    if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+                    if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
                 }
             }
         }
-        if ((actor->dmgType != DMG_NONE) || (actor->timer_0BC == 0) ||
-            ((actor->itemDrop != DROP_NONE) && (actor->obj.id != OBJ_ACTOR_ALLRANGE))) {
+        if ((this->dmgType != DMG_NONE) || (this->timer_0BC == 0) ||
+            ((this->itemDrop != DROP_NONE) && (this->obj.id != OBJ_ACTOR_ALLRANGE))) {
             if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                for (var_s0 = 0; var_s0 < 4; var_s0++) {
+                for (i = 0; i < 4; i++) {
                     if (Rand_ZeroOne() < 0.7f) {
                         if (gCurrentLevel == LEVEL_FORTUNA) {
-                            Play_SpawnDebris(4, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z);
+                            Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
                         } else {
-                            Effect_Effect357_Spawn50(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, 1.0f);
+                            Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
                         }
                     }
                 }
 
-                Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
-                                 actor->vel.z, 5.0f, 15);
-                func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z, 8.0f);
+                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                 this->vel.z, 5.0f, 15);
+                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
             } else {
-                if ((actor->eventType != EVID_13) && (actor->eventType != EVID_61)) {
-                    func_effect_8007D0E0(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z - actor->vel.z,
-                                         actor->scale * 5.0f);
+                if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_4)) {
+                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
+                                         this->scale * 5.0f);
                 }
 
-                if (actor->eventType == EVID_36) {
-                    Effect386_Spawn1(actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z, actor->vel.x, actor->vel.y,
-                                     actor->vel.z, 5.0f, 15);
+                if (this->eventType == EVID_TI_BOMBER) {
+                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                     this->vel.z, 5.0f, 15);
                 }
             }
 
-            actor->timer_0BE = 2;
+            this->timer_0BE = 2;
 
-            if ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->aiType < AI360_KATT)) {
-                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_M);
+            if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             } else {
-                Effect_SpawnTimedSfxAtPos(&actor->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
         }
     }
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        D_ctx_80177F20[actor->index + 1] = actor->obj.pos.x;
-        D_ctx_80178028[actor->index + 1] = actor->obj.pos.z;
-        D_ctx_80178130[actor->index + 1] = actor->rot_0F4.y + 180.0f;
+        D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
+        D_ctx_80178028[this->index + 1] = this->obj.pos.z;
+        D_ctx_80178130[this->index + 1] = this->rot_0F4.y + 180.0f;
     }
 
-    if (actor->obj.id == OBJ_ACTOR_ALLRANGE) {
-        ActorAllRange_SetShadowData(actor);
+    if (this->obj.id == OBJ_ACTOR_ALLRANGE) {
+        ActorAllRange_SetShadowData(this);
     }
 }
 
 void ActorEvent_Dying(ActorEvent* this) {
-    if ((this->eventType == EVID_48) || (this->eventType == EVID_49) || (this->eventType == EVID_50)) {
+    if ((this->eventType == EVID_SY_ROBOT_1) || (this->eventType == EVID_SY_ROBOT_2) ||
+        (this->eventType == EVID_SY_ROBOT_3)) {
         SectorY_SyRobot_Update(this);
     } else {
         func_enmy2_800763A4(this);

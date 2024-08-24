@@ -49,7 +49,7 @@ void SectorY_80197B30(ActorCutscene* this, s32 timer) {
     this->obj.rot.z = gPlayer[0].rot.z;
 
     this->state = 5;
-    this->timer_04C = timer;
+    this->work_04C = timer;
     this->iwork[11] = 1;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
@@ -625,8 +625,8 @@ void SectorY_80199438(SyShogun* this) {
             if (this->index != 0) {
                 Object_Kill(&gActors[D_ctx_80177A10[9]].obj, gActors[D_ctx_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
-                    gBosses[0].unk_04A = 1;
-                    gScenery360[0].info.dList = D_SY_601F3D0;
+                    gBosses[0].work_04A = 1;
+                    gScenery360[0].info.dList = aSySaruzinDL;
                     gScenery360[0].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -1002,15 +1002,15 @@ void SectorY_8019AEC0(SyShogun* this) {
     this->vel.x = 0.0f;
     this->vel.y = 0.0f;
     this->vel.z = 0.0f;
-    this->unk_044 = 0;
+    this->work_044 = 0;
 }
 
 void SectorY_8019AEEC(SyShogun* this) {
     if ((this->obj.pos.y != 365.0f) && (this->swork[21] != 1)) {
-        if (this->unk_04A != 0) {
-            if (this->unk_04A == 1) {
+        if (this->work_04A != 0) {
+            if (this->work_04A == 1) {
                 Audio_PlaySequence(SEQ_PLAYER_BGM, NA_BGM_REAL_BOSS, 0, 0);
-                this->unk_04A++;
+                this->work_04A++;
                 gPlayer[0].cam.eye.x = 0.0f;
                 gPlayer[0].cam.eye.y = 200.0f;
                 gPlayer[0].cam.eye.z = -20000.0f;
@@ -1696,7 +1696,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
         if ((gBossFrameCount >= 350) || (this->swork[34] != 0)) {
             if (this->swork[34] != 0) {
                 gBossHealthBar = this->health * 1.7f;
-            } else if (gBosses[0].unk_04A == 0) {
+            } else if (gBosses[0].work_04A == 0) {
                 gBossHealthBar = (gBosses[1].health + gBosses[2].health) * 1.275f;
             }
         }
@@ -2027,9 +2027,9 @@ void SectorY_8019EB80(void) {
     s32 actorCount;
 
     if (gHitCount >= 100) {
-        actorCount = 9;
+        actorCount = 9; // Teammates + Cornerian ships
     } else {
-        actorCount = 2;
+        actorCount = 2; // Teammates only
     }
 
     Rand_SetSeed(1, 29100, 9786);
@@ -2437,8 +2437,8 @@ void SectorY_8019FF00(ActorCutscene* this) {
 
         case 5:
             Math_SmoothStepToF(&this->rot_0F4.x, 0.0f, 0.1f, 5.0f, 0.0f);
-            x = this->obj.pos.x - gBosses[this->timer_04C].obj.pos.x;
-            z = this->obj.pos.z - gBosses[this->timer_04C].obj.pos.z;
+            x = this->obj.pos.x - gBosses[this->work_04C].obj.pos.x;
+            z = this->obj.pos.z - gBosses[this->work_04C].obj.pos.z;
             Math_SmoothStepToAngle(
                 &this->rot_0F4.z,
                 Math_SmoothStepToAngle(&this->rot_0F4.y, Math_RadToDeg(Math_Atan2F(x, z)), 0.5f, 2.0f, 0.0001f) * 30.0f,
@@ -3496,74 +3496,74 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         this->iwork[18]--;
     }
 
-    if ((this->unk_048 != 0) && (this->unk_046 != 3)) {
-        switch (this->unk_048) {
+    if ((this->work_048 != 0) && (this->work_046 != 3)) {
+        switch (this->work_048) {
             case 1:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 50;
                 this->iwork[19] = 0;
                 break;
 
             case 2:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 20;
                 this->iwork[19] = 0;
                 break;
 
             case 3:
-                this->unk_046 = 2;
+                this->work_046 = 2;
                 this->animFrame = 0;
                 break;
 
             case 4:
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 this->animFrame = 0;
                 break;
 
             case 8:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 50;
                 this->iwork[19] = 1;
                 break;
 
             case 9:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 20;
                 this->iwork[19] = 1;
                 break;
 
             case 10:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 50;
                 this->iwork[19] = -1;
                 break;
 
             case 11:
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 this->timer_0BE = 20;
                 this->iwork[19] = -1;
                 break;
 
             case 6:
-                this->unk_046 = 4;
+                this->work_046 = 4;
                 this->animFrame = 0;
                 break;
 
             case 5:
-                this->unk_046 = 5;
+                this->work_046 = 5;
                 this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
 
             case 7:
-                this->unk_046 = 6;
+                this->work_046 = 6;
                 this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
                 break;
         }
-        this->unk_048 = 0;
+        this->work_048 = 0;
         this->fwork[15] = 0.0f;
     }
 
-    switch (this->unk_046) {
+    switch (this->work_046) {
         case 0:
             i = this->iwork[17];
             if (i != 0) {
@@ -3612,12 +3612,12 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                     gPlayer[0].pos.y = sp1E0;
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
                 }
-                this->unk_048 = 0;
+                this->work_048 = 0;
             }
 
             if (this->timer_0BE == 0) {
                 this->animFrame = 0;
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 this->fwork[15] = 0.0f;
             }
             break;
@@ -3632,7 +3632,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         case 4:
             this->animFrame++;
             if (this->animFrame >= (Animation_GetFrameCount(&D_SY_602B778) - 1)) {
-                this->unk_046 = 0;
+                this->work_046 = 0;
                 this->iwork[17] = 0;
                 this->fwork[15] = 0.0f;
             }
@@ -3644,12 +3644,12 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             this->animFrame--;
             if (this->animFrame < 8) {
                 this->fwork[15] = 0.1f;
-                if (this->unk_046 == 5) {
+                if (this->work_046 == 5) {
                     this->iwork[17] = 1;
                 } else {
                     this->iwork[17] = 2;
                 }
-                this->unk_046 = 0;
+                this->work_046 = 0;
             }
             sp4C = Animation_GetFrameData(&D_SY_602B778, this->animFrame, sp68);
             break;
@@ -3686,7 +3686,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             break;
     }
 
-    if ((this->unk_046 == 1) || (this->unk_046 == 2)) {
+    if ((this->work_046 == 1) || (this->work_046 == 2)) {
         Matrix_RotateZ(gCalcMatrix, -this->vwork[29].z * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -3740,7 +3740,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
     Math_SmoothStepToAngle(&this->fwork[29], sp1D8, 0.2f, 5.0f, 0.0f);
     Math_SmoothStepToVec3fArray(sp68, this->vwork, 1, sp4C, this->fwork[15], 100.0f, 0.0f);
 
-    if ((this->unk_046 == 6) || (this->unk_046 == 5)) {
+    if ((this->work_046 == 6) || (this->work_046 == 5)) {
         Math_SmoothStepToF(&this->fwork[15], 0.3f, 1.0f, 0.05f, 0.0f);
     } else {
         Math_SmoothStepToF(&this->fwork[15], 0.2f, 1.0f, 0.015f, 0.0f);
@@ -3754,23 +3754,23 @@ void SectorY_SyRobot_Update(SyRobot* this) {
     }
 
     this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotHitbox);
-    if (this->unk_046 == 1) {
+    if (this->work_046 == 1) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603421C);
     }
 
     i = this->iwork[17];
     if (i != 0) {
         if (i == 1) {
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034124);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobot4Hitbox);
         } else if (i == 2) {
             this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60341A8);
         }
     }
-    if (this->unk_046 == 2) {
+    if (this->work_046 == 2) {
         this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60340C0);
     }
 
-    if ((this->dmgType != DMG_NONE) && (this->unk_046 != 3)) {
+    if ((this->dmgType != DMG_NONE) && (this->work_046 != 3)) {
 
         if (this->dmgType == DMG_EXPLOSION) {
             this->dmgPart = 1;
@@ -3788,8 +3788,8 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             this->health -= this->damage;
 
             if (this->health <= 0) {
-                this->unk_046 = 3;
-                this->unk_048 = 0;
+                this->work_046 = 3;
+                this->work_048 = 0;
                 this->animFrame = 0;
                 this->timer_0BE = 50;
                 this->fwork[15] = 0.0f;
@@ -3828,7 +3828,7 @@ bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
     if (limbIndex == 17) {
         rot->x += actor->fwork[28];
         rot->y -= actor->fwork[29];
-        if (actor->eventType == EVID_48) {
+        if (actor->eventType == EVID_SY_ROBOT_1) {
             *dList = D_SY_6014BD0;
         }
     }

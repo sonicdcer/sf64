@@ -4,7 +4,7 @@
 #include "sf64audio_provisional.h"
 
 extern s32 spectrumAnalyzerMode;
-extern bool D_menu_801B9320;
+extern bool sMusicPlaying;
 extern s32 D_menu_801B9244;
 extern OptionId D_menu_801B9124;
 extern s32 D_menu_801B912C;
@@ -163,11 +163,11 @@ void Jukebox_Update(void) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
         AUDIO_PLAY_SFX(sfx, sfxSource, 4);
-        D_menu_801B9320 = true;
+        sMusicPlaying = true;
     }
 
     if (contPress->button & B_BUTTON) {
-        if (!D_menu_801B9320) {
+        if (!sMusicPlaying) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(NA_BGM_SELECT);
             gDrawMode = DRAW_NONE;
@@ -180,7 +180,7 @@ void Jukebox_Update(void) {
             Audio_KillSfxBySource(sfxSource);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-            D_menu_801B9320 = false;
+            sMusicPlaying = false;
         }
     }
 

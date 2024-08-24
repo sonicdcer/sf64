@@ -57,8 +57,8 @@ D_A6_6009718:
 D_A6_6009B18:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009B18, symbol: D_A6_6009B18 }
 
-D_A6_600E0C0:
-  { type: GFX, offset: 0x600E0C0, symbol: D_A6_600E0C0 }
+aA6UmbraStationDL:
+  { type: GFX, offset: 0x600E0C0, symbol: aA6UmbraStationDL }
 
 D_A6_600EBE8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x0600EBE8, symbol: D_A6_600EBE8 }
@@ -96,8 +96,8 @@ D_A6_6012550:
 D_A6_6012840:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012840, symbol: D_A6_6012840 }
 
-D_A6_6012A40:
-  { type: GFX, offset: 0x6012A40, symbol: D_A6_6012A40 }
+aA6HarlockFrigateDL:
+  { type: GFX, offset: 0x6012A40, symbol: aA6HarlockFrigateDL }
 
 D_A6_6013CD8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06013CD8, symbol: D_A6_6013CD8 }
@@ -117,8 +117,8 @@ D_A6_6015CD8:
 D_A6_6015EE0:
   { type: GFX, offset: 0x6015EE0, symbol: D_A6_6015EE0 }
 
-D_A6_6016190:
-  { type: GFX, offset: 0x6016190, symbol: D_A6_6016190 }
+aA6ZeramClassCruiserDL:
+  { type: GFX, offset: 0x6016190, symbol: aA6ZeramClassCruiserDL }
 
 D_A6_6017120:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06017120, symbol: D_A6_6017120 }
@@ -150,8 +150,8 @@ D_A6_6018994:
 D_A6_6018BA0:
   { type: SF64:SKELETON, offset: 0x6018BA0, symbol: D_A6_6018BA0 }
 
-D_A6_6018BF0:
-  { type: GFX, offset: 0x6018BF0, symbol: D_A6_6018BF0 }
+aA6NinjinMissileDL:
+  { type: GFX, offset: 0x6018BF0, symbol: aA6NinjinMissileDL }
 
 D_A6_6019130:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019130, symbol: D_A6_6019130 }
@@ -162,8 +162,8 @@ D_A6_6019330:
 D_A6_6019530:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019530, symbol: D_A6_6019530 }
 
-D_A6_6019730:
-  { type: GFX, offset: 0x6019730, symbol: D_A6_6019730 }
+aA6RocketDL:
+  { type: GFX, offset: 0x6019730, symbol: aA6RocketDL }
 
 D_A6_6019B20:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019B20, symbol: D_A6_6019B20 }
@@ -174,8 +174,8 @@ D_A6_6019D20:
 D_A6_6019F20:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019F20, symbol: D_A6_6019F20 }
 
-D_A6_601A120:
-  { type: GFX, offset: 0x601A120, symbol: D_A6_601A120 }
+aA6SpaceMineDL:
+  { type: GFX, offset: 0x601A120, symbol: aA6SpaceMineDL }
 
 D_A6_601A220:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601A220, symbol: D_A6_601A220 }
@@ -228,14 +228,14 @@ D_A6_6023F64:
 D_A6_6027F50:
   { type: SF64:SCRIPT, offset: 0x6027F50, symbol: D_A6_6027F50}
 
-D_A6_60280E0:
-  { type: SF64:HITBOX, offset: 0x60280E0, symbol: D_A6_60280E0 }
+aA6UmbraStationHitbox:
+  { type: SF64:HITBOX, offset: 0x60280E0, symbol: aA6UmbraStationHitbox }
 
-D_A6_6028254:
-  { type: SF64:HITBOX, offset: 0x6028254, symbol: D_A6_6028254 }
+aA6HarlockFrigateHitbox:
+  { type: SF64:HITBOX, offset: 0x6028254, symbol: aA6HarlockFrigateHitbox }
 
-D_A6_60282A0:
-  { type: SF64:HITBOX, offset: 0x60282A0, symbol: D_A6_60282A0 }
+aA6ZeramClassCruiserHitbox:
+  { type: SF64:HITBOX, offset: 0x60282A0, symbol: aA6ZeramClassCruiserHitbox }
 
 aA6GorgonHitbox:
   { type: SF64:HITBOX, offset: 0x6028454, symbol: aA6GorgonHitbox }

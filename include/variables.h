@@ -43,10 +43,10 @@ extern f32 gActorMissileSeekHitbox[];
 extern f32 gMeMoraHitbox[];
 extern f32 gTeamHitbox[];
 extern f32 gActorAllRangeHItbox[];
-extern f32 gWarpZoneEvent94Hitbox[];
-extern f32 gWarpZoneEvent96Hitbox[];
-extern f32 gWarpZoneEvent92Hitbox[];
-extern f32 gWarpZoneEvent93Hitbox[];
+extern f32 aWzMeteor1Hitbox[];
+extern f32 aWzGateHitbox[];
+extern f32 aWzPillar1Hitbox[];
+extern f32 aWzPillar2Hitbox[];
 extern ObjectInfo gObjectInfo[];
 extern f32* D_edata_800CF964[];
 

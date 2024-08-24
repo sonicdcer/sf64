@@ -488,7 +488,7 @@ void Zoness_ActorDebris_Setup(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVe
 
     this->state = state;
     this->scale = scale;
-    this->unk_048 = unk48;
+    this->work_048 = unk48;
     this->obj.pos = *pos;
     this->obj.rot = *rot;
     this->vel.x = xVel;
@@ -755,7 +755,7 @@ void Zoness_ZoDodora_Draw2(ZoDodora* this) {
     s32 k;
     PosRot* zoDodoraPosRots;
 
-    for (i = this->unk_04A = 0; i < 20; i++, hitbox++) {
+    for (i = this->work_04A = 0; i < 20; i++, hitbox++) {
         k = (D_i3_801BF56C[i] + this->counter_04E) % 200;
         zoDodoraPosRots = &gZoDodoraPosRots[k];
 
@@ -960,7 +960,7 @@ void Zoness_ZGull_Update(ZGull* this) {
     }
 
     this->animFrame++;
-    if (this->animFrame >= Animation_GetFrameCount(&D_ENMY_PLANET_40057AC)) {
+    if (this->animFrame >= Animation_GetFrameCount(&aFirebirdAnim)) {
         this->animFrame = 0;
     }
 
@@ -1035,8 +1035,8 @@ void Zoness_ZGull_Update(ZGull* this) {
 }
 
 void Zoness_ZGull_Draw(ZGull* this) {
-    Animation_GetFrameData(&D_ENMY_PLANET_40057AC, this->animFrame, this->vwork);
-    Animation_DrawSkeleton(1, D_ENMY_PLANET_40058B8, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
+    Animation_GetFrameData(&aFirebirdAnim, this->animFrame, this->vwork);
+    Animation_DrawSkeleton(1, aFirebirdSkel, this->vwork, NULL, NULL, &this->index, &gIdentityMatrix);
 }
 
 void Zoness_ZoEnergyBall_Init2(ZoEnergyBall* this) {
@@ -4620,7 +4620,7 @@ void Zoness_ZoBarrier_Init(ZoBarrier* this) {
 
             gActors[i].state = 1;
 
-            this->unk_046 = i + 1;
+            this->work_046 = i + 1;
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
             gActors[i].info.hitbox = SEGMENTED_TO_VIRTUAL(D_ZO_602C028);
             break;
@@ -4647,8 +4647,8 @@ void Zoness_ZoBarrier_Update(ZoBarrier* this) {
             }
         }
 
-        if (this->unk_046 != 0) {
-            otherActor = &gActors[this->unk_046 - 1];
+        if (this->work_046 != 0) {
+            otherActor = &gActors[this->work_046 - 1];
             otherActor->obj.pos.y += this->fwork[1] * 0.3f;
             if (otherActor->obj.pos.y > this->fwork[2] + 370.0f) {
                 otherActor->obj.pos.y = this->fwork[2] + 370.0f;

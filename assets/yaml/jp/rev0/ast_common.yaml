@@ -980,8 +980,8 @@ D_1031EC0:
 D_1032578:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1032578, symbol: D_1032578 }
 
-D_1032780:
-  { type: GFX, offset: 0x1032780, symbol: D_1032780 }
+aArwingShadowDL:
+  { type: GFX, offset: 0x1032780, symbol: aArwingShadowDL }
 
 D_1032808:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1032808, symbol: D_1032808 }

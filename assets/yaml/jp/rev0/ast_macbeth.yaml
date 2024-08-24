@@ -61,8 +61,8 @@ D_MA_60026F8:
 D_MA_60027F8:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 72, offset: 0x60027F8, symbol: D_MA_60027F8}
 
-D_MA_6002890:
-  {type: GFX, offset: 0x6002890, symbol: D_MA_6002890}
+aMaGuillotine2DL:
+  {type: GFX, offset: 0x6002890, symbol: aMaGuillotine2DL}
 
 D_MA_6002C20:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 16, offset: 0x6002C20, symbol: D_MA_6002C20, tlut: 0x6002E20}
@@ -238,8 +238,8 @@ D_MA_600AE18:
 D_MA_600AE98:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 80, offset: 0x600AE98, symbol: D_MA_600AE98}
 
-aMaGuillotineDL:
-  {type: GFX, offset: 0x600AF40, symbol: aMaGuillotineDL}
+aMaGuillotine1DL:
+  {type: GFX, offset: 0x600AF40, symbol: aMaGuillotine1DL}
 
 D_MA_600B2E0:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 64, offset: 0x600B2E0, symbol: D_MA_600B2E0}
@@ -274,8 +274,8 @@ D_MA_600D878:
 D_MA_600D978:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 72, offset: 0x600D978, symbol: D_MA_600D978}
 
-D_MA_600DA10:
-  {type: GFX, offset: 0x600DA10, symbol: D_MA_600DA10}
+aMaLaserTurretDL:
+  {type: GFX, offset: 0x600DA10, symbol: aMaLaserTurretDL}
 
 D_MA_600DF60:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 32, offset: 0x600DF60, symbol: D_MA_600DF60, tlut: 0x600E360}
@@ -478,8 +478,8 @@ aMaTowerTopDL:
 D_MA_601C170:
   {type: GFX, offset: 0x601C170, symbol: D_MA_601C170}
 
-D_MA_601C520:
-  {type: GFX, offset: 0x601C520, symbol: D_MA_601C520}
+aMaRailroadCartDL:
+  {type: GFX, offset: 0x601C520, symbol: aMaRailroadCartDL}
 
 D_MA_601D188:
   {type: SF64:ANIM, offset: 0x601D188, symbol: D_MA_601D188}
@@ -922,8 +922,8 @@ aMaGuillotineHousingHitbox:
 aMaGuillotineHitbox:
   {type: SF64:HITBOX, offset: 0x60368E0, symbol: aMaGuillotineHitbox}
 
-D_MA_60368FC:
-  {type: SF64:HITBOX, offset: 0x60368FC, symbol: D_MA_60368FC}
+aMaRailroadCartHitbox:
+  {type: SF64:HITBOX, offset: 0x60368FC, symbol: aMaRailroadCartHitbox}
 
 aMaBombDropHitbox:
   {type: SF64:HITBOX, offset: 0x6036930, symbol: aMaBombDropHitbox}

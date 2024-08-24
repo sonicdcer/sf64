@@ -1537,7 +1537,7 @@ void Bolse_LevelComplete(Player* player) {
                                                  actor50->obj.pos.y - RAND_FLOAT(2000.0f),
                                                  RAND_FLOAT_CENTERED(300.0f) + actor50->obj.pos.z, 5.11f);
                     };
-                    actor50->unk_046 = 1;
+                    actor50->work_046 = 1;
                     break;
 
                 case 235:
@@ -1673,7 +1673,7 @@ void Bolse_LevelComplete(Player* player) {
             break;
     }
 
-    if (actor50->unk_046 != 0) {
+    if (actor50->work_046 != 0) {
         Math_SmoothStepToF(&actor50->fwork[20], 3.0f, 0.03f, 0.01f, 0);
         if ((gGameFrameCount % 2U) == 0) {
             Effect_Effect389_Spawn(

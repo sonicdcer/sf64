@@ -1778,7 +1778,7 @@ void func_hud_80089AF4(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_STAR_WOLF_F014180);
+    gSPDisplayList(gMasterDisp++, aStarWolfRadarMarkDL);
 }
 
 void func_hud_80089B94(void) {
@@ -2461,7 +2461,7 @@ s32 func_hud_8008B774(void) {
          (gCurrentLevel == LEVEL_SECTOR_Y))) {
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].iwork[12] == temp)) {
-                if ((gActors[i].eventType == EVID_SLIPPY_METEO) || (gActors[i].eventType == EVID_TEAMMATE) ||
+                if ((gActors[i].eventType == EVID_ME_SLIPPY) || (gActors[i].eventType == EVID_TEAMMATE) ||
                     ((gActors[i].obj.id == OBJ_ACTOR_TEAM_BOSS) &&
                      ((gActors[i].aiType == AI360_FALCO) || (gActors[i].aiType == AI360_SLIPPY) ||
                       (gActors[i].aiType == AI360_PEPPY)))) {
@@ -4525,7 +4525,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
     bool ret = false;
 
     if (this->iwork[11] == 0) {
-        this->unk_046 = 0;
+        this->work_046 = 0;
         this->iwork[11] = 1;
         this->iwork[1] = 1;
         this->vwork[29].x = this->obj.rot.x;
@@ -4537,22 +4537,22 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
         Math_SmoothStepToAngle(&this->vwork[29].x, 0.0f, 0.1f, 5.0f, 0.0f);
         sp50 = Math_RadToDeg(Math_Atan2F(0.0f - this->obj.pos.x, 0.0f - this->obj.pos.z));
 
-        switch (this->unk_046) {
+        switch (this->work_046) {
             case 0:
-                if (this->unk_04A != 0) {
+                if (this->work_04A != 0) {
                     this->timer_0BC = 30;
                 } else {
                     this->timer_0BC = 10;
                 }
-                this->unk_046 = 1;
+                this->work_046 = 1;
                 if (this->fwork[19] > 180.0f) {
                     this->fwork[19] = this->fwork[19] - 360.0f;
                 }
 
             case 1:
                 if (this->timer_0BC == 0) {
-                    this->unk_046 = 2;
-                    if (this->unk_04A != 0) {
+                    this->work_046 = 2;
+                    if (this->work_04A != 0) {
                         this->timer_0BC = 80;
                     } else {
                         this->timer_0BC = 60;
@@ -4589,7 +4589,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
                         this->fwork[20] = -180.0f;
                     }
                     this->iwork[1] = 1;
-                    this->unk_046 = 3;
+                    this->work_046 = 3;
                 }
                 this->fwork[28] -= 0.2f;
                 break;
@@ -4607,7 +4607,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
                 Math_SmoothStepToF(&this->fwork[16], -sp54, 0.3f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&this->fwork[27], -sp54, 0.3f, 100.0f, 0.0f);
 
-                if (this->unk_04A != 0) {
+                if (this->work_04A != 0) {
                     Math_SmoothStepToAngle(&this->rot_0F4.y, sp50, 0.1f, 2.0f, 0.0f);
                 }
 
@@ -4622,7 +4622,7 @@ bool func_hud_800927A0(ActorTeamBoss* this) {
                 if (this->timer_0BC == 0) {
                     ret = true;
                     this->iwork[11] = 0;
-                    this->unk_046 = 0;
+                    this->work_046 = 0;
                     this->fwork[28] = 0.0f;
                     this->fwork[20] = 0.0f;
                     this->fwork[29] = 1.0f;
@@ -4689,7 +4689,7 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
 
     this->health = gTeamShields[this->aiType];
 
-    switch (this->unk_048) {
+    switch (this->work_048) {
         case 0:
             func_hud_800914FC(this);
             func_hud_80091864(this);
@@ -4724,29 +4724,29 @@ void ActorTeamBoss_Update(ActorTeamBoss* this) {
 
             if ((this->iwork[10] != 0) && (gLevelMode == LEVELMODE_ALL_RANGE) && (this->iwork[9] == 0) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                this->unk_048 = 2;
-                this->unk_04A = 0;
+                this->work_048 = 2;
+                this->work_04A = 0;
             }
 
             if ((gLevelMode == LEVELMODE_ALL_RANGE) &&
                 (fabsf(this->obj.pos.x > var_fv1) || fabsf(this->obj.pos.z > var_fv1)) &&
                 (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                this->unk_048 = 2;
-                this->unk_04A = 1;
+                this->work_048 = 2;
+                this->work_04A = 1;
             }
             break;
 
         case 1:
             if (func_hud_800924E0(this) != 0) {
-                this->unk_048 = 0;
+                this->work_048 = 0;
                 this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;
 
         case 2:
             if (func_hud_800927A0(this) != 0) {
-                this->unk_04A = 0;
-                this->unk_048 = this->unk_04A;
+                this->work_04A = 0;
+                this->work_048 = this->work_04A;
                 this->iwork[9] = RAND_INT(30.0f) + 90;
             }
             break;

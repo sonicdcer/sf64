@@ -25,8 +25,8 @@ D_VE1_6000D80:
 D_VE1_6001B80:
   { type: TEXTURE, format: IA8, width: 128, height: 19, offset: 0x6001B80, ctype: u8, symbol: D_VE1_6001B80 }
 
-D_VE1_6002500:
-  { type: GFX, offset: 0x6002500, symbol: D_VE1_6002500 }
+aVe1EnemyGateDL:
+  { type: GFX, offset: 0x6002500, symbol: aVe1EnemyGateDL }
 
 D_VE1_60029F8:
   { type: TEXTURE, format: CI8, width: 8, height: 16, offset: 0x60029F8, tlut: 0x6002A78, ctype: u8, symbol: D_VE1_60029F8 }
@@ -52,11 +52,11 @@ aVe1WatchPostDL:
 D_VE1_6003B10:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003B10, ctype: u16, symbol: D_VE1_6003B10 }
 
-D_VE1_6004310:
-  { type: GFX, offset: 0x6004310, symbol: D_VE1_6004310 }
+aVe1EnemyGateDoorLeftDL:
+  { type: GFX, offset: 0x6004310, symbol: aVe1EnemyGateDoorLeftDL }
 
-D_VE1_60043F0:
-  { type: GFX, offset: 0x60043F0, symbol: D_VE1_60043F0 }
+aVe1EnemyGateDoorRightDL:
+  { type: GFX, offset: 0x60043F0, symbol: aVe1EnemyGateDoorRightDL }
 
 D_VE1_60044D0:
   { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x60044D0, tlut: 0x60045D0, ctype: u8, symbol: D_VE1_60044D0 }
@@ -124,8 +124,8 @@ D_VE1_601B1E4:
 D_VE1_6010088:
   { type: SF64:OBJECT_INIT, offset: 0x6010088, symbol: D_VE1_6010088 }
 
-D_VE1_601B43C:
-  { type: SF64:HITBOX, offset: 0x601B43C, symbol: D_VE1_601B43C }
+aVe1Pillar5Hitbox:
+  { type: SF64:HITBOX, offset: 0x601B43C, symbol: aVe1Pillar5Hitbox }
 
 D_VE1_601B474:
   { type: SF64:HITBOX, offset: 0x601B474, symbol: D_VE1_601B474 }
@@ -178,5 +178,5 @@ aVe1Pillar4Hitbox:
 aVe1MonkeyStatueHitbox:
   { type: SF64:HITBOX, offset: 0x601B8D8, symbol: aVe1MonkeyStatueHitbox }
 
-D_VE1_601B944:
-  { type: SF64:HITBOX, offset: 0x601B944, symbol: D_VE1_601B944 }
+aVe1EnemyGateHitbox:
+  { type: SF64:HITBOX, offset: 0x601B944, symbol: aVe1EnemyGateHitbox }

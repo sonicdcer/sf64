@@ -90,6 +90,7 @@ void func_demo_80048CC4(ActorCutscene* this, s32 index) {
 
     this->rot_0F4.y = 0.0f;
     this->rot_0F4.z = D_demo_800C9F90[index];
+
     Object_SetInfo(&this->info, this->obj.id);
 
     if (index == 3) {
@@ -103,8 +104,8 @@ void func_demo_80048CC4(ActorCutscene* this, s32 index) {
 }
 
 void Cutscene_WarpZoneComplete(Player* player) {
-    Vec3f sp5C;
-    Vec3f sp50;
+    Vec3f src;
+    Vec3f dest;
     s32 pad[2];
     f32 temp_ft3;
     f32 temp_ret;
@@ -140,10 +141,10 @@ void Cutscene_WarpZoneComplete(Player* player) {
             Math_SmoothStepToF(&player->baseSpeed, 0.0f, 1.0f, 0.5f, 0.0f);
             Matrix_RotateX(gCalcMatrix, -5.0f * M_DTOR, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_APPLY);
-            sp5C.x = 0.0f;
-            sp5C.y = 0.0f;
-            sp5C.z = 300.0f;
-            Matrix_MultVec3f(gCalcMatrix, &sp5C, &sp50);
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = 300.0f;
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y;
             gCsCamAtZ = player->trueZpos + gPathProgress;
@@ -221,9 +222,9 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     }
                 }
             } else {
-                gCsCamEyeX = player->pos.x + sp50.x;
-                gCsCamEyeY = player->pos.y + sp50.y;
-                gCsCamEyeZ = player->trueZpos + gPathProgress + sp50.z;
+                gCsCamEyeX = player->pos.x + dest.x;
+                gCsCamEyeY = player->pos.y + dest.y;
+                gCsCamEyeZ = player->trueZpos + gPathProgress + dest.z;
             }
 
             break;
@@ -238,14 +239,14 @@ void Cutscene_WarpZoneComplete(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
 
-    sp5C.x = 0.0f;
-    sp5C.y = 0.0f;
-    sp5C.z = player->baseSpeed + player->boostSpeed;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = player->baseSpeed + player->boostSpeed;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp50);
-    player->vel.x = sp50.x;
-    player->vel.z = sp50.z;
-    player->vel.y = sp50.y;
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+    player->vel.x = dest.x;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
 
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
@@ -267,8 +268,8 @@ static Vec3f D_demo_800C9FA0[] = {
 };
 
 void func_demo_80049630(ActorCutscene* this) {
-    Vec3f sp3C;
-    Vec3f sp30;
+    Vec3f src;
+    Vec3f dest;
 
     switch (this->state) {
         case 0:
@@ -300,15 +301,15 @@ void func_demo_80049630(ActorCutscene* this) {
     Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
 
-    sp3C.x = 0.0f;
-    sp3C.y = 0.0f;
-    sp3C.z = this->fwork[0];
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = this->fwork[0];
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp3C, &sp30);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    this->vel.x = sp30.x;
-    this->vel.y = sp30.y;
-    this->vel.z = sp30.z;
+    this->vel.x = dest.x;
+    this->vel.y = dest.y;
+    this->vel.z = dest.z;
 
     this->obj.rot.x = -this->rot_0F4.x;
     this->obj.rot.y = this->rot_0F4.y + 180.0f;
@@ -2526,10 +2527,10 @@ void ActorCutscene_Draw(ActorCutscene* this) {
     switch (this->animFrame) {
         case 1000:
             RCP_SetupDL(&gMasterDisp, SETUPDL_45);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_046);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->work_046);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
 
-            if (this->unk_046 > 50) {
+            if (this->work_046 > 50) {
                 Actor_DrawEngineAndContrails(this);
             }
             break;
@@ -2568,11 +2569,11 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case 20:
-            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
+            gSPDisplayList(gMasterDisp++, aCommanderDL);
             break;
 
         case 24:
-            gSPDisplayList(gMasterDisp++, D_D009A40);
+            gSPDisplayList(gMasterDisp++, aKattShipDL);
             Actor_DrawEngineAndContrails(this);
             break;
 
@@ -2587,19 +2588,19 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case 26:
             gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, 2);
+            Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
         case 28:
-            gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_400AAE0);
+            gSPDisplayList(gMasterDisp++, aCommanderDL);
             Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, 2);
+            Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
         case 30:
             Display_SetSecondLight(&this->obj.pos);
 
-            if (this->unk_046 != 0) {
+            if (this->work_046 != 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_55);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 Rand_SetSeed(1, 29000, 9876);
@@ -2729,12 +2730,12 @@ void ActorCutscene_Draw(ActorCutscene* this) {
 
         case 33:
             if ((this->index == 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-                gSPDisplayList(gMasterDisp++, D_D00B880);
+                gSPDisplayList(gMasterDisp++, aBillShipDL);
             } else {
                 gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
             }
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-            Actor_DrawEngineGlow(this, 0);
+            Actor_DrawEngineGlow(this, EG_RED);
             break;
 
         case 34:

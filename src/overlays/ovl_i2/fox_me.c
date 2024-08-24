@@ -80,15 +80,15 @@ void Meteo_MeMeteor2_Update(MeMeteor2* this) {
 
     this->obj.rot.y += 1.7f;
     this->obj.rot.x += 3.3f;
-    this->unk_046 -= 15;
+    this->work_046 -= 15;
 
-    if (this->unk_046 < 0) {
-        this->unk_046 = 0;
+    if (this->work_046 < 0) {
+        this->work_046 = 0;
     }
 
-    this->unk_048 += 8;
-    if (this->unk_048 > 995) {
-        this->unk_048 = 995;
+    this->work_048 += 8;
+    if (this->work_048 > 995) {
+        this->work_048 = 995;
     }
 
     if ((this->timer_0BC % 4U) == 1) {
@@ -175,15 +175,15 @@ void Meteo_80187B08(MeLaserCannon1* this) {
     this->obj.rot.y += 7.0f;
     this->obj.rot.x += 3.3f;
 
-    this->unk_046 -= 11;
+    this->work_046 -= 11;
 
-    if (this->unk_046 < 0) {
-        this->unk_046 = 0;
+    if (this->work_046 < 0) {
+        this->work_046 = 0;
     }
 
-    this->unk_048 += 4;
-    if (this->unk_048 > 995) {
-        this->unk_048 = 995;
+    this->work_048 += 4;
+    if (this->work_048 > 995) {
+        this->work_048 = 995;
     }
 
     if ((this->timer_0BC % 4) == 0) {
@@ -199,7 +199,8 @@ void Meteo_80187B08(MeLaserCannon1* this) {
     }
 }
 
-void Meteo_80187C68(Actor* this, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 timerBC, s32 arg8, s32 objId) {
+void Meteo_80187C68(Actor* this, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yRot, s32 timerBC, s32 eventType,
+                    s32 objId) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = objId;
@@ -213,7 +214,7 @@ void Meteo_80187C68(Actor* this, f32 x, f32 y, f32 z, f32 arg4, f32 xRot, f32 yR
 
     this->timer_0BC = timerBC;
     this->timer_0BE = 20;
-    this->eventType = arg8;
+    this->eventType = eventType;
     this->fwork[5] = arg4;
     Object_SetInfo(&this->info, this->obj.id);
 }
@@ -394,15 +395,15 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
                 this->timer_054 = 5;
                 this->swork[0] += 32;
 
-                Audio_SetTransposeAndPlaySfx(this->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, this->unk_04A);
+                Audio_SetTransposeAndPlaySfx(this->sfxSource, NA_SE_EN_GRN_BEAM_CHARGE, this->work_04A);
 
-                this->unk_04A++;
-                if (this->unk_04A > 7) {
-                    this->unk_04A = 7;
+                this->work_04A++;
+                if (this->work_04A > 7) {
+                    this->work_04A = 7;
                 }
 
                 if (this->swork[0] >= 255) {
-                    this->unk_04A = 0;
+                    this->work_04A = 0;
 
                     Audio_KillSfxBySource(this->sfxSource);
 
@@ -520,7 +521,7 @@ void Meteo_MeCrusher_Init(MeCrusher* this) {
     this->fwork[9] = -3000.0f;
     this->fwork[15] = 8.0f;
 
-    i = this->unk_044 = 1;
+    i = this->work_044 = 1;
 
     Boss_Initialize(&gBosses[i]);
 
@@ -1109,7 +1110,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 if (this->fwork[0] >= 0.0f) {
                     this->state = 2;
                     this->timer_050 = 50;
-                    gBosses[this->unk_044].state = 1;
+                    gBosses[this->work_044].state = 1;
                 }
             }
 
@@ -1165,7 +1166,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 }
             }
 
-            if (gBosses[this->unk_044].state < 3) {
+            if (gBosses[this->work_044].state < 3) {
                 var_v0 = 0;
                 if (this->swork[2] == 0) {
                     var_v0 = 1;
@@ -1184,14 +1185,14 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                     this->obj.rot.z += 0.1f;
                 }
                 if (var_v0 == 4) {
-                    gBosses[this->unk_044].state = 3;
+                    gBosses[this->work_044].state = 3;
                     this->state = 4;
                     this->timer_050 = 250;
                     this->timer_05A = 30;
                     this->fwork[10] = 0;
                 }
 
-                if ((this->timer_050 == 0) && (gBosses[this->unk_044].state == 2)) {
+                if ((this->timer_050 == 0) && (gBosses[this->work_044].state == 2)) {
                     this->fwork[2] = 90.0f;
                     this->timer_050 = D_i2_80195520[var_v0] + 45;
                     AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL, this->sfxSource, 4);
@@ -1199,7 +1200,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
 
                 if (this->fwork[2] > 0.0f) {
                     this->fwork[2] -= 2.0f;
-                    gBosses[this->unk_044].rot_078.z -= 2.0f;
+                    gBosses[this->work_044].rot_078.z -= 2.0f;
                 }
             }
 

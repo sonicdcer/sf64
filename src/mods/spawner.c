@@ -345,7 +345,7 @@ void Spawner(void) {
         sObjType++;
         switch (sObjType) {
             case OBJ_SPAWN_EVENT:
-                sObjId = EVID_0;
+                sObjId = EVID_VENOM_FIGHTER_1;
                 break;
             case OBJ_SPAWN_SCENERY:
                 sObjId = OBJ_SCENERY_CO_STONE_ARCH;

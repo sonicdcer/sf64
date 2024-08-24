@@ -529,7 +529,7 @@ void Titania_TiBoulder_Update(TiBoulder* this) {
         }
     }
 
-    if (this->unk_046 == 2) {
+    if (this->work_046 == 2) {
         this->gravity = 0.0f;
         Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp4C, &sp44, &sp48);
         this->fwork[0] = sp4C;
@@ -546,10 +546,10 @@ void Titania_TiBoulder_Update(TiBoulder* this) {
     temp_fv1 = (this->scale * 50.0f);
 
     if (this->obj.pos.y > sp44 + temp_fv1) {
-        this->unk_046 = 0;
+        this->work_046 = 0;
     } else {
         this->obj.pos.y = sp44 + temp_fv1;
-        if (this->unk_046 == 0) {
+        if (this->work_046 == 0) {
             if (this->vel.y < -6.0f) {
                 AUDIO_PLAY_SFX(NA_SE_OB_BOUND_M, this->sfxSource, 4);
             }
@@ -561,7 +561,7 @@ void Titania_TiBoulder_Update(TiBoulder* this) {
             if (this->vel.y < 10.0f) {
                 this->vel.y = 0.0f;
             }
-            this->unk_046 = 1;
+            this->work_046 = 1;
         } else {
             if ((s32) sp48 == 0) {
                 this->vel.x *= 0.9;
@@ -692,7 +692,7 @@ void Titania_TiRasco_Init(TiRasco* this) {
             actorPtr->obj.pos.x = this->obj.pos.x + sp68[k].x;
             actorPtr->obj.pos.y = this->obj.pos.y + sp68[k].y;
             actorPtr->obj.pos.z = this->obj.pos.z + sp68[k].z;
-            actorPtr->unk_046 = 2;
+            actorPtr->work_046 = 2;
             actorPtr->iwork[0] = (uintptr_t) this;
             actorPtr->iwork[1] = k;
             Object_SetInfo(&actorPtr->info, actorPtr->obj.id);
@@ -800,7 +800,7 @@ void Titania_TiRasco_Update(Actor* this) {
             Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
             if ((this->animFrame >= 26) && (this->animFrame <= 53) && (sp3C != NULL)) {
                 if (this->animFrame == 26) {
-                    sp3C->unk_046 = 2;
+                    sp3C->work_046 = 2;
                     sp3C->vel.x = 0.0f;
                     sp3C->vel.y = 0.0f;
                     sp3C->vel.z = 0.0f;
@@ -812,7 +812,7 @@ void Titania_TiRasco_Update(Actor* this) {
                     sp3C->vel.x = dest.x;
                     sp3C->vel.y = dest.y;
                     sp3C->vel.z = dest.z;
-                    sp3C->unk_046 = 0;
+                    sp3C->work_046 = 0;
                     sp3C->iwork[0] = (uintptr_t) NULL;
                     this->iwork[0] = (uintptr_t) NULL;
                 }
@@ -827,7 +827,7 @@ void Titania_TiRasco_Update(Actor* this) {
 
             if ((this->animFrame >= 26) && (this->animFrame <= 57) && (sp38 != NULL)) {
                 if (this->animFrame == 26) {
-                    sp38->unk_046 = 2;
+                    sp38->work_046 = 2;
                     sp38->vel.x = 0.0f;
                     sp38->vel.y = 0.0f;
                     sp38->vel.z = 0.0f;
@@ -840,7 +840,7 @@ void Titania_TiRasco_Update(Actor* this) {
                     sp38->vel.x = dest.x;
                     sp38->vel.y = dest.y;
                     sp38->vel.z = dest.z;
-                    sp38->unk_046 = 0;
+                    sp38->work_046 = 0;
                     sp38->iwork[0] = (uintptr_t) NULL;
                     this->iwork[1] = (uintptr_t) NULL;
                 }
@@ -894,7 +894,7 @@ void Titania_TiRasco_Dying(TiRasco* this) {
         if (actorPtr != NULL) {
             actorPtr->obj.status = OBJ_ACTIVE;
             actorPtr->state = 46;
-            actorPtr->unk_048 = i;
+            actorPtr->work_048 = i;
             Matrix_MultVec3f(gCalcMatrix, &var_s1->pos, &sp70);
             actorPtr->obj.pos.x = this->obj.pos.x + sp70.x;
             actorPtr->obj.pos.y = this->obj.pos.y + sp70.y;
@@ -916,12 +916,12 @@ void Titania_TiRasco_Dying(TiRasco* this) {
     if (actorPtr != NULL) {
         actorPtr->iwork[0] = (uintptr_t) NULL;
         this->iwork[0] = (uintptr_t) NULL;
-        actorPtr->unk_046 = 0;
+        actorPtr->work_046 = 0;
     }
 
     actorPtr = (Actor*) this->iwork[1];
     if (actorPtr != NULL) {
-        actorPtr->unk_046 = 0;
+        actorPtr->work_046 = 0;
         actorPtr->iwork[0] = (uintptr_t) NULL;
         this->iwork[1] = (uintptr_t) NULL;
     }
@@ -1611,7 +1611,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                         actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if ((actorPtr != NULL) && D_i5_801B7630[i][1] == 1) {
                             actorPtr->state = 47;
-                            actorPtr->unk_048 = i;
+                            actorPtr->work_048 = i;
                             Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
                             actorPtr->obj.pos.x = this->obj.pos.x + sp158.x;
                             actorPtr->obj.pos.y = this->obj.pos.y + sp158.y;
@@ -1647,7 +1647,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                             actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                             if (actorPtr != NULL) {
                                 actorPtr->state = 47;
-                                actorPtr->unk_048 = 9;
+                                actorPtr->work_048 = 9;
                                 Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
                                 actorPtr->obj.pos.x = this->obj.pos.x + sp158.x;
                                 actorPtr->obj.pos.y = this->obj.pos.y + sp158.y;
@@ -3836,8 +3836,8 @@ void Titania_80193DF0(TiGoras* this) {
             actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
                 actor->state = 40;
-                actor->unk_046 = D_i5_801B7770[i][5];
-                actor->unk_048 = D_i5_801B7770[i][1];
+                actor->work_046 = D_i5_801B7770[i][5];
+                actor->work_048 = D_i5_801B7770[i][1];
                 if (D_i5_801B7770[i][0] == 85) {
                     actor->fwork[0] = 5.0f;
                     actor->fwork[1] = 5.0f;
@@ -4215,8 +4215,8 @@ void Titania_80193DF0(TiGoras* this) {
                     actor->obj.pos.y = 0.0f;
                     actor->obj.pos.z = this->obj.pos.z + 2000.0f;
                     actor->info.cullDistance = 5000.0f;
-                    actor->unk_046 = D_i5_801B7770[D_i5_801B8198[i].unk_00][5];
-                    actor->unk_048 = D_i5_801B7770[D_i5_801B8198[i].unk_00][1];
+                    actor->work_046 = D_i5_801B7770[D_i5_801B8198[i].unk_00][5];
+                    actor->work_048 = D_i5_801B7770[D_i5_801B8198[i].unk_00][1];
                     D_i5_801B8198[i].unk_0C = D_i5_801B8198[i].unk_04;
                     actor->vel.z = this->vel.z;
                     D_i5_801BBF00[D_i5_801B8198[i].unk_00].unk_26 |= 1;
@@ -4778,7 +4778,7 @@ void Titania_80193DF0(TiGoras* this) {
                 this->obj.status = OBJ_DYING;
                 D_i5_801BBEF4[12] = 0.0f;
                 this->fwork[35] = 0.0f;
-                this->unk_044 = 0;
+                this->work_044 = 0;
                 this->timer_050 = 280;
                 D_i5_801BBEF0[16] = 0;
                 D_i5_801BBEF0[17] = 0;
@@ -5477,7 +5477,7 @@ void Titania_801990DC(TiGoras* this) {
     Vec3f sp60;
     Actor* actor;
 
-    if (this->unk_044 == 0) {
+    if (this->work_044 == 0) {
         AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DW_CRY, this->sfxSource, 4);
 
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
@@ -5501,8 +5501,8 @@ void Titania_801990DC(TiGoras* this) {
                 if (actor != NULL) {
                     actor->state = 40;
 
-                    actor->unk_046 = D_i5_801B7770[i][5];
-                    actor->unk_048 = D_i5_801B7770[i][1];
+                    actor->work_046 = D_i5_801B7770[i][5];
+                    actor->work_048 = D_i5_801B7770[i][1];
 
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[i].unk_00.pos, &sp60);
@@ -5536,7 +5536,7 @@ void Titania_801990DC(TiGoras* this) {
                 D_i5_801BBF00[i].unk_26 = 4;
             }
         }
-        this->unk_044 = 1;
+        this->work_044 = 1;
     } else {
         this->obj.pos.z = gPlayer[0].pos.z;
     }
@@ -5550,9 +5550,9 @@ void Titania_801990DC(TiGoras* this) {
 
                 actor->state = 40;
 
-                actor->unk_046 = 25;
-                actor->unk_048 = 0;
-                actor->unk_04A = 4 | 2;
+                actor->work_046 = 25;
+                actor->work_048 = 0;
+                actor->work_04A = 4 | 2;
 
                 actor->fwork[3] = 0.0f;
                 actor->fwork[4] = -200.0f;
@@ -5577,9 +5577,9 @@ void Titania_801990DC(TiGoras* this) {
 
                 actor->state = 40;
 
-                actor->unk_046 = 2;
-                actor->unk_048 = 1;
-                actor->unk_04A = 4 | 2;
+                actor->work_046 = 2;
+                actor->work_048 = 1;
+                actor->work_04A = 4 | 2;
 
                 actor->iwork[1] = (s32) 1;
                 actor->fwork[3] = -150.0f;
@@ -5604,9 +5604,9 @@ void Titania_801990DC(TiGoras* this) {
 
                 actor->state = 40;
 
-                actor->unk_046 = 2;
-                actor->unk_048 = 1;
-                actor->unk_04A = 4 | 2;
+                actor->work_046 = 2;
+                actor->work_048 = 1;
+                actor->work_04A = 4 | 2;
 
                 actor->iwork[1] = 2;
                 actor->fwork[3] = 100.0f;

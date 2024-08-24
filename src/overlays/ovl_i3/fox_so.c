@@ -257,8 +257,8 @@ void Solar_SoWave_Update(SoWave* this) {
         }
     }
 
-    if ((this->unk_046 == 0) || (this->unk_046 == 1)) {
-        this->unk_046 = 3;
+    if ((this->work_046 == 0) || (this->work_046 == 1)) {
+        this->work_046 = 3;
         Object_SetSfxSourceToPos(this->sfxSource, &this->obj.pos);
         AUDIO_PLAY_SFX(NA_SE_OB_MAGMA_WAVE, this->sfxSource, 0);
     }
@@ -947,7 +947,7 @@ void Solar_801A0CEC(SoWave* this, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
 
     this->obj.pos.x = xPos;
     this->obj.pos.z = zPos;
-    this->unk_046 = 1;
+    this->work_046 = 1;
     this->state = unkB8;
     this->vel.z = zVel;
     this->fwork[1] = zVel;
@@ -1288,8 +1288,8 @@ void Solar_801A1CD8(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f
     this->obj.id = OBJ_ACTOR_DEBRIS;
 
     this->state = 40;
-    this->unk_046 = unk46;
-    this->unk_04A = 3;
+    this->work_046 = unk46;
+    this->work_04A = 3;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -1801,7 +1801,7 @@ void Solar_801A3128(SoVulkain* this) {
 
 void Solar_801A3468(SoVulkain* this) {
     this->swork[SO_SWK_0] = 4;
-    this->unk_048 = 0;
+    this->work_048 = 0;
 
     if ((this->swork[SO_SWK_2] != 0) || (this->swork[SO_SWK_3] != 0)) {
         if (this->swork[SO_SWK_3] != 0) {
@@ -1811,7 +1811,7 @@ void Solar_801A3468(SoVulkain* this) {
         }
     } else {
         if (Rand_ZeroOne() >= 0.5f) {
-            this->unk_048 = 1;
+            this->work_048 = 1;
             this->swork[SO_SWK_1] = 5;
         } else {
             this->timer_050 = 0;
@@ -1885,7 +1885,7 @@ void Solar_801A3510(SoVulkain* this) {
                 }
             }
 
-            if ((this->unk_048 != 0) && (this->animFrame == 68)) {
+            if ((this->work_048 != 0) && (this->animFrame == 68)) {
                 this->swork[SO_SWK_1] = 9;
                 this->fwork[SO_FWK_0] = 0.01f;
                 this->animFrame = 20;

@@ -6254,7 +6254,7 @@ void Map_801AC530(s32 index) {
 
     Lights_SetOneLight(&gMasterDisp, dirX, dirY, dirZ, 50, 50, 40, 0, 0, 0);
 
-    gSPDisplayList(gMasterDisp++, D_MAP_604A9F0);
+    gSPDisplayList(gMasterDisp++, aMapArwingDL);
 
     Matrix_Pop(&gGfxMatrix);
 }

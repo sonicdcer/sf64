@@ -32,14 +32,14 @@ void Andross_80193710(void);
 void Andross_80187530(ActorEvent* this) {
     s32 index;
 
-    switch (this->unk_048) {
+    switch (this->work_048) {
         case 0:
             break;
 
         case 1:
             this->animFrame += (s32) this->fwork[22];
-            if (this->animFrame >= Animation_GetFrameCount(&D_VE2_6014658)) {
-                this->animFrame = Animation_GetFrameCount(&D_VE2_6014658) - 1;
+            if (this->animFrame >= Animation_GetFrameCount(&aVe2AndrossGateAnim)) {
+                this->animFrame = Animation_GetFrameCount(&aVe2AndrossGateAnim) - 1;
             }
             break;
 
@@ -59,18 +59,19 @@ void Andross_80187530(ActorEvent* this) {
     this->obj.rot.z = D_Andross_801A7F68;
 }
 
-bool Andross_8018767C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Andross_Gate_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     if (limbIndex == 13) {
         *dList = NULL;
     }
     return 0;
 }
 
-void Andross_8018769C(ActorEvent* this) {
+void Andross_Gate_Draw(ActorEvent* this) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_VE2_6014658, this->animFrame, frameTable);
-    Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_8018767C, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(&aVe2AndrossGateAnim, this->animFrame, frameTable);
+    Animation_DrawSkeleton(1, aVe2AndrossGateSkel, frameTable, Andross_Gate_OverrideLimbDraw, NULL, NULL,
+                           &gIdentityMatrix);
 }
 
 void Andross_801876FC(void) {
@@ -2545,7 +2546,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
             if ((this->animFrame == 45) && (this->swork[8] == 2)) {
                 this->state = 18;
                 this->animFrame = 0;
-                this->unk_044 = 0;
+                this->work_044 = 0;
                 this->timer_050 = 40;
                 this->fwork[9] = 0.0f;
             }
@@ -2739,13 +2740,13 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
-            switch (this->unk_044) {
+            switch (this->work_044) {
                 case 0:
                     if (this->timer_050 != 0) {
                         limbCount = Animation_GetFrameData(&D_ANDROSS_C00DE48, 45, spD0);
                         Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
                     } else {
-                        this->unk_044 = 1;
+                        this->work_044 = 1;
                         this->timer_050 = 30;
                         this->swork[9] = 20;
                         this->fwork[9] = 0.0f;
@@ -2759,7 +2760,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
                         limbCount = Animation_GetFrameData(&D_ANDROSS_C017430, 0, spD0);
                         Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
                     } else {
-                        this->unk_044 = 2;
+                        this->work_044 = 2;
                         this->timer_050 = 70;
                         this->fwork[9] = 0.0f;
                         AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_EXCITE, this->sfxSource, 4);
@@ -3661,8 +3662,8 @@ void Andross_AndDoor_Update(AndDoor* this) {
             this->info.hitbox[17] = -130.0f - (this->unk_44 * 1.6f);
             this->info.hitbox[27] = -130.0f - (this->unk_44 * 1.6f);
             this->unk_44 += 2;
-            if (this->unk_44 >= Animation_GetFrameCount(&D_VE2_6014658)) {
-                this->unk_44 = Animation_GetFrameCount(&D_VE2_6014658) - 1;
+            if (this->unk_44 >= Animation_GetFrameCount(&aVe2AndrossGateAnim)) {
+                this->unk_44 = Animation_GetFrameCount(&aVe2AndrossGateAnim) - 1;
             }
             break;
     }
@@ -3679,8 +3680,8 @@ bool Andross_801934EC(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 void Andross_AndDoor_Draw(AndDoor* this) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_VE2_6014658, this->unk_44, frameTable);
-    Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_801934EC, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(&aVe2AndrossGateAnim, this->unk_44, frameTable);
+    Animation_DrawSkeleton(1, aVe2AndrossGateSkel, frameTable, Andross_801934EC, NULL, NULL, &gIdentityMatrix);
 }
 
 void Andross_AndPassage_Update(AndPassage* this) {
@@ -3701,11 +3702,11 @@ bool Andross_801935B4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
 void Andross_AndPassage_Draw(AndPassage* this) {
     Vec3f frameTable[20];
 
-    Animation_GetFrameData(&D_VE2_6014658, this->unk_44, frameTable);
+    Animation_GetFrameData(&aVe2AndrossGateAnim, this->unk_44, frameTable);
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
-    Animation_DrawSkeleton(1, D_VE2_6014844, frameTable, Andross_801935B4, NULL, NULL, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, aVe2AndrossGateSkel, frameTable, Andross_801935B4, NULL, NULL, &gIdentityMatrix);
 }
 
 void Andross_AndPassage_Setup(AndPassage* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
@@ -3791,7 +3792,7 @@ void Andross_801939A0(s32 actorIndex) {
     }
     if (actorIndex == 1) {
         actor->state = 1;
-        actor->unk_046 = 255;
+        actor->work_046 = 255;
         actor->animFrame = 1000;
     }
 
@@ -4442,9 +4443,9 @@ void Andross_80195E44(ActorCutscene* this) {
         case 2:
             Math_SmoothStepToF(&this->rot_0F4.x, 180.0f, 0.1f, 1.0f, 0.0f);
             Math_SmoothStepToF(&this->rot_0F4.y, 200.0f, 0.1f, 1.0f, 0.0f);
-            this->unk_046 -= 5;
-            if (this->unk_046 < 0) {
-                this->unk_046 = 0;
+            this->work_046 -= 5;
+            if (this->work_046 < 0) {
+                this->work_046 = 0;
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;

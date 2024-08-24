@@ -8,26 +8,26 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_ENMY_SPACE_4000080:
-  { type: SF64:ANIM, offset: 0x4000080, symbol: D_ENMY_SPACE_4000080 }
+aKillerBeeAnim:
+  { type: SF64:ANIM, offset: 0x4000080, symbol: aKillerBeeAnim }
 
-D_ENMY_SPACE_400014C: 
-  { type: SF64:SKELETON, offset: 0x400014C, symbol: D_ENMY_SPACE_400014C }
+aKillerBeeSkel: 
+  { type: SF64:SKELETON, offset: 0x400014C, symbol: aKillerBeeSkel }
 
 aEnmySpMeMora1DL:
   { type: GFX, offset: 0x4000170, symbol: aEnmySpMeMora1DL }
 
-D_ENMY_SPACE_4000650:
-  { type: GFX, offset: 0x4000650, symbol: D_ENMY_SPACE_4000650 }
+aSpiderDL:
+  { type: GFX, offset: 0x4000650, symbol: aSpiderDL }
 
-D_ENMY_SPACE_4000EC0:
-  { type: GFX, offset: 0x4000EC0, symbol: D_ENMY_SPACE_4000EC0 }
+aGammaOnDL:
+  { type: GFX, offset: 0x4000EC0, symbol: aGammaOnDL }
 
 D_ENMY_SPACE_4001108:
   { type: TEXTURE, format: RGBA16, offset: 0x4001108, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001108 }
 
-D_ENMY_SPACE_4001310:
-  { type: GFX, offset: 0x4001310, symbol: D_ENMY_SPACE_4001310 }
+aAttacker2DL:
+  { type: GFX, offset: 0x4001310, symbol: aAttacker2DL }
 
 D_ENMY_SPACE_4001A30:
   { type: TEXTURE, format: RGBA16, offset: 0x4001A30, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001A30 }
@@ -95,11 +95,11 @@ aEnmySpMeMora2DL:
 D_ENMY_SPACE_4008550:
   { type: TEXTURE, format: RGBA16, offset: 0x04008550, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4008550 }
 
-D_ENMY_SPACE_4008D50:
-  { type: GFX, offset: 0x4008D50, symbol: D_ENMY_SPACE_4008D50 }
+aGammaOffDL:
+  { type: GFX, offset: 0x4008D50, symbol: aGammaOffDL }
 
-D_ENMY_SPACE_4008FA0:
-  { type: GFX, offset: 0x4008FA0, symbol: D_ENMY_SPACE_4008FA0 }
+aVenomFighter3DL:
+  { type: GFX, offset: 0x4008FA0, symbol: aVenomFighter3DL }
 
 D_ENMY_SPACE_40096B8:
   { type: TEXTURE, format: RGBA16, offset: 0x040096B8, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_40096B8 }
@@ -110,25 +110,25 @@ D_ENMY_SPACE_40098B8:
 D_ENMY_SPACE_4009AB8:
   { type: TEXTURE, format: RGBA16, offset: 0x04009AB8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4009AB8 }
 
-D_ENMY_SPACE_400A30C:
-  { type: SF64:ANIM, offset: 0x400A30C, symbol: D_ENMY_SPACE_400A30C }
+aCruiserGunAnim:
+  { type: SF64:ANIM, offset: 0x400A30C, symbol: aCruiserGunAnim }
 
-D_ENMY_SPACE_400A398:
-  { type: SF64:SKELETON, offset: 0x400A398, symbol: D_ENMY_SPACE_400A398 }
+aCruiserGunSkel:
+  { type: SF64:SKELETON, offset: 0x400A398, symbol: aCruiserGunSkel }
 
 aEnmySpMeMora3DL:
   { type: GFX, offset: 0x400A630, symbol: aEnmySpMeMora3DL }
 
   
-D_ENMY_SPACE_400AAE0:
-  { type: GFX, offset: 0x400AAE0, symbol: D_ENMY_SPACE_400AAE0 }
+aCommanderDL:
+  { type: GFX, offset: 0x400AAE0, symbol: aCommanderDL }
 
   
-D_ENMY_SPACE_400B390:
-  { type: GFX, offset: 0x400B390, symbol: D_ENMY_SPACE_400B390 }
+aAttacker3DL:
+  { type: GFX, offset: 0x400B390, symbol: aAttacker3DL }
   
   
-D_ENMY_SPACE_400BD20:
-  { type: GFX, offset: 0x400BD20, symbol: D_ENMY_SPACE_400BD20 }
+aAttacker1DL:
+  { type: GFX, offset: 0x400BD20, symbol: aAttacker1DL }
 
 # size = 0xC510

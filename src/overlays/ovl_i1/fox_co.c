@@ -516,8 +516,8 @@ void Corneria_CoGranga_DecideNextAction(CoGranga* this) {
 }
 
 void Corneria_80188C7C(CoGranga* this) {
-    if (this->unk_044 == 0) {
-        this->unk_044++;
+    if (this->work_044 == 0) {
+        this->work_044++;
         this->fwork[GRANGA_FWK_12] *= -0.2f;
         AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_L, this->sfxSource, 4);
         func_enmy_80062B60(sCoGrangaWork[GRANGA_WORK_56], sCoGrangaWork[GRANGA_WORK_58], 0, 30.0f);

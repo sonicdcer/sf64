@@ -126,9 +126,11 @@ void PlayerShot_Impact(PlayerShot* shot) {
         Object_Kill(&shot->obj, shot->sfxSource);
         return;
     }
+
     shot->obj.pos.z = gShotHitPosZ; // strange order on the globals
     shot->obj.pos.y = gShotHitPosY;
     shot->obj.pos.x = gShotHitPosX;
+
     if ((shot->obj.id == PLAYERSHOT_BOMB) ||
         ((gCurrentLevel != LEVEL_AQUAS) && (shot->obj.id == PLAYERSHOT_LOCK_ON) && (shot->unk_5C != 0))) {
         if (shot->obj.id == PLAYERSHOT_LOCK_ON) {
@@ -138,10 +140,13 @@ void PlayerShot_Impact(PlayerShot* shot) {
         PlayerShot_ExplodeBomb(shot);
     } else if (shot->obj.id == PLAYERSHOT_LOCK_ON) {
         shot->scale = 7.5f;
+
         for (i = 0; i < ARRAY_COUNT(gActors); i++) {
             gActors[i].lockOnTimers[shot->sourceId] = 0;
         }
+
         shot->vel.x = shot->vel.y = shot->vel.z = 0.0f;
+
         if (gCurrentLevel == LEVEL_AQUAS) {
             gLight3R = gLight3G = gLight3B = 0;
             Effect_Effect384_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
@@ -195,7 +200,7 @@ void PlayerShot_SpawnEffect344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4,
     }
 }
 
-void PlayerShot_SetupEffect345(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
+void PlayerShot_LaserMark1_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_LASER_MARK_1;
@@ -216,7 +221,7 @@ void PlayerShot_HitGround(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
         (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                PlayerShot_SetupEffect345(&gEffects[i], xPos, yPos, zPos, yRot, scale);
+                PlayerShot_LaserMark1_Setup(&gEffects[i], xPos, yPos, zPos, yRot, scale);
                 func_effect_8007D10C(xPos, yPos, zPos, 2.0f);
                 break;
             }
@@ -363,6 +368,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
         (fabsf(shot->obj.pos.y - actor->obj.pos.y) < 2000.0f) &&
         (fabsf(shot->obj.pos.x - actor->obj.pos.x) < 2000.0f)) {
         hitboxData = actor->info.hitbox;
+
         count = *hitboxData++;
         if (count != 0) {
             xySizeMod = 0.0f;
@@ -373,6 +379,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     xySizeMod += 30.0f;
                 }
             }
+
             for (i = 0; i < count; i++, hitboxData += 6) {
                 if (actor->info.unk_16 == 1) {
                     shotPx = shot->obj.pos.x;
@@ -394,7 +401,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     }
                     if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->rot_0F4.z != 0.0f) ||
                          (actor->vwork[29].y != 0.0f)) &&
-                        (actor->eventType != EVID_31)) {
+                        (actor->eventType != EVID_A6_UMBRA_STATION)) {
                         Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->rot_0F4.z) * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
@@ -407,6 +414,7 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                     shotPy = actor->obj.pos.y + sp70.y;
                     shotPz = actor->obj.pos.z + sp70.z;
                 }
+
                 hitbox = (Hitbox*) hitboxData;
                 if ((fabsf(hitbox->z.offset + actor->obj.pos.z - shotPz) < (hitbox->z.size + 50.0f)) &&
                     (fabsf(hitbox->x.offset + actor->obj.pos.x - shotPx) < (hitbox->x.size + xySizeMod)) &&
@@ -687,10 +695,10 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
     actor->hitPos.y = shot->obj.pos.y;
     actor->hitPos.z = shot->obj.pos.z;
     if (((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
-         ((actor->eventType == EVID_48) || (actor->eventType == EVID_49) || (actor->eventType == EVID_50))) ||
+         ((actor->eventType == EVID_SY_ROBOT_1) || (actor->eventType == EVID_SY_ROBOT_2) ||
+          (actor->eventType == EVID_SY_ROBOT_3))) ||
         ((actor->obj.id == OBJ_ACTOR_ALLRANGE) && (actor->fwork[23] > 1.0f)) ||
-        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) &&
-         (actor->eventType == EVID_METEO_PYRAMID_SHIP)) ||
+        ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->dmgPart == 0) && (actor->eventType == EVID_ME_FLIP_BOT)) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_SCULPIN) && (shot->obj.id != PLAYERSHOT_LOCK_ON) &&
          ((actor->state < 3) || (actor->state >= 5))) ||
         ((actor->obj.id == OBJ_ACTOR_AQ_GAROA) && (shot->obj.id != PLAYERSHOT_LOCK_ON) && (actor->timer_0BC != 0))) {
@@ -767,13 +775,13 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                         }
                         break;
                     case OBJ_ACTOR_EVENT:
-                        if (actor->eventType == EVID_42) {
+                        if (actor->eventType == EVID_SY_SHIP_2) {
                             if (PlayerShot_CheckPolyCollision(shot, ACTOR_EVENT_ID, &actor->obj)) {
                                 actor->dmgType = DMG_BEAM;
                                 actor->dmgPart = shot->sourceId;
                                 return;
                             }
-                        } else if (actor->eventType == EVID_63) {
+                        } else if (actor->eventType == EVID_ME_BIG_METEOR) {
                             test.x = fabsf(actor->obj.pos.x - shot->obj.pos.x);
                             test.y = fabsf(actor->obj.pos.y - shot->obj.pos.y);
                             test.z = fabsf(actor->obj.pos.z - shot->obj.pos.z);
@@ -1929,7 +1937,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
                     actor->obj.status = OBJ_DYING;
                     actor->timer_0BC = RAND_INT(15.0f) + 10;
                     actor->timer_0BE = 0;
-                    actor->timer_04C = 4;
+                    actor->work_04C = 4;
                     actor->obj.rot.x = Math_ModF(actor->obj.rot.x, 360.0f);
                     if (actor->info.bonus != 0) {
                         shot->bonus++;
@@ -2267,12 +2275,14 @@ void PlayerShot_Update(PlayerShot* shot) {
     switch (shot->obj.status) {
         case SHOT_FREE:
             break;
+
         case SHOT_ACTIVE:
             ticks = 1;
             switch (shot->obj.id) {
                 case PLAYERSHOT_GFOX_LASER:
                     ticks = 4;
                     break;
+
                 case PLAYERSHOT_SINGLE_LASER:
                 case PLAYERSHOT_TWIN_LASER:
                     if ((shot->unk_58 == 0) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) {
@@ -2281,10 +2291,12 @@ void PlayerShot_Update(PlayerShot* shot) {
                         ticks = 3;
                     }
                     break;
+
                 case PLAYERSHOT_TANK:
                     ticks = 2;
                     break;
             }
+
             for (i = 0; i < ticks && (shot->obj.status == SHOT_ACTIVE); i++) {
                 if (shot->timer > 0) {
                     shot->timer--;
@@ -2295,6 +2307,7 @@ void PlayerShot_Update(PlayerShot* shot) {
                 PlayerShot_UpdateShot(shot, i);
             }
             break;
+
         case SHOT_HITMARK:
             PlayerShot_UpdateHitmark(shot);
             break;

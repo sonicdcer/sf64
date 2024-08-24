@@ -31,11 +31,11 @@ D_SO_6004500:
 D_SO_6005710:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6005710, symbol: D_SO_6005710}
 
-D_SO_600636C:
-  { type: SF64:ANIM, offset: 0x600636C, symbol: D_SO_600636C}
+aSoGoreAnim:
+  { type: SF64:ANIM, offset: 0x600636C, symbol: aSoGoreAnim}
 
-D_SO_6006558:
-  { type: SF64:SKELETON, offset: 0x6006558, symbol: D_SO_6006558}
+aSoGoreSkel:
+  { type: SF64:SKELETON, offset: 0x6006558, symbol: aSoGoreSkel}
 
 D_SO_6006DD8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6006DD8, symbol: D_SO_6006DD8}

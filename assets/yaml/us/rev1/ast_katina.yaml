@@ -109,14 +109,14 @@ aDestroyedHatch4DL:
 aDestroyedHatch3DL:
   { type: GFX, offset: 0x600D4E0, symbol: aDestroyedHatch3DL }
 
-D_KA_600D730:
-  { type: GFX, offset: 0x600D730, symbol: D_KA_600D730 }
+aKaCornerianFighterShadowDL:
+  { type: GFX, offset: 0x600D730, symbol: aKaCornerianFighterShadowDL }
 
 D_KA_600D7B8:
   { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600D7B8, ctype: u8, symbol: D_KA_600D7B8 }
 
-D_KA_600DBC0:
-  { type: GFX, offset: 0x600DBC0, symbol: D_KA_600DBC0 }
+aKaEnemyShadowDL:
+  { type: GFX, offset: 0x600DBC0, symbol: aKaEnemyShadowDL }
 
 D_KA_600DC48:
   { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600DC48, ctype: u8, symbol: D_KA_600DC48 }

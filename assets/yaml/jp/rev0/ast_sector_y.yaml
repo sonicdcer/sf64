@@ -116,11 +116,11 @@ D_SY_60119D8:
 D_SY_60132A0:
   { type: GFX, offset: 0x60132A0, symbol: D_SY_60132A0 }
 
-D_SY_6015D60:
-  { type: GFX, offset: 0x6015D60, symbol: D_SY_6015D60 }
+aSyRobot4DL:
+  { type: GFX, offset: 0x6015D60, symbol: aSyRobot4DL }
 
-D_SY_601F3D0:
-  { type: GFX, offset: 0x601F3D0, symbol: D_SY_601F3D0 }
+aSySaruzinDL:
+  { type: GFX, offset: 0x601F3D0, symbol: aSySaruzinDL }
 
 D_SY_60121E0:
   { type: GFX, offset: 0x60121E0, symbol: D_SY_60121E0 }
@@ -158,8 +158,8 @@ D_SY_6015960:
 D_SY_6015B60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06015B60, symbol: D_SY_6015B60 }
 
-aSyShipProjectileDL:
-  { type: GFX, offset: 0x60188D0, symbol: aSyShipProjectileDL }
+aSyShipMissileDL:
+  { type: GFX, offset: 0x60188D0, symbol: aSyShipMissileDL }
 
 D_SY_60183B0:
   { type: GFX, offset: 0x60183B0, symbol: D_SY_60183B0 }
@@ -170,8 +170,8 @@ D_SY_6018F30:
 D_SY_6019E50:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06019E50, symbol: D_SY_6019E50 }
 
-D_SY_601AD70:
-  { type: GFX, offset: 0x601AD70, symbol: D_SY_601AD70 }
+aSyDebrisDL:
+  { type: GFX, offset: 0x601AD70, symbol: aSyDebrisDL }
 
 D_SY_601AE08:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AE08, symbol: D_SY_601AE08 }
@@ -194,11 +194,11 @@ aSyShip2DL:
 D_SY_601F3B8:
   { type: SF64:ANIM, offset: 0x601F3B8, symbol: D_SY_601F3B8 }
 
-D_SY_60205D0:
-  { type: GFX, offset: 0x60205D0, symbol: D_SY_60205D0 }
+aSyLaserTurretDL:
+  { type: GFX, offset: 0x60205D0, symbol: aSyLaserTurretDL }
 
-D_SY_60209F0:
-  { type: GFX, offset: 0x60209F0, symbol: D_SY_60209F0 }
+aSyRobotSpriteFrontDL:
+  { type: GFX, offset: 0x60209F0, symbol: aSyRobotSpriteFrontDL }
 
 D_SY_6020B08:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06020B08, symbol: D_SY_6020B08 }
@@ -206,8 +206,8 @@ D_SY_6020B08:
 D_SY_6021B08:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06021B08, symbol: D_SY_6021B08 }
 
-D_SY_6022B10:
-  { type: GFX, offset: 0x6022B10, symbol: D_SY_6022B10 }
+aSyRobotSpriteSideDL:
+  { type: GFX, offset: 0x6022B10, symbol: aSyRobotSpriteSideDL }
 
 D_SY_6022C28:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06022C28, symbol: D_SY_6022C28 }
@@ -314,8 +314,8 @@ aSyRobotHitbox:
 D_SY_60340C0:
   { type: SF64:HITBOX, offset: 0x60340C0, symbol: D_SY_60340C0 }
 
-D_SY_6034124:
-  { type: SF64:HITBOX, offset: 0x6034124, symbol: D_SY_6034124 }
+aSyRobot4Hitbox:
+  { type: SF64:HITBOX, offset: 0x6034124, symbol: aSyRobot4Hitbox }
 
 D_SY_60341A8:
   { type: SF64:HITBOX, offset: 0x60341A8, symbol: D_SY_60341A8 }
@@ -332,8 +332,8 @@ D_SY_6034304:
 aSyScenery156Hitbox:
   { type: SF64:HITBOX, offset: 0x6034368, symbol: aSyScenery156Hitbox }
 
-D_SY_603445C:
-  { type: SF64:HITBOX, offset: 0x603445C, symbol: D_SY_603445C }
+aSyLaserTurretHitbox:
+  { type: SF64:HITBOX, offset: 0x603445C, symbol: aSyLaserTurretHitbox }
 
 aSyShip1Hitbox:
   { type: SF64:HITBOX, offset: 0x6034478, symbol: aSyShip1Hitbox }
@@ -356,7 +356,7 @@ aSyShipWindowsHitbox:
 aSyShip4DestroyedHitbox:
   { type: SF64:HITBOX, offset: 0x60347F0, symbol: aSyShip4DestroyedHitbox }
 
-aSyShipProjectileHitbox:
-  { type: SF64:HITBOX, offset: 0x603486C, symbol: aSyShipProjectileHitbox }
+aSyShipMissileHitbox:
+  { type: SF64:HITBOX, offset: 0x603486C, symbol: aSyShipMissileHitbox }
 
 # size = 0x34890

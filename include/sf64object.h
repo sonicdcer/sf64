@@ -227,10 +227,10 @@ typedef struct Boss {
     /* 0x000 */ Object obj;
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
-    /* 0x044 */ s16 unk_044;
-    /* 0x046 */ s16 unk_046;
-    /* 0x048 */ s16 unk_048;
-    /* 0x04A */ s16 unk_04A;
+    /* 0x044 */ s16 work_044;
+    /* 0x046 */ s16 work_046;
+    /* 0x048 */ s16 work_048;
+    /* 0x04A */ s16 work_04A;
     /* 0x04C */ s16 animFrame;
     /* 0x04E */ s16 state;
     /* 0x050 */ s16 timer_050;
@@ -268,10 +268,10 @@ typedef struct Actor {
     /* 0x01C */ ObjectInfo info;
     /* 0x040 */ s32 index;
     /* 0x044 */ u8 itemDrop;
-    /* 0x046 */ s16 unk_046;
-    /* 0x048 */ s16 unk_048;
-    /* 0x04A */ s16 unk_04A;
-    /* 0x04C */ s16 timer_04C;
+    /* 0x046 */ s16 work_046;
+    /* 0x048 */ s16 work_048;
+    /* 0x04A */ s16 work_04A;
+    /* 0x04C */ s16 work_04C;
     /* 0x04E */ s16 counter_04E;
     /* 0x050 */ s32 iwork[25];
     /* 0x0B4 */ s16 eventType;
@@ -421,7 +421,7 @@ typedef enum ObjectId {
     /* 112 */ OBJ_SCENERY_SY_SHIP_2_DESTROYED,
     /* 113 */ OBJ_SPRITE_SY_SHIP_2, // Unused
     /* 114 */ OBJ_SPRITE_SY_SHIP_3, // Unused
-    /* 115 */ OBJ_SCENERY_SY_SHIP_PROJECTILE,
+    /* 115 */ OBJ_SCENERY_SY_SHIP_MISSILE,
     /* 116 */ OBJ_SCENERY_SY_SHIP_WINDOWS,
     /* 117 */ OBJ_SCENERY_AQ_CORAL_REEF_1,
     /* 118 */ OBJ_SCENERY_AQ_TUNNEL_1,
@@ -623,7 +623,7 @@ typedef enum ObjectId {
     /* 314 */ OBJ_BOSS_SY_SHOGUN,
     /* 315 */ OBJ_BOSS_SO_VULKAIN,
     /* 316 */ OBJ_BOSS_KA_SAUCERER,
-    /* 317 */ OBJ_BOSS_KA_FLBASE,
+    /* 317 */ OBJ_BOSS_KA_FLBASE, // Katina FrontLine Base
     /* 318 */ OBJ_BOSS_AQ_BACOON,
     /* 319 */ OBJ_BOSS_VE1_GOLEMECH,
     /* 320 */ OBJ_BOSS_AND_ANDROSS,
