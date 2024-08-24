@@ -1255,6 +1255,7 @@ Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
             var_v1 = synthState->prevHaasEffectLeftDelaySize;
             synthState->prevHaasEffectLeftDelaySize = var_a1;
             break;
+
         case 2:
             var_t0 = 0xB10;
             var_a1 = noteSub->rightDelaySize;
@@ -1262,9 +1263,11 @@ Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
             var_v1 = synthState->prevHaasEffectRightDelaySize;
             synthState->prevHaasEffectRightDelaySize = var_a1;
             break;
+
         default:
             return aList;
     }
+
     if (flags != 1) {
         if (var_a1 != var_v1) {
             temp = (((size << 0xF) / 2) - 1) / ((size + var_a1 - var_v1 - 2) / 2);
@@ -1289,6 +1292,8 @@ Acmd* func_8000B98C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
         aSaveBuffer(aList++, size + 0x650, OS_K0_TO_PHYSICAL(synthState->synthesisBuffers->panSamplesBuffer),
                     ALIGN16(var_a1));
     }
+
     aAddMixer(aList++, ALIGN64(size), 0x650, var_t0, 0x7FFF);
+
     return aList;
 }

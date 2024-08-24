@@ -105,6 +105,7 @@ void Audio_ThreadEntry(void* arg0) {
 
     AudioLoad_Init();
     Audio_InitSounds();
+
     task = AudioThread_CreateTask();
     if (task != NULL) {
         task->mesgQueue = &gAudioTaskMesgQueue;
@@ -112,6 +113,7 @@ void Audio_ThreadEntry(void* arg0) {
         osWritebackDCacheAll();
         osSendMesg(&gTaskMesgQueue, task, OS_MESG_NOBLOCK);
     }
+
     while (true) {
         task = AudioThread_CreateTask();
         if (task != NULL) {
@@ -120,6 +122,7 @@ void Audio_ThreadEntry(void* arg0) {
             osWritebackDCacheAll();
         }
         MQ_GET_MESG(&gAudioTaskMesgQueue, NULL);
+
         if (task != NULL) {
             osSendMesg(&gTaskMesgQueue, task, OS_MESG_NOBLOCK);
         }
@@ -176,6 +179,7 @@ void Main_SetVIMode(void) {
         (gControllerHold[3].button & R_TRIG) && (gControllerHold[3].button & Z_TRIG)) {
         sGammaMode = 1 - sGammaMode;
     }
+
     switch (osTvType) {
         case OS_TV_PAL:
             osViSetMode(&osViModePalLan1);
@@ -188,6 +192,7 @@ void Main_SetVIMode(void) {
             osViSetMode(&osViModeNtscLan1);
             break;
     }
+
     if (sGammaMode != 0) {
         osViSetSpecialFeatures(OS_VI_DITHER_FILTER_ON | OS_VI_DIVOT_OFF | OS_VI_GAMMA_ON | OS_VI_GAMMA_DITHER_ON);
     } else {

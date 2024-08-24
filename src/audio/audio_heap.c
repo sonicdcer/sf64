@@ -137,7 +137,7 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;
 
-    if (pool->startRamAddr + pool->size >= pool->curRamAddr + aligned) {
+    if ((pool->startRamAddr + pool->size) >= (pool->curRamAddr + aligned)) {
         pool->curRamAddr += aligned;
     } else {
         return NULL;

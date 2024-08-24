@@ -1399,11 +1399,14 @@ void func_800168BC(void) {
             gSeqChannels[i].layers[j] = NULL;
         }
     }
+
     func_8001463C();
+
     for (i = 0; i < ARRAY_COUNT(gSeqLayers); i++) {
         gSeqLayers[i].channel = NULL;
         gSeqLayers[i].enabled = false;
     }
+
     for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
         for (j = 0; j < 16; j++) {
             gSeqPlayers[i].channels[j] = &gSeqChannelNone;

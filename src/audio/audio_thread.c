@@ -57,26 +57,33 @@ SPTask* AudioThread_CreateTask(void) {
     if ((gAudioTaskCountQ % gAudioBufferParams.count) != 0) {
         return gWaitingAudioTask;
     }
+
     osSendMesg(gAudioTaskStartQueue, (OSMesg) gAudioTaskCountQ, OS_MESG_NOBLOCK);
+
     gAudioTaskIndexQ ^= 1;
     gCurAiBuffIndex++;
     gCurAiBuffIndex %= 3;
 
     aiBuffIndex = (gCurAiBuffIndex + 1) % 3;
     aiSamplesLeft = osAiGetLength() / 4;
+
     if ((gAudioResetTimer < 16) && (gAiBuffLengths[aiBuffIndex] != 0)) {
         osAiSetNextBuffer(gAiBuffers[aiBuffIndex], gAiBuffLengths[aiBuffIndex] * 4);
     }
-    if (gCurAudioFrameDmaCount && gCurAudioFrameDmaCount) {}
+
+    if (gCurAudioFrameDmaCount && gCurAudioFrameDmaCount) {} //! FAKE ?
+
     gCurAudioFrameDmaCount = 0;
     AudioLoad_DecreaseSampleDmaTtls();
     AudioLoad_ProcessLoads(gAudioResetStep);
+
     if (MQ_GET_MESG(gAudioSpecQueue, &specId)) {
         if (gAudioResetStep == 0) {
             gAudioResetStep = 5;
         }
         gAudioSpecId = specId;
     }
+
     if ((gAudioResetStep != 0) && (AudioHeap_ResetStep() == 0)) {
         if (gAudioResetStep == 0) {
             osSendMesg(gAudioResetQueue, (OSMesg) (s32) gAudioSpecId, OS_MESG_NOBLOCK);
@@ -84,12 +91,14 @@ SPTask* AudioThread_CreateTask(void) {
         gWaitingAudioTask = NULL;
         return NULL;
     }
+
     if (gAudioResetTimer > 16) {
         return NULL;
     }
     if (gAudioResetTimer != 0) {
         gAudioResetTimer++;
     }
+
     gAudioCurTask = &gAudioRspTasks[gAudioTaskIndexQ];
     gCurAbiCmdBuffer = gAbiCmdBuffs[gAudioTaskIndexQ];
     aiBuffIndex = gCurAiBuffIndex;
