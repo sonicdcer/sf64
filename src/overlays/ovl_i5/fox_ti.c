@@ -49,7 +49,7 @@ UnkStruct_i5_801BD738 D_i5_801BD738[3][9];
 PosRot D_i5_801BDA30[10];
 f32 D_i5_801BDB20[3][151];
 
-static f32 D_i5_801B7360[25][4] = {
+f32 D_i5_801B7360[25][4] = {
     { 165.0f, 120.0f, 0.0f, 90.0f },    { 127.5f, 7.5f, 0.0f, 90.0f },      { 7.5f, -112.5f, 0.0f, 90.0f },
     { 255.0f, 285.0f, -60.0f, 60.0f },  { 255.0f, 285.0f, 60.0f, 60.0f },   { 247.5f, 120.0f, -90.0f, 75.0f },
     { 247.5f, 120.0f, 90.0f, 75.0f },   { 217.5f, -75.0f, -135.0f, 90.0f }, { 217.5f, -75.0f, 135.0f, 90.0f },
@@ -61,14 +61,14 @@ static f32 D_i5_801B7360[25][4] = {
     { 117.0f, -3.0f, 18.0f, 45.0f }
 };
 
-static u8 D_i5_801B74F0[9][3] = {
+u8 D_i5_801B74F0[9][3] = {
     { 13, 0, 11 }, { 1, 11, 2 }, { 2, 13, 1 }, { 3, 14, 2 }, { 4, 16, 1 },
     { 5, 17, 3 },  { 6, 20, 1 }, { 7, 21, 3 }, { 8, 24, 1 },
 };
 
-static bool D_i5_801B750C[3] = { false, false, false };
+bool D_i5_801B750C[3] = { false, false, false };
 
-static f32 D_i5_801B7518[2] = { 20.0f, 60.0f };
+f32 D_i5_801B7518[2] = { 20.0f, 60.0f };
 
 void Titania_80188F30(void) {
     s32 i;
@@ -126,7 +126,7 @@ void Titania_TiTerrain_Update(TiTerrain* this) {
     Ground_801B49D0(this);
 }
 
-static Vec3f D_i5_801B7520 = { -150.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B7520 = { -150.0f, 0.0f, 0.0f };
 
 void Titania_TiDesertRover_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
     TiDesertRover* this = (TiDesertRover*) data;
@@ -214,8 +214,8 @@ void Titania_80189380(TiDesertRover* this) {
     func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
 }
 
-static Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
-static Vec3f D_i5_801B7538 = { 50.0f, 0.0f, -20.0f };
+Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
+Vec3f D_i5_801B7538 = { 50.0f, 0.0f, -20.0f };
 
 void Titania_TiDesertRover_Update(TiDesertRover* this) {
     Vec3f sp54;
@@ -328,7 +328,7 @@ void Titania_TiDesertRover_Draw(TiDesertRover* this) {
                            &gIdentityMatrix);
 }
 
-static Vec3f D_i5_801B7544 = { 0.0f, -50.0f, 178.0f };
+Vec3f D_i5_801B7544 = { 0.0f, -50.0f, 178.0f };
 
 void Titania_TiFekuda_Init(TiFekuda* this) {
     f32 sp2C;
@@ -440,7 +440,7 @@ void Titania_TiFekuda_Draw(TiFekuda* this) {
     }
 }
 
-static f32 sTiBoulderHitbox[7] = { 1.0f, 0.0f, 25.0f, 0.0f, 12.0f, 0.0f, 12.0f };
+f32 sTiBoulderHitbox[7] = { 1.0f, 0.0f, 25.0f, 0.0f, 12.0f, 0.0f, 12.0f };
 
 Gfx* D_TI_801B7584[10] = {
     D_TI1_700DDF0, D_TI1_700D9B0, D_TI1_700DF70, D_TI1_700DC50, D_TI1_700DED0,
@@ -656,8 +656,8 @@ void Titania_TiLandmine_Update(TiLandmine* this) {
     this->dmgType = DMG_NONE;
 }
 
-static Vec3f D_i5_801B75AC = { -70.0f, 50.0f, 212.0f };
-static Vec3f D_i5_801B75B8 = { 70.0f, 50.0f, 212.0f };
+Vec3f D_i5_801B75AC = { -70.0f, 50.0f, 212.0f };
+Vec3f D_i5_801B75B8 = { 70.0f, 50.0f, 212.0f };
 
 void Titania_TiRasco_Init(TiRasco* this) {
     Vec3f sp68[2];
@@ -736,7 +736,7 @@ bool Titania_TiRasco_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
     }
 }
 
-static Vec3f D_i5_801B75C4 = { 110.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B75C4 = { 110.0f, 0.0f, 0.0f };
 
 void Titania_TiRasco_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     TiRasco* this = (TiRasco*) thisx;
@@ -751,7 +751,7 @@ void Titania_TiRasco_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-static s16 D_i5_801B75D0[] = {
+s16 D_i5_801B75D0[] = {
     1, 2, 3, 4, 5, 6, 7, 10, 12, 13,
 };
 
@@ -1039,7 +1039,7 @@ void Titania_TiBomb_Update(TiBomb* this) {
     }
 }
 
-static s32 D_i5_801B75E4[3][3] = {
+s32 D_i5_801B75E4[3][3] = {
     { 15, 255, 255 },
     { 0, 255, 0 },
     { 0, 0, 0 },
@@ -1101,7 +1101,7 @@ bool Titania_8018C118(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-static s16 D_i5_801B7630[9][2] = {
+s16 D_i5_801B7630[9][2] = {
     { 1, 0 }, { 2, 1 }, { 3, 0 }, { 4, 1 }, { 5, 1 }, { 6, 0 }, { 7, 1 }, { 8, 0 }, { 13, 1 },
 };
 
@@ -1150,8 +1150,8 @@ void Titania_TiDesertCrawler_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx
     }
 }
 
-static Vec3f D_i5_801B7654 = { 387.0f, 0.0f, 0.0f };
-static Vec3f D_i5_801B7660 = { 199.5f, 0.0f, 0.0f };
+Vec3f D_i5_801B7654 = { 387.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B7660 = { 199.5f, 0.0f, 0.0f };
 
 void Titania_8018C3D8(s32 limbIndex, Vec3f* rot, void* thisx) {
     s32 i;
@@ -1268,7 +1268,7 @@ void Titania_8018C72C(TiDesertCrawler* this) {
     this->iwork[8] = 0;
 }
 
-static Vec3f D_i5_801B766C = { 0.0f, 0.0f, 15.0f };
+Vec3f D_i5_801B766C = { 0.0f, 0.0f, 15.0f };
 
 void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
     s32 i;
@@ -1712,8 +1712,8 @@ void Titania_8018E3B0(TiDesertCrawler* this) {
     D_i5_801B750C[this->iwork[0]] = false;
 }
 
-static Vec3f D_i5_801B7678 = { 0.0f, 388.0f, 103.0f };
-static Vec3f D_i5_801B7684 = { 0.0f, 0.0f, 0.0f }; // unused
+Vec3f D_i5_801B7678 = { 0.0f, 388.0f, 103.0f };
+Vec3f D_i5_801B7684 = { 0.0f, 0.0f, 0.0f }; // unused
 
 void Titania_TiDelphor_Init(TiDelphor* this) {
     Actor* delphorHead;
@@ -2051,7 +2051,7 @@ void Titania_TiPillar_Init(TiPillar* this) {
     this->vel.z = this->obj.pos.x;
 }
 
-static Vec3f D_i5_801B7690 = { 0.0f, 460.0f, 0.0f };
+Vec3f D_i5_801B7690 = { 0.0f, 460.0f, 0.0f };
 
 Gfx* D_TI_801B769C[39] = {
     D_TI2_7009700, D_TI2_7004E80, D_TI2_70049C0, D_TI2_70045D0, D_TI_A001FA0, D_TI_900FE80, D_TI_80018D0,  D_TI_9005450,
@@ -2349,10 +2349,10 @@ bool Titania_8018FC70(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return true;
 }
 
-static f32 D_i5_801B7738[14] = { -1.0f,  -1.0f,  -1.0f,  -1.0f,  -1.0f,   -1.0f,  -1.0f,
-                                 871.0f, 580.0f, 637.0f, 637.0f, 1000.0f, 380.0f, 1400.0f };
+f32 D_i5_801B7738[14] = { -1.0f,  -1.0f,  -1.0f,  -1.0f,  -1.0f,   -1.0f,  -1.0f,
+                          871.0f, 580.0f, 637.0f, 637.0f, 1000.0f, 380.0f, 1400.0f };
 
-static u8 D_i5_801B7770[][6] = {
+u8 D_i5_801B7770[][6] = {
     { 1, 0, 0, 0, 0, 4 },    { 2, 0, 0, 0, 0, 5 },    { 3, 0, 0, 0, 0, 3 },    { 4, 0, 0, 0, 0, 6 },
     { 5, 0, 0, 0, 0, 7 },    { 7, 0, 2, 0, 2, 10 },   { 8, 0, 2, 0, 2, 10 },   { 9, 0, 2, 0, 2, 10 },
     { 10, 0, 3, 0, 3, 9 },   { 11, 0, 3, 17, 3, 37 }, { 12, 1, 3, 27, 3, 2 },  { 13, 1, 3, 27, 3, 2 },
@@ -2372,14 +2372,14 @@ static u8 D_i5_801B7770[][6] = {
     { 88, 0, 0, 19, 0, 35 }, { 89, 0, 0, 20, 0, 36 }, { 90, 0, 0, 5, 0, 38 },
 };
 
-static u8 D_i5_801B7904[92] = {
+u8 D_i5_801B7904[92] = {
     29, 30, 31, 32, 33, 0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  2,  2,  2,  3,  3,  4,  4,
     5,  5,  6,  6,  6,  6,  6,  6,  6,  6,  7,  7,  7,  7,  7,  28, 8,  8,  8,  8,  8,  9,  9,
     9,  10, 10, 10, 11, 11, 12, 12, 13, 14, 15, 16, 16, 16, 16, 16, 16, 17, 17, 17, 17, 17, 17,
     18, 19, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 22, 22, 23, 24, 25, 26, 27,
 };
 
-static s16 D_i5_801B7960[][4] = {
+s16 D_i5_801B7960[][4] = {
     { 3, 7, 12, 90 },  { 1, 9, 12, 90 },  { 1, 9, 12, 90 },  { 1, 7, 12, 90 }, { 1, 7, 12, 90 },  { 1, 7, 12, 90 },
     { 2, 14, 30, 90 }, { 2, 14, 12, 90 }, { 2, 14, 12, 90 }, { 2, 7, 6, 90 },  { 2, 7, 6, 90 },   { 1, 7, 6, 90 },
     { 1, 7, 6, 90 },   { 0, 7, 6, 90 },   { 1, 7, 6, 90 },   { 1, 7, 6, 90 },  { 2, 14, 12, 90 }, { 2, 14, 12, 90 },
@@ -2388,7 +2388,7 @@ static s16 D_i5_801B7960[][4] = {
     { 0, 0, 0, 0 },    { 0, 0, 0, 0 },    { 0, 0, 0, 0 },    { 0, 0, 0, 0 },
 };
 
-static f32 D_i5_801B7A70[86][4] = {
+f32 D_i5_801B7A70[86][4] = {
     { 99.0f, 9.0f, 0.0f, 0.0f },        { 99.0f, 9.0f, 0.0f, 0.0f },      { 45.0f, 26.0f, 0.0f, 0.0f },
     { 45.0f, 26.0f, 0.0f, 0.0f },       { 21.0f, 42.0f, 0.0f, 0.0f },     { 50.0f, -3.0f, 0.0f, 24.0f },
     { 103.0f, 2.0f, 0.0f, 24.0f },      { 143.0f, -1.0f, 0.0f, 12.0f },   { 173.0f, 0.0f, 0.0f, 15.0f },
@@ -2420,7 +2420,7 @@ static f32 D_i5_801B7A70[86][4] = {
     { 78.0f, 40.0f, -25.0f, 0.0f },     { 21.0f, 42.0f, 0.0f, 40.0f },
 };
 
-static s16 D_i5_801B7FD0[45][4] = {
+s16 D_i5_801B7FD0[45][4] = {
     { 61, 1, 1, 44 },  { 55, 2, 1, 39 },  { 10, 3, 1, 8 },   { 16, 4, 1, 14 },  { 51, 0, 1, 38 },  { 28, 5, 4, 26 },
     { 29, 9, 1, 27 },  { 30, 10, 1, 28 }, { 31, 11, 1, 29 }, { 32, 12, 1, 30 }, { 34, 13, 3, 32 }, { 37, 16, 3, 35 },
     { 39, 19, 2, 37 }, { 90, 21, 2, 66 }, { 36, 23, 2, 34 }, { 1, 25, 1, 0 },   { 2, 26, 1, 1 },   { 4, 27, 1, 3 },
@@ -2431,15 +2431,15 @@ static s16 D_i5_801B7FD0[45][4] = {
     { 26, 77, 6, 24 }, { 86, 83, 2, 62 }, { 51, 85, 1, 38 },
 };
 
-static s16 D_i5_801B8138[9] = { 12, 15, 18, 45, 48, 51, 78, 84, 102 };
+s16 D_i5_801B8138[9] = { 12, 15, 18, 45, 48, 51, 78, 84, 102 };
 
-static s16 D_i5_801B814C[9] = { 21, 24, 27, 54, 57, 60, 81, 87, 105 };
+s16 D_i5_801B814C[9] = { 21, 24, 27, 54, 57, 60, 81, 87, 105 };
 
-static s32 D_i5_801B8160[14] = {
+s32 D_i5_801B8160[14] = {
     28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 89, 90,
 };
 
-static UnkStruct_i5_801B8198 D_i5_801B8198[33] = {
+UnkStruct_i5_801B8198 D_i5_801B8198[33] = {
     { 61, 0, NULL, 0 },  { 22, 30, NULL, 0 }, { 21, 30, NULL, 0 }, { 20, 30, NULL, 0 }, { 44, 25, NULL, 0 },
     { 45, 20, NULL, 0 }, { 46, 15, NULL, 0 }, { 47, 10, NULL, 0 }, { 48, 5, NULL, 0 },  { 57, 0, NULL, 0 },
     { 5, 30, NULL, 0 },  { 6, 30, NULL, 0 },  { 7, 30, NULL, 0 },  { 39, 25, NULL, 0 }, { 40, 20, NULL, 0 },
@@ -2480,43 +2480,43 @@ f32 aTiGorasHitbox[517] = {
     0.0f, 0.0f, 0.0f, 0.0f
 };
 
-static f32 D_i5_801B8BBC[5][4] = { { 36.0f, -40.0f, 0.0f, 20.0f },
-                                   { 99.0f, 9.0f, 0.0f, 0.0f },
-                                   { 99.0f, 9.0f, 0.0f, 35.0f },
-                                   { 23.0f, 6.0f, 0.0f, 30.0f },
-                                   { 180.0f, 28.0f, -11.0f, 32.0f } };
+f32 D_i5_801B8BBC[5][4] = { { 36.0f, -40.0f, 0.0f, 20.0f },
+                            { 99.0f, 9.0f, 0.0f, 0.0f },
+                            { 99.0f, 9.0f, 0.0f, 35.0f },
+                            { 23.0f, 6.0f, 0.0f, 30.0f },
+                            { 180.0f, 28.0f, -11.0f, 32.0f } };
 
-static u8 D_i5_801B8C0C[21] = {
+u8 D_i5_801B8C0C[21] = {
     0, 0, 0, 0, 0, 0, 3, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2,
 };
 
-static s32 D_i5_801B8C24[4][4] = {
+s32 D_i5_801B8C24[4][4] = {
     { 1, 0, 1, 0 },
     { 2, 0, 1, 1 },
     { 3, 0, 1, 2 },
     { 7, 1, 4, 3 },
 };
 
-static f32 D_i5_801B8C64[7][4] = {
+f32 D_i5_801B8C64[7][4] = {
     { 45.0f, 26.0f, 0.0f, 0.0f },  { 120.0f, 16.0f, 0.0f, 25.0f }, { 85.0f, 26.0f, 0.0f, 30.0f },
     { 45.0f, 26.0f, 0.0f, 35.0f }, { -25.0f, 11.0f, 0.0f, 35.0f }, { 94.0f, 0.0f, 0.0f, 30.0f },
     { 34.0f, 1.0f, 0.0f, 35.0f },
 };
 
-static s32 D_i5_801B8CD4[2][4] = {
+s32 D_i5_801B8CD4[2][4] = {
     { 1, 0, 5, 0 },
     { 2, 4, 2, 5 },
 };
 
-static s32 D_i5_801B8CF4[3] = { 0, 7, 14 };
+s32 D_i5_801B8CF4[3] = { 0, 7, 14 };
 
-static Vec3f D_i5_801B8D00 = { 104.0f, 23.0f, 0.0f };
-static Vec3f D_i5_801B8D0C = { 5.0f, 0.0f, 0.0f };
-static Vec3f D_i5_801B8D18 = { 0.0f, 0.0f, 30.0f };
-static Vec3f D_i5_801B8D24 = { 54.0f, 0.0f, 0.0f };
-static Vec3f D_i5_801B8D30 = { 47.0f, 0.0f, 0.0f };
-static Vec3f D_i5_801B8D3C = { 158.0f, 4.0f, 0.0f };
-static Vec3f D_i5_801B8D48 = { 0.0f, 0.0f, 60.0f };
+Vec3f D_i5_801B8D00 = { 104.0f, 23.0f, 0.0f };
+Vec3f D_i5_801B8D0C = { 5.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B8D18 = { 0.0f, 0.0f, 30.0f };
+Vec3f D_i5_801B8D24 = { 54.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B8D30 = { 47.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B8D3C = { 158.0f, 4.0f, 0.0f };
+Vec3f D_i5_801B8D48 = { 0.0f, 0.0f, 60.0f };
 
 void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* thisx) {
     TiGoras* this = (TiGoras*) thisx;
@@ -4980,7 +4980,7 @@ void Titania_80193DF0(TiGoras* this) {
 void Titania_80193DF0(Boss*);
 #endif
 
-static s16 D_i5_801B8D54[4] = { 30, 35, 60, 70 };
+s16 D_i5_801B8D54[4] = { 30, 35, 60, 70 };
 
 void Titania_TiGoras_Update(Boss* boss) {
     Vec3f sp3C;
@@ -5187,14 +5187,14 @@ void Titania_TiGoras_Update(Boss* boss) {
     boss->swork[31]++;
 }
 
-static f32 D_i5_801B8D5C[50] = {
+f32 D_i5_801B8D5C[50] = {
     0.0f,  0.03f,  0.06f, 0.12f, 0.18f, 0.25f, 0.425f, 0.6f, 0.775f, 0.95f, 1.125f, 1.3f, 1.475f,
     1.65f, 1.825f, 2.0f,  1.8f,  1.6f,  1.4f,  1.2f,   1.0f, 0.8f,   0.6f,  0.4f,   0.2f, 0.0f,
     0.8f,  1.6f,   2.4f,  3.2f,  4.0f,  3.4f,  3.2f,   3.0f, 2.8f,   2.4f,  2.2f,   2.0f, 1.8f,
     1.6f,  1.4f,   1.2f,  1.0f,  0.8f,  0.6f,  0.4f,   0.2f, 0.0f,   0.0f,  0.0f,
 };
 
-static f32 D_i5_801B8E24[4][2] = {
+f32 D_i5_801B8E24[4][2] = {
     { -1.0f, 1.0f },
     { 1.0f, 1.0f },
     { -1.0f, -1.0f },
@@ -5470,7 +5470,7 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
     }
 }
 
-static Vec3f D_i5_801B8E44 = { 3.0f, 0.0f, 0.0f };
+Vec3f D_i5_801B8E44 = { 3.0f, 0.0f, 0.0f };
 
 void Titania_801990DC(TiGoras* this) {
     s32 i;

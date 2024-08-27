@@ -104,39 +104,39 @@ volatile u32 gAudioResetTimer;
 
 u64 gAudioContextEnd[2];
 
-static ReverbSettings D_800C74D0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x4000, 0xD000, 0x3000 } };
-static ReverbSettings D_800C74E0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x38, 0x6400, 0x1000, 0x1000 } };
-static ReverbSettings D_800C74F0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x4000, 0, 0 } };
-static ReverbSettings D_800C7500[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x5000, 0, 0 } };
-static ReverbSettings D_800C7510[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x6000, 0, 0 } };
-static ReverbSettings D_800C7520[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7530[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x5800, 0, 0 } };
-static ReverbSettings D_800C7540[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x5000, 0, 0 } };
-static ReverbSettings D_800C7550[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7560[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x6000, 0, 0 } };
-static ReverbSettings D_800C7570[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7580[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x4000, 0, 0 } };
-static ReverbSettings D_800C7590[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 2, 0x28, 0x5800, 0, 0 } };
-static ReverbSettings D_800C75A0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C75B0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x38, 0x5000, 0, 0 } };
-static ReverbSettings D_800C75C0[3] = {
+ReverbSettings D_800C74D0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x4000, 0xD000, 0x3000 } };
+ReverbSettings D_800C74E0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x38, 0x6400, 0x1000, 0x1000 } };
+ReverbSettings D_800C74F0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x4000, 0, 0 } };
+ReverbSettings D_800C7500[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x5000, 0, 0 } };
+ReverbSettings D_800C7510[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x6000, 0, 0 } };
+ReverbSettings D_800C7520[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7530[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x5800, 0, 0 } };
+ReverbSettings D_800C7540[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x5000, 0, 0 } };
+ReverbSettings D_800C7550[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7560[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x6000, 0, 0 } };
+ReverbSettings D_800C7570[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7580[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x40, 0x4000, 0, 0 } };
+ReverbSettings D_800C7590[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 2, 0x28, 0x5800, 0, 0 } };
+ReverbSettings D_800C75A0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C75B0[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x38, 0x5000, 0, 0 } };
+ReverbSettings D_800C75C0[3] = {
     { 1, 0x30, 0x3000, 0, 0 },
     { 1, 0x38, 0x3000, 0, 0 },
     { 2, 0x48, 0x6000, 0xC000, 0x4000 },
 };
-static ReverbSettings D_800C75D8[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C75E8[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C75F8[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7608[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7618[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7628[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7638[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x6800, 0, 0 } };
-static ReverbSettings D_800C7648[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x18, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7658[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 2, 0x18, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7668[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x18, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7678[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C7688[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
-static ReverbSettings D_800C76A8[] = {
+ReverbSettings D_800C75D8[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C75E8[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C75F8[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7608[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7618[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7628[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7638[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x6800, 0, 0 } };
+ReverbSettings D_800C7648[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x18, 0x3000, 0, 0 } };
+ReverbSettings D_800C7658[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 2, 0x18, 0x3000, 0, 0 } };
+ReverbSettings D_800C7668[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x18, 0x3000, 0, 0 } };
+ReverbSettings D_800C7678[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C7688[2] = { { 1, 0x30, 0x3000, 0, 0 }, { 1, 0x30, 0x3000, 0, 0 } };
+ReverbSettings D_800C76A8[] = {
     // unused?
     { 1, 0x40, 0x4FFF, 0, 0 },
     { 1, 0x30, 0x4FFF, 0, 0 },

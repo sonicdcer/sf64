@@ -22,7 +22,7 @@ f32 D_Andross_801A7F68;
 f32 D_Andross_801A7F70;
 f32 D_Andross_801A7F78;
 
-static f32* D_i6_801A6760[12] = {
+f32* D_i6_801A6760[12] = {
     D_ANDROSS_C037FCC, D_ANDROSS_C0380C0, D_ANDROSS_C0381B4, D_ANDROSS_C0382A8, D_ANDROSS_C03839C, D_ANDROSS_C038490,
     D_ANDROSS_C038584, D_ANDROSS_C038678, D_ANDROSS_C03876C, D_ANDROSS_C038860, D_ANDROSS_C038954, D_ANDROSS_C038954,
 };
@@ -1652,7 +1652,7 @@ void Andross_Effect396_Update(Effect396* this) {
     }
 }
 
-static Gfx* D_i6_801A6790[10] = {
+Gfx* D_i6_801A6790[10] = {
     D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880,
     D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_arwing_3016660,  D_arwing_3015D80,
 };
@@ -1903,7 +1903,7 @@ void Andross_8018DA94(AndAndross* this, Vec3f* arg1) {
     AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
 }
 
-static f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
+f32 D_i6_801A67B8[] = { 0.0f, 0.0f, 0.0f };
 
 void Andross_AndAndross_Update(AndAndross* this) {
     s32 i;
@@ -3128,15 +3128,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
     }
 }
 
-static Vec3f D_i6_801A67C4 = { 40.0f, 0.0f, -10.0f };
-static f32 D_i6_801A67D0 = 180.0f;
-static f32 D_i6_801A67D4 = 0.0f;
-static f32 D_i6_801A67D8 = 0.0f;
-static Vec3f D_i6_801A67DC = { 40.0f, 0.0f, 10.0f };
-static f32 D_i6_801A67E8 = 0.0f;
-static f32 D_i6_801A67EC = 0.0f;
-static f32 D_i6_801A67F0 = 0.0f;
-static Vec3f D_i6_801A67F4 = { 0.0f, 0.0f, 0.0f };
+Vec3f D_i6_801A67C4 = { 40.0f, 0.0f, -10.0f };
+f32 D_i6_801A67D0 = 180.0f;
+f32 D_i6_801A67D4 = 0.0f;
+f32 D_i6_801A67D8 = 0.0f;
+Vec3f D_i6_801A67DC = { 40.0f, 0.0f, 10.0f };
+f32 D_i6_801A67E8 = 0.0f;
+f32 D_i6_801A67EC = 0.0f;
+f32 D_i6_801A67F0 = 0.0f;
+Vec3f D_i6_801A67F4 = { 0.0f, 0.0f, 0.0f };
 
 bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Vec3f sp94;
@@ -3801,7 +3801,7 @@ void Andross_801939A0(s32 actorIndex) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
 }
 
-static Vec3f D_i6_801A6878[4] = {
+Vec3f D_i6_801A6878[4] = {
     { 1500.0f, 15000.0f, 0.0f },
     { 0.0f, 15000.0f, -600.0f },
     { -400.0f, 14950.0f, 0.0f },

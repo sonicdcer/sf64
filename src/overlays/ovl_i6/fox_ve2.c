@@ -30,12 +30,12 @@ void Venom2_UpdateStarWolfEvents(ActorAllRange* this) {
     ActorAllRange_UpdateStarWolfEvents(this);
 }
 
-static Vec3f sTeamInitPos[6] = {
+Vec3f sTeamInitPos[6] = {
     { 0.0f, 4030.0f, 18000.0f }, { -500.0f, 3820.0f, 17200.0f }, { 550.0f, 3750.0f, 17000.0f },
     { 1000.0f, 300.0f, 0.0f },   { -1000.0f, 300.0f, 0.0f },     { 0.0f, 500.0f, 0.0f },
 };
 
-static f32 sTeamInitRot[3] = { 300.0f, 70.0f, 280.0f };
+f32 sTeamInitRot[3] = { 300.0f, 70.0f, 280.0f };
 
 void Venom2_UpdateEvents(ActorAllRange* this) {
     ActorAllRange* team;

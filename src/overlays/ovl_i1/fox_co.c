@@ -1706,31 +1706,31 @@ void Corneria_CoCarrier_WaterSplash(CoCarrier* this) {
     Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 1.0f, 10.0f);
 }
 
-static Vec3f D_i1_801998CC = { 442.0f, 5.0f, 360.0f };
-static Vec3f D_i1_801998D8 = { -439.0f, 180.0f, 323.0f };
-static Vec3f D_i1_801998E4 = { -439.0f, -180.0f, 323.0f };
-static Vec3f D_i1_801998F0[2] = {
+Vec3f D_i1_801998CC = { 442.0f, 5.0f, 360.0f };
+Vec3f D_i1_801998D8 = { -439.0f, 180.0f, 323.0f };
+Vec3f D_i1_801998E4 = { -439.0f, -180.0f, 323.0f };
+Vec3f D_i1_801998F0[2] = {
     { 0.0f, 50.0f, 473.0f },
     { 300.0f, 70.0f, 200.0f },
 };
-static Vec3f D_i1_80199908 = { 230.0f, 30.0f, -200.0f };
-static Vec3f D_i1_80199914[2] = {
+Vec3f D_i1_80199908 = { 230.0f, 30.0f, -200.0f };
+Vec3f D_i1_80199914[2] = {
     { 434.0f, -74.0f, -580.0f },
     { -438.0f, -277.0f, -750.0f },
 };
-static Vec3f D_i1_8019992C = { -438.0f, 275.0f, -750.0f };
-static Vec3f D_i1_80199938 = { -426.0f, 147.0f, 2.0f };
-static Vec3f D_i1_80199944 = { -437.0f, -135.0f, 2.0f };
-static Vec3f D_i1_80199950 = { -250.0f, 30.0f, -200.0f };
-static Vec3f D_i1_8019995C[20] = {
-    { 67.0f, 44.0f, 377.0f },     { -146.0f, 24.0f, 376.0f }, { -88.0f, 85.0f, -15.0f },   { 105.0f, 89.0f, -169.0f },
-    { -107.0f, -36.0f, 367.0f },  { 110.0f, -39.0f, 286.0f }, { -126.0f, -93.0f, 221.0f }, { 88.0f, -94.0f, 155.0f },
-    { 126.0f, -179.0f, -101.0f }, { -94.0f, -151.0f, 29.0f }, { 105.0f, -140.0f, 2.0f },   { -18.0f, -101.0f, 77.0f },
-    { -60.0f, -151.0f, 29.0f },   { -132.0f, 9.0f, 430.0f },  { 52.0f, 29.0f, 431.0f },    { -23.0f, 68.0f, 325.0f },
-    { 116.0f, 34.0f, 368.0f },    { -49.0f, -53.0f, 366.0f }, { 113.0f, -62.0f, 255.0f },  { -114.0f, -88.0f, 182.0f }
-};
-static s32 D_i1_80199A4C[4] = { 150, 200, 150, 200 };
-static f32 D_i1_80199A5C[4] = { -225.0f, 0.0f, 225.0f, 0.0f };
+Vec3f D_i1_8019992C = { -438.0f, 275.0f, -750.0f };
+Vec3f D_i1_80199938 = { -426.0f, 147.0f, 2.0f };
+Vec3f D_i1_80199944 = { -437.0f, -135.0f, 2.0f };
+Vec3f D_i1_80199950 = { -250.0f, 30.0f, -200.0f };
+Vec3f D_i1_8019995C[20] = { { 67.0f, 44.0f, 377.0f },    { -146.0f, 24.0f, 376.0f },  { -88.0f, 85.0f, -15.0f },
+                            { 105.0f, 89.0f, -169.0f },  { -107.0f, -36.0f, 367.0f }, { 110.0f, -39.0f, 286.0f },
+                            { -126.0f, -93.0f, 221.0f }, { 88.0f, -94.0f, 155.0f },   { 126.0f, -179.0f, -101.0f },
+                            { -94.0f, -151.0f, 29.0f },  { 105.0f, -140.0f, 2.0f },   { -18.0f, -101.0f, 77.0f },
+                            { -60.0f, -151.0f, 29.0f },  { -132.0f, 9.0f, 430.0f },   { 52.0f, 29.0f, 431.0f },
+                            { -23.0f, 68.0f, 325.0f },   { 116.0f, 34.0f, 368.0f },   { -49.0f, -53.0f, 366.0f },
+                            { 113.0f, -62.0f, 255.0f },  { -114.0f, -88.0f, 182.0f } };
+s32 D_i1_80199A4C[4] = { 150, 200, 150, 200 };
+f32 D_i1_80199A5C[4] = { -225.0f, 0.0f, 225.0f, 0.0f };
 
 void Corneria_CoCarrier_Update(CoCarrier* this) {
     Vec3f sp84[33];
@@ -2302,8 +2302,8 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
     }
 }
 
-static Vec3f D_i1_80199A6C = { -270.0f, 0.0f, 200.0f };
-static Vec3f D_i1_80199A78 = { 440.0f, 0.0f, 0.0f };
+Vec3f D_i1_80199A6C = { -270.0f, 0.0f, 200.0f };
+Vec3f D_i1_80199A78 = { 440.0f, 0.0f, 0.0f };
 
 void Corneria_CarrierLeft_Update(CoCarrierLeft* this) {
     Vec3f sp4C;
@@ -2405,8 +2405,8 @@ void Corneria_CarrierLeft_Update(CoCarrierLeft* this) {
     }
 }
 
-static Vec3f D_i1_80199A84 = { 20.0f, -90.0f, 0.0f };
-static Vec3f D_i1_80199A90 = { -440.0f, 210.0f, 0.0f };
+Vec3f D_i1_80199A84 = { 20.0f, -90.0f, 0.0f };
+Vec3f D_i1_80199A90 = { -440.0f, 210.0f, 0.0f };
 
 void Corneria_CarrierUpper_Update(CoCarrierUpper* this) {
     Vec3f sp4C;
@@ -2513,8 +2513,8 @@ void Corneria_CarrierUpper_Update(CoCarrierUpper* this) {
     }
 }
 
-static Vec3f D_i1_80199A9C = { 20.0f, 90.0f, 0.0f };
-static Vec3f D_i1_80199AA8 = { -440.0f, -210.0f, 0.0f };
+Vec3f D_i1_80199A9C = { 20.0f, 90.0f, 0.0f };
+Vec3f D_i1_80199AA8 = { -440.0f, -210.0f, 0.0f };
 
 void Corneria_CarrierBottom_Update(CoCarrierBottom* this) {
     Vec3f sp4C;
@@ -2825,13 +2825,10 @@ void Corneria_SpawnClouds(void) {
     }
 }
 
-static f32 sCoLevelStartTeamXpos[3] = { 180.0f, -180.0f, 0.0f };
-
-static f32 sCoLevelStartTeamYpos[3] = { 200.0f, 140.0f, 200.0f };
-
-static f32 sCoLevelStartTeamZpos[3] = { 160.0f, 160.0f, 320.0f };
-
-static f32 sCoLevelStartTeamZrot[3] = { -60.0f, 60.0f, -45.0f };
+f32 sCoLevelStartTeamXpos[3] = { 180.0f, -180.0f, 0.0f };
+f32 sCoLevelStartTeamYpos[3] = { 200.0f, 140.0f, 200.0f };
+f32 sCoLevelStartTeamZpos[3] = { 160.0f, 160.0f, 320.0f };
+f32 sCoLevelStartTeamZrot[3] = { -60.0f, 60.0f, -45.0f };
 
 void Corneria_CsTeamSetup(ActorCutscene* this, s32 teamIdx) {
     Actor_Initialize(this);
@@ -3380,19 +3377,13 @@ void Corneria_LevelStart(Player* player) {
     slippy->obj.pos.y -= 3.0f;
 }
 
-static f32 D_i1_80199AE4[3] = { -1500.0f, 700.0f, 0.0f };
-
-static f32 D_i1_80199AF0[3] = { -300.0f, 400.0f, 500.0f };
-
-static f32 D_i1_80199AFC[3] = { 500.0f, 800.0f, 1200.0f };
-
-static f32 D_i1_80199B08[3] = { -150.0f, 150.0f, 0.0f };
-
-static f32 D_i1_80199B14[3] = { 0.0f, 0.0f, 0.0f };
-
-static f32 D_i1_80199B20[3] = { 200.0f, 200.0f, 400.0f };
-
-static f32 D_i1_80199B2C[3] = { 180.0f, -120.0f, 180.0f };
+f32 D_i1_80199AE4[3] = { -1500.0f, 700.0f, 0.0f };
+f32 D_i1_80199AF0[3] = { -300.0f, 400.0f, 500.0f };
+f32 D_i1_80199AFC[3] = { 500.0f, 800.0f, 1200.0f };
+f32 D_i1_80199B08[3] = { -150.0f, 150.0f, 0.0f };
+f32 D_i1_80199B14[3] = { 0.0f, 0.0f, 0.0f };
+f32 D_i1_80199B20[3] = { 200.0f, 200.0f, 400.0f };
+f32 D_i1_80199B2C[3] = { 180.0f, -120.0f, 180.0f };
 
 void Corneria_CsLevelComplete1_TeamSetup(ActorCutscene* this, s32 index) {
     Vec3f sp5C;

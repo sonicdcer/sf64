@@ -237,14 +237,14 @@ void MeHopBot_Update(MeHopBot* this) {
 void MeMora_Update(MeMora* this) {
 }
 
-static s16 D_800CFF94[16] = {
+s16 D_800CFF94[16] = {
     0, 98, 96, 94, 92, 90, 88, 86, 84, 82, 80, 78, 76, 74, 72, 70,
 };
-static u8 gMeMoraPartIdx[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
-static f32 gMeMoraScale[16] = {
+u8 gMeMoraPartIdx[16] = { 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2 };
+f32 gMeMoraScale[16] = {
     1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.99f, 0.98f, 0.94f, 0.88f, 0.8f, 1.0f,
 };
-static Gfx* gMemoraPartDL[3] = { aEnmySpMeMora1DL, aEnmySpMeMora2DL, aEnmySpMeMora3DL };
+Gfx* gMemoraPartDL[3] = { aEnmySpMeMora1DL, aEnmySpMeMora2DL, aEnmySpMeMora3DL };
 
 void MeMora_Dying(MeMora* this) {
     Vec3f sp34;
@@ -539,7 +539,8 @@ typedef enum DebrisType {
     DEBRIS_70 = 70,
 } DebrisType;
 
-static Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
+Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
+
 void ActorDebris_Update(ActorDebris* this) {
     f32 sp4C;
     f32 sp48;
@@ -945,7 +946,7 @@ typedef struct {
 
 // clang-format off
 
-static EventActorInfo sEventActorInfo[108] = {
+EventActorInfo sEventActorInfo[108] = {
     /*  EVID_VENOM_FIGHTER_1 */ { aVenomFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  EVID_VENOM_FIGHTER_2 */ { aVenomFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /*  EVID_VENOM_FIGHTER_2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
@@ -1058,7 +1059,7 @@ static EventActorInfo sEventActorInfo[108] = {
 
 // clang-format on
 
-static Color_RGBA32 sEventTexLineColors[6] = {
+Color_RGBA32 sEventTexLineColors[6] = {
     // could be in-function
     { 255, 255, 255, 255 }, { 160, 160, 255, 255 }, { 80, 80, 255, 255 },
     { 80, 255, 80, 255 },   { 255, 80, 80, 255 },   { 255, 255, 80, 255 },
@@ -2824,7 +2825,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
 }
 
 // could be in-function, but probably weren't
-static Vec3f D_800D0DD4[56] = {
+Vec3f D_800D0DD4[56] = {
     { 158.0f, 256.0f, 1513.0f },   { 384.0f, 42.0f, 1187.0f },   { 284.0f, 129.0f, 769.0f },
     { 482.0f, 19.0f, 769.0f },     { 386.0f, 105.0f, 253.0f },   { 221.0f, 209.0f, 33.0f },
     { 78.0f, 263.0f, 637.0f },     { 78.0f, 263.0f, 76.0f },     { 18.0f, 263.0f, 1683.0f },
@@ -2845,7 +2846,7 @@ static Vec3f D_800D0DD4[56] = {
     { -73.0f, 337.0f, -426.0f },   { -73.0f, 548.0f, -411.0f },  { -65.0f, 391.0f, -1237.0f },
     { -193.0f, 250.0f, -1026.0f }, { -292.0f, 271.0f, -587.0f },
 };
-static Vec3f D_800D1074[24] = {
+Vec3f D_800D1074[24] = {
     { 100.0f, 55.0f, 450.0f },     { 117.0f, 57.0f, 738.0f },    { 14.0f, 31.0f, 894.0f },
     { 204.0f, 0.0f, -72.0f },      { 204.0f, 33.0f, -253.0f },   { 344.0f, 0.0f, -295.0f },
     { 344.0f, -51.0f, -457.0f },   { 87.0f, 124.0f, -699.0f },   { 169.0f, -40.0f, -564.0f },
@@ -2855,7 +2856,7 @@ static Vec3f D_800D1074[24] = {
     { -344.0f, -51.0f, -457.0f },  { -87.0f, 124.0f, -699.0f },  { -169.0f, -40.0f, -564.0f },
     { -113.0f, -147.0f, -367.0f }, { -112.0f, -146.0f, -13.0f }, { -69.0f, -118.0f, 158.0f },
 };
-static Vec3f D_800D1194[21] = {
+Vec3f D_800D1194[21] = {
     { 764.0f, 13.0f, 71.0f },    { 390.0f, 13.0f, 67.0f },    { 390.0f, 332.0f, 67.0f },   { 504.0f, 508.0f, 67.0f },
     { 251.0f, 508.0f, 67.0f },   { -35.0f, 341.0f, 67.0f },   { -35.0f, 673.0f, 67.0f },   { -354.0f, 594.0f, 67.0f },
     { -354.0f, 273.0f, 67.0f },  { -695.0f, 97.0f, 67.0f },   { -378.0f, -57.0f, 67.0f },  { -378.0f, -266.0f, 67.0f },
@@ -3021,7 +3022,8 @@ void ActorEvent_80072474(ActorEvent* this) {
     Math_SmoothStepToAngle(&this->fwork[15], this->fwork[16], 0.5f, 8.0f, 0.0f);
 }
 
-static Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
+Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
+
 void ActorEvent_Update(ActorEvent* this) {
     s32 spFC;
     f32 var_fv0;
@@ -3799,7 +3801,7 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 }
 
-static UNK_TYPE D_800D129C[140] = { 0 }; // unused
+UNK_TYPE D_800D129C[140] = { 0 }; // unused
 
 bool ActorEvent_OverrideLimbDraw1(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;

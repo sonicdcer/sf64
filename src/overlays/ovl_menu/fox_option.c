@@ -156,20 +156,20 @@ struct BssPad1 {
 // struct BssPad4 {int x;};
 extern s32 BSS_PAD_2;
 
-static f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
-static f32 sOptionCardTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
-static f32 sOptionCardTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
-static f32 sOptionCardCurTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
-static f32 sOptionCardCurTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
-static f32 D_menu_801AE5E8[] = { 124.0f, 125.0f };
-static f32 D_menu_801AE5F0[] = { 54.0f, 55.0f };
-static f32 D_menu_801AE5F8[] = { 133.0f, 125.0f };
-static f32 D_menu_801AE600[] = { 151.0f, 151.0f };
-static f32 D_menu_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
-static f32 D_menu_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
+f32 sOptionCardPosY[] = { 60.0f, 36.0f, 12.0f, -12.0f, -36.0f, -60.0f };
+f32 sOptionCardTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
+f32 sOptionCardTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
+f32 sOptionCardCurTextPosX[] = { 124.0f, 118.0f, 145.0f, 125.0f, 133.0f, 118.0f };
+f32 sOptionCardCurTextPosY[] = { 54.0f, 78.0f, 103.0f, 126.0f, 151.0f, 175.0f };
+f32 D_menu_801AE5E8[] = { 124.0f, 125.0f };
+f32 D_menu_801AE5F0[] = { 54.0f, 55.0f };
+f32 D_menu_801AE5F8[] = { 133.0f, 125.0f };
+f32 D_menu_801AE600[] = { 151.0f, 151.0f };
+f32 D_menu_801AE608[] = { 8.0f, 8.0f, 8.0f, 8.0f, 8.0f, 8.0f };
+f32 D_menu_801AE620[] = { 1.9f, 2.4f, 0.9f, 1.9f, 1.8f, 2.4f };
 
 // D_menu_801AE638
-static OptionEntry sOptionCardList[] = {
+OptionEntry sOptionCardList[] = {
     {
         { 0, 0, D_OPT_8003B50, 0, 72, 12, 126.0f, 46.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 30.0f, -130.0f, 0.2f, 0.11f },
@@ -215,7 +215,7 @@ static OptionEntry sOptionCardList[] = {
 };
 
 // D_menu_801AE878
-static OptionEntry sOptionVSCardList[] = {
+OptionEntry sOptionVSCardList[] = {
     {
         { 0, 0, D_OPT_8005010, 0, 96, 13, 110.0f, 91.0f, 1.0f, 1.0f, 20, 0, 75, 255 },
         { 0.0f, 11.0f, -130.0f, 0.2f, 0.11f },
@@ -238,80 +238,80 @@ static OptionEntry sOptionVSCardList[] = {
         1,
     },
 };
-static u8 D_menu_801AE998[] = { SOUNDMODE_STEREO, SOUNDMODE_MONO, SOUNDMODE_HEADSET };
+u8 D_menu_801AE998[] = { SOUNDMODE_STEREO, SOUNDMODE_MONO, SOUNDMODE_HEADSET };
 
-static u8 D_menu_801AE99C[] = { 0, 1, 2 };
+u8 D_menu_801AE99C[] = { 0, 1, 2 };
 
-static f32 D_menu_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
+f32 D_menu_801AE9A0[4] = { 62.0f, 222.0f, 75.0f, 235.0f };
 
-static f32 D_menu_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
+f32 D_menu_801AE9B0[4] = { 43.0f, 43.0f, 46.0f, 46.0f };
 
-static OptionTexture D_menu_801AE9C0[4] = {
+OptionTexture D_menu_801AE9C0[4] = {
     { 2, 0, D_OPT_80143B0, D_OPT_80147B0, 32, 32, 56.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 2, 0, D_OPT_80143B0, D_OPT_80147B0, 32, 32, 216.0f, 175.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 1, 0, D_OPT_80039D0, D_OPT_8003A50, 16, 16, 69.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 1, 0, D_OPT_80039D0, D_OPT_8003A50, 16, 16, 229.0f, 178.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
 
-static OptionTexture D_menu_801AEAA0[3] = {
+OptionTexture D_menu_801AEAA0[3] = {
     { 3, 0, D_OPT_8013990, 0, 104, 10, 151.0f, 135.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, D_OPT_8013990, 0, 104, 10, 151.0f, 161.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, D_OPT_8013990, 0, 104, 10, 151.0f, 188.0f, 1.05f, 1.0f, 255, 255, 255, 255 },
 };
 
-static OptionTexture D_menu_801AEB48[3] = {
+OptionTexture D_menu_801AEB48[3] = {
     { 3, 0, D_OPT_80141B0, 0, 16, 16, 245.0f, 132.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, D_OPT_80141B0, 0, 16, 16, 245.0f, 158.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
     { 3, 0, D_OPT_80141B0, 0, 16, 16, 245.0f, 185.0f, 1.0f, 1.0f, 255, 255, 255, 255 },
 };
 
-static Vtx D_menu_801AEBF0[] = {
+Vtx D_menu_801AEBF0[] = {
     { 1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
     { -1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
     { -1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
     { 1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
 };
 
-static Gfx D_menu_801AEC30[] = {
+Gfx D_menu_801AEC30[] = {
     gsSPVertex(D_menu_801AEBF0, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
-static Vtx D_menu_801AEC48[] = {
+Vtx D_menu_801AEC48[] = {
     { 1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
     { -1, 0, 0, 0, 0, 0, 255, 255, 255, 255 },
     { -1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
     { 1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
 };
 
-static Gfx D_menu_801AEC88[] = {
+Gfx D_menu_801AEC88[] = {
     gsSPVertex(D_menu_801AEC48, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
-static Vtx D_menu_801AECA0[] = {
+Vtx D_menu_801AECA0[] = {
     { 1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
     { -1, 1, 0, 0, 0, 0, 255, 255, 255, 255 },
     { -1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
     { 1, -1, 0, 0, 0, 0, 255, 255, 255, 255 },
 };
 
-static Gfx D_menu_801AECE0[] = {
+Gfx D_menu_801AECE0[] = {
     gsSPVertex(D_menu_801AECA0, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
-static u8* D_menu_801AECF8[10] = {
+u8* D_menu_801AECF8[10] = {
     aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
     aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
 };
-static f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
+f32 D_menu_801AED20[2] = { 255.0f, 255.0f };
 
 // TF is this? seems unused
-static s32 D_menu_801AED28[] = {
+s32 D_menu_801AED28[] = {
     /* EE73E8 801AED28 00000038 */ 56,
     /* EE73EC 801AED2C 00000043 */ 67,
     /* EE73F0 801AED30 0000004E */ 78,
@@ -319,47 +319,47 @@ static s32 D_menu_801AED28[] = {
     /* EE73F8 801AED38 0000005B */ 91,
 };
 
-static s32 D_menu_801AED3C[4] = { 0, 0, 0, 0 };
+s32 D_menu_801AED3C[4] = { 0, 0, 0, 0 };
 
-static UnkStruct_D_menu_801AED4C D_menu_801AED4C[24] = {
+UnkStruct_D_menu_801AED4C D_menu_801AED4C[24] = {
     { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
     { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
     { 5, 11, 2 }, { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
 };
 
-static Gfx* D_menu_801AEE6C[16] = {
+Gfx* D_menu_801AEE6C[16] = {
     D_MAP_6060610,   D_MAP_601DE80,   D_MAP_604B750,   D_MAP_601F6B0,   D_MAP_601C0D0,   D_MAP_601C960,
     D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70, D_menu_801B5B10, D_menu_801B5440,
     D_menu_801B50D8, D_MAP_604DB10,   D_menu_801B57A8, D_menu_801B57A8,
 };
 
-static char* D_menu_801AEEAC[] = {
+char* D_menu_801AEEAC[] = {
     "ME", "A6", "BO", "SZ", "SX", "SY", "KA", "MA", "ZO", "CO", "TI", "AQ", "FO", "SO", "VE", "VE",
 };
 
-static s32 PAD_menu_801AEEEC = 0;
+s32 PAD_menu_801AEEEC = 0;
 
-static Vtx D_menu_801AEEF0[] = {
+Vtx D_menu_801AEEF0[] = {
     { -11, -11, 0, 0, 0, 255, 0, 0, 0, 0 },
     { 11, -11, 0, 0, 255, 255, 0, 0, 0, 0 },
     { 11, 11, 0, 0, 255, 0, 0, 0, 0, 0 },
     { -11, 11, 0, 0, 0, 0, 0, 0, 0, 0 },
 };
 
-static Gfx D_menu_801AEF30[] = {
+Gfx D_menu_801AEF30[] = {
     gsSPVertex(D_menu_801AEEF0, 4, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSP1Triangle(0, 2, 3, 0),
     gsSPEndDisplayList(),
 };
 
-static s32 PAD_menu_801AEF50[] = { 0, 0, 0 };
+s32 PAD_menu_801AEF50[] = { 0, 0, 0 };
 
-static char D_menu_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
+char D_menu_801AEF5C[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.";
 
-static f32 D_menu_801AEF84[] = { 24.0f, 0.0f, -24.0f };
-static f32 D_menu_801AEF90[] = { 111.0f, 112.0f, 121.0f };
-static f32 D_menu_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
+f32 D_menu_801AEF84[] = { 24.0f, 0.0f, -24.0f };
+f32 D_menu_801AEF90[] = { 111.0f, 112.0f, 121.0f };
+f32 D_menu_801AEF9C[] = { 89.0f, 115.0f, 139.0f };
 
 void Option_Setup(void) {
     bool enableExpertModes;
@@ -2025,10 +2025,10 @@ void Option_DataDraw(void) {
     Option_8019B7D4();
 }
 
-static char* D_menu_801AF0C4[3] = { "P", "S", "F" };
-static s32 D_menu_801AF0D0[3] = { 255, 0, 30 };
-static s32 D_menu_801AF0DC[3] = { 30, 179, 30 };
-static s32 D_menu_801AF0E8[3] = { 0, 67, 255 };
+char* D_menu_801AF0C4[3] = { "P", "S", "F" };
+s32 D_menu_801AF0D0[3] = { 255, 0, 30 };
+s32 D_menu_801AF0DC[3] = { 30, 179, 30 };
+s32 D_menu_801AF0E8[3] = { 0, 67, 255 };
 
 void Option_RankingInit(void) {
     Title_80188010();
@@ -2216,8 +2216,8 @@ void Option_8019752C(void) {
     TextureRect_IA8_MirY(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 
-static Vec3f D_menu_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
-static Vec3f D_menu_801AF118[2] = { { 25.0f, 3.6f, 0.0f }, { 25.0f, 3.6f, 0.0f } };
+Vec3f D_menu_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
+Vec3f D_menu_801AF118[2] = { { 25.0f, 3.6f, 0.0f }, { 25.0f, 3.6f, 0.0f } };
 
 void Option_80197914(void) {
     Vec3f* vec1;
@@ -2585,9 +2585,9 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
     Lib_InitPerspective(&gMasterDisp);
 }
 
-static f32 D_menu_801AF13C = 0.7f;
-static f32 D_menu_801AF140 = 11.0f;
-static f32 D_menu_801AF144 = 2.7f;
+f32 D_menu_801AF13C = 0.7f;
+f32 D_menu_801AF140 = 11.0f;
+f32 D_menu_801AF144 = 2.7f;
 
 void Option_80199198(f32 arg0, f32 arg1, f32 arg2) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_53);
@@ -2723,26 +2723,26 @@ void Option_VersusMenuDraw(void) {
     }
 }
 
-static f32 D_menu_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
-static f32 D_menu_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
-static s32 D_menu_801AF168[4] = { 56, 48, 56, 48 };
-static s32 D_menu_801AF178[4] = { 8, 10, 10, 8 };
-static f32 D_menu_801AF188[4] = { 12.0f, 16.0f, 12.0f, 18.0f };
-static f32 D_menu_801AF198 = -1.0f;
-static f32 D_menu_801AF19C[4] = { 46.0f, 41.0f, 41.0f, 41.0f };
-static f32 D_menu_801AF1AC = 24.0f;
-static f32 D_menu_801AF1B0 = 1.4f;
-static f32 D_menu_801AF1B4 = 5.0f;
-static f32 D_menu_801AF1B8 = 11.0f;
-static f32 D_menu_801AF1BC = 8.0f;
-static f32 D_menu_801AF1C0 = 45.0f;
-static f32 D_menu_801AF1C4 = 20.0f;
-static f32 D_menu_801AF1C8 = 55.0f;
-static f32 D_menu_801AF1CC = 37.0f;
-static f32 D_menu_801AF1D0 = 11.0f;
-static f32 D_menu_801AF1D4 = 7.0f;
-static f32 D_menu_801AF1D8 = 59.0f;
-static f32 D_menu_801AF1DC = 58.0f;
+f32 D_menu_801AF148[4] = { 30.0f, 214.0f, 30.0f, 215.0f };
+f32 D_menu_801AF158[4] = { 18.0f, 18.0f, 151.0f, 151.0f };
+s32 D_menu_801AF168[4] = { 56, 48, 56, 48 };
+s32 D_menu_801AF178[4] = { 8, 10, 10, 8 };
+f32 D_menu_801AF188[4] = { 12.0f, 16.0f, 12.0f, 18.0f };
+f32 D_menu_801AF198 = -1.0f;
+f32 D_menu_801AF19C[4] = { 46.0f, 41.0f, 41.0f, 41.0f };
+f32 D_menu_801AF1AC = 24.0f;
+f32 D_menu_801AF1B0 = 1.4f;
+f32 D_menu_801AF1B4 = 5.0f;
+f32 D_menu_801AF1B8 = 11.0f;
+f32 D_menu_801AF1BC = 8.0f;
+f32 D_menu_801AF1C0 = 45.0f;
+f32 D_menu_801AF1C4 = 20.0f;
+f32 D_menu_801AF1C8 = 55.0f;
+f32 D_menu_801AF1CC = 37.0f;
+f32 D_menu_801AF1D0 = 11.0f;
+f32 D_menu_801AF1D4 = 7.0f;
+f32 D_menu_801AF1D8 = 59.0f;
+f32 D_menu_801AF1DC = 58.0f;
 
 void Option_80199820(s32 arg0) {
     s32 var_v0;

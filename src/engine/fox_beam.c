@@ -4,7 +4,7 @@
 #include "assets/ast_great_fox.h"
 #include "assets/ast_versus.h"
 
-static Vec3f sShotViewPos;
+Vec3f sShotViewPos;
 
 void PlayerShot_SetupEffect351(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
@@ -1222,10 +1222,10 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
     }
 }
 
-static f32 D_800C9BD8[10] = { 100.0f, 100.0f, 0.0f, 0.0f, 0.0f, 50.0f, 0.0f, 40.0f, 30.0f, 100.0f };
-static u8 D_800C9C00[4] = { 255, 255, 32, 32 };
-static u8 D_800C9C04[4] = { 255, 32, 255, 32 };
-static u8 D_800C9C08[4] = { 32, 32, 32, 255 };
+f32 D_800C9BD8[10] = { 100.0f, 100.0f, 0.0f, 0.0f, 0.0f, 50.0f, 0.0f, 40.0f, 30.0f, 100.0f };
+u8 D_800C9C00[4] = { 255, 255, 32, 32 };
+u8 D_800C9C04[4] = { 255, 32, 255, 32 };
+u8 D_800C9C08[4] = { 32, 32, 32, 255 };
 void PlayerShot_DrawShot(PlayerShot* shot) {
     Vec3f sp11C = { 0.0f, 0.0f, 0.0f };
     s32 pad[4];
@@ -2083,7 +2083,8 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
     }
 }
 
-static Vec3f sLockOnPos = { 0.0f, 0.0f, 0.0f };
+Vec3f sLockOnPos = { 0.0f, 0.0f, 0.0f };
+
 void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     s32 i;
     s32 var_a3;

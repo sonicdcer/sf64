@@ -364,15 +364,15 @@ void ActorAllRange_SetShadowData(Actor* this) {
     }
 }
 
-static Vec3f sTeamSpawnPos[4] = {
+Vec3f sTeamSpawnPos[4] = {
     { 0.0f, 20000.0f, 0.0f },
     { 0.0f, 700.0f, 6500.0f },
     { -300.0f, 800.0f, 6800.0f },
     { 300.0f, 900.0f, 7200.0f },
 };
-static AllRangeAi sTeamAi[4] = { AI360_FOX, AI360_FALCO, AI360_SLIPPY, AI360_PEPPY };
-static s32 sTeamSpawnTargets[4] = { -1, AI360_ENEMY, AI360_ENEMY + 1, AI360_ENEMY + 2 };
-static s32 sTeamSpawnTargetsKA[4] = { -1, AI360_ENEMY + 11, AI360_ENEMY + 13, AI360_ENEMY + 15 };
+AllRangeAi sTeamAi[4] = { AI360_FOX, AI360_FALCO, AI360_SLIPPY, AI360_PEPPY };
+s32 sTeamSpawnTargets[4] = { -1, AI360_ENEMY, AI360_ENEMY + 1, AI360_ENEMY + 2 };
+s32 sTeamSpawnTargetsKA[4] = { -1, AI360_ENEMY + 11, AI360_ENEMY + 13, AI360_ENEMY + 15 };
 
 void ActorAllRange_SpawnTeam(void) {
     ActorAllRange* actor;
@@ -430,14 +430,14 @@ void ActorAllRange_SpawnTeam(void) {
     }
 }
 
-static Vec3f sStarWolfSpawnPos[4] = {
+Vec3f sStarWolfSpawnPos[4] = {
     { 9500.0f, 5000.0f, 9500.0f },
     { 10000.0f, 5000.0f, 10000.0f },
     { 10000.0f, 5000.0f, 9500.0f },
     { 9500.0f, 5000.0f, 10000.0f },
 };
-static s32 sStarWolfSpawnTargets[4] = { AI360_FOX, AI360_FALCO, AI360_PEPPY, AI360_SLIPPY };
-static f32 sStarWolfVE2SpawnRot[4] = { 330.0f, 90.0f, 280.0f, 70.0f };
+s32 sStarWolfSpawnTargets[4] = { AI360_FOX, AI360_FALCO, AI360_PEPPY, AI360_SLIPPY };
+f32 sStarWolfVE2SpawnRot[4] = { 330.0f, 90.0f, 280.0f, 70.0f };
 s32 gAllRangeSpawnEvent = 96 * 30;
 
 void ActorAllRange_SpawnStarWolf(void) {
@@ -1275,7 +1275,7 @@ bool func_360_80031900(ActorAllRange* this) {
     }
 }
 
-static Vec3f sSectorZRetreatPath[6] = {
+Vec3f sSectorZRetreatPath[6] = {
     { 8000.0f, 500.0f, 0.0f }, { 5000.0f, 400.0f, 0.0f }, { 2000.0f, 300.0f, 0.0f },
     { -500.0f, 250.0f, 0.0f }, { 0.0f, 250.0f, 0.0f },    { 0.0f, 250.0f, 0.0f },
 };
