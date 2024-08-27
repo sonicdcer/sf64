@@ -60,7 +60,7 @@ Vec3f D_i5_801BE6A0[6];
 Vec3f D_i5_801BE6E8[6];
 s32 D_i5_801BE734[4];
 
-static UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
+UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
     { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
     { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
     { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
@@ -218,7 +218,7 @@ static UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
     { -507035.0f, -319.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
 };
 
-static UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
+UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
     { 5174.4f, -2141.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
     { 3401.4f, -1828.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
     { 1627.8999f, -1515.0f, 0.0f, 350.0f, OBJ_SCENERY_MA_TRAIN_TRACK_3 },
@@ -306,21 +306,21 @@ static UnkStruct_D_i5_801B8E50 D_i5_801B9A80[86] = {
     { -507035.0f, -489.0f, 0.0f, 0.0f, OBJ_SCENERY_MA_TRAIN_TRACK_6 },
 };
 
-static UnkStruct_D_i5_801B8E50 D_i5_801BA138[8] = {
+UnkStruct_D_i5_801B8E50 D_i5_801BA138[8] = {
     { -43605.8f, -1095.0f, 450.0f, -350.0f, 105 }, { -44786.7f, -884.0f, 450.0f, -350.0f, 105 },
     { -50739.8f, -519.0f, 450.0f, -340.0f, 105 },  { -51871.2f, -110.0f, 450.0f, -340.0f, 105 },
     { -84502.5f, 356.0f, 200.0f, -0.0f, 105 },     { -86080.9f, 352.0f, 200.0f, -0.0f, 105 },
     { -87278.9f, 347.0f, 200.0f, -0.0f, 105 },     { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f },
 };
 
-static u8 D_i5_801BA1D8 = 0;
+u8 D_i5_801BA1D8 = 0;
 
-static f32 sMaTrainSpeedTarget = 0.0f;
-static f32 D_i5_801BA1E0 = 10000000.0f;
-static u8 D_i5_801BA1E4 = 0;
+f32 sMaTrainSpeedTarget = 0.0f;
+f32 D_i5_801BA1E0 = 10000000.0f;
+u8 D_i5_801BA1E4 = 0;
 u8 D_MA_801BA1E8 = 0;
 
-static UnkStruct_D_i5_801BA1EC D_i5_801BA1EC[45] = {
+UnkStruct_D_i5_801BA1EC D_i5_801BA1EC[45] = {
     { -0.0f, 16, -2000.0f, -3500.0f, 0 },      { -3500.0f, 16, -2000.0f, -5500.0f, 0 },
     { -6500.0f, 16, -3500.0f, -5500.0f, 0 },   { -7300.0f, 16, -3500.0f, -5500.0f, 0 },
     { -9000.0f, 16, -3000.0f, -5500.0f, 0 },   { -12000.0f, 16, -3000.0f, -4000.0f, 0 },
@@ -346,7 +346,7 @@ static UnkStruct_D_i5_801BA1EC D_i5_801BA1EC[45] = {
     { -1.0f, -1, -1.0f, -1.0f, -1 },
 };
 
-static f32 D_i5_801BA570[5][10] = {
+f32 D_i5_801BA570[5][10] = {
     { 450.0f, 350.0f, 250.0f, 150.0f, 50.0f, -50.0f, -150.0f, -250.0f, -350.0f, -450.0f },
     { 50.0f, -50.0f, 150.0f, -150.0f, 250.0f, -250.0f, 350.0f, -350.0f, 450.0f, -450.0f },
     { 50.0f, -50.0f, 250.0f, -250.0f, 150.0f, -150.0f, 350.0f, -350.0f, 450.0f, -450.0f },
@@ -354,7 +354,7 @@ static f32 D_i5_801BA570[5][10] = {
     { -200.0f, -100.0f, 0.0f, 100.0f, 200.0f, 400.0f, 300.0f, 200.0f, 100.0f, 0.0f },
 };
 
-static f32 D_i5_801BA638[5][10] = {
+f32 D_i5_801BA638[5][10] = {
     { 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1000.0f },
     { 700.0f, 700.0f, 850.0f, 850.0f, 1000.0f, 1000.0f, 1150.0f, 1150.0f, 1300.0f, 1300.0f },
     { 1000.0f, 1000.0f, 1000.0f, 1000.0f, 1500.0f, 1500.0f, 1500.0f, 1500.0f, 1500.0f, 1500.0f },
@@ -362,7 +362,7 @@ static f32 D_i5_801BA638[5][10] = {
     { 700.0f, 850.0f, 1000.0f, 1150.0f, 1300.0f, 1800.0f, 1950.0f, 2100.0f, 2250.0f, 2400.0f },
 };
 
-static f32 D_i5_801BA700[] = { 610.0f, 0.0f }; // unused?
+f32 D_i5_801BA700[] = { 610.0f, 0.0f }; // unused?
 
 void Macbeth_InitLevel(void) {
     s16 i;
@@ -4205,8 +4205,8 @@ void Macbeth_Actor207_Init(Actor207* this) {
     gBossFrameCount = 0;
 }
 
-static Vec3f D_i5_801BA744 = { 0.0f, 0.0f, 0.0f };
-static Vec3f D_i5_801BA750 = { 0.0f, 0.0f, 30.0f };
+Vec3f D_i5_801BA744 = { 0.0f, 0.0f, 0.0f };
+Vec3f D_i5_801BA750 = { 0.0f, 0.0f, 30.0f };
 
 void Macbeth_Actor207_Update(Actor207* this) {
     s32 pad;
@@ -5512,7 +5512,7 @@ void Macbeth_801AC6B4(ActorCutscene* this) {
     this->animFrame = 1;
 }
 
-static f32 D_i5_801BA768 = 0.0f;
+f32 D_i5_801BA768 = 0.0f;
 
 void Macbeth_LevelStart(Player* player) {
     f32 sp4C;
@@ -6030,7 +6030,7 @@ void Macbeth_MaSpear_Update(MaSpear* this) {
     this->dmgType = DMG_NONE;
 }
 
-static Vec3f D_i5_801BA784[8] = {
+Vec3f D_i5_801BA784[8] = {
     { 40.0f, 10.0f, 30.0f },  { 41.0f, 10.0f, 10.0f },  { 43.0f, 10.0f, -10.0f },  { 45.0f, 10.0f, -30.0f },
     { -40.0f, 10.0f, 30.0f }, { -41.0f, 10.0f, 10.0f }, { -43.0f, 10.0f, -10.0f }, { -45.0f, 10.0f, -30.0f },
 }; // unused?
@@ -6320,13 +6320,10 @@ void Macbeth_MaShockBox_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
     }
 }
 
-static f32 D_i5_801BA7E4[5] = { 0.0f, 0.0f, 1180.0f, 200.0f, 1000.0f };
-
-static f32 D_i5_801BA7F8[5] = { 600.0f, 200.0f, 400.0f, 2000.0f, 1200.0f };
-
-static f32 D_i5_801BA80C[5] = { 500.0f, 600.0f, 200.0f, 4500.0f, 2300.0f };
-
-static f32 D_i5_801BA820[5] = { 90.0f, -90.0f, 25.0f, 0.0f, 225.0f };
+f32 D_i5_801BA7E4[5] = { 0.0f, 0.0f, 1180.0f, 200.0f, 1000.0f };
+f32 D_i5_801BA7F8[5] = { 600.0f, 200.0f, 400.0f, 2000.0f, 1200.0f };
+f32 D_i5_801BA80C[5] = { 500.0f, 600.0f, 200.0f, 4500.0f, 2300.0f };
+f32 D_i5_801BA820[5] = { 90.0f, -90.0f, 25.0f, 0.0f, 225.0f };
 
 void Macbeth_801AF27C(ActorCutscene* this, s32 arg1) {
     Player* player = &gPlayer[0];
@@ -6402,12 +6399,12 @@ void Macbeth_801AF44C(void) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
 }
 
-static Vec3f D_i5_801BA834[2] = {
+Vec3f D_i5_801BA834[2] = {
     { 2000.0f, 300.0f, 500.0f },
     { 2500.0f, 300.0f, -3300.0f },
 };
 
-static f32 D_i5_801BA84C[2] = { 0.0f, 60.0f };
+f32 D_i5_801BA84C[2] = { 0.0f, 60.0f };
 
 // Unused
 void Macbeth_801AF628(ActorCutscene* this, s32 index) {
@@ -6458,19 +6455,18 @@ void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     }
 }
 
-static f32 D_i5_801BA854[4] = { 1.5f, -1.0f, 0.7f, 0.0f };
-
-static f32 D_i5_801BA864 = 0.9f;
-static f32 D_i5_801BA868 = 0.7f; // unused?
-static f32 D_i5_801BA86C = -1.0f;
-static f32 D_i5_801BA870 = 1.5f; // unused?
-static f32 D_i5_801BA874[4] = { 200.0f, 300.0f, 400.0f, 0.0f };
-static f32 D_i5_801BA884 = 500.0f;
-static f32 D_i5_801BA888 = 100.0f;
-static f32 D_i5_801BA88C = 120.0f;
-static f32 D_i5_801BA890 = 100.0f; // unused?
-static f32 D_i5_801BA894[5] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f };
-static f32 D_i5_801BA8A8[3] = { 230.0f, 220.0f, 350.0f }; // unused?
+f32 D_i5_801BA854[4] = { 1.5f, -1.0f, 0.7f, 0.0f };
+f32 D_i5_801BA864 = 0.9f;
+f32 D_i5_801BA868 = 0.7f; // unused?
+f32 D_i5_801BA86C = -1.0f;
+f32 D_i5_801BA870 = 1.5f; // unused?
+f32 D_i5_801BA874[4] = { 200.0f, 300.0f, 400.0f, 0.0f };
+f32 D_i5_801BA884 = 500.0f;
+f32 D_i5_801BA888 = 100.0f;
+f32 D_i5_801BA88C = 120.0f;
+f32 D_i5_801BA890 = 100.0f; // unused?
+f32 D_i5_801BA894[5] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f };
+f32 D_i5_801BA8A8[3] = { 230.0f, 220.0f, 350.0f }; // unused?
 
 void Macbeth_LevelComplete2(Player* player) {
     s32 i;
@@ -7434,13 +7430,10 @@ void Macbeth_801B28BC(ActorCutscene* this) {
     this->vel.z = sp50.z;
 }
 
-static f32 D_i5_801BA8B4[5] = { -100.0f, 380.0f, -450.0f, 0.0f, -340.0f };
-
-static f32 D_i5_801BA8C8[5] = { 500.0f, 400.0f, 850.0f, 650.0f, 950.0f };
-
-static f32 D_i5_801BA8DC[5] = { 500.0f, 500.0f, 600.0f, 2500.0f, 590.0f };
-
-static f32 D_i5_801BA8F0[4] = { 90.0f, -90.0f, 0.0f, 0.0f };
+f32 D_i5_801BA8B4[5] = { -100.0f, 380.0f, -450.0f, 0.0f, -340.0f };
+f32 D_i5_801BA8C8[5] = { 500.0f, 400.0f, 850.0f, 650.0f, 950.0f };
+f32 D_i5_801BA8DC[5] = { 500.0f, 500.0f, 600.0f, 2500.0f, 590.0f };
+f32 D_i5_801BA8F0[4] = { 90.0f, -90.0f, 0.0f, 0.0f };
 
 void Macbeth_LevelComplete1_TeamSetup(Actor* this, s32 teamIndex) {
     Player* player = &gPlayer[0];
@@ -7478,7 +7471,7 @@ void Macbeth_LevelComplete1_TeamSetup(Actor* this, s32 teamIndex) {
     this->fwork[9] = 20.0f;
 }
 
-static f32 D_i5_801BA900 = 90.0f;
+f32 D_i5_801BA900 = 90.0f;
 
 void Macbeth_801B3718(void) {
     ActorCutscene* actor = &gActors[8];

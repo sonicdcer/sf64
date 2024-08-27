@@ -31,7 +31,7 @@ ObjectInit* gLevelObjectInits[] = {
     D_KA_6011044,           D_BO_600FF74,      D_SZ_6006EB4,  D_VE2_6014D94,
     D_versus_302DE3C,
 };
-static s32 D_enmy_800CFDF4[] = {
+s32 D_enmy_800CFDF4[] = {
     /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
     /*  2 */ OBJ_ITEM_SILVER_RING,
@@ -59,15 +59,15 @@ static s32 D_enmy_800CFDF4[] = {
     /* 24 */ OBJ_SCENERY_CO_STONE_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
-static f32 D_enmy_800CFE5C[] = {
+f32 D_enmy_800CFE5C[] = {
     0.0f, 1.0f, 0.5f, 0.33f, 0.25f, 1.0f,  0.5f,  0.33f, 0.25f, 1.0f, 0.5f, 0.33f, 0.25f,
     1.0f, 1.0f, 1.0f, 1.0f,  1.0f,  -1.0f, -1.0f, -1.0f, -1.0f, 0.1f, 1.0f, 1.0f,  1.0f,
 };
-static Vec3f D_enmy_800CFEC4[] = {
+Vec3f D_enmy_800CFEC4[] = {
     { 0.0f, 0.0f, 50.0f }, { -50.0f, 0.0f, 0.0f }, { 50.0f, 0.0f, 0.0f },
     { 0.0f, 50.0f, 0.0f }, { 0.0f, 0.0f, -50.0f }, { 0.0f, -50.0f, 0.0f },
 };
-static Vec3f D_enmy_800CFF0C[] = {
+Vec3f D_enmy_800CFF0C[] = {
     { 0.0f, 0.0f, 0.0f },   { 0.0f, -90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f },
     { -90.0f, 0.0f, 0.0f }, { 0.0f, 180.0f, 0.0f }, { 90.0f, 0.0f, 0.0f },
 };

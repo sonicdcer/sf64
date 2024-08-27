@@ -65,14 +65,14 @@ void BonusText_Update(void) {
     }
 }
 
-static Gfx* sLargeBonusDLs[4][2] = {
+Gfx* sLargeBonusDLs[4][2] = {
     { D_1016410, D_1003130 },
     { D_10162A0, D_1003130 },
     { D_1016130, D_1003130 },
     { D_1015FC0, D_1003130 },
 };
 
-static Gfx* sSmallBonusDLs[10] = {
+Gfx* sSmallBonusDLs[10] = {
     D_1015810, D_1016410, D_10162A0, D_1016130, D_1015FC0, D_1015E50, D_10156A0, D_1015CE0, D_1015B70, D_1015320,
 };
 
@@ -303,7 +303,7 @@ void Effect_Effect385_Draw(Effect385* this) {
 }
 
 // Possibly the little sparks of electricity that come off the arwing and landmaster when low on health
-static f32 D_800D1534[][10] = {
+f32 D_800D1534[][10] = {
     { 38.45957f, -65.08043f, 8.068213f, 87.01006f, -86.956184f, -71.82677f, 37.854507f, 46.845963f, 23.723173f,
       84.2551f },
     { -77.50479f, 86.4889f, -8.664565f, -74.90449f, -42.23121f, 49.20716f, -18.885563f, -47.375793f, -58.059227f,
@@ -422,7 +422,7 @@ void Effect_Effect345_Draw(Effect345* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-static s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0 };
+s32 D_800D173C[] = { 255, 255, 255, 0, 0, 0, 255, 0, 255, 0, 0, 0, 255, 255, 0, 0, 0, 255, 0, 0 };
 
 void Effect_Effect346_Draw(Effect346* this) {
     s32 temp_ft3;
@@ -1049,7 +1049,7 @@ void Effect_Effect359_Update(Effect359* this) {
     this->unk_4A++;
 }
 
-static Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
+Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
 
 void Effect_Effect359_Draw(Effect359* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_68);
@@ -2043,7 +2043,7 @@ void Effect_Effect339_Update(EffectFireSmoke* this) {
     Math_SmoothStepToF(&this->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
 
-static Gfx* D_800D17A4[] = {
+Gfx* D_800D17A4[] = {
     D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200A5A0,
     D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0, D_BG_PLANET_2006360, D_BG_PLANET_200C6C0,
     D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0, D_BG_PLANET_2002120, D_BG_PLANET_2001090,
@@ -2051,12 +2051,12 @@ static Gfx* D_800D17A4[] = {
     D_BG_PLANET_200E7F0,
 };
 
-static f32 D_800D17F8[] = {
+f32 D_800D17F8[] = {
     1.0f, 1.1f, 1.1f, 1.2f, 1.2f, 1.3f, 1.3f, 1.4f, 1.4f, 1.5f, 1.5f,
     1.6f, 1.6f, 1.7f, 1.7f, 1.8f, 1.8f, 1.9f, 1.9f, 2.0f, 2.0f,
 };
 
-static Color_RGBA32 D_800D184C[] = {
+Color_RGBA32 D_800D184C[] = {
     { 255, 255, 255, 255 }, { 255, 0, 0, 255 },     { 255, 40, 40, 255 },   { 255, 80, 80, 255 },
     { 255, 120, 120, 255 }, { 255, 160, 160, 255 }, { 255, 200, 200, 255 }, { 255, 240, 240, 255 },
     { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 },
@@ -2065,7 +2065,7 @@ static Color_RGBA32 D_800D184C[] = {
     { 0, 0, 0, 50 },
 };
 
-static Gfx* D_800D18A0[] = {
+Gfx* D_800D18A0[] = {
     D_BG_SPACE_20066C0, D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10,
     D_BG_SPACE_2004480, D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240,
     D_BG_SPACE_20019B0, D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
@@ -3481,8 +3481,8 @@ void func_effect_80081BEC(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 arg4) {
     }
 }
 
-static f32 D_800D18E8 = 0.0f;
-static f32 D_800D18EC = 0.0f;
+f32 D_800D18E8 = 0.0f;
+f32 D_800D18EC = 0.0f;
 
 void Effect_Effect395_Update(Effect395* this) {
     f32 sp84;
@@ -4212,10 +4212,10 @@ void Effect_Effect399_Update(Effect399* this) {
 }
 
 // RGB Values. Used like an array of [8][3], but only matches this way.
-static s32 D_800D18F0[] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
+s32 D_800D18F0[] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
 
 // Alpha values
-static s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
+s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
 
 void Effect_Effect399_Draw(Effect399* this) {
     s32 tmp;

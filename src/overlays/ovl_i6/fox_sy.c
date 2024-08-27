@@ -1387,7 +1387,7 @@ void SectorY_8019C194(SyShogun* this, f32 zSpeed, f32 xSpeed) {
     }
 }
 
-static BossFuncs D_i6_801A6910[] = {
+BossFuncs D_i6_801A6910[] = {
     SectorY_80197F84, SectorY_80198238, SectorY_80198238, SectorY_801983E4, SectorY_80198CE4, SectorY_80199438,
     SectorY_80199DAC, SectorY_8019A520, SectorY_8019A66C, SectorY_8019A898, SectorY_8019AAF0, SectorY_8019AEEC,
 };
@@ -1895,8 +1895,8 @@ void SectorY_SyShogun_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-static f32 D_i6_801A69AC[20] = { 0.3f,   0.7f,   1.3f,  0.7f,    0.3f,  0.0f,   10.0f, 20.0f,  300.0f, 100.0f,
-                                 200.0f, 100.0f, 60.0f, -260.0f, 80.0f, 100.0f, 80.0f, 262.0f, 285.0f, 252.0f };
+f32 D_i6_801A69AC[20] = { 0.3f,   0.7f,   1.3f,  0.7f,    0.3f,  0.0f,   10.0f, 20.0f,  300.0f, 100.0f,
+                          200.0f, 100.0f, 60.0f, -260.0f, 80.0f, 100.0f, 80.0f, 262.0f, 285.0f, 252.0f };
 
 void SectorY_SyShogun_Draw(SyShogun* this) {
     f32 sp9C;
@@ -2014,7 +2014,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
     }
 }
 
-static Vec3f D_i6_801A69FC[10] = {
+Vec3f D_i6_801A69FC[10] = {
     { 0.0f, -80.0f, 800.0f },      { -500.0f, -100.0f, 400.0f },  { 500.0f, -140.0f, 400.0f },
     { 3250.0f, 600.0f, 3500.0f },  { -2000.0f, 400.0f, 5000.0f }, { 2500.0f, 400.0f, 5000.0f },
     { -1000.0f, 400.0f, 6000.0f }, { 250.0f, 400.0f, 2500.0f },   { -2000.0f, 0.0f, 4000.0f },
@@ -2509,11 +2509,11 @@ void SectorY_8019FF00(ActorCutscene* this) {
     }
 }
 
-static Vec3f D_i6_801A6A74[10] = { { -10100.0f, -300.0f, -600.0f },  { -10300.0f, 1200.0f, -1070.0f },
-                                   { -10500.0f, 300.0f, 900.0f },    { 9000.0f, 0.0f, 1500.0f },
-                                   { 5000.0f, -100.0f, -100.0f },    { 1150.0f, -1100.0f, -7500.0f },
-                                   { -200.0f, -2400.0f, -12650.0f }, { 0.0f, 4000.0f, -600.0f },
-                                   { -10800.0f, 900.0f, -600.0f },   { -2750.0f, 900.0f, -9150.0f } };
+Vec3f D_i6_801A6A74[10] = { { -10100.0f, -300.0f, -600.0f },  { -10300.0f, 1200.0f, -1070.0f },
+                            { -10500.0f, 300.0f, 900.0f },    { 9000.0f, 0.0f, 1500.0f },
+                            { 5000.0f, -100.0f, -100.0f },    { 1150.0f, -1100.0f, -7500.0f },
+                            { -200.0f, -2400.0f, -12650.0f }, { 0.0f, 4000.0f, -600.0f },
+                            { -10800.0f, 900.0f, -600.0f },   { -2750.0f, 900.0f, -9150.0f } };
 
 void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
     Actor_Initialize(this);
@@ -2572,7 +2572,7 @@ void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
     }
 }
 
-static Vec3f D_i6_801A6AEC[5] = {
+Vec3f D_i6_801A6AEC[5] = {
     { 100.0f, 50.0f, -200.0f }, { 100.0f, -100.0f, 200.0f }, { 200.0f, -100.0f, 0.0f },
     { 0.0f, 345.0f, 350.0f },   { 90.0f, 87.0f, 93.0f },
 };
@@ -3798,9 +3798,9 @@ void SectorY_SyRobot_Update(SyRobot* this) {
     }
 }
 
-static s32 D_i6_801A6B28[3] = { 255, 150, 150 };
-static s32 D_i6_801A6B34[3] = { 150, 255, 150 };
-static s32 D_i6_801A6B40[6] = { 150, 150, 255 };
+s32 D_i6_801A6B28[3] = { 255, 150, 150 };
+s32 D_i6_801A6B34[3] = { 150, 255, 150 };
+s32 D_i6_801A6B40[6] = { 150, 150, 255 };
 
 bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     SyRobot* actor = (SyRobot*) thisx;
@@ -3852,7 +3852,7 @@ void SectorY_SyRobot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-static f32 D_i6_801A6B64[5] = {
+f32 D_i6_801A6B64[5] = {
     0.3f, 0.7f, 1.3f, 0.7f, 0.3f,
 };
 

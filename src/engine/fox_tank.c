@@ -10,18 +10,18 @@ void func_tank_800481F4(Player* player);
 s32 func_tank_80046E40(Player* player, f32* hitboxData, s32* index, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
                        f32 zRot, f32 arg9, f32 argA, f32 argB);
 
-static u8 D_800C9F00 = 0;
-static u8 D_800C9F04 = 0;
-static u8 D_800C9F08 = 0;
-static s32 D_800C9F0C = 0; // unused.
-static f32 D_800C9F10 = 0.0f;
-static s32 D_800C9F14 = 0;
-static s32 D_800C9F18[2] = { 0, 0 }; // unused.
-static f32 D_800C9F20 = 0.0f;
-static f32 D_800C9F24 = 0.0f;
-static f32 D_800C9F28 = 0.0f;
+u8 D_800C9F00 = 0;
+u8 D_800C9F04 = 0;
+u8 D_800C9F08 = 0;
+s32 D_800C9F0C = 0; // unused.
+f32 D_800C9F10 = 0.0f;
+s32 D_800C9F14 = 0;
+s32 D_800C9F18[2] = { 0, 0 }; // unused.
+f32 D_800C9F20 = 0.0f;
+f32 D_800C9F24 = 0.0f;
+f32 D_800C9F28 = 0.0f;
 Vec3f D_tank_800C9F2C = { 0.0f, 0.0f, 0.0f };
-static s32 D_800C9F38 = 0; // unused
+s32 D_800C9F38 = 0; // unused
 
 void func_tank_80043280(u16* text0, u16* text1, f32 zRot) {
     s32 py;
@@ -873,7 +873,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     }
 }
 
-static f32 D_800C9F4C[5] = { 0.0f, -1.0f, 1.0f, 0.5f, -0.5f };
+f32 D_800C9F4C[5] = { 0.0f, -1.0f, 1.0f, 0.5f, -0.5f };
 
 void func_tank_80046704(Player* player) {
     s32 pad[7];
