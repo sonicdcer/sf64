@@ -5,7 +5,7 @@ extern PlanetId sPlanetList[15];
 extern PlanetId sCurrentPlanetId;
 extern s32 D_menu_801B8280;
 extern s32 D_menu_801CD968;
-extern s32 D_menu_801CD944;
+extern s32 sMapState;
 extern s32 D_menu_801CD948;
 
 void Map_801A61B4(LevelId level);
@@ -113,7 +113,7 @@ void Map_LevelSelect(void) {
     }
 
     // Bypass briefing
-    if ((D_menu_801CD944 == 2) && (D_menu_801CD948 > 0)) {
+    if ((sMapState == 2) && (D_menu_801CD948 > 0)) {
         if (sCurrentPlanetId == PLANET_VENOM) {
             if (startOption) {
                 gCurrentLevel = LEVEL_VENOM_ANDROSS;

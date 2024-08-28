@@ -376,9 +376,9 @@ void Effect_Effect399_Draw(Effect*);
 void Wipe_Draw(WipeMode mode, s32 frame);
 
 // fox_hud
-void func_hud_80084B94(s32);
-void func_hud_800857DC(f32, f32, f32, f32);
-void func_hud_80085890(f32, f32, f32, f32);
+void Hud_TeamDownWrench_Draw(s32);
+void Hud_BoostGaugeOverheat_Draw(f32, f32, f32, f32);
+void Hud_BoostGaugeCool_Draw(f32, f32, f32, f32);
 void func_hud_80086110(f32, f32, s32);
 void func_hud_80086664(f32, f32);
 void func_hud_800869A0(f32, f32, s32, f32, s32, s32);

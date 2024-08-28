@@ -1458,12 +1458,12 @@ void Option_SoundDraw(void) {
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AEFA8[0], D_menu_801AEFD4[0], D_menu_801AF000,
+    Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AEFA8[0], D_menu_801AEFD4[0], D_menu_801AF000,
                        0.2f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_IA8(&gMasterDisp, D_OPT_8005CD0, 112, 13, D_menu_801AEFA8[1], D_menu_801AEFD4[1], 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8005CD0, 112, 13, D_menu_801AEFA8[1], D_menu_801AEFD4[1], 1.0f, 1.0f);
 
     for (i = 0; i < 4; i++) {
         if (D_menu_801B9288 == i) {
@@ -1475,43 +1475,43 @@ void Option_SoundDraw(void) {
 
     colorGB = D_menu_801B9270[0];
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
-    TextureRect_IA8(&gMasterDisp, D_OPT_8006280, 48, 13, D_menu_801AEFA8[2], D_menu_801AEFD4[2], 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8006280, 48, 13, D_menu_801AEFA8[2], D_menu_801AEFD4[2], 1.0f, 1.0f);
 
     colorGB = D_menu_801B9270[1];
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
-    TextureRect_IA8(&gMasterDisp, D_OPT_80064F0, 88, 14, D_menu_801AEFA8[3], D_menu_801AEFD4[3], 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80064F0, 88, 14, D_menu_801AEFA8[3], D_menu_801AEFD4[3], 1.0f, 1.0f);
 
     colorGB = D_menu_801B9270[2];
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
-    TextureRect_IA8(&gMasterDisp, D_OPT_80069C0, 56, 15, D_menu_801AEFA8[4], D_menu_801AEFD4[4], 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80069C0, 56, 15, D_menu_801AEFA8[4], D_menu_801AEFD4[4], 1.0f, 1.0f);
 
     colorGB = D_menu_801B9270[3];
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
-    TextureRect_IA8(&gMasterDisp, D_OPT_8006D10, 24, 13, D_menu_801AEFA8[5], D_menu_801AEFD4[5], 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8006D10, 24, 13, D_menu_801AEFA8[5], D_menu_801AEFD4[5], 1.0f, 1.0f);
 
     if (D_menu_801B9288 == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AEFA8[6], D_menu_801AEFD4[6], 1.0f, 1.0f);
-        TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AEFA8[7], D_menu_801AEFD4[7], 1.0f, 1.0f);
+        Lib_TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AEFA8[6], D_menu_801AEFD4[6], 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AEFA8[7], D_menu_801AEFD4[7], 1.0f, 1.0f);
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     switch (gOptionSoundMode) {
         case OPTIONSOUND_STEREO:
-            TextureRect_IA8(&gMasterDisp, D_OPT_800CD90, 56, 13, D_menu_801AEFA8[8], D_menu_801AEFD4[8], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800CD90, 56, 13, D_menu_801AEFA8[8], D_menu_801AEFD4[8], 1.0f, 1.0f);
             break;
 
         case OPTIONSOUND_MONO:
-            TextureRect_IA8(&gMasterDisp, D_OPT_80076E0, 56, 14, D_menu_801AEFA8[9], D_menu_801AEFD4[9], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80076E0, 56, 14, D_menu_801AEFA8[9], D_menu_801AEFD4[9], 1.0f, 1.0f);
             break;
 
         case OPTIONSOUND_HEADSET:
-            TextureRect_IA8(&gMasterDisp, D_OPT_8007210, 88, 14, D_menu_801AEFA8[10], D_menu_801AEFD4[10], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8007210, 88, 14, D_menu_801AEFA8[10], D_menu_801AEFD4[10], 1.0f, 1.0f);
             break;
     }
 
-    TextureRect_IA8(&gMasterDisp, D_OPT_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
 
     for (i = 0; i < 3; i++) {
         Option_DrawCardLabel(D_menu_801AEAA0[i]);
@@ -1729,11 +1729,11 @@ void Option_ExpertSoundDraw(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_OPT_80079F0, 128, 14, 49.0f, 81.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80079F0, 128, 14, 49.0f, 81.0f, 1.0f, 1.0f);
 
-        TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C / 10], 16, 15, 230.0f, 82.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C / 10], 16, 15, 230.0f, 82.0f, 1.0f, 1.0f);
 
-        TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C % 10], 16, 15, 244.0f, 82.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[D_menu_801B931C % 10], 16, 15, 244.0f, 82.0f, 1.0f, 1.0f);
 
 #if MODS_SFX_JUKEBOX == 1
     }
@@ -1746,7 +1746,7 @@ void Option_ExpertSoundDraw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 50, 50, 200, 255);
 
     for (i = 0; i < 4; i++) {
-        TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AF014[i], D_menu_801AF024[i],
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AF014[i], D_menu_801AF024[i],
                            D_menu_801AF034[i], D_menu_801AF044[i]);
     }
 
@@ -1953,15 +1953,15 @@ void Option_DataDraw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
-        TextureRect_IA8(&gMasterDisp, D_OPT_80084B0 + (176 * 4 * i), 176, 4, D_menu_801AF094[0],
+        Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80084B0 + (176 * 4 * i), 176, 4, D_menu_801AF094[0],
                         D_menu_801AF0AC[0] + (4.0f * i), 1.0f, 1.0f);
     }
-    TextureRect_IA8(&gMasterDisp, D_OPT_80084B0 + 176 * 4 * 2, 176, 5, D_menu_801AF094[0], D_menu_801AF0AC[0] + 8.0f,
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80084B0 + 176 * 4 * 2, 176, 5, D_menu_801AF094[0], D_menu_801AF0AC[0] + 8.0f,
                     1.0f, 1.0f);
 
     if (D_menu_801B91CC < 2) {
-        TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF084[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
-        TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF08C[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF084[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF08C[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
 
         Option_8019C824(&D_menu_801AED20[D_menu_801B91C0]);
         D_menu_801AED20[!D_menu_801B91C0] = 255.0f;
@@ -1979,13 +1979,13 @@ void Option_DataDraw(void) {
         if ((gGameFrameCount & sp74[1]) != 0) {
             sp7C[1] = D_menu_801AED20[1];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[1], sp7C[1], 255);
-            TextureRect_IA8(&gMasterDisp, D_OPT_8009980, 32, 12, D_menu_801AF094[1], D_menu_801AF0AC[1], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8009980, 32, 12, D_menu_801AF094[1], D_menu_801AF0AC[1], 1.0f, 1.0f);
         }
 
         if ((gGameFrameCount & sp74[0]) != 0) {
             sp7C[0] = D_menu_801AED20[0];
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, sp7C[0], sp7C[0], 255);
-            TextureRect_IA8(&gMasterDisp, D_OPT_8009B00, 40, 12, D_menu_801AF094[2], D_menu_801AF0AC[2], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8009B00, 40, 12, D_menu_801AF094[2], D_menu_801AF0AC[2], 1.0f, 1.0f);
         }
     }
 
@@ -1994,10 +1994,10 @@ void Option_DataDraw(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
             for (i = 0; i < 9; i++) {
-                TextureRect_IA8(&gMasterDisp, D_OPT_8008DA0 + (160 * 2 * i), 160, 2, D_menu_801AF094[3],
+                Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8008DA0 + (160 * 2 * i), 160, 2, D_menu_801AF094[3],
                                 D_menu_801AF0AC[3] + (2.0f * i), 1.0f, 1.0f);
             }
-            TextureRect_IA8(&gMasterDisp, D_OPT_8008DA0 + 160 * 2 * 9, 160, 1, D_menu_801AF094[3],
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8008DA0 + 160 * 2 * 9, 160, 1, D_menu_801AF094[3],
                             D_menu_801AF0AC[3] + 18.0f, 1.0f, 1.0f);
             break;
 
@@ -2006,18 +2006,18 @@ void Option_DataDraw(void) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
             for (i = 0; i < 20; i++) {
-                TextureRect_IA8(&gMasterDisp, D_OPT_8009CE0 + (160 * 2 * i), 160, 2, D_menu_801AF094[4],
+                Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8009CE0 + (160 * 2 * i), 160, 2, D_menu_801AF094[4],
                                 D_menu_801AF0AC[4] + (2.0f * i), 1.0f, 1.0f);
             }
-            TextureRect_IA8(&gMasterDisp, D_OPT_8009CE0 + 160 * 2 * 20, 160, 1, D_menu_801AF094[4],
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8009CE0 + 160 * 2 * 20, 160, 1, D_menu_801AF094[4],
                             D_menu_801AF0AC[4] + 40.0f, 1.0f, 1.0f);
             break;
 
         case 3:
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 32, 32, 255);
 
-            TextureRect_IA8(&gMasterDisp, D_OPT_800B680, 144, 28, D_menu_801AF094[5], D_menu_801AF0AC[5], 1.0f, 1.0f);
-            TextureRect_IA8(&gMasterDisp, D_OPT_800B680 + 4032, 144, 13, D_menu_801AF094[5], D_menu_801AF0AC[5] + 28.0f,
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800B680, 144, 28, D_menu_801AF094[5], D_menu_801AF0AC[5], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800B680 + 4032, 144, 13, D_menu_801AF094[5], D_menu_801AF0AC[5] + 28.0f,
                             1.0f, 1.0f);
             break;
     }
@@ -2149,7 +2149,7 @@ void Option_RankingMenuDraw(void) {
         Option_8019C824(&D_menu_801B93F0);
         temp_t0 = D_menu_801B93F0;
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_t0, temp_t0, 255);
-        TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, 70.0f, (D_menu_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, 70.0f, (D_menu_801B93E4 * 17.0f) + 55.0f, 1.0f, 1.0f);
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -2188,8 +2188,8 @@ void Option_8019752C(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_IA8(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[0], 40.0f, 1.5f);
-    TextureRect_IA8_MirY(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[1], 40.0f, 1.5f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[0], 40.0f, 1.5f);
+    Lib_TextureRect_IA8_MirY(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[1], 40.0f, 1.5f);
 
     Background_DrawPartialStarfield(0, 70);
     Background_DrawPartialStarfield(170, 239);
@@ -2203,7 +2203,7 @@ void Option_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    TextureRect_IA8(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
 
     if (D_menu_801B91D4 <= -1055.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
@@ -2213,7 +2213,7 @@ void Option_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
     }
 
-    TextureRect_IA8_MirY(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8_MirY(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 
 Vec3f D_menu_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
@@ -2242,10 +2242,10 @@ void Option_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     if (arg0 != 9) {
-        TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     } else {
-        TextureRect_IA8(&gMasterDisp, aLargeText_1, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
-        TextureRect_IA8(&gMasterDisp, aLargeText_0, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aLargeText_1, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aLargeText_0, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_85);
@@ -2254,19 +2254,19 @@ void Option_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
 
     switch (arg0) {
         case 0:
-            TextureRect_CI4(&gMasterDisp, D_OPT_8003A70, D_OPT_8003AB8, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8003A70, D_OPT_8003AB8, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
             break;
 
         case 1:
-            TextureRect_CI4(&gMasterDisp, D_OPT_80038E0, D_OPT_8003930, 16, 10, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_80038E0, D_OPT_8003930, 16, 10, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
             break;
 
         case 2:
-            TextureRect_CI4(&gMasterDisp, D_OPT_8003950, D_OPT_80039A8, 16, 11, arg1 + 17.0f, arg2 - 20.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8003950, D_OPT_80039A8, 16, 11, arg1 + 17.0f, arg2 - 20.0f, 1.0f, 1.0f);
             break;
 
         default:
-            TextureRect_CI4(&gMasterDisp, D_OPT_8003AE0, D_OPT_8003B28, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8003AE0, D_OPT_8003B28, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f, 1.0f);
             break;
     }
 }
@@ -2289,7 +2289,7 @@ void Option_80197D30(s32 arg0, s32 arg1, s32 arg2) {
 void Option_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
-    TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, arg1, arg2, 3.17f, 1.05f);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -2373,10 +2373,10 @@ void Option_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
                 }
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-            TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
+            Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
         }
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        TextureRect_RGBA16(&gMasterDisp, D_MAP_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
     }
 }
 
@@ -2787,16 +2787,16 @@ void Option_80199820(s32 arg0) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 4; i++) {
-        TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + (80 * 16 * i) / 2, D_VS_MENU_70123F8, 80, 16,
+        Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + (80 * 16 * i) / 2, D_VS_MENU_70123F8, 80, 16,
                         D_menu_801AF148[arg0], D_menu_801AF158[arg0] + (16.0f * i), 1.0f, 1.0f);
     }
 
-    TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + (80 * 16 * 4) / 2, D_VS_MENU_70123F8, 80, 7,
+    Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + (80 * 16 * 4) / 2, D_VS_MENU_70123F8, 80, 7,
                     D_menu_801AF148[arg0], D_menu_801AF158[arg0] + (16.0f * 4), 1.0f, 1.0f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF22C[arg0], D_menu_801AF23C[arg0], D_menu_801AF24C[arg0], 255);
 
-    TextureRect_CI8(&gMasterDisp, D_menu_801AF1EC[arg0], D_menu_801AF1FC[arg0], D_menu_801AF168[arg0],
+    Lib_TextureRect_CI8(&gMasterDisp, D_menu_801AF1EC[arg0], D_menu_801AF1FC[arg0], D_menu_801AF168[arg0],
                     D_menu_801AF178[arg0], D_menu_801AF148[arg0] + D_menu_801AF188[arg0],
                     D_menu_801AF158[arg0] + D_menu_801AF198, 1.0f, 1.0f);
 
@@ -2813,35 +2813,35 @@ void Option_80199820(s32 arg0) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001030, 64, 9, D_menu_801AF148[arg0] + D_menu_801AF1BC,
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001030, 64, 9, D_menu_801AF148[arg0] + D_menu_801AF1BC,
                         D_menu_801AF158[arg0] + D_menu_801AF1C0, 1.0f, 1.0f);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_menu_801AF1E0[D_menu_801AED3C[arg0]], 40, 12,
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF1E0[D_menu_801AED3C[arg0]], 40, 12,
                         D_menu_801AF148[arg0] + D_menu_801AF1C4, D_menu_801AF158[arg0] + D_menu_801AF1C8, 1.0f, 1.0f);
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[arg0] + D_menu_801AF1D4,
+    Lib_TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[arg0] + D_menu_801AF1D4,
                          D_menu_801AF158[arg0] + D_menu_801AF1DC, 1.0f, 1.0f);
 
-    TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[arg0] + D_menu_801AF1D8,
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[arg0] + D_menu_801AF1D8,
                     D_menu_801AF158[arg0] + D_menu_801AF1DC, 1.0f, 1.0f);
 
-    TextureRect_IA8(&gMasterDisp, D_VS_MENU_7000F10, 40, 7, D_menu_801AF148[arg0] + D_menu_801AF1CC,
+    Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7000F10, 40, 7, D_menu_801AF148[arg0] + D_menu_801AF1CC,
                     D_menu_801AF158[arg0] + D_menu_801AF1D0, 1.0f, 1.0f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
-        TextureRect_RGBA16(&gMasterDisp, D_menu_801AF20C[arg0] + (44 * 20 * i), 44, 20,
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_menu_801AF20C[arg0] + (44 * 20 * i), 44, 20,
                            D_menu_801AF148[arg0] + D_menu_801AF1B4,
                            D_menu_801AF158[arg0] + D_menu_801AF1B8 + (i * 20.0f * 0.7f), 0.7f, 0.7f);
     }
 
-    TextureRect_RGBA16(&gMasterDisp, D_menu_801AF20C[arg0] + 44 * 20 * 2, 44, 4,
+    Lib_TextureRect_RGBA16(&gMasterDisp, D_menu_801AF20C[arg0] + 44 * 20 * 2, 44, 4,
                        D_menu_801AF148[arg0] + D_menu_801AF1B4, D_menu_801AF158[arg0] + D_menu_801AF1B8 + 28.0f, 0.7f,
                        0.7f);
 
@@ -2852,7 +2852,7 @@ void Option_80199820(s32 arg0) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF22C[arg0], D_menu_801AF23C[arg0], D_menu_801AF24C[arg0], 255);
 
-    TextureRect_IA8(&gMasterDisp, D_menu_801AF21C[arg0], var_a2, 13, D_menu_801AF148[arg0] + D_menu_801AF19C[arg0],
+    Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF21C[arg0], var_a2, 13, D_menu_801AF148[arg0] + D_menu_801AF19C[arg0],
                     D_menu_801AF158[arg0] + D_menu_801AF1AC, D_menu_801AF1B0, D_menu_801AF1B0);
 }
 
@@ -2864,7 +2864,7 @@ void Option_80199EA8(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 3; i++) {
-        TextureRect_RGBA16(&gMasterDisp, D_VS_MENU_700E9A0 + (144 * 14 * i), 144, 14, 87.0f, 84 + (i * 14.0f), 1.0f,
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_VS_MENU_700E9A0 + (144 * 14 * i), 144, 14, 87.0f, 84 + (i * 14.0f), 1.0f,
                            1.0f);
     }
 }
@@ -3186,7 +3186,7 @@ void Option_8019AB30(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
 
-    TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
 
     if (D_menu_801B912C == 0) {
         Option_8019B6D8(97.0f, 50.0f, 107.0f, 255, 255, 255);
@@ -3213,11 +3213,11 @@ void Option_8019AB30(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[sp44], 16, 15, 109.0f, 45.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[sp44], 16, 15, 109.0f, 45.0f, 1.0f, 1.0f);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001DF0, 80, 10, 122.0f, 49.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001DF0, 80, 10, 122.0f, 49.0f, 1.0f, 1.0f);
     }
 }
 
@@ -3238,7 +3238,7 @@ void Option_8019AD84(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
 
-    TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, 93.0f, 42.0f, 5.1f, 1.1f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, 93.0f, 42.0f, 5.1f, 1.1f);
 
     if (D_menu_801B912C == 0) {
         D_menu_801B9324 = 97.0f;
@@ -3268,12 +3268,12 @@ void Option_8019AD84(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, sTimeTrialMinuteTextures[D_menu_801B9340], 40, 15,
+        Lib_TextureRect_IA8(&gMasterDisp, sTimeTrialMinuteTextures[D_menu_801B9340], 40, 15,
                         D_menu_801AF25C[D_menu_801B9340 + 1], D_menu_801AF274[D_menu_801B9340 + 1], 1.0f, 1.0f);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_VS_MENU_7002110, 80, 12, D_menu_801AF25C[0], D_menu_801AF274[0], 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7002110, 80, 12, D_menu_801AF25C[0], D_menu_801AF274[0], 1.0f, 1.0f);
     }
 }
 
@@ -3316,7 +3316,7 @@ void Option_8019AFFC(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001270, 112, 12, D_menu_801AF2A0, D_menu_801AF2A4, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001270, 112, 12, D_menu_801AF2A0, D_menu_801AF2A4, 1.0f, 1.0f);
     }
 
     if (D_menu_801B93D0 == 30) {
@@ -3350,7 +3350,7 @@ void Option_8019B1F8(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
 
-        TextureRect_CI8(&gMasterDisp, D_menu_801AF2C4[i], D_menu_801AF2CC[i], 48, 38, xPos, D_menu_801AF2AC, 1.0f,
+        Lib_TextureRect_CI8(&gMasterDisp, D_menu_801AF2C4[i], D_menu_801AF2CC[i], 48, 38, xPos, D_menu_801AF2AC, 1.0f,
                         1.0f);
 
         width = 48;
@@ -3359,7 +3359,7 @@ void Option_8019B1F8(void) {
         }
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
-        TextureRect_IA8(&gMasterDisp, D_menu_801AF2BC[i], width, 10, D_menu_801AF2B4[i], D_menu_801AF2AC + 40.0f, 1.0f,
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF2BC[i], width, 10, D_menu_801AF2B4[i], D_menu_801AF2AC + 40.0f, 1.0f,
                         1.0f);
     }
 }
@@ -3396,14 +3396,14 @@ void Option_8019B3DC(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
 
-        TextureRect_CI8(&gMasterDisp, D_menu_801AF2F0[i], D_menu_801AF2F8[i], 48, 38, xPos, D_menu_801AF2D8, 1.0f,
+        Lib_TextureRect_CI8(&gMasterDisp, D_menu_801AF2F0[i], D_menu_801AF2F8[i], 48, 38, xPos, D_menu_801AF2D8, 1.0f,
                         1.0f);
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
 
-        TextureRect_IA8(&gMasterDisp, D_menu_801AF2E8[i], 56, 10, D_menu_801AF2E0[i], D_menu_801AF2D8 + 40.0f, 1.0f,
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF2E8[i], 56, 10, D_menu_801AF2E0[i], D_menu_801AF2D8 + 40.0f, 1.0f,
                         1.0f);
     }
 }
@@ -3430,22 +3430,22 @@ void Option_8019B5AC(void) {
     if (gGameFrameCount & bitmask) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
-        TextureRect_IA8(&gMasterDisp, D_VS_MENU_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7003650, 40, 12, 143.0f, 210.0f, 1.0f, 1.0f);
     }
 }
 
 void Option_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-    TextureRect_IA8_MirX(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos, yPos, 1.0f, 1.0f);
-    TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos + offset, yPos, 1.0f, 1.0f);
+    Lib_TextureRect_IA8_MirX(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos, yPos, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, xPos + offset, yPos, 1.0f, 1.0f);
 }
 
 void Option_8019B7D4(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_IA8(&gMasterDisp, D_OPT_80080F0, 96, 10, 62.0f, 213.0f, 1.0f, 1.0f);
-    TextureRect_IA8(&gMasterDisp, D_OPT_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_80080F0, 96, 10, 62.0f, 213.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
 }
 
 void Option_8019B8A0(s32 arg0) {
@@ -3600,28 +3600,28 @@ void Option_DrawCardLabel(OptionTexture tex) {
             case 1:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_78);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, tex.red, tex.green, tex.blue, tex.alpha);
-                TextureRect_CI4(&gMasterDisp, tex.texture, tex.palette, tex.width, tex.height, tex.xPos, tex.yPos,
+                Lib_TextureRect_CI4(&gMasterDisp, tex.texture, tex.palette, tex.width, tex.height, tex.xPos, tex.yPos,
                                 tex.xScale, tex.yScale);
                 break;
 
             case 2:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_78);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, tex.red, tex.green, tex.blue, tex.alpha);
-                TextureRect_CI8(&gMasterDisp, tex.texture, tex.palette, tex.width, tex.height, tex.xPos, tex.yPos,
+                Lib_TextureRect_CI8(&gMasterDisp, tex.texture, tex.palette, tex.width, tex.height, tex.xPos, tex.yPos,
                                 tex.xScale, tex.yScale);
                 break;
 
             case 0:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, tex.red, tex.green, tex.blue, tex.alpha);
-                TextureRect_IA8(&gMasterDisp, tex.texture, tex.width, tex.height, tex.xPos, tex.yPos, tex.xScale,
+                Lib_TextureRect_IA8(&gMasterDisp, tex.texture, tex.width, tex.height, tex.xPos, tex.yPos, tex.xScale,
                                 tex.yScale);
                 break;
 
             case 3:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, tex.red, tex.green, tex.blue, tex.alpha);
-                TextureRect_RGBA16(&gMasterDisp, tex.texture, tex.width, tex.height, tex.xPos, tex.yPos, tex.xScale,
+                Lib_TextureRect_RGBA16(&gMasterDisp, tex.texture, tex.width, tex.height, tex.xPos, tex.yPos, tex.xScale,
                                    tex.yScale);
                 break;
         }
@@ -4067,7 +4067,7 @@ void Option_8019D118(void) {
     if (D_menu_801B9138 == 1) {
         if ((gGameFrameCount & 0x10) != 0) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-            TextureRect_IA8(&gMasterDisp, aTextEnd, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTextEnd, 32, 8, D_menu_801AF30C[5], D_menu_801AF324[5], 1.0f, 1.0f);
         }
     }
 
@@ -4417,26 +4417,26 @@ void Option_InvoiceDraw(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_CI4(&gMasterDisp, D_OPT_8000000, D_OPT_8000680, 128, 16, D_menu_801AF3D0[0], D_menu_801AF3F0[0], 1.0f,
+    Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8000000, D_OPT_8000680, 128, 16, D_menu_801AF3D0[0], D_menu_801AF3F0[0], 1.0f,
                     1.0f);
 
-    TextureRect_CI4(&gMasterDisp, D_OPT_8000000 + 128 * 16 / 2, D_OPT_8000680, 128, 10, D_menu_801AF3D0[0],
+    Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8000000 + 128 * 16 / 2, D_OPT_8000680, 128, 10, D_menu_801AF3D0[0],
                     D_menu_801AF3F0[0] + 16.0f, 1.0f, 1.0f);
 
     for (i = 0; i < 2; i++) {
-        TextureRect_CI4(&gMasterDisp, D_OPT_80006A0 + (256 * 16 * i) / 2, D_OPT_80017A0, 256, 16, D_menu_801AF3D0[1],
+        Lib_TextureRect_CI4(&gMasterDisp, D_OPT_80006A0 + (256 * 16 * i) / 2, D_OPT_80017A0, 256, 16, D_menu_801AF3D0[1],
                         D_menu_801AF3F0[1] + (16 * i), 1.0f, 1.0f);
     }
 
-    TextureRect_CI4(&gMasterDisp, D_OPT_80006A0 + 256 * 32 / 2, D_OPT_80017A0, 256, 2, D_menu_801AF3D0[1],
+    Lib_TextureRect_CI4(&gMasterDisp, D_OPT_80006A0 + 256 * 32 / 2, D_OPT_80017A0, 256, 2, D_menu_801AF3D0[1],
                     D_menu_801AF3F0[1] + 32.0f, 1.0f, 1.0f);
 
     for (i = 0; i < 4; i++) {
-        TextureRect_CI4(&gMasterDisp, D_OPT_80017C0 + (256 * 16 * i) / 2, D_OPT_80038C0, 256, 16, D_menu_801AF3D0[2],
+        Lib_TextureRect_CI4(&gMasterDisp, D_OPT_80017C0 + (256 * 16 * i) / 2, D_OPT_80038C0, 256, 16, D_menu_801AF3D0[2],
                         D_menu_801AF3F0[2] + (16 * i), 1.0f, 1.0f);
     }
 
-    TextureRect_CI4(&gMasterDisp, D_OPT_80017C0 + 256 * 16 * 4 / 2, D_OPT_80038C0, 256, 2, D_menu_801AF3D0[2],
+    Lib_TextureRect_CI4(&gMasterDisp, D_OPT_80017C0 + 256 * 16 * 4 / 2, D_OPT_80038C0, 256, 2, D_menu_801AF3D0[2],
                     D_menu_801AF3F0[2] + 64.0f, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
@@ -4444,7 +4444,7 @@ void Option_InvoiceDraw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
-        TextureRect_RGBA16(&gMasterDisp, D_OPT_800E170 + (188 * 2 * i), 188, 2, D_menu_801AF3D0[3],
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_OPT_800E170 + (188 * 2 * i), 188, 2, D_menu_801AF3D0[3],
                            D_menu_801AF3F0[3] + (2.0f * i), 1.0f, 1.0f);
     }
 
@@ -4461,7 +4461,7 @@ void Option_InvoiceDraw(void) {
     if (D_menu_801B9090) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 120, 0, 0, 192);
         for (i = 0; i < 3; i++) {
-            TextureRect_IA8(&gMasterDisp, D_OPT_800D1F0 + (80 * 16 * i), 80, 16, D_menu_801AF3D0[5],
+            Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800D1F0 + (80 * 16 * i), 80, 16, D_menu_801AF3D0[5],
                             D_menu_801AF3F0[5] + (16.0f * i), 1.0f, 1.0f);
         }
     }

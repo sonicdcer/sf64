@@ -63,4 +63,15 @@ typedef struct {
     /* 0xC */ f32 xPos;
 } TitleCard; // size = 0x10
 
+typedef enum MapStates {
+    /* 0 */ MAP_STATE_0,
+    /* 1 */ MAP_STATE_1,
+    /* 2 */ MAP_STATE_2,
+    /* 3 */ MAP_STATE_3,
+    /* 4 */ MAP_STATE_4,
+    /* 5 */ MAP_STATE_5,
+    /* 6 */ MAP_STATE_6,
+    /* 7 */ MAP_STATE_7,
+} MapStates;
+
 #endif

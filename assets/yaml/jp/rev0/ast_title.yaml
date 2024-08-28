@@ -8,7 +8,7 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-starfox_logo: { type: TEXTURE, ctype: u16, format: RGBA16, width: 236, height: 60, offset: 0x6000000, symbol: gTitleStarfoxLogo }
+starfox_logo: { type: TEXTURE, ctype: u16, format: RGBA16, width: 236, height: 60, offset: 0x6000000, symbol: aTitleStarfoxLogoTex }
 
 nintendo64_logo: { type: TEXTURE, ctype: u16, format: RGBA16, width: 128, height: 88, offset: 0x6006EA0, symbol: gTitleNintendo64Logo }
 

@@ -112,7 +112,7 @@ void Title_8018A990(void);
 void Title_8018B038(void);
 void Title_8018C114(void);
 void Title_8018CB90(void);
-void Title_8018F680(void);
+void Title_StarfoxLogo_Draw(void);
 void Title_8018F77C(void);
 void Title_8018F85C(void);
 void Title_8018F8E4(void);

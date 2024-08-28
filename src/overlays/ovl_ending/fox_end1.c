@@ -81,14 +81,14 @@ void Ending_80187520(s32 arg0) {
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {
-                TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
-            TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
+            Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
             break;
 
         case 1:
             for (j = 0, i = 0; i < 60; j += 316 * 4, i++) {
-                TextureRect_RGBA16(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
             break;
     }
@@ -430,16 +430,16 @@ void Ending_801886F4(void) {
 
     switch ((D_ending_80196F90 % 8) / 2) {
         case 3:
-            TextureRect_CI4(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 2:
-            TextureRect_CI4(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 1:
-            TextureRect_CI4(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 0:
-            TextureRect_CI4(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
     }
 }
 

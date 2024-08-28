@@ -17,8 +17,8 @@ D_1000280:
 D_1000640:
   { type: TEXTURE, format: IA8, width: 96, height: 22, ctype: u8, offset: 0x1000640, symbol: D_1000640 }
 
-D_1000E80:
-  { type: TEXTURE, format: IA8, width: 48, height: 9, ctype: u8, offset: 0x1000E80, symbol: D_1000E80 }
+aBoostGaugeFrameTex:
+  { type: TEXTURE, format: IA8, width: 48, height: 9, ctype: u8, offset: 0x1000E80, symbol: aBoostGaugeFrameTex }
 
 D_1001030:
   { type: TEXTURE, format: IA8, width: 8, height: 8, ctype: u8, offset: 0x1001030, symbol: D_1001030 }
@@ -41,8 +41,8 @@ D_1002040:
 D_1002220:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002220, symbol: D_1002220 }
 
-D_1002280:
-  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002280, symbol: D_1002280 }
+aPlayerShieldGaugeFrameEdgeTex:
+  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002280, symbol: aPlayerShieldGaugeFrameEdgeTex }
 
 D_10022E0:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10022E0, symbol: D_10022E0 }
@@ -53,8 +53,8 @@ D_1002340:
 D_10024D0:
   { type: TEXTURE, format: IA8, width: 96, height: 32, ctype: u8, offset: 0x10024D0, symbol: D_10024D0 }
 
-D_10030D0:
-  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10030D0, symbol: D_10030D0 }
+aPlayerShieldGaugeFrameTex:
+  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10030D0, symbol: aPlayerShieldGaugeFrameTex }
 
 D_1003130:
   { type: GFX, offset: 0x1003130, symbol: D_1003130 }
@@ -215,11 +215,11 @@ D_1011200:
 D_1011270:
   { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011270, symbol: D_1011270 }
 
-D_1011280:
-  { type: TEXTURE, format: CI4, width: 48, height: 44, ctype: u8, offset: 0x1011280, tlut: 0x10116A0, symbol: D_1011280 }
+aRadarFrameTex:
+  { type: TEXTURE, format: CI4, width: 48, height: 44, ctype: u8, offset: 0x1011280, tlut: 0x10116A0, symbol: aRadarFrameTex }
 
-D_10116A0:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x10116A0, symbol: D_10116A0 }
+aRadarFrameTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x10116A0, symbol: aRadarFrameTLUT }
 
 D_10116B0:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10116B0, tlut: 0x1011730, symbol: D_10116B0 }
@@ -245,29 +245,29 @@ D_1011A40:
 D_1011AB0:
   { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011AB0, symbol: D_1011AB0 }
 
-D_1011AC0:
-  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011AC0, tlut: 0x1011B90, symbol: D_1011AC0 }
+aIncomingMsgButtonTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011AC0, tlut: 0x1011B90, symbol: aIncomingMsgButtonTex }
 
-D_1011B90:
-  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011B90, symbol: D_1011B90 }
+aIncomingMsgButtonTLUT:
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011B90, symbol: aIncomingMsgButtonTLUT }
 
-D_1011BB0:
-  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011BB0, tlut: 0x1011C80, symbol: D_1011BB0 }
+aIncomingMsgSignal1Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011BB0, tlut: 0x1011C80, symbol: aIncomingMsgSignal1Tex }
 
-D_1011C80:
-  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011C80, symbol: D_1011C80 }
+aIncomingMsgSignal1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011C80, symbol: aIncomingMsgSignal1TLUT }
 
-D_1011CA0:
-  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011CA0, tlut: 0x1011D70, symbol: D_1011CA0 }
+aIncomingMsgSignal2Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011CA0, tlut: 0x1011D70, symbol: aIncomingMsgSignal2Tex }
 
-D_1011D70:
-  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011D70, symbol: D_1011D70 }
+aIncomingMsgSignal2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011D70, symbol: aIncomingMsgSignal2TLUT }
 
-D_1011D90:
-  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011D90, tlut: 0x1011E60, symbol: D_1011D90 }
+aIncomingMsgSignal3Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011D90, tlut: 0x1011E60, symbol: aIncomingMsgSignal3Tex }
 
-D_1011E60:
-  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011E60, symbol: D_1011E60 }
+aIncomingMsgSignal3TLUT:
+  { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011E60, symbol: aIncomingMsgSignal3TLUT }
 
 D_1011E80:
   { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1011E80, tlut: 0x1011EC0, symbol: D_1011E80 }
@@ -314,17 +314,17 @@ D_1013780:
 D_10151F0:
   { type: TEXTURE, format: TLUT, colors: 146, ctype: u16, offset: 0x10151F0, symbol: D_10151F0 }
 
-D_10127D0:
-  { type: TEXTURE, format: CI8, width: 40, height: 5, ctype: u8, offset: 0x10127D0, tlut: 0x1012898, symbol: D_10127D0 }
+aBoostGaugeCoolTex:
+  { type: TEXTURE, format: CI8, width: 40, height: 5, ctype: u8, offset: 0x10127D0, tlut: 0x1012898, symbol: aBoostGaugeCoolTex }
 
-D_1012898:
-  { type: TEXTURE, format: TLUT, colors: 20, ctype: u16, offset: 0x1012898, symbol: D_1012898 }
+aBoostGaugeCoolTLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, ctype: u16, offset: 0x1012898, symbol: aBoostGaugeCoolTLUT }
 
-D_10128C0:
-  { type: TEXTURE, format: CI8, width: 40, height: 5, ctype: u8, offset: 0x10128C0, tlut: 0x1012988, symbol: D_10128C0 }
+aBoostGaugeOverheatTex:
+  { type: TEXTURE, format: CI8, width: 40, height: 5, ctype: u8, offset: 0x10128C0, tlut: 0x1012988, symbol: aBoostGaugeOverheatTex }
 
-D_1012988:
-  { type: TEXTURE, format: TLUT, colors: 28, ctype: u16, offset: 0x1012988, symbol: D_1012988 }
+aBoostGaugeOverheatTLUT:
+  { type: TEXTURE, format: TLUT, colors: 28, ctype: u16, offset: 0x1012988, symbol: aBoostGaugeOverheatTLUT }
 
 D_10129C0:
   { type: TEXTURE, format: CI8, width: 16, height: 109, ctype: u8, offset: 0x10129C0, tlut: 0x1013090, symbol: D_10129C0 }
@@ -332,11 +332,11 @@ D_10129C0:
 D_1013090:
   { type: TEXTURE, format: TLUT, colors: 112, ctype: u16, offset: 0x1013090, symbol: D_1013090 }
 
-D_1013170:
-  { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x1013170, tlut: 0x1013570, symbol: D_1013170 }
+aMsgWindowBgTex:
+  { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x1013170, tlut: 0x1013570, symbol: aMsgWindowBgTex }
 
-D_1013570:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1013570, symbol: D_1013570 }
+aMsgWindowBgTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1013570, symbol: aMsgWindowBgTLUT }
 
 D_1013580:
   { type: TEXTURE, format: CI8, width: 48, height: 8, ctype: u8, offset: 0x1013580, tlut: 0x1013700, symbol: D_1013580 }

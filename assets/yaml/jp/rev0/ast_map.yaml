@@ -465,14 +465,14 @@ D_MAP_604C350:
 D_MAP_604C4C0:
   { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u8, symbol: D_MAP_604C4C0 }
 
-D_MAP_604C540:
-  { type: GFX, offset: 0x604C540, symbol: D_MAP_604C540 }
+aMapTitaniaRings1DL:
+  { type: GFX, offset: 0x604C540, symbol: aMapTitaniaRings1DL }
 
 D_MAP_604C5D8:
   { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u8, symbol: D_MAP_604C5D8 }
 
-D_MAP_604CDE0:
-  { type: GFX, offset: 0x604CDE0, symbol: D_MAP_604CDE0 }
+aMapTitaniaRings2DL:
+  { type: GFX, offset: 0x604CDE0, symbol: aMapTitaniaRings2DL }
 
 D_MAP_604CE78:
   { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u8, symbol: D_MAP_604CE78 }
