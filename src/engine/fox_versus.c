@@ -92,11 +92,11 @@ void func_versus_800BC8D8(f32 xPos, f32 yPos, f32 scale) {
 
     for (i = 0; i < 2; i++) {
         Lib_TextureRect_CI8(&gMasterDisp, D_versus_300A470 + (152 * 8 * i), D_versus_300B218, 152, 8, xPos,
-                        yPos + (8 * i * scale), scale, scale);
+                            yPos + (8 * i * scale), scale, scale);
     }
 
     Lib_TextureRect_CI8(&gMasterDisp, D_versus_300A470 + (152 * 8 * i), D_versus_300B218, 152, 7, xPos,
-                    yPos + (8 * i * scale), scale, scale);
+                        yPos + (8 * i * scale), scale, scale);
 }
 
 void func_versus_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale) {
@@ -107,7 +107,7 @@ void func_versus_800BC9DC(f32 xPos, f32 yPos, f32 scale, s32 yScale) {
 
     for (i = 0; i < 5; i++) {
         Lib_TextureRect_CI8(&gMasterDisp, D_800D4ABC[yScale] + (D_800D4AB0[yScale] * 8 * i), D_800D4AA4[yScale],
-                        D_800D4AB0[yScale], 8, xPos, yPos + (8 * i * scale), scale, scale);
+                            D_800D4AB0[yScale], 8, xPos, yPos + (8 * i * scale), scale, scale);
     }
 }
 
@@ -116,10 +116,10 @@ void func_versus_800BCB44(f32 xPos, f32 yPos, f32 scale) {
 
     for (i = 0; i < 2; i++) {
         Lib_TextureRect_CI8(&gMasterDisp, D_versus_3006C60 + (96 * 8 * i), D_versus_3007500, 96, 8, xPos,
-                        yPos + (8 * i * scale), scale, scale);
+                            yPos + (8 * i * scale), scale, scale);
     }
     Lib_TextureRect_CI8(&gMasterDisp, D_versus_3006C60 + (96 * 8 * i), D_versus_3007500, 96, 7, xPos,
-                    yPos + (8 * i * scale), scale, scale);
+                        yPos + (8 * i * scale), scale, scale);
 }
 
 void func_versus_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4) {
@@ -129,11 +129,11 @@ void func_versus_800BCC48(f32 xPos, f32 yPos, f32 xScale, f32 yScale, s32 arg4) 
     s32 i;
 
     for (i = 0; i < 3; i++) {
-        Lib_TextureRect_CI8(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4], D_800D4AE8[arg4],
-                        8, xPos, yPos + (8 * i * yScale), xScale, yScale);
+        Lib_TextureRect_CI8(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4],
+                            D_800D4AE8[arg4], 8, xPos, yPos + (8 * i * yScale), xScale, yScale);
     }
-    Lib_TextureRect_CI8(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4], D_800D4AE8[arg4], 1,
-                    xPos, yPos + (8 * i * yScale), xScale, yScale);
+    Lib_TextureRect_CI8(&gMasterDisp, D_800D4AD8[arg4] + (D_800D4AE8[arg4] * 8 * i), D_800D4AC8[arg4], D_800D4AE8[arg4],
+                        1, xPos, yPos + (8 * i * yScale), xScale, yScale);
 }
 
 void func_versus_800BCE24(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
@@ -141,7 +141,7 @@ void func_versus_800BCE24(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
 
     for (i = 0; i < 6; i++) {
         Lib_TextureRect_CI8(&gMasterDisp, D_versus_3001420 + (256 * 7 * i), D_versus_3003E20, 256, 7, xPos,
-                        yPos + (7 * i * yScale), xScale, yScale);
+                            yPos + (7 * i * yScale), xScale, yScale);
     }
 }
 
@@ -150,10 +150,10 @@ void func_versus_800BCEF8(f32 xPos, f32 yPos, f32 scale) {
 
     for (i = 0; i < 12; i++) {
         Lib_TextureRect_CI8(&gMasterDisp, D_versus_3004010 + (136 * 2 * i), D_versus_3004D58, 136, 2, xPos,
-                        yPos + (2 * i * scale), scale, scale);
+                            yPos + (2 * i * scale), scale, scale);
     }
     Lib_TextureRect_CI8(&gMasterDisp, D_versus_3004010 + (136 * 2 * i), D_versus_3004D58, 136, 1, xPos,
-                    yPos + (2 * i * scale), scale, scale);
+                        yPos + (2 * i * scale), scale, scale);
 }
 
 void func_versus_800BCFFC(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
@@ -205,10 +205,10 @@ void func_versus_800BD3A8(f32 xPos, f32 yPos) {
 
     for (i = 0; i < 8; i++) {
         Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + ((80 * 8 * i) / 2), D_VS_MENU_70123F8, 80, 8, xPos,
-                        yPos + (i * 8), 1.0f, 1.0f);
+                            yPos + (i * 8), 1.0f, 1.0f);
     }
     Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + ((80 * 8 * i) / 2), D_VS_MENU_70123F8, 80, 7, xPos,
-                    yPos + (i * 8), 1.0f, 1.0f);
+                        yPos + (i * 8), 1.0f, 1.0f);
 }
 
 void func_versus_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
@@ -285,12 +285,16 @@ void func_versus_800BDAA0(f32 xPos, f32 yPos, s32 arg2, s32 arg3, s32 arg4) {
             Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp1], 16, 15, xPos, yPos, 0.7f, 0.7f);
         } else {
             if (temp3 > y3) {
-                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp2] + (16 * arg4), 16, 15 - arg4, xPos, yPos, 0.7f, 0.7f);
-                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp1], 16, arg4, xPos, yPos + (15 - arg4) * 0.7f, 0.7f, 0.7f);
+                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp2] + (16 * arg4), 16, 15 - arg4, xPos, yPos, 0.7f,
+                                    0.7f);
+                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp1], 16, arg4, xPos, yPos + (15 - arg4) * 0.7f, 0.7f,
+                                    0.7f);
             }
             if (temp3 < y3) {
-                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp2], 16, 15 - arg4, xPos, yPos + (arg4 * 0.7f), 0.7f, 0.7f);
-                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp1] + (16 * (15 - arg4)), 16, arg4, xPos, yPos, 0.7f, 0.7f);
+                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp2], 16, 15 - arg4, xPos, yPos + (arg4 * 0.7f), 0.7f,
+                                    0.7f);
+                Lib_TextureRect_IA8(&gMasterDisp, D_800D4B48[temp1] + (16 * (15 - arg4)), 16, arg4, xPos, yPos, 0.7f,
+                                    0.7f);
             }
         }
         xPos += 13.0f * 0.7f;

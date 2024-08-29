@@ -54,8 +54,8 @@ s32 D_801617C0[10];
 s32 D_801617E8[10];
 s32 D_80161810[10];
 s32 D_80161838[10];
-s32 D_80161860[20];
-f32 D_801618B0[20];
+s32 sGoldRingsIwork[20];
+f32 sGoldRingsFwork[20];
 s32 D_80161900[20];
 
 #include "global.h"
@@ -88,7 +88,7 @@ s32 D_80161900[20];
 #include "assets/ast_allies.h"
 #include "assets/ast_star_wolf.h"
 
-void func_hud_80087788(void);
+void Hud_TeammateStatus_Draw(void);
 
 s16 D_hud_800D1970 = 0;
 
@@ -123,7 +123,8 @@ Gfx D_800D1A40[] = {
     gsSPEndDisplayList(),
 };
 
-void Hud_LivesCount_Draw(f32 arg0, f32 arg1, s32 arg2) {
+// Used in the status screen, and when losing a life
+void Hud_LivesCount1_Draw(f32 arg0, f32 arg1, s32 arg2) {
     u8* D_800D1A58[] = {
         D_arwing_3000000,
         D_blue_marine_3000000,
@@ -182,7 +183,7 @@ void Hud_LivesCount_Draw(f32 arg0, f32 arg1, s32 arg2) {
         }
 
         arg0 += 16.0f + 8 * (2 - i);
-        func_hud_800869A0(arg0, arg1, arg2, 1.0f, 1, 99);
+        func_hud_800869A0(arg0, arg1, arg2, 1.0f, true, 99);
     }
 }
 
@@ -263,22 +264,23 @@ void Hud_IncomingMsgSignal3_Draw(f32 xPos, f32 yPos) {
 }
 
 // Right part of the Player shield gauge frame
-void Hud_PlayerShieldGaugeEdgeRight_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
-    Lib_TextureRect_IA8_MirX(&gMasterDisp, aPlayerShieldGaugeFrameEdgeTex, 8, 12, xPos, yPos, xScale, yScale);
+void Hud_ShieldGaugeEdgeRight_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    Lib_TextureRect_IA8_MirX(&gMasterDisp, aShieldGaugeFrameEdgeTex, 8, 12, xPos, yPos, xScale, yScale);
 }
 
 // Left part of the Player shield gauge frame
-void Hud_PlayerShieldGaugeEdgeLeft_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
-    Lib_TextureRect_IA8(&gMasterDisp, aPlayerShieldGaugeFrameEdgeTex, 8, 12, xPos, yPos, xScale, yScale);
+void Hud_ShieldGaugeEdgeLeft_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    Lib_TextureRect_IA8(&gMasterDisp, aShieldGaugeFrameEdgeTex, 8, 12, xPos, yPos, xScale, yScale);
 }
 
 // Top and bottom parts of the Player shield gauge frame
-void Hud_PlayerShieldGaugeFrame_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
-    Lib_TextureRect_IA8(&gMasterDisp, aPlayerShieldGaugeFrameTex, 8, 12, xPos, yPos, xScale, yScale);
+void Hud_ShieldGaugeFrame_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    Lib_TextureRect_IA8(&gMasterDisp, aShieldGaugeFrameTex, 8, 12, xPos, yPos, xScale, yScale);
 }
 
-void Hud_PlayerShieldGauge_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale, f32 arg4) {
-    TextureRect_CI8_2(&gMasterDisp, D_1013580, D_1013700, 48, 12, xPos, yPos, xScale, yScale, 48.0f * arg4, 8.0f);
+void Hud_ShieldGaugeBars_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale, f32 arg4) {
+    TextureRect_CI8_2(&gMasterDisp, aShieldGaugeTex, aShieldGaugeTLUT, 48, 12, xPos, yPos, xScale, yScale, 48.0f * arg4,
+                      8.0f);
 }
 
 void Hud_BoostGaugeFrame_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
@@ -291,23 +293,29 @@ void Hud_BoostGaugeFrame_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
 
 void Hud_BoostGaugeOverheat_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     if (gVersusMode) {
-        Lib_TextureRect_CI8(&gMasterDisp, aVsBoostGaugeOverheatTex, aVsBoostGaugeOverheatTLUT, 24, 3, xPos, yPos, xScale, yScale);
+        Lib_TextureRect_CI8(&gMasterDisp, aVsBoostGaugeOverheatTex, aVsBoostGaugeOverheatTLUT, 24, 3, xPos, yPos,
+                            xScale, yScale);
     } else {
-        Lib_TextureRect_CI8(&gMasterDisp, aBoostGaugeOverheatTex, aBoostGaugeOverheatTLUT, 40, 5, xPos, yPos, xScale, yScale);
+        Lib_TextureRect_CI8(&gMasterDisp, aBoostGaugeOverheatTex, aBoostGaugeOverheatTLUT, 40, 5, xPos, yPos, xScale,
+                            yScale);
     }
 }
 
 void Hud_BoostGaugeCool_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     if (gVersusMode) {
-        Lib_TextureRect_CI8(&gMasterDisp, aVsBoostGaugeCoolTex, aVsBoostGaugeCoolTLUT, 24, 3, xPos, yPos, xScale, yScale);
+        Lib_TextureRect_CI8(&gMasterDisp, aVsBoostGaugeCoolTex, aVsBoostGaugeCoolTLUT, 24, 3, xPos, yPos, xScale,
+                            yScale);
     } else {
         Lib_TextureRect_CI8(&gMasterDisp, aBoostGaugeCoolTex, aBoostGaugeCoolTLUT, 40, 5, xPos, yPos, xScale, yScale);
     }
 }
 
-void func_hud_80085944(void) {
-    Gfx* D_800D1A94[] = { D_101C170, D_101C000, D_101BE90, D_101BD20, D_101BBB0, D_101BA40,
-                          D_101B8D0, D_101B760, D_101B5F0, D_101B480, D_101B310, D_101B1A0 };
+void Hud_GoldRings_Draw(void) {
+    Gfx* sGoldRingDLs[] = {
+        aGoldRingFrame1DL, aGoldRingFrame2DL,  aGoldRingFrame3DL,  aGoldRingFrame4DL,
+        aGoldRingFrame5DL, aGoldRingFrame6DL,  aGoldRingFrame7DL,  aGoldRingFrame8DL,
+        aGoldRingFrame9DL, aGoldRingFrame10DL, aGoldRingFrame11DL, aGoldRingFrame12DL,
+    };
     s32 i;
     s32 j;
     f32 D_800D1AC4[] = { 0.0f, -30.0f, -26.0f, -22.0f, -18.0f };
@@ -315,14 +323,14 @@ void func_hud_80085944(void) {
     f32 scale;
     f32 x;
     f32 y;
-    s32 temp;
+    s32 goldRingFrameIdx;
 
-    D_801618B0[6] += 0.7f;
-    if (D_801618B0[6] >= 12.0f) {
-        D_801618B0[6] = 0.0f;
+    sGoldRingsFwork[6] += 0.7f;
+    if (sGoldRingsFwork[6] >= 12.0f) {
+        sGoldRingsFwork[6] = 0.0f;
     }
 
-    if (D_80161900[4]) {
+    if (D_80161900[4] != 0) {
         D_80161900[4]--;
     }
 
@@ -341,9 +349,9 @@ void func_hud_80085944(void) {
 
         i--;
 
-        D_80161860[1 + i] = 1;
+        sGoldRingsIwork[1 + i] = 1;
         D_80161900[0 + i] = 14;
-        D_801618B0[2 + i] = 0.0f;
+        sGoldRingsFwork[2 + i] = 0.0f;
 
         if (i == 2) {
             D_80161900[4] = 28;
@@ -354,8 +362,9 @@ void func_hud_80085944(void) {
         }
     }
 
+    // One for each gold ring slot
     for (i = 0; i < 3; i++) {
-        switch (D_80161860[i + 1]) {
+        switch (sGoldRingsIwork[i + 1]) {
             case 0:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_62);
                 Matrix_Push(&gGfxMatrix);
@@ -374,7 +383,7 @@ void func_hud_80085944(void) {
                 Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 180, 180, 0, 50);
-                gSPDisplayList(gMasterDisp++, D_1012110);
+                gSPDisplayList(gMasterDisp++, aGoldRingEmptySlotDL);
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
@@ -382,9 +391,9 @@ void func_hud_80085944(void) {
             case 2:
                 if (D_80161900[i]) {
                     if (D_80161900[i + 0] >= 7) {
-                        D_801618B0[i + 2] += 0.15f;
+                        sGoldRingsFwork[i + 2] += 0.15f;
                     } else {
-                        D_801618B0[i + 2] -= 0.15f;
+                        sGoldRingsFwork[i + 2] -= 0.15f;
                     }
 
                     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
@@ -392,16 +401,17 @@ void func_hud_80085944(void) {
 
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_800D1AC4[i + 1], D_800D1AD8[i + 1], -100.0f, MTXF_NEW);
-                    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_801618B0[0], MTXF_APPLY);
-                    Matrix_Scale(gGfxMatrix, D_801618B0[i + 2], D_801618B0[i + 2], D_801618B0[i + 2], MTXF_APPLY);
+                    Matrix_RotateZ(gGfxMatrix, M_DTOR * sGoldRingsFwork[0], MTXF_APPLY);
+                    Matrix_Scale(gGfxMatrix, sGoldRingsFwork[i + 2], sGoldRingsFwork[i + 2], sGoldRingsFwork[i + 2],
+                                 MTXF_APPLY);
 
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_101C2E0);
+                    gSPDisplayList(gMasterDisp++, aStarDL);
                     Matrix_Pop(&gGfxMatrix);
                 }
 
                 if (D_80161900[i] < 7) {
-                    if (D_80161860[i + 1] == 2) {
+                    if (sGoldRingsIwork[i + 1] == 2) {
                         RCP_SetupDL(&gMasterDisp, SETUPDL_62);
                     } else {
                         RCP_SetupDL(&gMasterDisp, SETUPDL_36);
@@ -423,12 +433,12 @@ void func_hud_80085944(void) {
                     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
 
-                    if (D_80161860[i + 1] == 2) {
+                    if (sGoldRingsIwork[i + 1] == 2) {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 180, 180, 0, 50);
-                        gSPDisplayList(gMasterDisp++, D_1012110);
+                        gSPDisplayList(gMasterDisp++, aGoldRingEmptySlotDL);
                     } else {
-                        temp = D_801618B0[6];
-                        gSPDisplayList(gMasterDisp++, D_800D1A94[temp]);
+                        goldRingFrameIdx = sGoldRingsFwork[6];
+                        gSPDisplayList(gMasterDisp++, sGoldRingDLs[goldRingFrameIdx]);
                     }
                     Matrix_Pop(&gGfxMatrix);
                 }
@@ -441,31 +451,31 @@ void func_hud_80085944(void) {
 
     if ((gGoldRingCount[1] && ((gGoldRingCount[1] % 3) == 0)) && (D_80161900[4] == 1)) {
         for (j = 0; j < 4; j++) {
-            if (D_80161860[j + 1] == 1) {
-                D_80161860[j + 1] = 2;
+            if (sGoldRingsIwork[j + 1] == 1) {
+                sGoldRingsIwork[j + 1] = 2;
                 D_80161900[j + 0] = 14;
-                D_801618B0[j + 2] = 0.0f;
+                sGoldRingsFwork[j + 2] = 0.0f;
                 D_80161900[4] = 28;
             } else {
-                D_80161860[j + 1] = 0;
+                sGoldRingsIwork[j + 1] = 0;
                 D_80161900[j + 0] = 14;
-                D_801618B0[j + 2] = 0.0f;
+                sGoldRingsFwork[j + 2] = 0.0f;
             }
         }
     }
-    D_801618B0[0] += 35.0f;
-    D_801618B0[1] += 10.0f;
+    sGoldRingsFwork[0] += 35.0f;
+    sGoldRingsFwork[1] += 10.0f;
 }
 
-void func_hud_80086110(f32 arg0, f32 arg1, s32 arg2) {
-    f32 temp = 0.82f;
+void Hud_TeamShields_Draw(f32 xPos, f32 yPos, s32 arg2) {
+    f32 xScale = 0.82f;
     s32 pad;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_75);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     if (arg2 != 0) {
-        Hud_PlayerShieldGauge_Draw((8.0f * temp) + arg0, arg1 + 2.0f, temp, 1.0f, arg2 / 255.0f);
+        Hud_ShieldGaugeBars_Draw((8.0f * xScale) + xPos, yPos + 2.0f, xScale, 1.0f, arg2 / 255.0f);
     }
 
     if ((arg2 <= 0) && (arg2 != -2) &&
@@ -473,20 +483,20 @@ void func_hud_80086110(f32 arg0, f32 arg1, s32 arg2) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         if ((arg2 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-            Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, " OK ");
+            Graphics_DisplaySmallText(xPos + (8.0f * xScale) + 4.0f, yPos + 2.0f, 1.0f, 1.0f, " OK ");
         } else {
-            Graphics_DisplaySmallText(arg0 + (8.0f * temp) + 4.0f, arg1 + 2.0f, 1.0f, 1.0f, "DOWN");
+            Graphics_DisplaySmallText(xPos + (8.0f * xScale) + 4.0f, yPos + 2.0f, 1.0f, 1.0f, "DOWN");
         }
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Hud_PlayerShieldGaugeEdgeLeft_Draw(arg0, arg1, temp, 1.0f);
-    Hud_PlayerShieldGaugeEdgeRight_Draw(arg0 + (7.0f * temp) + (temp * 6.0f) * 8.0f, arg1, 1.0f, 1.0f);
-    Hud_PlayerShieldGaugeFrame_Draw(arg0 + (7.0f * temp), arg1, temp * 6.0f, 1.0f);
+    Hud_ShieldGaugeEdgeLeft_Draw(xPos, yPos, xScale, 1.0f);
+    Hud_ShieldGaugeEdgeRight_Draw(xPos + (7.0f * xScale) + (xScale * 6.0f) * 8.0f, yPos, 1.0f, 1.0f);
+    Hud_ShieldGaugeFrame_Draw(xPos + (7.0f * xScale), yPos, xScale * 6.0f, 1.0f);
 }
 
-s32 func_hud_800863C8(void) {
+s32 Hud_GetLevelIndex(void) {
     s32 ret = 0;
 
     switch (gCurrentLevel) {
@@ -559,17 +569,17 @@ UnkStruct_D_800D1AEC D_800D1AEC[] = {
     { aLargeText_7, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { aLargeText_0, 16, 15, aTextTraining, 80, 12 },
 };
 
-void func_hud_80086444(void) {
+void Hud_VenomTitleCard_Draw(void) {
     s32 i = 9;
     s32 j;
 
-    u8* D_800D1C9C[] = { D_VE1_6001B80, D_VE2_60020D0 };
-    s32 D_800D1CA4[] = { 128, 104 };
-    s32 D_800D1CAC[] = { 19, 19 };
-    f32 D_800D1CB4[] = { 96.0f, 112.0f };
-    f32 D_800D1CBC[] = { 89.0f, 89.0f };
-    f32 D_800D1CC4[] = { 2.0f, 5.0f };
-    f32 D_800D1CCC[] = { 1.6f, 1.6f };
+    u8* sVenomTitleCardDLs[] = { D_VE1_6001B80, D_VE2_60020D0 };
+    s32 sVenomTitleCardWidths[] = { 128, 104 };
+    s32 D_800D1CAC[] = { 19, 19 }; // unused
+    f32 sVenomTitleCardHeights[] = { 96.0f, 112.0f };
+    f32 sVenomTitleCardxPos[] = { 89.0f, 89.0f };
+    f32 D_800D1CC4[] = { 2.0f, 5.0f }; // unused
+    f32 D_800D1CCC[] = { 1.6f, 1.6f }; // unused
 
     switch (gCurrentLevel) {
         case LEVEL_VENOM_2:
@@ -589,15 +599,16 @@ void func_hud_80086444(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
         for (j = 0; j < 19; j++) {
-            Lib_TextureRect_IA8(&gMasterDisp, D_800D1C9C[i] + (D_800D1CA4[i] * j), D_800D1CA4[i], 1, D_800D1CB4[i],
-                            D_800D1CBC[i] + j - 28.0f, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, sVenomTitleCardDLs[i] + (sVenomTitleCardWidths[i] * j),
+                                sVenomTitleCardWidths[i], 1, sVenomTitleCardHeights[i],
+                                sVenomTitleCardxPos[i] + j - 28.0f, 1.0f, 1.0f);
         }
     }
 }
 
-void func_hud_80086664(f32 x, f32 y) {
+void Hud_TitleCard_Draw(f32 x, f32 y) {
     s32 i;
-    s32 j;
+    s32 levelIdx;
     f32 x0;
     f32 y0;
     f32 x1;
@@ -605,7 +616,7 @@ void func_hud_80086664(f32 x, f32 y) {
     f32 x2;
     f32 y2;
 
-    j = func_hud_800863C8();
+    levelIdx = Hud_GetLevelIndex();
 
     x0 = x;
     y0 = y;
@@ -613,11 +624,11 @@ void func_hud_80086664(f32 x, f32 y) {
     x1 = x0 + 72.0f;
     y1 = y0;
 
-    x2 = x0 - ((D_800D1AEC[j].unk_10 - 88.0f - D_800D1AEC[j].width) / 2.0f);
+    x2 = x0 - ((D_800D1AEC[levelIdx].unk_10 - 88.0f - D_800D1AEC[levelIdx].width) / 2.0f);
 
     y2 = y0 + 19.0f + 8.0f;
 
-    if (j == 7) {
+    if (levelIdx == 7) { // LEVEL_SECTOR_Z
         x2 += 4.0f;
     }
 
@@ -660,33 +671,33 @@ void func_hud_80086664(f32 x, f32 y) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    if ((j != 14) && (j != 15)) {
+    if ((levelIdx != 14) && (levelIdx != 15)) { // LEVEL_KATINA || LEVEL_FORTUNA
         Lib_TextureRect_IA8(&gMasterDisp, aTextMissionNo, 112, 19, x0 - 12.0f, y0 + 4.0f, 1.0f, 1.0f);
 
-        Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_00, D_800D1AEC[j].width, D_800D1AEC[j].height, x1 + 28.0f,
-                        y1 + 4.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[levelIdx].unk_00, D_800D1AEC[levelIdx].width,
+                            D_800D1AEC[levelIdx].height, x1 + 28.0f, y1 + 4.0f, 1.0f, 1.0f);
     } else {
-        func_hud_80086444();
+        Hud_VenomTitleCard_Draw();
     }
 
-    for (i = 0; i < D_800D1AEC[j].unk_14; i++) {
-        Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_0C + (D_800D1AEC[j].unk_10 * i), D_800D1AEC[j].unk_10, 1, x2,
-                        y2 + i, 1.0f, 1.0f);
+    for (i = 0; i < D_800D1AEC[levelIdx].unk_14; i++) {
+        Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[levelIdx].unk_0C + (D_800D1AEC[levelIdx].unk_10 * i),
+                            D_800D1AEC[levelIdx].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
     }
 
     if ((gSavedObjectLoadIndex == 0) && (gAllRangeCheckpoint == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
         (gCurrentLevel != LEVEL_TRAINING)) {
-        func_hud_80087788();
+        Hud_TeammateStatus_Draw();
         Hud_TeamDownWrench_Draw(0);
     }
 
     if (gCurrentLevel != LEVEL_TRAINING) {
-        Hud_LivesCount_Draw(132.0f, 124.0f, gLifeCount[gPlayerNum]);
+        Hud_LivesCount1_Draw(132.0f, 124.0f, gLifeCount[gPlayerNum]);
     }
 }
 
-void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, s32 arg4, s32 arg5) {
-    s32 var_s2;
+void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, bool arg4, s32 arg5) {
+    bool var_s2;
     s32 i;
     s32 j;
 
@@ -747,7 +758,7 @@ void HUD_DrawLevelStartStatusScreen(void) {
             func_hud_80086C08(122.0f, 122.0f, 2.9f, 1.2f);
         }
 
-        func_hud_80086664(temp, sp18 - 24.0f);
+        Hud_TitleCard_Draw(temp, sp18 - 24.0f);
     }
 }
 
@@ -856,7 +867,7 @@ void HUD_DrawLevelClearScreen(void) {
             break;
     }
 
-    j = func_hud_800863C8();
+    j = Hud_GetLevelIndex();
 
     if (temp != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
@@ -869,35 +880,35 @@ void HUD_DrawLevelClearScreen(void) {
         case 1:
             if (boolTemp) {
                 for (i = 0; i < 11; i++) {
-                    Lib_TextureRect_IA8(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 2, x + 50.0f, y + 50.0f + (2 * i),
-                                    1.0f, 1.0f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 2, x + 50.0f,
+                                        y + 50.0f + (2 * i), 1.0f, 1.0f);
                 }
                 Lib_TextureRect_IA8(&gMasterDisp, aTextPLISHED + (136 * 2 * i), 136, 1, x + 50.0f, y + 50.0f + (2 * i),
-                                1.0f, 1.0f);
+                                    1.0f, 1.0f);
             } else {
                 for (i = 0; i < 10; i++) {
-                    Lib_TextureRect_IA8(&gMasterDisp, aTextLETE + (80 * 2 * i), 80, 2, x + 66.0f, y + 50.0f + (2 * i), 1.0f,
-                                    1.0f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aTextLETE + (80 * 2 * i), 80, 2, x + 66.0f, y + 50.0f + (2 * i),
+                                        1.0f, 1.0f);
                 }
                 Lib_TextureRect_IA8(&gMasterDisp, aTextLETE + (80 * 2 * i), 80, 1, x + 66.0f, y + 50.0f + (2 * i), 1.0f,
-                                1.0f);
+                                    1.0f);
             }
 
         case 2:
             if (boolTemp) {
                 for (i = 0; i < 11; i++) {
-                    Lib_TextureRect_IA8(&gMasterDisp, aTextACCOM + (120 * 2 * i), 120, 2, x - 62.0f, y + 50.0f + (2 * i),
-                                    1.0f, 1.0f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aTextACCOM + (120 * 2 * i), 120, 2, x - 62.0f,
+                                        y + 50.0f + (2 * i), 1.0f, 1.0f);
                 }
-                Lib_TextureRect_IA8(&gMasterDisp, aTextACCOM + (120 * 2 * i), 120, 1, x - 62.0f, y + 50.0f + (2 * i), 1.0f,
-                                1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, aTextACCOM + (120 * 2 * i), 120, 1, x - 62.0f, y + 50.0f + (2 * i),
+                                    1.0f, 1.0f);
             } else {
                 for (i = 0; i < 11; i++) {
-                    Lib_TextureRect_IA8(&gMasterDisp, aTextCOMP + (96 * 2 * i), 96, 2, x - 22.0f, y + 50.0f + (2 * i), 1.0f,
-                                    1.0f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aTextCOMP + (96 * 2 * i), 96, 2, x - 22.0f, y + 50.0f + (2 * i),
+                                        1.0f, 1.0f);
                 }
                 Lib_TextureRect_IA8(&gMasterDisp, aTextCOMP + (96 * 2 * i), 96, 1, x - 22.0f, y + 50.0f + (2 * i), 1.0f,
-                                1.0f);
+                                    1.0f);
             }
 
         case 3:
@@ -905,8 +916,8 @@ void HUD_DrawLevelClearScreen(void) {
 
         case 4:
             Lib_TextureRect_IA8(&gMasterDisp, aTextMissionNo, 112, 19, x, y, 1.0f, 1.0f);
-            Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_00, D_800D1AEC[j].width, D_800D1AEC[j].height, x + 112.0f,
-                            y, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_00, D_800D1AEC[j].width, D_800D1AEC[j].height,
+                                x + 112.0f, y, 1.0f, 1.0f);
 
         case 5:
             func_hud_80086C08(30.0f + D_800D1CFC, 60.0f, 10.97f, 4.78f);
@@ -917,9 +928,10 @@ void HUD_DrawLevelClearScreen(void) {
     }
 }
 
-void func_hud_80087530(f32 x, f32 y, s32 number) {
-    u8* D_800D1D00[] = { D_arwing_3000000, D_blue_marine_3000000, D_landmaster_3000000 };
-    u16* D_800D1D0C[] = { D_arwing_3000080, D_blue_marine_3000080, D_landmaster_3000080 };
+// Used in gameplay hud
+void Hud_LivesCount2_Draw(f32 x, f32 y, s32 number) {
+    u8* sLivesCounterTexs[] = { D_arwing_3000000, D_blue_marine_3000000, D_landmaster_3000000 };
+    u16* sLivesCounterTLUTs[] = { D_arwing_3000080, D_blue_marine_3000080, D_landmaster_3000080 };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;
@@ -973,14 +985,14 @@ void func_hud_80087530(f32 x, f32 y, s32 number) {
     }
     x2 += (2 - i) * 4;
 
-    Lib_TextureRect_CI4(&gMasterDisp, D_800D1D00[form], D_800D1D0C[form], 16, 16, x0, y0, 1.0f, 1.0f);
+    Lib_TextureRect_CI4(&gMasterDisp, sLivesCounterTexs[form], sLivesCounterTLUTs[form], 16, 16, x0, y0, 1.0f, 1.0f);
     Lib_TextureRect_CI4(&gMasterDisp, D_1011ED0, D_1011F08, 16, 7, x1, y1, 1.0f, 1.0f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplayHUDNumber(x2, y2, number);
 }
 
-void func_hud_80087788(void) {
+void Hud_TeammateStatus_Draw(void) {
     u16* D_800D1D18[] = { D_10050E0, D_100BAC0, D_100D900, D_10032A0 };
     u8* D_800D1D28[] = { aTextPeppy, aTextSlippy, aTextFalco };
     s32 shield;
@@ -1030,12 +1042,12 @@ void func_hud_80087788(void) {
 
         for (i = 0; i < 2; i++) {
             Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
-                               y[j][0] + (f32) (20 * i), 1.0f, 1.0f);
+                                   y[j][0] + (f32) (20 * i), 1.0f, 1.0f);
         }
         Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * 2), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f,
-                           1.0f);
+                               1.0f);
 
-        func_hud_80086110(x[j][2], y[j][2], shield);
+        Hud_TeamShields_Draw(x[j][2], y[j][2], shield);
     }
 }
 
@@ -1234,19 +1246,19 @@ void HUD_DrawLevelClearStatusScreen(void) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 90, 160, 200, 255);
-        func_hud_800869A0(24.0f, 30.0f + 3.0f, D_801617C0[5], 1.0f, 0, 999);
+        func_hud_800869A0(24.0f, 30.0f + 3.0f, D_801617C0[5], 1.0f, false, 999);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         Lib_TextureRect_IA8(&gMasterDisp, aTextEnemiesDown, 64, 25, x0, y0 + 4.0f, 1.0f, 1.0f);
 
-        func_hud_800869A0(x1, y1 + 12.0f, D_801617C0[1], 1.0f, 1, 999);
+        func_hud_800869A0(x1, y1 + 12.0f, D_801617C0[1], 1.0f, true, 999);
 
         Lib_TextureRect_IA8(&gMasterDisp, aTextAccumTotal, 128, 10, x3, y3, 1.0f, 1.0f);
 
-        func_hud_800869A0(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, 1, 9999);
+        func_hud_800869A0(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, true, 9999);
 
         if ((D_801617C0[6] % 2) == 0) {
-            func_hud_80087530(232.0f, 90.0f, D_801617C0[3]);
+            Hud_LivesCount2_Draw(232.0f, 90.0f, D_801617C0[3]);
         }
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
@@ -1254,9 +1266,9 @@ void HUD_DrawLevelClearStatusScreen(void) {
 
         Lib_TextureRect_IA8(&gMasterDisp, aTextStatusOfTeam, 120, 12, x6 - 8.0f, y6 + 10.0f, 1.0f, 1.0f);
 
-        func_hud_80087788();
+        Hud_TeammateStatus_Draw();
         Hud_TeamDownWrench_Draw(0);
-        func_hud_8008B5B0(20.0f, 18.0f);
+        Hud_PlayerShieldGauge_Draw(20.0f, 18.0f);
     }
 }
 
@@ -1277,7 +1289,7 @@ void func_hud_800884E4(void) {
     }
 }
 
-void func_hud_80088564(void) {
+void Hud_Bolse_Area6_SaveData(void) {
     PlanetId planetId;
 
     if ((gCurrentLevel == LEVEL_BOLSE) || (gCurrentLevel == LEVEL_AREA_6)) {
@@ -1326,70 +1338,71 @@ void HUD_DrawStatusScreens(void) {
 }
 
 s32 func_hud_800886B8(void) {
-    s32 var_v1 = 0;
-    f32 var_fv1 = gInputPress->stick_y;
+    s32 ret = 0;
+    f32 stickY = gInputPress->stick_y;
 
-    if ((var_fv1 != 0.0f) && (D_80161810[4] != 0)) {
+    if ((stickY != 0.0f) && (D_80161810[4] != 0)) {
         return 0;
     }
 
     D_80161810[4] = 0;
 
-    if (fabsf(var_fv1) < 30.0f) {
-        var_fv1 = 0.0f;
+    if (fabsf(stickY) < 30.0f) {
+        stickY = 0.0f;
     }
 
-    if (var_fv1 != 0.0f) {
+    if (stickY != 0.0f) {
         if (D_80161810[2] == 0) {
-            if (var_fv1 > 0) {
-                var_v1 = 1;
+            if (stickY > 0) {
+                ret = 1;
             } else {
-                var_v1 = -1;
+                ret = -1;
             }
             D_80161810[2] = 1;
         }
     } else {
         D_80161810[2] = 0;
     }
-    return var_v1;
+
+    return ret;
 }
 
-void func_hud_80088784(s32 arg0) {
-    Gfx* D_800D1D4C[] = {
+void Hud_LoseLifeExplosion_Draw(s32 frames) {
+    Gfx* sLoseLifePlanetAnimDLs[] = {
         D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0,
         D_BG_PLANET_2006360, D_BG_PLANET_200C6C0, D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0,
         D_BG_PLANET_2002120, D_BG_PLANET_2001090, D_BG_SPACE_2000000,  D_BG_PLANET_2010A30, D_BG_PLANET_20101A0,
         D_BG_PLANET_200F910, D_BG_PLANET_200F080, D_BG_PLANET_200E7F0,
     };
-    Gfx* D_800D1D94[] = {
+    Gfx* sLoseLifeSpaceAnimDLs[] = {
         D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10, D_BG_SPACE_2004480,
         D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240, D_BG_SPACE_20019B0,
         D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
     };
-    s32 D_800D1DC8[] = {
+    s32 sLoseLifePrimColors[] = {
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 200, 150, 100, 50,
     };
 
-    if (arg0 != 0) {
-        arg0--;
+    if (frames != 0) {
+        frames--;
         RCP_SetupDL(&gMasterDisp, SETUPDL_36);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1DC8[arg0]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sLoseLifePrimColors[frames]);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 3.9f, -3.3f, -100.0f, MTXF_NEW);
         Matrix_Scale(gGfxMatrix, 0.37f, 0.37f, 0.37f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (gLevelType == LEVELTYPE_PLANET) {
-            gSPDisplayList(gMasterDisp++, D_800D1D4C[arg0]);
+            gSPDisplayList(gMasterDisp++, sLoseLifePlanetAnimDLs[frames]);
         } else {
-            gSPDisplayList(gMasterDisp++, D_800D1D94[arg0]);
+            gSPDisplayList(gMasterDisp++, sLoseLifeSpaceAnimDLs[frames]);
         }
 
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void func_hud_80088970(void) {
+void Hud_PauseScreen_Update(void) {
     s32 i;
     s32 j;
     Player* player;
@@ -1593,7 +1606,7 @@ void func_hud_80088970(void) {
         switch (D_80161810[0]) {
             case 0:
             case 1:
-                j = func_hud_800863C8();
+                j = Hud_GetLevelIndex();
 
                 x0 = 140.0f;
                 y0 = 92.0f + 4.0f;
@@ -1647,7 +1660,7 @@ void func_hud_80088970(void) {
 
                 for (i = 0; i < D_800D1AEC[j].unk_14; i++) {
                     Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_0C + (D_800D1AEC[j].unk_10 * i),
-                                    D_800D1AEC[j].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
+                                        D_800D1AEC[j].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
                 }
 
                 func_hud_80086C08(x1 - 10.0f, y0 - 4.0f, 4.7f, 2.8f);
@@ -1693,7 +1706,7 @@ void func_hud_80088970(void) {
                 }
 
                 if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gCurrentLevel != LEVEL_TRAINING)) {
-                    func_hud_80087788();
+                    Hud_TeammateStatus_Draw();
                     Hud_TeamDownWrench_Draw(0);
                 }
                 break;
@@ -1701,8 +1714,8 @@ void func_hud_80088970(void) {
             case 3:
             case 4:
                 if (gCurrentLevel != LEVEL_TRAINING) {
-                    Hud_LivesCount_Draw(132.0f, 124.0f, gLifeCount[gPlayerNum]);
-                    func_hud_80088784(D_80161838[1]);
+                    Hud_LivesCount1_Draw(132.0f, 124.0f, gLifeCount[gPlayerNum]);
+                    Hud_LoseLifeExplosion_Draw(D_80161838[1]);
                 }
                 break;
 
@@ -2249,7 +2262,7 @@ void HUD_RadioCharacterName_Draw(void) {
     }
 }
 
-void func_hud_8008B044(void) {
+void Hud_IncomingMsg_Update(void) {
     switch (D_80161798) {
         case 0:
             if (gCallTimer == 0) {
@@ -2285,34 +2298,35 @@ void func_hud_8008B044(void) {
     }
 }
 
-void func_hud_8008B1B0(void) {
-    f32 temp = 142.0f;
-    f32 temp2 = 18.0f;
+void Hud_IncomingMsg_Draw(void) {
+    f32 xPos = 142.0f;
+    f32 yPos = 18.0f;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     switch (D_80161790 / 2) {
         case 3:
-            Hud_IncomingMsgSignal3_Draw(temp + 31.0f, temp2);
+            Hud_IncomingMsgSignal3_Draw(xPos + 31.0f, yPos);
         case 2:
-            Hud_IncomingMsgSignal2_Draw(temp + 24.0f, temp2);
+            Hud_IncomingMsgSignal2_Draw(xPos + 24.0f, yPos);
         case 1:
-            Hud_IncomingMsgSignal1_Draw(temp + 18.0f, temp2);
+            Hud_IncomingMsgSignal1_Draw(xPos + 18.0f, yPos);
         case 0:
-            Hud_IncomingMsgButton_Draw(temp, temp2);
+            Hud_IncomingMsgButton_Draw(xPos, yPos);
             break;
+
         default:
             break;
     }
 }
 
-void func_hud_8008B2A4(void) {
+void Hud_IncomingMsg(void) {
     if (gPlayState != PLAY_PAUSE) {
-        func_hud_8008B044();
+        Hud_IncomingMsg_Update();
     }
     if (gCallTimer != 0) {
-        func_hud_8008B1B0();
+        Hud_IncomingMsg_Draw();
     }
 }
 
@@ -2320,7 +2334,7 @@ s32 D_800D1EB4 = 255;
 s32 D_800D1EB8 = 255;
 s32 D_800D1EBC = 255;
 
-void func_hud_8008B2F0(void) {
+void Hud_PlayerShieldGauge_Update(void) {
     f32 shields;
 
     switch (D_hud_80161730) {
@@ -2382,21 +2396,22 @@ void func_hud_8008B2F0(void) {
     }
 }
 
-void func_hud_8008B5B0(f32 x, f32 y) {
+void Hud_PlayerShieldGauge_Draw(f32 x, f32 y) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_75);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Hud_PlayerShieldGauge_Draw(x + 8.0f, y + 2.0f, D_801617A8, 1.0f, D_801617AC);
+    Hud_ShieldGaugeBars_Draw(x + 8.0f, y + 2.0f, D_801617A8, 1.0f, D_801617AC);
+
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D1EB4, D_800D1EB8, D_800D1EBC, 255);
-    Hud_PlayerShieldGaugeEdgeLeft_Draw(x, y, 1.0f, 1.0f);
-    Hud_PlayerShieldGaugeEdgeRight_Draw(x + 7.0f + (D_801617A8 * 6.0f * 8.0f), y, 1.0f, 1.0f);
-    Hud_PlayerShieldGaugeFrame_Draw(x + 7.0f, y, D_801617A8 * 6.0f, 1.0f);
+    Hud_ShieldGaugeEdgeLeft_Draw(x, y, 1.0f, 1.0f);
+    Hud_ShieldGaugeEdgeRight_Draw(x + 7.0f + (D_801617A8 * 6.0f * 8.0f), y, 1.0f, 1.0f);
+    Hud_ShieldGaugeFrame_Draw(x + 7.0f, y, D_801617A8 * 6.0f, 1.0f);
 }
 
-void func_hud_8008B734(void) {
-    func_hud_8008B2F0();
-    func_hud_8008B5B0(20.0f, 18.0f);
-    func_hud_80085944();
+void Hud_UpperLeft_Update(void) {
+    Hud_PlayerShieldGauge_Update();
+    Hud_PlayerShieldGauge_Draw(20.0f, 18.0f);
+    Hud_GoldRings_Draw();
 }
 
 s32 func_hud_8008B774(void) {
@@ -2405,54 +2420,54 @@ s32 func_hud_8008B774(void) {
     s32 temp;
 
     switch (gCurrentRadioPortrait) {
-        case 0:
-        case 1:
+        case RCID_FOX:
+        case RCID_FOX + 1:
             i = 0;
             break;
 
-        case 10:
-        case 11:
+        case RCID_FALCO:
+        case RCID_FALCO + 1:
             temp = 1;
             i = 1;
             break;
 
-        case 20:
-        case 21:
+        case RCID_SLIPPY:
+        case RCID_SLIPPY + 1:
             temp = 2;
             i = 2;
             break;
 
-        case 30:
-        case 31:
+        case RCID_PEPPY:
+        case RCID_PEPPY + 1:
             temp = 3;
             i = 3;
             break;
 
-        case 240:
-        case 241:
-        case 200:
-        case 201:
+        case RCID_WOLF:
+        case RCID_WOLF + 1:
+        case RCID_WOLF_2:
+        case RCID_WOLF_2 + 1:
             i = 4;
             break;
 
-        case 260:
-        case 261:
-        case 220:
-        case 221:
+        case RCID_LEON:
+        case RCID_LEON + 1:
+        case RCID_LEON_2:
+        case RCID_LEON_2 + 1:
             i = 5;
             break;
 
-        case 250:
-        case 251:
-        case 210:
-        case 211:
+        case RCID_PIGMA:
+        case RCID_PIGMA + 1:
+        case RCID_PIGMA_2:
+        case RCID_PIGMA_2 + 1:
             i = 6;
             break;
 
-        case 270:
-        case 271:
-        case 230:
-        case 231:
+        case RCID_ANDREW:
+        case RCID_ANDREW + 1:
+        case RCID_ANDREW_2:
+        case RCID_ANDREW_2 + 1:
             i = 7;
             break;
 
@@ -2730,10 +2745,11 @@ void func_hud_8008C5C8(f32 arg0, f32 arg1, f32 arg2, s32 arg3) {
     s32 i;
 
     for (i = 0; i < 2; i++) {
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1EE8[arg3] + (44 * 20 * i), 44, 20, arg0, (20 * i * arg2) + arg1, arg2,
-                           arg2);
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1EE8[arg3] + (44 * 20 * i), 44, 20, arg0, (20 * i * arg2) + arg1,
+                               arg2, arg2);
     }
-    Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1EE8[arg3] + 44 * 20 * 2, 44, 4, arg0, (40.0f * arg2) + arg1, arg2, arg2);
+    Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1EE8[arg3] + 44 * 20 * 2, 44, 4, arg0, (40.0f * arg2) + arg1, arg2,
+                           arg2);
 }
 
 void func_hud_8008C6F4(s32 idx, s32 arg1) {
@@ -2884,10 +2900,10 @@ void func_hud_8008CFB8(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
 
     for (i = 0; i < 3; i++) {
         Lib_TextureRect_IA8(&gMasterDisp, D_versus_3000BC0 + 2 * ((80 * 8 * i) / 2), 80, 8, arg0, (8 * i * arg3) + arg1,
-                        arg2, arg3);
+                            arg2, arg3);
     }
-    Lib_TextureRect_IA8(&gMasterDisp, D_versus_3000BC0 + 2 * ((80 * 8 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1, arg2,
-                    arg3);
+    Lib_TextureRect_IA8(&gMasterDisp, D_versus_3000BC0 + 2 * ((80 * 8 * i) / 2), 80, 2, arg0, (8 * i * arg3) + arg1,
+                        arg2, arg3);
 }
 
 void func_hud_8008D0DC(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
@@ -3162,7 +3178,8 @@ void HUD_DisplayCountdown(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
         if ((i % 2) != 0) {
             RCP_SetupDL_78();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            Lib_TextureRect_CI4(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, (var_fs0 * scale) + xPos, yPos, scale, scale);
+            Lib_TextureRect_CI4(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, (var_fs0 * scale) + xPos, yPos, scale,
+                                scale);
         } else {
             RCP_SetupDL_76();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -3313,7 +3330,7 @@ void func_hud_8008E620(f32 arg0, f32 arg1) {
 
 void func_hud_8008E9EC(f32 arg0, f32 arg1) {
     func_hud_8008E620(arg0, arg1);
-    func_hud_8008B734();
+    Hud_UpperLeft_Update();
 }
 
 void func_hud_8008EA14(f32 x, f32 y) {
@@ -3456,7 +3473,8 @@ void func_hud_8008EA14(f32 x, f32 y) {
                 func_hud_8008DD78(x + 29.0f, y + 1.0f, D_800D19F4, D_8016177C, D_80161780, D_80161784);
             } else {
                 for (i = (D_800D19F4 - 1); i >= 0; i--) {
-                    Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + (30.0f - (i * 10)), y, 1.0f, 1.0f);
+                    Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + (30.0f - (i * 10)), y, 1.0f,
+                                        1.0f);
                 }
             }
             break;
@@ -3476,7 +3494,7 @@ void func_hud_8008EA14(f32 x, f32 y) {
                     temp = D_800D19F0;
                 }
                 Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + (30.0f - (i * 10)) + temp, y, 1.0f,
-                                1.0f);
+                                    1.0f);
             }
             break;
 
@@ -3488,9 +3506,12 @@ void func_hud_8008EA14(f32 x, f32 y) {
             break;
 
         case 4:
-            Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + 30.0f - (D_800D19F0 * 3.0f), y, 1.0f, 1.0f);
-            Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + 20.0f - (D_800D19F0 * 2.0f), y, 1.0f, 1.0f);
-            Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + 10.0f - (D_800D19F0 * 1.0f), y, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + 30.0f - (D_800D19F0 * 3.0f), y, 1.0f,
+                                1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + 20.0f - (D_800D19F0 * 2.0f), y, 1.0f,
+                                1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x + 10.0f - (D_800D19F0 * 1.0f), y, 1.0f,
+                                1.0f);
             Lib_TextureRect_CI4(&gMasterDisp, D_10116B0, D_1011730, 16, 16, x, y, 1.0f, 1.0f);
             break;
 
@@ -3503,7 +3524,8 @@ void func_hud_8008EA14(f32 x, f32 y) {
         case 6:
             RCP_SetupDL(&gMasterDisp, SETUPDL_78);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            Lib_TextureRect_CI4(&gMasterDisp, D_blue_marine_3000090, D_blue_marine_3000120, 32, 9, x + 1.0f, y, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_blue_marine_3000090, D_blue_marine_3000120, 32, 9, x + 1.0f, y, 1.0f,
+                                1.0f);
             break;
     }
 }
@@ -3524,12 +3546,12 @@ void func_hud_8008F96C(void) {
         func_hud_8008EA14(250.0f, 38.0f);
     }
 
-    func_hud_8008B2A4();
+    Hud_IncomingMsg();
 
     if (D_hud_80161708 != 0) {
         func_hud_8008E9EC(24.0f, 30.0f);
         if (gCurrentLevel != LEVEL_TRAINING) {
-            func_hud_80087530(248.0f, 11.0f, gLifeCount[gPlayerNum]);
+            Hud_LivesCount2_Draw(248.0f, 11.0f, gLifeCount[gPlayerNum]);
         }
     }
 
@@ -3553,8 +3575,8 @@ void HUD_Draw(void) {
 
         for (i = 0; i < 20; i++) {
             D_80161900[i] = 0;
-            D_80161860[i] = 0;
-            D_801618B0[i] = 0.0f;
+            sGoldRingsIwork[i] = 0;
+            sGoldRingsFwork[i] = 0.0f;
         }
 
         if (gGoldRingCount[0] != 0) {
@@ -3565,7 +3587,7 @@ void HUD_Draw(void) {
 
             for (i = 0; i < goldRings; i++) {
                 if (goldRings != 3) {
-                    D_80161860[i + 1] = 1;
+                    sGoldRingsIwork[i + 1] = 1;
                 }
             }
             gGoldRingCount[1] = gGoldRingCount[0];
@@ -3649,7 +3671,7 @@ void HUD_Draw(void) {
         func_hud_8008F96C();
     }
     func_hud_8008BC80();
-    func_hud_80088970();
+    Hud_PauseScreen_Update();
 }
 
 void HUD_FoBase_Draw(Boss* boss) {

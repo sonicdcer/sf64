@@ -44,18 +44,18 @@ void Ending_8018CE20(u32 arg0) {
                         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
                         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
-                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 0, 192, 5, 64.0f, 105.0f,
-                                        1.0f, 1.0f);
-                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 1, 192, 5, 64.0f, 110.0f,
-                                        1.0f, 1.0f);
-                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 2, 192, 5, 64.0f, 115.0f,
-                                        1.0f, 1.0f);
-                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 3, 192, 5, 64.0f, 120.0f,
-                                        1.0f, 1.0f);
-                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 4, 192, 5, 64.0f, 125.0f,
-                                        1.0f, 1.0f);
-                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 5, 192, 5, 64.0f, 130.0f,
-                                        1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 0, 192, 5, 64.0f,
+                                            105.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 1, 192, 5, 64.0f,
+                                            110.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 2, 192, 5, 64.0f,
+                                            115.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 3, 192, 5, 64.0f,
+                                            120.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 4, 192, 5, 64.0f,
+                                            125.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 5, 192, 5, 64.0f,
+                                            130.0f, 1.0f, 1.0f);
                     } else {
                         xPos = (320 - Graphics_GetSmallTextWidth(D_ending_80192E74[i].unk_00)) / 2;
                         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
@@ -184,9 +184,12 @@ void Ending_8018D814(u32 arg0, AssetInfo* asset) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
 
     Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_1, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
-    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f, 1.0f);
-    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f, 1.0f);
-    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_7, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f,
+                        1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f,
+                        1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_7, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f,
+                        1.0f);
 }
 
 void Ending_8018DA0C(u32 arg0, AssetInfo* asset) {

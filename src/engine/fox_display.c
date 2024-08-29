@@ -990,10 +990,10 @@ void Display_ArwingLaserCharge(Player* player) {
 
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 53.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * -53.0f * 2.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
         Matrix_Pop(&gGfxMatrix);
 
         if (player->alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
@@ -1119,11 +1119,11 @@ void Display_LandmasterLaserCharge(Player* player) {
 
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 53.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
 
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * -53.0f * 2.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, MTXF_APPLY);

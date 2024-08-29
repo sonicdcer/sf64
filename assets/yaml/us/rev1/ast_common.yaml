@@ -41,8 +41,8 @@ D_1002040:
 D_1002220:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002220, symbol: D_1002220 }
 
-aPlayerShieldGaugeFrameEdgeTex:
-  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002280, symbol: aPlayerShieldGaugeFrameEdgeTex }
+aShieldGaugeFrameEdgeTex:
+  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002280, symbol: aShieldGaugeFrameEdgeTex }
 
 D_10022E0:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10022E0, symbol: D_10022E0 }
@@ -53,8 +53,8 @@ D_1002340:
 D_10024D0:
   { type: TEXTURE, format: IA8, width: 96, height: 32, ctype: u8, offset: 0x10024D0, symbol: D_10024D0 }
 
-aPlayerShieldGaugeFrameTex:
-  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10030D0, symbol: aPlayerShieldGaugeFrameTex }
+aShieldGaugeFrameTex:
+  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10030D0, symbol: aShieldGaugeFrameTex }
 
 D_1003130:
   { type: GFX, offset: 0x1003130, symbol: D_1003130 }
@@ -290,11 +290,11 @@ D_1012000:
 D_1012100:
   { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1012100, ctype: u16, symbol: D_1012100 }
 
-D_1012110:
-  { type: GFX, offset: 0x1012110, symbol: D_1012110 }
+aGoldRingEmptySlotDL:
+  { type: GFX, offset: 0x1012110, symbol: aGoldRingEmptySlotDL }
 
-D_1012190:
-  { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1012190, symbol: D_1012190 }
+aGoldRingEmptySlotTex:
+  { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1012190, symbol: aGoldRingEmptySlotTex }
 
 D_1012290:
   { type: TEXTURE, format: CI8, width: 48, height: 22, ctype: u8, offset: 0x1012290, tlut: 0x10126B0, symbol: D_1012290 }
@@ -338,11 +338,11 @@ aMsgWindowBgTex:
 aMsgWindowBgTLUT:
   { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1013570, symbol: aMsgWindowBgTLUT }
 
-D_1013580:
-  { type: TEXTURE, format: CI8, width: 48, height: 8, ctype: u8, offset: 0x1013580, tlut: 0x1013700, symbol: D_1013580 }
+aShieldGaugeTex:
+  { type: TEXTURE, format: CI8, width: 48, height: 8, ctype: u8, offset: 0x1013580, tlut: 0x1013700, symbol: aShieldGaugeTex }
 
-D_1013700:
-  { type: TEXTURE, format: TLUT, colors: 58, ctype: u16, offset: 0x1013700, symbol: D_1013700 }
+aShieldGaugeTLUT:
+  { type: TEXTURE, format: TLUT, colors: 58, ctype: u16, offset: 0x1013700, symbol: aShieldGaugeTLUT }
 
 D_1015320:
   { type: GFX, offset: 0x1015320, symbol: D_1015320 }
@@ -563,8 +563,8 @@ D_101AED0:
 D_101AF98:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x101AF98, symbol: D_101AF98 }
 
-D_101B1A0:
-  { type: GFX, offset: 0x101B1A0, symbol: D_101B1A0 }
+aGoldRingFrame12DL:
+  { type: GFX, offset: 0x101B1A0, symbol: aGoldRingFrame12DL }
 
 D_101B268:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B268, tlut: 0x101B2E8, symbol: D_101B268 }
@@ -572,8 +572,8 @@ D_101B268:
 D_101B2E8:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B2E8, ctype: u16, symbol: D_101B2E8 }
 
-D_101B310:
-  { type: GFX, offset: 0x101B310, symbol: D_101B310 }
+aGoldRingFrame11DL:
+  { type: GFX, offset: 0x101B310, symbol: aGoldRingFrame11DL }
 
 D_101B3D8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B3D8, tlut: 0x101B458, symbol: D_101B3D8 }
@@ -581,8 +581,8 @@ D_101B3D8:
 D_101B458:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B458, ctype: u16, symbol: D_101B458 }
 
-D_101B480:
-  { type: GFX, offset: 0x101B480, symbol: D_101B480 }
+aGoldRingFrame10DL:
+  { type: GFX, offset: 0x101B480, symbol: aGoldRingFrame10DL }
 
 D_101B548:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B548, tlut: 0x101B5C8, symbol: D_101B548 }
@@ -590,8 +590,8 @@ D_101B548:
 D_101B5C8:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B5C8, ctype: u16, symbol: D_101B5C8 }
 
-D_101B5F0:
-  { type: GFX, offset: 0x101B5F0, symbol: D_101B5F0 }
+aGoldRingFrame9DL:
+  { type: GFX, offset: 0x101B5F0, symbol: aGoldRingFrame9DL }
 
 D_101B6B8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B6B8, tlut: 0x101B738, symbol: D_101B6B8 }
@@ -599,8 +599,8 @@ D_101B6B8:
 D_101B738:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B738, ctype: u16, symbol: D_101B738 }
 
-D_101B760:
-  { type: GFX, offset: 0x101B760, symbol: D_101B760 }
+aGoldRingFrame8DL:
+  { type: GFX, offset: 0x101B760, symbol: aGoldRingFrame8DL }
 
 D_101B828:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B828, tlut: 0x101B8A8, symbol: D_101B828 }
@@ -608,8 +608,8 @@ D_101B828:
 D_101B8A8:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B8A8, ctype: u16, symbol: D_101B8A8 }
 
-D_101B8D0:
-  { type: GFX, offset: 0x101B8D0, symbol: D_101B8D0 }
+aGoldRingFrame7DL:
+  { type: GFX, offset: 0x101B8D0, symbol: aGoldRingFrame7DL }
 
 D_101B998:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B998, tlut: 0x101BA18, symbol: D_101B998 }
@@ -617,8 +617,8 @@ D_101B998:
 D_101BA18:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BA18, ctype: u16, symbol: D_101BA18 }
 
-D_101BA40:
-  { type: GFX, offset: 0x101BA40, symbol: D_101BA40 }
+aGoldRingFrame6DL:
+  { type: GFX, offset: 0x101BA40, symbol: aGoldRingFrame6DL }
 
 D_101BB08:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BB08, tlut: 0x101BB88, symbol: D_101BB08 }
@@ -626,8 +626,8 @@ D_101BB08:
 D_101BB88:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BB88, ctype: u16, symbol: D_101BB88 }
 
-D_101BBB0:
-  { type: GFX, offset: 0x101BBB0, symbol: D_101BBB0 }
+aGoldRingFrame5DL:
+  { type: GFX, offset: 0x101BBB0, symbol: aGoldRingFrame5DL }
 
 D_101BC78:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BC78, tlut: 0x101BCF8, symbol: D_101BC78 }
@@ -635,8 +635,8 @@ D_101BC78:
 D_101BCF8:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BCF8, ctype: u16, symbol: D_101BCF8 }
 
-D_101BD20:
-  { type: GFX, offset: 0x101BD20, symbol: D_101BD20 }
+aGoldRingFrame4DL:
+  { type: GFX, offset: 0x101BD20, symbol: aGoldRingFrame4DL }
 
 D_101BDE8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BDE8, tlut: 0x101BE68, symbol: D_101BDE8 }
@@ -644,8 +644,8 @@ D_101BDE8:
 D_101BE68:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BE68, ctype: u16, symbol: D_101BE68 }
 
-D_101BE90:
-  { type: GFX, offset: 0x101BE90, symbol: D_101BE90 }
+aGoldRingFrame3DL:
+  { type: GFX, offset: 0x101BE90, symbol: aGoldRingFrame3DL }
 
 D_101BF58:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BF58, tlut: 0x101BFD8, symbol: D_101BF58 }
@@ -653,8 +653,8 @@ D_101BF58:
 D_101BFD8:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BFD8, ctype: u16, symbol: D_101BFD8 }
 
-D_101C000:
-  { type: GFX, offset: 0x101C000, symbol: D_101C000 }
+aGoldRingFrame2DL:
+  { type: GFX, offset: 0x101C000, symbol: aGoldRingFrame2DL }
 
 D_101C0C8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C0C8, tlut: 0x101C148, symbol: D_101C0C8 }
@@ -662,8 +662,8 @@ D_101C0C8:
 D_101C148:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C148, ctype: u16, symbol: D_101C148 }
 
-D_101C170:
-  { type: GFX, offset: 0x101C170, symbol: D_101C170 }
+aGoldRingFrame1DL:
+  { type: GFX, offset: 0x101C170, symbol: aGoldRingFrame1DL }
 
 D_101C238:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C238, tlut: 0x101C2B8, symbol: D_101C238 }
@@ -671,11 +671,11 @@ D_101C238:
 D_101C2B8:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C2B8, ctype: u16, symbol: D_101C2B8 }
 
-D_101C2E0:
-  { type: GFX, offset: 0x101C2E0, symbol: D_101C2E0 }
+aStarDL:
+  { type: GFX, offset: 0x101C2E0, symbol: aStarDL }
 
-D_101C368:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, colors: 20, offset: 0x101C368, symbol: D_101C368 }
+aStarTex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, colors: 20, offset: 0x101C368, symbol: aStarTex }
 
 D_101C770:
   { type: GFX, offset: 0x101C770, symbol: D_101C770 }

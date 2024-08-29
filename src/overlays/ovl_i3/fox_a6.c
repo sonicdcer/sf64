@@ -1888,7 +1888,7 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
         Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, this->fwork[A6_FWK_33] * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
     } else if (D_i3_801C22F0.unk_24 != 0.0f) {
         Animation_GetFrameData(&D_A6_6018994, 0, jointTable);
 
@@ -2880,7 +2880,7 @@ void Area6_LevelComplete(Player* player) {
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_2;
 
-                    func_hud_80088564();
+                    Hud_Bolse_Area6_SaveData();
                 }
             }
 

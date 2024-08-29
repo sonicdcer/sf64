@@ -561,7 +561,7 @@ void Effect_Effect393_Draw(Effect393* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
     Graphics_SetScaleMtx(this->scale2 * this->scale1);
-    gSPDisplayList(gMasterDisp++, D_101C2E0);
+    gSPDisplayList(gMasterDisp++, aStarDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -3901,7 +3901,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             Graphics_SetScaleMtx(this->scale2);
-            gSPDisplayList(gMasterDisp++, D_101C2E0);
+            gSPDisplayList(gMasterDisp++, aStarDL);
             break;
 
         case 2:

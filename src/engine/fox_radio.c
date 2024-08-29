@@ -429,21 +429,21 @@ void func_radio_800BAAE8(void) {
         if (mirror) {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
                 Lib_TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
-                                        gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
-                                        gRadioPortraitScaleY);
+                                            gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY),
+                                            1.0f, gRadioPortraitScaleY);
             }
             Lib_TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
-                                    gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
-                                    gRadioPortraitScaleY);
+                                        gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                        gRadioPortraitScaleY);
         } else {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
                 Lib_TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
-                                   gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
-                                   gRadioPortraitScaleY);
+                                       gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
+                                       gRadioPortraitScaleY);
             }
             Lib_TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
-                               gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
-                               gRadioPortraitScaleY);
+                                   gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                   gRadioPortraitScaleY);
         }
     }
 }
@@ -488,7 +488,7 @@ void func_radio_800BB388(void) {
         }
 
         Lib_TextureRect_CI8(&gMasterDisp, texture, palette, 32, 32, gRadioTextBoxPosX, gRadioTextBoxPosY + 16.0f + sp30,
-                        gRadioTextBoxScaleX, gRadioTextBoxScaleY);
+                            gRadioTextBoxScaleX, gRadioTextBoxScaleY);
     }
 
     if (gRadioTextBoxScaleY == 1.3f) {
@@ -716,7 +716,7 @@ void Radio_Draw(void) {
             }
             if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                func_hud_80086110(22.0f, 165.0f, gTeamShields[idx]);
+                Hud_TeamShields_Draw(22.0f, 165.0f, gTeamShields[idx]);
             }
         }
 
@@ -764,7 +764,7 @@ void Radio_Draw(void) {
             }
             if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                func_hud_80086110(22.0f, 165.0f, gActors[idx].health * 2.55f);
+                Hud_TeamShields_Draw(22.0f, 165.0f, gActors[idx].health * 2.55f);
             }
         }
         if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
