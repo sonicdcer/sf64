@@ -14,7 +14,7 @@
     subsegments:
       # Microcode
       - [0x01050, textbin, rspboot]
-      - [0x01120, textbin, aspmain]
+      - [0x01120, textbin, aspmain] # vram: 0x04001080
       - [0x02010, textbin, f3dex]
 
       # Nintendo libraries
