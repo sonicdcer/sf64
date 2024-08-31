@@ -85,7 +85,7 @@ typedef struct {
 } ObjectInit; // size = 0x14
 
 typedef struct {
-    /* 0x00 */ u8 status;
+    /* 0x00 */ u8 enabled;
     /* 0x02 */ u16 type;
     /* 0x04 */ Vec3f pos;
     /* 0x10 */ f32 yRot;

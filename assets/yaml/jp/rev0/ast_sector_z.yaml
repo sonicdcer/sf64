@@ -94,8 +94,8 @@ D_SZ_6004458:
 D_SZ_6004558:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x06004558, symbol: D_SZ_6004558 }
 
-D_SZ_6004570:
-  { type: GFX, offset: 0x6004570, symbol: D_SZ_6004570 }
+aSzMissileRadarMarkDL:
+  { type: GFX, offset: 0x6004570, symbol: aSzMissileRadarMarkDL }
 
 aSzSpaceJunk4DL:
   { type: GFX, offset: 0x60045E0, symbol: aSzSpaceJunk4DL }

@@ -158,7 +158,7 @@ void Training_Enemy_Update(ActorAllRange* this) {
     ActorAllRange_ApplyDamage(this);
 
     radarMark = &gRadarMarks[this->index];
-    radarMark->status = 1;
+    radarMark->enabled = true;
     radarMark->type = this->aiType;
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;

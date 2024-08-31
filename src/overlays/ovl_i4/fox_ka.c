@@ -1491,7 +1491,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             this->obj.rot.y += 360.0f;
         }
 
-        gRadarMarks[64].status = 1;
+        gRadarMarks[64].enabled = true;
         gRadarMarks[64].type = 101;
         gRadarMarks[64].pos.x = this->obj.pos.x;
         gRadarMarks[64].pos.y = this->obj.pos.y;
@@ -1982,11 +1982,11 @@ void Katina_LevelComplete(Player* player) {
                     break;
 
                 case 350:
-                    gShowLevelClearStatusScreen = 1;
+                    gShowLevelClearStatusScreen = true;
                     break;
 
                 case 550:
-                    gShowLevelClearStatusScreen = 0;
+                    gShowLevelClearStatusScreen = false;
                     break;
 
                 case 1010:
@@ -2595,7 +2595,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
     ActorAllRange_ApplyDamage(this);
 
     radarMark = &gRadarMarks[this->index];
-    radarMark->status = 1;
+    radarMark->enabled = true;
     radarMark->type = this->aiType;
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;

@@ -2674,7 +2674,7 @@ void Player_ResetVsData(void) {
         gLaserStrength[i] = LASERS_SINGLE;
         gBombCount[i] = 0;
     }
-    gVsMatchStart = gVsMatchOver = false;
+    gVsMatchStart = gVsMatchWon = false;
 }
 
 void Player_InitVersus(void) {
@@ -2721,7 +2721,7 @@ void Play_Init(void) {
     gTraining360MsgTimer = gTraining360MsgIndex = gShowBossHealth = gStarWolfMsgTimer = gAllRangeWingRepairTimer =
         gAllRangeSuppliesSent = 0;
     D_display_800CA220 = 0;
-    gShowLevelClearStatusScreen = 0;
+    gShowLevelClearStatusScreen = false;
 
     if (gCurrentLevel != LEVEL_VERSUS) {
         gSceneSetup = 0;
@@ -5834,7 +5834,7 @@ void Player_Update(Player* player) {
                             player->csState = 0;
                             Camera_FollowPlayer(player, player->attacker - 1, 1);
                         } else {
-                            if (gVsMatchStart == 1) {
+                            if (gVsMatchStart == true) {
                                 gVsMatchStart++;
                                 for (i = 0; i < 4; i++) {
                                     Player_PlaySfx(gPlayer[i].sfxSource, NA_SE_ARWING_BOOST, gPlayer[i].num);
@@ -5928,7 +5928,7 @@ void Player_Update(Player* player) {
             player->draw = false;
             if (gPlayerInactive[player->num] == true) {
                 Camera_FollowPlayer(player, player->attacker - 1, 0);
-            } else if (!gVsMatchOver && (player->csState != 0)) {
+            } else if (!gVsMatchWon && (player->csState != 0)) {
                 player->csState = 0;
                 Player_Initialize(player);
                 Player_Setup(player);
@@ -6733,7 +6733,7 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_METEO:
-            Texture_Scroll(D_102FF08, 8, 8, 1);
+            Lib_Texture_Scroll(D_102FF08, 8, 8, 1);
             /* fallthrough */
         case LEVEL_SECTOR_X:
             if (gLevelPhase == 1) {
@@ -6757,26 +6757,26 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_CORNERIA:
-            func_hud_8008C104(D_CO_603EB38, D_CO_6028A60);
+            Hud_Texture_Wave(D_CO_603EB38, D_CO_6028A60);
             if ((gGameFrameCount % 2) != 0) {
-                Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
+                Lib_Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
 
         case LEVEL_AQUAS:
-            func_hud_8008C104(D_AQ_603158C, D_AQ_602ACC0);
+            Hud_Texture_Wave(D_AQ_603158C, D_AQ_602ACC0);
             break;
 
         case LEVEL_SOLAR:
             Play_UpdateDynaFloor();
 
             for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
-                Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                Lib_Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
-                Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                Lib_Texture_Scroll(D_SO_6005710, 32, 32, 1);
             }
-            Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
+            Lib_Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
                 cycleMask = 8 - 1;
@@ -6827,7 +6827,7 @@ void Play_UpdateLevel(void) {
                                RAND_FLOAT(10.0f) + 20.0f); // check
             }
 
-            func_hud_8008C104(D_SO_60229A4, D_SO_6010198);
+            Hud_Texture_Wave(D_SO_60229A4, D_SO_6010198);
 
             if (gPlayer[0].shields == 0) {
                 gSoShieldsEmpty = 1;
@@ -6837,13 +6837,13 @@ void Play_UpdateLevel(void) {
         case LEVEL_ZONESS:
             Play_UpdateDynaFloor();
             for (gPathTexScroll; gPathTexScroll >= 20.0f; gPathTexScroll -= 20.0f) {
-                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+                Lib_Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
             if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT) {
-                Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+                Lib_Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
 
-            func_hud_8008C104(D_ZO_602C2CC, D_ZO_600D990);
+            Hud_Texture_Wave(D_ZO_602C2CC, D_ZO_600D990);
 
             if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
                                              gPlayer[0].cam.eye.z - gPathProgress)) {

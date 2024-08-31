@@ -1200,7 +1200,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
     this->vel.z = sp64.z - gPathVelZ;
 
     if (this->state < 20) {
-        gRadarMarks[59].status = 1;
+        gRadarMarks[59].enabled = true;
         gRadarMarks[59].type = 102;
         gRadarMarks[59].pos.x = this->obj.pos.x;
         gRadarMarks[59].pos.y = this->obj.pos.y;
@@ -4308,10 +4308,10 @@ void Andross_80193C4C(Player* player) {
                         }
                         break;
                     case 1050:
-                        gShowLevelClearStatusScreen = 1;
+                        gShowLevelClearStatusScreen = true;
                         break;
                     case 1250:
-                        gShowLevelClearStatusScreen = 0;
+                        gShowLevelClearStatusScreen = false;
                         break;
                 }
                 if (gCsFrameCount > 1300) {
@@ -4333,10 +4333,10 @@ void Andross_80193C4C(Player* player) {
                         gCsFrameCount += 230;
                         break;
                     case 1050:
-                        gShowLevelClearStatusScreen = 1;
+                        gShowLevelClearStatusScreen = true;
                         break;
                     case 1250:
-                        gShowLevelClearStatusScreen = 0;
+                        gShowLevelClearStatusScreen = false;
                         break;
                 }
             }

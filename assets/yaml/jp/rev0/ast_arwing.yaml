@@ -116,8 +116,8 @@ D_arwing_30121F0:
 D_arwing_30129F0:
   { type: TEXTURE, format: RGBA16, offset: 0x30129F0, width: 32, height: 32, ctype: u16, symbol: D_arwing_30129F0 }
 
-D_arwing_30131F0:
-  { type: GFX, offset: 0x30131F0, symbol: D_arwing_30131F0 }
+aAwCockpitViewDL:
+  { type: GFX, offset: 0x30131F0, symbol: aAwCockpitViewDL }
 
 D_arwing_30137E8:
   { type: TEXTURE, format: RGBA16, offset: 0x30137E8, width: 32, height: 32, ctype: u16, symbol: D_arwing_30137E8 }

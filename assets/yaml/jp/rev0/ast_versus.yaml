@@ -75,11 +75,11 @@ D_versus_3000B00:
 aVsBoostGaugeFrameTex:
   { type: TEXTURE, ctype: u8, format: IA8, width:  32, height:  5, offset: 0x3000B20, symbol: aVsBoostGaugeFrameTex }
 
-D_versus_3000BC0:
-  { type: TEXTURE, ctype: u8, format: IA8, width:  80, height: 26, offset: 0x3000BC0, symbol: D_versus_3000BC0 }
+aVsShieldGaugeFrameTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width:  80, height: 26, offset: 0x3000BC0, symbol: aVsShieldGaugeFrameTex }
 
-D_versus_30013E0:
-  { type: TEXTURE, ctype: u8, format: IA8, width:   8, height:  8, offset: 0x30013E0, symbol: D_versus_30013E0 }
+aVsStarTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width:   8, height:  8, offset: 0x30013E0, symbol: aVsStarTex }
 
 D_versus_3001420:
   { type: TEXTURE, ctype: u8, format: CI8, width: 256, height: 42, offset: 0x3001420, symbol: D_versus_3001420, tlut: 0x3003E20 }
@@ -151,10 +151,10 @@ aVsBoostGaugeOverheatTex:
 aVsBoostGaugeOverheatTLUT:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 24, offset: 0x300D408, symbol: aVsBoostGaugeOverheatTLUT }
 
-D_versus_300D440:
-  { type: TEXTURE, ctype: u8, format: CI8, width:  48, height:  4, offset: 0x300D440, symbol: D_versus_300D440, tlut: 0x300D500 }
-D_versus_300D500:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 40, offset: 0x300D500, symbol: D_versus_300D500 }
+aVsShieldGaugeTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width:  48, height:  4, offset: 0x300D440, symbol: aVsShieldGaugeTex, tlut: 0x300D500 }
+aVsShieldGaugeTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 40, offset: 0x300D500, symbol: aVsShieldGaugeTLUT }
 
 D_versus_300D550:
   { type: GFX, offset: 0x300D550, symbol: D_versus_300D550}

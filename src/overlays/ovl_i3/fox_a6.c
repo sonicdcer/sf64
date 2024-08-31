@@ -2901,11 +2901,11 @@ void Area6_LevelComplete(Player* player) {
             break;
 
         case 700:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 900:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 940:

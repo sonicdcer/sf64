@@ -878,7 +878,7 @@ void Effect_Effect357_Draw(Effect357* this) {
 }
 
 void Effect_Effect383_Update(Effect383* this) {
-    Texture_Scroll(D_10190C0, 16, 32, 0);
+    Lib_Texture_Scroll(D_10190C0, 16, 32, 0);
     gGroundClipMode = 2;
     this->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&this->scale2, this->scale1, 0.05f, 1.5f, 0.001f);
@@ -3968,7 +3968,7 @@ void Effect_Effect395_Draw(Effect395* this) {
 
         case 10:
             if (gPlayState != PLAY_PAUSE) {
-                Texture_Scroll(D_A6_6012840, 16, 16, 0);
+                Lib_Texture_Scroll(D_A6_6012840, 16, 16, 0);
             }
             RCP_SetupDL(&gMasterDisp, SETUPDL_53);
             Matrix_Scale(gGfxMatrix, this->unk_60.x, this->unk_60.y, this->unk_60.z, MTXF_APPLY);

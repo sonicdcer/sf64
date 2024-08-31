@@ -1980,7 +1980,7 @@ void Map_Draw(void) {
         D_menu_801CEEC4 = 0;
     }
 
-    Texture_Mottle((u16*) D_MAP_6047F80, (u16*) D_MAP_6048F80, 5);
+    Lib_Texture_Mottle((u16*) D_MAP_6047F80, (u16*) D_MAP_6048F80, 5);
 }
 
 s32 Map_801A05B4(void) {
@@ -5457,9 +5457,9 @@ void Map_801A9EE4(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     Graphics_DisplaySmallText(24, 14, 1.0f, 1.0f, "TOTAL HITS");
-    Graphics_DisplaySmallNumber(71 - (func_hud_8008BCBC(gTotalHits) * 8), 24, gTotalHits);
+    Graphics_DisplaySmallNumber(71 - (Hud_CountDigits(gTotalHits) * 8), 24, gTotalHits);
     Graphics_DisplaySmallText(143, 14, 1.0f, 1.0f, "TOP");
-    Graphics_DisplaySmallNumber(167 - (func_hud_8008BCBC(D_menu_801CD83C) * 8), 24, D_menu_801CD83C);
+    Graphics_DisplaySmallNumber(167 - (Hud_CountDigits(D_menu_801CD83C) * 8), 24, D_menu_801CD83C);
 }
 
 void Map_801A9FD4(s32 arg0) {
@@ -5571,7 +5571,7 @@ void Map_801AA434(s32 arg0, f32 x, f32 y, s32 idx) {
     Graphics_DisplaySmallText(x + 12.0f - Graphics_GetSmallTextWidth(sPlanetNames[idx]) * 0.5f, y - 8.0f, 1.0f, 1.0f,
                               sPlanetNames[idx]);
 
-    Graphics_DisplaySmallNumber(x + 15.0f - ((func_hud_8008BCBC(gMissionHitCount[arg0]) - 1) * 8), y + 24.0f + 1.0f,
+    Graphics_DisplaySmallNumber(x + 15.0f - ((Hud_CountDigits(gMissionHitCount[arg0]) - 1) * 8), y + 24.0f + 1.0f,
                                 gMissionHitCount[arg0]);
 
     if (gLastGameState == GSTATE_PLAY) {
@@ -6730,7 +6730,7 @@ void Map_801AD7EC(s32 xPos, s32 yPos, s32 number) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     if (number >= 10) {
-        Graphics_DisplaySmallNumber(xPos + 33.0f - ((func_hud_8008BCBC(number) - 1) * 8) + 3, yPos + 8.0f, number);
+        Graphics_DisplaySmallNumber(xPos + 33.0f - ((Hud_CountDigits(number) - 1) * 8) + 3, yPos + 8.0f, number);
     } else {
         Graphics_DisplaySmallNumber(xPos + 33.0f, yPos + 8.0f, number);
     }

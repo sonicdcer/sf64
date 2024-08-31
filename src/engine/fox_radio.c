@@ -169,7 +169,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX:
-            radioPortraitTex = D_10050E0;
+            radioPortraitTex = aFoxPortraitTex;
             break;
         case RCID_FOX_RED + 1:
             sRadioUseRedBox = true;
@@ -187,7 +187,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO:
-            radioPortraitTex = D_10032A0;
+            radioPortraitTex = aFalcoPortraitTex;
             break;
         case RCID_FALCO_RED + 1:
             sRadioUseRedBox = true;
@@ -199,7 +199,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY:
-            radioPortraitTex = D_100D900;
+            radioPortraitTex = aSlippyPortraitTex;
             break;
         case RCID_SLIPPY_RED + 1:
             sRadioUseRedBox = true;
@@ -211,7 +211,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY:
-            radioPortraitTex = D_100BAC0;
+            radioPortraitTex = aPeppyPortraitTex;
             break;
         case RCID_PEPPY_RED + 1:
             sRadioUseRedBox = true;

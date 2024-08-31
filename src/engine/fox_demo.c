@@ -167,11 +167,11 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     break;
 
                 case 200:
-                    gShowLevelClearStatusScreen = 1;
+                    gShowLevelClearStatusScreen = true;
                     break;
 
                 case 400:
-                    gShowLevelClearStatusScreen = 0;
+                    gShowLevelClearStatusScreen = false;
                     break;
 
                 case 420:
@@ -623,7 +623,7 @@ void Cutscene_LevelStart(Player* player) {
                 break;
 
             case LEVEL_AQUAS:
-                HUD_AquasStart(player);
+                Aquas_CsLevelStart(player);
                 break;
 
             case LEVEL_AREA_6:
@@ -1251,11 +1251,11 @@ void Cutscene_CoComplete2(Player* player) {
 
     switch (gCsFrameCount) {
         case 961:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1161:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1255:
@@ -1389,7 +1389,7 @@ void Cutscene_LevelComplete(Player* player) {
 
         case FORM_BLUE_MARINE:
             if (gCurrentLevel == LEVEL_AQUAS) {
-                HUD_AquasComplete(player);
+                Aquas_CsLevelComplete(player);
             }
             break;
     }
@@ -2301,7 +2301,7 @@ void func_demo_8004F798(ActorCutscene* this) {
 
 void ActorCutscene_Update(ActorCutscene* this) {
     if (gCurrentLevel == LEVEL_AQUAS) {
-        func_hud_80093164(this);
+        Aquas_CsIntroActors_Update(this);
         return;
     }
 

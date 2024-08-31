@@ -7,7 +7,7 @@
 
 #define VS_TIE 99
 
-s32 D_versus_80178750;
+bool gVsMatchOver;
 s32 gVsMatchState;
 s32 D_versus_80178758;
 s32 sUnlockLandmaster;
@@ -233,7 +233,7 @@ void func_versus_800BD4D4(f32 xPos, f32 yPos, s32 arg2) {
 }
 
 void func_versus_800BD720(f32 xPos, f32 yPos) {
-    Lib_TextureRect_IA8(&gMasterDisp, D_versus_30013E0, 8, 8, xPos, yPos, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, aVsStarTex, 8, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_versus_800BD76C(f32 xPos, f32 yPos) {
@@ -794,7 +794,7 @@ bool Versus_CheckForWinner(void) {
             }
 
             if ((sVsPlayerCount == 1) && (numDown == 4)) {
-                gVsMatchOver = true;
+                gVsMatchWon = true;
                 sVsWinner = VS_TIE;
             } else {
                 for (i = 0; i < 4; i++) {
@@ -822,7 +822,7 @@ bool Versus_CheckForWinner(void) {
                     }
                     gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
                 }
-                gVsMatchOver = true;
+                gVsMatchWon = true;
                 sVsWinner = i;
             }
             break;
@@ -837,7 +837,7 @@ bool Versus_CheckForWinner(void) {
                 }
             }
             if ((sVsPlayerCount == 1) && (numDown == 4)) {
-                gVsMatchOver = true;
+                gVsMatchWon = true;
                 sVsWinner = VS_TIE;
             } else {
                 if (numDown >= 2) {
@@ -861,7 +861,7 @@ bool Versus_CheckForWinner(void) {
                     }
                     gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
                 }
-                gVsMatchOver = true;
+                gVsMatchWon = true;
             }
             break;
 
@@ -962,7 +962,7 @@ bool Versus_CheckForWinner(void) {
 
                 gPlayer[j].state_1C8 = PLAYERSTATE_1C8_VS_STANDBY;
             }
-            gVsMatchOver = true;
+            gVsMatchWon = true;
             break;
 
         default:
@@ -1333,7 +1333,7 @@ void Versus_InitMatch(void) {
     sVsMatchMenuOption = 0;
     sVsWinner = VS_TIE;
     D_801787B8 = 0;
-    D_versus_80178750 = 0;
+    gVsMatchOver = false;
     gBgColor = 0;
     D_80178830 = 0;
     D_800D4A90 = 0;
@@ -1542,7 +1542,7 @@ bool Versus_Update(void) {
                         break;
                 }
 
-                D_versus_80178750 = 1;
+                gVsMatchOver = true;
                 gVsMatchState = VS_STATE_6;
                 func_versus_800C024C();
             }

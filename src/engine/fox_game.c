@@ -556,7 +556,7 @@ void Game_Update(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 1 - 1, SCREEN_WIDTH - SCREEN_MARGIN,
                              SCREEN_HEIGHT / 2 + 1);
 
-            HUD_dummy_8008CB8C();
+            HUD_8008CB8C();
         }
 
         partialFill = false;
@@ -568,7 +568,7 @@ void Game_Update(void) {
                 Radio_Draw();
                 if (gShowHud) {
                     HUD_Draw();
-                    HUD_DrawEdgeArrows();
+                    HUD_EdgeArrows_Update();
                 }
                 HUD_DrawBossHealth();
             }

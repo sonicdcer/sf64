@@ -185,7 +185,7 @@ extern f32 gRadioPortraitPosX;
 extern f32 gRadioPortraitPosY;
 
 // fox_versus
-extern s32 D_versus_80178750;
+extern bool gVsMatchOver;
 extern s32 gVsMatchState;
 extern s32 D_versus_80178758;
 extern s32 sUnlockLandmaster; // sUnlockLandmaster

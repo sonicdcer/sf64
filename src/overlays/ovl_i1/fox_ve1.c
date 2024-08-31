@@ -2442,5 +2442,5 @@ void Venom1_8019864C(PlayerShot* shot) {
 }
 
 void Venom1_LevelStart(Player* player) {
-    func_hud_80096A74(player);
+    Venom1_LevelStart2(player);
 }

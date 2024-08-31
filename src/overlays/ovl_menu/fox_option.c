@@ -2305,7 +2305,7 @@ void Option_80197DE4(s32 arg0, s32 arg1, s32 arg2) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(arg1, arg2, 1.0f, 1.0f, "TOTAL HITS");
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Graphics_DisplaySmallNumber((arg1 + 40.0f) - ((func_hud_8008BCBC(D_menu_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
+    Graphics_DisplaySmallNumber((arg1 + 40.0f) - ((Hud_CountDigits(D_menu_801B8220[arg0]) * 8) - 8), (arg2 + 9.0f),
                                 D_menu_801B8220[arg0]);
 }
 
@@ -2319,7 +2319,7 @@ void Option_80197F74(s32 arg0, s32 arg1, s32 arg2) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF0D0[i], D_menu_801AF0DC[i], D_menu_801AF0E8[i], 255);
         Graphics_DisplaySmallText(temp_fs1 + arg1, arg2, 1.0f, 1.0f, D_menu_801AF0C4[i]);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Graphics_DisplaySmallNumber(arg1 + temp_fs1 - ((func_hud_8008BCBC(D_menu_801B81A8[arg0][i]) - 1) * 8),
+        Graphics_DisplaySmallNumber(arg1 + temp_fs1 - ((Hud_CountDigits(D_menu_801B81A8[arg0][i]) - 1) * 8),
                                     arg2 + 9.0f, D_menu_801B81A8[arg0][i]);
     }
 }
@@ -2400,7 +2400,7 @@ void Option_801984D0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
         sp1C = (gSaveFile.save.data.unk_5E[arg0][arg1].unk_C & 1) << 8;
         sp1C |= gSaveFile.save.data.unk_5E[arg0][arg1].unk_0;
-        Graphics_DisplaySmallNumber(arg2 + 15.0f - (func_hud_8008BCBC(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
+        Graphics_DisplaySmallNumber(arg2 + 15.0f - (Hud_CountDigits(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
     }
 }
 
@@ -4091,7 +4091,7 @@ void Option_8019D118(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    Graphics_DisplayLargeNumber(D_menu_801AF30C[3] - ((func_hud_8008BCBC(gTotalHits) - 1) * 13), D_menu_801AF324[3],
+    Graphics_DisplayLargeNumber(D_menu_801AF30C[3] - ((Hud_CountDigits(gTotalHits) - 1) * 13), D_menu_801AF324[3],
                                 gTotalHits);
 
     Map_801A9FD4(1);
@@ -4464,12 +4464,12 @@ void Option_InvoiceDraw(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
 
-    Graphics_DisplayLargeNumber(D_menu_801AF3D0[6] - ((func_hud_8008BCBC(gTotalHits) - 1) * 13), D_menu_801AF3F0[6],
+    Graphics_DisplayLargeNumber(D_menu_801AF3D0[6] - ((Hud_CountDigits(gTotalHits) - 1) * 13), D_menu_801AF3F0[6],
                                 gTotalHits);
 
     temp_a0 = gTotalHits * 64;
 
-    Graphics_DisplayLargeNumber(D_menu_801AF3D0[7] - ((func_hud_8008BCBC(temp_a0) - 1) * 13), D_menu_801AF3F0[7],
+    Graphics_DisplayLargeNumber(D_menu_801AF3D0[7] - ((Hud_CountDigits(temp_a0) - 1) * 13), D_menu_801AF3F0[7],
                                 temp_a0);
 
     if (D_menu_801B9090) {

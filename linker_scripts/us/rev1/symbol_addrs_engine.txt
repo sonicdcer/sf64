@@ -6,8 +6,8 @@ sSmallChars = 0x800D2660;//type:asciz size:42
 
 Graphics_ClearPrintBuffer = 0x80099980;
 Graphics_Printf = 0x800999D8;
-Texture_Scroll = 0x80099A2C;
-Texture_Mottle = 0x80099E28;
+Lib_Texture_Scroll = 0x80099A2C;
+Lib_Texture_Mottle = 0x80099E28;
 Animation_GetLimbIndex = 0x8009A400;
 Animation_DrawLimb = 0x8009A440;
 Animation_DrawSkeleton = 0x8009A72C;

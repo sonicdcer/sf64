@@ -1664,7 +1664,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
 
         if (this->index == 0) {
             radarMark = &gRadarMarks[this->index + 1];
-            radarMark->status = 1;
+            radarMark->enabled = true;
             radarMark->type = 102;
             radarMark->pos.x = this->obj.pos.x;
             radarMark->pos.y = this->obj.pos.y;
@@ -1672,7 +1672,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
             radarMark->yRot = this->rot_078.y + 180.0f;
         } else {
             radarMark = &gRadarMarks[this->index + 4];
-            radarMark->status = 1;
+            radarMark->enabled = true;
             radarMark->type = 10;
             radarMark->pos.x = this->obj.pos.x;
             radarMark->pos.y = this->obj.pos.y;
@@ -2347,11 +2347,11 @@ void SectorY_LevelComplete(Player* player) {
             break;
 
         case 1163:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1363:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1440:

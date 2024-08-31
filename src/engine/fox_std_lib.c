@@ -25,7 +25,7 @@ s32 Graphics_Printf(const char* fmt, ...) {
     return 0;
 }
 
-void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
+void Lib_Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     u16* pixel = SEGMENTED_TO_VIRTUAL(texture);
     u16 tempPxl;
     s32 u;
@@ -71,7 +71,7 @@ void Texture_Scroll(u16* texture, s32 width, s32 height, u8 mode) {
     }
 }
 
-void Texture_Mottle(u16* dst, u16* src, u8 mode) {
+void Lib_Texture_Mottle(u16* dst, u16* src, u8 mode) {
     s32 u;
     s32 v;
     u8* dst8;

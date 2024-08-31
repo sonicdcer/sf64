@@ -674,7 +674,7 @@ void Display_Arwing(Player* player, s32 reflectY) {
             Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 5.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_arwing_30131F0);
+            gSPDisplayList(gMasterDisp++, aAwCockpitViewDL);
             Matrix_Pop(&gGfxMatrix);
         }
     } else {
@@ -927,8 +927,8 @@ void Display_UnusedShield(Player* player) {
         gDPSetEnvColor(gMasterDisp++, 255, 0, 255, (s32) gShieldAlpha[player->num]);
         gSPDisplayList(gMasterDisp++, aUnusedShieldDL);
         Matrix_Pop(&gGfxMatrix);
-        Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
-        Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
+        Lib_Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
+        Lib_Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
     }
 }
 
@@ -1900,7 +1900,7 @@ void Display_Update(void) {
     if ((gCamCount != 1) &&
         ((camPlayer->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (camPlayer->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         HUD_Draw();
-        HUD_DrawEdgeArrows();
+        HUD_EdgeArrows_Update();
     }
     Matrix_Pop(&gGfxMatrix);
     Display_DrawHelpAlert();

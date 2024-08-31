@@ -3460,11 +3460,11 @@ void Solar_LevelComplete(Player* player) {
             break;
 
         case 1186:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1386:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1460:

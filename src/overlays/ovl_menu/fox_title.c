@@ -433,7 +433,7 @@ void Title_80187E28(void) {
     for (i = 0; i < D_menu_801B8288; i++) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        Graphics_DisplaySmallNumber(105 - ((func_hud_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
+        Graphics_DisplaySmallNumber(105 - ((Hud_CountDigits(i + 1) - 1) * 8), temp, i + 1);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
@@ -441,7 +441,7 @@ void Title_80187E28(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        Graphics_DisplaySmallNumber(211 - ((func_hud_8008BCBC(D_menu_801B8220[i]) - 1) * 8), temp, D_menu_801B8220[i]);
+        Graphics_DisplaySmallNumber(211 - ((Hud_CountDigits(D_menu_801B8220[i]) - 1) * 8), temp, D_menu_801B8220[i]);
         temp += 17;
     }
 }
