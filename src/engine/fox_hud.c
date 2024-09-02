@@ -2166,27 +2166,26 @@ s32 HUD_RadarMarks_Update(void) {
     return 0;
 }
 
-// Why is this function here in fox_hud? Weird.
-s32 ActorMissileSeek_ModeCheck(s32 missileSeekMode) {
+s32 ActorMissileSeek_ModeCheck(ActorMissileSeekMode mode) {
     Actor* actor;
     s32 i;
     s32 ret = 0;
 
     for (i = 0, actor = &gActors[0]; i < 60; i++, actor++) {
-        switch (missileSeekMode) {
-            case 0: // follows teammates
+        switch (mode) {
+            case MISSILE_SEEK_TEAMMATES:
                 if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
                     ret++;
                 }
                 break;
 
-            case 1: // follows player
+            case MISSILE_SEEK_PLAYER:
                 if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) {
                     ret++;
                 }
                 break;
 
-            case 2: // follows either
+            case MISSILE_SEEK_EITHER:
                 if (((actor->obj.id == OBJ_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) &&
                     (actor->obj.status == OBJ_ACTIVE)) {
                     ret++;
@@ -2743,7 +2742,7 @@ void HUD_VsModePortraitTex_Draw(f32 xPos, f32 yPos, f32 scale, s32 idx) {
                            scale);
 }
 
-void HUD_EdgeArrows_Draw(s32 idx, s32 arg1) {
+void HUD_EdgeArrows_Draw(s32 idx, bool arg1) {
     f32 D_800D1EF8[] = { 0.0f, 0.0f, -9.0f, 9.0f, 10.0f, 10.0f, 10.0f, 10.0f, 0.0f, 0.0f, -8.0f, 8.0f };
     f32 D_800D1F28[] = { -7.0f, 7.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, -8.0f, 0.0f, 0.0f };
     f32 D_800D1F58[] = {
@@ -2764,7 +2763,7 @@ void HUD_EdgeArrows_Draw(s32 idx, s32 arg1) {
         Matrix_RotateZ(gGfxMatrix, M_DTOR * D_800D1F88[idx], MTXF_APPLY);
     }
 
-    if (arg1 != 0) {
+    if (arg1) {
         Matrix_Translate(gGfxMatrix, D_800D1EF8[idx] + D_800D1FE8[idx], D_800D1F28[idx] + D_800D2018[idx],
                          D_800D1F58[idx], MTXF_APPLY);
     } else {
@@ -2801,10 +2800,10 @@ void HUD_EdgeArrows_Update(void) {
             j = (D_800D2048[i] ^ 0xFF) & j;
 
             if (gGameFrameCount & 4) {
-                HUD_EdgeArrows_Draw(i, 0);
+                HUD_EdgeArrows_Draw(i, false);
             }
             if ((gGameFrameCount - 2) & 4) {
-                HUD_EdgeArrows_Draw(i, 1);
+                HUD_EdgeArrows_Draw(i, true);
             }
         }
         HUD_Texture_Scroll(D_1024A58, 8, 8, 2);

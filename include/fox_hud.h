@@ -49,4 +49,10 @@ typedef enum RadarMarkTypes {
     /* 999 */ RADARMARK_NOTHING = 999
 } RadarMarkTypes;
 
+typedef enum ActorMissileSeekMode {
+    /* 0 */ MISSILE_SEEK_TEAMMATES,
+    /* 1 */ MISSILE_SEEK_PLAYER,
+    /* 2 */ MISSILE_SEEK_EITHER,
+} ActorMissileSeekMode;
+
 #endif

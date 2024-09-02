@@ -5,6 +5,7 @@
 #include "sf64object.h"
 #include "sf64player.h"
 #include "sf64mesg.h"
+#include "fox_hud.h"
 
 // fox_360
 void AllRange_FortunaIntro(Player*);
@@ -386,7 +387,7 @@ void HUD_LivesCount2_Draw(f32, f32, s32);
 void func_hud_800884E4(void);
 void HUD_Bolse_Area6_SaveData(void);
 void HUD_DrawStatusScreens(void);
-s32 ActorMissileSeek_ModeCheck(s32);
+s32 ActorMissileSeek_ModeCheck(ActorMissileSeekMode mode);
 void HUD_RadioCharacterName_Draw(void);
 void HUD_PlayerShieldGauge_Draw(f32 x, f32 y);
 s32 HUD_RadioDamage_Type(void);
@@ -394,7 +395,7 @@ void HUD_Texture_Scroll(u8*, s32, s32, u8);
 void HUD_Texture_Wave(u16*, u16*);
 void HUD_DisplaySmallNumber(f32, f32, f32, s32);
 void HUD_VsModePortraitTex_Draw(f32, f32, f32, s32);
-void HUD_EdgeArrows_Draw(s32, s32);
+void HUD_EdgeArrows_Draw(s32, bool);
 s32 HUD_CountDigits(s32);
 void HUD_EdgeArrows_Update(void);
 s32 HUD_8008CB8C(void);
