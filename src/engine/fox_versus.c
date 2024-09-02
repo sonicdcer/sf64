@@ -1047,7 +1047,7 @@ s32 func_versus_800C04DC(f32 xPos, f32 scale, s32 arg2) {
         Graphics_DisplaySmallText(x + 45.0f, y, 1.0f, 1.0f, "SCORE");
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Hud_Number_Draw(x + 18.0f, y + 16.0f, D_800D4A94, 1.0f, 0, 9999);
+        HUD_Number_Draw(x + 18.0f, y + 16.0f, D_800D4A94, 1.0f, 0, 9999);
     } else {
         if (arg2 < 4) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_78);
@@ -1266,7 +1266,7 @@ s32 func_versus_800C0E78(void) {
             Graphics_DisplaySmallText(D_800D4C90[i], D_800D4CA4[i], 1.0f, 1.0f, D_800D4C80[i]);
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            Hud_Number_Draw(D_800D4C90[i], D_800D4CA4[i] + 9.0f, D_80178838[i], 1.0f, 0, 999);
+            HUD_Number_Draw(D_800D4C90[i], D_800D4CA4[i] + 9.0f, D_80178838[i], 1.0f, 0, 999);
         }
     }
 

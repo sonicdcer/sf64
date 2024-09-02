@@ -1653,7 +1653,7 @@ void Bolse_LevelComplete(Player* player) {
                             gPrevPlanetTeamShields[i] = 255;
                         }
                     }
-                    Hud_Bolse_Area6_SaveData();
+                    HUD_Bolse_Area6_SaveData();
                 }
             }
             break;

@@ -6757,14 +6757,14 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_CORNERIA:
-            Hud_Texture_Wave(D_CO_603EB38, D_CO_6028A60);
+            HUD_Texture_Wave(D_CO_603EB38, D_CO_6028A60);
             if ((gGameFrameCount % 2) != 0) {
                 Lib_Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
             }
             break;
 
         case LEVEL_AQUAS:
-            Hud_Texture_Wave(D_AQ_603158C, D_AQ_602ACC0);
+            HUD_Texture_Wave(D_AQ_603158C, D_AQ_602ACC0);
             break;
 
         case LEVEL_SOLAR:
@@ -6827,7 +6827,7 @@ void Play_UpdateLevel(void) {
                                RAND_FLOAT(10.0f) + 20.0f); // check
             }
 
-            Hud_Texture_Wave(D_SO_60229A4, D_SO_6010198);
+            HUD_Texture_Wave(D_SO_60229A4, D_SO_6010198);
 
             if (gPlayer[0].shields == 0) {
                 gSoShieldsEmpty = 1;
@@ -6843,7 +6843,7 @@ void Play_UpdateLevel(void) {
                 Lib_Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
 
-            Hud_Texture_Wave(D_ZO_602C2CC, D_ZO_600D990);
+            HUD_Texture_Wave(D_ZO_602C2CC, D_ZO_600D990);
 
             if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
                                              gPlayer[0].cam.eye.z - gPathProgress)) {

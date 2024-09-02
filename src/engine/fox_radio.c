@@ -712,11 +712,11 @@ void Radio_Draw(void) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
-                Hud_TeamDownWrench_Draw(1);
+                HUD_TeamDownWrench_Draw(1);
             }
             if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                Hud_TeamShields_Draw(22.0f, 165.0f, gTeamShields[idx]);
+                HUD_TeamShields_Draw(22.0f, 165.0f, gTeamShields[idx]);
             }
         }
 
@@ -764,12 +764,12 @@ void Radio_Draw(void) {
             }
             if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                Hud_TeamShields_Draw(22.0f, 165.0f, gActors[idx].health * 2.55f);
+                HUD_TeamShields_Draw(22.0f, 165.0f, gActors[idx].health * 2.55f);
             }
         }
         if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
             (gCurrentRadioPortrait != RCID_1000)) {
-            Hud_RadioCharacterName_Draw();
+            HUD_RadioCharacterName_Draw();
         }
     }
 

@@ -2880,7 +2880,7 @@ void Area6_LevelComplete(Player* player) {
                     gNextGameState = GSTATE_PLAY;
                     gNextLevel = LEVEL_VENOM_2;
 
-                    Hud_Bolse_Area6_SaveData();
+                    HUD_Bolse_Area6_SaveData();
                 }
             }
 
