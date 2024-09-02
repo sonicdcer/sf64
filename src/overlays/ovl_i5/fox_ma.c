@@ -2666,7 +2666,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x, D_i5_801BE688[1].y + 50.0f,
@@ -2674,7 +2674,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             } else if (this->state == 2) {
@@ -2687,7 +2687,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -6213,7 +6213,7 @@ void Macbeth_Effect379_Draw(Effect379* this) {
 
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 

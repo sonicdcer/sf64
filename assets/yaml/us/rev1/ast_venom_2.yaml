@@ -18,8 +18,8 @@ D_VE2_6000000:
 D_VE2_6000A80:
   { type: TEXTURE, format: IA8, width: 112, height: 19, offset: 0x6000A80, ctype: u8, symbol: D_VE2_6000A80 }
 
-D_VE2_60012D0:
-  { type: TEXTURE, format: IA8, width: 128, height: 28, offset: 0x60012D0, ctype: u8, symbol: D_VE2_60012D0 }
+aVe2TitleCardTex:
+  { type: TEXTURE, format: IA8, width: 128, height: 28, offset: 0x60012D0, ctype: u8, symbol: aVe2TitleCardTex }
 
 D_VE2_60020D0:
   { type: TEXTURE, format: IA8, width: 104, height: 19, offset: 0x60020D0, ctype: u8, symbol: D_VE2_60020D0 }

@@ -15,8 +15,8 @@
 
 # Corneria
 # Former Army Base
-D_CO_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 28, offset: 0x6000000, symbol: D_CO_6000000 }
+aCoTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 28, offset: 0x6000000, symbol: aCoTitleCardTex }
 
 aCoWaterfallDL:
   { type: GFX, offset: 0x6000E00, symbol: aCoWaterfallDL }

@@ -2358,7 +2358,7 @@ void Venom1_Ve1Golemech_SetShadow(Ve1Golemech* this) {
     Matrix_Scale(gGfxMatrix, 10.0f, 0.0f, 8.0f, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, -90.0f * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
 }
 
 void Venom1_80198414(void) {

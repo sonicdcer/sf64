@@ -353,11 +353,11 @@ D_10153F8:
 D_10154F8:
   { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10154F8, ctype: u16, symbol: D_10154F8 }
 
-D_1015510:
-  { type: GFX, offset: 0x1015510, symbol: D_1015510 }
+aRadarMarkArwingDL:
+  { type: GFX, offset: 0x1015510, symbol: aRadarMarkArwingDL }
 
-D_1015598:
-  { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1015598, symbol: D_1015598 }
+aRadarMarkArwingTex:
+  { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1015598, symbol: aRadarMarkArwingTex }
 
 D_10156A0:
   { type: GFX, offset: 0x10156A0, symbol: D_10156A0 }
@@ -833,8 +833,8 @@ aSlippyMarkTex:
 aSlippyMarkTLUT:
   { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024818, ctype: u16, symbol: aSlippyMarkTLUT }
 
-D_1024830:
-  { type: GFX, offset: 0x1024830, symbol: D_1024830 }
+aRadarMarkBossDL:
+  { type: GFX, offset: 0x1024830, symbol: aRadarMarkBossDL }
 
 D_10248F8:
   { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10248F8, tlut: 0x1024978, symbol: D_10248F8 }
@@ -851,8 +851,8 @@ D_1024A58:
 D_1024A98:
   { type: TEXTURE, format: TLUT, colors: 20, offset: 0x1024A98, ctype: u16, symbol: D_1024A98 }
 
-D_1024AC0:
-  { type: GFX, offset: 0x1024AC0, symbol: D_1024AC0 }
+aOrbDL:
+  { type: GFX, offset: 0x1024AC0, symbol: aOrbDL }
 
 D_1024B58:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1024B58, symbol: D_1024B58 }
@@ -920,8 +920,8 @@ D_102A010:
 D_102A098:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102A098, symbol: D_102A098 }
 
-D_102A8A0:
-  { type: GFX, offset: 0x102A8A0, symbol: D_102A8A0 }
+aRadarMarkKaSaucererDL:
+  { type: GFX, offset: 0x102A8A0, symbol: aRadarMarkKaSaucererDL }
 
 D_102A928:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x102A928, symbol: D_102A928 }

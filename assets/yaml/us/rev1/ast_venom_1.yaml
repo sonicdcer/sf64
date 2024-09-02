@@ -19,8 +19,8 @@ D_VE1_6000000:
 D_VE1_6000A80:
   { type: TEXTURE, format: IA8, width: 40, height: 19, offset: 0x6000A80, ctype: u8, symbol: D_VE1_6000A80 }
 
-D_VE1_6000D80:
-  { type: TEXTURE, format: IA8, width: 128, height: 28, offset: 0x6000D80, ctype: u8, symbol: D_VE1_6000D80 }
+aVe1TitleCardTex:
+  { type: TEXTURE, format: IA8, width: 128, height: 28, offset: 0x6000D80, ctype: u8, symbol: aVe1TitleCardTex }
 
 D_VE1_6001B80:
   { type: TEXTURE, format: IA8, width: 128, height: 19, offset: 0x6001B80, ctype: u8, symbol: D_VE1_6001B80 }

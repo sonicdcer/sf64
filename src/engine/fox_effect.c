@@ -288,7 +288,7 @@ void Effect_Effect384_Draw(Effect384* this) {
             break;
     }
 
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -298,7 +298,7 @@ void Effect_Effect385_Draw(Effect385* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_38);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 192, 255, this->unk_44);
     gDPSetEnvColor(gMasterDisp++, 0, 0, 0, this->unk_44);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -372,7 +372,7 @@ void Effect_Effect347_Draw(Effect347* this) {
 void Effect_Effect351_Draw(Effect351* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
-    gSPDisplayList(gMasterDisp++, D_102A8A0);
+    gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
 }
 
 void Effect_Clouds_Draw(EffectClouds* this) {
@@ -442,7 +442,7 @@ void Effect_Effect346_Draw(Effect346* this) {
             tmp = temp_ft3 * 4.0f;
             gDPSetEnvColor(gMasterDisp++, D_800D173C[tmp + 0], D_800D173C[tmp + 1], D_800D173C[tmp + 2], 255);
             Graphics_SetScaleMtx(this->scale2);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
@@ -774,7 +774,7 @@ void Effect_Effect357_Draw(Effect357* this) {
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 80, 0, 255);
                     Graphics_SetScaleMtx(this->scale1);
-                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    gSPDisplayList(gMasterDisp++, aOrbDL);
                     break;
 
                 case 11:
@@ -3097,7 +3097,7 @@ void Effect_Effect398_Draw(Effect398* this) {
             Matrix_RotateZ(gGfxMatrix, 30.0f * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 3.0f, 1.5f, 3.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
     }
 }
@@ -3319,7 +3319,7 @@ void Effect_Effect394_Draw(Effect394* this) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 190, 255);
             gDPSetEnvColor(gMasterDisp++, 239, 15, 0, 255);
             Graphics_SetScaleMtx(this->scale2);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
     }
 }
@@ -3894,7 +3894,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 255);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 1:
@@ -3910,7 +3910,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 255);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 3:
@@ -3954,7 +3954,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 128, 255);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 9:
@@ -3963,7 +3963,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->scale1);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 128, 255);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 10:
@@ -3982,7 +3982,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 111, 111, 111, (s32) this->scale1);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 255);
             Graphics_SetScaleMtx(this->scale2);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 12:
@@ -4234,6 +4234,6 @@ void Effect_Effect399_Draw(Effect399* this) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[this->unk_44]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
     }
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }

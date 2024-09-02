@@ -53,11 +53,11 @@ D_D007A70:
 D_D008990:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD008990, symbol: D_D008990 }
 
-D_D0098B0:
-  { type: GFX, offset: 0xD0098B0, symbol: D_D0098B0 }
+aKattRadarMarkDL:
+  { type: GFX, offset: 0xD0098B0, symbol: aKattRadarMarkDL }
 
-D_D009938:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0D009938, symbol: D_D009938 }
+aKattRadarMarkTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0D009938, symbol: aKattRadarMarkTex }
 
 aKattShipDL:
   { type: GFX, offset: 0xD009A40, symbol: aKattShipDL }

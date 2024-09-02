@@ -2570,7 +2570,7 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* thisx) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_72);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
         RCP_SetupDL(&gMasterDisp, SETUPDL_30);
         Matrix_Pop(&gGfxMatrix);
         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D3C, (Vec3f*) &this->fwork[29]);
@@ -3136,7 +3136,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_72);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                 gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_30);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D3C, (Vec3f*) &this->fwork[29]);
@@ -5281,7 +5281,7 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
                 Matrix_Scale(gGfxMatrix, boss->fwork[47] * 10.0f, boss->fwork[47] * 10.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
@@ -5304,7 +5304,7 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
                 Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;

@@ -13,8 +13,8 @@
       - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
 
-D_AQ_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 13, offset: 0x6000000, symbol: D_AQ_6000000 }
+aAqTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 13, offset: 0x6000000, symbol: aAqTitleCardTex }
 
 aAqSquidAnim:
   { type: SF64:ANIM, offset: 0x6000AE4, symbol: aAqSquidAnim }

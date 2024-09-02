@@ -1654,7 +1654,7 @@ void Andross_Effect396_Update(Effect396* this) {
 
 Gfx* D_i6_801A6790[10] = {
     D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880,
-    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_arwing_3016660,  D_arwing_3015D80,
+    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, aAwLeftWingDL,     aAwRightWingDL,
 };
 
 void Andross_Effect396_Draw(Effect396* this) {
@@ -3517,7 +3517,7 @@ void Andross_AndAndross_Draw(AndAndross* this) {
                     Matrix_Scale(gGfxMatrix, 1.1f, 1.1f, 1.1f, MTXF_APPLY);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Matrix_Pop(&gGfxMatrix);
             }
 
@@ -3643,7 +3643,7 @@ void Andross_AndLaserEmitter_Draw(AndLaserEmitter* this) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 128, 128, alpha);
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
     }
 }
 

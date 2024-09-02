@@ -12,8 +12,8 @@
       - '#include "sf64player.h"'
       - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
-D_A6_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 104, height: 28, offset: 0x6000000, symbol: D_A6_6000000 }
+aA6TitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 104, height: 28, offset: 0x6000000, symbol: aA6TitleCardTex }
 
 D_A6_6000B60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06000B60, symbol: D_A6_6000B60 }

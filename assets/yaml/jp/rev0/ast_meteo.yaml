@@ -14,8 +14,8 @@
       - '#include "sf64mesg.h"'
 # Meteo
 # Asteroid Field
-D_ME_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 28, offset: 0x6000000, symbol: D_ME_6000000 }
+aMeTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 28, offset: 0x6000000, symbol: aMeTitleCardTex }
 
 D_ME_6000A80:
   { type: GFX, offset: 0x6000A80, symbol: D_ME_6000A80 }

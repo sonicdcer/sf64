@@ -1306,7 +1306,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                         gDPSetEnvColor(gMasterDisp++, 0, 128, 255, 255);
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    gSPDisplayList(gMasterDisp++, aOrbDL);
                 } else {
                     Matrix_Scale(gGfxMatrix, shot->scale, shot->scale, shot->scale, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -1422,7 +1422,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 0, shot->unk_58);
                     gDPSetEnvColor(gMasterDisp++, 32, 16, 16, shot->unk_58);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    gSPDisplayList(gMasterDisp++, aOrbDL);
                 } else if (shot->unk_5C == 0) {
                     if (shot->scale > 1.5f) {
                         break;
@@ -1468,7 +1468,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                         Matrix_Scale(gGfxMatrix, 1.3f, 1.3f, 1.3f, MTXF_APPLY);
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    gSPDisplayList(gMasterDisp++, aOrbDL);
                 } else {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                     gSPDisplayList(gMasterDisp++, D_10231A0);
@@ -1487,7 +1487,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                     gDPSetEnvColor(gMasterDisp++, 255, 128, 128, 255);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    gSPDisplayList(gMasterDisp++, aOrbDL);
                 }
                 break;
             case PLAYERSHOT_GFOX_LASER:

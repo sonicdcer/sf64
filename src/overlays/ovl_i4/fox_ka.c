@@ -273,7 +273,7 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
     Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 0.4f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
@@ -1665,7 +1665,7 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
                          this->fwork[BOSS_LASER_LIGHT_SCALE], MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             Matrix_Pop(&gGfxMatrix);
 
             Matrix_Push(&gGfxMatrix);
@@ -1677,7 +1677,7 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
                          MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             Matrix_Pop(&gGfxMatrix);
         }
 

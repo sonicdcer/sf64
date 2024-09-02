@@ -1851,7 +1851,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) D_i3_801C22F0.r[arg4], (s32) D_i3_801C22F0.g[arg4],
                             (s32) D_i3_801C22F0.b[arg4], 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             Matrix_MultVec3f(gCalcMatrix, &spB0, arg2);
         } else {
             RCP_SetupDL(&gMasterDisp, SETUPDL_47);

@@ -8,11 +8,11 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_blue_marine_3000000:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x3000000, symbol: D_blue_marine_3000000, tlut: 0x3000080 }
+aBlueMarineLifeIconTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x3000000, symbol: aBlueMarineLifeIconTex, tlut: 0x3000080 }
 
-D_blue_marine_3000080:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x3000080, symbol: D_blue_marine_3000080 }
+aBlueMarineLifeIconTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x3000080, symbol: aBlueMarineLifeIconTLUT }
 
 D_blue_marine_3000090:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 9, offset: 0x3000090, symbol: D_blue_marine_3000090, tlut: 0x3000120 }

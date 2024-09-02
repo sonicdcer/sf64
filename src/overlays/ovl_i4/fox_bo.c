@@ -1852,7 +1852,7 @@ void Bolse_Effect397_Draw(Effect397* this) {
             gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->unk_44);
             Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }

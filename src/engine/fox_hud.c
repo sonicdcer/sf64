@@ -2,15 +2,6 @@
 #include "fox_hud.h"
 #include "prevent_bss_reordering.h"
 
-typedef struct {
-    /* 0x00 */ u8* unk_00;
-    /* 0x04 */ s32 width;
-    /* 0x08 */ s32 height;
-    /* 0x0C */ u8* unk_0C;
-    /* 0x10 */ s32 unk_10;
-    /* 0x14 */ s32 unk_14;
-} UnkStruct_D_800D1AEC;
-
 Vec3f D_801616A0;
 Vec3f D_801616B0;
 f32 D_801616BC;
@@ -39,8 +30,8 @@ f32 D_80161778;
 f32 D_8016177C;
 f32 D_80161780;
 f32 D_80161784;
-s32 D_80161788;
-s32 D_8016178C;
+s32 D_80161788; // Looks like a timer related to RadioDamage
+s32 D_8016178C; // Looks like a timer related to RadioDamage
 s32 D_80161790;
 s32 D_80161794;
 s32 D_80161798;
@@ -119,73 +110,67 @@ Vtx D_800D1A00[] = {
     { 10, -10, 0, 0, 0, 0, 255, 255, 255, 255 },
 };
 
-Gfx D_800D1A40[] = {
+Gfx sRadioDamageDL[] = {
     gsSPVertex(D_800D1A00, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
 
 // Used in the status screen, and when losing a life
-void Hud_LivesCount1_Draw(f32 arg0, f32 arg1, s32 arg2) {
-    u8* D_800D1A58[] = {
-        D_arwing_3000000,
-        D_blue_marine_3000000,
-        D_landmaster_3000000,
-    };
-    u16* D_800D1A64[] = {
-        D_arwing_3000080,
-        D_blue_marine_3000080,
-        D_landmaster_3000080,
-    };
+void Hud_LivesCount1_Draw(f32 xPos, f32 yPos, s32 lifeCount) {
+    u8* sLifeIconTex[] = { aArwingLifeIconTex, aBlueMarineLifeIconTex, aLandmasterLifeIconTex };
+    u16* sLifeIconTLUT[] = { aArwingLifeIconTLUT, aBlueMarineLifeIconTLUT, aLandmasterLifeIconTLUT };
     Player* player;
-    s32 var_t0;
-    s32 var_v0;
-    s32 i;
+    s32 lifeIconIdx;
+    s32 maxLives;
+    s32 digits;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    player = gPlayer;
-    var_t0 = 0;
+    player = &gPlayer[0];
 
+    lifeIconIdx = 0; // default
     switch (player->form) {
         case FORM_ARWING:
-            var_t0 = 0;
+            lifeIconIdx = 0;
             break;
         case FORM_LANDMASTER:
-            var_t0 = 1;
+            lifeIconIdx = 1;
             break;
         case FORM_BLUE_MARINE:
-            var_t0 = 2;
+            lifeIconIdx = 2;
             break;
     }
 
-    Lib_TextureRect_CI4(&gMasterDisp, D_800D1A58[var_t0], D_800D1A64[var_t0], 16, 16, arg0, arg1 - 2.0f, 1.0f, 1.0f);
-    Lib_TextureRect_CI4(&gMasterDisp, aXTex, aXTLUT, 16, 7, arg0 + 16.0f, arg1 + 7.0f, 1.0f, 1.0f);
+    // Draw Icon
+    Lib_TextureRect_CI4(&gMasterDisp, sLifeIconTex[lifeIconIdx], sLifeIconTLUT[lifeIconIdx], 16, 16, xPos, yPos - 2.0f,
+                        1.0f, 1.0f);
+    // Draw X
+    Lib_TextureRect_CI4(&gMasterDisp, aXTex, aXTLUT, 16, 7, xPos + 16.0f, yPos + 7.0f, 1.0f, 1.0f);
 
-    if (arg2 >= 0) {
-        arg0 += 11.0f;
-        arg1 -= 1.0f;
+    if (lifeCount >= 0) {
+        xPos += 11.0f;
+        yPos -= 1.0f;
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        var_v0 = 10;
-
-        if (arg2 < 0) {
-            arg2 = 0;
+        if (lifeCount < 0) {
+            lifeCount = 0;
         }
 
-        if (arg2 > 99) {
-            arg2 = 99;
+        if (lifeCount > 99) {
+            lifeCount = 99;
         }
 
-        for (var_v0 = 10, i = 1; arg2 >= var_v0; i++) {
-            var_v0 *= 10;
+        // Count digits
+        for (maxLives = 10, digits = 1; lifeCount >= maxLives; digits++) {
+            maxLives *= 10;
         }
 
-        arg0 += 16.0f + 8 * (2 - i);
-        func_hud_800869A0(arg0, arg1, arg2, 1.0f, true, 99);
+        xPos += 16.0f + 8 * (2 - digits);
+        Hud_Number_Draw(xPos, yPos, lifeCount, 1.0f, true, 99);
     }
 }
 
@@ -559,16 +544,16 @@ s32 Hud_GetLevelIndex(void) {
     return ret;
 }
 
-UnkStruct_D_800D1AEC D_800D1AEC[] = {
-    { aLargeText_1, 16, 15, D_CO_6000000, 128, 28 },      { aLargeText_2, 16, 15, D_ME_6000000, 96, 28 },
-    { aLargeText_2, 16, 15, D_SY_6000000, 176, 12 },      { aLargeText_3, 16, 15, D_FO_6000000, 168, 28 },
-    { aLargeText_3, 16, 15, D_KA_6000000, 168, 28 },      { aLargeText_3, 16, 15, D_AQ_6000000, 96, 13 },
-    { aLargeText_4, 16, 15, D_SX_6000000, 176, 12 },      { aLargeText_4, 16, 15, D_SO_6000000, 112, 13 },
-    { aLargeText_4, 16, 15, D_ZO_6000000, 112, 28 },      { aLargeText_5, 16, 15, D_TI_6000000, 96, 28 },
-    { aLargeText_5, 16, 15, D_MA_6000000, 160, 28 },      { aLargeText_5, 16, 15, D_SZ_6000000, 176, 12 },
-    { aLargeText_6, 16, 15, D_BO_6000000, 168, 19 },      { aLargeText_6, 16, 15, D_A6_6000000, 104, 28 },
-    { aLargeText_7, 16, 15, D_VE1_6000D80, 128, 28 },     { aLargeText_7, 16, 15, D_VE2_60012D0, 128, 28 },
-    { aLargeText_7, 16, 15, D_ANDROSS_C000A80, 128, 28 }, { aLargeText_0, 16, 15, aTextTraining, 80, 12 },
+LevelTitleCard sLevelTitleCard[] = {
+    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },  { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
+    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },  { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
+    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },  { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
+    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },  { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
+    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },  { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
+    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },  { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
+    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },  { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
+    { aLargeText_7, 16, 15, aVe1TitleCardTex, 128, 28 }, { aLargeText_7, 16, 15, aVe2TitleCardTex, 128, 28 },
+    { aLargeText_7, 16, 15, aAndTitleCardTex, 128, 28 }, { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
 };
 
 void Hud_VenomTitleCard_Draw(void) {
@@ -626,8 +611,7 @@ void Hud_TitleCard_Draw(f32 x, f32 y) {
     x1 = x0 + 72.0f;
     y1 = y0;
 
-    x2 = x0 - ((D_800D1AEC[levelIdx].unk_10 - 88.0f - D_800D1AEC[levelIdx].width) / 2.0f);
-
+    x2 = x0 - (sLevelTitleCard[levelIdx].titleCardWidth - 88.0f - sLevelTitleCard[levelIdx].width) / 2.0f;
     y2 = y0 + 19.0f + 8.0f;
 
     if (levelIdx == 7) { // LEVEL_SECTOR_Z
@@ -676,15 +660,16 @@ void Hud_TitleCard_Draw(f32 x, f32 y) {
     if ((levelIdx != 14) && (levelIdx != 15)) { // LEVEL_KATINA || LEVEL_FORTUNA
         Lib_TextureRect_IA8(&gMasterDisp, aTextMissionNo, 112, 19, x0 - 12.0f, y0 + 4.0f, 1.0f, 1.0f);
 
-        Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[levelIdx].unk_00, D_800D1AEC[levelIdx].width,
-                            D_800D1AEC[levelIdx].height, x1 + 28.0f, y1 + 4.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, sLevelTitleCard[levelIdx].levelIdxTex, sLevelTitleCard[levelIdx].width,
+                            sLevelTitleCard[levelIdx].height, x1 + 28.0f, y1 + 4.0f, 1.0f, 1.0f);
     } else {
         Hud_VenomTitleCard_Draw();
     }
 
-    for (i = 0; i < D_800D1AEC[levelIdx].unk_14; i++) {
-        Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[levelIdx].unk_0C + (D_800D1AEC[levelIdx].unk_10 * i),
-                            D_800D1AEC[levelIdx].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
+    for (i = 0; i < sLevelTitleCard[levelIdx].titleCardHeight; i++) {
+        Lib_TextureRect_IA8(&gMasterDisp,
+                            sLevelTitleCard[levelIdx].titleCardTex + (sLevelTitleCard[levelIdx].titleCardWidth * i),
+                            sLevelTitleCard[levelIdx].titleCardWidth, 1, x2, y2 + i, 1.0f, 1.0f);
     }
 
     if ((gSavedObjectLoadIndex == 0) && (gAllRangeCheckpoint == 0) && (gCurrentLevel != LEVEL_VENOM_ANDROSS) &&
@@ -698,38 +683,37 @@ void Hud_TitleCard_Draw(f32 x, f32 y) {
     }
 }
 
-void func_hud_800869A0(f32 arg0, f32 arg1, s32 k, f32 arg3, bool arg4, s32 arg5) {
-    bool var_s2;
+void Hud_Number_Draw(f32 xPos, f32 yPos, s32 k, f32 scale, bool skipLeadingZeroes, s32 maxNumber) {
+    bool shouldDraw;
     s32 i;
     s32 j;
-
-    u8* D_800D1CD4[] = {
+    u8* sNumber[] = {
         aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
         aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9,
     };
 
-    if (arg4 != 0) {
-        var_s2 = false;
+    if (skipLeadingZeroes) {
+        shouldDraw = false;
     } else {
-        var_s2 = true;
+        shouldDraw = true;
     }
 
-    i = arg5 + 1;
+    i = maxNumber + 1;
     k %= i;
 
     for (i /= 10; i != 1; i /= 10) {
         j = k / i;
-        if ((j != 0) || (var_s2 == true)) {
-            Lib_TextureRect_IA8(&gMasterDisp, D_800D1CD4[j], 16, 15, arg0, arg1, arg3, arg3);
-            arg0 += 13.0f * arg3;
+        if ((j != 0) || (shouldDraw == true)) {
+            Lib_TextureRect_IA8(&gMasterDisp, sNumber[j], 16, 15, xPos, yPos, scale, scale);
+            xPos += 13.0f * scale;
             k %= i;
-            var_s2 = true;
+            shouldDraw = true;
         }
     }
-    Lib_TextureRect_IA8(&gMasterDisp, D_800D1CD4[k], 16, 15, arg0, arg1, arg3, arg3);
+    Lib_TextureRect_IA8(&gMasterDisp, sNumber[k], 16, 15, xPos, yPos, scale, scale);
 }
 
-void func_hud_80086C08(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+void Hud_MsgWindowBg_Draw2(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 128, 96);
     gDPSetAlphaDither(gMasterDisp++, G_AD_DISABLE);
@@ -754,10 +738,10 @@ void HUD_DrawLevelStartStatusScreen(void) {
     sp18 = 81.0f;
 
     if (gLevelStartStatusScreenTimer != 0) {
-        func_hud_80086C08(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
+        Hud_MsgWindowBg_Draw2(temp - 4.5f - 32.0f, sp18 - 24.0f - 4.0f, 7.4f, 3.9f);
 
         if (gCurrentLevel != LEVEL_TRAINING) {
-            func_hud_80086C08(122.0f, 122.0f, 2.9f, 1.2f);
+            Hud_MsgWindowBg_Draw2(122.0f, 122.0f, 2.9f, 1.2f);
         }
 
         Hud_TitleCard_Draw(temp, sp18 - 24.0f);
@@ -917,11 +901,11 @@ void HUD_DrawLevelClearScreen(void) {
 
         case LEVEL_CLEAR_STATE_4:
             Lib_TextureRect_IA8(&gMasterDisp, aTextMissionNo, 112, 19, x, y, 1.0f, 1.0f);
-            Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[levelIdx].unk_00, D_800D1AEC[levelIdx].width,
-                                D_800D1AEC[levelIdx].height, x + 112.0f, y, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, sLevelTitleCard[levelIdx].levelIdxTex, sLevelTitleCard[levelIdx].width,
+                                sLevelTitleCard[levelIdx].height, x + 112.0f, y, 1.0f, 1.0f);
 
         case LEVEL_CLEAR_STATE_5:
-            func_hud_80086C08(30.0f + D_800D1CFC, 60.0f, 10.97f, 4.78f);
+            Hud_MsgWindowBg_Draw2(30.0f + D_800D1CFC, 60.0f, 10.97f, 4.78f);
             break;
 
         default:
@@ -931,8 +915,8 @@ void HUD_DrawLevelClearScreen(void) {
 
 // Used in gameplay hud
 void Hud_LivesCount2_Draw(f32 x, f32 y, s32 number) {
-    u8* sLivesCounterTexs[] = { D_arwing_3000000, D_blue_marine_3000000, D_landmaster_3000000 };
-    u16* sLivesCounterTLUTs[] = { D_arwing_3000080, D_blue_marine_3000080, D_landmaster_3000080 };
+    u8* sLivesCounterTexs[] = { aArwingLifeIconTex, aBlueMarineLifeIconTex, aLandmasterLifeIconTex };
+    u16* sLivesCounterTLUTs[] = { aArwingLifeIconTLUT, aBlueMarineLifeIconTLUT, aLandmasterLifeIconTLUT };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;
@@ -994,11 +978,11 @@ void Hud_LivesCount2_Draw(f32 x, f32 y, s32 number) {
 }
 
 void Hud_TeammateStatus_Draw(void) {
-    u16* D_800D1D18[] = { aFoxPortraitTex, aPeppyPortraitTex, aSlippyPortraitTex, aFalcoPortraitTex };
-    u8* D_800D1D28[] = { aTextPeppy, aTextSlippy, aTextFalco };
+    u16* sPortraitTex[] = { aFoxPortraitTex, aPeppyPortraitTex, aSlippyPortraitTex, aFalcoPortraitTex };
+    u8* sText[] = { aTextPeppy, aTextSlippy, aTextFalco };
     s32 shield;
-    s32 D_800D1D34[] = { 48, 56, 48 }; // width
-    s32 D_800D1D40[] = { 10, 10, 8 };  // height
+    s32 sTextWidth[] = { 48, 56, 48 };
+    s32 sTextHeght[] = { 10, 10, 8 };
     s32 i;
     s32 j;
     f32 x[3][3], y[3][3];
@@ -1025,11 +1009,11 @@ void Hud_TeammateStatus_Draw(void) {
     y[2][2] = y[1][2];
 
     for (j = 0; j < 3; j++) {
-        func_hud_80086C08(x[j][0] - 6.0f, y[j][1] - 1.0f, 2.4f, 0.7f);
+        Hud_MsgWindowBg_Draw2(x[j][0] - 6.0f, y[j][1] - 1.0f, 2.4f, 0.7f);
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Lib_TextureRect_IA8(&gMasterDisp, D_800D1D28[j], D_800D1D34[j], D_800D1D40[j], x[j][1], y[j][1], 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, sText[j], sTextWidth[j], sTextHeght[j], x[j][1], y[j][1], 1.0f, 1.0f);
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         shield = gTeamShields[3 - j];
@@ -1041,10 +1025,10 @@ void Hud_TeammateStatus_Draw(void) {
         }
 
         for (i = 0; i < 2; i++) {
-            Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
+            Lib_TextureRect_RGBA16(&gMasterDisp, sPortraitTex[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
                                    y[j][0] + (f32) (20 * i), 1.0f, 1.0f);
         }
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_800D1D18[j + 1] + (44 * 20 * 2), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f,
+        Lib_TextureRect_RGBA16(&gMasterDisp, sPortraitTex[j + 1] + (44 * 20 * 2), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f,
                                1.0f);
 
         Hud_TeamShields_Draw(x[j][2], y[j][2], shield);
@@ -1170,7 +1154,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
                     D_801617E8[0] = 10;
                     D_801617C0[0]++;
                 } else {
-                    if (((gGameFrameCount % 2) == 0)) {
+                    if ((gGameFrameCount % 2) == 0) {
                         AUDIO_PLAY_SFX(NA_SE_ONE_UP, gDefaultSfxSource, 4);
                         D_801617C0[3]++;
                     }
@@ -1214,9 +1198,9 @@ void HUD_DrawLevelClearStatusScreen(void) {
         x6 = x2 - 56.0f + 16.0f;
         y6 = y3 + 18.0f;
 
-        func_hud_80086C08(x0 - 4.0f, y0 - 4.0f, 2.9f, 3.6f);
-        func_hud_80086C08(x3 - 4.0f, y3 - 4.0f, 10.0f, 1.0f);
-        func_hud_80086C08(x6 - 12.0f, y6 + 8.0f, 5.2f, 1.0f);
+        Hud_MsgWindowBg_Draw2(x0 - 4.0f, y0 - 4.0f, 2.9f, 3.6f);
+        Hud_MsgWindowBg_Draw2(x3 - 4.0f, y3 - 4.0f, 10.0f, 1.0f);
+        Hud_MsgWindowBg_Draw2(x6 - 12.0f, y6 + 8.0f, 5.2f, 1.0f);
 
         if (D_801617C0[1] < 0) {
             D_801617C0[1] = 0;
@@ -1246,16 +1230,16 @@ void HUD_DrawLevelClearStatusScreen(void) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 90, 160, 200, 255);
-        func_hud_800869A0(24.0f, 30.0f + 3.0f, D_801617C0[5], 1.0f, false, 999);
+        Hud_Number_Draw(24.0f, 30.0f + 3.0f, D_801617C0[5], 1.0f, false, 999);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         Lib_TextureRect_IA8(&gMasterDisp, aTextEnemiesDown, 64, 25, x0, y0 + 4.0f, 1.0f, 1.0f);
 
-        func_hud_800869A0(x1, y1 + 12.0f, D_801617C0[1], 1.0f, true, 999);
+        Hud_Number_Draw(x1, y1 + 12.0f, D_801617C0[1], 1.0f, true, 999);
 
         Lib_TextureRect_IA8(&gMasterDisp, aTextAccumTotal, 128, 10, x3, y3, 1.0f, 1.0f);
 
-        func_hud_800869A0(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, true, 9999);
+        Hud_Number_Draw(x4 + 4.0f, y4 + 3.0f, D_801617C0[2], 1.00f, true, 9999);
 
         if ((D_801617C0[6] % 2) == 0) {
             Hud_LivesCount2_Draw(232.0f, 90.0f, D_801617C0[3]);
@@ -1617,10 +1601,10 @@ void Hud_PauseScreen_Update(void) {
                 x1 = x0 - 28.0f;
                 y1 = y0 + 18.0f;
 
-                x2 = 160.0f - (D_800D1AEC[j].unk_10 / 2.0f);
+                x2 = 160.0f - (sLevelTitleCard[j].titleCardWidth / 2.0f);
                 y2 = y0 - 40.0f;
 
-                func_hud_80086C08(69.0f, y2 - 4.0f, 7.6f, 2.1f);
+                Hud_MsgWindowBg_Draw2(69.0f, y2 - 4.0f, 7.6f, 2.1f);
 
                 switch (gCurrentLevel) {
                     case LEVEL_CORNERIA:
@@ -1661,12 +1645,13 @@ void Hud_PauseScreen_Update(void) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-                for (i = 0; i < D_800D1AEC[j].unk_14; i++) {
-                    Lib_TextureRect_IA8(&gMasterDisp, D_800D1AEC[j].unk_0C + (D_800D1AEC[j].unk_10 * i),
-                                        D_800D1AEC[j].unk_10, 1, x2, y2 + i, 1.0f, 1.0f);
+                for (i = 0; i < sLevelTitleCard[j].titleCardHeight; i++) {
+                    Lib_TextureRect_IA8(&gMasterDisp,
+                                        sLevelTitleCard[j].titleCardTex + (sLevelTitleCard[j].titleCardWidth * i),
+                                        sLevelTitleCard[j].titleCardWidth, 1, x2, y2 + i, 1.0f, 1.0f);
                 }
 
-                func_hud_80086C08(x1 - 10.0f, y0 - 4.0f, 4.7f, 2.8f);
+                Hud_MsgWindowBg_Draw2(x1 - 10.0f, y0 - 4.0f, 4.7f, 2.8f);
 
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
 
@@ -1728,36 +1713,36 @@ void Hud_PauseScreen_Update(void) {
     }
 }
 
-void func_hud_80089670(void) {
+void Hud_RadarMark_Item_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 18.64f, 21.04f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
 }
 
-void func_hud_80089710(void) {
+void Hud_RadarMark_Enemy_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
 }
 
-void func_hud_800897B0(void) {
+void Hud_RadarMark_Boss_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
     Matrix_Scale(gGfxMatrix, 130.0f, 130.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024830);
+    gSPDisplayList(gMasterDisp++, aRadarMarkBossDL);
 }
 
-void func_hud_80089850(void) {
+void Hud_RadarMark_KaSaucerer_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 125.0f, 125.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_102A8A0);
+    gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
 }
 
 void Hud_RadarMark_Missile_Draw(void) {
@@ -1770,8 +1755,8 @@ void Hud_RadarMark_Missile_Draw(void) {
 
 f32 D_800D1E10 = 0.0f;
 
-void func_hud_80089994(s32 arg0) {
-    s32 D_800D1E14[][4] = {
+void Hud_RadarMark_Arwing_Draw(s32 colorIdx) {
+    s32 arwingMarkColor[][4] = {
         { 177, 242, 12, 255 }, { 89, 121, 6, 128 }, { 90, 90, 255, 255 }, { 45, 45, 128, 128 },
         { 0, 179, 67, 255 },   { 0, 90, 34, 128 },  { 255, 30, 0, 255 },  { 128, 15, 0, 128 },
     };
@@ -1787,14 +1772,14 @@ void func_hud_80089994(s32 arg0) {
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D1E14[arg0][0], D_800D1E14[arg0][1], D_800D1E14[arg0][2],
-                    D_800D1E14[arg0][3]);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, arwingMarkColor[colorIdx][0], arwingMarkColor[colorIdx][1],
+                    arwingMarkColor[colorIdx][2], arwingMarkColor[colorIdx][3]);
     Matrix_Scale(gGfxMatrix, var_fv1, var_fv2, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1015510);
+    gSPDisplayList(gMasterDisp++, aRadarMarkArwingDL);
 }
 
-void func_hud_80089AF4(void) {
+void Hud_RadarMark_StarWolf_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, MTXF_APPLY);
@@ -1802,15 +1787,15 @@ void func_hud_80089AF4(void) {
     gSPDisplayList(gMasterDisp++, aStarWolfRadarMarkDL);
 }
 
-void func_hud_80089B94(void) {
+void Hud_RadarMark_Katt_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 92, 92, 255);
     Matrix_Scale(gGfxMatrix, 54.0f, 54.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_D0098B0);
+    gSPDisplayList(gMasterDisp++, aKattRadarMarkDL);
 }
 
-void func_hud_80089C38(void) {
+void Hud_RadarMark_Supplies_Draw(void) {
     s32 alpha;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_12);
@@ -1828,104 +1813,106 @@ void func_hud_80089C38(void) {
     gSPDisplayList(gMasterDisp++, D_1024230);
 }
 
-void func_hud_80089D28(void) {
-    s32 gb;
+void Hud_RadarMissileAlarm_Draw(void) {
+    s32 colorGB;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_1);
 
-    gb = gGameFrameCount % 21;
+    colorGB = gGameFrameCount % 21;
 
-    if (gb > 10) {
-        gb = 20 - gb;
+    if (colorGB > 10) {
+        colorGB = 20 - colorGB;
     }
 
-    gb *= 25.5f;
+    colorGB *= 25.5f;
 
-    if ((gb == 10) || (gb == 0)) {
-        // clang-format off
-        //! FAKE: Probably a MACRO
-        if (1) {AUDIO_PLAY_SFX(NA_SE_MISSILE_ALARM, gDefaultSfxSource, 4);}
-        // clang-format on
+    // clang-format off
+    if ((colorGB == 10) || (colorGB == 0)) { \
+        AUDIO_PLAY_SFX(NA_SE_MISSILE_ALARM, gDefaultSfxSource, 4);
     }
+    // clang-format on
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, gb, gb, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
     Matrix_Translate(gGfxMatrix, 0.0f, -185.92001f, 0, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 3.55f, 0.13f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_1024230);
 }
 
-void HUD_RadarMark_Draw(s32 arg0) {
-    s32 var_a1;
-    s32 var_a1_2;
+void Hud_RadarMark_Draw(s32 type) {
+    s32 arwingMarkColor;
+    s32 playernum;
 
-    switch (arg0) {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-            var_a1_2 = var_a1 = arg0;
-            if (gCamCount != 1) {
-                if (arg0 == 1) {
-                    var_a1 = 3;
+    switch (type) {
+        case RADARMARK_FOX:
+        case RADARMARK_FALCO:
+        case RADARMARK_SLIPPY:
+        case RADARMARK_PEPPY:
+            playernum = arwingMarkColor = type;
+
+            if (gCamCount != 1) { // Multiplayer
+                if (type == RADARMARK_FALCO) {
+                    arwingMarkColor = 3;
                 }
-                if (arg0 == 3) {
-                    var_a1 = 1;
+                if (type == RADARMARK_PEPPY) {
+                    arwingMarkColor = 1;
                 }
 
-                if (gPlayer[arg0].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY) {
+                if (gPlayer[type].state_1C8 == PLAYERSTATE_1C8_VS_STANDBY) {
                     break;
                 }
             }
-            if ((var_a1_2 == gPlayerNum) && (gGameFrameCount & 2)) {
-                var_a1 = (var_a1 * 2) + 1;
+
+            if ((playernum == gPlayerNum) && (gGameFrameCount & 2)) {
+                arwingMarkColor = (arwingMarkColor * 2) + 1;
             } else {
-                var_a1 = var_a1 * 2;
+                arwingMarkColor = arwingMarkColor * 2;
             }
-            func_hud_80089994(var_a1);
+
+            Hud_RadarMark_Arwing_Draw(arwingMarkColor);
             break;
 
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-            func_hud_80089AF4();
+        case RADARMARK_WOLF:
+        case RADARMARK_LEON:
+        case RADARMARK_PIGMA:
+        case RADARMARK_ANDREW:
+            Hud_RadarMark_StarWolf_Draw();
             break;
 
-        case 8:
-            func_hud_80089B94();
+        case RADARMARK_KATT:
+            Hud_RadarMark_Katt_Draw();
             break;
 
-        case 100:
+        case RADARMARK_MISSILE:
             Hud_RadarMark_Missile_Draw();
             break;
 
-        case 101:
-            func_hud_80089850();
+        case RADARMARK_KA_SAUCERER:
+            Hud_RadarMark_KaSaucerer_Draw();
             break;
 
-        case 102:
-            func_hud_800897B0();
+        case RADARMARK_BOSS:
+            Hud_RadarMark_Boss_Draw();
             break;
 
-        case 103:
+        case RADARMARK_SUPPIES:
             if (gVersusMode == true) {
-                func_hud_80089670();
+                Hud_RadarMark_Item_Draw();
             } else {
-                func_hud_80089C38();
+                Hud_RadarMark_Supplies_Draw();
             }
             break;
 
-        case 200:
-        case 201:
-            func_hud_80089670();
+        case RADARMARK_ITEM_1:
+        case RADARMARK_ITEM_2:
+            Hud_RadarMark_Item_Draw();
             break;
 
-        case 999:
+        case RADARMARK_NOTHING:
             break;
 
         default:
-            func_hud_80089710();
+            Hud_RadarMark_Enemy_Draw();
             break;
     }
 }
@@ -2147,7 +2134,7 @@ s32 Hud_RadarMarks_Update(void) {
 
     if ((gCurrentLevel == LEVEL_SECTOR_Z) && (D_hud_80161710 != 0)) {
         Matrix_Push(&gGfxMatrix);
-        func_hud_80089D28();
+        Hud_RadarMissileAlarm_Draw();
         Matrix_Pop(&gGfxMatrix);
         D_hud_80161710--;
     }
@@ -2169,7 +2156,7 @@ s32 Hud_RadarMarks_Update(void) {
         Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        HUD_RadarMark_Draw(gRadarMarks[i].type);
+        Hud_RadarMark_Draw(gRadarMarks[i].type);
         Matrix_Pop(&gGfxMatrix);
 
         gRadarMarks[i].enabled = false;
@@ -2211,7 +2198,7 @@ s32 ActorMissileSeek_ModeCheck(s32 missileSeekMode) {
     return ret;
 }
 
-void HUD_RadioCharacterName_Draw(void) {
+void Hud_RadioCharacterName_Draw(void) {
     if (gGameState == GSTATE_PLAY) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
@@ -2538,7 +2525,7 @@ s32 Hud_RadioDamage_Type(void) {
 }
 
 void Hud_RadioDamage_Update(void) {
-    s32 temp;
+    s32 radioDamageType;
 
     // clang-format off
     if ((D_8016178C != 0) && (D_8016178C != 1)) { D_8016178C--; }
@@ -2551,11 +2538,11 @@ void Hud_RadioDamage_Update(void) {
     if ((D_80161788 == 0) && (D_8016178C == 0)) {
         if ((gRadioState >= 4) && (gCurrentRadioPortrait != RCID_STATIC) &&
             (gCurrentRadioPortrait != RCID_STATIC + 1)) {
-            temp = Hud_RadioDamage_Type();
-            if (temp == 1) {
+            radioDamageType = Hud_RadioDamage_Type();
+            if (radioDamageType == RCID_FOX + 1) {
                 D_80161788 = 20;
             }
-            if (temp == 2) {
+            if (radioDamageType == RCID_STATIC) {
                 D_8016178C = 60;
             }
         } else {
@@ -2592,7 +2579,7 @@ void Hud_RadioDamage_Draw(void) {
         Matrix_Translate(gGfxMatrix, -53.9f, -38.5f, -139.4f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_800D1A40);
+        gSPDisplayList(gMasterDisp++, sRadioDamageDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -2719,7 +2706,7 @@ void Hud_Texture_Wave(u16* srcTexture, u16* dstTexture) {
     Lib_Texture_Mottle(dst, buffer, 2);
 }
 
-void HUD_DisplaySmallNumber(f32 xPos, f32 yPos, f32 scale, s32 number) {
+void Hud_DisplaySmallNumber(f32 xPos, f32 yPos, f32 scale, s32 number) {
     void* sSmallNumberTex[] = {
         aSmallText_0, aSmallText_1, aSmallText_2, aSmallText_3, aSmallText_4,
         aSmallText_5, aSmallText_6, aSmallText_7, aSmallText_8, aSmallText_9,
@@ -2740,7 +2727,7 @@ void HUD_DisplaySmallNumber(f32 xPos, f32 yPos, f32 scale, s32 number) {
 }
 
 void Hud_VsModePortraitTex_Draw(f32 xPos, f32 yPos, f32 scale, s32 idx) {
-    u16* sVsModeFaceDls[] = {
+    u16* sVsModeFaceDL[] = {
         aFoxPortraitTex,
         aPeppyPortraitTex,
         aSlippyPortraitTex,
@@ -2749,14 +2736,14 @@ void Hud_VsModePortraitTex_Draw(f32 xPos, f32 yPos, f32 scale, s32 idx) {
     s32 i;
 
     for (i = 0; i < 2; i++) {
-        Lib_TextureRect_RGBA16(&gMasterDisp, sVsModeFaceDls[idx] + (44 * 20 * i), 44, 20, xPos, (20 * i * scale) + yPos,
+        Lib_TextureRect_RGBA16(&gMasterDisp, sVsModeFaceDL[idx] + (44 * 20 * i), 44, 20, xPos, (20 * i * scale) + yPos,
                                scale, scale);
     }
-    Lib_TextureRect_RGBA16(&gMasterDisp, sVsModeFaceDls[idx] + 44 * 20 * 2, 44, 4, xPos, (40.0f * scale) + yPos, scale,
+    Lib_TextureRect_RGBA16(&gMasterDisp, sVsModeFaceDL[idx] + 44 * 20 * 2, 44, 4, xPos, (40.0f * scale) + yPos, scale,
                            scale);
 }
 
-void HUD_EdgeArrows_Draw(s32 idx, s32 arg1) {
+void Hud_EdgeArrows_Draw(s32 idx, s32 arg1) {
     f32 D_800D1EF8[] = { 0.0f, 0.0f, -9.0f, 9.0f, 10.0f, 10.0f, 10.0f, 10.0f, 0.0f, 0.0f, -8.0f, 8.0f };
     f32 D_800D1F28[] = { -7.0f, 7.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 8.0f, -8.0f, 0.0f, 0.0f };
     f32 D_800D1F58[] = {
@@ -2814,10 +2801,10 @@ void HUD_EdgeArrows_Update(void) {
             j = (D_800D2048[i] ^ 0xFF) & j;
 
             if (gGameFrameCount & 4) {
-                HUD_EdgeArrows_Draw(i, 0);
+                Hud_EdgeArrows_Draw(i, 0);
             }
             if ((gGameFrameCount - 2) & 4) {
-                HUD_EdgeArrows_Draw(i, 1);
+                Hud_EdgeArrows_Draw(i, 1);
             }
         }
         Hud_Texture_Scroll(D_1024A58, 8, 8, 2);
@@ -3193,7 +3180,7 @@ void HUD_DisplayCountdown(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
         } else {
             RCP_SetupDL_76();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-            HUD_DisplaySmallNumber((var_fs0 * scale) + xPos, yPos, scale, var_s2);
+            Hud_DisplaySmallNumber((var_fs0 * scale) + xPos, yPos, scale, var_s2);
             var_fs0 += 9.0f;
         }
         var_fs0 += 9.0f;
@@ -3201,7 +3188,7 @@ void HUD_DisplayCountdown(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
 }
 
 void HUD_DrawCountdown(s32* countdown, f32 scale) {
-    //! FAKE:
+    //! FAKE: Weird control flow
     if (1) {}
 
     if (gPlayState != PLAY_PAUSE) {

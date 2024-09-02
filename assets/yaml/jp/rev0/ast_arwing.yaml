@@ -8,17 +8,17 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_arwing_3000000:
-  { type: TEXTURE, format: CI4, offset: 0x3000000, width: 16, height: 16, ctype: u8, tlut: 0x3000080, symbol: D_arwing_3000000 }
+aArwingLifeIconTex:
+  { type: TEXTURE, format: CI4, offset: 0x3000000, width: 16, height: 16, ctype: u8, tlut: 0x3000080, symbol: aArwingLifeIconTex }
 
-D_arwing_3000080:
-  { type: TEXTURE, format: TLUT, offset: 0x3000080, colors: 8, ctype: u16, symbol: D_arwing_3000080 }
+aArwingLifeIconTLUT:
+  { type: TEXTURE, format: TLUT, offset: 0x3000080, colors: 8, ctype: u16, symbol: aArwingLifeIconTLUT }
 
-D_arwing_3000090:
-  { type: GFX, offset: 0x3000090, symbol: D_arwing_3000090 }
+aAwFoxHeadDL:
+  { type: GFX, offset: 0x3000090, symbol: aAwFoxHeadDL }
 
-D_arwing_3001C90:
-  { type: GFX, offset: 0x3001C90, symbol: D_arwing_3001C90 }
+aAwJamesHeadDL:
+  { type: GFX, offset: 0x3001C90, symbol: aAwJamesHeadDL }
 
 D_arwing_3003960:
   { type: TEXTURE, format: RGBA16, offset: 0x3003960, width: 8, height: 8, ctype: u16, symbol: D_arwing_3003960 }
@@ -41,11 +41,11 @@ D_arwing_3003BE0:
 D_arwing_3003C60:
   { type: TEXTURE, format: RGBA16, offset: 0x3003C60, width: 8, height: 8, ctype: u16, symbol: D_arwing_3003C60 }
 
-D_arwing_3003CE0:
-  { type: GFX, offset: 0x3003CE0, symbol: D_arwing_3003CE0 }
+aAwPeppyHeadDL:
+  { type: GFX, offset: 0x3003CE0, symbol: aAwPeppyHeadDL }
 
-D_arwing_3005AB0:
-  { type: GFX, offset: 0x3005AB0, symbol: D_arwing_3005AB0 }
+aAwSlippyHeadDL:
+  { type: GFX, offset: 0x3005AB0, symbol: aAwSlippyHeadDL }
 
 D_arwing_30074D0:
   { type: TEXTURE, format: RGBA16, offset: 0x30074D0, width: 8, height: 8, ctype: u16, symbol: D_arwing_30074D0 }
@@ -68,8 +68,8 @@ D_arwing_3008960:
 D_arwing_3009960:
   { type: TEXTURE, format: RGBA16, offset: 0x3009960, width: 16, height: 16, ctype: u16, symbol: D_arwing_3009960 }
 
-D_arwing_3009B60:
-  { type: GFX, offset: 0x3009B60, symbol: D_arwing_3009B60 }
+aAwBodyDL:
+  { type: GFX, offset: 0x3009B60, symbol: aAwBodyDL }
 
 D_arwing_300AC48:
   { type: TEXTURE, format: RGBA16, offset: 0x300AC48, width: 32, height: 32, ctype: u16, symbol: D_arwing_300AC48 }
@@ -104,8 +104,8 @@ D_arwing_300F448:
 D_arwing_3010448:
   { type: TEXTURE, format: RGBA16, offset: 0x3010448, width: 64, height: 32, ctype: u16, symbol: D_arwing_3010448 }
 
-D_arwing_3011720:
-  { type: GFX, offset: 0x3011720, symbol: D_arwing_3011720 }
+aAwLaserGun1DL:
+  { type: GFX, offset: 0x3011720, symbol: aAwLaserGun1DL }
 
 D_arwing_30119F0:
   { type: TEXTURE, format: RGBA16, offset: 0x30119F0, width: 32, height: 32, ctype: u16, symbol: D_arwing_30119F0 }
@@ -128,17 +128,17 @@ D_arwing_3013FE8:
 D_arwing_30147E8:
   { type: TEXTURE, format: RGBA16, offset: 0x30147E8, width: 16, height: 32, ctype: u16, symbol: D_arwing_30147E8 }
 
-D_arwing_3014BF0:
-  { type: GFX, offset: 0x3014BF0, symbol: D_arwing_3014BF0 }
+aAwRightWingBrokenDL:
+  { type: GFX, offset: 0x3014BF0, symbol: aAwRightWingBrokenDL }
 
 D_arwing_3014F20:
   { type: TEXTURE, format: RGBA16, offset: 0x3014F20, width: 16, height: 16, ctype: u16, symbol: D_arwing_3014F20 }
 
-D_arwing_3015120:
-  { type: GFX, offset: 0x3015120, symbol: D_arwing_3015120 }
+aAwLeftWingBrokenDL:
+  { type: GFX, offset: 0x3015120, symbol: aAwLeftWingBrokenDL }
 
-D_arwing_30155E0:
-  { type: GFX, offset: 0x30155E0, symbol: D_arwing_30155E0}
+aAwFlap1DL:
+  { type: GFX, offset: 0x30155E0, symbol: aAwFlap1DL}
 
 D_arwing_3015AF4:
   { type: SF64:ANIM, offset: 0x3015AF4, symbol: D_arwing_3015AF4 }
@@ -149,8 +149,8 @@ D_arwing_3015C28:
 D_arwing_3015D68:
   { type: SF64:ANIM, offset: 0x3015D68, symbol: D_arwing_3015D68 }
 
-D_arwing_3015D80:
-  { type: GFX, offset: 0x3015D80, symbol: D_arwing_3015D80 }
+aAwRightWingDL:
+  { type: GFX, offset: 0x3015D80, symbol: aAwRightWingDL }
 
 D_arwing_30163C4:
   { type: SF64:ANIM, offset: 0x30163C4, symbol: D_arwing_30163C4 }
@@ -158,8 +158,8 @@ D_arwing_30163C4:
 D_arwing_3016610:
   { type: SF64:SKELETON, offset: 0x3016610, symbol: D_arwing_3016610 }
 
-D_arwing_3016660:
-  { type: GFX, offset: 0x3016660, symbol: D_arwing_3016660}
+aAwLeftWingDL:
+  { type: GFX, offset: 0x3016660, symbol: aAwLeftWingDL}
 
 D_arwing_3016B30:
   { type: GFX, offset: 0x3016B30, symbol: D_arwing_3016B30 }
@@ -167,8 +167,8 @@ D_arwing_3016B30:
 D_arwing_3016BB8:
   { type: TEXTURE, format: IA8, offset: 0x3016BB8, width: 16, height: 16, ctype: u8, symbol: D_arwing_3016BB8 }
 
-D_arwing_3016CC0:
-  { type: GFX, offset: 0x3016CC0, symbol: D_arwing_3016CC0 }
+aAwFalcoHeadDL:
+  { type: GFX, offset: 0x3016CC0, symbol: aAwFalcoHeadDL }
 
 D_arwing_30182C8:
   { type: TEXTURE, format: RGBA16, offset: 0x30182C8, width: 8, height: 8, ctype: u16, symbol: D_arwing_30182C8 }

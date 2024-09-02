@@ -53,8 +53,8 @@ aTextMissionNo:
   { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 19, offset: 0x5000500, symbol: aTextMissionNo }
 
 # Training
-aTextTraining:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x5000D50, symbol: aTextTraining }
+aTrTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x5000D50, symbol: aTrTitleCardTex }
 
 # Enemies Down
 aTextEnemiesDown:

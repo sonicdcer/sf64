@@ -736,7 +736,7 @@ void Ending_80190778(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_arwing_3005AB0);
+    gSPDisplayList(gMasterDisp++, aAwSlippyHeadDL);
 }
 
 void Ending_80190CF0(u32 arg0, AssetInfo* asset) {

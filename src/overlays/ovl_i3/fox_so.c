@@ -3049,7 +3049,7 @@ void Solar_SoVulkain_Draw(SoVulkain* this) {
                          MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, D_i3_801C2768[3], D_i3_801C2768[2], 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
 
         for (i = 0; i < 9; i++) {
             Matrix_Pop(&gGfxMatrix);
@@ -3060,7 +3060,7 @@ void Solar_SoVulkain_Draw(SoVulkain* this) {
             Matrix_RotateX(gGfxMatrix, spA0[i] * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[4 + i], 100.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
 
         if (D_i3_801C2768[13] > 0.0f) {
