@@ -114,7 +114,7 @@ extern s32 D_menu_801B8220[10];
 extern u8 D_menu_801B8248[10][4];
 extern UNK_TYPE D_menu_801B8270[3];
 extern s32 D_menu_801B827C;
-extern s32 D_menu_801B8280;
+extern bool D_menu_801B8280;
 extern s32 D_menu_801B8284;
 extern s32 D_menu_801B8288;
 extern f32 D_menu_801B828C;

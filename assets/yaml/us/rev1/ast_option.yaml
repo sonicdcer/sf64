@@ -44,11 +44,11 @@ D_OPT_80039A8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80039A8, symbol: D_OPT_80039A8 }
 
 #
-D_OPT_80039D0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x80039D0 , symbol: D_OPT_80039D0, tlut: 0x8003A50 }
+aSpeakerCenterTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x80039D0 , symbol: aSpeakerCenterTex, tlut: 0x8003A50 }
 
-D_OPT_8003A50:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003A50, symbol: D_OPT_8003A50 }
+aSpeakerCenterTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003A50, symbol: aSpeakerCenterTLUT }
 
 # st
 D_OPT_8003A70:
@@ -67,45 +67,45 @@ D_OPT_8003B28:
 # Option Title Cards
 
 # Main Game
-D_OPT_8003B50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 72, height: 12, offset: 0x8003B50, symbol: D_OPT_8003B50 }
+aMainGameCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 72, height: 12, offset: 0x8003B50, symbol: aMainGameCardTex }
 
 # Training
-D_OPT_8003EB0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x8003EB0, symbol: D_OPT_8003EB0 }
+aTrainingCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x8003EB0, symbol: aTrainingCardTex }
 
 # Vs.
-D_OPT_8004270:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 10, offset: 0x8004270, symbol: D_OPT_8004270 }
+aVsCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 10, offset: 0x8004270, symbol: aVsCardTex }
 
 # Ranking
-D_OPT_80043B0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 12, offset: 0x80043B0, symbol: D_OPT_80043B0 }
+aRankingCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 12, offset: 0x80043B0, symbol: aRankingCardTex }
 
 # Sound
-D_OPT_80046B0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 10, offset: 0x80046B0, symbol: D_OPT_80046B0 }
+aSoundCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 10, offset: 0x80046B0, symbol: aSoundCardTex }
 
 # Data
-D_OPT_8004930:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 10, offset: 0x8004930, symbol: D_OPT_8004930 }
+aDataCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 10, offset: 0x8004930, symbol: aDataCardTex }
 
-D_OPT_8004C50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x8004C50, symbol: D_OPT_8004C50 }
+aExpertCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 12, offset: 0x8004C50, symbol: aExpertCardTex }
 
 # Option VS Cards
 
 # Point Match
-D_OPT_8005010:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 13, offset: 0x8005010, symbol: D_OPT_8005010 }
+aVsPointMatchCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 13, offset: 0x8005010, symbol: aVsPointMatchCardTex }
 
 # Battle Royal
-D_OPT_80054F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 11, offset: 0x80054F0, symbol: D_OPT_80054F0 }
+aVsBattleRoyalCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 11, offset: 0x80054F0, symbol: aVsBattleRoyalCardTex }
 
 # Time Trial
-D_OPT_8005910:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x8005910, symbol: D_OPT_8005910 }
+aVsTimeTrialCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x8005910, symbol: aVsTimeTrialCardTex }
 
 # Sound Options
 
@@ -201,19 +201,19 @@ D_OPT_800E170:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 188, height: 60, offset: 0x800E170, symbol: D_OPT_800E170 }
 
 # ScrollBar
-D_OPT_8013990:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 104, height: 10, offset: 0x8013990, symbol: D_OPT_8013990 }
+aSliderFrameTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 104, height: 10, offset: 0x8013990, symbol: aSliderFrameTex }
 
 # ScrollBar Indicator
-D_OPT_80141B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x80141B0, symbol: D_OPT_80141B0 }
+aSliderTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x80141B0, symbol: aSliderTex }
 
 # Speaker
-D_OPT_80143B0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x80143B0, symbol: D_OPT_80143B0, tlut: 0x80147B0 }
+aSpeakerTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x80143B0, symbol: aSpeakerTex, tlut: 0x80147B0 }
 
-D_OPT_80147B0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x80147B0, symbol: D_OPT_80147B0 }
+aSpeakerTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x80147B0, symbol: aSpeakerTLUT }
 
 D_OPT_80147F0:
   { type: GFX, offset: 0x80147F0, symbol: D_OPT_80147F0 }

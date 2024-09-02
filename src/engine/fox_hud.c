@@ -184,6 +184,7 @@ void HUD_TeamDownWrench_Draw(s32 arg0) {
     };
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_36);
+
     if (arg0 == 0) {
         for (i = 1; i < 4; i++) {
             if (((gTeamShields[i] != 0) || (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
@@ -1035,7 +1036,7 @@ void HUD_TeammateStatus_Draw(void) {
     }
 }
 
-void HUD_DrawLevelClearStatusScreen(void) {
+void HUD_LevelClearStatusScreen_Draw(void) {
     s32 i;
     s32 temp;
     f32 x0;
@@ -1077,7 +1078,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
                 D_801617C0[4] = gHitCount / 2;
                 D_801617C0[6] = 0;
 
-                func_hud_800884E4();
+                HUD_SetMissionTeamStatus();
                 break;
 
             case 1:
@@ -1256,7 +1257,7 @@ void HUD_DrawLevelClearStatusScreen(void) {
     }
 }
 
-void func_hud_800884E4(void) {
+void HUD_SetMissionTeamStatus(void) {
     s32 mask;
     s32 i;
 
@@ -1318,7 +1319,7 @@ void HUD_DrawStatusScreens(void) {
     }
     HUD_DrawLevelStartStatusScreen();
     HUD_DrawLevelClearScreen();
-    HUD_DrawLevelClearStatusScreen();
+    HUD_LevelClearStatusScreen_Draw();
 }
 
 s32 HUD_PauseScreenInput(void) {
@@ -4250,7 +4251,7 @@ bool ActorTeamBoss_SetFlyingAngle(ActorTeamBoss* this) {
     sp40 = Math_RadToDeg(Math_Atan2F(x, z));
     sp44 = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
 
-    if ((ActorTeamBoss_ObstacleCheck(this) != 0) && (this->iwork[4] == 0)) {
+    if (ActorTeamBoss_ObstacleCheck(this) && (this->iwork[4] == 0)) {
         sp44 += 40.0f;
         if (sp44 >= 360.0f) {
             sp44 -= 360.0f;

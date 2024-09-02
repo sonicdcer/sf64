@@ -48,7 +48,7 @@ s32 D_menu_801B8220[10];
 u8 D_menu_801B8248[10][4];
 UNK_TYPE D_menu_801B8270[3];
 s32 D_menu_801B827C;
-s32 D_menu_801B8280;
+bool D_menu_801B8280;
 s32 D_menu_801B8284;
 s32 D_menu_801B8288;
 f32 D_menu_801B828C;
@@ -461,22 +461,22 @@ s32 Title_80188010(void) {
     }
 
     for (i = 0; i < 10; i++) {
-        D_menu_801B8248[i][0] = gSaveFile.save.data.unk_18[i][0] & 0xFF;
-        D_menu_801B8248[i][1] = gSaveFile.save.data.unk_18[i][1] & 0xFF;
-        D_menu_801B8248[i][2] = gSaveFile.save.data.unk_18[i][2] & 0xFF;
+        D_menu_801B8248[i][0] = gSaveFile.save.data.rankNameEntry[i][0] & 0xFF;
+        D_menu_801B8248[i][1] = gSaveFile.save.data.rankNameEntry[i][1] & 0xFF;
+        D_menu_801B8248[i][2] = gSaveFile.save.data.rankNameEntry[i][2] & 0xFF;
         D_menu_801B8248[i][3] = '\0';
 
         temp3 = gSaveFile.save.data.unk_36[i];
 
         for (j = 0; j < temp3; j++) {
-            temp2 = gSaveFile.save.data.unk_5E[i][j].unk_0;
-            temp2 |= (gSaveFile.save.data.unk_5E[i][j].unk_C & 1) * 256;
+            temp2 = gSaveFile.save.data.stats[i][j].hitCount;
+            temp2 |= (gSaveFile.save.data.stats[i][j].unk_C & 1) << 8;
 
             D_menu_801B8220[i] += temp2;
 
-            D_menu_801B81A8[i][0] += gSaveFile.save.data.unk_5E[i][j].unk_D & 1;
-            D_menu_801B81A8[i][1] += gSaveFile.save.data.unk_5E[i][j].unk_F & 1;
-            D_menu_801B81A8[i][2] += gSaveFile.save.data.unk_5E[i][j].unk_E & 1;
+            D_menu_801B81A8[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
+            D_menu_801B81A8[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
+            D_menu_801B81A8[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;
         }
     }
 
@@ -496,7 +496,7 @@ void Title_801881FC(void) {
     s32 i;
 
     for (i = 0; i < 16; i++) {
-        if ((i != 14) && (!(gSaveFile.save.data.planet[i].expertMedal & 1))) {
+        if ((i != 14) && ((gSaveFile.save.data.planet[i].expertMedal & 1) == 0)) {
             var_a1 = false;
             break;
         }

@@ -384,7 +384,7 @@ void HUD_TeamShields_Draw(f32, f32, s32);
 void HUD_TitleCard_Draw(f32, f32);
 void HUD_Number_Draw(f32, f32, s32, f32, bool, s32);
 void HUD_LivesCount2_Draw(f32, f32, s32);
-void func_hud_800884E4(void);
+void HUD_SetMissionTeamStatus(void);
 void HUD_Bolse_Area6_SaveData(void);
 void HUD_DrawStatusScreens(void);
 s32 ActorMissileSeek_ModeCheck(ActorMissileSeekMode mode);

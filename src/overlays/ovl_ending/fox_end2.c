@@ -240,7 +240,7 @@ bool Ending_8018DCB4(void) {
     s32 temp2 = 0;
     s32 temp3 = 0;
     s32 temp4[10];
-    s32 unk_5E[10][7];
+    s32 stats[10][7];
     s32 unk40[10];
 
     for (i = 0; i < gMissionNumber + 1; i++) {
@@ -254,10 +254,10 @@ bool Ending_8018DCB4(void) {
         unk40[i] = gSaveFile.save.data.unk_40[i];
 
         for (j = 0; j < 7; j += 1) {
-            temp4[i] += gSaveFile.save.data.unk_5E[i][j].unk_0 + (gSaveFile.save.data.unk_5E[i][j].unk_C * 256);
-            unk_5E[i][0] += gSaveFile.save.data.unk_5E[i][j].unk_D & 1;
-            unk_5E[i][1] += gSaveFile.save.data.unk_5E[i][j].unk_F & 1;
-            unk_5E[i][2] += gSaveFile.save.data.unk_5E[i][j].unk_E & 1;
+            temp4[i] += gSaveFile.save.data.stats[i][j].hitCount + (gSaveFile.save.data.stats[i][j].unk_C * 256);
+            stats[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
+            stats[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
+            stats[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;
         }
     }
 
@@ -283,7 +283,7 @@ bool Ending_8018DCB4(void) {
                                 temp3 = 0;
 
                                 for (m = 0; m < 3; m++) {
-                                    temp3 += unk_5E[k][m];
+                                    temp3 += stats[k][m];
                                 }
 
                                 if (temp2 > temp3) {

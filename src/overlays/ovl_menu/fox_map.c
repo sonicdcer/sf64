@@ -1998,8 +1998,8 @@ s32 Map_801A05B4(void) {
     for (i = 0; i < 10; i++) {
         temp_a0 = gSaveFile.save.data.unk_36[i];
         for (j = 0; j < temp_a0; j++) {
-            var_a3 = gSaveFile.save.data.unk_5E[i][j].unk_0;
-            if (gSaveFile.save.data.unk_5E[i][j].unk_C != 0) {
+            var_a3 = gSaveFile.save.data.stats[i][j].hitCount;
+            if (gSaveFile.save.data.stats[i][j].unk_C != 0) {
                 var_a3 += 256;
             }
             sp30[i] += var_a3;
