@@ -4,8 +4,8 @@
 #include "PR/ultratypes.h"
 
 #define RANKING_MAX (10) // Maximum number of entries in the ranking
-#define ROUTE_MAX (7) // Maximum number of planets in a route
-#define ENTRY_MAX (3) // Maximum number of letters for name entry
+#define ROUTE_MAX (7)    // Maximum number of planets in a route
+#define ENTRY_MAX (3)    // Maximum number of letters for name entry
 
 typedef struct {
     /* bit 0 */ u8 unk_0 : 3; // unused
@@ -33,9 +33,9 @@ typedef struct SaveData {
     /* 0x16 */ u8 voiceVolume;
     /* 0x17 */ u8 sfxVolume;
     /* 0x18 */ u8 rankNameEntry[RANKING_MAX][ENTRY_MAX]; // Name entries in the ranking
-    /* 0x36 */ u8 rankingRoute[RANKING_MAX]; // Maximum number of planets played in the current record
-    /* 0x40 */ u8 rankingLives[RANKING_MAX]; // Player lives left in the current record
-    /* 0x4A */ u16 rankingMedal[RANKING_MAX];
+    /* 0x36 */ u8 rankingRoute[RANKING_MAX];  // Maximum number of planets played in the current record
+    /* 0x40 */ u8 rankingLives[RANKING_MAX];  // Player lives left in the current record
+    /* 0x4A */ u16 rankingMedal[RANKING_MAX]; // Medals obtained in the current record
     /* 0x5E */ PlanetStats stats[RANKING_MAX][ROUTE_MAX];
     /* 0xEA */ u8 unk_EA;
     /* 0xEB */ char padEB[0x3];
@@ -44,9 +44,9 @@ typedef struct SaveData {
 
 typedef struct {
     /* 0x00 */ union {
-            u8 raw[sizeof(SaveData)];
-            SaveData data;
-        };
+        u8 raw[sizeof(SaveData)];
+        SaveData data;
+    };
     /* 0xFE */ u16 checksum;
 } Save; // size = 0x100
 

@@ -23,8 +23,8 @@ aVsPlayerNum4Tex:
 D_VS_MENU_7000490:
   { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 42, offset: 0x7000490, symbol: D_VS_MENU_7000490}
 
-D_VS_MENU_7000F10:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 7, offset: 0x7000F10, symbol: D_VS_MENU_7000F10}
+aVsTextContTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 7, offset: 0x7000F10, symbol: aVsTextContTex}
 
 D_VS_MENU_7001030:
   { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 9, offset: 0x7001030, symbol: D_VS_MENU_7001030}
@@ -38,8 +38,8 @@ aVsTextCorneriaTex:
 aVsTextSectorZTex:
   { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x70019E0, symbol: aVsTextSectorZTex}
 
-D_VS_MENU_7001C10:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x7001C10, symbol: D_VS_MENU_7001C10}
+aVsTextKatinaTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x7001C10, symbol: aVsTextKatinaTex}
 
 D_VS_MENU_7001DF0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 80, height: 10, offset: 0x7001DF0, symbol: D_VS_MENU_7001DF0}
@@ -158,11 +158,11 @@ aVsSectorZTex:
 aVsSectorZTLUT:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 168, offset: 0x7006630, symbol: aVsSectorZTLUT}
 
-D_VS_MENU_7006780:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7006780, symbol: D_VS_MENU_7006780, tlut: 0x7006EA0}
+aVsKatinaTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7006780, symbol: aVsKatinaTex, tlut: 0x7006EA0}
 
-D_VS_MENU_7006EA0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 256, offset: 0x7006EA0, symbol: D_VS_MENU_7006EA0}
+aVsKatinaTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 256, offset: 0x7006EA0, symbol: aVsKatinaTLUT}
 
 aVsFalcoFaceTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x70070A0, symbol: aVsFalcoFaceTex}
@@ -191,11 +191,11 @@ D_VS_MENU_700DA80:
 aVsN64ConsoleTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 144, height: 42, offset: 0x700E9A0, symbol: aVsN64ConsoleTex}
 
-D_VS_MENU_70118E0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 80, height: 71, offset: 0x70118E0, symbol: D_VS_MENU_70118E0, tlut: 0x70123F8}
+aVsHandicapFrameTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 80, height: 71, offset: 0x70118E0, symbol: aVsHandicapFrameTex, tlut: 0x70123F8}
 
-D_VS_MENU_70123F8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 5, offset: 0x70123F8, symbol: D_VS_MENU_70123F8}
+aVsHandicapFrameTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 5, offset: 0x70123F8, symbol: aVsHandicapFrameTLUT}
 
 D_VS_MENU_7012410:
   { type: GFX, offset: 0x7012410, symbol: D_VS_MENU_7012410}

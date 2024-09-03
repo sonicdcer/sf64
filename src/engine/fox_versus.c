@@ -204,10 +204,10 @@ void func_versus_800BD3A8(f32 xPos, f32 yPos) {
     s32 i;
 
     for (i = 0; i < 8; i++) {
-        Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + ((80 * 8 * i) / 2), D_VS_MENU_70123F8, 80, 8, xPos,
+        Lib_TextureRect_CI4(&gMasterDisp, aVsHandicapFrameTex + ((80 * 8 * i) / 2), aVsHandicapFrameTLUT, 80, 8, xPos,
                             yPos + (i * 8), 1.0f, 1.0f);
     }
-    Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + ((80 * 8 * i) / 2), D_VS_MENU_70123F8, 80, 7, xPos,
+    Lib_TextureRect_CI4(&gMasterDisp, aVsHandicapFrameTex + ((80 * 8 * i) / 2), aVsHandicapFrameTLUT, 80, 7, xPos,
                         yPos + (i * 8), 1.0f, 1.0f);
 }
 

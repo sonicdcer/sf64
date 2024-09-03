@@ -72,8 +72,6 @@ typedef enum OptionId {
     /*  401 */ OPTION_MAX,
 } OptionId;
 
-#define OPTION_COUNT ARRAY_COUNT(sOptionCardList)
-
 extern u8* D_menu_801B68B0[];
 extern u8* D_menu_801B68D4[];
 
@@ -165,7 +163,7 @@ void Option_VersusMenu_Setup(void);
 void Option_VersusMenu_Update(void);
 void Option_VersusMenu_Cursor(void);
 void Option_VersusMenu_Draw(void);
-void Option_VS_CharSelect_Draw(s32);
+void Option_VS_HandicapSet_Draw(s32);
 void Option_VS_N64Console_Draw(void);
 void Option_VersusStage_Setup(void);
 void Option_8019A080(void);
@@ -173,11 +171,11 @@ void Option_VersusStage_Update(void);
 void Option_Vs_PointMatch_Update(void);
 void Option_Vs_BattleRoyal_Update(void);
 void Option_Vs_TimeTrial_Update(void);
-void Option_8019A298(void);
-void Option_8019A2E0(void);
-void Option_8019A4DC(void);
-void Option_8019A6DC(void);
-void Option_8019A954(void);
+void Option_Vs_StartMatch(void);
+void Option_Vs_Point_Selection(void);
+void Option_Vs_Time_Selection(void);
+void Option_Vs_Stage_Selection(void);
+void Option_Vs_Confirm_Selection(void);
 void Option_VersusStage_Draw(void);
 void Option_8019AB30(void);
 void Option_8019AD84(void);

@@ -193,8 +193,8 @@ D_OPT_800D1F0:
 D_OPT_800E0F0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E0F0, symbol: D_OPT_800E0F0 }
 
-D_OPT_800E130:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E130, symbol: D_OPT_800E130 }
+aArrowTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E130, symbol: aArrowTex }
 
 # Mercenary Unit STARFOX Fox Mccloud
 D_OPT_800E170:
