@@ -5,9 +5,9 @@
 
 extern s32 sSpectrumAnalyzerMode;
 extern bool sMusicPlaying;
-extern bool D_menu_801B9244;
-extern OptionId D_menu_801B9124;
-extern s32 sVsSubMenuSelection;
+extern bool sMainMenuFromCancel;
+extern OptionId sMenuEntryState;
+extern s32 sMainMenuState;
 
 static s32 showJukebox = 0;
 static u32 prevSfx = NA_SE_NONE;
@@ -171,9 +171,9 @@ void Jukebox_Update(void) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(NA_BGM_SELECT);
             gDrawMode = DRAW_NONE;
-            D_menu_801B9124 = 1000;
-            sVsSubMenuSelection = 0;
-            D_menu_801B9244 = 1;
+            sMenuEntryState = 1000;
+            sMainMenuState = 0;
+            sMainMenuFromCancel = 1;
             return;
         } else {
             AUDIO_PLAY_SFX(NA_SE_CANCEL, gDefaultSfxSource, 4);

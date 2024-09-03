@@ -1256,7 +1256,6 @@ void HUD_LevelClearStatusScreen_Draw(void) {
         HUD_PlayerShieldGauge_Draw(20.0f, 18.0f);
     }
 }
-
 void HUD_SetMissionTeamStatus(void) {
     s32 mask;
     s32 i;

@@ -8,6 +8,7 @@
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
+#include "sf64save.h"
 #include "prevent_bss_reordering.h"
 #include "prevent_bss_reordering2.h"
 #include "prevent_bss_reordering3.h"
@@ -16,15 +17,15 @@
 #include "assets/ast_font_3d.h"
 
 // BSS STARTS HERE
-u8 D_menu_801B9410[96 * 96];
-u8 D_menu_801BB810[96 * 96];
-u8 D_menu_801BDC10[96 * 96];
-u8 D_menu_801C0010[96 * 96];
-u8 D_menu_801C2410[96 * 96];
-u8 D_menu_801C4810[96 * 96];
-u8 D_menu_801C6C10[96 * 96];
-u8 D_menu_801C9010[96 * 96];
-u8 D_menu_801CB410[96 * 96];
+u8 gMapVenomCloudTex[96 * 96];
+u8 gMapCorneriaTex[96 * 96];
+u8 gMapFortunaTex[96 * 96];
+u8 gMapAquasTex[96 * 96];
+u8 gMapVenomTex[96 * 96];
+u8 gMapTitaniaTex[96 * 96];
+u8 gMapKatinaTex[96 * 96];
+u8 gMapMacbethTex[96 * 96];
+u8 gMapZonessTex[96 * 96];
 s32 D_menu_801CD810;
 f32 D_menu_801CD818[9];
 s32 D_menu_801CD83C;
@@ -674,42 +675,42 @@ Vtx D_menu_801B4740[] = {
 
 Gfx D_menu_801B4A40[] = {
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801B9410, G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapVenomCloudTex, G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 1], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 1], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 2], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 2], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 3], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 3], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 4], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 4], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 5], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 5], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 6], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 6], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 7], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 7], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 8], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 8], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 9], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 9], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 10], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 10], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801B9410[96 * 8 * 11], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 11], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -720,43 +721,43 @@ Gfx D_menu_801B4A40[] = {
 Gfx D_menu_801B4D70[] = {
     gsDPLoadTLUT_pal256(D_MAP_6026C90),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801BB810, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapCorneriaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801BB810[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -767,43 +768,43 @@ Gfx D_menu_801B4D70[] = {
 Gfx D_menu_801B50D8[] = {
     gsDPLoadTLUT_pal256(D_MAP_6029170),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801BDC10[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -814,43 +815,43 @@ Gfx D_menu_801B50D8[] = {
 Gfx D_menu_801B5440[] = {
     gsDPLoadTLUT_pal256(D_MAP_6022340),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801C0010, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapAquasTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C0010[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -861,43 +862,43 @@ Gfx D_menu_801B5440[] = {
 Gfx D_menu_801B57A8[] = {
     gsDPLoadTLUT_pal256(D_MAP_60247E0),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801C2410, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapVenomTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C2410[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -908,43 +909,43 @@ Gfx D_menu_801B57A8[] = {
 Gfx D_menu_801B5B10[] = {
     gsDPLoadTLUT_pal256(D_MAP_602FF60),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801C4810, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapTitaniaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C4810[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -955,43 +956,43 @@ Gfx D_menu_801B5B10[] = {
 Gfx D_menu_801B5E78[] = {
     gsDPLoadTLUT_pal256(D_MAP_602B620),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801C6C10, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapKatinaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C6C10[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -1002,43 +1003,43 @@ Gfx D_menu_801B5E78[] = {
 Gfx D_menu_801B61E0[] = {
     gsDPLoadTLUT_pal256(D_MAP_602DAD0),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801C9010, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapMacbethTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 1], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 2], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 5], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 6], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 9], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 10], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(&D_menu_801C9010[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 11], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -1049,43 +1050,43 @@ Gfx D_menu_801B61E0[] = {
 Gfx D_menu_801B6548[] = {
     gsDPLoadTLUT_pal256(D_MAP_60323D0),
     gsSPVertex(D_menu_801B4740, 16, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 1), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 1), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 2), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 2), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 3), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 3), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[16], 16, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 4), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 4), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 5), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 5), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 6), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 6), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 7), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 7), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsSPVertex(&D_menu_801B4740[32], 16, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 8), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 8), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 9), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 9), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(5, 6, 7, 4, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 10), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 10), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(9, 10, 11, 8, 0),
-    gsDPLoadTextureBlock(D_menu_801CB410 + (96 * 8 * 11), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
+    gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 11), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 8, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
     gsDPPipeSync(),
@@ -1093,14 +1094,16 @@ Gfx D_menu_801B6548[] = {
     gsSPEndDisplayList(),
 };
 
-u8* D_menu_801B68B0[] = {
-    D_menu_801C6C10, D_menu_801C9010, D_menu_801CB410, D_menu_801BB810, D_menu_801C4810,
-    D_menu_801C0010, D_menu_801BDC10, D_menu_801C2410, D_menu_801B9410,
+// BSS
+u8* gBSSMapPlanetTextures[9] = {
+    gMapKatinaTex, gMapMacbethTex, gMapZonessTex, gMapCorneriaTex,   gMapTitaniaTex,
+    gMapAquasTex,  gMapFortunaTex, gMapVenomTex,  gMapVenomCloudTex,
 };
 
-u8* D_menu_801B68D4[] = {
-    D_MAP_6029220, D_MAP_602B6D0, D_MAP_602FFD0, D_MAP_6024890, D_MAP_602DB60,
-    D_MAP_601FF40, D_MAP_6026D70, D_MAP_60223E0, D_MAP_60190B0,
+// AST_MAP
+u8* gAssetMapPlanetTextures[9] = {
+    aMapKatinaTex, aMapMacbethTex, aMapZonessTex, aMapCorneriaTex,   aMapTitaniaTex,
+    aMapAquasTex,  aMapFortunaTex, aMapVenomTex,  aMapVenomCloudTex,
 };
 
 Gfx* D_menu_801B68F8[] = {
@@ -1354,8 +1357,8 @@ void Map_Init(void) {
 
     Map_801A0788();
 
-    D_menu_801B8280 = 0;
-    D_menu_801B8284 = 0;
+    sWipeScreen = 0;
+    sWipeHeight = 0;
     D_menu_801CD9B8 = 0;
     D_menu_801CD9BC = 0;
     D_menu_801CD9C0 = 0;
@@ -1397,20 +1400,20 @@ void Map_Init(void) {
     Map_801A914C();
 
     for (i = 0; i < 96 * 96; i++) {
-        D_menu_801BB810[i] = 106;
-        D_menu_801BDC10[i] = 84;
-        D_menu_801C0010[i] = 75;
-        D_menu_801C2410[i] = 81;
-        D_menu_801C4810[i] = 55;
-        D_menu_801C6C10[i] = 82;
-        D_menu_801C9010[i] = 68;
-        D_menu_801CB410[i] = 52;
-        D_menu_801B9410[i] = 0;
+        gMapCorneriaTex[i] = 106;
+        gMapFortunaTex[i] = 84;
+        gMapAquasTex[i] = 75;
+        gMapVenomTex[i] = 81;
+        gMapTitaniaTex[i] = 55;
+        gMapKatinaTex[i] = 82;
+        gMapMacbethTex[i] = 68;
+        gMapZonessTex[i] = 52;
+        gMapVenomCloudTex[i] = 0;
     }
 
     for (i = 0; i < 9; i++) {
         D_menu_801CD818[i] = 0.0f;
-        Map_801A07E8(D_menu_801B68B0[i], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[i]), &D_menu_801CD818[i]);
+        Map_801A07E8(gBSSMapPlanetTextures[i], SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[i]), &D_menu_801CD818[i]);
     }
 
     D_menu_801CD810 = 0;
@@ -1964,16 +1967,17 @@ void Map_Draw(void) {
     }
 
     if (D_menu_801CEEC8 == 0) {
-        Map_801A07E8(D_menu_801B68B0[8], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]), &D_menu_801CD818[8]);
+        Map_801A07E8(gBSSMapPlanetTextures[8], SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[8]), &D_menu_801CD818[8]);
         D_menu_801CEEC8 = 5;
     } else {
         D_menu_801CEEC8--;
     }
 
-    Map_801A07E8(D_menu_801B68B0[D_menu_801CEEC4 * 2], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[D_menu_801CEEC4 * 2]),
+    Map_801A07E8(gBSSMapPlanetTextures[D_menu_801CEEC4 * 2],
+                 SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[D_menu_801CEEC4 * 2]),
                  &D_menu_801CD818[D_menu_801CEEC4 * 2]);
-    Map_801A07E8(D_menu_801B68B0[(D_menu_801CEEC4 * 2) + 1],
-                 SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[(D_menu_801CEEC4 * 2) + 1]),
+    Map_801A07E8(gBSSMapPlanetTextures[(D_menu_801CEEC4 * 2) + 1],
+                 SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[(D_menu_801CEEC4 * 2) + 1]),
                  &D_menu_801CD818[(D_menu_801CEEC4 * 2) + 1]);
     D_menu_801CEEC4++;
     if (D_menu_801CEEC4 > 3) {
@@ -3412,8 +3416,7 @@ void Map_801A4394(void) {
 void Map_801A4650(void) {
     s32 i;
     static Gfx* D_menu_801B6A4C[] = {
-        D_FONT3D_9006AE0, D_FONT3D_90086F0, D_FONT3D_9005380, D_FONT3D_90075A0,
-        D_FONT3D_9000570, D_FONT3D_9002EA0, D_FONT3D_90075A0, D_FONT3D_9004230,
+        aFont3D_G, aFont3D_A, aFont3D_M, aFont3D_E, aFont3D_O, aFont3D_V, aFont3D_E, aFont3D_R,
     };
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 127, 28, 58, 105, 65, 70, 48);
@@ -3666,7 +3669,7 @@ void Map_801A4FC4(void) {
     gMissionPlanet[gMissionNumber] = PLANET_NONE;
     gMissionHitCount[gMissionNumber - 1] = 0;
     gMissionMedal[gMissionNumber - 1] = 0;
-    gMissionTeamStatus[gMissionNumber - 1] = 0x00FFFFFF;
+    gMissionTeamStatus[gMissionNumber - 1] = TEAMSTATUS_ALIVE;
     gHitCount = 0;
     gMissionNumber--;
 
@@ -3937,14 +3940,14 @@ void Map_801A5C90(void) {
 }
 
 void Map_801A5E80(void) {
-    switch (D_menu_801B8280) {
+    switch (sWipeScreen) {
         case 0:
-            D_menu_801B8284 = 0;
+            sWipeHeight = 0;
             D_menu_801CD9A0 = 1;
             Map_801A6368();
             D_menu_801CD9A8 = Map_801A62FC(sCurrentPlanetId);
             Map_801AB284();
-            D_menu_801B8280++;
+            sWipeScreen++;
             break;
 
         case 1:
@@ -3952,7 +3955,7 @@ void Map_801A5E80(void) {
                 Audio_KillSfxById(NA_SE_COMPUTER_NOISE);
                 Audio_ClearVoice();
                 D_menu_801CF018 = 0;
-                D_menu_801B8280 = 2;
+                sWipeScreen = 2;
                 D_menu_801CD9B8 = 0;
             }
 
@@ -3967,7 +3970,7 @@ void Map_801A5E80(void) {
 
             if (D_menu_801CF018 == 7) {
                 D_menu_801CD9B8 = 5;
-                D_menu_801B8280++;
+                sWipeScreen++;
             }
             break;
 
@@ -3976,15 +3979,15 @@ void Map_801A5E80(void) {
                 break;
             }
 
-            if (D_menu_801B8284 < 120) {
-                D_menu_801B8284 += 15;
+            if (sWipeHeight < 120) {
+                sWipeHeight += 15;
                 if (sCurrentPlanetId == PLANET_CORNERIA) {
                     D_menu_801CEB48[0] = false;
                 }
             } else {
                 D_menu_801CD9B8 = 5;
                 D_menu_801CF018 = 0;
-                D_menu_801B8280++;
+                sWipeScreen++;
             }
             break;
 
@@ -3992,7 +3995,7 @@ void Map_801A5E80(void) {
             if (D_menu_801CD9B8 == 0) {
                 D_menu_801CD9B8 = 5;
                 D_menu_801CD968 = 1;
-                D_menu_801B8280++;
+                sWipeScreen++;
             }
             break;
 
@@ -4000,14 +4003,14 @@ void Map_801A5E80(void) {
             if (D_menu_801CD9B8 == 0) {
                 AUDIO_PLAY_SFX(NA_SE_GOOD_LUCK, gDefaultSfxSource, 4);
                 D_menu_801CD9B8 = 75;
-                D_menu_801B8280++;
+                sWipeScreen++;
             }
             break;
 
         case 5:
             if (D_menu_801CD9B8 == 0) {
                 Map_801A61B4(gCurrentLevel);
-                D_menu_801B8280 = 0;
+                sWipeScreen = 0;
                 D_menu_801CD968 = 0;
                 Map_801A6628();
             }
@@ -5290,13 +5293,13 @@ void Map_801A9448(void) {
 }
 
 void Map_801A9814(void) {
-    if (D_menu_801B8280 != 0) {
+    if (sWipeScreen != 0) {
         Matrix_Push(&gGfxMatrix);
         Matrix_LookAt(gGfxMatrix, D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
                       D_menu_801CDA08, D_menu_801CDA20, D_menu_801CDA24, D_menu_801CDA28, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, D_menu_801CEA58, D_menu_801CEA5C, D_menu_801CEA60, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, sWipeHeight);
         Matrix_Pop(&gGfxMatrix);
     }
 }

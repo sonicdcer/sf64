@@ -152,8 +152,8 @@ D_MAP_6019030:
   { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: D_MAP_6019030 }
 
 # Clouds ?
-D_MAP_60190B0: 
-  { type: TEXTURE, format: IA8, offset: 0x60190B0, width: 96, height: 96, ctype: u8, symbol: D_MAP_60190B0 }
+aMapVenomCloudTex: 
+  { type: TEXTURE, format: IA8, offset: 0x60190B0, width: 96, height: 96, ctype: u8, symbol: aMapVenomCloudTex }
 
 D_MAP_601B4B0: 
   { type: TEXTURE, format: IA8, offset: 0x601B4B0, width: 32, height: 32, ctype: u8, symbol: D_MAP_601B4B0 }
@@ -247,56 +247,56 @@ D_MAP_601F740:
   { type: TEXTURE, format: RGBA16, offset: 0x0601F740, width: 32, height: 32, ctype: u16, symbol: D_MAP_601F740 }
 
 # Looks like Aquas
-D_MAP_601FF40:
-  { type: TEXTURE, format: CI8, offset: 0x601FF40, width: 96, height: 96, ctype: u8, symbol: D_MAP_601FF40, tlut: 0x06022340 }
+aMapAquasTex:
+  { type: TEXTURE, format: CI8, offset: 0x601FF40, width: 96, height: 96, ctype: u8, symbol: aMapAquasTex, tlut: 0x06022340 }
 
 D_MAP_6022340:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 75, offset: 0x06022340, symbol: D_MAP_6022340 }
 
 # Looks like Venom
-D_MAP_60223E0:
-  { type: TEXTURE, format: CI8, offset: 0x60223E0, width: 96, height: 96, ctype: u8, symbol: D_MAP_60223E0, tlut: 0x060247E0 }
+aMapVenomTex:
+  { type: TEXTURE, format: CI8, offset: 0x60223E0, width: 96, height: 96, ctype: u8, symbol: aMapVenomTex, tlut: 0x060247E0 }
 
 D_MAP_60247E0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x060247E0, symbol: D_MAP_60247E0 }
 
 # Looks like Corneria
-D_MAP_6024890:
-  { type: TEXTURE, format: CI8, offset: 0x6024890, width: 96, height: 96, ctype: u8, symbol: D_MAP_6024890, tlut: 0x06026C90 }
+aMapCorneriaTex:
+  { type: TEXTURE, format: CI8, offset: 0x6024890, width: 96, height: 96, ctype: u8, symbol: aMapCorneriaTex, tlut: 0x06026C90 }
 
 D_MAP_6026C90:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 108, offset: 0x06026C90, symbol: D_MAP_6026C90 }
 
 # Looks like Zones
-D_MAP_6026D70:
-  { type: TEXTURE, format: CI8, offset: 0x6026D70, width: 96, height: 96, ctype: u8, symbol: D_MAP_6026D70, tlut: 0x06029170 }
+aMapFortunaTex:
+  { type: TEXTURE, format: CI8, offset: 0x6026D70, width: 96, height: 96, ctype: u8, symbol: aMapFortunaTex, tlut: 0x06029170 }
 
 D_MAP_6029170:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x06029170, symbol: D_MAP_6029170 }
 
 # Looks like Solar
-D_MAP_6029220:
-  { type: TEXTURE, format: CI8, offset: 0x6029220, width: 96, height: 96, ctype: u8, symbol: D_MAP_6029220, tlut: 0x0602B620 }
+aMapKatinaTex:
+  { type: TEXTURE, format: CI8, offset: 0x6029220, width: 96, height: 96, ctype: u8, symbol: aMapKatinaTex, tlut: 0x0602B620 }
 
 D_MAP_602B620:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x0602B620, symbol: D_MAP_602B620 }
 
 # Looks like Macbeth
-D_MAP_602B6D0:
-  { type: TEXTURE, format: CI8, offset: 0x602B6D0, width: 96, height: 96, ctype: u8, symbol: D_MAP_602B6D0, tlut: 0x0602DAD0 }
+aMapMacbethTex:
+  { type: TEXTURE, format: CI8, offset: 0x602B6D0, width: 96, height: 96, ctype: u8, symbol: aMapMacbethTex, tlut: 0x0602DAD0 }
 
 D_MAP_602DAD0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 68, offset: 0x0602DAD0, symbol: D_MAP_602DAD0 }
 
 # Looks like Sector Z
-D_MAP_602DB60:
-  { type: TEXTURE, format: CI8, offset: 0x602DB60, width: 96, height: 96, ctype: u8, symbol: D_MAP_602DB60, tlut: 0x0602FF60 }
+aMapTitaniaTex:
+  { type: TEXTURE, format: CI8, offset: 0x602DB60, width: 96, height: 96, ctype: u8, symbol: aMapTitaniaTex, tlut: 0x0602FF60 }
 
 D_MAP_602FF60:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x0602FF60, symbol: D_MAP_602FF60 }
 
-D_MAP_602FFD0:
-  { type: TEXTURE, format: CI8, offset: 0x602FFD0, width: 96, height: 96, ctype: u8, symbol: D_MAP_602FFD0, tlut: 0x060323D0 }
+aMapZonessTex:
+  { type: TEXTURE, format: CI8, offset: 0x602FFD0, width: 96, height: 96, ctype: u8, symbol: aMapZonessTex, tlut: 0x060323D0 }
 
 D_MAP_60323D0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 52, offset: 0x060323D0, symbol: D_MAP_60323D0 }

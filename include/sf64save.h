@@ -7,6 +7,11 @@
 #define ROUTE_MAX (7)    // Maximum number of planets in a route
 #define ENTRY_MAX (3)    // Maximum number of letters for name entry
 
+#define TEAMSTATUS_PEPPY (0x00FF0000)
+#define TEAMSTATUS_SLIPPY (0x0000FF00)
+#define TEAMSTATUS_FALCO (0x000000FF)
+#define TEAMSTATUS_ALIVE (0x00FFFFFF)
+
 typedef struct {
     /* bit 0 */ u8 unk_0 : 3; // unused
     /* bit 3 */ u8 expertMedal : 1;

@@ -5625,6 +5625,7 @@ void Macbeth_LevelStart(Player* player) {
             break;
 
         case 4:
+
         default:
             break;
     }

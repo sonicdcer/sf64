@@ -130,8 +130,8 @@ D_OPT_8006D10:
   { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x8006D10, symbol: D_OPT_8006D10 }
 
 # B to cancel
-D_OPT_8006E50:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x8006E50, symbol: D_OPT_8006E50 }
+aBtoCancelTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x8006E50, symbol: aBtoCancelTex }
 
 # Headphone
 D_OPT_8007210:
@@ -146,8 +146,8 @@ D_OPT_80079F0:
   { type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 14, offset: 0x80079F0, symbol: D_OPT_80079F0 }
 
 # A to confirm
-D_OPT_80080F0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x80080F0, symbol: D_OPT_80080F0 }
+aAtoConfirmTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 10, offset: 0x80080F0, symbol: aAtoConfirmTex }
 
 # Clear Saved Data
 D_OPT_80084B0:
@@ -242,8 +242,8 @@ D_OPT_8015550:
 D_OPT_80155E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x080155E8, symbol: D_OPT_80155E8 }
 
-D_OPT_8015DF0:
-  { type: GFX, offset: 0x8015DF0, symbol: D_OPT_8015DF0 }
+aLightningDL:
+  { type: GFX, offset: 0x8015DF0, symbol: aLightningDL }
 
-D_OPT_8015E88:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x08015E88, symbol: D_OPT_8015E88 }
+aLightningTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x08015E88, symbol: aLightningTex }

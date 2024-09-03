@@ -3,7 +3,7 @@
 
 extern PlanetId sPlanetList[15];
 extern PlanetId sCurrentPlanetId;
-extern bool D_menu_801B8280;
+extern bool sWipeScreen;
 extern s32 D_menu_801CD968;
 extern s32 sMapState;
 extern s32 D_menu_801CD948;
@@ -124,7 +124,7 @@ void Map_LevelSelect(void) {
             gCurrentLevel = LEVEL_UNK_4;
         }
         Map_801A61B4(gCurrentLevel);
-        D_menu_801B8280 = 0;
+        sWipeScreen = 0;
         D_menu_801CD968 = 0;
         Map_801A6628();
         if (startOption && ((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X) ||

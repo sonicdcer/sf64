@@ -48,8 +48,8 @@ s32 gTotalHitsRanking[10];
 u8 D_menu_801B8248[10][4];
 UNK_TYPE D_menu_801B8270[3];
 s32 D_menu_801B827C;
-bool D_menu_801B8280;
-s32 D_menu_801B8284;
+bool sWipeScreen;
+s32 sWipeHeight;
 s32 D_menu_801B8288;
 f32 D_menu_801B828C;
 f32 D_menu_801B8290;
@@ -183,14 +183,14 @@ void Title_Init(void) {
 
     gBgColor = 0;
 
-    D_menu_801B8284 = 0;
+    sWipeHeight = 0;
     D_menu_801B82A8 = 0;
     D_menu_801B82AC = 0;
 
     D_menu_801B833C = 0.0f;
 
     D_menu_801B82C0 = 0;
-    D_menu_801B8280 = 0;
+    sWipeScreen = 0;
 
     D_menu_801B7BCC = 255.0f;
     D_menu_801B7BC8 = 255.0f;
@@ -332,12 +332,12 @@ void Title_Draw(void) {
             break;
     }
 
-    if (D_menu_801B8284 != 0) {
+    if (sWipeHeight != 0) {
         gFillScreenAlpha = 0;
         gFillScreenRed = 0;
         gFillScreenGreen = 0;
         gFillScreenBlue = 0;
-        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, sWipeHeight);
     }
 }
 
@@ -3202,21 +3202,21 @@ void Title_80190E64(void) {
 }
 
 void Title_80190EA4(void) {
-    switch (D_menu_801B8280) {
+    switch (sWipeScreen) {
         case 0:
             if (gControllerPress[gMainController].button &
                 (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS |
                  R_CBUTTONS)) { // START, A, B, C-left, C-Down, C-Up, C-Right
                 AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-                D_menu_801B8284 = 0;
-                D_menu_801B8280 = 1;
+                sWipeHeight = 0;
+                sWipeScreen = 1;
                 gControllerLock = 30;
             }
             break;
 
         case 1:
-            if (D_menu_801B8284 < 120) {
-                D_menu_801B8284 += 18;
+            if (sWipeHeight < 120) {
+                sWipeHeight += 18;
             } else {
                 AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
                 gStarCount = 0;
@@ -3225,8 +3225,8 @@ void Title_80190EA4(void) {
                 gDrawMode = DRAW_NONE;
                 D_menu_801B82C4 = 0;
                 gControllerLock = 30;
-                D_menu_801B8284 = 0;
-                D_menu_801B8280 = 0;
+                sWipeHeight = 0;
+                sWipeScreen = 0;
             }
             break;
     }
@@ -3234,30 +3234,30 @@ void Title_80190EA4(void) {
 
 void Title_80190FD0(void) {
     if (gControllerLock == 0) {
-        switch (D_menu_801B8280) {
+        switch (sWipeScreen) {
             case 0:
                 if (((gControllerPress[gMainController].button & START_BUTTON) ||
                      (gControllerPress[gMainController].button & A_BUTTON)) &&
-                    (D_menu_801B8280 == 0)) {
+                    (sWipeScreen == 0)) {
                     AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
-                    D_menu_801B8284 = 0;
-                    D_menu_801B8280 = 1;
+                    sWipeHeight = 0;
+                    sWipeScreen = 1;
                 }
                 break;
 
             case 1:
-                if (D_menu_801B8284 < 120) {
-                    D_menu_801B8284 += 18;
+                if (sWipeHeight < 120) {
+                    sWipeHeight += 18;
                 } else {
                     gGameState = GSTATE_MENU;
                     gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
                     gStarCount = 0;
-                    D_menu_801B8280 = 0;
-                    D_menu_801B8284 = 0;
+                    sWipeScreen = 0;
+                    sWipeHeight = 0;
                     gControllerLock = 3;
                 }
                 break;

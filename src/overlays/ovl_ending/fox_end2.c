@@ -237,16 +237,16 @@ bool Ending_8018DCB4(void) {
     s32 k;
     s32 m;
     s32 temp;
-    s32 temp2 = 0;
+    s32 teamAlive = 0;
     s32 temp3 = 0;
     s32 temp4[10];
     s32 stats[10][7];
     s32 unk40[10];
 
     for (i = 0; i < gMissionNumber + 1; i++) {
-        temp2 += ((gMissionTeamStatus[i] & 0x00FF0000) >> 16) & 1;
-        temp2 += ((gMissionTeamStatus[i] & 0x0000FF00) >> 8) & 1;
-        temp2 += (gMissionTeamStatus[i] & 0x000000FF) & 1;
+        teamAlive += ((gMissionTeamStatus[i] & TEAMSTATUS_PEPPY) >> 16) & 1;
+        teamAlive += ((gMissionTeamStatus[i] & TEAMSTATUS_SLIPPY) >> 8) & 1;
+        teamAlive += (gMissionTeamStatus[i] & TEAMSTATUS_FALCO) & 1;
     }
 
     for (i = 0; i < 10; i += 1) {
@@ -286,7 +286,7 @@ bool Ending_8018DCB4(void) {
                                     temp3 += stats[k][m];
                                 }
 
-                                if (temp2 > temp3) {
+                                if (teamAlive > temp3) {
                                     temp = k;
                                     break;
                                 }

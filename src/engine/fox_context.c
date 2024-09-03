@@ -46,6 +46,11 @@ s32 gTitleState;
 s32 gMainController;
 s32 gMapState;
 s32 gMissionNumber;
+/**
+ *  0x 00 FF 00 00 Peppy
+ *  0x 00 00 FF 00 Slippy
+ *  0x 00 00 00 FF Falco
+ */
 s32 gMissionTeamStatus[7];
 s32 gMissionHitCount[7];
 PlanetId gMissionPlanet[7];
