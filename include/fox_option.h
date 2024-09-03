@@ -43,15 +43,15 @@ typedef struct {
 } OptionEntry; // size = 0x60
 
 typedef struct {
-    /* 0x0 */ PlanetId unk_0;
-    /* 0x4 */ PlanetId unk_4;
-    /* 0x8 */ s32 unk_8;
-} UnkStruct_D_menu_801AED4C; // size = 0xC
+    /* 0x0 */ PlanetId start;
+    /* 0x4 */ PlanetId end;
+    /* 0x8 */ s32 color;
+} RouteColoredLine; // size = 0xC
 
 typedef struct {
     s32 unk_0;
     s32 unk_4;
-} UnkStruct_D_menu_801B9250;
+} StickInput;
 
 typedef enum OptionId {
     /* 1000 */ OPTION_MAIN_MENU = 1000,
@@ -77,7 +77,7 @@ typedef enum OptionId {
 extern u8* D_menu_801B68B0[];
 extern u8* D_menu_801B68D4[];
 
-extern s32 D_menu_801B8220[]; // total hits ranking? see Option_80197DE4
+extern s32 gTotalHitsRanking[];
 extern s32 D_menu_801B827C;   // engine
 extern bool D_menu_801B8280;
 extern s32 D_menu_801B8284;
@@ -129,50 +129,50 @@ void Option_Versus_Update(void);
 void Option_Versus_Draw(void);
 void Option_Sound_Setup(void);
 void Option_Sound_Update(void);
-void Option_80194AEC(void);
-void Option_80194BD0(void);
+void Option_Sound_SetSoundMode(void);
+void Option_Sound_SetVolumeLevels(void);
 void Option_Sound_Draw(void);
-void Option_801952B4(void);
+void Option_Sound_Speaker_Draw(void);
 void Option_ExpertSound_Setup(void);
 void Option_ExpertSound_Update(void);
 void Option_ExpertSound_Draw(void);
 void Option_Data_Setup(void);
 void Option_Data_Update(void);
-void Option_8019669C(void);
+void Option_Data_Select(void);
 void Option_Data_Draw(void);
 void Option_Ranking_Setup(void);
 void Option_Ranking_Update(void);
 void Option_Ranking_Draw(void);
-void Option_80196FC4(void);
-void Option_80197074(void);
-void Option_8019715C(void);
-void Option_RankingMenuDraw(void);
-void Option_8019752C(void);
+void Option_Ranking_Select(void);
+void Option_Ranking_Cursor(void);
+void Option_Ranking2_Cursor(void);
+void Option_RankingMenu_Draw(void);
+void Option_RankingMenu2_Draw(void);
 void Option_80197914(void);
-void Option_80197A3C(s32, s32, s32);
-void Option_80197D30(s32, s32, s32);
-void Option_80197DE4(s32, s32, s32);
-void Option_80197F74(s32, s32, s32);
-void Option_80198164(s32, f32, f32);
-void Option_801982B0(s32, s32, f32, f32, s32);
-void Option_801984D0(s32, s32, f32, f32);
-void Option_80198608(s32, s32, f32, f32);
-void Option_8019882C(s32, s32, f32, f32);
-void Option_8019896C(s32, f32, s32);
-void Option_80199198(f32 arg0, f32 arg1, f32 arg2);
-s32 Option_80199284(PlanetId start, PlanetId end);
+void Option_OrdinalNumbers_Draw(s32, s32, s32);
+void Option_RankingName_Draw(s32, s32, s32);
+void Option_RankingTotalHits_Draw(s32, s32, s32);
+void Option_RankingTeamAlive_Draw(s32, s32, s32);
+void Option_RankingRoute_Draw(s32, f32, f32);
+void Option_RankingRouteFrame_Draw(s32, s32, f32, f32, s32);
+void Option_RankingHitCount_Draw(s32, s32, f32, f32);
+void Option_RankingTeamPresence_Draw(s32, s32, f32, f32);
+void Option_RankingPlanetName_Draw(s32, s32, f32, f32);
+void Option_RankingPlanetRoute_Draw(s32, f32, s32);
+void Option_RankingRouteMedal_Draw(f32 xPos, f32 yPos, f32 zPos);
+s32 Option_GetRouteLineColor(PlanetId start, PlanetId end);
 void Option_VersusMenu_Setup(void);
 void Option_VersusMenu_Update(void);
-void Option_8019949C(void);
+void Option_VersusMenu_Cursor(void);
 void Option_VersusMenu_Draw(void);
-void Option_80199820(s32);
-void Option_80199EA8(void);
+void Option_VS_CharSelect_Draw(s32);
+void Option_VS_N64Console_Draw(void);
 void Option_VersusStage_Setup(void);
 void Option_8019A080(void);
 void Option_VersusStage_Update(void);
-void Option_8019A124(void);
-void Option_8019A1A8(void);
-void Option_8019A214(void);
+void Option_Vs_PointMatch_Update(void);
+void Option_Vs_BattleRoyal_Update(void);
+void Option_Vs_TimeTrial_Update(void);
 void Option_8019A298(void);
 void Option_8019A2E0(void);
 void Option_8019A4DC(void);
@@ -187,7 +187,7 @@ void Option_8019B3DC(void);
 void Option_8019B5AC(void);
 void Option_8019B6D8(f32 xPos, f32 yPos, f32 offset, s32 r, s32 g, s32 b);
 void Option_8019B7D4(void);
-void Option_8019B8A0(s32 arg0);
+void Option_8019B8A0(OptionId arg0);
 void Option_8019B8C8(void);
 void Option_DrawMenuLabel(void);
 void Option_DrawMenuCard(OptionCardFrame arg0);
@@ -198,10 +198,10 @@ void Option_8019BE7C(f32, f32, f32, f32*, f32*, f32*);
 void Option_8019BF34(void);
 void Option_8019C04C(void);
 void Option_DrawCardLabel(OptionCardTexture tex);
-bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
-                     UnkStruct_D_menu_801B9250* arg8);
+bool Option_Input_MoveCursor(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 controllerNum,
+                     StickInput* stickY);
 s32 Option_8019C5A0(s32*);
-bool Option_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_menu_801B9250* arg3);
+bool Option_8019C66C(f32* arg0, f32 arg1, f32 arg2, StickInput* arg3);
 void Option_8019C824(f32*);
 s32 Option_8019C8C4(void);
 void Option_NameEntry_Update(void);

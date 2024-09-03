@@ -43,8 +43,8 @@ f32 D_menu_801B7FC0[40];
 f32 D_menu_801B8060[40];
 s32 D_menu_801B8100;
 s32 D_menu_801B8108[40];
-s32 D_menu_801B81A8[10][3];
-s32 D_menu_801B8220[10];
+s32 gRankingTeamAlive[10][3];
+s32 gTotalHitsRanking[10];
 u8 D_menu_801B8248[10][4];
 UNK_TYPE D_menu_801B8270[3];
 s32 D_menu_801B827C;
@@ -441,7 +441,8 @@ void Title_80187E28(void) {
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        Graphics_DisplaySmallNumber(211 - ((HUD_CountDigits(D_menu_801B8220[i]) - 1) * 8), temp, D_menu_801B8220[i]);
+        Graphics_DisplaySmallNumber(211 - ((HUD_CountDigits(gTotalHitsRanking[i]) - 1) * 8), temp,
+                                    gTotalHitsRanking[i]);
         temp += 17;
     }
 }
@@ -454,9 +455,9 @@ s32 Title_80188010(void) {
     s32 j;
 
     for (i = 0; i < 10; i++) {
-        D_menu_801B8220[i] = 0;
+        gTotalHitsRanking[i] = 0;
         for (j = 0; j < 3; j++) {
-            D_menu_801B81A8[i][j] = 0;
+            gRankingTeamAlive[i][j] = 0;
         }
     }
 
@@ -466,25 +467,25 @@ s32 Title_80188010(void) {
         D_menu_801B8248[i][2] = gSaveFile.save.data.rankNameEntry[i][2] & 0xFF;
         D_menu_801B8248[i][3] = '\0';
 
-        temp3 = gSaveFile.save.data.unk_36[i];
+        temp3 = gSaveFile.save.data.rankingRoute[i];
 
         for (j = 0; j < temp3; j++) {
             temp2 = gSaveFile.save.data.stats[i][j].hitCount;
             temp2 |= (gSaveFile.save.data.stats[i][j].unk_C & 1) << 8;
 
-            D_menu_801B8220[i] += temp2;
+            gTotalHitsRanking[i] += temp2;
 
-            D_menu_801B81A8[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
-            D_menu_801B81A8[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
-            D_menu_801B81A8[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;
+            gRankingTeamAlive[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
+            gRankingTeamAlive[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
+            gRankingTeamAlive[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;
         }
     }
 
-    temp1 = D_menu_801B8220[0];
+    temp1 = gTotalHitsRanking[0];
 
     for (i = 1; i < 10; i++) {
-        if (temp1 < D_menu_801B8220[i]) {
-            temp1 = D_menu_801B8220[i];
+        if (temp1 < gTotalHitsRanking[i]) {
+            temp1 = gTotalHitsRanking[i];
         }
     }
 

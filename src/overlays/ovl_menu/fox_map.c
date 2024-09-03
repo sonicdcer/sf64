@@ -1996,7 +1996,7 @@ s32 Map_801A05B4(void) {
     }
 
     for (i = 0; i < 10; i++) {
-        temp_a0 = gSaveFile.save.data.unk_36[i];
+        temp_a0 = gSaveFile.save.data.rankingRoute[i];
         for (j = 0; j < temp_a0; j++) {
             var_a3 = gSaveFile.save.data.stats[i][j].hitCount;
             if (gSaveFile.save.data.stats[i][j].unk_C != 0) {
@@ -4917,7 +4917,7 @@ void Map_801A809C(PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
+                gSPDisplayList(gMasterDisp++, aMapMedalDL);
 
                 Matrix_Pop(&gGfxMatrix);
 
@@ -4955,7 +4955,7 @@ void Map_801A809C(PlanetId planetId) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
+        gSPDisplayList(gMasterDisp++, aMapMedalDL);
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -5776,7 +5776,7 @@ void Map_801AB17C(f32 x, f32 y, f32 z) {
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
+    gSPDisplayList(gMasterDisp++, aMapMedalDL);
 
     Matrix_Pop(&gGfxMatrix);
 }

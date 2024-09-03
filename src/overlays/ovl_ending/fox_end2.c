@@ -251,7 +251,7 @@ bool Ending_8018DCB4(void) {
 
     for (i = 0; i < 10; i += 1) {
         temp4[i] = 0;
-        unk40[i] = gSaveFile.save.data.unk_40[i];
+        unk40[i] = gSaveFile.save.data.rankingLives[i];
 
         for (j = 0; j < 7; j += 1) {
             temp4[i] += gSaveFile.save.data.stats[i][j].hitCount + (gSaveFile.save.data.stats[i][j].unk_C * 256);

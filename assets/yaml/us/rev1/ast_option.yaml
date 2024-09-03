@@ -30,18 +30,18 @@ D_OPT_80038C0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80038C0, symbol: D_OPT_80038C0 }
 
 # nd
-D_OPT_80038E0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 10, offset: 0x80038E0, symbol: D_OPT_80038E0, tlut: 0x8003930 }
+aNdTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 10, offset: 0x80038E0, symbol: aNdTex, tlut: 0x8003930 }
 
-D_OPT_8003930:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003930, symbol: D_OPT_8003930 }
+aNdTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003930, symbol: aNdTLUT }
 
 # rd
-D_OPT_8003950:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 11, offset: 0x8003950, symbol: D_OPT_8003950, tlut: 0x80039A8 }
+aRdTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 11, offset: 0x8003950, symbol: aRdTex, tlut: 0x80039A8 }
 
-D_OPT_80039A8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80039A8, symbol: D_OPT_80039A8 }
+aRdTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x80039A8, symbol: aRdTLUT }
 
 #
 aSpeakerCenterTex:
@@ -51,18 +51,18 @@ aSpeakerCenterTLUT:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003A50, symbol: aSpeakerCenterTLUT }
 
 # st
-D_OPT_8003A70:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 9, offset: 0x8003A70, symbol: D_OPT_8003A70, tlut: 0x8003AB8 }
+aStTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 9, offset: 0x8003A70, symbol: aStTex, tlut: 0x8003AB8 }
 
-D_OPT_8003AB8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003AB8, symbol: D_OPT_8003AB8 }
+aStTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003AB8, symbol: aStTLUT }
 
 # th
-D_OPT_8003AE0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 9, offset: 0x8003AE0, symbol: D_OPT_8003AE0, tlut: 0x8003B28 }
+aThTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 9, offset: 0x8003AE0, symbol: aThTex, tlut: 0x8003B28 }
 
-D_OPT_8003B28:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003B28, symbol: D_OPT_8003B28 }
+aThTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x8003B28, symbol: aThTLUT }
 
 # Option Title Cards
 

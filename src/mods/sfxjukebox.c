@@ -5,7 +5,7 @@
 
 extern s32 spectrumAnalyzerMode;
 extern bool sMusicPlaying;
-extern s32 D_menu_801B9244;
+extern bool D_menu_801B9244;
 extern OptionId D_menu_801B9124;
 extern s32 D_menu_801B912C;
 

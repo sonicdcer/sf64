@@ -8,17 +8,17 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_VS_MENU_7000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 13, offset: 0x7000000, symbol: D_VS_MENU_7000000}
+aVsPlayerNum1Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 13, offset: 0x7000000, symbol: aVsPlayerNum1Tex}
 
-D_VS_MENU_70000D0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x70000D0, symbol: D_VS_MENU_70000D0}
+aVsPlayerNum2Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x70000D0, symbol: aVsPlayerNum2Tex}
 
-D_VS_MENU_7000210:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x7000210, symbol: D_VS_MENU_7000210}
+aVsPlayerNum3Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x7000210, symbol: aVsPlayerNum3Tex}
 
-D_VS_MENU_7000350:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x7000350, symbol: D_VS_MENU_7000350}
+aVsPlayerNum4Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 24, height: 13, offset: 0x7000350, symbol: aVsPlayerNum4Tex}
 
 D_VS_MENU_7000490:
   { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 42, offset: 0x7000490, symbol: D_VS_MENU_7000490}
@@ -32,11 +32,11 @@ D_VS_MENU_7001030:
 D_VS_MENU_7001270:
   { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 12, offset: 0x7001270, symbol: D_VS_MENU_7001270}
 
-D_VS_MENU_70017B0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x70017B0, symbol: D_VS_MENU_70017B0}
+aVsTextCorneriaTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x70017B0, symbol: aVsTextCorneriaTex}
 
-D_VS_MENU_70019E0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x70019E0, symbol: D_VS_MENU_70019E0}
+aVsTextSectorZTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 10, offset: 0x70019E0, symbol: aVsTextSectorZTex}
 
 D_VS_MENU_7001C10:
   { type: TEXTURE, ctype: u8, format: IA8, width: 48, height: 10, offset: 0x7001C10, symbol: D_VS_MENU_7001C10}
@@ -62,14 +62,14 @@ D_VS_MENU_7002BF0:
 D_VS_MENU_7002E50:
   { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 15, offset: 0x7002E50, symbol: D_VS_MENU_7002E50}
 
-D_VS_MENU_70030B0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x70030B0, symbol: D_VS_MENU_70030B0}
+aVsHandicapLvl1Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x70030B0, symbol: aVsHandicapLvl1Tex}
 
-D_VS_MENU_7003290:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x7003290, symbol: D_VS_MENU_7003290}
+aVsHandicapLvl2Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x7003290, symbol: aVsHandicapLvl2Tex}
 
-D_VS_MENU_7003470:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x7003470, symbol: D_VS_MENU_7003470}
+aVsHandicapLvl3Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x7003470, symbol: aVsHandicapLvl3Tex}
 
 D_VS_MENU_7003650:
   { type: TEXTURE, ctype: u8, format: IA8, width: 40, height: 12, offset: 0x7003650, symbol: D_VS_MENU_7003650}
@@ -116,29 +116,29 @@ D_VS_MENU_70044D0:
 D_VS_MENU_7004990:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 17, offset: 0x7004990, symbol: D_VS_MENU_7004990}
 
-D_VS_MENU_70049C0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 56, height: 8, offset: 0x70049C0, symbol: D_VS_MENU_70049C0, tlut: 0x7004B80}
+aVsFoxNameTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 56, height: 8, offset: 0x70049C0, symbol: aVsFoxNameTex, tlut: 0x7004B80}
 
-D_VS_MENU_7004B80:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x7004B80, symbol: D_VS_MENU_7004B80}
+aVsFoxNameTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x7004B80, symbol: aVsFoxNameTLUT}
 
-D_VS_MENU_7004BB0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 10, offset: 0x7004BB0, symbol: D_VS_MENU_7004BB0, tlut: 0x7004D90}
+aVsPeppyNameTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 10, offset: 0x7004BB0, symbol: aVsPeppyNameTex, tlut: 0x7004D90}
 
-D_VS_MENU_7004D90:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x7004D90, symbol: D_VS_MENU_7004D90}
+aVsPeppyNameTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x7004D90, symbol: aVsPeppyNameTLUT}
 
-D_VS_MENU_7004DC0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 56, height: 10, offset: 0x7004DC0, symbol: D_VS_MENU_7004DC0, tlut: 0x7004FF0}
+aVsSlippyNameTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 56, height: 10, offset: 0x7004DC0, symbol: aVsSlippyNameTex, tlut: 0x7004FF0}
 
-D_VS_MENU_7004FF0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x7004FF0, symbol: D_VS_MENU_7004FF0}
+aVsSlippyNameTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x7004FF0, symbol: aVsSlippyNameTLUT}
 
-D_VS_MENU_7005020:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 8, offset: 0x7005020, symbol: D_VS_MENU_7005020, tlut: 0x70051A0}
+aVsFalcoNameTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 8, offset: 0x7005020, symbol: aVsFalcoNameTex, tlut: 0x70051A0}
 
-D_VS_MENU_70051A0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x70051A0, symbol: D_VS_MENU_70051A0}
+aVsFalcoNameTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 18, offset: 0x70051A0, symbol: aVsFalcoNameTLUT}
 
 D_VS_MENU_70051D0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x70051D0, symbol: D_VS_MENU_70051D0, tlut: 0x70055D0}
@@ -146,17 +146,17 @@ D_VS_MENU_70051D0:
 D_VS_MENU_70055D0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 20, offset: 0x70055D0, symbol: D_VS_MENU_70055D0}
 
-D_VS_MENU_7005600:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7005600, symbol: D_VS_MENU_7005600, tlut: 0x7005D20}
+aVsCorneriaTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7005600, symbol: aVsCorneriaTex, tlut: 0x7005D20}
 
-D_VS_MENU_7005D20:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x7005D20, symbol: D_VS_MENU_7005D20}
+aVsCorneriaTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x7005D20, symbol: aVsCorneriaTLUT}
 
-D_VS_MENU_7005F10:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7005F10, symbol: D_VS_MENU_7005F10, tlut: 0x7006630}
+aVsSectorZTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7005F10, symbol: aVsSectorZTex, tlut: 0x7006630}
 
-D_VS_MENU_7006630:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 168, offset: 0x7006630, symbol: D_VS_MENU_7006630}
+aVsSectorZTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 168, offset: 0x7006630, symbol: aVsSectorZTLUT}
 
 D_VS_MENU_7006780:
   { type: TEXTURE, ctype: u8, format: CI8, width: 48, height: 38, offset: 0x7006780, symbol: D_VS_MENU_7006780, tlut: 0x7006EA0}
@@ -164,32 +164,32 @@ D_VS_MENU_7006780:
 D_VS_MENU_7006EA0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 256, offset: 0x7006EA0, symbol: D_VS_MENU_7006EA0}
 
-D_VS_MENU_70070A0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x70070A0, symbol: D_VS_MENU_70070A0}
+aVsFalcoFaceTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x70070A0, symbol: aVsFalcoFaceTex}
 
 D_VS_MENU_7007FC0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x7007FC0, symbol: D_VS_MENU_7007FC0}
 
-D_VS_MENU_7008EE0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x7008EE0, symbol: D_VS_MENU_7008EE0}
+aVsFoxFaceTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x7008EE0, symbol: aVsFoxFaceTex}
 
 D_VS_MENU_7009E00:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x7009E00, symbol: D_VS_MENU_7009E00}
 
-D_VS_MENU_700AD20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x700AD20, symbol: D_VS_MENU_700AD20}
+aVsPeppyFaceTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x700AD20, symbol: aVsPeppyFaceTex}
 
 D_VS_MENU_700BC40:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x700BC40, symbol: D_VS_MENU_700BC40}
 
-D_VS_MENU_700CB60:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x700CB60, symbol: D_VS_MENU_700CB60}
+aVsSlippyFaceTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x700CB60, symbol: aVsSlippyFaceTex}
 
 D_VS_MENU_700DA80:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x700DA80, symbol: D_VS_MENU_700DA80}
 
-D_VS_MENU_700E9A0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 144, height: 42, offset: 0x700E9A0, symbol: D_VS_MENU_700E9A0}
+aVsN64ConsoleTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 144, height: 42, offset: 0x700E9A0, symbol: aVsN64ConsoleTex}
 
 D_VS_MENU_70118E0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 80, height: 71, offset: 0x70118E0, symbol: D_VS_MENU_70118E0, tlut: 0x70123F8}

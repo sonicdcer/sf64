@@ -14,7 +14,7 @@
 #include "assets/ast_vs_menu.h"
 #include "assets/ast_map.h"
 
-extern s32 D_menu_801B81A8[][3];
+extern s32 gRankingTeamAlive[][3];
 extern Gfx D_menu_801B4A40[];
 extern Gfx D_menu_801B5E78[];
 extern Gfx D_menu_801B61E0[];
@@ -42,7 +42,7 @@ f32 D_menu_801B911C;
 f32 D_menu_801B9120;
 OptionId D_menu_801B9124;
 s32 D_menu_801B9128;
-s32 D_menu_801B912C;
+s32 D_menu_801B912C; // Menu state?
 s32 D_menu_801B9130;
 s32 D_menu_801B9134;
 s32 D_menu_801B9138;
@@ -51,13 +51,13 @@ s32 D_menu_801B9140[3];
 s32 D_menu_801B914C;
 u8 D_menu_801B9150[3][2];
 s32 D_menu_801B9158;
-UnkStruct_D_menu_801B9250 D_menu_801B9160[3];
+StickInput D_menu_801B9160[3];
 s32 D_menu_801B9178;
 s32 D_menu_801B917C;
-UnkStruct_D_menu_801B9250 D_menu_801B9180;
-UnkStruct_D_menu_801B9250 D_menu_801B9188;
-UnkStruct_D_menu_801B9250 D_menu_801B9190;
-UnkStruct_D_menu_801B9250 D_menu_801B9198;
+StickInput D_menu_801B9180;
+StickInput D_menu_801B9188;
+StickInput D_menu_801B9190;
+StickInput D_menu_801B9198;
 s32 D_menu_801B91A0;
 s32 D_menu_801B91A4;
 s32 D_menu_801B91A8;
@@ -77,7 +77,7 @@ f32 D_menu_801B91DC;
 f32 D_menu_801B91E0;
 f32 D_menu_801B91E4;
 f32 D_menu_801B91E8;
-f32 D_menu_801B91EC;
+f32 sOkConfirmTimer; // Time before going to the next screen after confirming "OK?" in the versus menu.
 s32 D_menu_801B91F0;
 f32 D_menu_801B91F4;
 f32 D_menu_801B91F8;
@@ -99,17 +99,17 @@ s32 sArwingLightColB;
 s32 sArwingLightAmbR;
 s32 sArwingLightAmbG;
 s32 sArwingLightAmbB;
-s32 D_menu_801B9244;
+bool D_menu_801B9244;
 s32 D_menu_801B9248;
 u8 D_menu_801B924C;
-UnkStruct_D_menu_801B9250 D_menu_801B9250;
-UnkStruct_D_menu_801B9250 D_menu_801B9258;
-UnkStruct_D_menu_801B9250 D_menu_801B9260;
-UnkStruct_D_menu_801B9250 D_menu_801B9268;
+StickInput D_menu_801B9250;
+StickInput D_menu_801B9258;
+StickInput D_menu_801B9260;
+StickInput D_menu_801B9268;
 f32 D_menu_801B9270[5];
 s32 D_menu_801B9284;
 s32 D_menu_801B9288;
-UnkStruct_D_menu_801B9250 D_menu_801B9290;
+StickInput D_menu_801B9290;
 f32 D_menu_801B9298[32];
 s32 spectrumAnalyzerMode;
 s32 D_menu_801B931C;
@@ -117,7 +117,7 @@ bool sMusicPlaying; // Music is playing status in the expert sound options
 extern s32 BSS_PAD_0;
 s32 D_menu_801B9330[2];
 s32 D_menu_801B933C;
-s32 D_menu_801B9340; // gap
+s32 D_menu_801B9340;
 s32 D_menu_801B9348[4];
 f32 D_menu_801B9358[4];
 f32 D_menu_801B9368;
@@ -125,24 +125,28 @@ s32 D_menu_801B936C;
 f32 D_menu_801B9370;
 s32 D_menu_801B9374;
 f32 D_menu_801B9378;
-s32 D_menu_801B937C;
-UnkStruct_D_menu_801B9250 D_menu_801B9380[4];
-UnkStruct_D_menu_801B9250 D_menu_801B93A0[4];
+/*
+ *  Time before going to the next option selection
+ *  after confirming the battle time in Time Trial.
+ */
+s32 sTimeTrialConfirmTimer;
+StickInput D_menu_801B9380[4];
+StickInput D_menu_801B93A0[4];
 u8 D_menu_801B93C4;
 extern s32 BSS_PAD_1;
 s32 D_menu_801B93D0;
 s32 D_menu_801B93D4;
 s32 D_menu_801B93D8;
 s32 D_menu_801B93DC;
-s32 D_menu_801B93E0;
+bool sRanking2ndPage;
 s32 D_menu_801B93E4;
 s32 D_menu_801B93E8;
 s32 D_menu_801B93EC;
 f32 D_menu_801B93F0;
 f32 D_menu_801B93F4;
-f32 D_menu_801B93F8; // gap
-UnkStruct_D_menu_801B9250 D_menu_801B9400;
-UnkStruct_D_menu_801B9250 D_menu_801B9408;
+f32 D_menu_801B93F8;
+StickInput D_menu_801B9400;
+StickInput D_menu_801B9408;
 
 #include "prevent_bss_reordering2.h"
 struct BssPad0 {
@@ -320,7 +324,7 @@ s32 D_menu_801AED28[] = {
 
 s32 D_menu_801AED3C[4] = { 0, 0, 0, 0 };
 
-UnkStruct_D_menu_801AED4C D_menu_801AED4C[24] = {
+RouteColoredLine sRouteColoredLine[24] = {
     { 9, 0, 0 },  { 0, 12, 0 }, { 12, 4, 0 }, { 4, 10, 0 }, { 10, 2, 0 }, { 6, 4, 0 },   { 7, 2, 0 }, { 3, 2, 0 },
     { 2, 14, 0 }, { 5, 6, 1 },  { 6, 13, 1 }, { 13, 7, 1 }, { 4, 7, 1 },  { 12, 13, 1 }, { 8, 7, 1 }, { 9, 5, 2 },
     { 5, 11, 2 }, { 11, 8, 2 }, { 8, 3, 2 },  { 3, 1, 2 },  { 7, 1, 2 },  { 1, 14, 2 },  { 0, 6, 3 }, { 4, 3, 4 },
@@ -375,12 +379,12 @@ void Option_Setup(void) {
 #endif
     gVIsPerFrame = 2;
 
-    sOptionCardList[0].tex.texture = aMainGameCardTex;
-    sOptionCardList[0].tex.width = 72;
-    sOptionCardList[0].tex.height = 12;
-    sOptionCardList[4].tex.texture = aSoundCardTex;
-    sOptionCardList[4].tex.width = 64;
-    sOptionCardList[4].tex.height = 10;
+    sOptionCardList[OPTION_MAP].tex.texture = aMainGameCardTex;
+    sOptionCardList[OPTION_MAP].tex.width = 72;
+    sOptionCardList[OPTION_MAP].tex.height = 12;
+    sOptionCardList[OPTION_SOUND].tex.texture = aSoundCardTex;
+    sOptionCardList[OPTION_SOUND].tex.width = 64;
+    sOptionCardList[OPTION_SOUND].tex.height = 10;
 
     for (i = 0; i < OPTION_COUNT; i++) {
         sOptionCardCurTextPosX[i] = sOptionCardTextPosX[i];
@@ -414,10 +418,10 @@ void Option_Setup(void) {
 
     gBgColor = 0;
 
-    D_menu_801B91A4 = 0;
+    D_menu_801B91A4 = OPTION_MAP;
     if ((gLastGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_TRAINING)) {
         gLastGameState = GSTATE_NONE;
-        D_menu_801B91A4 = 1;
+        D_menu_801B91A4 = OPTION_TRAINING;
     }
 
     D_menu_801B91A8 = 0;
@@ -468,10 +472,10 @@ void Option_Setup(void) {
             D_menu_801B9124 = 300;
         }
     } else if (D_game_800D2870) {
-        D_menu_801B91A4 = 2;
+        D_menu_801B91A4 = OPTION_VERSUS;
         D_menu_801B91A8 = gVsMatchType;
         for (i = 0; i < OPTION_COUNT; i++) {
-            if (i == 2) {
+            if (i == OPTION_VERSUS) {
                 continue;
             }
             sOptionCardList[i].frame.xScale = 0.01f;
@@ -487,17 +491,17 @@ void Option_Setup(void) {
             sOptionCardList[i].tex.yPos = sOptionCardCurTextPosY[i];
             sOptionCardList[i].drawTex = false;
         }
-        sOptionCardList[2].frame.x = 0.0f;
-        sOptionCardList[2].frame.z = 0.0f;
-        sOptionCardList[2].frame.y = 90.0f;
-        sOptionCardList[2].frame.xScale = 0.4f;
-        sOptionCardList[2].frame.yScale = 0.21f;
-        sOptionCardList[2].drawFrame = true;
-        sOptionCardList[2].tex.xScale = 1.0f;
-        sOptionCardList[2].tex.yScale = 1.0f;
-        sOptionCardList[2].tex.xPos = 145.0f;
-        sOptionCardList[2].tex.yPos = 25.0f;
-        sOptionCardList[2].drawTex = true;
+        sOptionCardList[OPTION_VERSUS].frame.x = 0.0f;
+        sOptionCardList[OPTION_VERSUS].frame.z = 0.0f;
+        sOptionCardList[OPTION_VERSUS].frame.y = 90.0f;
+        sOptionCardList[OPTION_VERSUS].frame.xScale = 0.4f;
+        sOptionCardList[OPTION_VERSUS].frame.yScale = 0.21f;
+        sOptionCardList[OPTION_VERSUS].drawFrame = true;
+        sOptionCardList[OPTION_VERSUS].tex.xScale = 1.0f;
+        sOptionCardList[OPTION_VERSUS].tex.yScale = 1.0f;
+        sOptionCardList[OPTION_VERSUS].tex.xPos = 145.0f;
+        sOptionCardList[OPTION_VERSUS].tex.yPos = 25.0f;
+        sOptionCardList[OPTION_VERSUS].drawTex = true;
 
         D_menu_801B9124 = OPTION_VERSUS;
     } else {
@@ -539,8 +543,8 @@ void Option_Setup(void) {
     sRightArwingCursorYrot = 0.0f;
     sLeftArwingCursorYrot = 0.0f;
 
-    D_menu_801B91EC = 0;
-    D_menu_801B9244 = 0;
+    sOkConfirmTimer = 0;
+    D_menu_801B9244 = false;
     D_menu_801B9248 = 0;
     AUDIO_PLAY_BGM(NA_BGM_SELECT);
 }
@@ -756,7 +760,7 @@ void Option_PlanetTextures_Setup(void) {
     }
 }
 
-void Option_80192738(void) {
+void Option_ScrollPlanetTexture(void) {
     if (D_menu_801B93E8 == 5) {
         Map_801A07E8(D_menu_801B68B0[8], SEGMENTED_TO_VIRTUAL(D_menu_801B68D4[8]), &D_menu_801CD818[8]);
         D_menu_801B93E8 = 0;
@@ -815,7 +819,7 @@ void Option_Training_Update(void) {
     }
 }
 
-void Option_801929F0(void) {
+void Option_MainMenu_Setup(void) {
     s32 i;
 
     D_game_800D2870 = false;
@@ -824,7 +828,7 @@ void Option_801929F0(void) {
     gStarCount = 800;
     D_menu_801B9248 = 0;
 
-    if (D_menu_801B9244 == 0) {
+    if (!D_menu_801B9244) {
         D_menu_801B91BC = true;
         for (i = 0; i < OPTION_COUNT; i++) {
             sOptionCardList[i].tex.xPos = sOptionCardCurTextPosX[i];
@@ -868,8 +872,8 @@ void Option_MainMenu_Update(void) {
 
     switch (D_menu_801B912C) {
         case 0:
-            Option_801929F0();
-            if (D_menu_801B9244 == 0) {
+            Option_MainMenu_Setup();
+            if (!D_menu_801B9244) {
                 D_menu_801B912C++;
             } else {
                 sOptionCardCurTextPosX[0] = D_menu_801AE5E8[D_menu_801B91B0];
@@ -917,45 +921,45 @@ void Option_MainMenu_Update(void) {
 
         case 1:
             // clang-format off
-            if (Option_8019C418(&D_menu_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9180)) {\
-                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);\
+            if (Option_Input_MoveCursor(&D_menu_801B91A4, OPTION_COUNT - 1, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9180)) { \
+                AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
             }
             // clang-format on
 
-            if ((D_menu_801B91A4 == 0) && D_menu_801B91C8 &&
-                Option_8019C418(&D_menu_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9190)) {
+            if ((D_menu_801B91A4 == OPTION_MAP) && D_menu_801B91C8 &&
+                Option_Input_MoveCursor(&D_menu_801B91B0, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9190)) {
                 AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
                 if (D_menu_801B91B0) {
-                    sOptionCardList[0].tex.texture = aExpertCardTex;
-                    sOptionCardList[0].tex.width = 80;
-                    sOptionCardList[0].tex.height = 12;
-                    sOptionCardList[0].tex.xPos = 125.0f;
-                    sOptionCardList[0].tex.yPos = 55.0f;
+                    sOptionCardList[OPTION_MAP].tex.texture = aExpertCardTex;
+                    sOptionCardList[OPTION_MAP].tex.width = 80;
+                    sOptionCardList[OPTION_MAP].tex.height = 12;
+                    sOptionCardList[OPTION_MAP].tex.xPos = 125.0f;
+                    sOptionCardList[OPTION_MAP].tex.yPos = 55.0f;
                 } else {
-                    sOptionCardList[0].tex.texture = aMainGameCardTex;
-                    sOptionCardList[0].tex.width = 72;
-                    sOptionCardList[0].tex.height = 12;
-                    sOptionCardList[0].tex.xPos = 124.0f;
-                    sOptionCardList[0].tex.yPos = 54.0f;
+                    sOptionCardList[OPTION_MAP].tex.texture = aMainGameCardTex;
+                    sOptionCardList[OPTION_MAP].tex.width = 72;
+                    sOptionCardList[OPTION_MAP].tex.height = 12;
+                    sOptionCardList[OPTION_MAP].tex.xPos = 124.0f;
+                    sOptionCardList[OPTION_MAP].tex.yPos = 54.0f;
                 }
                 gExpertMode = D_menu_801B91B0;
             }
 
-            if ((D_menu_801B91A4 == 4) && D_menu_801B91C8 &&
-                Option_8019C418(&D_menu_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9198)) {
+            if ((D_menu_801B91A4 == OPTION_SOUND) && D_menu_801B91C8 &&
+                Option_Input_MoveCursor(&D_menu_801B91AC, 1, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9198)) {
                 AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);
                 if (D_menu_801B91AC) {
-                    sOptionCardList[4].tex.texture = aExpertCardTex;
-                    sOptionCardList[4].tex.width = 80;
-                    sOptionCardList[4].tex.height = 12;
-                    sOptionCardList[4].tex.xPos = 125.0f;
-                    sOptionCardList[4].tex.yPos = 151.0f;
+                    sOptionCardList[OPTION_SOUND].tex.texture = aExpertCardTex;
+                    sOptionCardList[OPTION_SOUND].tex.width = 80;
+                    sOptionCardList[OPTION_SOUND].tex.height = 12;
+                    sOptionCardList[OPTION_SOUND].tex.xPos = 125.0f;
+                    sOptionCardList[OPTION_SOUND].tex.yPos = 151.0f;
                 } else {
-                    sOptionCardList[4].tex.texture = aSoundCardTex;
-                    sOptionCardList[4].tex.width = 64;
-                    sOptionCardList[4].tex.height = 10;
-                    sOptionCardList[4].tex.xPos = 133.0f;
-                    sOptionCardList[4].tex.yPos = 151.0f;
+                    sOptionCardList[OPTION_SOUND].tex.texture = aSoundCardTex;
+                    sOptionCardList[OPTION_SOUND].tex.width = 64;
+                    sOptionCardList[OPTION_SOUND].tex.height = 10;
+                    sOptionCardList[OPTION_SOUND].tex.xPos = 133.0f;
+                    sOptionCardList[OPTION_SOUND].tex.yPos = 151.0f;
                 }
             }
 
@@ -1014,7 +1018,7 @@ void Option_MainMenu_Update(void) {
                 var_fs0 = 25.0f;
                 var_fs1 = 90.0f;
 
-                if ((D_menu_801B91A4 == 0) || (D_menu_801B91A4 == 1)) {
+                if ((D_menu_801B91A4 == OPTION_MAP) || (D_menu_801B91A4 == OPTION_TRAINING)) {
                     var_fs0 = 0.0f;
                     var_fs1 = 120.0f;
                 }
@@ -1029,10 +1033,9 @@ void Option_MainMenu_Update(void) {
                     gBlurAlpha += 255;
                     D_menu_801B9124 = D_menu_801B91A4;
 
-                    if (D_menu_801B91A4 == 4 && D_menu_801B91AC) {
-                        D_menu_801B9124 = 6;
+                    if ((D_menu_801B91A4 == OPTION_SOUND) && D_menu_801B91AC) {
+                        D_menu_801B9124 = OPTION_EXPERT_SOUND;
                     }
-
                     Option_Entry_Setup();
                 }
             }
@@ -1086,7 +1089,7 @@ void Option_MainMenu_Draw(void) {
     Option_8019BF34();
 }
 
-void Option_80193B04(void) {
+void Option_Versus_Setup(void) {
     s32 i;
 
     gBlurAlpha = 255;
@@ -1132,7 +1135,7 @@ void Option_Versus_Update(void) {
 
     switch (D_menu_801B912C) {
         case 0:
-            Option_80193B04();
+            Option_Versus_Setup();
             if (D_menu_801B9248 == 0) {
                 D_menu_801B912C++;
             } else {
@@ -1183,7 +1186,7 @@ void Option_Versus_Update(void) {
 
         case 1:
             // clang-format off
-            if (Option_8019C418(&D_menu_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9188)) {\
+            if (Option_Input_MoveCursor(&D_menu_801B91A8, 2, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9188)) {\
                 AUDIO_PLAY_SFX(NA_SE_ARWING_CURSOR, gDefaultSfxSource, 4);\
             }
             // clang-format on
@@ -1198,9 +1201,9 @@ void Option_Versus_Update(void) {
             if (gControllerPress[gMainController].button & B_BUTTON) {
                 AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                 D_menu_801B912C = 0;
-                D_menu_801B9124 = 1000;
+                D_menu_801B9124 = OPTION_MAIN_MENU;
                 gDrawMode = DRAW_NONE;
-                D_menu_801B9244 = 1;
+                D_menu_801B9244 = true;
             }
             break;
 
@@ -1359,15 +1362,15 @@ void Option_Sound_Setup(void) {
 void Option_Sound_Update(void) {
     s32 sp34 = D_menu_801B9288;
 
-    if (Option_8019C418(&D_menu_801B9288, 3, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9250)) {
+    if (Option_Input_MoveCursor(&D_menu_801B9288, 3, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9250)) {
         D_menu_801B9270[sp34] = 255.0f;
         AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
     }
 
     if (D_menu_801B9288 == 0) {
-        Option_80194AEC();
+        Option_Sound_SetSoundMode();
     } else {
-        Option_80194BD0();
+        Option_Sound_SetVolumeLevels();
     }
 
     // Test sound
@@ -1389,17 +1392,17 @@ void Option_Sound_Update(void) {
         }
         Save_Write();
         gDrawMode = DRAW_NONE;
-        D_menu_801B9124 = 1000;
+        D_menu_801B9124 = OPTION_MAIN_MENU;
         D_menu_801B912C = 0;
-        D_menu_801B9244 = 1;
+        D_menu_801B9244 = true;
     }
 }
 
-void Option_80194AEC(void) {
+void Option_Sound_SetSoundMode(void) {
     s32 sp3C = gOptionSoundMode;
     s32 pad;
 
-    if (Option_8019C418(&sp3C, 2, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9260)) {
+    if (Option_Input_MoveCursor(&sp3C, 2, 0, 0, 20, 5, 4, gMainController, &D_menu_801B9260)) {
         AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
         gOptionSoundMode = sp3C;
         if (gOptionSoundMode >= OPTIONSOUND_MAX) {
@@ -1410,7 +1413,7 @@ void Option_80194AEC(void) {
     }
 }
 
-void Option_80194BD0(void) {
+void Option_Sound_SetVolumeLevels(void) {
     s32 var_v1;
 
     D_menu_801B924C = D_menu_801AE99C[D_menu_801B9288 - 1];
@@ -1455,7 +1458,7 @@ void Option_Sound_Draw(void) {
 
     Option_DrawMenuLabel();
 
-    Option_801952B4();
+    Option_Sound_Speaker_Draw();
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1523,7 +1526,7 @@ void Option_Sound_Draw(void) {
     }
 }
 
-void Option_801952B4(void) {
+void Option_Sound_Speaker_Draw(void) {
     s32 i;
 
     if (D_menu_801B9284 == 1) {
@@ -1673,9 +1676,9 @@ void Option_ExpertSound_Update(void) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(NA_BGM_SELECT);
             gDrawMode = DRAW_NONE;
-            D_menu_801B9124 = 1000;
+            D_menu_801B9124 = OPTION_MAIN_MENU;
             D_menu_801B912C = 0;
-            D_menu_801B9244 = 1;
+            D_menu_801B9244 = true;
         } else {
             AUDIO_PLAY_SFX(NA_SE_CANCEL, gDefaultSfxSource, 4);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
@@ -1819,7 +1822,7 @@ void Option_Data_Update(void) {
 
     switch (D_menu_801B912C) {
         case 0:
-            Option_8019669C();
+            Option_Data_Select();
             break;
 
         case 2:
@@ -1834,9 +1837,9 @@ void Option_Data_Update(void) {
         case 3:
             if (D_menu_801B9330[D_menu_801B91C0] == 0) {
                 gDrawMode = DRAW_NONE;
-                D_menu_801B9124 = 1000;
+                D_menu_801B9124 = OPTION_MAIN_MENU;
                 D_menu_801B912C = 0;
-                D_menu_801B9244 = 1;
+                D_menu_801B9244 = true;
             }
             break;
 
@@ -1878,12 +1881,12 @@ void Option_Data_Update(void) {
 
                             gExpertMode = false;
 
-                            sOptionCardList[0].tex.texture = aMainGameCardTex;
-                            sOptionCardList[0].tex.width = 72;
-                            sOptionCardList[0].tex.height = 12;
-                            sOptionCardList[4].tex.texture = aSoundCardTex;
-                            sOptionCardList[4].tex.width = 64;
-                            sOptionCardList[4].tex.height = 10;
+                            sOptionCardList[OPTION_MAP].tex.texture = aMainGameCardTex;
+                            sOptionCardList[OPTION_MAP].tex.width = 72;
+                            sOptionCardList[OPTION_MAP].tex.height = 12;
+                            sOptionCardList[OPTION_SOUND].tex.texture = aSoundCardTex;
+                            sOptionCardList[OPTION_SOUND].tex.width = 64;
+                            sOptionCardList[OPTION_SOUND].tex.height = 10;
 
                             for (i = 0; i < OPTION_COUNT; i++) {
                                 sOptionCardCurTextPosX[i] = sOptionCardTextPosX[i];
@@ -1902,7 +1905,7 @@ void Option_Data_Update(void) {
     }
 }
 
-void Option_8019669C(void) {
+void Option_Data_Select(void) {
     if ((D_menu_801B91CC == 0) || (D_menu_801B91CC == 1)) {
         if (Option_8019C5A0(&D_menu_801B91C0) != 0) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
@@ -2033,7 +2036,7 @@ void Option_Data_Draw(void) {
     Option_8019B7D4();
 }
 
-char* D_menu_801AF0C4[3] = { "P", "S", "F" };
+char* sTeamLetter[3] = { "P", "S", "F" };
 s32 D_menu_801AF0D0[3] = { 255, 0, 30 };
 s32 D_menu_801AF0DC[3] = { 30, 179, 30 };
 s32 D_menu_801AF0E8[3] = { 0, 67, 255 };
@@ -2052,7 +2055,7 @@ void Option_Ranking_Setup(void) {
     D_menu_801B91D8 = -6.0f;
     D_menu_801B91E0 = -6.0f;
 
-    D_menu_801B93E0 = 0;
+    sRanking2ndPage = false;
     D_menu_801B8288 = 10;
 
     D_menu_801B9400.unk_0 = 0;
@@ -2064,38 +2067,39 @@ void Option_Ranking_Setup(void) {
 }
 
 void Option_Ranking_Update(void) {
-    Option_80196FC4();
+    Option_Ranking_Select();
 
     if (gControllerPress[gMainController].button & B_BUTTON) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
         gDrawMode = DRAW_NONE;
-        D_menu_801B9124 = 1000;
+        D_menu_801B9124 = OPTION_MAIN_MENU;
         D_menu_801B912C = 0;
-        D_menu_801B9244 = 1;
+        D_menu_801B9244 = true;
     }
 }
 
 void Option_Ranking_Draw(void) {
-    Option_RankingMenuDraw();
+    Option_RankingMenu_Draw();
     Option_DrawMenuLabel();
 }
 
-void Option_80196FC4(void) {
+void Option_Ranking_Select(void) {
+    // Press A to go to the 2nd page
     if (gControllerPress[gMainController].button & A_BUTTON) {
         AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-        D_menu_801B93E0 ^= 1;
+        sRanking2ndPage ^= 1;
     }
 
-    if (D_menu_801B93E0 != 0) {
-        Option_8019715C();
+    if (sRanking2ndPage) {
+        Option_Ranking2_Cursor();
         return;
     }
 
-    Option_80197074();
+    Option_Ranking_Cursor();
 }
 
-void Option_80197074(void) {
-    if (Option_8019C418(&D_menu_801B93E4, 9, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9400)) {
+void Option_Ranking_Cursor(void) {
+    if (Option_Input_MoveCursor(&D_menu_801B93E4, 9, 1, 0, 20, 5, 4, gMainController, &D_menu_801B9400)) {
         AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
         D_menu_801B91D4 = 114.0f - D_menu_801B93E4 * 130.0f;
         D_menu_801B91DC = 114.0f - D_menu_801B93E4 * 130.0f;
@@ -2104,7 +2108,7 @@ void Option_80197074(void) {
     }
 }
 
-void Option_8019715C(void) {
+void Option_Ranking2_Cursor(void) {
     s32 pad;
     f32 sp30;
     f32 temp_fv0_2;
@@ -2112,7 +2116,7 @@ void Option_8019715C(void) {
     s32 temp2;
 
     if (D_menu_801B91D0 != 0) {
-        if (Option_8019C418(&D_menu_801B93E4, 9, 1, 1, 20, 2, 9, gMainController, &D_menu_801B9408) != 0.00f) {
+        if (Option_Input_MoveCursor(&D_menu_801B93E4, 9, 1, 1, 20, 2, 9, gMainController, &D_menu_801B9408) != 0.00f) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
             D_menu_801B91DC = 114.0f - D_menu_801B93E4 * 130.0f;
             D_menu_801B91E0 = -6.0f + D_menu_801B93E4 * 130.0f;
@@ -2146,17 +2150,17 @@ void Option_8019715C(void) {
     }
 }
 
-void Option_RankingMenuDraw(void) {
-    s32 temp_t0;
+void Option_RankingMenu_Draw(void) {
+    s32 colorGB;
 
-    if (D_menu_801B93E0 != 0) {
-        Option_8019752C();
+    if (sRanking2ndPage) {
+        Option_RankingMenu2_Draw();
     } else {
         Title_80187E28();
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         Option_8019C824(&D_menu_801B93F0);
-        temp_t0 = D_menu_801B93F0;
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_t0, temp_t0, 255);
+        colorGB = D_menu_801B93F0;
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
         Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7004010, 8, 8, 70.0f, (D_menu_801B93E4 * 17.0f) + 55.0f, 1.0f,
                             1.0f);
     }
@@ -2165,10 +2169,11 @@ void Option_RankingMenuDraw(void) {
     Graphics_DisplaySmallText(242, 215, 1.0f, 1.0f, "PUSH A");
 }
 
-void Option_8019752C(void) {
+// 2nd page and more detailed version of the Ranking
+void Option_RankingMenu2_Draw(void) {
     f32 var_fs0;
     f32 var_fs1;
-    s32 temp_a0;
+    s32 colorGB;
     s32 i;
     static f32 D_menu_801AF0F4 = 130.0f;
     static f32 D_menu_801AF0F8[] = { 48.0f, 175.0f };
@@ -2178,13 +2183,13 @@ void Option_8019752C(void) {
 
     for (i = 0; i < 10; i++) {
         if ((var_fs0 > 69.0f) && (var_fs0 < 230.0f)) {
-            Option_80197A3C(i, 41, var_fs0);
-            Option_80197D30(i, 75, var_fs0 - 25.0f);
-            Option_80197DE4(i, 130, (var_fs0 - 26.0f));
-            Map_801AD7EC(210, (var_fs0 - 24.0f), gSaveFile.save.data.unk_40[i]);
-            Option_80197F74(i, 258, var_fs0 - 25.0f);
+            Option_OrdinalNumbers_Draw(i, 41, var_fs0);
+            Option_RankingName_Draw(i, 75, var_fs0 - 25.0f);
+            Option_RankingTotalHits_Draw(i, 130, (var_fs0 - 26.0f));
+            Map_801AD7EC(210, (var_fs0 - 24.0f), gSaveFile.save.data.rankingLives[i]);
+            Option_RankingTeamAlive_Draw(i, 258, var_fs0 - 25.0f);
         }
-        Option_80198164(i, var_fs0, var_fs1);
+        Option_RankingRoute_Draw(i, var_fs0, var_fs1);
         var_fs0 += D_menu_801AF0F4;
         var_fs1 -= D_menu_801AF0F4;
     }
@@ -2193,8 +2198,8 @@ void Option_8019752C(void) {
     Option_80197914();
 
     Matrix_Pop(&gGfxMatrix);
-    RCP_SetupDL(&gMasterDisp, SETUPDL_76);
 
+    RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800D170, 8, 16, 0.0f, D_menu_801AF0F8[0], 40.0f, 1.5f);
@@ -2202,14 +2207,15 @@ void Option_8019752C(void) {
 
     Background_DrawPartialStarfield(0, 70);
     Background_DrawPartialStarfield(170, 239);
+
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
     if (D_menu_801B91D4 >= 114.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
     } else {
         Option_8019C824(&D_menu_801B93F4);
-        temp_a0 = D_menu_801B93F4;
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
+        colorGB = D_menu_801B93F4;
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
     }
 
     Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
@@ -2218,8 +2224,8 @@ void Option_8019752C(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
     } else {
         Option_8019C824(&D_menu_801B93F8);
-        temp_a0 = D_menu_801B93F8;
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, temp_a0, temp_a0, 255);
+        colorGB = D_menu_801B93F8;
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
     }
 
     Lib_TextureRect_IA8_MirY(&gMasterDisp, D_OPT_800D070, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
@@ -2245,50 +2251,43 @@ void Option_80197914(void) {
     }
 }
 
-void Option_80197A3C(s32 arg0, s32 arg1, s32 arg2) {
+void Option_OrdinalNumbers_Draw(s32 ordinalType, s32 xPos, s32 yPos) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    if (arg0 != 9) {
-        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[arg0 + 1], 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+    if (ordinalType != 9) {
+        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AECF8[ordinalType + 1], 16, 15, xPos, yPos - 25.0f, 1.0f, 1.0f);
     } else {
-        Lib_TextureRect_IA8(&gMasterDisp, aLargeText_1, 16, 15, arg1 - 14.0f, arg2 - 25.0f, 1.0f, 1.0f);
-        Lib_TextureRect_IA8(&gMasterDisp, aLargeText_0, 16, 15, arg1, arg2 - 25.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aLargeText_1, 16, 15, xPos - 14.0f, yPos - 25.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aLargeText_0, 16, 15, xPos, yPos - 25.0f, 1.0f, 1.0f);
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_85);
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    switch (arg0) {
-        case 0:
-            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8003A70, D_OPT_8003AB8, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f,
-                                1.0f);
+    switch (ordinalType) {
+        case 0: // st
+            Lib_TextureRect_CI4(&gMasterDisp, aStTex, aStTLUT, 16, 9, xPos + 17.0f, yPos - 19.0f, 1.0f, 1.0f);
             break;
 
-        case 1:
-            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_80038E0, D_OPT_8003930, 16, 10, arg1 + 17.0f, arg2 - 19.0f, 1.0f,
-                                1.0f);
+        case 1: // nd
+            Lib_TextureRect_CI4(&gMasterDisp, aNdTex, aNdTLUT, 16, 10, xPos + 17.0f, yPos - 19.0f, 1.0f, 1.0f);
             break;
 
-        case 2:
-            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8003950, D_OPT_80039A8, 16, 11, arg1 + 17.0f, arg2 - 20.0f, 1.0f,
-                                1.0f);
+        case 2: // rd
+            Lib_TextureRect_CI4(&gMasterDisp, aRdTex, aRdTLUT, 16, 11, xPos + 17.0f, yPos - 20.0f, 1.0f, 1.0f);
             break;
 
-        default:
-            Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8003AE0, D_OPT_8003B28, 16, 9, arg1 + 17.0f, arg2 - 19.0f, 1.0f,
-                                1.0f);
+        default: // th
+            Lib_TextureRect_CI4(&gMasterDisp, aThTex, aThTLUT, 16, 9, xPos + 17.0f, yPos - 19.0f, 1.0f, 1.0f);
             break;
     }
 }
 
-void Option_80197D30(s32 rankIdx, s32 xPos, s32 yPos) {
+void Option_RankingName_Draw(s32 rankIdx, s32 xPos, s32 yPos) {
     char rankName[4];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     rankName[0] = gSaveFile.save.data.rankNameEntry[rankIdx][0] & 0xFF;
@@ -2299,18 +2298,21 @@ void Option_80197D30(s32 rankIdx, s32 xPos, s32 yPos) {
     Graphics_DisplayLargeText(xPos, yPos, 1.0f, 1.0f, rankName);
 }
 
-void Option_80197DE4(s32 arg0, s32 xPos, s32 yPos) {
+void Option_RankingTotalHits_Draw(s32 rankIdx, s32 xPos, s32 yPos) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
     Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, xPos, yPos, 3.17f, 1.05f);
+
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(xPos, yPos, 1.0f, 1.0f, "TOTAL HITS");
+
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Graphics_DisplaySmallNumber((xPos + 40.0f) - ((HUD_CountDigits(D_menu_801B8220[arg0]) * 8) - 8), (yPos + 9.0f),
-                                D_menu_801B8220[arg0]);
+    Graphics_DisplaySmallNumber((xPos + 40.0f) - ((HUD_CountDigits(gTotalHitsRanking[rankIdx]) * 8) - 8), (yPos + 9.0f),
+                                gTotalHitsRanking[rankIdx]);
 }
 
-void Option_80197F74(s32 arg0, s32 xPos, s32 yPos) {
+void Option_RankingTeamAlive_Draw(s32 rankIdx, s32 xPos, s32 yPos) {
     f32 xOffsetPos;
     s32 i;
 
@@ -2318,55 +2320,57 @@ void Option_80197F74(s32 arg0, s32 xPos, s32 yPos) {
 
     for (xOffsetPos = 0.0f, i = 0; i < 3; i++, xOffsetPos += 12.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF0D0[i], D_menu_801AF0DC[i], D_menu_801AF0E8[i], 255);
-        Graphics_DisplaySmallText(xOffsetPos + xPos, yPos, 1.0f, 1.0f, D_menu_801AF0C4[i]);
+        Graphics_DisplaySmallText(xOffsetPos + xPos, yPos, 1.0f, 1.0f, sTeamLetter[i]);
+
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Graphics_DisplaySmallNumber(xPos + xOffsetPos - ((HUD_CountDigits(D_menu_801B81A8[arg0][i]) - 1) * 8),
-                                    yPos + 9.0f, D_menu_801B81A8[arg0][i]);
+        Graphics_DisplaySmallNumber(xPos + xOffsetPos - ((HUD_CountDigits(gRankingTeamAlive[rankIdx][i]) - 1) * 8),
+                                    yPos + 9.0f, gRankingTeamAlive[rankIdx][i]);
     }
 }
 
-void Option_80198164(s32 arg0, f32 arg1, f32 arg2) {
+void Option_RankingRoute_Draw(s32 rankIdx, f32 arg1, f32 arg2) {
     f32 temp = 16.0f;
-    s32 temp_s2 = gSaveFile.save.data.unk_36[arg0];
+    s32 routeMax = gSaveFile.save.data.rankingRoute[rankIdx];
     f32 var_fs2;
     s32 i;
 
     for (var_fs2 = 0.0f, i = 0; i < 7; i++, var_fs2 += 24.0f + temp) {
-        Option_801982B0(arg0, i, 28.0f + var_fs2, arg1, temp_s2);
-        if (i < temp_s2) {
-            Option_8019882C(arg0, i, 28.0f + var_fs2, arg1);
-            Option_801984D0(arg0, i, 28.0f + var_fs2, arg1);
-            Option_80198608(arg0, i, 28.0f + var_fs2, arg1);
+        Option_RankingRouteFrame_Draw(rankIdx, i, 28.0f + var_fs2, arg1, routeMax);
+        if (i < routeMax) {
+            Option_RankingPlanetName_Draw(rankIdx, i, 28.0f + var_fs2, arg1);
+            Option_RankingHitCount_Draw(rankIdx, i, 28.0f + var_fs2, arg1);
+            Option_RankingTeamPresence_Draw(rankIdx, i, 28.0f + var_fs2, arg1);
         }
     }
 
     if ((arg2 < 75.0f) && (arg2 > -80.0f)) {
-        Option_8019896C(arg0, arg2, temp_s2);
+        Option_RankingPlanetRoute_Draw(rankIdx, arg2, routeMax);
     }
 }
 
-void Option_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
+void Option_RankingRouteFrame_Draw(s32 rankIdx, s32 routeIdx, f32 xPos, f32 yPos, s32 arg4) {
     s32 r;
     s32 g;
     s32 b;
-    s32 temp_v0;
+    s32 routeLineColor;
     PlanetId start;
     PlanetId end;
 
-    if ((arg3 > 30.0f) && (arg3 < 200.0f)) {
+    if ((yPos > 30.0f) && (yPos < 200.0f)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-        if (arg1 < 6) {
+
+        if (routeIdx < 6) {
             r = g = b = 255;
 
-            if (arg1 < (arg4 - 1)) {
-                start = gSaveFile.save.data.stats[arg0][arg1].planetId & 0xF;
-                end = gSaveFile.save.data.stats[arg0][arg1 + 1].planetId & 0xF;
+            if (routeIdx < (arg4 - 1)) {
+                start = gSaveFile.save.data.stats[rankIdx][routeIdx].planetId & 0xF;
+                end = gSaveFile.save.data.stats[rankIdx][routeIdx + 1].planetId & 0xF;
 
-                temp_v0 = Option_80199284(start, end);
+                routeLineColor = Option_GetRouteLineColor(start, end);
 
-                r = g = b = 255;
+                r = g = b = 255; // white by default
 
-                switch (temp_v0) {
+                switch (routeLineColor) {
                     case 0:
                         r = 16;
                         g = 64;
@@ -2386,71 +2390,71 @@ void Option_801982B0(s32 arg0, s32 arg1, f32 arg2, f32 arg3, s32 arg4) {
                 }
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-            Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, arg2 + 24.0f, arg3 + 11.0f, 2.0f, 0.2f);
+            Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, xPos + 24.0f, yPos + 11.0f, 2.0f, 0.2f);
         }
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6047550, 24, 24, arg2, arg3, 1.0f, 1.0f);
+        Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6047550, 24, 24, xPos, yPos, 1.0f, 1.0f);
     }
 }
 
-void Option_801984D0(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
-    s32 sp1C;
+void Option_RankingHitCount_Draw(s32 rankIdx, s32 routeIdx, f32 xPos, f32 yPos) {
+    s32 hitCount;
 
-    if ((arg3 > 22.0f) && (arg3 < 162.0f)) {
+    if ((yPos > 22.0f) && (yPos < 162.0f)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        sp1C = (gSaveFile.save.data.stats[arg0][arg1].unk_C & 1) << 8;
-        sp1C |= gSaveFile.save.data.stats[arg0][arg1].hitCount;
-        Graphics_DisplaySmallNumber(arg2 + 15.0f - (HUD_CountDigits(sp1C) - 1) * 8, arg3 + 24.0f + 1.0f, sp1C);
+        hitCount = (gSaveFile.save.data.stats[rankIdx][routeIdx].unk_C & 1) << 8;
+        hitCount |= gSaveFile.save.data.stats[rankIdx][routeIdx].hitCount;
+        Graphics_DisplaySmallNumber(xPos + 15.0f - (HUD_CountDigits(hitCount) - 1) * 8, yPos + 24.0f + 1.0f, hitCount);
     }
 }
 
-void Option_80198608(s32 arg0, s32 arg1, f32 xPos, f32 yPos) {
+void Option_RankingTeamPresence_Draw(s32 rankIdx, s32 routeIdx, f32 xPos, f32 yPos) {
     f32 xOffset;
-    s32 sp90[3];
+    s32 teamAlive[3];
     s32 i;
 
     if ((yPos > 12.0f) && (yPos < 154.0f)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
-        sp90[0] = gSaveFile.save.data.stats[arg0][arg1].peppyAlive & 1;
-        sp90[1] = gSaveFile.save.data.stats[arg0][arg1].slippyAlive & 1;
-        sp90[2] = gSaveFile.save.data.stats[arg0][arg1].falcoAlive & 1;
+        teamAlive[0] = gSaveFile.save.data.stats[rankIdx][routeIdx].peppyAlive & 1;
+        teamAlive[1] = gSaveFile.save.data.stats[rankIdx][routeIdx].slippyAlive & 1;
+        teamAlive[2] = gSaveFile.save.data.stats[rankIdx][routeIdx].falcoAlive & 1;
 
         for (xOffset = 0.0f, i = 0; i < 3; i++, xOffset += 9.0f) {
-            if (sp90[i] == 0) {
+            if (teamAlive[i] == 0) {
                 continue;
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF0D0[i], D_menu_801AF0DC[i], D_menu_801AF0E8[i], 255);
-            Graphics_DisplaySmallText(xPos + xOffset - 1.0f, yPos + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f,
-                                      D_menu_801AF0C4[i]);
+            Graphics_DisplaySmallText(xPos + xOffset - 1.0f, yPos + 24.0f + 8.0f + 1.0f, 1.0f, 1.0f, sTeamLetter[i]);
         }
     }
 }
 
-void Option_8019882C(s32 arg0, s32 arg1, f32 arg2, f32 arg3) {
-    PlanetId temp;
-    char* sp20;
-    f32 temp2;
+void Option_RankingPlanetName_Draw(s32 rankIdx, s32 routeIdx, f32 xPos, f32 yPos) {
+    PlanetId planetIdx;
+    char* planetName;
+    f32 textWidth;
 
-    if ((arg3 > 58.0f) && (arg3 < 197.0f)) {
-        temp = gSaveFile.save.data.stats[arg0][arg1].planetId & 0xF;
-        sp20 = D_menu_801AEEAC[temp];
+    if ((yPos > 58.0f) && (yPos < 197.0f)) {
+        planetIdx = gSaveFile.save.data.stats[rankIdx][routeIdx].planetId & 0xF;
+        planetName = D_menu_801AEEAC[planetIdx];
+
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        temp2 = Graphics_GetSmallTextWidth(sp20) / 2.0f;
-        Graphics_DisplaySmallText(arg2 + 12.0f - temp2, arg3 - 8.0f, 1.0f, 1.0f, sp20);
+        textWidth = Graphics_GetSmallTextWidth(planetName) / 2.0f;
+        Graphics_DisplaySmallText(xPos + 12.0f - textWidth, yPos - 8.0f, 1.0f, 1.0f, planetName);
     }
 }
 
-void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
+void Option_RankingPlanetRoute_Draw(s32 rankIdx, f32 y, s32 routeMax) {
     static f32 zAngle = 0.0f;
     static f32 xStart = -121.0f;
     static f32 xAdvance = 40.1f;
     s32 i;
     PlanetId planet;
-    s32 spFC;
-    s32 spF4;
+    bool gotMedal;
+    bool drawPlanetMedal;
     f32 x;
     s32 pad[2];
 
@@ -2460,9 +2464,10 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
 
     Lib_InitOrtho(&gMasterDisp);
 
-    spFC = gSaveFile.save.data.unk_4A[arg0];
-    for (x = xStart, i = 0; i < arg2; i++, x += xAdvance) {
-        planet = gSaveFile.save.data.stats[arg0][i].planetId & 0xF;
+    gotMedal = gSaveFile.save.data.rankingMedal[rankIdx];
+
+    for (x = xStart, i = 0; i < routeMax; i++, x += xAdvance) {
+        planet = gSaveFile.save.data.stats[rankIdx][i].planetId & 0xF;
 
         switch (planet) {
             case SAVE_SLOT_SOLAR:
@@ -2476,13 +2481,14 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_RotateZ(gGfxMatrix, M_DTOR * zAngle, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
+
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
                 gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
                 Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
+
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
@@ -2495,12 +2501,10 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Translate(gGfxMatrix, x - 1.0f, y + 4.0f, 0.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
@@ -2517,7 +2521,6 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
@@ -2532,7 +2535,6 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_RotateX(gGfxMatrix, M_DTOR * 20.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.01f, 0.01f, 0.01f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 Matrix_Pop(&gGfxMatrix);
@@ -2562,7 +2564,6 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
                 Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.3f, 0.3f, 0.3f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-
                 gSPDisplayList(gMasterDisp++, D_menu_801AEE6C[planet]);
 
                 if ((planet != SAVE_SLOT_VENOM_1) && (planet != SAVE_SLOT_VENOM_2) && (planet != PLANET_AQUAS)) {
@@ -2583,15 +2584,15 @@ void Option_8019896C(s32 arg0, f32 y, s32 arg2) {
                 break;
         }
 
-        spF4 = (spFC >> i) & 1;
-        if (spF4 != 0) {
-            Option_80199198(x, y, 0.0f);
+        drawPlanetMedal = (gotMedal >> i) & 1;
+        if (drawPlanetMedal) {
+            Option_RankingRouteMedal_Draw(x, y, 0.0f);
         }
     }
 
     Matrix_Pop(&gGfxMatrix);
 
-    Option_80192738();
+    Option_ScrollPlanetTexture();
 
     zAngle += 0.1f;
 
@@ -2602,26 +2603,26 @@ f32 D_menu_801AF13C = 0.7f;
 f32 D_menu_801AF140 = 11.0f;
 f32 D_menu_801AF144 = 2.7f;
 
-void Option_80199198(f32 arg0, f32 arg1, f32 arg2) {
+void Option_RankingRouteMedal_Draw(f32 xPos, f32 yPos, f32 zPos) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_53);
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, arg0 - D_menu_801AF140, arg1 + D_menu_801AF144, arg2, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, xPos - D_menu_801AF140, yPos + D_menu_801AF144, zPos, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, D_menu_801AF13C, D_menu_801AF13C, D_menu_801AF13C, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_MAP_601D1F0);
+    gSPDisplayList(gMasterDisp++, aMapMedalDL);
     Matrix_Pop(&gGfxMatrix);
 }
 
-s32 Option_80199284(PlanetId start, PlanetId end) {
+s32 Option_GetRouteLineColor(PlanetId start, PlanetId end) {
     s32 i;
 
-    for (i = 0; i < 24; i++) {
-        if ((D_menu_801AED4C[i].unk_0 == start) && (D_menu_801AED4C[i].unk_4 == end)) {
+    for (i = 0; i < ARRAY_COUNT(sRouteColoredLine); i++) {
+        if ((sRouteColoredLine[i].start == start) && (sRouteColoredLine[i].end == end)) {
             break;
         }
     }
 
-    return D_menu_801AED4C[i].unk_8;
+    return sRouteColoredLine[i].color;
 }
 
 void Option_VersusMenu_Setup(void) {
@@ -2634,8 +2635,8 @@ void Option_VersusMenu_Setup(void) {
     D_menu_801B93D0 = D_menu_801B9124;
 
     if (D_game_800D2870) {
-        sOptionCardList[1].tex.yPos = 129.0f;
-        sOptionCardList[1].frame.y = -7.5f;
+        sOptionCardList[OPTION_TRAINING].tex.yPos = 129.0f;
+        sOptionCardList[OPTION_TRAINING].frame.y = -7.5f;
     }
 
     gVsPointsToWin = 3;
@@ -2664,25 +2665,25 @@ void Option_VersusMenu_Setup(void) {
 void Option_VersusMenu_Update(void) {
     switch (D_menu_801B912C) {
         case 0:
-            Option_8019949C();
+            Option_VersusMenu_Cursor();
             break;
 
         case 1:
-            if (D_menu_801B91EC == 0.0f) {
-                D_menu_801B9124 = 2000;
+            if (sOkConfirmTimer == 0.0f) {
+                D_menu_801B9124 = OPTION_VERSUS_STAGE;
                 Option_Entry_Setup();
             }
             break;
     }
 }
 
-void Option_8019949C(void) {
+void Option_VersusMenu_Cursor(void) {
     s32 i;
 
     for (i = 0; i < 4; i++) {
         if (!(D_menu_801B93C4 & (1 << i))) {
             Option_8019C824(&D_menu_801B9358[i]);
-            if (Option_8019C418(&D_menu_801AED3C[i], 2, 0, 0, 20, 2, 4, i, &D_menu_801B93A0[i])) {
+            if (Option_Input_MoveCursor(&D_menu_801AED3C[i], 2, 0, 0, 20, 2, 4, i, &D_menu_801B93A0[i])) {
                 AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
             }
         }
@@ -2690,7 +2691,7 @@ void Option_8019949C(void) {
         if (gControllerPress[i].button & A_BUTTON) {
             if (D_menu_801B93C4 == 15) {
                 AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-                D_menu_801B91EC = 10;
+                sOkConfirmTimer = 10;
                 D_menu_801B912C++;
                 break;
             } else {
@@ -2723,11 +2724,11 @@ void Option_VersusMenu_Draw(void) {
     s32 i;
 
     Option_8019B8C8();
-    Option_80199EA8();
+    Option_VS_N64Console_Draw();
 
     for (i = 0; i < 4; i++) {
         if (gControllerPlugged[i] == 1) {
-            Option_80199820(i);
+            Option_VS_CharSelect_Draw(i);
         }
     }
 
@@ -2757,39 +2758,39 @@ f32 D_menu_801AF1D4 = 7.0f;
 f32 D_menu_801AF1D8 = 59.0f;
 f32 D_menu_801AF1DC = 58.0f;
 
-void Option_80199820(s32 arg0) {
-    s32 var_v0;
-    s32 var_a2;
+void Option_VS_CharSelect_Draw(s32 PlayerIdx) {
+    s32 mask;
+    s32 width;
     s32 colorGB;
     s32 i;
-    static u8* D_menu_801AF1E0[3] = {
-        D_VS_MENU_70030B0,
-        D_VS_MENU_7003290,
-        D_VS_MENU_7003470,
+    static u8* sVsHandicapLvlTex[3] = {
+        aVsHandicapLvl1Tex,
+        aVsHandicapLvl2Tex,
+        aVsHandicapLvl3Tex,
     };
-    static u8* D_menu_801AF1EC[4] = {
-        D_VS_MENU_70049C0,
-        D_VS_MENU_7004BB0,
-        D_VS_MENU_7004DC0,
-        D_VS_MENU_7005020,
+    static u8* sVsCharNameTex[4] = {
+        aVsFoxNameTex,
+        aVsPeppyNameTex,
+        aVsSlippyNameTex,
+        aVsFalcoNameTex,
     };
-    static u16* D_menu_801AF1FC[4] = {
-        D_VS_MENU_7004B80,
-        D_VS_MENU_7004D90,
-        D_VS_MENU_7004FF0,
-        D_VS_MENU_70051A0,
+    static u16* sVsCharNameTLUT[4] = {
+        aVsFoxNameTLUT,
+        aVsPeppyNameTLUT,
+        aVsSlippyNameTLUT,
+        aVsFalcoNameTLUT,
     };
-    static u16* D_menu_801AF20C[4] = {
-        D_VS_MENU_7008EE0,
-        D_VS_MENU_700AD20,
-        D_VS_MENU_700CB60,
-        D_VS_MENU_70070A0,
+    static u16* sVsPlayerFaceTex[4] = {
+        aVsFoxFaceTex,
+        aVsPeppyFaceTex,
+        aVsSlippyFaceTex,
+        aVsFalcoFaceTex,
     };
-    static u8* D_menu_801AF21C[4] = {
-        D_VS_MENU_7000000,
-        D_VS_MENU_70000D0,
-        D_VS_MENU_7000210,
-        D_VS_MENU_7000350,
+    static u8* sVsPlayerNumTex[4] = {
+        aVsPlayerNum1Tex,
+        aVsPlayerNum2Tex,
+        aVsPlayerNum3Tex,
+        aVsPlayerNum4Tex,
     };
     static s32 D_menu_801AF22C[4] = { 177, 255, 0, 30 };
     static s32 D_menu_801AF23C[4] = { 242, 30, 255, 30 };
@@ -2801,84 +2802,86 @@ void Option_80199820(s32 arg0) {
 
     for (i = 0; i < 4; i++) {
         Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + (80 * 16 * i) / 2, D_VS_MENU_70123F8, 80, 16,
-                            D_menu_801AF148[arg0], D_menu_801AF158[arg0] + (16.0f * i), 1.0f, 1.0f);
+                            D_menu_801AF148[PlayerIdx], D_menu_801AF158[PlayerIdx] + (16.0f * i), 1.0f, 1.0f);
     }
 
     Lib_TextureRect_CI4(&gMasterDisp, D_VS_MENU_70118E0 + (80 * 16 * 4) / 2, D_VS_MENU_70123F8, 80, 7,
-                        D_menu_801AF148[arg0], D_menu_801AF158[arg0] + (16.0f * 4), 1.0f, 1.0f);
+                        D_menu_801AF148[PlayerIdx], D_menu_801AF158[PlayerIdx] + (16.0f * 4), 1.0f, 1.0f);
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF22C[arg0], D_menu_801AF23C[arg0], D_menu_801AF24C[arg0], 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF22C[PlayerIdx], D_menu_801AF23C[PlayerIdx],
+                    D_menu_801AF24C[PlayerIdx], 255);
 
-    Lib_TextureRect_CI8(&gMasterDisp, D_menu_801AF1EC[arg0], D_menu_801AF1FC[arg0], D_menu_801AF168[arg0],
-                        D_menu_801AF178[arg0], D_menu_801AF148[arg0] + D_menu_801AF188[arg0],
-                        D_menu_801AF158[arg0] + D_menu_801AF198, 1.0f, 1.0f);
+    Lib_TextureRect_CI8(&gMasterDisp, sVsCharNameTex[PlayerIdx], sVsCharNameTLUT[PlayerIdx], D_menu_801AF168[PlayerIdx],
+                        D_menu_801AF178[PlayerIdx], D_menu_801AF148[PlayerIdx] + D_menu_801AF188[PlayerIdx],
+                        D_menu_801AF158[PlayerIdx] + D_menu_801AF198, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
-    var_v0 = 0xFFFFFFFF;
-    if (D_menu_801B9348[arg0] != 0) {
-        var_v0 = 1;
-        D_menu_801B9348[arg0]--;
+    mask = 0xFFFFFFFF;
+    if (D_menu_801B9348[PlayerIdx] != 0) {
+        mask = 0x00000001;
+        D_menu_801B9348[PlayerIdx]--;
     }
 
-    if ((gGameFrameCount & var_v0) != 0) {
-        colorGB = D_menu_801B9358[arg0];
+    if ((gGameFrameCount & mask) != 0) {
+        colorGB = D_menu_801B9358[PlayerIdx];
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001030, 64, 9, D_menu_801AF148[arg0] + D_menu_801AF1BC,
-                            D_menu_801AF158[arg0] + D_menu_801AF1C0, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7001030, 64, 9, D_menu_801AF148[PlayerIdx] + D_menu_801AF1BC,
+                            D_menu_801AF158[PlayerIdx] + D_menu_801AF1C0, 1.0f, 1.0f);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
 
-        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF1E0[D_menu_801AED3C[arg0]], 40, 12,
-                            D_menu_801AF148[arg0] + D_menu_801AF1C4, D_menu_801AF158[arg0] + D_menu_801AF1C8, 1.0f,
-                            1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, sVsHandicapLvlTex[D_menu_801AED3C[PlayerIdx]], 40, 12,
+                            D_menu_801AF148[PlayerIdx] + D_menu_801AF1C4, D_menu_801AF158[PlayerIdx] + D_menu_801AF1C8,
+                            1.0f, 1.0f);
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    Lib_TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[arg0] + D_menu_801AF1D4,
-                             D_menu_801AF158[arg0] + D_menu_801AF1DC, 1.0f, 1.0f);
+    Lib_TextureRect_IA8_MirX(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[PlayerIdx] + D_menu_801AF1D4,
+                             D_menu_801AF158[PlayerIdx] + D_menu_801AF1DC, 1.0f, 1.0f);
 
-    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[arg0] + D_menu_801AF1D8,
-                        D_menu_801AF158[arg0] + D_menu_801AF1DC, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_OPT_800E130, 8, 8, D_menu_801AF148[PlayerIdx] + D_menu_801AF1D8,
+                        D_menu_801AF158[PlayerIdx] + D_menu_801AF1DC, 1.0f, 1.0f);
 
-    Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7000F10, 40, 7, D_menu_801AF148[arg0] + D_menu_801AF1CC,
-                        D_menu_801AF158[arg0] + D_menu_801AF1D0, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, D_VS_MENU_7000F10, 40, 7, D_menu_801AF148[PlayerIdx] + D_menu_801AF1CC,
+                        D_menu_801AF158[PlayerIdx] + D_menu_801AF1D0, 1.0f, 1.0f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_menu_801AF20C[arg0] + (44 * 20 * i), 44, 20,
-                               D_menu_801AF148[arg0] + D_menu_801AF1B4,
-                               D_menu_801AF158[arg0] + D_menu_801AF1B8 + (i * 20.0f * 0.7f), 0.7f, 0.7f);
+        Lib_TextureRect_RGBA16(&gMasterDisp, sVsPlayerFaceTex[PlayerIdx] + (44 * 20 * i), 44, 20,
+                               D_menu_801AF148[PlayerIdx] + D_menu_801AF1B4,
+                               D_menu_801AF158[PlayerIdx] + D_menu_801AF1B8 + (i * 20.0f * 0.7f), 0.7f, 0.7f);
     }
 
-    Lib_TextureRect_RGBA16(&gMasterDisp, D_menu_801AF20C[arg0] + 44 * 20 * 2, 44, 4,
-                           D_menu_801AF148[arg0] + D_menu_801AF1B4, D_menu_801AF158[arg0] + D_menu_801AF1B8 + 28.0f,
-                           0.7f, 0.7f);
+    Lib_TextureRect_RGBA16(&gMasterDisp, sVsPlayerFaceTex[PlayerIdx] + 44 * 20 * 2, 44, 4,
+                           D_menu_801AF148[PlayerIdx] + D_menu_801AF1B4,
+                           D_menu_801AF158[PlayerIdx] + D_menu_801AF1B8 + 28.0f, 0.7f, 0.7f);
 
-    var_a2 = 24;
-    if (arg0 == 0) {
-        var_a2 = 16;
+    width = 24;
+    if (PlayerIdx == 0) {
+        width = 16;
     }
 
-    gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF22C[arg0], D_menu_801AF23C[arg0], D_menu_801AF24C[arg0], 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, D_menu_801AF22C[PlayerIdx], D_menu_801AF23C[PlayerIdx],
+                    D_menu_801AF24C[PlayerIdx], 255);
 
-    Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF21C[arg0], var_a2, 13, D_menu_801AF148[arg0] + D_menu_801AF19C[arg0],
-                        D_menu_801AF158[arg0] + D_menu_801AF1AC, D_menu_801AF1B0, D_menu_801AF1B0);
+    Lib_TextureRect_IA8(&gMasterDisp, sVsPlayerNumTex[PlayerIdx], width, 13,
+                        D_menu_801AF148[PlayerIdx] + D_menu_801AF19C[PlayerIdx],
+                        D_menu_801AF158[PlayerIdx] + D_menu_801AF1AC, D_menu_801AF1B0, D_menu_801AF1B0);
 }
 
-void Option_80199EA8(void) {
+void Option_VS_N64Console_Draw(void) {
     s32 i;
 
     RCP_SetupDL_76();
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 3; i++) {
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_VS_MENU_700E9A0 + (144 * 14 * i), 144, 14, 87.0f, 84 + (i * 14.0f), 1.0f,
+        Lib_TextureRect_RGBA16(&gMasterDisp, aVsN64ConsoleTex + (144 * 14 * i), 144, 14, 87.0f, 84 + (i * 14.0f), 1.0f,
                                1.0f);
     }
 }
@@ -2894,14 +2897,14 @@ void Option_VersusStage_Setup(void) {
     D_menu_801B93DC = D_menu_801B9340;
     gVsTimeTrialLimit = D_menu_801B93DC;
     // clang-format off
-    for (i = 0; i < 4; i++) {\
+    for (i = 0; i < 4; i++) { \
         D_menu_801B9358[i] = 0;
     }
     // clang-format on
     D_menu_801B936C = 0;
     D_menu_801B9374 = 0;
-    D_menu_801B937C = 0;
-    D_menu_801B91EC = 0;
+    sTimeTrialConfirmTimer = 0;
+    sOkConfirmTimer = 0;
     D_menu_801B91F0 = 0;
     D_menu_801B9368 = 255.0f;
     D_menu_801B9370 = 255.0f;
@@ -2909,7 +2912,6 @@ void Option_VersusStage_Setup(void) {
     Option_8019A080();
 }
 
-// D_menu_801B9380 needs to be static but belongs to bss section?
 void Option_8019A080(void) {
     s32 i;
 
@@ -2922,20 +2924,20 @@ void Option_8019A080(void) {
 void Option_VersusStage_Update(void) {
     switch (D_menu_801B93D0) {
         case OPTION_POINT_MATCH:
-            Option_8019A124();
+            Option_Vs_PointMatch_Update();
             break;
 
         case OPTION_BR_MATCH:
-            Option_8019A1A8();
+            Option_Vs_BattleRoyal_Update();
             break;
 
         case OPTION_TT_MATCH:
-            Option_8019A214();
+            Option_Vs_TimeTrial_Update();
             break;
     }
 }
 
-void Option_8019A124(void) {
+void Option_Vs_PointMatch_Update(void) {
     switch (D_menu_801B912C) {
         case 0:
             Option_8019A2E0();
@@ -2955,7 +2957,7 @@ void Option_8019A124(void) {
     }
 }
 
-void Option_8019A1A8(void) {
+void Option_Vs_BattleRoyal_Update(void) {
     switch (D_menu_801B912C) {
         case 0:
             Option_8019A6DC();
@@ -2971,7 +2973,7 @@ void Option_8019A1A8(void) {
     }
 }
 
-void Option_8019A214(void) {
+void Option_Vs_TimeTrial_Update(void) {
     switch (D_menu_801B912C) {
         case 0:
             Option_8019A4DC();
@@ -2989,7 +2991,7 @@ void Option_8019A214(void) {
 }
 
 void Option_8019A298(void) {
-    if (D_menu_801B91EC == 0.0f) {
+    if (sOkConfirmTimer == 0.0f) {
         gGameState = GSTATE_VS_INIT;
         gNextGameStateTimer = 2;
         gOptionMenuStatus = OPTION_WAIT;
@@ -3015,7 +3017,7 @@ void Option_8019A2E0(void) {
             continue;
         }
 
-        if (Option_8019C418(&D_menu_801B93D4, 4, 0, 0, 20, 2, 4, i, &D_menu_801B9380[i])) {
+        if (Option_Input_MoveCursor(&D_menu_801B93D4, 4, 0, 0, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
             gVsPointsToWin = D_menu_801B93D4 + 1;
         }
@@ -3040,8 +3042,8 @@ void Option_8019A2E0(void) {
 void Option_8019A4DC(void) {
     s32 i;
 
-    if (D_menu_801B937C != 0) {
-        return; // investigate
+    if (sTimeTrialConfirmTimer != 0) {
+        return;
     }
 
     if (D_menu_801B91F0) {
@@ -3055,7 +3057,7 @@ void Option_8019A4DC(void) {
             continue;
         }
 
-        if (Option_8019C418(&D_menu_801B93DC, 4, 0, 0, 20, 2, 4, i, &D_menu_801B9380[i])) {
+        if (Option_Input_MoveCursor(&D_menu_801B93DC, 4, 0, 0, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
             D_menu_801B9340 = D_menu_801B93DC;
             gVsTimeTrialLimit = D_menu_801B93DC;
@@ -3064,7 +3066,7 @@ void Option_8019A4DC(void) {
         if (gControllerPress[i].button & A_BUTTON) {
             AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
             Option_8019A080();
-            D_menu_801B937C = 10;
+            sTimeTrialConfirmTimer = 10;
             break;
         }
 
@@ -3096,7 +3098,7 @@ void Option_8019A6DC(void) {
         if (gControllerPlugged[i] == 0) {
             continue;
         }
-        if (Option_8019C418(&D_menu_801B93D8, 1, 0, 1, 20, 2, 4, i, &D_menu_801B9380[i])) {
+        if (Option_Input_MoveCursor(&D_menu_801B93D8, 1, 0, 1, 20, 2, 4, i, &D_menu_801B9380[i])) {
             AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
             gVsMenuSelection = D_menu_801B93D8;
         }
@@ -3136,8 +3138,8 @@ void Option_8019A6DC(void) {
 void Option_8019A954(void) {
     s32 i;
 
-    if (D_menu_801B91EC != 0) {
-        return; // investigate
+    if (sOkConfirmTimer != 0) {
+        return;
     }
 
     if (D_menu_801B91F0) {
@@ -3154,7 +3156,7 @@ void Option_8019A954(void) {
 
         if (gControllerPress[i].button & A_BUTTON) {
             AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-            D_menu_801B91EC = 10;
+            sOkConfirmTimer = 10;
             break;
         }
 
@@ -3194,7 +3196,7 @@ void Option_8019AB30(void) {
     s32 pad[5];
     s32 colorGB;
     s32 sp44 = gVsPointsToWin;
-    s32 var_v0;
+    s32 mask;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
@@ -3211,18 +3213,18 @@ void Option_8019AB30(void) {
 
     colorGB = D_menu_801B9368;
 
-    var_v0 = 0xFFFFFFFF;
+    mask = 0xFFFFFFFF;
 
     if (D_menu_801B936C != 0) {
         colorGB = 255;
-        var_v0 = 1;
+        mask = 0x00000001;
         D_menu_801B936C--;
         if (D_menu_801B936C == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if ((gGameFrameCount & var_v0) != 0) {
+    if ((gGameFrameCount & mask) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3243,7 +3245,7 @@ void Option_8019AD84(void) {
     static f32 D_menu_801B9338;
     s32 pad[2];
     s32 colorGB;
-    s32 var_v0;
+    s32 mask;
 
     static u8* sTimeTrialMinuteTextures[] = { D_VS_MENU_70024D0, D_VS_MENU_7002730, D_VS_MENU_7002990,
                                               D_VS_MENU_7002BF0, D_VS_MENU_7002E50 };
@@ -3266,18 +3268,18 @@ void Option_8019AD84(void) {
 
     colorGB = D_menu_801B9378;
 
-    var_v0 = 0xFFFFFFFF;
+    mask = 0xFFFFFFFF;
 
-    if (D_menu_801B937C != 0) {
+    if (sTimeTrialConfirmTimer != 0) {
         colorGB = 255;
-        var_v0 = 1;
-        D_menu_801B937C--;
-        if (D_menu_801B937C == 0) {
+        mask = 0x00000001;
+        sTimeTrialConfirmTimer--;
+        if (sTimeTrialConfirmTimer == 0) {
             D_menu_801B91F0 = 1;
         }
     }
 
-    if ((gGameFrameCount & var_v0) != 0) {
+    if ((gGameFrameCount & mask) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3298,10 +3300,10 @@ void Option_8019AFFC(void) {
     static f32 D_menu_801B93CC;
     static f32 D_menu_801AF2A0 = 101.0f;
     static f32 D_menu_801AF2A4 = 86.0f;
-    s32 var_v0;
+    s32 mask;
     s32 colorGB;
 
-    if ((D_menu_801B912C == 0 && D_menu_801B93D0 == 20) || (D_menu_801B912C == 1 && D_menu_801B93D0 != 20)) {
+    if (((D_menu_801B912C == 0) && (D_menu_801B93D0 == 20)) || ((D_menu_801B912C == 1) && (D_menu_801B93D0 != 20))) {
         D_menu_801B93C0 = 94.0f;
         D_menu_801B93C8 = 88.0f;
         D_menu_801B93CC = 114.0f;
@@ -3316,9 +3318,9 @@ void Option_8019AFFC(void) {
 
     colorGB = D_menu_801B9370;
 
-    var_v0 = 0xFFFFFFFF;
+    mask = 0xFFFFFFFF;
     if (D_menu_801B9374 != 0) {
-        var_v0 = 1;
+        mask = 0x00000001;
         colorGB = 255;
         D_menu_801B9374--;
         if (D_menu_801B9374 == 0) {
@@ -3326,7 +3328,7 @@ void Option_8019AFFC(void) {
         }
     }
 
-    if ((gGameFrameCount & var_v0) != 0) {
+    if ((gGameFrameCount & mask) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
@@ -3350,9 +3352,9 @@ void Option_8019B1F8(void) {
     s32 i;
     s32 width;
     s32 sp8C[2];
-    static u8* D_menu_801AF2BC[] = { D_VS_MENU_7001C10, D_VS_MENU_70019E0 };
-    static u8* D_menu_801AF2C4[] = { D_VS_MENU_7006780, D_VS_MENU_7005F10 };
-    static u16* D_menu_801AF2CC[] = { D_VS_MENU_7006EA0, D_VS_MENU_7006630 };
+    static u8* D_menu_801AF2BC[] = { D_VS_MENU_7001C10, aVsTextSectorZTex };
+    static u8* D_menu_801AF2C4[] = { D_VS_MENU_7006780, aVsSectorZTex };
+    static u16* D_menu_801AF2CC[] = { D_VS_MENU_7006EA0, aVsSectorZTLUT };
 
     for (xPos = D_menu_801AF2A8, i = 0; i < 2; i++, xPos += D_menu_801AF2B0) {
         if (i == gVsMenuSelection) {
@@ -3372,6 +3374,7 @@ void Option_8019B1F8(void) {
         if (i == 1) {
             width = 56;
         }
+
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
         Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF2BC[i], width, 10, D_menu_801AF2B4[i], D_menu_801AF2AC + 40.0f,
@@ -3386,39 +3389,38 @@ void Option_8019B3DC(void) {
     static f32 D_menu_801AF2E0[] = { 66.0f, 189.0f };
     f32 xPos;
     s32 i;
-    s32 sp8C[3];
-    static u8* D_menu_801AF2E8[] = {
-        D_VS_MENU_70017B0,
-        D_VS_MENU_70019E0,
+    s32 alpha[3];
+    static u8* sVsTextLevelTex[] = {
+        aVsTextCorneriaTex,
+        aVsTextSectorZTex,
     };
-    static u8* D_menu_801AF2F0[] = {
-        D_VS_MENU_7005600,
-        D_VS_MENU_7005F10,
+    static u8* sVsLevelTex[] = {
+        aVsCorneriaTex,
+        aVsSectorZTex,
     };
-    static u16* D_menu_801AF2F8[] = {
-        D_VS_MENU_7005D20,
-        D_VS_MENU_7006630,
+    static u16* sVsLevelTLUT[] = {
+        aVsCorneriaTLUT,
+        aVsSectorZTLUT,
     };
 
     for (xPos = D_menu_801AF2D4, i = 0; i < 2; i++, xPos += D_menu_801AF2DC) {
         if (i == gVsMenuSelection) {
-            sp8C[i] = 255;
+            alpha[i] = 255;
         } else {
-            sp8C[i] = 32;
+            alpha[i] = 32;
         }
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_85);
 
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha[i]);
 
-        Lib_TextureRect_CI8(&gMasterDisp, D_menu_801AF2F0[i], D_menu_801AF2F8[i], 48, 38, xPos, D_menu_801AF2D8, 1.0f,
-                            1.0f);
+        Lib_TextureRect_CI8(&gMasterDisp, sVsLevelTex[i], sVsLevelTLUT[i], 48, 38, xPos, D_menu_801AF2D8, 1.0f, 1.0f);
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sp8C[i]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha[i]);
 
-        Lib_TextureRect_IA8(&gMasterDisp, D_menu_801AF2E8[i], 56, 10, D_menu_801AF2E0[i], D_menu_801AF2D8 + 40.0f, 1.0f,
+        Lib_TextureRect_IA8(&gMasterDisp, sVsTextLevelTex[i], 56, 10, D_menu_801AF2E0[i], D_menu_801AF2D8 + 40.0f, 1.0f,
                             1.0f);
     }
 }
@@ -3433,11 +3435,11 @@ void Option_8019B5AC(void) {
     colorGB = D_menu_801B91E8;
     bitmask = 0xFFFFFFFF;
 
-    if (D_menu_801B91EC != 0) {
+    if (sOkConfirmTimer != 0) {
         colorGB = 255;
         bitmask = 0x00000001;
-        D_menu_801B91EC--;
-        if (D_menu_801B91EC == 0) {
+        sOkConfirmTimer--;
+        if (sOkConfirmTimer == 0) {
             D_menu_801B91F0 = 1;
         }
     }
@@ -3463,7 +3465,7 @@ void Option_8019B7D4(void) {
     Lib_TextureRect_IA8(&gMasterDisp, D_OPT_8006E50, 96, 10, 166.0f, 213.0f, 1.0f, 1.0f);
 }
 
-void Option_8019B8A0(s32 arg0) {
+void Option_8019B8A0(OptionId arg0) {
     D_menu_801B9124 = arg0;
     gDrawMode = DRAW_NONE;
     D_menu_801B912C = 0;
@@ -3644,8 +3646,8 @@ void Option_DrawCardLabel(OptionCardTexture tex) {
     }
 }
 
-bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7,
-                     UnkStruct_D_menu_801B9250* arg8) {
+bool Option_Input_MoveCursor(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 controllerNum,
+                             StickInput* stickY) {
     s32 axis;
     s32 x;
     s32 y;
@@ -3658,8 +3660,8 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
 
     temp = *arg0;
 
-    x = gControllerPress[arg7].stick_x;
-    y = -gControllerPress[arg7].stick_y;
+    x = +gControllerPress[controllerNum].stick_x;
+    y = -gControllerPress[controllerNum].stick_y;
 
     if (arg2 == true) {
         axis = y;
@@ -3677,7 +3679,7 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
         axis = 0;
     }
 
-    if (!(arg8->unk_4)) {
+    if (!(stickY->unk_4)) {
         if (axis != 0) {
             if (axis > 0) {
                 (*arg0)++;
@@ -3701,18 +3703,18 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
                 }
             }
 
-            arg8->unk_4 = arg5 + arg8->unk_0;
-            if (arg8->unk_0 > 0) {
-                arg8->unk_0 -= arg6;
+            stickY->unk_4 = arg5 + stickY->unk_0;
+            if (stickY->unk_0 > 0) {
+                stickY->unk_0 -= arg6;
             }
         } else {
-            arg8->unk_4 = 0;
-            arg8->unk_0 = arg6;
+            stickY->unk_4 = 0;
+            stickY->unk_0 = arg6;
         }
     }
 
-    if (arg8->unk_4 > 0) {
-        arg8->unk_4--;
+    if (stickY->unk_4 > 0) {
+        stickY->unk_4--;
     }
 
     if (temp != *arg0) {
@@ -3725,7 +3727,7 @@ bool Option_8019C418(s32* arg0, s32 arg1, bool arg2, s32 arg3, s32 arg4, s32 arg
 s32 Option_8019C5A0(s32* arg0) {
     s32 ret = 0;
     s32 temp = *arg0;
-    s32 x = gControllerPress[gMainController].stick_x;
+    s32 x = +gControllerPress[gMainController].stick_x;
     s32 y = -gControllerPress[gMainController].stick_y;
 
     if ((y > 40) || (y < -40)) {
@@ -3761,12 +3763,12 @@ s32 Option_8019C5A0(s32* arg0) {
     return ret;
 }
 
-bool Option_8019C66C(f32* arg0, f32 arg1, f32 arg2, UnkStruct_D_menu_801B9250* arg3) {
+bool Option_8019C66C(f32* arg0, f32 arg1, f32 arg2, StickInput* arg3) {
     f32 var_fv1;
     f32 temp2;
     bool var_a2 = false;
     f32 temp = *arg0;
-    s32 x = gControllerPress[gMainController].stick_x;
+    s32 x = +gControllerPress[gMainController].stick_x;
     s32 y = -gControllerPress[gMainController].stick_y;
 
     if ((y > 10) || (y < -10)) {
@@ -3853,16 +3855,16 @@ s32 Option_8019C8C4(void) {
     }
 
     for (i = 0; i < 10; i++) {
-        temp[i] = gSaveFile.save.data.unk_40[i];
+        temp[i] = gSaveFile.save.data.rankingLives[i];
     }
 
     ret = -1;
 
     for (i = 0; i < 10; i++) {
-        if (D_menu_801B8220[i] <= gTotalHits) {
-            if (D_menu_801B8220[i] == gTotalHits) {
+        if (gTotalHitsRanking[i] <= gTotalHits) {
+            if (gTotalHitsRanking[i] == gTotalHits) {
                 for (j = i; j < 10; j++) {
-                    if (D_menu_801B8220[j] != gTotalHits) {
+                    if (gTotalHitsRanking[j] != gTotalHits) {
                         ret = j;
                         break;
                     }
@@ -3870,13 +3872,13 @@ s32 Option_8019C8C4(void) {
                     if (temp[j] <= gLifeCount[gPlayerNum]) {
                         if (temp[j] == gLifeCount[gPlayerNum]) {
                             for (k = j; k < 10; k++) {
-                                if ((temp[k] != gLifeCount[gPlayerNum]) || (D_menu_801B8220[k] != gTotalHits)) {
+                                if ((temp[k] != gLifeCount[gPlayerNum]) || (gTotalHitsRanking[k] != gTotalHits)) {
                                     ret = k;
                                     break;
                                 }
 
                                 for (var_a0 = 0, m = 0; m < 3; m++) {
-                                    var_a0 += D_menu_801B81A8[k][m];
+                                    var_a0 += gRankingTeamAlive[k][m];
                                 }
 
                                 if (var_v0 > var_a0) {
@@ -3923,7 +3925,7 @@ void Option_NameEntry_Update(void) {
                 gBlurAlpha = 255;
                 gDrawMode = DRAW_NONE;
                 D_menu_801B912C = 0;
-                D_menu_801B9124 = 300;
+                D_menu_801B9124 = OPTION_SCORE;
             }
             break;
     }
@@ -3975,8 +3977,9 @@ void Option_8019CBC0(void) {
 void Option_8019CD54(void) {
     switch (D_menu_801B9128) {
         case 0:
-            if ((D_menu_801B9138 == 0) && (Option_8019C418(&D_menu_801B90A0[D_menu_801B9098], 36, 0, 0, 50, 5, 10,
-                                                           gMainController, &D_menu_801B9160[D_menu_801B9098]))) {
+            if ((D_menu_801B9138 == 0) &&
+                (Option_Input_MoveCursor(&D_menu_801B90A0[D_menu_801B9098], 36, 0, 0, 50, 5, 10, gMainController,
+                                         &D_menu_801B9160[D_menu_801B9098]))) {
                 AUDIO_PLAY_SFX(NA_SE_CURSOR, gDefaultSfxSource, 4);
                 D_menu_801B9150[D_menu_801B9098][0] = D_menu_801AEF5C[D_menu_801B90A0[D_menu_801B9098]];
                 D_menu_801B90D0[D_menu_801B9098] = 0.0f;
@@ -4087,7 +4090,7 @@ void Option_NameEntry_Draw(void) {
         }
     }
 
-    Option_80197A3C(D_menu_801B9094, D_menu_801AF30C[4], D_menu_801AF324[4]);
+    Option_OrdinalNumbers_Draw(D_menu_801B9094, D_menu_801AF30C[4], D_menu_801AF324[4]);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
 
@@ -4098,7 +4101,7 @@ void Option_NameEntry_Draw(void) {
 
     Map_801A9FD4(1);
 
-    Option_80192738();
+    Option_ScrollPlanetTexture();
 
     for (i = 0; i < 3; i++) {
         if (i == D_menu_801B9098) {
@@ -4196,11 +4199,11 @@ void Option_8019D624(void) {
         sp142[i][0] = gSaveFile.save.data.rankNameEntry[i][0];
         sp142[i][1] = gSaveFile.save.data.rankNameEntry[i][1];
         sp142[i][2] = gSaveFile.save.data.rankNameEntry[i][2];
-        sp122[i] = gSaveFile.save.data.unk_36[i];
-        sp116[i] = gSaveFile.save.data.unk_40[i];
-        sp10A[i] = gSaveFile.save.data.unk_4A[i];
+        sp122[i] = gSaveFile.save.data.rankingRoute[i];
+        sp116[i] = gSaveFile.save.data.rankingLives[i];
+        sp10A[i] = gSaveFile.save.data.rankingMedal[i];
 
-        for (j = 0; j < 7; j++) {
+        for (j = 0; j < ROUTE_MAX; j++) {
             var_s0[i][j].hitCount = gSaveFile.save.data.stats[i][j].hitCount;
             var_s0[i][j].planetId = gSaveFile.save.data.stats[i][j].planetId;
             var_s0[i][j].unk_C = gSaveFile.save.data.stats[i][j].unk_C;
@@ -4219,11 +4222,11 @@ void Option_8019D624(void) {
         gSaveFile.save.data.rankNameEntry[i][0] = sp142[var_a1][0];
         gSaveFile.save.data.rankNameEntry[i][1] = sp142[var_a1][1];
         gSaveFile.save.data.rankNameEntry[i][2] = sp142[var_a1][2];
-        gSaveFile.save.data.unk_36[i] = sp122[var_a1];
-        gSaveFile.save.data.unk_40[i] = sp116[var_a1];
-        gSaveFile.save.data.unk_4A[i] = sp10A[var_a1];
+        gSaveFile.save.data.rankingRoute[i] = sp122[var_a1];
+        gSaveFile.save.data.rankingLives[i] = sp116[var_a1];
+        gSaveFile.save.data.rankingMedal[i] = sp10A[var_a1];
 
-        for (j = 0; j < 7; j++) {
+        for (j = 0; j < ROUTE_MAX; j++) {
             gSaveFile.save.data.stats[i][j].hitCount = var_s0[var_a1][j].hitCount;
             gSaveFile.save.data.stats[i][j].planetId = var_s0[var_a1][j].planetId;
             gSaveFile.save.data.stats[i][j].unk_C = var_s0[var_a1][j].unk_C;
@@ -4340,7 +4343,7 @@ void Option_Score_Update(void) {
 }
 
 void Option_8019DE74(void) {
-    Option_8019715C();
+    Option_Ranking2_Cursor();
 
     if (gControllerPress[gMainController].button &
         (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS)) {
@@ -4357,13 +4360,13 @@ void Option_8019DE74(void) {
         } else if (gLastGameState == GSTATE_ENDING) {
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-            D_menu_801B9124 = 400;
+            D_menu_801B9124 = OPTION_INVOICE;
         }
     }
 }
 
 void Option_Score_Draw(void) {
-    Option_8019752C();
+    Option_RankingMenu2_Draw();
     Option_8019BDF0();
     Option_DrawMenuCard(sOptionCardList[3].frame);
     Matrix_Pop(&gGfxMatrix);
@@ -4430,7 +4433,6 @@ void Option_InvoiceDraw(void) {
     Graphics_FillRectangle(&gMasterDisp, 25, 18, SCREEN_WIDTH - 25, SCREEN_HEIGHT - 18, 255, 255, 255, 255);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_78);
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     Lib_TextureRect_CI4(&gMasterDisp, D_OPT_8000000, D_OPT_8000680, 128, 16, D_menu_801AF3D0[0], D_menu_801AF3F0[0],
@@ -4456,7 +4458,6 @@ void Option_InvoiceDraw(void) {
                         D_menu_801AF3F0[2] + 64.0f, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
@@ -4465,7 +4466,6 @@ void Option_InvoiceDraw(void) {
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
-
     Graphics_DisplayLargeNumber(D_menu_801AF3D0[6] - ((HUD_CountDigits(gTotalHits) - 1) * 13), D_menu_801AF3F0[6],
                                 gTotalHits);
 
