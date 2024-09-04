@@ -76,7 +76,7 @@ extern u8* gBSSMapPlanetTextures[9];
 extern u8* gAssetMapPlanetTextures[9];
 
 extern s32 gTotalHitsRanking[];
-extern s32 D_menu_801B827C;   // engine
+extern bool gGoToTitle;   // engine
 extern bool sWipeScreen;
 extern s32 sWipeHeight;
 extern s32 D_menu_801B8288;
@@ -93,25 +93,25 @@ extern u8 gMapMacbethTex[96 * 96];
 extern u8 gMapZonessTex[96 * 96];
 
 void Title_UpdateEntry(void);
-s32 Title_80187ABC(void);
-void Title_80187B00(void);
-void Title_80187E28(void);
-void Title_801888E8(void);
+s32 Title_CheckControllers(void);
+void Title_Ranking_Update(void);
+void Title_RankingData_Draw(void);
+void Title_Screen_Update(void);
 void Title_8018994C(void);
 void Title_8018A644(void);
 void Title_8018ACEC(void);
 void Title_8018B5C4(void);
 void Title_8018C644(void);
-void Title_80187CA8(void);
-s32 Title_80188010(void);
-void Title_80189208(void);
+void Title_Ranking_Draw(void);
+s32 Title_GetRankTotalHits(void);
+void Title_Cutscene_Draw(void);
 void Title_8018A2F8(void);
 void Title_8018A990(void);
 void Title_8018B038(void);
 void Title_8018C114(void);
 void Title_8018CB90(void);
 void Title_StarfoxLogo_Draw(void);
-void Title_8018F77C(void);
+void Title_64Logo_Draw(void);
 void Title_8018F85C(void);
 void Title_8018F8E4(void);
 void Title_8018FC14(void);

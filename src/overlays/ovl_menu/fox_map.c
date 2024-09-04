@@ -1276,7 +1276,7 @@ void Map_Init(void) {
     gVIsPerFrame = 2;
     gGameFrameCount = 0;
 
-    Title_80188010();
+    Title_GetRankTotalHits();
 
     D_menu_801CD83C = Map_801A05B4();
 
@@ -2285,7 +2285,7 @@ void Map_801A116C(void) {
         arwing.drawFace = true;
         arwing.teamFaceXrot = 0.0f;
         arwing.teamFaceYrot = 0.0f;
-        arwing.windshieldXrot = 0.0f;
+        arwing.cockpitGlassXrot = 0.0f;
 
         Display_ArwingWings(&arwing);
 

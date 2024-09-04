@@ -1664,7 +1664,7 @@ bool Versus_Update(void) {
 
                 if (D_80178830 > 224) {
                     Versus_Exit();
-                    D_menu_801B827C = 1;
+                    gGoToTitle = true;
                 }
             }
             break;

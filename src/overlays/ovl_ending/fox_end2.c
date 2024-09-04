@@ -864,7 +864,7 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
         D_ending_80198590.drawFace = false;
     }
 
-    D_ending_80198590.windshieldXrot = 0.0f;
+    D_ending_80198590.cockpitGlassXrot = 0.0f;
     D_ending_80198590.teamFaceXrot = +D_ending_801985F0.x;
     D_ending_80198590.teamFaceYrot = -D_ending_801985F0.y;
 

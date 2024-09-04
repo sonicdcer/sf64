@@ -581,7 +581,7 @@ void ActorTeamArwing_Draw(ActorTeamArwing* this) {
         gActorTeamArwing.bottomRightFlapYrot = this->fwork[26];
         gActorTeamArwing.bottomLeftFlapYrot = this->fwork[27];
         gActorTeamArwing.laserGunsYpos = gActorTeamArwing.laserGunsXpos = gActorTeamArwing.wingsXrot =
-            gActorTeamArwing.wingsYrot = gActorTeamArwing.windshieldXrot = gActorTeamArwing.wingsZrot = 0.0f;
+            gActorTeamArwing.wingsYrot = gActorTeamArwing.cockpitGlassXrot = gActorTeamArwing.wingsZrot = 0.0f;
         gActorTeamArwing.unk_28 = this->fwork[17];
         gActorTeamArwing.drawFace = this->iwork[14];
         gActorTeamArwing.teamFaceXrot = this->fwork[20];

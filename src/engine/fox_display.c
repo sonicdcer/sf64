@@ -611,7 +611,7 @@ void Display_ArwingWings(ArwingInfo* arwing) {
     }
 
     Matrix_Translate(gGfxMatrix, 0.0f, 17.2f, -25.8f, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, arwing->windshieldXrot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, arwing->cockpitGlassXrot * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_64_2();
 

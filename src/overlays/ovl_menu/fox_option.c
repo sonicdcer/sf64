@@ -460,7 +460,7 @@ void Option_Setup(void) {
             }
         }
 
-        Title_80188010();
+        Title_GetRankTotalHits();
 
         sRankInPos = Option_RankInPos_Check();
 
@@ -1055,7 +1055,7 @@ void Option_MainMenu_Update(void) {
                 gGameState = GSTATE_TITLE;
                 gNextGameStateTimer = 2;
                 gTitleState = 0;
-                D_menu_801B827C = 1;
+                gGoToTitle = true;
                 gDrawMode = DRAW_NONE;
                 sWipeScreen = false;
                 sWipeHeight = 0;
@@ -1898,7 +1898,7 @@ void Option_Data_Update(void) {
                                 sOptionCardCurTextPosX[i] = sOptionCardTextPosX[i];
                                 sOptionCardCurTextPosY[i] = sOptionCardTextPosY[i];
                             }
-                            Title_80188010();
+                            Title_GetRankTotalHits();
                         }
                         break;
 
@@ -2049,7 +2049,7 @@ s32 sTeamAlivePrimG[3] = { 30, 179, 30 };
 s32 sTeamAlivePrimB[3] = { 0, 67, 255 };
 
 void Option_Ranking_Setup(void) {
-    Title_80188010();
+    Title_GetRankTotalHits();
 
     gStarCount = 800;
 
@@ -2164,7 +2164,7 @@ void Option_RankingMenu_Draw(void) {
     if (sRanking2ndPage) {
         Option_RankingMenu2_Draw();
     } else {
-        Title_80187E28();
+        Title_RankingData_Draw();
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         Option_Color_FlashRed(&D_menu_801B93F0);
         colorGB = D_menu_801B93F0;
@@ -3932,7 +3932,7 @@ void Option_NameEntry_Update(void) {
 
         case 2:
             Option_Ranking_SaveData();
-            Title_80188010();
+            Title_GetRankTotalHits();
             D_menu_801B917C = 15;
             sMainMenuState++;
             break;

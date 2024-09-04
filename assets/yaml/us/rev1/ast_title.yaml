@@ -8,73 +8,73 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-starfox_logo: { type: TEXTURE, ctype: u16, format: RGBA16, width: 236, height: 60, offset: 0x6000000, symbol: aTitleStarfoxLogoTex }
+aTitleStarfoxLogoTex: { type: TEXTURE, ctype: u16, format: RGBA16, width: 236, height: 60, offset: 0x6000000, symbol: aTitleStarfoxLogoTex }
 
-nintendo64_logo: { type: TEXTURE, ctype: u16, format: RGBA16, width: 128, height: 88, offset: 0x6006EA0, symbol: gTitleNintendo64Logo }
+gTitleNintendo64Logo: { type: TEXTURE, ctype: u16, format: RGBA16, width: 128, height: 88, offset: 0x6006EA0, symbol: gTitleNintendo64Logo }
 
-radio_static: { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x600C6A0, symbol: gTitleRadioStatic }
+gTitleRadioStatic: { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x600C6A0, symbol: gTitleRadioStatic }
 
-sun_beam: { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600D5C0, symbol: gTitleSunBeam }
+gTitleSunBeam: { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600D5C0, symbol: gTitleSunBeam }
 
-nintendo_copyright: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x600DDC0, symbol: gTitleNintendoCopyright }
+gTitleNintendoCopyright: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x600DDC0, symbol: gTitleNintendoCopyright }
 
-press_start: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x600E360, symbol: gTitlePressStart }
+gTitlePressStart: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x600E360, symbol: gTitlePressStart }
 
-great_fox_card: { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 28, offset: 0x600E980, symbol: gTitleGreatFoxCard }
+gTitleGreatFoxCard: { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 28, offset: 0x600E980, symbol: gTitleGreatFoxCard }
 
-slippy_card: { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 13, offset: 0x600F940, symbol: gTitleSlippyCard }
+gTitleSlippyCard: { type: TEXTURE, ctype: u8, format: IA8, width: 144, height: 13, offset: 0x600F940, symbol: gTitleSlippyCard }
 
-peppy_card: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x6010090, symbol: gTitlePeppyCard }
+gTitlePeppyCard: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x6010090, symbol: gTitlePeppyCard }
 
-falco_card: { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 13, offset: 0x60106B0, symbol: gTitleFalcoCard }
+gTitleFalcoCard: { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 13, offset: 0x60106B0, symbol: gTitleFalcoCard }
 
-fox_card: { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 13, offset: 0x6010FA0, symbol: gTitleFoxCard }
+gTitleFoxCard: { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 13, offset: 0x6010FA0, symbol: gTitleFoxCard }
 
-arwing_card: { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 26, offset: 0x6011890, symbol: gTitleArwingCard }
+gTitleArwingCard: { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 26, offset: 0x6011890, symbol: gTitleArwingCard }
 
-no_controller: { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 24, offset: 0x60123F0, symbol: gTitleNoController }
+gTitleNoController: { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 24, offset: 0x60123F0, symbol: gTitleNoController }
 
-copyright_symbol: { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6013470, symbol: gTitleCopyrightSymbol }
+gTitleCopyrightSymbol: { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6013470, symbol: gTitleCopyrightSymbol }
 
-unused_nintendo_copyright: { type: TEXTURE, ctype: u8, format: IA8, width: 168, height: 18, offset: 0x6013570, symbol: gTitleUnusedNintendoCopyright }
+gTitleUnusedNintendoCopyright: { type: TEXTURE, ctype: u8, format: IA8, width: 168, height: 18, offset: 0x6013570, symbol: gTitleUnusedNintendoCopyright }
 
-starfox_text_intro: { type: TEXTURE, ctype: u8, format: CI4, width: 256, height: 13, offset: 0x6014140, tlut: 0x60147C0, symbol: gTextIntroStarfox }
+gTextIntroStarfox: { type: TEXTURE, ctype: u8, format: CI4, width: 256, height: 13, offset: 0x6014140, tlut: 0x60147C0, symbol: gTextIntroStarfox }
 
-starfox_text_intro_palette: { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x60147C0, symbol: gTextIntroStarfoxPalette }
+gTextIntroStarfoxPalette: { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x60147C0, symbol: gTextIntroStarfoxPalette }
 
-in_text_intro: { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 13, offset: 0x60147E0, tlut: 0x60147C0, symbol: gTextIntroIn }
+gTextIntroIn: { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 13, offset: 0x60147E0, tlut: 0x60147C0, symbol: gTextIntroIn }
 
-in_text_intro_palette: { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x60148B0, symbol: gTextIntroInPalette }
+gTextIntroInPalette: { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x60148B0, symbol: gTextIntroInPalette }
 
-D_TITLE_60148D0: { type: GFX, offset: 0x60148D0, symbol: D_TITLE_60148D0 }
+a64LogoDL: { type: GFX, offset: 0x60148D0, symbol: a64LogoDL }
 
-D_TITLE_6014DE8: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6014DE8, tlut: 0x60155E8, symbol: D_TITLE_6014DE8 }
+a64Logo1Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6014DE8, tlut: 0x60155E8, symbol: a64Logo1Tex }
 
-D_TITLE_60155E8: { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155E8, symbol: D_TITLE_60155E8 }
+a64Logo1TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155E8, symbol: a64Logo1TLUT }
 
-D_TITLE_6015718: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 63, offset: 0x6015718, tlut: 0x6015EF8, symbol: D_TITLE_6015718 }
+a64Logo2Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 63, offset: 0x6015718, tlut: 0x6015EF8, symbol: a64Logo2Tex }
 
-D_TITLE_6015EF8: { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6015EF8, symbol: D_TITLE_6015EF8 }
+a64Logo2TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6015EF8, symbol: a64Logo2TLUT }
 
-D_TITLE_6015F78: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6015F78, tlut: 0x6016778, symbol: D_TITLE_6015F78 }
+a64Logo3Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6015F78, tlut: 0x6016778, symbol: a64Logo3Tex }
 
-D_TITLE_6016778: { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6016778, symbol: D_TITLE_6016778 }
+a64Logo3TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6016778, symbol: a64Logo3TLUT }
 
-D_TITLE_6016908: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 63, offset: 0x6016908, tlut: 0x60170E8, symbol: D_TITLE_6016908 }
+a64Logo4Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 63, offset: 0x6016908, tlut: 0x60170E8, symbol: a64Logo4Tex }
 
-D_TITLE_60170E8: { type: TEXTURE, ctype: u16, format: TLUT, colors: 144, offset: 0x60170E8, symbol: D_TITLE_60170E8 }
+a64Logo4TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 144, offset: 0x60170E8, symbol: a64Logo4TLUT }
 
-D_TITLE_6017208: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6017208, tlut: 0x6017A08, symbol: D_TITLE_6017208 }
+a64Logo5Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6017208, tlut: 0x6017A08, symbol: a64Logo5Tex }
 
-D_TITLE_6017A08: { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x6017A08, symbol: D_TITLE_6017A08 }
+a64Logo5TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x6017A08, symbol: a64Logo5TLUT }
 
-D_TITLE_6017B18: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6017B18, tlut: 0x6018318, symbol: D_TITLE_6017B18 }
+a64Logo6Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6017B18, tlut: 0x6018318, symbol: a64Logo6Tex }
 
-D_TITLE_6018318: { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6018318, symbol: D_TITLE_6018318 }
+a64Logo6TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6018318, symbol: a64Logo6TLUT }
 
-D_TITLE_60184A8: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x60184A8, tlut: 0x6018CA8, symbol: D_TITLE_60184A8 }
+a64Logo7Tex: { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x60184A8, tlut: 0x6018CA8, symbol: a64Logo7Tex }
 
-D_TITLE_6018CA8: { type: TEXTURE, ctype: u16, format: TLUT, colors: 76, offset: 0x6018CA8, symbol: D_TITLE_6018CA8 }
+a64Logo7TLUT: { type: TEXTURE, ctype: u16, format: TLUT, colors: 76, offset: 0x6018CA8, symbol: a64Logo7TLUT }
 
 D_TITLE_6018D40: { type: GFX, offset: 0x6018D40, symbol: D_TITLE_6018D40 }
 
@@ -182,21 +182,21 @@ D_TITLE_602E380: { type: GFX, offset: 0x602E380, symbol: D_TITLE_602E380 }
 
 D_TITLE_602E550: { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602E550, symbol: D_TITLE_602E550 }
 
-D_TITLE_602F8E0: { type: SF64:ANIM, offset: 0x602F8E0, symbol: D_TITLE_602F8E0 }
+aFoxRunningAnim: { type: SF64:ANIM, offset: 0x602F8E0, symbol: aFoxRunningAnim }
 
-D_TITLE_602FBAC: {type: SF64:SKELETON, offset: 0x602FBAC, symbol: D_TITLE_602FBAC}
+aFoxSkel: {type: SF64:SKELETON, offset: 0x602FBAC, symbol: aFoxSkel}
 
-D_TITLE_60305C0: { type: SF64:ANIM, offset: 0x60305C0, symbol: D_TITLE_60305C0 }
+aFalcoRunningAnim: { type: SF64:ANIM, offset: 0x60305C0, symbol: aFalcoRunningAnim }
 
-D_TITLE_603088C: {type: SF64:SKELETON, offset: 0x603088C, symbol: D_TITLE_603088C}
+aFalcoSkel: {type: SF64:SKELETON, offset: 0x603088C, symbol: aFalcoSkel}
 
-D_TITLE_6031120: { type: SF64:ANIM, offset: 0x6031120, symbol: D_TITLE_6031120 }
+aSlippyRunningAnim: { type: SF64:ANIM, offset: 0x6031120, symbol: aSlippyRunningAnim }
 
-D_TITLE_60313AC: {type: SF64:SKELETON, offset: 0x60313AC, symbol: D_TITLE_60313AC}
+aSlippySkel: {type: SF64:SKELETON, offset: 0x60313AC, symbol: aSlippySkel}
 
-D_TITLE_6031DB8: { type: SF64:ANIM, offset: 0x6031DB8, symbol: D_TITLE_6031DB8 }
+aPeppyRunningAnim: { type: SF64:ANIM, offset: 0x6031DB8, symbol: aPeppyRunningAnim }
 
-D_TITLE_6032084: {type: SF64:SKELETON, offset: 0x6032084, symbol: D_TITLE_6032084}
+aPeppySkel: {type: SF64:SKELETON, offset: 0x6032084, symbol: aPeppySkel}
 
 D_TITLE_60320E0: { type: GFX, offset: 0x60320E0, symbol: D_TITLE_60320E0 }
 
@@ -206,13 +206,13 @@ D_TITLE_6032580: { type: GFX, offset: 0x6032580, symbol: D_TITLE_6032580 }
 
 D_TITLE_6032608: { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6032608, symbol: D_TITLE_6032608 }
 
-D_TITLE_60338DC: { type: SF64:ANIM, offset: 0x60338DC, symbol: D_TITLE_60338DC }
+aFalcoAnim: { type: SF64:ANIM, offset: 0x60338DC, symbol: aFalcoAnim }
 
-D_TITLE_6035024: { type: SF64:ANIM, offset: 0x6035024, symbol: D_TITLE_6035024 }
+aFoxAnim: { type: SF64:ANIM, offset: 0x6035024, symbol: aFoxAnim }
 
-D_TITLE_603531C: { type: SF64:ANIM, offset: 0x603531C, symbol: D_TITLE_603531C }
+aPeppyAnim: { type: SF64:ANIM, offset: 0x603531C, symbol: aPeppyAnim }
 
-D_TITLE_6036278: { type: SF64:ANIM, offset: 0x6036278, symbol: D_TITLE_6036278 }
+aSlippyAnim: { type: SF64:ANIM, offset: 0x6036278, symbol: aSlippyAnim }
 
 D_TITLE_6036290: { type: GFX, offset: 0x6036290, symbol: D_TITLE_6036290 }
 
