@@ -2899,7 +2899,7 @@ void Cutscene_DrawGreatFox(void) {
     PRINTF("d Enm->wrk0 %d\n");
 
     if (gGameState == GSTATE_TITLE) {
-        dList = D_TITLE_60320E0;
+        dList = aTitleArwingEngineGlowDL;
     } else if (gGameState == GSTATE_ENDING) {
         dList = D_END_7010970;
     } else {

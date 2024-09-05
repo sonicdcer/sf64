@@ -471,8 +471,8 @@ void func_radio_800BB388(void) {
         switch (gGameState) {
             case GSTATE_TITLE:
             case GSTATE_ENDING:
-                texture = D_TITLE_601D750;
-                palette = D_TITLE_601DB50;
+                texture = aNoControllerBgTex;
+                palette = aNoControllerBgTLUT;
                 break;
 
             case GSTATE_PLAY:

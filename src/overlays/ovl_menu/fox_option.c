@@ -2063,7 +2063,7 @@ void Option_Ranking_Setup(void) {
     D_menu_801B91E0 = -6.0f;
 
     sRanking2ndPage = false;
-    D_menu_801B8288 = 10;
+    sTitleRankMaxRecords = 10;
 
     D_menu_801B9400.unk_0 = 0;
     D_menu_801B9400.unk_4 = 0;

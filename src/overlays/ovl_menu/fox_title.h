@@ -10,22 +10,33 @@ typedef enum TitleStates {
 } TitleStates;
 
 typedef enum TitleTeam {
-    /* 0 */ FOX,
-    /* 1 */ FALCO,
-    /* 2 */ PEPPY,
-    /* 3 */ SLIPPY
+    /* 0 */ TEAM_FOX,
+    /* 1 */ TEAM_FALCO,
+    /* 2 */ TEAM_PEPPY,
+    /* 3 */ TEAM_SLIPPY
 } TitleTeam;
 
 typedef enum TitleCsStates {
-    /* 0 */ TITLE_CS_0,
-    /* 1 */ TITLE_CS_1,
-    /* 2 */ TITLE_CS_2,
-    /* 3 */ TITLE_CS_3,
-    /* 4 */ TITLE_CS_4,
-    /* 5 */ TITLE_CS_5,
-    /* 6 */ TITLE_CS_6,
-    /* 7 */ TITLE_CS_7
+    /* 0 */ TITLE_SCREEN,              // In the Title Screen.
+    /* 1 */ TITLE_GREAT_FOX_TRAVELING, // Close up to the Great Fox while it's traveling to corneria.
+    /* 2 */ TITLE_CS_TEAM_RUNNING,     // Team is running in Great Fox's the passage way before take-off.
+    /* 3 */ TITLE_GREAT_FOX_CLOSE_UP,  // Closing up to the Great Fox before take-off.
+    /* 4 */ TITLE_TAKE_OFF,            // Take-off cutscene.
+    /* 5 */ TITLE_TAKE_OFF_SPACE,      // Arwings coming out of the Great Fox out to space.
+    /* 7 */ TITLE_RANKING = 7          // Show ranking
 } TitleCsStates;
+
+typedef enum TitleCardStates {
+    /* 0 */ TITLE_CARD_NONE,
+    /* 1 */ TITLE_CARD_GREAT_FOX,
+    /* 2 */ TITLE_CARD_ARWING
+} TitleCardStates;
+
+typedef enum TitleLogoStates {
+    /* -1 */ TITLE_LOGO_NONE = -1,
+    /*  0 */ TITLE_LOGO_STARFOX_IN,
+    /*  1 */ TITLE_LOGO_NINTENDO_64
+} TitleLogoStates;
 
 typedef struct AmbientRGB {
     /* 0x00 */ f32 r;
@@ -42,7 +53,7 @@ typedef struct {
 typedef struct TitleTeamInfo {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ f32 unk_0C;
-    /* 0x10 */ f32 unk_10;
+    /* 0x10 */ f32 shadowScale;
     /* 0x14 */ f32 unk_14;
     /* 0x18 */ f32 unk_18;
     /* 0x1C */ f32 unk_1C;
@@ -77,7 +88,7 @@ typedef struct TitleArwingInfo {
     /* 0x2C */ f32 teamFaceXrot;
     /* 0x30 */ f32 teamFaceYrot;
     /* 0x34 */ s32 drawFace;
-    /* 0x38 */ s32 timer; // Used for closing the cockpit glass and take off
+    /* 0x38 */ s32 timer;  // Used for closing the cockpit glass and take off
     /* 0x3C */ s32 unk_3C; // Related to engine glow. Investigate
     /* 0x40 */ s32 unk_40; // Related to engine glow. Investigate
     /* 0x44 */ f32 unk_44; // Related to engine glow. Investigate
@@ -99,7 +110,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ Vec3f pos;
-    /* 0x0C */ s32 draw;
+    /* 0x0C */ bool draw;
     /* 0x10 */ f32 scale;
 } TitleCorneria; // size = 0x14
 
@@ -111,22 +122,22 @@ extern f32 D_menu_801B7BB8;
 extern f32 D_menu_801B7BBC;
 extern f32 D_menu_801B7BC0;
 extern f32 D_menu_801B7BC4;
-extern f32 D_menu_801B7BC8;
-extern f32 D_menu_801B7BCC;
+extern f32 sTitleTextPrimCol;
+extern f32 sTitleTextPrimColTarget;
 extern s32 D_menu_801B7BD0;
-extern s32 D_menu_801B7BD4;
+extern TitleLogoStates sTitleLogoState;
 extern s32 D_menu_801B7BD8;
-extern f32 D_menu_801B7BDC;
-extern f32 D_menu_801B7BE0;
+extern f32 sStarfoxLogoAlpha;
+extern f32 sInAlpha;
 extern s32 D_menu_801B7BE4;
 extern f32 D_menu_801B7BE8;
 extern s32 D_menu_801B7BEC;
-extern s32 D_menu_801B7BF0;
+extern TitleCardStates sTitleCardState;
 extern f32 D_menu_801B7BF8[10];
 extern f32 D_menu_801B7C20[10];
 extern f32 D_menu_801B7C48[10];
 extern f32 D_menu_801B7C70[10];
-extern s32 D_menu_801B7C98;
+extern s32 sMaxExplosions;
 extern s32 D_menu_801B7CA0[10];
 extern s32 D_menu_801B7CC8[10];
 extern s32 D_menu_801B7CF0[10];
@@ -146,7 +157,7 @@ extern UNK_TYPE D_menu_801B8270[3];
 extern bool gGoToTitle;
 extern bool sWipeScreen;
 extern s32 sWipeHeight;
-extern s32 D_menu_801B8288;
+extern s32 sTitleRankMaxRecords;
 extern f32 D_menu_801B828C;
 extern f32 D_menu_801B8290;
 extern CameraPoint* D_menu_801B8294;
@@ -154,15 +165,15 @@ extern s32 D_menu_801B8298;
 extern f32 sTitleCamUpX;
 extern f32 sTitleCamUpY;
 extern f32 sTitleCamUpZ;
-extern s32 D_menu_801B82A8;
-extern s32 D_menu_801B82AC;
+extern s32 sTimer1;
+extern s32 sTimer2;
 extern s32 D_menu_801B82B0;
-extern s32 D_menu_801B82B4;
+extern s32 sTimer3;
 extern s32 sTitleMsgFrameCount;
 extern s32 D_menu_801B82BC;
-extern s32 D_menu_801B82C0;
+extern s32 sSceneState;
 extern s32 sCutsceneState;
-extern f32 D_menu_801B82C8;
+extern f32 sPassageWayZoffset;
 extern f32 D_menu_801B82CC;
 extern f32 D_menu_801B82D0;
 extern f32 D_menu_801B82D4;
@@ -192,9 +203,9 @@ extern f32 sAmbientB;
 extern s32 D_menu_801B8334;
 extern bool D_menu_801B8338;
 extern f32 D_menu_801B833C;
-extern s32 D_menu_801B8340;
-extern s32 D_menu_801B8344;
-extern s32 D_menu_801B8348;
+extern TitleTeam D_menu_801B8340;
+extern bool sDrawTeamName;
+extern bool D_menu_801B8348;
 extern TitleTeamInfo sTitleTeam[4];
 extern f32 D_menu_801B84D0;
 extern f32 D_menu_801B84D4;
@@ -203,7 +214,7 @@ extern TitleArwingInfo sTitleArwing[4];
 extern TitleGreatFoxInfo sTitleGreatFox;
 extern TitleCorneria sTitleCorneria;
 extern s32 D_menu_801B869C;
-extern s32 D_menu_801B86A0;
+extern bool sDrawTakeOffSpace;
 extern s32 D_menu_801B86A4;
 extern f32 D_menu_801B86A8;
 extern f32 D_menu_801B86AC;
@@ -221,7 +232,7 @@ extern f32 D_menu_801B86D8;
 extern f32 D_menu_801B86DC;
 extern Vec3f sCharFrameTable[4][50];
 extern bool D_menu_801B9040;
-extern f32 D_menu_801B9044;
+extern f32 sTitleDeckLauncherZpos;
 extern f32 D_menu_801B9048;
 extern f32 D_menu_801B904C;
 extern f32 D_menu_801B9050;
@@ -239,65 +250,65 @@ extern f32 D_menu_801B907C;
 extern f32 D_menu_801B9080;
 extern f32 D_menu_801B9084;
 
-void Title_8019111C(void);
-void Title_8018CC30(CameraPoint*, s32, f32);
-void Title_8018CD9C(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3);
-void Title_8018D510(s32);
-void Title_8018D80C(s32);
-void Title_8018DDB8(s32);
-void Title_8018DF0C(f32 zPos);
-void Title_8018E058(void);
-void Title_8018E200(void);
-bool Title_8018EDC8(s32, Gfx**, Vec3f*, Vec3f*, void*);
-void Title_8018E67C(s32);
-void Title_8018F438(void);
-void Title_80190144(void);
-void Title_801903B8(void);
-void Title_80190950(void);
-void Title_80190A98(void);
-void Title_80190B30(s32 arg0);
-void Title_80190EA4(void);
-void Title_80190FD0(void);
-void Title_801912A0(void);
-void Title_80191320(bool arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7, f32 arg8,
+void Title_Screen_Input(void);
+void Title_Cutscene_SetCamera(CameraPoint*, s32, f32);
+void Title_Camera_Calc(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3);
+void Title_Arwing_DrawEngineGlow(TitleTeam);
+void Title_EngineGlowParticles_Draw(TitleTeam);
+void Title_ArwingShadow_Draw(s32);
+void Title_Corneria_Draw(f32 zPos);
+void Title_GreatFox_Draw(void);
+void Title_CorneriaExplosions_Draw(void);
+bool Title_Team_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
+void Title_TeamRunning_Draw(TitleTeam);
+void Title_Passage_Draw(void);
+void Title_Sun_Draw(void);
+void Title_SunGlare2_Draw(void);
+void Title_GreatFoxDeck_Draw(void);
+void Title_GreatFoxDeckPlatform_Draw(void);
+void Title_GreatFoxDeckLauncher_Draw(TitleTeam teamidx);
+void Title_NextState_TitleScreen(void);
+void Title_NextState_OptionMenu(void);
+void Title_ScreenFade_Update(void);
+void Title_SetCamUp3(bool arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7, f32 arg8,
                     f32 arg9);
-void Title_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
+void Title_SetCamUp2(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
                     f32* arg9, f32 argA, f32 argB, f32 argC);
 void Title_GetCamRot(f32* xRot, f32* yRot);
 void Title_SetCamUp(f32 xRot, f32 yRot);
 void Title_Matrix_Push(void);
 void Title_Radio_PlayMessage(u16** msgList, RadioCharacterId character);
 s32 Title_GetRankTotalHits(void);
-void Title_80190C9C(void);
-void Title_8018D2B8(TitleTeam);
-void Title_8018EA78(TitleTeam);
-void Title_801906A0(void);
+void Title_TitleCard_Draw(void);
+void Title_Arwing_Draw(TitleTeam);
+void Title_Team_Draw(TitleTeam);
+void Title_Logos_Draw(void);
 void Title_UpdateEntry(void);
 s32 Title_CheckControllers(void);
 void Title_Ranking_Update(void);
 void Title_RankingData_Draw(void);
 void Title_Screen_Update(void);
-void Title_8018994C(void);
-void Title_8018A644(void);
-void Title_8018ACEC(void);
-void Title_8018B5C4(void);
-void Title_8018C644(void);
+void Title_CsGreatFoxTraveling_Update(void);
+void Title_CsTeamRunning_Update(void);
+void Title_CsGreatFoxCloseUp_Update(void);
+void Title_CsTakeOff_Update(void);
+void Title_CsTakeOffSpace_Update(void);
 void Title_Ranking_Draw(void);
 s32 Title_GetRankTotalHits(void);
-void Title_Cutscene_Draw(void);
-void Title_8018A2F8(void);
-void Title_8018A990(void);
-void Title_8018B038(void);
-void Title_8018C114(void);
-void Title_8018CB90(void);
+void Title_Screen_Draw(void);
+void Title_CsGreatFoxTraveling_Draw(void);
+void Title_CsTeamRunning_Draw(void);
+void Title_CsGreatFoxCloseUp_Draw(void);
+void Title_CsTakeOff_Draw(void);
+void Title_CsTakeOffSpace_Draw(void);
 void Title_StarfoxLogo_Draw(void);
 void Title_64Logo_Draw(void);
-void Title_8018F85C(void);
-void Title_8018F8E4(void);
-void Title_8018FC14(void);
-void Title_8018FD08(void);
-void Title_8018FF74(void);
-void Title_80190E64(void);
-void Title_80191674(f32, f32, f32, f32*, f32*, f32*);
+void Title_CopyrightSymbol_Draw(void);
+void Title_PressStart_Draw(void);
+void Title_Copyright_Draw(void);
+void Title_TeamName_Draw(void);
+void Title_SunGlare_Draw(void);
+void Title_NextState_Check(void);
+void Title_SetLightRot(f32, f32, f32, f32*, f32*, f32*);
 
 #endif

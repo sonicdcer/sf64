@@ -109,7 +109,7 @@ void Ending_801876A4(void) {
         Matrix_RotateX(gGfxMatrix, (D_ending_80196D08[i].rot.x + 5.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, D_ending_80196D08[i].rot.z * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_TITLE_6041070);
+        gSPDisplayList(gMasterDisp++, aTeamShadowDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
