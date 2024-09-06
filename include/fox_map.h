@@ -74,4 +74,10 @@ typedef enum MapStates {
     /* 7 */ MAP_STATE_7,
 } MapStates;
 
+typedef enum PlanetStatus {
+    /* 0 */ PLANET_UNCLEARED,
+    /* 1 */ PLANET_CLEARED,
+    /* 2 */ PLANET_MEDAL,
+} PlanetStatus;
+
 #endif

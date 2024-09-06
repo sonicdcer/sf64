@@ -345,7 +345,7 @@ void Title_Draw(void) {
         Wipe_Draw(WIPE_VERTICAL, sWipeHeight);
     }
 #if 0
-    // @decompDebug:
+    // @decomp Debug:
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallNumber(80, 220, sSceneState);
@@ -2790,14 +2790,14 @@ bool Title_Team_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
 }
 
 void Title_Passage_Draw(void) {
-    f32 sp54;
+    f32 sZoffsetScale;
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 0, 0, 0, 0, gAmbientR, gAmbientG, gAmbientB);
 
     if (gCsCamAtZ < gCsCamEyeZ) {
-        sp54 = 1.0f;
+        sZoffsetScale = 1.0f;
     } else {
-        sp54 = 3.0f;
+        sZoffsetScale = 3.0f;
     }
 
     sPassageWayZoffset += 70.0f;
@@ -2807,7 +2807,7 @@ void Title_Passage_Draw(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, (3079.2002f * sp54) - sPassageWayZoffset, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, (3079.2002f * sZoffsetScale) - sPassageWayZoffset, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 

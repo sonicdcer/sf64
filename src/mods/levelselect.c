@@ -10,7 +10,7 @@ extern s32 D_menu_801CD948;
 
 void Map_801A61B4(LevelId level);
 void Map_801A6368(void);
-void Map_801A914C(void);
+void Map_PositionCursor(void);
 void Map_801A6628(void);
 
 static PlanetId sPlanetArray[][3] = {
@@ -68,7 +68,7 @@ void Map_LevelSelect(void) {
         sCurrentPlanetId = nextPlanetId;
         startOption = 0;
         Map_801A6368();
-        Map_801A914C();
+        Map_PositionCursor();
     }
     if (contPress->button & L_TRIG) {
         startOption ^= 1;

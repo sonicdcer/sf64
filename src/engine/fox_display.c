@@ -1715,7 +1715,9 @@ void Display_Update(void) {
         tempVec.x = camPlayer->cam.eye.x - camPlayer->pos.x;
         tempVec.y = camPlayer->cam.eye.y - camPlayer->pos.y;
         tempVec.z = camPlayer->cam.eye.z - (camPlayer->trueZpos + camPlayer->zPath);
+
         Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayCamEye);
+
         gPlayCamEye.x += camPlayer->pos.x;
         gPlayCamEye.y += camPlayer->pos.y;
         gPlayCamEye.z += camPlayer->trueZpos + camPlayer->zPath;
@@ -1723,7 +1725,9 @@ void Display_Update(void) {
         tempVec.x = camPlayer->cam.at.x - camPlayer->pos.x;
         tempVec.y = camPlayer->cam.at.y - camPlayer->pos.y;
         tempVec.z = camPlayer->cam.at.z - (camPlayer->trueZpos + camPlayer->zPath);
+
         Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayCamAt);
+
         gPlayCamAt.x += camPlayer->pos.x;
         gPlayCamAt.y += camPlayer->pos.y;
         gPlayCamAt.z += camPlayer->trueZpos + camPlayer->zPath;

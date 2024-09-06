@@ -26,10 +26,11 @@ u8 gMapTitaniaTex[96 * 96];
 u8 gMapKatinaTex[96 * 96];
 u8 gMapMacbethTex[96 * 96];
 u8 gMapZonessTex[96 * 96];
+
 s32 D_menu_801CD810;
 f32 D_menu_801CD818[9];
 s32 D_menu_801CD83C;
-s32 D_menu_801CD840[24];
+s32 sUnusedPathIdx[24]; // Path index, set but not used
 s32 D_menu_801CD8A0[15];
 s32 D_menu_801CD8E0[7];
 s32 D_menu_801CD900[15];
@@ -103,7 +104,7 @@ Matrix D_menu_801CDA60[15];
 Matrix D_menu_801CDE20[15]; // planet related
 Matrix D_menu_801CE1E0[15];
 Matrix D_menu_801CE5A0[15];
-Vec3f D_menu_801CE960[15]; // sPlanetsPositions
+Vec3f sPlanetPositions[15];
 f32 D_menu_801CEA18[15];
 f32 D_menu_801CEA54;
 f32 D_menu_801CEA58;
@@ -126,7 +127,7 @@ s32 D_menu_801CEA98;
 f32 D_menu_801CEA9C;
 f32 D_menu_801CEAA0;
 f32 D_menu_801CEAA4;
-f32 D_menu_801CEAA8;
+f32 sCursorYpos;
 f32 D_menu_801CEAAC;
 f32 D_menu_801CEAB0;
 s32 D_menu_801CEAB4;
@@ -136,7 +137,7 @@ s32 D_menu_801CEB34;
 s32 D_menu_801CEB38;
 f32 D_menu_801CEB3C;
 f32 D_menu_801CEB40;
-s32 D_menu_801CEB48[3];
+bool D_menu_801CEB48[3];
 s32 D_menu_801CEB58[3][10];
 s32 D_menu_801CEBD0[3][10];
 f32 D_menu_801CEC48[3][10];
@@ -195,7 +196,7 @@ f32 D_menu_801CF124;
 
 s32 D_menu_801AF420[2] = { 10, 20 };
 
-u16* D_menu_801AF428[15][2] = {
+u16* sBriefingMsg[15][2] = {
     { gMsg_ID_1220, gMsg_ID_1230 }, { gMsg_ID_1320, gMsg_ID_1330 },
     { gMsg_ID_1300, gMsg_ID_1310 }, { gMsg_ID_1420, gMsg_ID_1430 },
     { gMsg_ID_1260, gMsg_ID_1270 }, { gMsg_ID_1440, gMsg_ID_1450 },
@@ -646,7 +647,7 @@ s32
           48, 48, 49, 49, 50, 51, 51, 52, 52, 53, 54, 55, 55, 56, 57, 58, 59, 60, 61, 62, 64, 66 },
     };
 
-Vtx D_menu_801B4740[] = {
+Vtx gMapPlanetVTX[] = {
     VTX(30, 30, 0, 3072, 0, 255, 255, 255, 255),  VTX(-30, 30, 0, 0, 0, 255, 255, 255, 255),
     VTX(-30, 25, 0, 0, 256, 255, 255, 255, 255),  VTX(30, 25, 0, 3072, 256, 255, 255, 255, 255),
     VTX(30, 25, 0, 3072, 0, 255, 255, 255, 255),  VTX(-30, 25, 0, 0, 0, 255, 255, 255, 255),
@@ -673,8 +674,8 @@ Vtx D_menu_801B4740[] = {
     VTX(-30, -30, 0, 0, 256, 255, 255, 255, 255), VTX(30, -30, 0, 3072, 256, 255, 255, 255, 255),
 };
 
-Gfx D_menu_801B4A40[] = {
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapVenomCloudDL[] = {
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapVenomCloudTex, G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -687,7 +688,7 @@ Gfx D_menu_801B4A40[] = {
     gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 3], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 4], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -700,7 +701,7 @@ Gfx D_menu_801B4A40[] = {
     gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 7], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapVenomCloudTex[96 * 8 * 8], G_IM_FMT_IA, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -718,9 +719,9 @@ Gfx D_menu_801B4A40[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B4D70[] = {
-    gsDPLoadTLUT_pal256(D_MAP_6026C90),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapCorneriaDL[] = {
+    gsDPLoadTLUT_pal256(gMapCorneriaTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapCorneriaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -734,7 +735,7 @@ Gfx D_menu_801B4D70[] = {
     gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -747,7 +748,7 @@ Gfx D_menu_801B4D70[] = {
     gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapCorneriaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -765,9 +766,9 @@ Gfx D_menu_801B4D70[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B50D8[] = {
-    gsDPLoadTLUT_pal256(D_MAP_6029170),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapFortunaDL[] = {
+    gsDPLoadTLUT_pal256(gMapFortunaTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(&gMapFortunaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -781,7 +782,7 @@ Gfx D_menu_801B50D8[] = {
     gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -794,7 +795,7 @@ Gfx D_menu_801B50D8[] = {
     gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapFortunaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -812,9 +813,9 @@ Gfx D_menu_801B50D8[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B5440[] = {
-    gsDPLoadTLUT_pal256(D_MAP_6022340),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapAquasDL[] = {
+    gsDPLoadTLUT_pal256(gMapAquasTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapAquasTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -828,7 +829,7 @@ Gfx D_menu_801B5440[] = {
     gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -841,7 +842,7 @@ Gfx D_menu_801B5440[] = {
     gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapAquasTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -859,9 +860,9 @@ Gfx D_menu_801B5440[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B57A8[] = {
-    gsDPLoadTLUT_pal256(D_MAP_60247E0),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapVenomDL[] = {
+    gsDPLoadTLUT_pal256(gMapVenomTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapVenomTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -875,7 +876,7 @@ Gfx D_menu_801B57A8[] = {
     gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -888,7 +889,7 @@ Gfx D_menu_801B57A8[] = {
     gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapVenomTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -906,9 +907,9 @@ Gfx D_menu_801B57A8[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B5B10[] = {
-    gsDPLoadTLUT_pal256(D_MAP_602FF60),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapTitaniaDL[] = {
+    gsDPLoadTLUT_pal256(gMapTitaniaTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapTitaniaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -922,7 +923,7 @@ Gfx D_menu_801B5B10[] = {
     gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -935,7 +936,7 @@ Gfx D_menu_801B5B10[] = {
     gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapTitaniaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -953,9 +954,9 @@ Gfx D_menu_801B5B10[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B5E78[] = {
-    gsDPLoadTLUT_pal256(D_MAP_602B620),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapKatinaDL[] = {
+    gsDPLoadTLUT_pal256(gMapKatinaTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapKatinaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -969,7 +970,7 @@ Gfx D_menu_801B5E78[] = {
     gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -982,7 +983,7 @@ Gfx D_menu_801B5E78[] = {
     gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapKatinaTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -1000,9 +1001,9 @@ Gfx D_menu_801B5E78[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B61E0[] = {
-    gsDPLoadTLUT_pal256(D_MAP_602DAD0),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapMacbethDL[] = {
+    gsDPLoadTLUT_pal256(gMapMacbethTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapMacbethTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -1016,7 +1017,7 @@ Gfx D_menu_801B61E0[] = {
     gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 3], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 4], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -1029,7 +1030,7 @@ Gfx D_menu_801B61E0[] = {
     gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 7], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(&gMapMacbethTex[96 * 8 * 8], G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -1047,9 +1048,9 @@ Gfx D_menu_801B61E0[] = {
     gsSPEndDisplayList(),
 };
 
-Gfx D_menu_801B6548[] = {
-    gsDPLoadTLUT_pal256(D_MAP_60323D0),
-    gsSPVertex(D_menu_801B4740, 16, 0),
+Gfx gMapZonessDL[] = {
+    gsDPLoadTLUT_pal256(gMapZonessTLUT),
+    gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapZonessTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsDPSetTextureLUT(G_TT_RGBA16),
@@ -1063,7 +1064,7 @@ Gfx D_menu_801B6548[] = {
     gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 3), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[16], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[16], 16, 0),
     gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 4), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -1076,7 +1077,7 @@ Gfx D_menu_801B6548[] = {
     gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 7), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(13, 14, 15, 12, 0),
-    gsSPVertex(&D_menu_801B4740[32], 16, 0),
+    gsSPVertex(&gMapPlanetVTX[32], 16, 0),
     gsDPLoadTextureBlock(gMapZonessTex + (96 * 8 * 8), G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
@@ -1106,17 +1107,17 @@ u8* gAssetMapPlanetTextures[9] = {
     aMapAquasTex,  aMapFortunaTex, aMapVenomTex,  aMapVenomCloudTex,
 };
 
-Gfx* D_menu_801B68F8[] = {
-    D_MAP_6060610,   D_MAP_601DE80,   D_MAP_604B750,   D_MAP_601F6B0,   D_MAP_601C0D0,
-    D_MAP_601C960,   D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70,
-    D_menu_801B5B10, D_menu_801B5440, D_menu_801B50D8, D_menu_801B57A8, D_MAP_604DB10,
+Gfx* sMapPlanets[PLANET_MAX] = {
+    aMapMeteorDL,  aMapArea6DL,  aMapBolseDL,   aMapSectorZDL, aMapSectorXDL,
+    aMapSectorYDL, gMapKatinaDL, gMapMacbethDL, gMapZonessDL,  gMapCorneriaDL,
+    gMapTitaniaDL, gMapAquasDL,  gMapFortunaDL, gMapVenomDL,   aMapSolarDL,
 };
 
 void Map_8019E800(void);
-void Map_Init(void);
-void Map_8019F164(void);
-void Map_8019F42C(void);
-void Map_8019F600(void);
+void Map_Setup(void);
+void Map_Setup_Play(void);
+void Map_Setup_GameOver(void);
+void Map_Setup_Menu(void);
 void Map_8019F910(void);
 void Map_8019F97C(void);
 void Map_8019F83C(void);
@@ -1125,7 +1126,7 @@ void Map_8019FC04(void);
 bool Map_8019FD1C(LevelId levelId, s32 arg1);
 void Map_8019FF48(void);
 s32 Map_801A05B4(void);
-void Map_801A0788(void);
+void Map_Starfield_Setup(void);
 void Map_801A0954(void);
 void Map_801A0D14(void);
 void Map_801A1528(void);
@@ -1163,9 +1164,9 @@ s32 Map_GetPathId(PlanetId start, PlanetId end);
 void Map_801A6628(void);
 void Map_801A6694(void);
 void Map_801A68E4(void);
-void Map_801A6A24(void);
-void Map_801A6A98(PlanetId);
-s32 Map_801A6DAC(PlanetId planetId);
+void Map_Fade_Update(void);
+void Map_Planet_Draw(PlanetId);
+s32 Map_CheckPlanetMedal(PlanetId planetId);
 void Map_801A6EC0(PlanetId planetId);
 void Map_801A7230(PlanetId planetId);
 void Map_801A74F4(PlanetId);
@@ -1175,13 +1176,13 @@ void Map_Titania_DrawRings1(PlanetId planetId);
 void Map_Titania_DrawRings2(PlanetId planetId);
 void Map_801A7BEC(f32* zAngle, f32 next, f32 scale);
 void Map_801A7D3C(PlanetId planetId);
-void Map_801A7F1C(PlanetId planetId);
-void Map_801A914C(void);
+void Map_PlanetCleared_Draw(PlanetId planetId);
+void Map_PositionCursor(void);
 void Map_801A9EE4(void);
 void Map_801AD11C(void);
-void Map_801AD718(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
+void Map_SetCamRot(f32, f32, f32, f32*, f32*, f32*, f32, f32, f32);
 PlanetId Map_GetPlanetId(LevelId level);
-void Map_801A809C(PlanetId planetId);
+void Map_PlanetMedal_Draw(PlanetId planetId);
 void Map_801A8738(void);
 void Map_801A89BC(PlanetId, s32);
 void Map_801A8F40(void);
@@ -1257,7 +1258,7 @@ void Map_Main(void) {
 
         case 1:
             gDrawMode = DRAW_NONE;
-            Map_Init();
+            Map_Setup();
             break;
 
         case 2:
@@ -1267,7 +1268,7 @@ void Map_Main(void) {
     }
 }
 
-void Map_Init(void) {
+void Map_Setup(void) {
     s32 i;
     s32 j;
 
@@ -1331,9 +1332,9 @@ void Map_Init(void) {
     D_menu_801CDA18 = 0.0f;
     D_menu_801CDA1C = 0.0f;
 
-    Map_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
-                 &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
-                 D_menu_801CDA10 + D_menu_801CDA1C);
+    Map_SetCamRot(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
+                  &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
+                  D_menu_801CDA10 + D_menu_801CDA1C);
 
     for (i = 0; i < 15; i++) {
         D_menu_801CD8A0[i] = i;
@@ -1355,7 +1356,7 @@ void Map_Init(void) {
     D_menu_801CEA5C = 0.0f;
     D_menu_801CEA60 = 0.0f;
 
-    Map_801A0788();
+    Map_Starfield_Setup();
 
     sWipeScreen = 0;
     sWipeHeight = 0;
@@ -1375,8 +1376,8 @@ void Map_Init(void) {
     D_menu_801CEFD0 = false;
     D_menu_801CD974 = 0;
 
-    for (i = 0; i < 24; i++) {
-        D_menu_801CD840[i] = i;
+    for (i = 0; i < ARRAY_COUNT(sPaths); i++) {
+        sUnusedPathIdx[i] = i;
         sPaths[i].unk_14 = 0;
     }
 
@@ -1384,20 +1385,20 @@ void Map_Init(void) {
 
     switch (gLastGameState) {
         default:
-        case 0:
-            Map_8019F600();
+        case GSTATE_NONE:
+            Map_Setup_Menu();
             break;
 
-        case 7:
-            Map_8019F164();
+        case GSTATE_PLAY:
+            Map_Setup_Play();
             break;
 
-        case 5:
-            Map_8019F42C();
+        case GSTATE_GAME_OVER:
+            Map_Setup_GameOver();
             break;
     }
 
-    Map_801A914C();
+    Map_PositionCursor();
 
     for (i = 0; i < 96 * 96; i++) {
         gMapCorneriaTex[i] = 106;
@@ -1434,7 +1435,7 @@ void Map_Init(void) {
     D_menu_801CEB34 = -1;
 }
 
-void Map_8019F164(void) {
+void Map_Setup_Play(void) {
     s32 i;
 
     D_menu_801CD974 = 1;
@@ -1517,7 +1518,7 @@ void Map_8019F164(void) {
     sMapState = MAP_STATE_5;
 }
 
-void Map_8019F42C(void) {
+void Map_Setup_GameOver(void) {
     s32 i;
 
     gTotalHits += gHitCount;
@@ -1562,7 +1563,7 @@ void Map_8019F42C(void) {
     sMapState = MAP_STATE_7;
 }
 
-void Map_8019F600(void) {
+void Map_Setup_Menu(void) {
     s32 i;
     s32 path1;
     s32 path2;
@@ -1832,7 +1833,7 @@ bool Map_8019FD1C(LevelId levelId, s32 arg1) {
 void Map_8019FF48(void) {
     Map_801A6694();
     Map_801A68E4();
-    Map_801A6A24();
+    Map_Fade_Update();
 
     switch (sMapState) {
         case MAP_STATE_0:
@@ -1876,9 +1877,9 @@ void Map_8019FF48(void) {
 
     if ((sMapState == MAP_STATE_0) || (sMapState == MAP_STATE_1) || (sMapState == MAP_STATE_7) ||
         (sMapState == MAP_STATE_3)) {
-        Map_801AD718(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
-                     &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
-                     D_menu_801CDA10 + D_menu_801CDA1C);
+        Map_SetCamRot(D_menu_801CDA00, D_menu_801CDA04, D_menu_801CDA08, &D_menu_801CD9F4, &D_menu_801CD9F8,
+                      &D_menu_801CD9FC, D_menu_801CDA14, D_menu_801CDA0C + D_menu_801CDA18,
+                      D_menu_801CDA10 + D_menu_801CDA1C);
         Camera_SetStarfieldPos(D_menu_801CD9F4, D_menu_801CD9F8, D_menu_801CD9FC, D_menu_801CDA00, D_menu_801CDA04,
                                D_menu_801CDA08);
     }
@@ -1925,7 +1926,7 @@ void Map_Draw(void) {
     Map_801A9448();
 
     for (ptr = D_menu_801CD8A0, i = 0; i < 15; i++, ptr++) {
-        Map_801A6A98(*ptr);
+        Map_Planet_Draw(*ptr);
     }
 
     Map_801A8738();
@@ -2021,7 +2022,7 @@ s32 Map_801A05B4(void) {
     return ret;
 }
 
-void Map_801A0788(void) {
+void Map_Starfield_Setup(void) {
     gStarCount = 800;
 
     Memory_FreeAll();
@@ -2091,13 +2092,6 @@ void Map_801A0954(void) {
 
         case 1:
             if ((D_menu_801CD9C0 == 0) && (gFillScreenAlpha == 0)) {
-                //     break;
-                // }
-
-                // if (gFillScreenAlpha != 0) {
-                //     break;
-                // }
-
                 if ((s32) D_menu_801CD9E0 == 205) {
                     Audio_PlayVoiceWithoutBGM(1000);
                 }
@@ -2770,8 +2764,8 @@ void Map_801A281C(void) {
     D_menu_801CDA10 = 0.0f;
     D_menu_801CDA14 = 500.0f;
 
-    Map_801AD718(D_menu_801CEF58[2].x, D_menu_801CEF58[2].y, D_menu_801CEF58[2].z, &D_menu_801CEEE8[2].x,
-                 &D_menu_801CEEE8[2].y, &D_menu_801CEEE8[2].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
+    Map_SetCamRot(D_menu_801CEF58[2].x, D_menu_801CEF58[2].y, D_menu_801CEF58[2].z, &D_menu_801CEEE8[2].x,
+                  &D_menu_801CEEE8[2].y, &D_menu_801CEEE8[2].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
 
     D_menu_801CEEE8[5].x = D_menu_801CEEE8[4].x = D_menu_801CEEE8[3].x = D_menu_801CEEE8[2].x;
     D_menu_801CEEE8[5].y = D_menu_801CEEE8[4].y = D_menu_801CEEE8[3].y = D_menu_801CEEE8[2].y;
@@ -2785,8 +2779,8 @@ void Map_801A281C(void) {
     D_menu_801CDA10 = -9.849999f;
     D_menu_801CDA14 = 3375.0f; // 15^3
 
-    Map_801AD718(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z, &D_menu_801CEEE8[6].x,
-                 &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
+    Map_SetCamRot(D_menu_801CEF58[6].x, D_menu_801CEF58[6].y, D_menu_801CEF58[6].z, &D_menu_801CEEE8[6].x,
+                  &D_menu_801CEEE8[6].y, &D_menu_801CEEE8[6].z, D_menu_801CDA14, D_menu_801CDA0C, D_menu_801CDA10);
 
     D_menu_801CEEE8[7].x = D_menu_801CEEE8[6].x;
     D_menu_801CEEE8[7].y = D_menu_801CEEE8[6].y;
@@ -4333,7 +4327,7 @@ void Map_801A6694(void) {
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        Matrix_MultVec3f(gGfxMatrix, &src, &D_menu_801CE960[planetId]);
+        Matrix_MultVec3f(gGfxMatrix, &src, &sPlanetPositions[planetId]);
 
         Matrix_Pop(&gGfxMatrix);
     }
@@ -4346,7 +4340,7 @@ void Map_801A68E4(void) {
 
     for (i = 0; i < 14; i++) {
         for (j = i; j < 15; j++) {
-            if (D_menu_801CE960[D_menu_801CD8A0[i]].z > D_menu_801CE960[D_menu_801CD8A0[j]].z) {
+            if (sPlanetPositions[D_menu_801CD8A0[i]].z > sPlanetPositions[D_menu_801CD8A0[j]].z) {
                 var_a0 = D_menu_801CD8A0[i];
                 D_menu_801CD8A0[i] = D_menu_801CD8A0[j];
                 D_menu_801CD8A0[j] = var_a0;
@@ -4355,7 +4349,7 @@ void Map_801A68E4(void) {
     }
 }
 
-void Map_801A6A24(void) {
+void Map_Fade_Update(void) {
     switch (D_menu_801CD960) {
         case 0:
             if (gFillScreenAlpha != 0) {
@@ -4375,9 +4369,9 @@ void Map_801A6A24(void) {
     }
 }
 
-void Map_801A6A98(PlanetId planetId) {
+void Map_Planet_Draw(PlanetId planetId) {
     s32 mask;
-    s32 temp;
+    PlanetStatus planetStatus;
 
     if ((sPlanets[planetId].alpha == 0) && (planetId != sCurrentPlanetId)) {
         return;
@@ -4389,7 +4383,7 @@ void Map_801A6A98(PlanetId planetId) {
         mask = 0xFFFFFFFF;
     }
 
-    temp = Map_801A6DAC(planetId);
+    planetStatus = Map_CheckPlanetMedal(planetId);
 
     Map_801A6EC0(planetId);
     Map_801A7D3C(planetId);
@@ -4400,10 +4394,9 @@ void Map_801A6A98(PlanetId planetId) {
             Map_Titania_DrawRings1(planetId);
         }
 
-        if ((temp == 1) && (D_menu_801CE960[planetId].z > D_menu_801CEA18[planetId]) && (planetId != PLANET_AREA_6) &&
-            (planetId != PLANET_BOLSE)) {
-
-            Map_801A7F1C(planetId);
+        if ((planetStatus == PLANET_CLEARED) && (sPlanetPositions[planetId].z > D_menu_801CEA18[planetId]) &&
+            (planetId != PLANET_AREA_6) && (planetId != PLANET_BOLSE)) {
+            Map_PlanetCleared_Draw(planetId);
         }
 
         Map_801A7230(planetId);
@@ -4420,7 +4413,7 @@ void Map_801A6A98(PlanetId planetId) {
                 Map_801A77B0(planetId);
             }
             if (planetId == PLANET_VENOM) {
-                Map_801A7BEC(&D_menu_801CEEBC, 0.1f, 3.1f);
+                Map_801A7BEC(&D_menu_801CEEBC, +0.1f, 3.1f);
                 Map_801A7BEC(&D_menu_801CEEC0, -0.1f, 2.9f);
             }
         }
@@ -4441,39 +4434,37 @@ void Map_801A6A98(PlanetId planetId) {
             Map_801A89BC(PLANET_SECTOR_Y, 2);
         }
 
-        if ((temp == 1) && (D_menu_801CE960[planetId].z <= D_menu_801CEA18[planetId]) && (planetId != PLANET_AREA_6) &&
-            (planetId != PLANET_BOLSE)) {
-
-            Map_801A7F1C(planetId);
+        if ((planetStatus == PLANET_CLEARED) && (sPlanetPositions[planetId].z <= D_menu_801CEA18[planetId]) &&
+            (planetId != PLANET_AREA_6) && (planetId != PLANET_BOLSE)) {
+            Map_PlanetCleared_Draw(planetId);
         }
 
-        if ((temp == 1) && ((planetId == PLANET_AREA_6) || (planetId == PLANET_BOLSE))) {
-
-            Map_801A7F1C(planetId);
+        if ((planetStatus == PLANET_CLEARED) && ((planetId == PLANET_AREA_6) || (planetId == PLANET_BOLSE))) {
+            Map_PlanetCleared_Draw(planetId);
         }
 
-        if (temp == 2) {
-            Map_801A809C(planetId);
+        if (planetStatus == PLANET_MEDAL) {
+            Map_PlanetMedal_Draw(planetId);
         }
     }
     Matrix_Pop(&gGfxMatrix);
 }
 
-s32 Map_801A6DAC(PlanetId planetId) {
+s32 Map_CheckPlanetMedal(PlanetId planetId) {
     s32 ret;
     s32 planetSaveSlot;
-    s32 var_v0;
-    s32 var_a0;
+    bool medal;
+    bool clear;
 
     if (planetId == PLANET_VENOM) {
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertMedal & 1;
-            var_a0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear & 1 |
-                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear & 1;
+            medal = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertMedal & 1;
+            clear = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].expertClear & 1 |
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].expertClear & 1;
         } else {
-            var_v0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalMedal & 1;
-            var_a0 = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear & 1 |
-                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear & 1;
+            medal = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalMedal & 1;
+            clear = gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear & 1 |
+                    gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear & 1;
         }
     } else {
         planetSaveSlot = planetId;
@@ -4483,25 +4474,25 @@ s32 Map_801A6DAC(PlanetId planetId) {
         }
 
         if (gExpertMode) {
-            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].expertMedal & 1;
-            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].expertClear & 1;
+            medal = gSaveFile.save.data.planet[planetSaveSlot].expertMedal & 1;
+            clear = gSaveFile.save.data.planet[planetSaveSlot].expertClear & 1;
         } else {
-            var_v0 = gSaveFile.save.data.planet[planetSaveSlot].normalMedal & 1;
-            var_a0 = gSaveFile.save.data.planet[planetSaveSlot].normalClear & 1;
+            medal = gSaveFile.save.data.planet[planetSaveSlot].normalMedal & 1;
+            clear = gSaveFile.save.data.planet[planetSaveSlot].normalClear & 1;
         }
     }
 
-    ret = 0;
-
-    if (var_v0) {
-        ret = 2;
-    } else if (var_a0) {
-        ret = 1;
+    ret = 0; // Has no medal or hasn't been cleared
+    if (medal) {
+        ret = 2; // Has medal
+    } else if (clear) {
+        ret = 1; // Has been cleared
     }
 
     return ret;
 }
 
+// Related to Planet draw
 void Map_801A6EC0(PlanetId planetId) {
     f32 dirX;
     f32 dirY;
@@ -4539,9 +4530,9 @@ void Map_801A6EC0(PlanetId planetId) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     if (sPlanets[planetId].anim == PL_ANIM_ROTATE_Y) {
-        x2 = D_menu_801CE960[PLANET_SOLAR].x - D_menu_801CE960[planetId].x;
-        y2 = D_menu_801CE960[PLANET_SOLAR].y - D_menu_801CE960[planetId].y;
-        z2 = D_menu_801CE960[PLANET_SOLAR].z - D_menu_801CE960[planetId].z;
+        x2 = sPlanetPositions[PLANET_SOLAR].x - sPlanetPositions[planetId].x;
+        y2 = sPlanetPositions[PLANET_SOLAR].y - sPlanetPositions[planetId].y;
+        z2 = sPlanetPositions[PLANET_SOLAR].z - sPlanetPositions[planetId].z;
 
         x1 = Math_Atan2F(y2, sqrtf(SQ(x2) + SQ(z2)));
         y1 = -Math_Atan2F(x2, z2);
@@ -4612,7 +4603,7 @@ void Map_801A7230(PlanetId planetId) {
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+    gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -4638,7 +4629,7 @@ void Map_801A74F4(PlanetId planetId) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+    gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
     Matrix_Pop(&gGfxMatrix);
 
@@ -4664,7 +4655,7 @@ void Map_801A7684(PlanetId planetId) {
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_menu_801B4A40);
+    gSPDisplayList(gMasterDisp++, gMapVenomCloudDL);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -4795,7 +4786,7 @@ void Map_801A7D3C(PlanetId planetId) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Map_801A7F1C(PlanetId planetId) {
+void Map_PlanetCleared_Draw(PlanetId planetId) {
     s32 alpha;
 
     if (D_menu_801CD980 != 1) {
@@ -4827,7 +4818,7 @@ void Map_801A7F1C(PlanetId planetId) {
     }
 }
 
-void Map_801A809C(PlanetId planetId) {
+void Map_PlanetMedal_Draw(PlanetId planetId) {
     static f32 D_menu_801B6A78 = 0.0f;
     s32 i;
     s32 alpha;
@@ -5116,18 +5107,18 @@ void Map_801A8F40(void) {
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_23);
 
-        temp = Math_SmoothStepToF(&D_menu_801CEAA8, D_menu_801CEAB0, 0.1f, 100.0f, 1.0f);
+        temp = Math_SmoothStepToF(&sCursorYpos, D_menu_801CEAB0, 0.1f, 100.0f, 1.0f);
 
         if (temp == 0.0f) {
             if (D_menu_801CEAB0 == D_menu_801CEAAC) {
-                D_menu_801CEAA8 = D_menu_801CEAAC + 50.0f;
+                sCursorYpos = D_menu_801CEAAC + 50.0f;
             }
         }
 
         Matrix_Push(&gGfxMatrix);
 
         Matrix_Mult(gGfxMatrix, &D_menu_801CDA60[sCurrentPlanetId], MTXF_APPLY);
-        Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801CEAA8, 0.0f, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 0.0f, sCursorYpos, 0.0f, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B6A7C, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 3.0f, MTXF_APPLY);
 
@@ -5141,39 +5132,39 @@ void Map_801A8F40(void) {
     }
 }
 
-void Map_801A914C(void) {
-    D_menu_801CEAA8 = 140.0f;
+void Map_PositionCursor(void) {
+    sCursorYpos = 140.0f;
 
     if (sCurrentPlanetId == PLANET_CORNERIA) {
-        D_menu_801CEAA8 = 230.0f;
+        sCursorYpos = 230.0f;
     }
 
     if (sCurrentPlanetId == PLANET_AREA_6) {
-        D_menu_801CEAA8 = 210.0f;
+        sCursorYpos = 210.0f;
     }
 
     if (sCurrentPlanetId == PLANET_SOLAR) {
-        D_menu_801CEAA8 = 250.0f;
+        sCursorYpos = 250.0f;
     }
 
     if (sCurrentPlanetId == PLANET_SECTOR_X) {
-        D_menu_801CEAA8 = 150.0f;
+        sCursorYpos = 150.0f;
     }
 
     if (sCurrentPlanetId == PLANET_SECTOR_Y) {
-        D_menu_801CEAA8 = 150.0f;
+        sCursorYpos = 150.0f;
     }
 
     if (sCurrentPlanetId == PLANET_SECTOR_Z) {
-        D_menu_801CEAA8 = 150.0f;
+        sCursorYpos = 150.0f;
     }
 
     if (sCurrentPlanetId == PLANET_VENOM) {
-        D_menu_801CEAA8 = 300.0f;
+        sCursorYpos = 300.0f;
     }
 
-    D_menu_801CEAAC = D_menu_801CEAA8;
-    D_menu_801CEAB0 = D_menu_801CEAA8;
+    D_menu_801CEAAC = sCursorYpos;
+    D_menu_801CEAB0 = sCursorYpos;
 }
 
 void Map_801A9224(void) {
@@ -5209,7 +5200,7 @@ void Map_801A9224(void) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[PLANET_METEO]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[PLANET_METEO]);
 
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5268,9 +5259,9 @@ void Map_801A9448(void) {
 
             Matrix_MultVec3f(gGfxMatrix, &dest, &src);
 
-            x = D_menu_801CE960[PLANET_SOLAR].x - src.x;
-            y = D_menu_801CE960[PLANET_SOLAR].y - src.y;
-            z = D_menu_801CE960[PLANET_SOLAR].z - src.z;
+            x = sPlanetPositions[PLANET_SOLAR].x - src.x;
+            y = sPlanetPositions[PLANET_SOLAR].y - src.y;
+            z = sPlanetPositions[PLANET_SOLAR].z - src.z;
 
             x1 = Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
             y1 = -Math_Atan2F(x, z);
@@ -5442,7 +5433,7 @@ void Map_801A9DE8(void) {
     }
 
     if ((gGameFrameCount & mask) != 0) {
-        Map_801AD7EC(254, 16, gLifeCount[gPlayerNum]);
+        Map_RemainingLives_Draw(254, 16, gLifeCount[gPlayerNum]);
     }
 
     if ((gLastGameState == GSTATE_PLAY) || (gLastGameState == GSTATE_GAME_OVER)) {
@@ -5620,7 +5611,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                 Matrix_Scale(gGfxMatrix, 0.11f, 0.11f, 0.11f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
                 gDPSetEnvColor(gMasterDisp++, 31, 0, 0, 0);
@@ -5628,7 +5619,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                 Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5648,13 +5639,13 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 Matrix_Translate(gGfxMatrix, 18.0f, -20.0f, 0.0f, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
                 Matrix_Pop(&gGfxMatrix);
             }
             break;
@@ -5675,7 +5666,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5697,7 +5688,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5719,7 +5710,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5739,7 +5730,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_menu_801B68F8[sPlanets[planetId].id]);
+                gSPDisplayList(gMasterDisp++, sMapPlanets[sPlanets[planetId].id]);
 
                 if (sPlanets[planetId].anim == PL_ANIM_SPIN) {
                     if (planetId != PLANET_VENOM && planetId != PLANET_AQUAS) {
@@ -5749,7 +5740,7 @@ void Map_801AA778(s32 arg0, f32 x, f32 y, PlanetId planetId) {
                         } else {
                             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
                         }
-                        gSPDisplayList(gMasterDisp++, D_menu_801B4A40);
+                        gSPDisplayList(gMasterDisp++, gMapVenomCloudDL);
                     }
                     Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
@@ -5786,7 +5777,7 @@ void Map_801AB17C(f32 x, f32 y, f32 z) {
 
 void Map_801AB284(void) {
     D_menu_801CD940 = 0;
-    gRadioMsg = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+    gRadioMsg = sBriefingMsg[sCurrentPlanetId][D_menu_801CD940];
     gRadioMsgRadioId = D_menu_801AF420[D_menu_801CD940];
     D_menu_801CF018 = 100;
     gRadioPrintPosX = 78;
@@ -5826,7 +5817,7 @@ void Map_801AB300(void) {
             }
 
             D_menu_801CD940 = 1;
-            gRadioMsg = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+            gRadioMsg = sBriefingMsg[sCurrentPlanetId][D_menu_801CD940];
 
             Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
 
@@ -5904,7 +5895,7 @@ void Map_801AB300(void) {
                 break;
             } else {
                 D_menu_801CD940 = 1;
-                gRadioMsg = D_menu_801AF428[sCurrentPlanetId][D_menu_801CD940];
+                gRadioMsg = sBriefingMsg[sCurrentPlanetId][D_menu_801CD940];
                 Audio_PlayVoice(Message_IdFromPtr(gRadioMsg));
                 gRadioMsgRadioId = D_menu_801AF420[D_menu_801CD940];
                 gCurrentRadioPortrait = gRadioMsgRadioId;
@@ -6238,9 +6229,9 @@ void Map_801AC530(s32 index) {
 
     Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-    x = D_menu_801CE960[PLANET_SOLAR].x - dest.x;
-    y = D_menu_801CE960[PLANET_SOLAR].y - dest.y;
-    z = D_menu_801CE960[PLANET_SOLAR].z - dest.z;
+    x = sPlanetPositions[PLANET_SOLAR].x - dest.x;
+    y = sPlanetPositions[PLANET_SOLAR].y - dest.y;
+    z = sPlanetPositions[PLANET_SOLAR].z - dest.z;
 
     x1 = Math_Atan2F(y, sqrtf(SQ(x) + SQ(z)));
     y1 = -Math_Atan2F(x, z);
@@ -6699,37 +6690,35 @@ void Map_801AD11C(void) {
 void func_dummy_() {
 }
 
-void Map_801AD718(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32 arg7, f32 arg8) {
-    Vec3f sp2C;
-    Vec3f sp20;
+void Map_SetCamRot(f32 camAtX, f32 camAtY, f32 camAtZ, f32* camEyeX, f32* camEyeY, f32* camEyeZ, f32 srcZ, f32 xRot,
+                   f32 yRot) {
+    Vec3f dest;
+    Vec3f src;
 
-    sp20.x = 0.0f;
-    sp20.y = 0.0f;
-    sp20.z = arg6;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = srcZ;
 
-    Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg8, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, MTXF_APPLY);
-    Matrix_MultVec3f(gCalcMatrix, &sp20, &sp2C);
+    Matrix_Translate(gCalcMatrix, camAtX, camAtY, camAtZ, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-    *arg3 = sp2C.x;
-    *arg4 = sp2C.y;
-    *arg5 = sp2C.z;
+    *camEyeX = dest.x;
+    *camEyeY = dest.y;
+    *camEyeZ = dest.z;
 }
 
-void Map_801AD7EC(s32 xPos, s32 yPos, s32 number) {
+void Map_RemainingLives_Draw(s32 xPos, s32 yPos, s32 number) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_85);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-
-    Lib_TextureRect_CI4(&gMasterDisp, D_MAP_601DC10, D_MAP_601DC90, 16, 16, xPos, yPos, 1.0f, 1.0f);
+    Lib_TextureRect_CI4(&gMasterDisp, aMapArwingIconTex, aMapArwingIconTLUT, 16, 16, xPos, yPos, 1.0f, 1.0f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-
-    Lib_TextureRect_CI4(&gMasterDisp, D_MAP_601DCA0, D_MAP_601DCD8, 16, 7, xPos + 18.0f, yPos + 9.0f, 1.0f, 1.0f);
+    Lib_TextureRect_CI4(&gMasterDisp, aMapXTex, aMapXTLUT, 16, 7, xPos + 18.0f, yPos + 9.0f, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     if (number >= 10) {

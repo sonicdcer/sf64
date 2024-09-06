@@ -15,16 +15,16 @@
 #include "assets/ast_map.h"
 
 extern s32 gRankingTeamAlive[][3];
-extern Gfx D_menu_801B4A40[];
-extern Gfx D_menu_801B5E78[];
-extern Gfx D_menu_801B61E0[];
-extern Gfx D_menu_801B6548[];
-extern Gfx D_menu_801B4D70[];
-extern Gfx D_menu_801B5B10[];
-extern Gfx D_menu_801B5440[];
-extern Gfx D_menu_801B50D8[];
-extern Gfx D_menu_801B5E78[];
-extern Gfx D_menu_801B57A8[];
+extern Gfx gMapVenomCloudDL[];
+extern Gfx gMapKatinaDL[];
+extern Gfx gMapMacbethDL[];
+extern Gfx gMapZonessDL[];
+extern Gfx gMapCorneriaDL[];
+extern Gfx gMapTitaniaDL[];
+extern Gfx gMapAquasDL[];
+extern Gfx gMapFortunaDL[];
+extern Gfx gMapKatinaDL[];
+extern Gfx gMapVenomDL[];
 extern f32 D_menu_801CD818[9];
 
 s32 D_menu_801B9090;
@@ -327,9 +327,9 @@ RouteColoredLine sRouteColoredLine[24] = {
 };
 
 Gfx* D_menu_801AEE6C[16] = {
-    D_MAP_6060610,   D_MAP_601DE80,   D_MAP_604B750,   D_MAP_601F6B0,   D_MAP_601C0D0,   D_MAP_601C960,
-    D_menu_801B5E78, D_menu_801B61E0, D_menu_801B6548, D_menu_801B4D70, D_menu_801B5B10, D_menu_801B5440,
-    D_menu_801B50D8, D_MAP_604DB10,   D_menu_801B57A8, D_menu_801B57A8,
+    aMapMeteorDL,  aMapArea6DL,   aMapBolseDL,  aMapSectorZDL,  aMapSectorXDL, aMapSectorYDL,
+    gMapKatinaDL,  gMapMacbethDL, gMapZonessDL, gMapCorneriaDL, gMapTitaniaDL, gMapAquasDL,
+    gMapFortunaDL, aMapSolarDL,   gMapVenomDL,  gMapVenomDL,
 };
 
 char* D_menu_801AEEAC[] = {
@@ -2194,7 +2194,7 @@ void Option_RankingMenu2_Draw(void) {
             Option_OrdinalNumbers_Draw(i, 41, var_fs0);
             Option_RankingName_Draw(i, 75, var_fs0 - 25.0f);
             Option_RankingTotalHits_Draw(i, 130, (var_fs0 - 26.0f));
-            Map_801AD7EC(210, (var_fs0 - 24.0f), gSaveFile.save.data.rankingLives[i]);
+            Map_RemainingLives_Draw(210, (var_fs0 - 24.0f), gSaveFile.save.data.rankingLives[i]);
             Option_RankingTeamAlive_Draw(i, 258, var_fs0 - 25.0f);
         }
         Option_RankingRoute_Draw(i, var_fs0, var_fs1);
@@ -2581,7 +2581,7 @@ void Option_RankingPlanetRoute_Draw(s32 rankIdx, f32 y, s32 routeMax) {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_menu_801B4A40);
+                    gSPDisplayList(gMasterDisp++, gMapVenomCloudDL);
                 }
                 Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);

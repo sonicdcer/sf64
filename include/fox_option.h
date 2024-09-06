@@ -217,7 +217,7 @@ void Option_InvoiceDraw(void);
 
 void Map_Main(void);
 void Map_801A07E8(u8*, u8*, f32*);
-void Map_801AD7EC(s32, s32, s32);
+void Map_RemainingLives_Draw(s32, s32, s32);
 void Map_801A9FD4(s32);
 
 #endif
