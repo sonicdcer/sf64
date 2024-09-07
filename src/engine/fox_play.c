@@ -573,8 +573,8 @@ void Play_GenerateStarfield(void) {
     Rand_SetSeed(1, 29000, 9876);
 
     for (i = 0; i < 1000; i++) {
-        gStarOffsetsX[i] = RAND_FLOAT_SEEDED(480.0f) - 80.0f;
-        gStarOffsetsY[i] = RAND_FLOAT_SEEDED(360.0f) - 60.0f;
+        gStarOffsetsX[i] = RAND_FLOAT_SEEDED(480.0f * 3) - 80.0f;
+        gStarOffsetsY[i] = RAND_FLOAT_SEEDED(360.0f * 3) - 60.0f;
         gStarFillColors[i] = FILL_COLOR(gStarColors[i % ARRAY_COUNT(gStarColors)]);
     }
 }

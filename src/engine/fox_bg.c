@@ -96,6 +96,8 @@ f32 sGroundPositions360z[4] = {
     -6000.0f,
 };
 
+#define SCREEN_WIDTH_EXPANDED SCREEN_WIDTH * 3
+
 void Background_DrawStarfield(void) {
     f32 by;
     f32 bx;
@@ -116,15 +118,16 @@ void Background_DrawStarfield(void) {
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);
     gDPSetRenderMode(gMasterDisp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
     starCount = gStarCount;
+
     if (starCount != 0) {
-        if (gStarfieldX >= 1.5f * SCREEN_WIDTH) {
-            gStarfieldX -= 1.5f * SCREEN_WIDTH;
+        if (gStarfieldX >= 1.5f * SCREEN_WIDTH_EXPANDED) {
+            gStarfieldX -= 1.5f * SCREEN_WIDTH_EXPANDED;
         }
         if (gStarfieldY >= 1.5f * SCREEN_HEIGHT) {
             gStarfieldY -= 1.5f * SCREEN_HEIGHT;
         }
         if (gStarfieldX < 0.0f) {
-            gStarfieldX += 1.5f * SCREEN_WIDTH;
+            gStarfieldX += 1.5f * SCREEN_WIDTH_EXPANDED;
         }
         if (gStarfieldY < 0.0f) {
             gStarfieldY += 1.5f * SCREEN_HEIGHT;
@@ -144,19 +147,19 @@ void Background_DrawStarfield(void) {
         for (i = 0; i < starCount; i++, yStar++, xStar++, color++) {
             bx = *xStar + xField;
             by = *yStar + yField;
-            if (bx >= 1.25f * SCREEN_WIDTH) {
-                bx -= 1.5f * SCREEN_WIDTH;
+            if (bx >= 1.25f * SCREEN_WIDTH_EXPANDED) {
+                bx -= 1.5f * SCREEN_WIDTH_EXPANDED;
             }
-            bx -= SCREEN_WIDTH / 2.0f;
+            bx -= SCREEN_WIDTH_EXPANDED / 2.0f;
 
             if (by >= 1.25f * SCREEN_HEIGHT) {
                 by -= 1.5f * SCREEN_HEIGHT;
             }
             by -= SCREEN_HEIGHT / 2.0f;
 
-            vx = (zCos * bx) + (zSin * by) + SCREEN_WIDTH / 2.0f;
+            vx = (zCos * bx) + (zSin * by) + SCREEN_WIDTH_EXPANDED / 2.0f;
             vy = (-zSin * bx) + (zCos * by) + SCREEN_HEIGHT / 2.0f;
-            if ((vx >= 0) && (vx < SCREEN_WIDTH) && (vy > 0) && (vy < SCREEN_HEIGHT)) {
+            if ((vx >= 0) && (vx < SCREEN_WIDTH_EXPANDED) && (vy > 0) && (vy < SCREEN_HEIGHT)) {
                 gDPPipeSync(gMasterDisp++);
                 gDPSetFillColor(gMasterDisp++, *color);
                 gDPFillRectangle(gMasterDisp++, vx, vy, vx, vy);
@@ -186,14 +189,14 @@ void Background_DrawPartialStarfield(s32 yMin, s32 yMax) {
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);
     gDPSetRenderMode(gMasterDisp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
 
-    if (gStarfieldX >= 1.5f * SCREEN_WIDTH) {
-        gStarfieldX -= 1.5f * SCREEN_WIDTH;
+    if (gStarfieldX >= 1.5f * SCREEN_WIDTH_EXPANDED) {
+        gStarfieldX -= 1.5f * SCREEN_WIDTH_EXPANDED;
     }
     if (gStarfieldY >= 1.5f * SCREEN_HEIGHT) {
         gStarfieldY -= 1.5f * SCREEN_HEIGHT;
     }
     if (gStarfieldX < 0.0f) {
-        gStarfieldX += 1.5f * SCREEN_WIDTH;
+        gStarfieldX += 1.5f * SCREEN_WIDTH_EXPANDED;
     }
     if (gStarfieldY < 0.0f) {
         gStarfieldY += 1.5f * SCREEN_HEIGHT;
@@ -212,18 +215,18 @@ void Background_DrawPartialStarfield(s32 yMin, s32 yMax) {
     for (i = 0; i < var_s2; i++, sp5C++, sp60++, sp58++) {
         bx = *sp60 + spf68;
         by = *sp5C + spf64;
-        if (bx >= SCREEN_WIDTH * 1.25f) {
-            bx -= 1.5f * SCREEN_WIDTH;
+        if (bx >= SCREEN_WIDTH_EXPANDED * 1.25f) {
+            bx -= 1.5f * SCREEN_WIDTH_EXPANDED;
         }
-        bx -= SCREEN_WIDTH / 2.0f;
+        bx -= SCREEN_WIDTH_EXPANDED / 2.0f;
         if (by >= SCREEN_HEIGHT * 1.25f) {
             by -= 1.5f * SCREEN_HEIGHT;
         }
         by -= SCREEN_HEIGHT / 2.0f;
 
-        vx = (cos * bx) + (sin * by) + SCREEN_WIDTH / 2.0f;
+        vx = (cos * bx) + (sin * by) + SCREEN_WIDTH_EXPANDED / 2.0f;
         vy = (-sin * bx) + (cos * by) + SCREEN_HEIGHT / 2.0f;
-        if ((vx >= 0) && (vx < SCREEN_WIDTH) && (yMin < vy) && (vy < yMax)) {
+        if ((vx >= 0) && (vx < SCREEN_WIDTH_EXPANDED) && (yMin < vy) && (vy < yMax)) {
             gDPPipeSync(gMasterDisp++);
             gDPSetFillColor(gMasterDisp++, *sp58);
             gDPFillRectangle(gMasterDisp++, vx, vy, vx, vy);
