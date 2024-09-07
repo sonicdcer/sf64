@@ -566,15 +566,17 @@ void Play_InitEnvironment(void) {
 void Play_GenerateStarfield(void) {
     u32 i;
 
-    MEM_ARRAY_ALLOCATE(gStarOffsetsX, 1000);
+    int scale = 3;
+
+    MEM_ARRAY_ALLOCATE(gStarOffsetsX, 1000 * scale);
     MEM_ARRAY_ALLOCATE(gStarOffsetsY, 1000);
     MEM_ARRAY_ALLOCATE(gStarFillColors, 1000);
 
     Rand_SetSeed(1, 29000, 9876);
 
-    for (i = 0; i < 1000; i++) {
-        gStarOffsetsX[i] = RAND_FLOAT_SEEDED(480.0f * 3) - 80.0f;
-        gStarOffsetsY[i] = RAND_FLOAT_SEEDED(360.0f * 3) - 60.0f;
+    for (i = 0; i < 1000 * scale; i++) {
+        gStarOffsetsX[i] = RAND_FLOAT_SEEDED(480.0f * scale) - 80.0f;
+        gStarOffsetsY[i] = RAND_FLOAT_SEEDED(360.0f) - 60.0f;
         gStarFillColors[i] = FILL_COLOR(gStarColors[i % ARRAY_COUNT(gStarColors)]);
     }
 }
