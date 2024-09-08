@@ -363,14 +363,14 @@ D_MAP_60479D0:
 D_MAP_6047A68:
   { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u8, symbol: D_MAP_6047A68 }
 
-D_MAP_6047E70:
-  { type: GFX, offset: 0x6047E70, symbol: D_MAP_6047E70 }
+aMapVenomCloudDL:
+  { type: GFX, offset: 0x6047E70, symbol: aMapVenomCloudDL }
 
-D_MAP_6047F80:
-  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u8, symbol: D_MAP_6047F80 }
+aMapVenomCloud1Tex:
+  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u8, symbol: aMapVenomCloud1Tex }
 
-D_MAP_6048780:
-  { type: TEXTURE, format: IA8, offset: 0x06048780, width: 64, height: 32, ctype: u8, symbol: D_MAP_6048780 }
+aMapVenomCloud2Tex:
+  { type: TEXTURE, format: IA8, offset: 0x06048780, width: 64, height: 32, ctype: u8, symbol: aMapVenomCloud2Tex }
 
 D_MAP_6048F80:
   { type: TEXTURE, format: IA8, offset: 0x06048F80, width: 64, height: 64, ctype: u8, symbol: D_MAP_6048F80 }

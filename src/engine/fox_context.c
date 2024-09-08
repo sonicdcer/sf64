@@ -18,6 +18,11 @@ LevelMode gLevelMode;
 DrawMode gDrawMode;
 s32 gPlayerNum;
 s32 gCamCount;
+/**
+ * gTeamShields[1] = Falco
+ * gTeamShields[2] = Slippy
+ * gTeamShields[3] = Peppy
+ */
 s32 gTeamShields[6];
 s32 gSavedTeamShields[6];
 s32 gPrevPlanetSavedTeamShields[6];

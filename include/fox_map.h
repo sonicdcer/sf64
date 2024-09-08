@@ -71,13 +71,26 @@ typedef enum MapStates {
     /* 4 */ MAP_STATE_4,
     /* 5 */ MAP_STATE_5,
     /* 6 */ MAP_STATE_6,
-    /* 7 */ MAP_STATE_7,
+    /* 7 */ MAP_STATE_7
 } MapStates;
 
 typedef enum PlanetStatus {
     /* 0 */ PLANET_UNCLEARED,
     /* 1 */ PLANET_CLEARED,
-    /* 2 */ PLANET_MEDAL,
+    /* 2 */ PLANET_MEDAL
 } PlanetStatus;
+
+typedef enum PlanetExplosions {
+    /* 0 */ EXPLOSIONS_CORNERIA,
+    /* 1 */ EXPLOSIONS_KATINA,
+    /* 2 */ EXPLOSIONS_SECTOR_Y,
+    /* 3 */ EXPLOSIONS_MAX
+} PlanetExplosions;
+
+typedef enum PlanetSaveSlotTypes {
+    /* 0 */ SAVETYPE_PLAYED,
+    /* 1 */ SAVETYPE_MEDAL,
+    /* 2 */ SAVETYPE_CLEAR
+} PlanetSaveSlotTypes;
 
 #endif
