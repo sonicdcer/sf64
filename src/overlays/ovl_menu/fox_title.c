@@ -50,7 +50,7 @@ s32 gTotalHitsRanking[10];
 u8 sRankNameEntry[10][4];
 UNK_TYPE D_menu_801B8270[3];
 bool gGoToTitle;
-bool sWipeScreen;
+bool sLevelStartState;
 s32 sWipeHeight;
 s32 sTitleRankMaxRecords;
 f32 D_menu_801B828C;
@@ -183,7 +183,7 @@ void Title_Setup(void) {
     D_menu_801B833C = 0;
 
     sSceneState = 0;
-    sWipeScreen = false;
+    sLevelStartState = false;
 
     sTitleTextPrimColTarget = 255.0f;
     sTitleTextPrimCol = 255.0f;
@@ -3220,13 +3220,13 @@ void Title_NextState_Check(void) {
 }
 
 void Title_NextState_TitleScreen(void) {
-    switch (sWipeScreen) {
+    switch (sLevelStartState) {
         case 0: // Wait for input
             if (gControllerPress[gMainController].button &
                 (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS | R_CBUTTONS)) {
                 AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                 sWipeHeight = 0;
-                sWipeScreen = true;
+                sLevelStartState = true;
                 gControllerLock = 30;
             }
             break;
@@ -3243,7 +3243,7 @@ void Title_NextState_TitleScreen(void) {
                 sCutsceneState = TITLE_SCREEN;
                 gControllerLock = 30;
                 sWipeHeight = 0;
-                sWipeScreen = false;
+                sLevelStartState = false;
             }
             break;
     }
@@ -3251,16 +3251,16 @@ void Title_NextState_TitleScreen(void) {
 
 void Title_NextState_OptionMenu(void) {
     if (gControllerLock == 0) {
-        switch (sWipeScreen) {
+        switch (sLevelStartState) {
             case 0: // Wait for input
                 if (((gControllerPress[gMainController].button & START_BUTTON) ||
                      (gControllerPress[gMainController].button & A_BUTTON)) &&
-                    !sWipeScreen) {
+                    !sLevelStartState) {
                     AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
                     sWipeHeight = 0;
-                    sWipeScreen = true;
+                    sLevelStartState = true;
                 }
                 break;
 
@@ -3273,7 +3273,7 @@ void Title_NextState_OptionMenu(void) {
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
                     gStarCount = 0;
-                    sWipeScreen = false;
+                    sLevelStartState = false;
                     sWipeHeight = 0;
                     gControllerLock = 3;
                 }

@@ -148,8 +148,8 @@ D_MAP_6017640:
 D_MAP_6018280: 
   { type: TEXTURE, format: IA8, offset: 0x6018280, width: 184, height: 19, ctype: u8, symbol: D_MAP_6018280 }
 
-D_MAP_6019030: 
-  { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: D_MAP_6019030 }
+aMapPrologueTextFadeTex: 
+  { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: aMapPrologueTextFadeTex }
 
 # Clouds ?
 aMapVenomCloudTex: 
@@ -310,32 +310,32 @@ D_MAP_6032A60:
   { type: TEXTURE, format: RGBA16, offset: 0x06032A60, width: 28, height: 28, ctype: u16, symbol: D_MAP_6032A60 }
 
 # Picture of Peppy, James and Pigma used in the narrated intro.
-D_MAP_6033080:
-  { type: TEXTURE, format: RGBA16, offset: 0x06033080, width: 96, height: 52, ctype: u16, symbol: D_MAP_6033080 }
+aMapPrologue3Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06033080, width: 96, height: 52, ctype: u16, symbol: aMapPrologue3Tex }
 
 # Picture of Andross, General Pepper and Venom in the background, used in the narrated intro.
-D_MAP_6035780:
-  { type: TEXTURE, format: RGBA16, offset: 0x06035780, width: 96, height: 52, ctype: u16, symbol: D_MAP_6035780 }
+aMapPrologue2Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06035780, width: 96, height: 52, ctype: u16, symbol: aMapPrologue2Tex }
 
 # Picture of Andross, hands open, Corneria in the middle, used in the narrated intro.
-D_MAP_6037E80:
-  { type: TEXTURE, format: RGBA16, offset: 0x06037E80, width: 96, height: 52, ctype: u16, symbol: D_MAP_6037E80 }
+aMapPrologue6Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06037E80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue6Tex }
 
 # Picture of an Arwing dodging attacks from enemies, used in the narrated intro.
-D_MAP_603A580:
-  { type: TEXTURE, format: RGBA16, offset: 0x0603A580, width: 96, height: 52, ctype: u16, symbol: D_MAP_603A580 }
+aMapPrologue4Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603A580, width: 96, height: 52, ctype: u16, symbol: aMapPrologue4Tex }
 
 # Picture of Slippy, Peppy, Fox and Falco, used in the narrated intro.
-D_MAP_603CC80:
-  { type: TEXTURE, format: RGBA16, offset: 0x0603CC80, width: 96, height: 52, ctype: u16, symbol: D_MAP_603CC80 }
+aMapPrologue7Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603CC80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue7Tex }
 
 # Picture of Peppy returning from Vemon, used in the narrated intro.
-D_MAP_603F380:
-  { type: TEXTURE, format: RGBA16, offset: 0x0603F380, width: 96, height: 52, ctype: u16, symbol: D_MAP_603F380 }
+aMapPrologue5Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603F380, width: 96, height: 52, ctype: u16, symbol: aMapPrologue5Tex }
 
 # Picture of Corneria, used in the narrated intro.
-D_MAP_6041A80:
-  { type: TEXTURE, format: RGBA16, offset: 0x06041A80, width: 96, height: 52, ctype: u16, symbol: D_MAP_6041A80 }
+aMapPrologue1Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06041A80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue1Tex }
 
 # Portrait of Slippy
 D_MAP_6044180:
@@ -375,8 +375,8 @@ aMapVenomCloud2Tex:
 D_MAP_6048F80:
   { type: TEXTURE, format: IA8, offset: 0x06048F80, width: 64, height: 64, ctype: u8, symbol: D_MAP_6048F80 }
   
-D_MAP_6049F80:
-  { type: GFX, offset: 0x6049F80, symbol: D_MAP_6049F80 }
+aMapExplosion4DL:
+  { type: GFX, offset: 0x6049F80, symbol: aMapExplosion4DL }
 
 D_MAP_604A048:
   { type: TEXTURE, format: CI8, offset: 0x0604A048, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A048, tlut: 0x0602FF60 }
@@ -384,8 +384,8 @@ D_MAP_604A048:
 D_MAP_604A148:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A148, symbol: D_MAP_604A148 }
 
-D_MAP_604A190:
-  { type: GFX, offset: 0x604A190, symbol: D_MAP_604A190 }
+aMapExplosion3DL:
+  { type: GFX, offset: 0x604A190, symbol: aMapExplosion3DL }
 
 D_MAP_604A258:
   { type: TEXTURE, format: CI8, offset: 0x0604A258, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A258, tlut: 0x0604A358 }
@@ -393,8 +393,8 @@ D_MAP_604A258:
 D_MAP_604A358:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x0604A358, symbol: D_MAP_604A358 }
 
-D_MAP_604A400:
-  { type: GFX, offset: 0x604A400, symbol: D_MAP_604A400 }
+aMapExplosion2DL:
+  { type: GFX, offset: 0x604A400, symbol: aMapExplosion2DL }
 
 D_MAP_604A4C8:
   { type: TEXTURE, format: CI8, offset: 0x0604A4C8, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A4C8, tlut: 0x0604A5C8 }
@@ -402,8 +402,8 @@ D_MAP_604A4C8:
 D_MAP_604A5C8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 160, offset: 0x0604A5C8, symbol: D_MAP_604A5C8 }
 
-D_MAP_604A710:
-  { type: GFX, offset: 0x604A710, symbol: D_MAP_604A710 }
+aMapExplosion1DL:
+  { type: GFX, offset: 0x604A710, symbol: aMapExplosion1DL }
 
 D_MAP_604A7D8:
   { type: TEXTURE, format: CI8, offset: 0x0604A7D8, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A7D8, tlut: 0x0604A8D8 }

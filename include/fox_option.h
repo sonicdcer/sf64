@@ -77,7 +77,7 @@ extern u8* gAssetMapPlanetTextures[9];
 
 extern s32 gTotalHitsRanking[];
 extern bool gGoToTitle;   // engine
-extern bool sWipeScreen;
+extern bool sLevelStartState;
 extern s32 sWipeHeight;
 extern s32 sTitleRankMaxRecords;
 
@@ -216,7 +216,7 @@ void Option_Invoice_Update(void);
 void Option_InvoiceDraw(void);
 
 void Map_Main(void);
-void Map_801A07E8(u8*, u8*, f32*);
+void Map_Texture_Sphere(u8*, u8*, f32*);
 void Map_RemainingLives_Draw(s32, s32, s32);
 void Map_801A9FD4(s32);
 

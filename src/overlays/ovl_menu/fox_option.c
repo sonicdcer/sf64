@@ -695,7 +695,7 @@ void Option_Entry_Draw(void) {
             break;
     }
 
-    if (sWipeScreen) {
+    if (sLevelStartState) {
         Option_Menu_Push();
         Wipe_Draw(WIPE_VERTICAL, sWipeHeight);
         Matrix_Pop(&gGfxMatrix);
@@ -761,25 +761,27 @@ void Option_PlanetTextures_Setup(void) {
 
     for (i = 0; i < ARRAY_COUNT(gBSSMapPlanetTextures); i++) {
         D_menu_801CD818[i] = 0.0f;
-        Map_801A07E8(gBSSMapPlanetTextures[i], SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[i]), &D_menu_801CD818[i]);
+        Map_Texture_Sphere(gBSSMapPlanetTextures[i], SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[i]),
+                           &D_menu_801CD818[i]);
     }
 }
 
 void Option_ScrollPlanetTexture(void) {
     if (D_menu_801B93E8 == 5) {
-        Map_801A07E8(gBSSMapPlanetTextures[8], SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[8]), &D_menu_801CD818[8]);
+        Map_Texture_Sphere(gBSSMapPlanetTextures[8], SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[8]),
+                           &D_menu_801CD818[8]);
         D_menu_801B93E8 = 0;
     } else {
         D_menu_801B93E8++;
     }
 
-    Map_801A07E8(gBSSMapPlanetTextures[D_menu_801B93EC * 2],
-                 SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[D_menu_801B93EC * 2]),
-                 &D_menu_801CD818[D_menu_801B93EC * 2]);
+    Map_Texture_Sphere(gBSSMapPlanetTextures[D_menu_801B93EC * 2],
+                       SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[D_menu_801B93EC * 2]),
+                       &D_menu_801CD818[D_menu_801B93EC * 2]);
 
-    Map_801A07E8(gBSSMapPlanetTextures[(D_menu_801B93EC * 2) + 1],
-                 SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[(D_menu_801B93EC * 2) + 1]),
-                 &D_menu_801CD818[(D_menu_801B93EC * 2) + 1]);
+    Map_Texture_Sphere(gBSSMapPlanetTextures[(D_menu_801B93EC * 2) + 1],
+                       SEGMENTED_TO_VIRTUAL(gAssetMapPlanetTextures[(D_menu_801B93EC * 2) + 1]),
+                       &D_menu_801CD818[(D_menu_801B93EC * 2) + 1]);
 
     D_menu_801B93EC++;
     if (D_menu_801B93EC >= 4) {
@@ -978,7 +980,7 @@ void Option_MainMenu_Update(void) {
             if (gControllerPress[gMainController].button & B_BUTTON) {
                 AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
                 sWipeHeight = 0;
-                sWipeScreen = true;
+                sLevelStartState = true;
                 sMainMenuState = 100;
             }
             break;
@@ -1057,7 +1059,7 @@ void Option_MainMenu_Update(void) {
                 gTitleState = 0;
                 gGoToTitle = true;
                 gDrawMode = DRAW_NONE;
-                sWipeScreen = false;
+                sLevelStartState = false;
                 sWipeHeight = 0;
                 gControllerLock = 3;
             }

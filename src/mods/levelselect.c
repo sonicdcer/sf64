@@ -3,15 +3,15 @@
 
 extern PlanetId sPlanetList[15];
 extern PlanetId sCurrentPlanetId;
-extern bool sWipeScreen;
+extern bool sLevelStartState;
 extern s32 D_menu_801CD968;
 extern s32 sMapState;
-extern s32 D_menu_801CD948;
+extern s32 sMapSubState;
 
 void Map_801A61B4(LevelId level);
-void Map_801A6368(void);
+void Map_CurrentLevel_Setup(void);
 void Map_PositionCursor(void);
-void Map_801A6628(void);
+void Map_PlayLevel(void);
 
 static PlanetId sPlanetArray[][3] = {
     { PLANET_CORNERIA, PLANET_CORNERIA, PLANET_CORNERIA }, { PLANET_METEO, PLANET_METEO, PLANET_SECTOR_Y },
@@ -67,7 +67,7 @@ void Map_LevelSelect(void) {
     if (sCurrentPlanetId != nextPlanetId) {
         sCurrentPlanetId = nextPlanetId;
         startOption = 0;
-        Map_801A6368();
+        Map_CurrentLevel_Setup();
         Map_PositionCursor();
     }
     if (contPress->button & L_TRIG) {
@@ -113,7 +113,7 @@ void Map_LevelSelect(void) {
     }
 
     // Bypass briefing
-    if ((sMapState == 2) && (D_menu_801CD948 > 0)) {
+    if ((sMapState == 2) && (sMapSubState > 0)) {
         if (sCurrentPlanetId == PLANET_VENOM) {
             if (startOption) {
                 gCurrentLevel = LEVEL_VENOM_ANDROSS;
@@ -124,9 +124,9 @@ void Map_LevelSelect(void) {
             gCurrentLevel = LEVEL_UNK_4;
         }
         Map_801A61B4(gCurrentLevel);
-        sWipeScreen = 0;
+        sLevelStartState = 0;
         D_menu_801CD968 = 0;
-        Map_801A6628();
+        Map_PlayLevel();
         if (startOption && ((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X) ||
                             (sPlanetArray[mission][difficulty] == SAVE_SLOT_VENOM_2))) {
             gLevelPhase = 1;

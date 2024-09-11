@@ -64,14 +64,14 @@ typedef struct {
 } TitleCard; // size = 0x10
 
 typedef enum MapStates {
-    /* 0 */ MAP_STATE_0,
-    /* 1 */ MAP_STATE_1,
-    /* 2 */ MAP_STATE_2,
-    /* 3 */ MAP_STATE_3,
-    /* 4 */ MAP_STATE_4,
-    /* 5 */ MAP_STATE_5,
-    /* 6 */ MAP_STATE_6,
-    /* 7 */ MAP_STATE_7
+    /* 0 */ MAP_PROLOGUE,
+    /* 1 */ MAP_LYLAT_CARD,
+    /* 2 */ MAP_ZOOM_PLANET,
+    /* 3 */ MAP_IDLE,
+    /* 4 */ MAP_LEVEL_START,
+    /* 5 */ MAP_ZOOM_PLANET_PATH, // After level ends
+    /* 6 */ MAP_PATH_CHANGE, // Path selection by the player
+    /* 7 */ MAP_GAME_OVER
 } MapStates;
 
 typedef enum PlanetStatus {

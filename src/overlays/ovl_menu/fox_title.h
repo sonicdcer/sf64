@@ -155,7 +155,7 @@ extern s32 gTotalHitsRanking[10];
 extern u8 sRankNameEntry[10][4];
 extern UNK_TYPE D_menu_801B8270[3];
 extern bool gGoToTitle;
-extern bool sWipeScreen;
+extern bool sLevelStartState;
 extern s32 sWipeHeight;
 extern s32 sTitleRankMaxRecords;
 extern f32 D_menu_801B828C;
