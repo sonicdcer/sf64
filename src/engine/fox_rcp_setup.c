@@ -639,7 +639,8 @@ Gfx gRcpSetupDLs[][9] = {
                            G_TD_CLAMP | G_TP_PERSP | G_CYC_1CYCLE | G_PM_NPRIMITIVE),
         gsSPEndDisplayList(),
     },
-    {/* SETUPDL_45 */
+    {
+        /* SETUPDL_45 */
         gsDPPipeSync(),
         gsSPClearGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN |
                               G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH),
@@ -922,7 +923,8 @@ Gfx gRcpSetupDLs[][9] = {
                            G_TD_CLAMP | G_TP_PERSP | G_CYC_1CYCLE | G_PM_NPRIMITIVE),
         gsSPEndDisplayList(),
     },
-    {/* SETUPDL_65 */
+    {
+        /* SETUPDL_65 */
         gsDPPipeSync(),
         gsSPClearGeometryMode(G_ZBUFFER | G_SHADE | G_CULL_BOTH | G_FOG | G_LIGHTING | G_TEXTURE_GEN |
                               G_TEXTURE_GEN_LINEAR | G_LOD | G_SHADING_SMOOTH),
