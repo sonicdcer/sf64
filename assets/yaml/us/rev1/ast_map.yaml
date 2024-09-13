@@ -9,20 +9,20 @@
       - '#include "sf64object.h"'
 
 # Restart Game (Game Over)
-D_MAP_6000000:
-  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 22, ctype: u8, symbol: D_MAP_6000000 }
+aMapRetryCourseGameOverTex:
+  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 22, ctype: u8, symbol: aMapRetryCourseGameOverTex }
 
 # Proceed to Next Course
-D_MAP_6000840:
-  { type: TEXTURE, format: IA8, offset: 0x6000840, width: 96, height: 22, ctype: u8, symbol: D_MAP_6000840 }
+aMapProceedNextCourseTex:
+  { type: TEXTURE, format: IA8, offset: 0x6000840, width: 96, height: 22, ctype: u8, symbol: aMapProceedNextCourseTex }
 
 # Retry Course (Lose 1 Arwing)
-D_MAP_6001080:
-  { type: TEXTURE, format: IA8, offset: 0x6001080, width: 96, height: 22, ctype: u8, symbol: D_MAP_6001080 }
+aMapRetryCourseLose1UPTex:
+  { type: TEXTURE, format: IA8, offset: 0x6001080, width: 96, height: 22, ctype: u8, symbol: aMapRetryCourseLose1UPTex }
 
 # Change Course
-D_MAP_60018C0:
-  { type: TEXTURE, format: IA8, offset: 0x60018C0, width: 96, height: 10, ctype: u8, symbol: D_MAP_60018C0 }
+aMapChangeCourseTex:
+  { type: TEXTURE, format: IA8, offset: 0x60018C0, width: 96, height: 10, ctype: u8, symbol: aMapChangeCourseTex }
 
 # Aquas Ocean
 D_MAP_6001C80:
@@ -155,8 +155,8 @@ aMapPrologueTextFadeTex:
 aMapVenomCloudTex: 
   { type: TEXTURE, format: IA8, offset: 0x60190B0, width: 96, height: 96, ctype: u8, symbol: aMapVenomCloudTex }
 
-D_MAP_601B4B0: 
-  { type: TEXTURE, format: IA8, offset: 0x601B4B0, width: 32, height: 32, ctype: u8, symbol: D_MAP_601B4B0 }
+aMapOptionBgTex: 
+  { type: TEXTURE, format: IA8, offset: 0x601B4B0, width: 32, height: 32, ctype: u8, symbol: aMapOptionBgTex }
 
 # Some text in japanese
 D_MAP_601B8B0: 
@@ -219,8 +219,8 @@ D_MAP_601E8F8:
 D_MAP_601E978:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601E978, symbol: D_MAP_601E978 }
 
-D_MAP_601E9A0:
-  { type: GFX, offset: 0x601E9A0, symbol: D_MAP_601E9A0 }
+aMapArea6ShipDL:
+  { type: GFX, offset: 0x601E9A0, symbol: aMapArea6ShipDL }
 
 D_MAP_601F4D0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601F4D0, symbol: D_MAP_601F4D0, tlut: 0x0601F550 }
@@ -302,12 +302,12 @@ gMapZonessTLUT:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x060323D0, symbol: gMapZonessTLUT }
 
 # Portrait of Falco
-D_MAP_6032440:
-  { type: TEXTURE, format: RGBA16, offset: 0x06032440, width: 28, height: 28, ctype: u16, symbol: D_MAP_6032440 }
+aMapRadioCharFalcoTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06032440, width: 28, height: 28, ctype: u16, symbol: aMapRadioCharFalcoTex }
 
 # Portrait of Peppy
-D_MAP_6032A60:
-  { type: TEXTURE, format: RGBA16, offset: 0x06032A60, width: 28, height: 28, ctype: u16, symbol: D_MAP_6032A60 }
+aMapRadioCharPeppyTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06032A60, width: 28, height: 28, ctype: u16, symbol: aMapRadioCharPeppyTex }
 
 # Picture of Peppy, James and Pigma used in the narrated intro.
 aMapPrologue3Tex:
@@ -338,12 +338,12 @@ aMapPrologue1Tex:
   { type: TEXTURE, format: RGBA16, offset: 0x06041A80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue1Tex }
 
 # Portrait of Slippy
-D_MAP_6044180:
-  { type: TEXTURE, format: RGBA16, offset: 0x06044180, width: 28, height: 28, ctype: u16, symbol: D_MAP_6044180 }
+aMapRadioCharSlippyTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06044180, width: 28, height: 28, ctype: u16, symbol: aMapRadioCharSlippyTex }
 
 # White Square ?
-D_MAP_60447A0:
-  { type: TEXTURE, format: RGBA16, offset: 0x060447A0, width: 8, height: 8, ctype: u16, symbol: D_MAP_60447A0 }
+aMapWhiteSquareTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x060447A0, width: 8, height: 8, ctype: u16, symbol: aMapWhiteSquareTex }
 
 # Picture of Fox receiving orders from General Pepper, used in the map (briefing)
 D_MAP_6044820:
@@ -354,11 +354,11 @@ D_MAP_6046CD0:
   { type: TEXTURE, format: RGBA16, offset: 0x06046CD0, width: 32, height: 34, ctype: u16, symbol: D_MAP_6046CD0 }
 
 # Black Square with borders.
-D_MAP_6047550:
-  { type: TEXTURE, format: RGBA16, offset: 0x06047550, width: 24, height: 24, ctype: u16, symbol: D_MAP_6047550 }
+aMapPathBoxTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06047550, width: 24, height: 24, ctype: u16, symbol: aMapPathBoxTex }
 
-D_MAP_60479D0:
-  { type: GFX, offset: 0x60479D0, symbol: D_MAP_60479D0 }
+aMapPlanetExplosionDL:
+  { type: GFX, offset: 0x60479D0, symbol: aMapPlanetExplosionDL }
 
 D_MAP_6047A68:
   { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u8, symbol: D_MAP_6047A68 }
@@ -462,11 +462,11 @@ D_MAP_604C328:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C328, symbol: D_MAP_604C328 }
 
 # Television outcoming light Model, used during briefing.
-D_MAP_604C350:
-  { type: GFX, offset: 0x604C350, symbol: D_MAP_604C350 }
+aMapTvScreenGlowDL:
+  { type: GFX, offset: 0x604C350, symbol: aMapTvScreenGlowDL }
 
-D_MAP_604C4C0:
-  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u8, symbol: D_MAP_604C4C0 }
+aMapTvScreenGlowTex:
+  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u8, symbol: aMapTvScreenGlowTex }
 
 aMapTitaniaRings1DL:
   { type: GFX, offset: 0x604C540, symbol: aMapTitaniaRings1DL }
@@ -502,8 +502,8 @@ D_MAP_604FD20:
 D_MAP_6050D20:
   { type: TEXTURE, format: IA8, offset: 0x06050D20, width: 128, height: 32, ctype: u8, symbol: D_MAP_6050D20 }
 
-D_MAP_6051D20:
-  { type: GFX, offset: 0x6051D20, symbol: D_MAP_6051D20 }
+aMapGralPepperFace2DL:
+  { type: GFX, offset: 0x6051D20, symbol: aMapGralPepperFace2DL }
 
 D_MAP_6051F20:
   { type: TEXTURE, format: RGBA16, offset: 0x06051F20, width: 64, height: 32, ctype: u16, symbol: D_MAP_6051F20 }
@@ -517,8 +517,8 @@ D_MAP_6053F20:
 D_MAP_6054F20:
   { type: TEXTURE, format: RGBA16, offset: 0x06054F20, width: 64, height: 32, ctype: u16, symbol: D_MAP_6054F20 }
 
-D_MAP_6055F20:
-  { type: GFX, offset: 0x6055F20, symbol: D_MAP_6055F20 }
+aMapGralPepperFace1DL:
+  { type: GFX, offset: 0x6055F20, symbol: aMapGralPepperFace1DL }
 
 D_MAP_6056120:
   { type: TEXTURE, format: RGBA16, offset: 0x06056120, width: 64, height: 32, ctype: u16, symbol: D_MAP_6056120 }

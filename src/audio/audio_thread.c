@@ -432,7 +432,7 @@ void AudioThread_ResetAudioHeap(s32 specId) {
 
 void AudioThread_PreNMIReset(void) {
     gAudioResetTimer = 1;
-    AudioThread_ResetAudioHeap(AUDIOSPEC_0);
+    AudioThread_ResetAudioHeap(AUDIOSPEC_CO);
     gAudioResetStep = 0;
 }
 

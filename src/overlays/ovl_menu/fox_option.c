@@ -1470,8 +1470,8 @@ void Option_Sound_Draw(void) {
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AEFA8[0], D_menu_801AEFD4[0], D_menu_801AF000,
-                           0.2f);
+    Lib_TextureRect_RGBA16(&gMasterDisp, aMapWhiteSquareTex, 8, 8, D_menu_801AEFA8[0], D_menu_801AEFD4[0],
+                           D_menu_801AF000, 0.2f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1761,7 +1761,7 @@ void Option_ExpertSound_Draw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 50, 50, 200, 255);
 
     for (i = 0; i < 4; i++) {
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, D_menu_801AF014[i], D_menu_801AF024[i],
+        Lib_TextureRect_RGBA16(&gMasterDisp, aMapWhiteSquareTex, 8, 8, D_menu_801AF014[i], D_menu_801AF024[i],
                                D_menu_801AF034[i], D_menu_801AF044[i]);
     }
 
@@ -2312,7 +2312,7 @@ void Option_RankingTotalHits_Draw(s32 rankIdx, s32 xPos, s32 yPos) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 170);
-    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, xPos, yPos, 3.17f, 1.05f);
+    Lib_TextureRect_IA8(&gMasterDisp, aMapOptionBgTex, 24, 17, xPos, yPos, 3.17f, 1.05f);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
     Graphics_DisplaySmallText(xPos, yPos, 1.0f, 1.0f, "TOTAL HITS");
@@ -2400,10 +2400,10 @@ void Option_RankingRouteFrame_Draw(s32 rankIdx, s32 routeIdx, f32 xPos, f32 yPos
                 }
             }
             gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-            Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_60447A0, 8, 8, xPos + 24.0f, yPos + 11.0f, 2.0f, 0.2f);
+            Lib_TextureRect_RGBA16(&gMasterDisp, aMapWhiteSquareTex, 8, 8, xPos + 24.0f, yPos + 11.0f, 2.0f, 0.2f);
         }
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6047550, 24, 24, xPos, yPos, 1.0f, 1.0f);
+        Lib_TextureRect_RGBA16(&gMasterDisp, aMapPathBoxTex, 24, 24, xPos, yPos, 1.0f, 1.0f);
     }
 }
 
@@ -3213,7 +3213,7 @@ void Option_VsPointMatch_Draw(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
 
-    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
+    Lib_TextureRect_IA8(&gMasterDisp, aMapOptionBgTex, 24, 17, 94.0f, 43.0f, 5.0f, 1.1f);
 
     if (sMainMenuState == 0) {
         Option_VsSelectionArrows_Draw(97.0f, 50.0f, 107.0f, 255, 255, 255);
@@ -3265,7 +3265,7 @@ void Option_VsTimeTrial_Draw(void) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 190);
 
-    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_601B4B0, 24, 17, 93.0f, 42.0f, 5.1f, 1.1f);
+    Lib_TextureRect_IA8(&gMasterDisp, aMapOptionBgTex, 24, 17, 93.0f, 42.0f, 5.1f, 1.1f);
 
     if (sMainMenuState == 0) {
         D_menu_801B9324 = 97.0f;
@@ -4118,7 +4118,7 @@ void Option_NameEntry_Draw(void) {
     Graphics_DisplayLargeNumber(D_menu_801AF30C[3] - ((HUD_CountDigits(gTotalHits) - 1) * 13), D_menu_801AF324[3],
                                 gTotalHits);
 
-    Map_801A9FD4(1);
+    Map_801A9FD4(true);
 
     Option_ScrollPlanetTexture();
 

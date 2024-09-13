@@ -218,6 +218,6 @@ void Option_InvoiceDraw(void);
 void Map_Main(void);
 void Map_Texture_Sphere(u8*, u8*, f32*);
 void Map_RemainingLives_Draw(s32, s32, s32);
-void Map_801A9FD4(s32);
+void Map_801A9FD4(bool);
 
 #endif

@@ -8,7 +8,7 @@ extern s32 D_menu_801CD968;
 extern s32 sMapState;
 extern s32 sMapSubState;
 
-void Map_801A61B4(LevelId level);
+void Map_LevelStart_AudioSpecSetup(LevelId level);
 void Map_CurrentLevel_Setup(void);
 void Map_PositionCursor(void);
 void Map_PlayLevel(void);
@@ -123,7 +123,7 @@ void Map_LevelSelect(void) {
         } else if ((sCurrentPlanetId == PLANET_AREA_6) && startOption) {
             gCurrentLevel = LEVEL_UNK_4;
         }
-        Map_801A61B4(gCurrentLevel);
+        Map_LevelStart_AudioSpecSetup(gCurrentLevel);
         sLevelStartState = 0;
         D_menu_801CD968 = 0;
         Map_PlayLevel();

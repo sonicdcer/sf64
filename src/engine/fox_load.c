@@ -179,14 +179,14 @@ u8 Load_SceneSetup(u8 sceneId, u8 sceneSetup) {
         case SCENE_LOGO:
             changeScene = Load_SceneFiles(&sNoOvl_Logo[sceneSetup]); // Logo does not load an overlay file
             if (changeScene == true) {
-                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_14);
+                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_MA);
             }
             break;
         case SCENE_CREDITS:
             changeScene = Load_SceneFiles(&sOvlending_Ending[sceneSetup]);
             break;
         default:
-            (void) "DMA MODE ERROR %d\n";
+            PRINTF("DMA MODE ERROR %d\n");
             changeScene = false;
             break;
     }

@@ -29,7 +29,7 @@ typedef struct {
     /* 0x18 */ s32 alpha;
 } PlanetPath; // size = 0x1C
 
-typedef enum {
+typedef enum PlanetAnim {
     /* 0 */ PL_ANIM_STATIC,
     /* 1 */ PL_ANIM_BILLBOARD,
     /* 2 */ PL_ANIM_ROTATE_Y,
