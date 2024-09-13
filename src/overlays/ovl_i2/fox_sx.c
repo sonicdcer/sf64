@@ -1806,11 +1806,11 @@ void SectorX_LevelComplete(Player* player) {
 
     switch (gCsFrameCount) {
         case 706:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 906:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 100:

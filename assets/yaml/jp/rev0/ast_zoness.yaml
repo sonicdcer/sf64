@@ -12,8 +12,8 @@
       - '#include "sf64player.h"'
       - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
-D_ZO_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 28, offset: 0x6000000, symbol: D_ZO_6000000}
+aZoTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 28, offset: 0x6000000, symbol: aZoTitleCardTex}
 
 D_ZO_6000C40:
   { type: GFX, offset: 0x6000C40, symbol: D_ZO_6000C40}

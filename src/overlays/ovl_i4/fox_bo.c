@@ -1653,7 +1653,7 @@ void Bolse_LevelComplete(Player* player) {
                             gPrevPlanetTeamShields[i] = 255;
                         }
                     }
-                    func_hud_80088564();
+                    HUD_Bolse_Area6_SaveData();
                 }
             }
             break;
@@ -1661,11 +1661,11 @@ void Bolse_LevelComplete(Player* player) {
 
     switch (gCsFrameCount) {
         case 400:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 600:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 620:
@@ -1852,7 +1852,7 @@ void Bolse_Effect397_Draw(Effect397* this) {
             gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->unk_44);
             Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
@@ -2054,8 +2054,8 @@ void Bolse_BoBaseShield_Update(BoBaseShield* this) {
 
     Math_SmoothStepToF(&this->fwork[0], D_BO_801A03DC * 9.0f + 10.0f, 1.0f, 10.0f, 0.0f);
 
-    Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
-    Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
+    Lib_Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
+    Lib_Texture_Scroll(aBoBaseShieldTex, 16, 16, 0);
 
     switch (this->state) {
         case 2:

@@ -109,7 +109,7 @@ void CoWaterfall_Update(CoWaterfall* this) {
     Vec3f sp24;
     Vec3f sp18;
 
-    Texture_Scroll(D_CO_60038F8, 32, 32, 1);
+    Lib_Texture_Scroll(D_CO_60038F8, 32, 32, 1);
     if ((gGameFrameCount % 4) == 0) {
         Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
 

@@ -3,7 +3,9 @@
  * System: Title
  * Description: Starfox Title Handler
  */
-// #include "prevent_bss_reordering.h"
+
+#include "prevent_bss_reordering.h"
+#include "prevent_bss_reordering2.h"
 #include "global.h"
 #include "fox_title.h"
 #include "assets/ast_title.h"
@@ -15,22 +17,22 @@ f32 D_menu_801B7BB8;
 f32 D_menu_801B7BBC;
 f32 D_menu_801B7BC0;
 f32 D_menu_801B7BC4;
-f32 D_menu_801B7BC8;
-f32 D_menu_801B7BCC;
+f32 sTitleTextPrimCol;
+f32 sTitleTextPrimColTarget;
 s32 D_menu_801B7BD0;
-s32 D_menu_801B7BD4;
+TitleLogoStates sTitleLogoState;
 s32 D_menu_801B7BD8;
-f32 D_menu_801B7BDC;
-f32 D_menu_801B7BE0;
+f32 sStarfoxLogoAlpha;
+f32 sInAlpha;
 s32 D_menu_801B7BE4;
 f32 D_menu_801B7BE8;
 s32 D_menu_801B7BEC;
-s32 D_menu_801B7BF0;
+TitleCardStates sTitleCardState;
 f32 D_menu_801B7BF8[10];
 f32 D_menu_801B7C20[10];
 f32 D_menu_801B7C48[10];
 f32 D_menu_801B7C70[10];
-s32 D_menu_801B7C98;
+s32 sMaxExplosions;
 s32 D_menu_801B7CA0[10];
 s32 D_menu_801B7CC8[10];
 s32 D_menu_801B7CF0[10];
@@ -43,30 +45,30 @@ f32 D_menu_801B7FC0[40];
 f32 D_menu_801B8060[40];
 s32 D_menu_801B8100;
 s32 D_menu_801B8108[40];
-s32 D_menu_801B81A8[10][3];
-s32 D_menu_801B8220[10];
-u8 D_menu_801B8248[10][4];
+s32 gRankingTeamAlive[10][3];
+s32 gTotalHitsRanking[10];
+u8 sRankNameEntry[10][4];
 UNK_TYPE D_menu_801B8270[3];
-s32 D_menu_801B827C;
-s32 D_menu_801B8280;
-s32 D_menu_801B8284;
-s32 D_menu_801B8288;
+bool gGoToTitle;
+bool sLevelStartState;
+s32 sWipeHeight;
+s32 sTitleRankMaxRecords;
 f32 D_menu_801B828C;
 f32 D_menu_801B8290;
 CameraPoint* D_menu_801B8294;
 s32 D_menu_801B8298;
-f32 D_menu_801B829C;
-f32 D_menu_801B82A0;
-f32 D_menu_801B82A4;
-s32 D_menu_801B82A8;
-s32 D_menu_801B82AC;
+f32 sTitleCamUpX;
+f32 sTitleCamUpY;
+f32 sTitleCamUpZ;
+s32 sTimer1;
+s32 sTimer2;
 s32 D_menu_801B82B0;
-s32 D_menu_801B82B4;
-s32 D_menu_801B82B8;
+s32 sTimer3;
+s32 sTitleMsgFrameCount;
 s32 D_menu_801B82BC;
-s32 D_menu_801B82C0;
-s32 D_menu_801B82C4;
-f32 D_menu_801B82C8;
+s32 sSceneState;
+s32 sCutsceneState;
+f32 sPassageWayZoffset;
 f32 D_menu_801B82CC;
 f32 D_menu_801B82D0;
 f32 D_menu_801B82D4;
@@ -90,24 +92,24 @@ s32 D_menu_801B8318;
 s32 D_menu_801B831C;
 s32 D_menu_801B8320;
 s32 D_menu_801B8324;
-f32 D_menu_801B8328;
-f32 D_menu_801B832C;
-f32 D_menu_801B8330;
+f32 sAmbientR;
+f32 sAmbientG;
+f32 sAmbientB;
 s32 D_menu_801B8334;
 bool D_menu_801B8338;
-f32 D_menu_801B833C;
-s32 D_menu_801B8340;
-s32 D_menu_801B8344;
-s32 D_menu_801B8348;
-UnkStruct_D_801B8350 D_menu_801B8350[4];
+f32 D_menu_801B833C; // Set but never unused
+TitleTeam D_menu_801B8340;
+bool sDrawTeamName;
+bool D_menu_801B8348;
+TitleTeamInfo sTitleTeam[4];
 f32 D_menu_801B84D0;
 f32 D_menu_801B84D4;
 f32 D_menu_801B84D8[3];
-UnkStruct_D_menu_801B84E8 D_menu_801B84E8[4];
-UnkStruct_D_menu_801B8658 D_menu_801B8658;
-UnkStruct_D_menu_801B8688 D_menu_801B8688;
+TitleArwingInfo sTitleArwing[4];
+TitleGreatFoxInfo sTitleGreatFox;
+TitleCorneria sTitleCorneria;
 s32 D_menu_801B869C;
-s32 D_menu_801B86A0;
+bool sDrawTakeOffSpace;
 s32 D_menu_801B86A4;
 f32 D_menu_801B86A8;
 f32 D_menu_801B86AC;
@@ -123,14 +125,14 @@ f32 D_menu_801B86D0;
 f32 D_menu_801B86D4;
 f32 D_menu_801B86D8;
 f32 D_menu_801B86DC;
-Vec3f D_menu_801B86E0[4][50];
-s32 D_menu_801B9040;
-f32 D_menu_801B9044;
+Vec3f sCharFrameTable[4][50];
+bool D_menu_801B9040;
+f32 sTitleDeckLauncherZpos;
 f32 D_menu_801B9048;
 f32 D_menu_801B904C;
 f32 D_menu_801B9050;
-f32 D_menu_801B9054;
-f32 D_menu_801B9058;
+f32 sTitleStarfoxLogoXpos;
+f32 sTitleStarfoxLogoYpos;
 f32 D_menu_801B905C;
 f32 D_menu_801B9060;
 f32 D_menu_801B9064;
@@ -143,34 +145,25 @@ f32 D_menu_801B907C;
 f32 D_menu_801B9080;
 f32 D_menu_801B9084;
 
-typedef struct {
-    /* 0x00 */ Animation* unk_0;
-    /* 0x04 */ Animation* unk_4;
-    /* 0x08 */ Limb** skeleton;
-} TitleAnimation; // size = 0x0C
-
-TitleAnimation D_menu_801ADA00[4] = {
-    { &D_TITLE_602F8E0, &D_TITLE_6035024, D_TITLE_602FBAC },
-    { &D_TITLE_60305C0, &D_TITLE_60338DC, D_TITLE_603088C },
-    { &D_TITLE_6031DB8, &D_TITLE_603531C, D_TITLE_6032084 },
-    { &D_TITLE_6031120, &D_TITLE_6036278, D_TITLE_60313AC },
+TitleAnimation sTeamAnim[4] = {
+    { &aFoxRunningAnim, &aFoxAnim, aFoxSkel },
+    { &aFalcoRunningAnim, &aFalcoAnim, aFalcoSkel },
+    { &aPeppyRunningAnim, &aPeppyAnim, aPeppySkel },
+    { &aSlippyRunningAnim, &aSlippyAnim, aSlippySkel },
 };
 
-u16* D_menu_801ADA30[5] = {
+u16* sGralPepperMsg[5] = {
     gMsg_ID_10, gMsg_ID_20, gMsg_ID_30, gMsg_ID_40, gMsg_ID_50,
 };
 
-void Title_Init(void) {
+void Title_Setup(void) {
     gVIsPerFrame = 2;
-
     gGameFrameCount = 0;
-
-    gTitleState = 2;
-
+    gTitleState = TITLE_UPDATE_ENTRY;
     gLastGameState = GSTATE_NONE;
     D_game_800D2870 = false;
 
-    gMainController = Title_80187ABC();
+    gMainController = Title_CheckControllers();
 
     gFillScreenRed = 0;
     gFillScreenGreen = 0;
@@ -183,17 +176,17 @@ void Title_Init(void) {
 
     gBgColor = 0;
 
-    D_menu_801B8284 = 0;
-    D_menu_801B82A8 = 0;
-    D_menu_801B82AC = 0;
+    sWipeHeight = 0;
+    sTimer1 = 0;
+    sTimer2 = 0;
 
-    D_menu_801B833C = 0.0f;
+    D_menu_801B833C = 0;
 
-    D_menu_801B82C0 = 0;
-    D_menu_801B8280 = 0;
+    sSceneState = 0;
+    sLevelStartState = false;
 
-    D_menu_801B7BCC = 255.0f;
-    D_menu_801B7BC8 = 255.0f;
+    sTitleTextPrimColTarget = 255.0f;
+    sTitleTextPrimCol = 255.0f;
 
     Memory_FreeAll();
 
@@ -201,34 +194,34 @@ void Title_Init(void) {
     gStarfieldX = SCREEN_WIDTH;
     gStarfieldY = SCREEN_HEIGHT;
 
-    Title_80188010();
+    Title_GetRankTotalHits();
 
-    if ((gMainController == -1) || (D_menu_801B827C != 0)) {
+    if ((gMainController == -1) || gGoToTitle) {
         AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
-        D_menu_801B82C4 = 0;
-        D_menu_801B827C = 0;
+        sCutsceneState = TITLE_SCREEN;
+        gGoToTitle = false;
     } else {
         AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_22);
-        D_menu_801B82C4 = 1;
+        sCutsceneState = TITLE_GREAT_FOX_TRAVELING;
     }
     gControllerLock = 30;
 }
 
 void Title_Main(void) {
     switch (gTitleState) {
-        case 0:
+        case TITLE_IDLE:
             if (gNextGameStateTimer == 0) {
                 gDrawMode = DRAW_NONE;
-                gTitleState = 1;
+                gTitleState = TITLE_SETUP;
             }
             break;
 
-        case 1:
+        case TITLE_SETUP:
             gDrawMode = DRAW_NONE;
-            Title_Init();
+            Title_Setup();
             break;
 
-        case 2:
+        case TITLE_UPDATE_ENTRY:
             gDrawMode = DRAW_TITLE;
             Title_UpdateEntry();
             break;
@@ -237,115 +230,133 @@ void Title_Main(void) {
 }
 
 void Title_UpdateEntry(void) {
-    if (D_menu_801B82A8 > 0) {
-        D_menu_801B82A8--;
+    if (sTimer1 > 0) {
+        sTimer1--;
+    }
+    if (sTimer2 > 0) {
+        sTimer2--;
     }
 
-    if (D_menu_801B82AC > 0) {
-        D_menu_801B82AC--;
-    }
-
-    switch (D_menu_801B82C4) {
-        case 7:
-            Title_80187B00();
+    switch (sCutsceneState) {
+        case TITLE_RANKING:
+            Title_Ranking_Update();
             break;
-        case 0:
-            Title_801888E8();
-            Title_8019111C();
+        case TITLE_SCREEN:
+            Title_Screen_Update();
+            Title_Screen_Input();
             break;
-        case 1:
-            Title_8018994C();
+        case TITLE_GREAT_FOX_TRAVELING:
+            Title_CsGreatFoxTraveling_Update();
             break;
-        case 2:
-            Title_8018A644();
+        case TITLE_CS_TEAM_RUNNING:
+            Title_CsTeamRunning_Update();
             break;
-        case 3:
-            Title_8018ACEC();
+        case TITLE_GREAT_FOX_CLOSE_UP:
+            Title_CsGreatFoxCloseUp_Update();
             break;
-        case 4:
-            Title_8018B5C4();
+        case TITLE_TAKE_OFF:
+            Title_CsTakeOff_Update();
             break;
-        case 5:
-            Title_8018C644();
+        case TITLE_TAKE_OFF_SPACE:
+            Title_CsTakeOffSpace_Update();
             break;
     }
-    Title_80190E64();
+    Title_NextState_Check();
 }
 
 void Title_Draw(void) {
-    switch (D_menu_801B82C4) {
-        case 7:
-            Title_80187CA8();
+    switch (sCutsceneState) {
+        case TITLE_RANKING:
+            Title_Ranking_Draw();
             break;
 
-        case 0:
-            Title_801918FC();
-            Title_80189208();
+        case TITLE_SCREEN:
+            Title_Matrix_Push();
+            Title_Screen_Draw();
+
             Matrix_Pop(&gGfxMatrix);
-            Title_8018F680();
-            Title_8018F85C();
-            Title_8018FC14();
-            Title_8018F8E4();
-            Title_801918FC();
-            Title_8018F77C();
+
+            Title_StarfoxLogo_Draw();
+            Title_CopyrightSymbol_Draw();
+            Title_Copyright_Draw();
+            Title_PressStart_Draw();
+            Title_Matrix_Push();
+            Title_64Logo_Draw();
+
             Matrix_Pop(&gGfxMatrix);
             break;
 
-        case 1:
-            if (D_menu_801B8348 != 0) {
-                Title_801918FC();
-                Title_8018A2F8();
+        case TITLE_GREAT_FOX_TRAVELING:
+            if (D_menu_801B8348) {
+                Title_Matrix_Push();
+                Title_CsGreatFoxTraveling_Draw();
+
                 Matrix_Pop(&gGfxMatrix);
+
                 Radio_Draw();
-                Title_80190C9C();
+                Title_TitleCard_Draw();
             }
-            Title_8018FF74();
-            Title_801906A0();
+            Title_SunGlare_Draw();
+            Title_Logos_Draw();
             break;
 
-        case 2:
-            Title_801918FC();
-            Title_8018A990();
+        case TITLE_CS_TEAM_RUNNING:
+            Title_Matrix_Push();
+            Title_CsTeamRunning_Draw();
+
             Matrix_Pop(&gGfxMatrix);
-            if (D_menu_801B8344 != 0) {
-                Title_8018FD08();
+
+            if (sDrawTeamName) {
+                Title_TeamName_Draw();
             }
             break;
 
-        case 3:
-            Title_801918FC();
-            Title_8018B038();
+        case TITLE_GREAT_FOX_CLOSE_UP:
+            Title_Matrix_Push();
+
+            Title_CsGreatFoxCloseUp_Draw();
+
             Matrix_Pop(&gGfxMatrix);
             break;
 
-        case 4:
-            Title_801918FC();
-            Title_8018C114();
+        case TITLE_TAKE_OFF:
+            Title_Matrix_Push();
+            Title_CsTakeOff_Draw();
+
             Matrix_Pop(&gGfxMatrix);
-            Title_80190C9C();
+
+            Title_TitleCard_Draw();
             break;
 
-        case 5:
-            Title_801918FC();
-            Title_8018CB90();
+        case TITLE_TAKE_OFF_SPACE:
+            Title_Matrix_Push();
+
+            Title_CsTakeOffSpace_Draw();
+
             Matrix_Pop(&gGfxMatrix);
             break;
     }
 
-    if (D_menu_801B8284 != 0) {
+    if (sWipeHeight != 0) {
         gFillScreenAlpha = 0;
         gFillScreenRed = 0;
         gFillScreenGreen = 0;
         gFillScreenBlue = 0;
-        Wipe_Draw(WIPE_VERTICAL, D_menu_801B8284);
+        Wipe_Draw(WIPE_VERTICAL, sWipeHeight);
     }
+#if 0
+    // @decomp Debug:
+    RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+    Graphics_DisplaySmallNumber(80, 220, sSceneState);
+#endif
 }
 
-s32 Title_80187ABC(void) {
-    s32 ret = -1;
+s32 Title_CheckControllers(void) {
+    s32 ret = -1; // No controller
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < ARRAY_COUNT(gControllerPlugged); i++) {
         if (gControllerPlugged[i] == 1) {
             ret = i;
             break;
@@ -355,14 +366,14 @@ s32 Title_80187ABC(void) {
     return ret;
 }
 
-void Title_80187B00(void) {
-    switch (D_menu_801B82C0) {
+void Title_Ranking_Update(void) {
+    switch (sSceneState) {
         case 0:
-            D_menu_801B8288 = 0;
+            sTitleRankMaxRecords = 0;
             gStarCount = 800;
             D_menu_801B82BC = 450;
-            D_menu_801B82C0++;
-            D_menu_801B82A8 = 20;
+            sSceneState++;
+            sTimer1 = 20;
             break;
 
         case 1:
@@ -376,49 +387,50 @@ void Title_80187B00(void) {
             } else {
                 gStarCount = 0;
                 gRadioState = 0;
-                D_menu_801B82C0 = 0;
+                sSceneState = 0;
                 gDrawMode = DRAW_NONE;
                 AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_22);
-                D_menu_801B82C4 = 1;
+                sCutsceneState = TITLE_GREAT_FOX_TRAVELING;
             }
 
-            if (D_menu_801B8288 == 10) {
+            if (sTitleRankMaxRecords == 10) {
                 D_menu_801B82BC--;
             }
             break;
     }
 
-    if ((D_menu_801B82A8 == 0) && ((gGameFrameCount % 8U) == 7) && (D_menu_801B8288 < 10)) {
-        D_menu_801B8288++;
+    if ((sTimer1 == 0) && ((gGameFrameCount % 8U) == 7) && (sTitleRankMaxRecords < 10)) {
+        sTitleRankMaxRecords++;
     }
 }
 
-void Title_80187CA8(void) {
-    static char D_menu_801ADA44[] = "S T A R F O X     R A N K I N G";
-    s32 temp = 20;
-    s32 temp2 = 36;
+void Title_Ranking_Draw(void) {
+    static char sSTARFOX_RANKING[] = "S T A R F O X     R A N K I N G";
+    s32 yPos = 20;
+    s32 xPos = 36;
 
+    // Ranking header
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-
-    Graphics_DisplaySmallText(temp2, temp, 1.0f, 1.0f, D_menu_801ADA44);
+    Graphics_DisplaySmallText(xPos, yPos, 1.0f, 1.0f, sSTARFOX_RANKING);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-
-    TextureRect_IA8(&gMasterDisp, aSmallText_6, 16, 8, 148.0f, temp, 1.0f, 1.0f);
-    TextureRect_IA8(&gMasterDisp, aSmallText_4, 16, 8, 164, temp, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, aSmallText_6, 16, 8, 148.0f, yPos, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, aSmallText_4, 16, 8, 164, yPos, 1.0f, 1.0f);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    TextureRect_IA8(&gMasterDisp, &aTextKanjiCOMPLETE[48 * 6], 16, 2, 36, 32, 15.2f, 1.0f);
-    Title_80187E28();
+    // This Kanji texture was used to draw a white line.
+    Lib_TextureRect_IA8(&gMasterDisp, &aTextKanjiCOMPLETE[288], 16, 2, 36, 32, 15.2f, 1.0f);
+
+    Title_RankingData_Draw();
 }
 
-void Title_80187E28(void) {
-    s32 temp;
+void Title_RankingData_Draw(void) {
+    s32 yPos;
     s32 i;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
@@ -428,76 +440,73 @@ void Title_80187E28(void) {
     Graphics_DisplaySmallText(94, 38, 1.0f, 1.0f, "RANK");
     Graphics_DisplaySmallText(146, 38, 1.0f, 1.0f, "NAME");
     Graphics_DisplaySmallText(192, 38, 1.0f, 1.0f, "HITS");
-    temp = 55;
 
-    for (i = 0; i < D_menu_801B8288; i++) {
+    for (yPos = 55, i = 0; i < sTitleRankMaxRecords; i++) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-
-        Graphics_DisplaySmallNumber(105 - ((func_hud_8008BCBC(i + 1) - 1) * 8), temp, i + 1);
+        Graphics_DisplaySmallNumber(105 - ((HUD_CountDigits(i + 1) - 1) * 8), yPos, i + 1);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-
-        Graphics_DisplaySmallText(150, temp, 1.0f, 1.0f, &D_menu_801B8248[i][0]);
+        Graphics_DisplaySmallText(150, yPos, 1.0f, 1.0f, &sRankNameEntry[i][0]);
 
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-
-        Graphics_DisplaySmallNumber(211 - ((func_hud_8008BCBC(D_menu_801B8220[i]) - 1) * 8), temp, D_menu_801B8220[i]);
-        temp += 17;
+        Graphics_DisplaySmallNumber(211 - ((HUD_CountDigits(gTotalHitsRanking[i]) - 1) * 8), yPos,
+                                    gTotalHitsRanking[i]);
+        yPos += 17;
     }
 }
 
-s32 Title_80188010(void) {
-    s32 temp1;
-    s32 temp2;
-    s32 temp3;
+s32 Title_GetRankTotalHits(void) {
+    s32 rankTotalHits;
+    s32 hitCount;
+    s32 rankingRoute;
     s32 i;
     s32 j;
 
-    for (i = 0; i < 10; i++) {
-        D_menu_801B8220[i] = 0;
+    for (i = 0; i < RANKING_MAX; i++) {
+        gTotalHitsRanking[i] = 0;
         for (j = 0; j < 3; j++) {
-            D_menu_801B81A8[i][j] = 0;
+            gRankingTeamAlive[i][j] = 0;
         }
     }
 
-    for (i = 0; i < 10; i++) {
-        D_menu_801B8248[i][0] = gSaveFile.save.data.unk_18[i][0] & 0xFF;
-        D_menu_801B8248[i][1] = gSaveFile.save.data.unk_18[i][1] & 0xFF;
-        D_menu_801B8248[i][2] = gSaveFile.save.data.unk_18[i][2] & 0xFF;
-        D_menu_801B8248[i][3] = '\0';
+    for (i = 0; i < RANKING_MAX; i++) {
+        sRankNameEntry[i][0] = gSaveFile.save.data.rankNameEntry[i][0] & 0xFF;
+        sRankNameEntry[i][1] = gSaveFile.save.data.rankNameEntry[i][1] & 0xFF;
+        sRankNameEntry[i][2] = gSaveFile.save.data.rankNameEntry[i][2] & 0xFF;
+        sRankNameEntry[i][3] = '\0';
 
-        temp3 = gSaveFile.save.data.unk_36[i];
+        rankingRoute = gSaveFile.save.data.rankingRoute[i];
 
-        for (j = 0; j < temp3; j++) {
-            temp2 = gSaveFile.save.data.unk_5E[i][j].unk_0;
-            temp2 |= (gSaveFile.save.data.unk_5E[i][j].unk_C & 1) * 256;
+        for (j = 0; j < rankingRoute; j++) {
+            hitCount = gSaveFile.save.data.stats[i][j].hitCount;
+            hitCount |= (gSaveFile.save.data.stats[i][j].unk_C & 1) << 8;
 
-            D_menu_801B8220[i] += temp2;
+            gTotalHitsRanking[i] += hitCount;
 
-            D_menu_801B81A8[i][0] += gSaveFile.save.data.unk_5E[i][j].unk_D & 1;
-            D_menu_801B81A8[i][1] += gSaveFile.save.data.unk_5E[i][j].unk_F & 1;
-            D_menu_801B81A8[i][2] += gSaveFile.save.data.unk_5E[i][j].unk_E & 1;
+            gRankingTeamAlive[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
+            gRankingTeamAlive[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
+            gRankingTeamAlive[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;
         }
     }
 
-    temp1 = D_menu_801B8220[0];
+    rankTotalHits = gTotalHitsRanking[0];
 
-    for (i = 1; i < 10; i++) {
-        if (temp1 < D_menu_801B8220[i]) {
-            temp1 = D_menu_801B8220[i];
+    for (i = 1; i < RANKING_MAX; i++) {
+        if (rankTotalHits < gTotalHitsRanking[i]) {
+            rankTotalHits = gTotalHitsRanking[i];
         }
     }
 
-    return temp1;
+    return rankTotalHits;
 }
 
-void Title_801881FC(void) {
-    bool var_a1 = true;
+void Title_Screen_Setup(void) {
+    bool allExpertMedals = true;
     s32 i;
 
-    for (i = 0; i < 16; i++) {
-        if ((i != 14) && (!(gSaveFile.save.data.planet[i].expertMedal & 1))) {
-            var_a1 = false;
+    for (i = 0; i < ARRAY_COUNT(gSaveFile.save.data.planet); i++) {
+        if ((i != SAVE_SLOT_VENOM_1) && ((gSaveFile.save.data.planet[i].expertMedal & 1) == 0)) {
+            allExpertMedals = false;
             break;
         }
     }
@@ -527,8 +536,8 @@ void Title_801881FC(void) {
     D_menu_801B831C = 6;
     D_menu_801B8320 = 1;
     D_menu_801B8324 = 11;
-    D_menu_801B9054 = 26.0f;
-    D_menu_801B9058 = 37.0f;
+    sTitleStarfoxLogoXpos = 26.0f;
+    sTitleStarfoxLogoYpos = 37.0f;
     D_menu_801B9068 = 1.5f;
     D_menu_801B906C = 3.0f;
     D_menu_801B905C = 124.0f;
@@ -548,160 +557,164 @@ void Title_801881FC(void) {
     gCsCamAtY = 180.0f;
     gCsCamAtZ = 0.0f;
 
-    D_menu_801B829C = 0.0f;
-    D_menu_801B82A0 = 1.0f;
-    D_menu_801B82A4 = 0.0f;
+    sTitleCamUpX = 0.0f;
+    sTitleCamUpY = 1.0f;
+    sTitleCamUpZ = 0.0f;
 
     D_menu_801B84D4 = 0.5f;
 
-    D_menu_801B84E8[0].unk_00.x = -80.0f;
-    D_menu_801B84E8[0].unk_00.y = 220.0f;
-    D_menu_801B84E8[0].unk_00.z = -360.0f;
-    D_menu_801B84E8[0].unk_0C = 4.0f;
-    D_menu_801B84E8[0].unk_18 = 35.0f;
-    D_menu_801B84E8[0].unk_1C = -90.0f;
-    D_menu_801B84E8[0].unk_20 = -15.0f;
-    D_menu_801B84E8[0].unk_24 = 0.0f;
-    D_menu_801B84E8[0].unk_28 = 0.0f;
-    D_menu_801B84E8[0].unk_2C = 0.0f;
-    D_menu_801B84E8[0].unk_30 = 0.0f;
-    D_menu_801B84E8[0].unk_34 = 1;
-    D_menu_801B84E8[0].unk_3C = 0;
-    D_menu_801B84E8[0].unk_40 = 0;
-    D_menu_801B84E8[0].unk_48 = 0;
+    sTitleArwing[TEAM_FOX].pos.x = -80.0f;
+    sTitleArwing[TEAM_FOX].pos.y = 220.0f;
+    sTitleArwing[TEAM_FOX].pos.z = -360.0f;
+    sTitleArwing[TEAM_FOX].scale = 4.0f;
+    sTitleArwing[TEAM_FOX].xRot = 35.0f;
+    sTitleArwing[TEAM_FOX].yRot = -90.0f;
+    sTitleArwing[TEAM_FOX].zRot = -15.0f;
+    sTitleArwing[TEAM_FOX].cockpitGlassXrot = 0.0f;
+    sTitleArwing[TEAM_FOX].laserGunsYpos = 0.0f;
+    sTitleArwing[TEAM_FOX].teamFaceXrot = 0.0f;
+    sTitleArwing[TEAM_FOX].teamFaceYrot = 0.0f;
+    sTitleArwing[TEAM_FOX].drawFace = 1;
+    sTitleArwing[TEAM_FOX].unk_3C = 0;
+    sTitleArwing[TEAM_FOX].unk_40 = 0;
+    sTitleArwing[TEAM_FOX].drawShadow = 0;
 
-    if (var_a1) {
-        D_menu_801B8350[0].unk_00.x = -299.0f;
-        D_menu_801B8350[0].unk_00.y = -32.0f;
-        D_menu_801B8350[0].unk_00.z = 90.0f;
-        D_menu_801B8350[0].unk_48 = -9.660022f;
-        D_menu_801B8350[0].unk_4C = 60.330208f;
-        D_menu_801B8350[0].unk_50 = 0.00f;
+    if (allExpertMedals) {
+        sTitleTeam[TEAM_FOX].pos.x = -299.0f;
+        sTitleTeam[TEAM_FOX].pos.y = -32.0f;
+        sTitleTeam[TEAM_FOX].pos.z = 90.0f;
+        sTitleTeam[TEAM_FOX].unk_48 = -9.660022f;
+        sTitleTeam[TEAM_FOX].unk_4C = 60.330208f;
+        sTitleTeam[TEAM_FOX].unk_50 = 0.00f;
     } else {
-        D_menu_801B8350[0].unk_00.x = 33.00f;
-        D_menu_801B8350[0].unk_00.y = 23.00f;
-        D_menu_801B8350[0].unk_00.z = 4.00f;
-        D_menu_801B8350[0].unk_48 = -7.800007f;
-        D_menu_801B8350[0].unk_4C = 0.589999f;
-        D_menu_801B8350[0].unk_50 = 0.00f;
+        sTitleTeam[TEAM_FOX].pos.x = 33.00f;
+        sTitleTeam[TEAM_FOX].pos.y = 23.00f;
+        sTitleTeam[TEAM_FOX].pos.z = 4.00f;
+        sTitleTeam[TEAM_FOX].unk_48 = -7.800007f;
+        sTitleTeam[TEAM_FOX].unk_4C = 0.589999f;
+        sTitleTeam[TEAM_FOX].unk_50 = 0.00f;
     }
-    D_menu_801B8350[0].unk_30 = 0.0f;
-    D_menu_801B8350[0].unk_34 = 0.0f;
-    D_menu_801B8350[0].unk_28 = 0.0f;
-    D_menu_801B8350[0].unk_2C = 0.0f;
-    D_menu_801B8350[0].unk_14 = 150.0f;
-    D_menu_801B8350[0].unk_18 = 0.0f;
-    D_menu_801B8350[0].unk_1C = 1.0f;
-    D_menu_801B8350[0].unk_20 = 0.0f;
-    D_menu_801B8350[0].unk_24 = 0.0f;
-    D_menu_801B8350[0].unk_54 = 0;
-    D_menu_801B8350[0].unk_38 = 0.0f;
-    D_menu_801B8350[0].unk_3C = 0.0f;
-    D_menu_801B8350[0].unk_40 = 0.0f;
-    D_menu_801B8350[0].unk_44 = 0.0f;
-    D_menu_801B8350[0].unk_58 = 0;
-    D_menu_801B8350[0].unk_5C = 0;
 
-    if (var_a1) {
-        D_menu_801B8350[1].unk_00.x = -42.0f;
-        D_menu_801B8350[1].unk_00.y = -7.0f;
-        D_menu_801B8350[1].unk_00.z = -12.0f;
-        D_menu_801B8350[1].unk_48 = -2.009996f;
-        D_menu_801B8350[1].unk_4C = 56.90997f;
-        D_menu_801B8350[1].unk_50 = 0.00f;
+    sTitleTeam[TEAM_FOX].unk_30 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_34 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_28 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_2C = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_14 = 150.0f;
+    sTitleTeam[TEAM_FOX].unk_18 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_1C = 1.0f;
+    sTitleTeam[TEAM_FOX].unk_20 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_24 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_54 = false;
+    sTitleTeam[TEAM_FOX].unk_38 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_3C = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_40 = 0.0f;
+    sTitleTeam[TEAM_FOX].unk_44 = 0.0f;
+    sTitleTeam[TEAM_FOX].frameCount = 0;
+    sTitleTeam[TEAM_FOX].unk_5C = 0;
+
+    if (allExpertMedals) {
+        sTitleTeam[TEAM_FALCO].pos.x = -42.0f;
+        sTitleTeam[TEAM_FALCO].pos.y = -7.0f;
+        sTitleTeam[TEAM_FALCO].pos.z = -12.0f;
+        sTitleTeam[TEAM_FALCO].unk_48 = -2.009996f;
+        sTitleTeam[TEAM_FALCO].unk_4C = 56.90997f;
+        sTitleTeam[TEAM_FALCO].unk_50 = 0.00f;
     } else {
-        D_menu_801B8350[1].unk_00.x = 147.0f;
-        D_menu_801B8350[1].unk_00.y = 18.0f;
-        D_menu_801B8350[1].unk_00.z = -32.0f;
-        D_menu_801B8350[1].unk_48 = -6.009995f;
-        D_menu_801B8350[1].unk_4C = 22.620012f;
-        D_menu_801B8350[1].unk_50 = 0.00f;
+        sTitleTeam[TEAM_FALCO].pos.x = 147.0f;
+        sTitleTeam[TEAM_FALCO].pos.y = 18.0f;
+        sTitleTeam[TEAM_FALCO].pos.z = -32.0f;
+        sTitleTeam[TEAM_FALCO].unk_48 = -6.009995f;
+        sTitleTeam[TEAM_FALCO].unk_4C = 22.620012f;
+        sTitleTeam[TEAM_FALCO].unk_50 = 0.00f;
     }
-    D_menu_801B8350[1].unk_30 = 0.0f;
-    D_menu_801B8350[1].unk_34 = 0.0f;
-    D_menu_801B8350[1].unk_28 = 0.0f;
-    D_menu_801B8350[1].unk_2C = 0.0f;
-    D_menu_801B8350[1].unk_14 = 180.0f;
-    D_menu_801B8350[1].unk_18 = 0.0f;
-    D_menu_801B8350[1].unk_1C = 1.0f;
-    D_menu_801B8350[1].unk_20 = 0.0f;
-    D_menu_801B8350[1].unk_24 = -4.0f;
-    D_menu_801B8350[1].unk_54 = 0;
-    D_menu_801B8350[1].unk_38 = 0.0f;
-    D_menu_801B8350[1].unk_3C = 0.0f;
-    D_menu_801B8350[1].unk_40 = 0.0f;
-    D_menu_801B8350[1].unk_44 = 0.0f;
-    D_menu_801B8350[1].unk_58 = 0;
-    D_menu_801B8350[1].unk_5C = 0;
 
-    if (var_a1) {
-        D_menu_801B8350[2].unk_00.x = 90.0f;
-        D_menu_801B8350[2].unk_00.y = 1.00f;
-        D_menu_801B8350[2].unk_00.z = -143.0f;
-        D_menu_801B8350[2].unk_48 = -0.500016f;
-        D_menu_801B8350[2].unk_4C = -33.31999f;
-        D_menu_801B8350[2].unk_50 = 0.00f;
+    sTitleTeam[TEAM_FALCO].unk_30 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_34 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_28 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_2C = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_14 = 180.0f;
+    sTitleTeam[TEAM_FALCO].unk_18 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_1C = 1.0f;
+    sTitleTeam[TEAM_FALCO].unk_20 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_24 = -4.0f;
+    sTitleTeam[TEAM_FALCO].unk_54 = false;
+    sTitleTeam[TEAM_FALCO].unk_38 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_3C = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_40 = 0.0f;
+    sTitleTeam[TEAM_FALCO].unk_44 = 0.0f;
+    sTitleTeam[TEAM_FALCO].frameCount = 0;
+    sTitleTeam[TEAM_FALCO].unk_5C = 0;
+
+    if (allExpertMedals) {
+        sTitleTeam[TEAM_PEPPY].pos.x = 90.0f;
+        sTitleTeam[TEAM_PEPPY].pos.y = 1.00f;
+        sTitleTeam[TEAM_PEPPY].pos.z = -143.0f;
+        sTitleTeam[TEAM_PEPPY].unk_48 = -0.500016f;
+        sTitleTeam[TEAM_PEPPY].unk_4C = -33.31999f;
+        sTitleTeam[TEAM_PEPPY].unk_50 = 0.00f;
     } else {
-        D_menu_801B8350[2].unk_00.x = -143.0f;
-        D_menu_801B8350[2].unk_00.y = 22.00f;
-        D_menu_801B8350[2].unk_00.z = -57.0f;
-        D_menu_801B8350[2].unk_48 = -5.950006f;
-        D_menu_801B8350[2].unk_4C = -7.689997f;
-        D_menu_801B8350[2].unk_50 = 0.00f;
+        sTitleTeam[TEAM_PEPPY].pos.x = -143.0f;
+        sTitleTeam[TEAM_PEPPY].pos.y = 22.00f;
+        sTitleTeam[TEAM_PEPPY].pos.z = -57.0f;
+        sTitleTeam[TEAM_PEPPY].unk_48 = -5.950006f;
+        sTitleTeam[TEAM_PEPPY].unk_4C = -7.689997f;
+        sTitleTeam[TEAM_PEPPY].unk_50 = 0.00f;
     }
-    D_menu_801B8350[2].unk_30 = 0.0f;
-    D_menu_801B8350[2].unk_34 = 0.0f;
-    D_menu_801B8350[2].unk_28 = 0.0f;
-    D_menu_801B8350[2].unk_2C = 0.0f;
-    D_menu_801B8350[2].unk_14 = 130.0f;
-    D_menu_801B8350[2].unk_18 = 0.0f;
-    D_menu_801B8350[2].unk_1C = 1.0f;
-    D_menu_801B8350[2].unk_20 = 0.0f;
-    D_menu_801B8350[2].unk_24 = 0.0f;
-    D_menu_801B8350[2].unk_54 = 0;
-    D_menu_801B8350[2].unk_38 = 0.0f;
-    D_menu_801B8350[2].unk_3C = 0.0f;
-    D_menu_801B8350[2].unk_40 = 0.0f;
-    D_menu_801B8350[2].unk_44 = 0.0f;
-    D_menu_801B8350[2].unk_58 = 0;
-    D_menu_801B8350[2].unk_5C = 0;
 
-    if (var_a1) {
-        D_menu_801B8350[3].unk_00.x = 58.0f;
-        D_menu_801B8350[3].unk_00.y = -5.0f;
-        D_menu_801B8350[3].unk_00.z = 22.00f;
-        D_menu_801B8350[3].unk_48 = -17.899979f;
-        D_menu_801B8350[3].unk_4C = -8.890011f;
-        D_menu_801B8350[3].unk_50 = 0.00f;
+    sTitleTeam[TEAM_PEPPY].unk_30 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_34 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_28 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_2C = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_14 = 130.0f;
+    sTitleTeam[TEAM_PEPPY].unk_18 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_1C = 1.0f;
+    sTitleTeam[TEAM_PEPPY].unk_20 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_24 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_54 = false;
+    sTitleTeam[TEAM_PEPPY].unk_38 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_3C = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_40 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].unk_44 = 0.0f;
+    sTitleTeam[TEAM_PEPPY].frameCount = 0;
+    sTitleTeam[TEAM_PEPPY].unk_5C = 0;
+
+    if (allExpertMedals) {
+        sTitleTeam[TEAM_SLIPPY].pos.x = 58.0f;
+        sTitleTeam[TEAM_SLIPPY].pos.y = -5.0f;
+        sTitleTeam[TEAM_SLIPPY].pos.z = 22.00f;
+        sTitleTeam[TEAM_SLIPPY].unk_48 = -17.899979f;
+        sTitleTeam[TEAM_SLIPPY].unk_4C = -8.890011f;
+        sTitleTeam[TEAM_SLIPPY].unk_50 = 0.00f;
     } else {
-        D_menu_801B8350[3].unk_00.x = -50.0f;
-        D_menu_801B8350[3].unk_00.y = 25.0f;
-        D_menu_801B8350[3].unk_00.z = 15.0f;
-        D_menu_801B8350[3].unk_48 = -15.870002f;
-        D_menu_801B8350[3].unk_4C = -17.549995f;
-        D_menu_801B8350[3].unk_50 = 0.00f;
+        sTitleTeam[TEAM_SLIPPY].pos.x = -50.0f;
+        sTitleTeam[TEAM_SLIPPY].pos.y = 25.0f;
+        sTitleTeam[TEAM_SLIPPY].pos.z = 15.0f;
+        sTitleTeam[TEAM_SLIPPY].unk_48 = -15.870002f;
+        sTitleTeam[TEAM_SLIPPY].unk_4C = -17.549995f;
+        sTitleTeam[TEAM_SLIPPY].unk_50 = 0.00f;
     }
-    D_menu_801B8350[3].unk_30 = 0.0f;
-    D_menu_801B8350[3].unk_34 = 0.0f;
-    D_menu_801B8350[3].unk_28 = 0.0f;
-    D_menu_801B8350[3].unk_2C = 0.0f;
-    D_menu_801B8350[3].unk_14 = 140.0f;
-    D_menu_801B8350[3].unk_18 = 0.0f;
-    D_menu_801B8350[3].unk_1C = 1.0f;
-    D_menu_801B8350[3].unk_20 = 0.0f;
-    D_menu_801B8350[3].unk_24 = 0.0f;
-    D_menu_801B8350[3].unk_54 = 0;
-    D_menu_801B8350[3].unk_38 = 0.0f;
-    D_menu_801B8350[3].unk_3C = 0.0f;
-    D_menu_801B8350[3].unk_40 = 0.0f;
-    D_menu_801B8350[3].unk_44 = 0.0f;
-    D_menu_801B8350[3].unk_58 = 254;
-    D_menu_801B8350[3].unk_5C = 0;
 
-    for (i = 0; i < 4; i++) {
-        Animation_GetFrameData(D_menu_801ADA00[i].unk_4,
-                               D_menu_801B8350[i].unk_58 % Animation_GetFrameCount(D_menu_801ADA00[i].unk_4),
-                               D_menu_801B86E0[i]);
+    sTitleTeam[TEAM_SLIPPY].unk_30 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_34 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_28 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_2C = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_14 = 140.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_18 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_1C = 1.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_20 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_24 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_54 = false;
+    sTitleTeam[TEAM_SLIPPY].unk_38 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_3C = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_40 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_44 = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].frameCount = 254;
+    sTitleTeam[TEAM_SLIPPY].unk_5C = 0;
+
+    for (i = 0; i < ARRAY_COUNT(sTeamAnim); i++) {
+        Animation_GetFrameData(sTeamAnim[i].title,
+                               sTitleTeam[i].frameCount % Animation_GetFrameCount(sTeamAnim[i].title),
+                               sCharFrameTable[i]);
     }
 
     D_menu_801B86A4 = 0;
@@ -710,19 +723,19 @@ void Title_801881FC(void) {
     AUDIO_PLAY_BGM(NA_BGM_TITLE);
 }
 
-void Title_801888E8(void) {
+void Title_Screen_Update(void) {
     f32 temp_fv1;
     s32 i;
     static f32 D_menu_801ADA64[4] = { 10.0f, 20.0f, 20.0f, 20.0f };
     static f32 D_menu_801ADA74[4] = { 2.0f, 5.0f, 4.0f, 4.0f };
 
-    switch (D_menu_801B82C0) {
+    switch (sSceneState) {
         case 0:
-            Title_801881FC();
+            Title_Screen_Setup();
             D_menu_801B82CC = 0.04f;
             D_menu_801B82D0 = 0.1f;
             D_menu_801B8340 = 0;
-            D_menu_801B82C0++;
+            sSceneState++;
             break;
 
         case 1:
@@ -734,74 +747,74 @@ void Title_801888E8(void) {
             D_menu_801B82CC *= 1.04f;
 
             if (D_menu_801B86CC == 57.0f) {
-                D_menu_801B82C0++;
+                sSceneState++;
             }
             break;
 
         case 2:
             if (D_menu_801B82B0 == 0) {
-                D_menu_801B82C0++;
+                sSceneState++;
             }
             break;
 
         case 3:
-            D_menu_801B82A8 = (s32) (RAND_FLOAT(5.0f) + 1.0f) * 10;
+            sTimer1 = (s32) (RAND_FLOAT(5.0f) + 1.0f) * 10;
             temp_fv1 = D_menu_801B8340;
-            D_menu_801B8350[D_menu_801B8340].unk_5C = 0;
-            D_menu_801B8350[D_menu_801B8340].unk_18 = 0.0f;
+            sTitleTeam[D_menu_801B8340].unk_5C = 0;
+            sTitleTeam[D_menu_801B8340].unk_18 = 0.0f;
 
             if (D_menu_801B8340 == 2) {
-                D_menu_801B8350[D_menu_801B8340].unk_58 = 0;
+                sTitleTeam[D_menu_801B8340].frameCount = 0;
             }
 
             while (temp_fv1 == D_menu_801B8340) {
                 D_menu_801B8340 = RAND_INT(4.0f);
             }
 
-            D_menu_801B8350[D_menu_801B8340].unk_5C = RAND_INT(6.0f) + 5;
-            D_menu_801B8350[D_menu_801B8340].unk_54 = 1;
+            sTitleTeam[D_menu_801B8340].unk_5C = RAND_INT(6.0f) + 5;
+            sTitleTeam[D_menu_801B8340].unk_54 = true;
 
             D_menu_801B82CC = 0.07f;
-            D_menu_801B82C0++;
+            sSceneState++;
             break;
 
         case 4:
-            if (D_menu_801B82A8 == 0) {
-                D_menu_801B8350[D_menu_801B8340].unk_54 = 0;
-                Math_SmoothStepToF(&D_menu_801B8350[D_menu_801B8340].unk_18, 0.0f, D_menu_801B82CC, 100.0f, 0.001f);
+            if (sTimer1 == 0) {
+                sTitleTeam[D_menu_801B8340].unk_54 = false;
+                Math_SmoothStepToF(&sTitleTeam[D_menu_801B8340].unk_18, 0.0f, D_menu_801B82CC, 100.0f, 0.001f);
                 D_menu_801B82CC *= 1.07f;
 
-                if (D_menu_801B8350[D_menu_801B8340].unk_18 == 0.0f) {
-                    D_menu_801B82C0 = 3;
+                if (sTitleTeam[D_menu_801B8340].unk_18 == 0.0f) {
+                    sSceneState = 3;
                 }
             }
             break;
     }
 
-    if (D_menu_801B8350[D_menu_801B8340].unk_54 != 0) {
-        if ((D_menu_801B8350[D_menu_801B8340].unk_18 + D_menu_801B8350[D_menu_801B8340].unk_1C) < 0.0f) {
-            D_menu_801B8350[D_menu_801B8340].unk_1C = D_menu_801ADA74[D_menu_801B8340];
+    if (sTitleTeam[D_menu_801B8340].unk_54) {
+        if ((sTitleTeam[D_menu_801B8340].unk_18 + sTitleTeam[D_menu_801B8340].unk_1C) < 0.0f) {
+            sTitleTeam[D_menu_801B8340].unk_1C = D_menu_801ADA74[D_menu_801B8340];
         }
 
-        if ((D_menu_801B8350[D_menu_801B8340].unk_18 + D_menu_801B8350[D_menu_801B8340].unk_1C) >
+        if ((sTitleTeam[D_menu_801B8340].unk_18 + sTitleTeam[D_menu_801B8340].unk_1C) >
             D_menu_801ADA64[D_menu_801B8340]) {
-            D_menu_801B8350[D_menu_801B8340].unk_1C = -D_menu_801ADA74[D_menu_801B8340];
+            sTitleTeam[D_menu_801B8340].unk_1C = -D_menu_801ADA74[D_menu_801B8340];
         }
 
-        D_menu_801B8350[D_menu_801B8340].unk_18 += D_menu_801B8350[D_menu_801B8340].unk_1C;
+        sTitleTeam[D_menu_801B8340].unk_18 += sTitleTeam[D_menu_801B8340].unk_1C;
     }
 
     if (D_menu_801B82B0 == 0) {
         if ((gGameFrameCount & 0x80) != 0) {
-            if (D_menu_801B8350[1].unk_20 + D_menu_801B8350[1].unk_24 < -20.0f) {
-                D_menu_801B8350[1].unk_24 = 4.0f;
+            if (sTitleTeam[TEAM_FALCO].unk_20 + sTitleTeam[TEAM_FALCO].unk_24 < -20.0f) {
+                sTitleTeam[TEAM_FALCO].unk_24 = 4.0f;
             }
-            if (D_menu_801B8350[1].unk_20 + D_menu_801B8350[1].unk_24 > 0.0f) {
-                D_menu_801B8350[1].unk_24 = -4.0f;
+            if (sTitleTeam[TEAM_FALCO].unk_20 + sTitleTeam[TEAM_FALCO].unk_24 > 0.0f) {
+                sTitleTeam[TEAM_FALCO].unk_24 = -4.0f;
             }
-            D_menu_801B8350[1].unk_20 += D_menu_801B8350[1].unk_24;
+            sTitleTeam[TEAM_FALCO].unk_20 += sTitleTeam[TEAM_FALCO].unk_24;
         } else {
-            Math_SmoothStepToF(&D_menu_801B8350[1].unk_20, 0.0f, 0.3f, 100.0f, 0.1f);
+            Math_SmoothStepToF(&sTitleTeam[TEAM_FALCO].unk_20, 0.0f, 0.3f, 100.0f, 0.1f);
         }
     }
 
@@ -811,15 +824,15 @@ void Title_801888E8(void) {
         Math_SmoothStepToF(&D_menu_801B905C, 124.0f, D_menu_801B82D0, 100.0f, 0.0001f);
         Math_SmoothStepToF(&D_menu_801B9060, 242.0f, D_menu_801B82D0, 100.0f, 0.0001f);
 
-        for (i = 0; i < 4; i++) {
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_28, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_2C, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_30, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_34, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_38, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_3C, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_40, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
-            Math_SmoothStepToF(&D_menu_801B8350[i].unk_44, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+        for (i = 0; i < ARRAY_COUNT(sTitleTeam); i++) {
+            Math_SmoothStepToF(&sTitleTeam[i].unk_28, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_2C, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_30, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_34, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_38, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_3C, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_40, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
+            Math_SmoothStepToF(&sTitleTeam[i].unk_44, 0.0f, D_menu_801B82D0, 100.0f, 0.01f);
         }
 
         D_menu_801B82D0 *= 1.1f;
@@ -835,10 +848,10 @@ void Title_801888E8(void) {
         }
     }
 
-    D_menu_801B84E8->unk_18 += 0.6f;
+    sTitleArwing->xRot += 0.6f;
 
-    Title_80191320(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
-                   D_menu_801B86AC, D_menu_801B86B0);
+    Title_SetCamUp3(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
+                    D_menu_801B86AC, D_menu_801B86B0);
     Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     gStarfieldScrollX -= 0.5f;
@@ -858,16 +871,16 @@ void Title_801888E8(void) {
 
     gStarCount = 0;
 
-    D_menu_801B82C0 = 0;
+    sSceneState = 0;
 
     gDrawMode = DRAW_NONE;
 
-    D_menu_801B82C4 = 7;
+    sCutsceneState = TITLE_RANKING;
 }
 
-void Title_80189208(void) {
+void Title_Screen_Draw(void) {
     s32 i;
-    static s32 D_menu_801ADA84[4] = { 0, 1, 3, 2 };
+    static TitleTeam D_menu_801ADA84[4] = { TEAM_FOX, TEAM_FALCO, TEAM_SLIPPY, TEAM_PEPPY };
 
     gLight1R = D_menu_801B82F8;
     gLight1G = D_menu_801B82FC;
@@ -884,11 +897,11 @@ void Title_80189208(void) {
         Math_SmoothStepToF(&D_menu_801B86CC, D_menu_801B86DC, 0.1f, 100.0f, 0.0001f);
     }
 
-    Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_SetLightRot(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
-    for (i = 0; i < 4; i++) {
-        Title_8018EA78(D_menu_801ADA84[i]);
-        D_menu_801B8350[D_menu_801ADA84[i]].unk_58 += D_menu_801B8350[D_menu_801ADA84[i]].unk_5C;
+    for (i = 0; i < ARRAY_COUNT(D_menu_801ADA84); i++) {
+        Title_Team_Draw(D_menu_801ADA84[i]);
+        sTitleTeam[D_menu_801ADA84[i]].frameCount += sTitleTeam[D_menu_801ADA84[i]].unk_5C;
     }
 
     gLight1R = D_menu_801B8310;
@@ -899,16 +912,16 @@ void Title_80189208(void) {
     gAmbientG = D_menu_801B8320;
     gAmbientB = D_menu_801B8324;
 
-    Title_80191674(D_menu_801B86D0, D_menu_801B86D4, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_SetLightRot(D_menu_801B86D0, D_menu_801B86D4, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
-    Title_8018D2B8(0);
+    Title_Arwing_Draw(0);
 }
 
-void Title_801894E8(void) {
+void Title_CsGreatFox_Setup(void) {
     s32 i;
 
     gStarCount = 800;
-    D_menu_801B7C98 = 10;
+    sMaxExplosions = 10;
 
     for (i = 0; i < 10; i++) {
         D_menu_801B7BF8[i] = 10.0f + RAND_FLOAT(10.0f);
@@ -931,9 +944,9 @@ void Title_801894E8(void) {
     D_menu_801B9074 = 70.0f;
     D_menu_801B9078 = 1.0f;
     D_menu_801B907C = 1.0f;
-    D_menu_801B7BDC = 0.0f;
-    D_menu_801B7BE0 = 0.0f;
-    D_menu_801B7BD4 = 0;
+    sStarfoxLogoAlpha = 0.0f;
+    sInAlpha = 0.0f;
+    sTitleLogoState = TITLE_LOGO_STARFOX_IN;
     D_menu_801B7BD8 = 0;
     D_menu_801B9080 = 0.0f;
     D_menu_801B9084 = 60.0f;
@@ -954,21 +967,21 @@ void Title_801894E8(void) {
     gAmbientG = 4;
     gAmbientB = 10;
 
-    D_menu_801B8688.pos.y = 0.0f;
-    D_menu_801B8688.unk_0C = 0;
-    D_menu_801B8688.pos.x = -80.0f;
-    D_menu_801B8688.pos.z = 500.0f;
-    D_menu_801B8688.scale = 5.0f;
+    sTitleCorneria.pos.y = 0.0f;
+    sTitleCorneria.draw = false;
+    sTitleCorneria.pos.x = -80.0f;
+    sTitleCorneria.pos.z = 500.0f;
+    sTitleCorneria.scale = 5.0f;
 
-    D_menu_801B8348 = 0;
+    D_menu_801B8348 = false;
 
-    D_menu_801B8658.pos.x = 20.0f;
-    D_menu_801B8658.pos.y = 0.0f;
-    D_menu_801B8658.pos.z = 30.0f;
-    D_menu_801B8658.angleX = 0.0f;
-    D_menu_801B8658.angleY = 0.0f;
-    D_menu_801B8658.angleZ = 0.0f;
-    D_menu_801B8658.scale = 0.1f;
+    sTitleGreatFox.pos.x = 20.0f;
+    sTitleGreatFox.pos.y = 0.0f;
+    sTitleGreatFox.pos.z = 30.0f;
+    sTitleGreatFox.xRot = 0.0f;
+    sTitleGreatFox.yRot = 0.0f;
+    sTitleGreatFox.zRot = 0.0f;
+    sTitleGreatFox.scale = 0.1f;
 
     D_menu_801B86BC = 0.0f;
     D_menu_801B86C0 = 0.0f;
@@ -978,31 +991,31 @@ void Title_801894E8(void) {
 
     D_menu_801B86B4 = 1500.0f;
     D_menu_801B86B8 = -100.0f;
-    D_menu_801B829C = 0.0f;
-    D_menu_801B82A0 = 1.0f;
-    D_menu_801B82A4 = 0.0f;
+    sTitleCamUpX = 0.0f;
+    sTitleCamUpY = 1.0f;
+    sTitleCamUpZ = 0.0f;
 
-    Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                   D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                   D_menu_801B86AC);
+    Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                    D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
+                    D_menu_801B86AC);
 
-    D_menu_801B7BF0 = 0;
+    sTitleCardState = TITLE_CARD_NONE;
 
     AUDIO_PLAY_BGM(NA_BGM_OPENING);
 }
 
-void Title_8018994C(void) {
+void Title_CsGreatFoxTraveling_Update(void) {
     f32 temp;
     f32 temp2;
 
-    switch (D_menu_801B82C0) {
+    switch (sSceneState) {
         case 0:
-            Title_801894E8();
+            Title_CsGreatFox_Setup();
             D_menu_801B8294 = D_menu_801B6B40;
             D_menu_801B7BE8 = 1.0f;
             D_menu_801B82CC = 0.002f;
-            D_menu_801B82C0 = 100;
-            D_menu_801B82B8 = 0;
+            sSceneState = 100;
+            sTitleMsgFrameCount = 0;
 
             gRadioState = 0;
             gHideRadio = false;
@@ -1013,36 +1026,36 @@ void Title_8018994C(void) {
             if (gFillScreenAlpha != 0) {
                 gFillScreenAlpha -= 5;
             } else {
-                D_menu_801B82A8 = 19;
-                D_menu_801B82C0 = 1;
+                sTimer1 = 19;
+                sSceneState = 1;
             }
             break;
 
         case 1:
-            if (D_menu_801B82A8 == 0) {
-                temp2 = Math_SmoothStepToF(&D_menu_801B7BDC, 255.0f, D_menu_801B82CC, 100.0f, 1.0f);
+            if (sTimer1 == 0) {
+                temp2 = Math_SmoothStepToF(&sStarfoxLogoAlpha, 255.0f, D_menu_801B82CC, 100.0f, 1.0f);
                 D_menu_801B82CC *= 1.08f;
                 if (temp2 == 0.0f) {
-                    D_menu_801B82A8 = 50;
-                    D_menu_801B82AC = 85;
+                    sTimer1 = 50;
+                    sTimer2 = 85;
                     D_menu_801B82D0 = 0.01f;
                     D_menu_801B82CC = 0.002f;
-                    D_menu_801B82C0++;
+                    sSceneState++;
                 }
             }
             break;
 
         case 2:
-            if (D_menu_801B82A8 == 0) {
-                Math_SmoothStepToF(&D_menu_801B7BDC, 0.0f, D_menu_801B82D0, 100.0f, 0.1f);
+            if (sTimer1 == 0) {
+                Math_SmoothStepToF(&sStarfoxLogoAlpha, 0.0f, D_menu_801B82D0, 100.0f, 0.1f);
                 D_menu_801B82D0 *= 1.06f;
-                if (D_menu_801B82AC == 0) {
-                    temp2 = Math_SmoothStepToF(&D_menu_801B7BE0, 255.0f, D_menu_801B82CC, 100.0f, 1.0f);
+                if (sTimer2 == 0) {
+                    temp2 = Math_SmoothStepToF(&sInAlpha, 255.0f, D_menu_801B82CC, 100.0f, 1.0f);
                     D_menu_801B82CC *= 1.08f;
                     if (temp2 == 0.0f) {
-                        D_menu_801B82A8 = 30;
+                        sTimer1 = 30;
                         D_menu_801B82D0 = 0.02f;
-                        D_menu_801B82C0++;
+                        sSceneState++;
                         D_menu_801B7BD8 = 1;
                         gFillScreenAlpha = 0;
                     }
@@ -1051,29 +1064,29 @@ void Title_8018994C(void) {
             break;
 
         case 3:
-            if (D_menu_801B82A8 == 0) {
-                Math_SmoothStepToF(&D_menu_801B7BE0, 0.0f, D_menu_801B82D0, 100.0f, 0.1f);
+            if (sTimer1 == 0) {
+                Math_SmoothStepToF(&sInAlpha, 0.0f, D_menu_801B82D0, 100.0f, 0.1f);
                 D_menu_801B82D0 *= 1.07f;
                 if (D_menu_801B7BB8 < 1200.0f) {
                     D_menu_801B7BB8 += 10.0f;
                     if (D_menu_801B7BB8 > 50.0f) {
-                        D_menu_801B7BD4 = 1;
-                        D_menu_801B7BDC += 1.8f;
+                        sTitleLogoState = TITLE_LOGO_NINTENDO_64;
+                        sStarfoxLogoAlpha += 1.8f;
                     }
                 } else {
                     D_menu_801B7BD8 = 0;
-                    D_menu_801B82C0++;
+                    sSceneState++;
                 }
             }
             break;
 
         case 4:
-            if (D_menu_801B7BDC < 255.0f) {
-                D_menu_801B7BDC += 1.0f;
+            if (sStarfoxLogoAlpha < 255.0f) {
+                sStarfoxLogoAlpha += 1.0f;
             } else {
-                D_menu_801B7BDC = 255.0f;
-                D_menu_801B82A8 = 70;
-                D_menu_801B82B4 = 0;
+                sStarfoxLogoAlpha = 255.0f;
+                sTimer1 = 70;
+                sTimer3 = 0;
                 D_menu_801B82D4 = 0.02f;
                 D_menu_801B82D8 = 0.00005f;
                 D_menu_801B82DC = 0.02f;
@@ -1088,34 +1101,34 @@ void Title_8018994C(void) {
                 gCsCamAtY = D_menu_801B6B40[0].at.y;
                 gCsCamAtZ = D_menu_801B6B40[0].at.z;
 
-                D_menu_801B82C0 = 10;
+                sSceneState = 10;
             }
             break;
 
         case 10:
-            if (D_menu_801B82B4 == 45) {
-                D_menu_801B7BF0 = 1;
+            if (sTimer3 == 45) {
+                sTitleCardState = TITLE_CARD_GREAT_FOX;
             }
 
-            if (D_menu_801B82B4 == 145) {
-                D_menu_801B7BF0 = 0;
+            if (sTimer3 == 145) {
+                sTitleCardState = TITLE_CARD_NONE;
             }
 
-            if (D_menu_801B82B8 == 638) {
-                AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
-                AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
+            if (sTitleMsgFrameCount == 638) {
+                AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, sTitleGreatFox.sfxSource, 0);
+                AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, sTitleGreatFox.sfxSource, 0);
                 Radio_PlayMessage(gMsg_ID_60, RCID_ROB64_TITLE);
             }
 
-            if (D_menu_801B82B8 == 838) {
-                Title_801919C4(D_menu_801ADA30, RCID_GEN_PEPPER_TITLE);
+            if (sTitleMsgFrameCount == 838) {
+                Title_Radio_PlayMessage(sGralPepperMsg, RCID_GEN_PEPPER_TITLE);
             }
 
-            if (D_menu_801B82A8 == 1) {
-                D_menu_801B8348 = 1;
+            if (sTimer1 == 1) {
+                D_menu_801B8348 = true;
             }
 
-            if (D_menu_801B82A8 != 0) {
+            if (sTimer1 != 0) {
                 break;
             }
 
@@ -1126,20 +1139,20 @@ void Title_8018994C(void) {
                 D_menu_801B9074 -= 0.5f;
             }
 
-            temp = Math_SmoothStepToF(&D_menu_801B7BDC, 0.0f, D_menu_801B82DC, 100.0f, 0.1f);
+            temp = Math_SmoothStepToF(&sStarfoxLogoAlpha, 0.0f, D_menu_801B82DC, 100.0f, 0.1f);
 
             D_menu_801B82DC *= 1.06f;
 
             if (temp == 0.0f) {
-                D_menu_801B7BD4 = -1;
+                sTitleLogoState = TITLE_LOGO_NONE;
             }
 
-            Title_8018CC30(D_menu_801B8294, 12, D_menu_801B8290);
+            Title_Cutscene_SetCamera(D_menu_801B8294, 12, D_menu_801B8290);
 
-            Title_80191798(&D_menu_801B86A8, &D_menu_801B86AC);
-            Title_80191844(D_menu_801B86A8, D_menu_801B86AC);
+            Title_GetCamRot(&D_menu_801B86A8, &D_menu_801B86AC);
+            Title_SetCamUp(D_menu_801B86A8, D_menu_801B86AC);
 
-            if ((D_menu_801B82B8 > 960) && (D_menu_801B7BE8 > 0.0f)) {
+            if ((sTitleMsgFrameCount > 960) && (D_menu_801B7BE8 > 0.0f)) {
                 D_menu_801B7BE8 -= 0.0022f;
                 if (D_menu_801B7BE8 < 0.0f) {
                     D_menu_801B7BE8 = 0.0f;
@@ -1154,18 +1167,18 @@ void Title_8018994C(void) {
                 Math_SmoothStepToF(&D_menu_801B86C8, -20.0f, D_menu_801B82D8, 100.0f, 0.0001f);
                 Math_SmoothStepToF(&D_menu_801B86CC, -25.0f, D_menu_801B82D8, 100.0f, 0.0001f);
 
-                if (D_menu_801B82B4 > 550) {
+                if (sTimer3 > 550) {
                     D_menu_801B82D8 += 0.0001f;
                 } else {
                     D_menu_801B82D8 += 0.000001f;
                 }
             }
 
-            if (D_menu_801B82B4 == 260) {
-                D_menu_801B8688.unk_0C = 1;
+            if (sTimer3 == 260) {
+                sTitleCorneria.draw = true;
             }
 
-            if (D_menu_801B82B4 == 750) {
+            if (sTimer3 == 750) {
                 gFillScreenAlpha = 0;
                 gFillScreenRed = 0;
                 gFillScreenGreen = 0;
@@ -1174,38 +1187,38 @@ void Title_8018994C(void) {
             }
 
             if (gFillScreenAlpha == 255) {
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
+                Audio_KillSfxBySourceAndId(sTitleGreatFox.sfxSource, NA_SE_GREATFOX_ENGINE);
+                Audio_KillSfxBySourceAndId(sTitleGreatFox.sfxSource, NA_SE_GREATFOX_BURNER);
 
-                D_menu_801B82C0 = 0;
+                sSceneState = 0;
 
                 gDrawMode = DRAW_NONE;
 
-                D_menu_801B82C4 = 2;
+                sCutsceneState = TITLE_CS_TEAM_RUNNING;
             }
-            D_menu_801B82B4++;
+            sTimer3++;
             break;
     }
 
-    Title_801912A0();
-    Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_ScreenFade_Update();
+    Title_SetLightRot(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     if (D_menu_801B7BE8 != 0) {
         Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
     }
 
     gStarfieldScrollX -= D_menu_801B7BE8;
-    D_menu_801B82B8++;
+    sTitleMsgFrameCount++;
 }
 
-void Title_8018A2F8(void) {
-    if (D_menu_801B8688.unk_0C != 0) {
-        Title_8018DF0C(-700.0f);
+void Title_CsGreatFoxTraveling_Draw(void) {
+    if (sTitleCorneria.draw) {
+        Title_Corneria_Draw(-700.0f);
     }
-    Title_8018E058();
+    Title_GreatFox_Draw();
 }
 
-void Title_8018A338(void) {
+void Title_CsTeamRunning_Setup(void) {
     gStarCount = 0;
 
     D_menu_801B869C = 255;
@@ -1215,15 +1228,14 @@ void Title_8018A338(void) {
     gFillScreenGreen = 0;
     gFillScreenBlue = 0;
 
-    D_menu_801B8344 = 0;
+    sDrawTeamName = false;
     D_menu_801B8334 = 0;
     D_menu_801B8338 = 1;
 
-    D_menu_801B8328 = D_menu_801B832C = D_menu_801B8330 = 155.0f;
-
-    D_menu_801B8328 = 77.0f;
-    D_menu_801B832C = 77.0f;
-    D_menu_801B8330 = 77.0f;
+    sAmbientR = sAmbientG = sAmbientB = 155.0f;
+    sAmbientR = 77.0f;
+    sAmbientG = 77.0f;
+    sAmbientB = 77.0f;
 
     D_menu_801B86C8 = 0.0f;
     D_menu_801B86CC = -90.0f;
@@ -1235,37 +1247,37 @@ void Title_8018A338(void) {
     D_menu_801B830C = 1.0f;
     D_menu_801B84D4 = 0.5f;
 
-    D_menu_801B8350[0].unk_00.x = -20.0f;
-    D_menu_801B8350[0].unk_00.y = 0.0f;
-    D_menu_801B8350[0].unk_00.z = -600.0f;
-    D_menu_801B8350[0].unk_0C = 0.0f;
-    D_menu_801B8350[0].unk_10 = 3.0f;
-    D_menu_801B8350[0].unk_58 = 14;
-    D_menu_801B8350[0].unk_5C = 5;
+    sTitleTeam[TEAM_FOX].pos.x = -20.0f;
+    sTitleTeam[TEAM_FOX].pos.y = 0.0f;
+    sTitleTeam[TEAM_FOX].pos.z = -600.0f;
+    sTitleTeam[TEAM_FOX].unk_0C = 0.0f;
+    sTitleTeam[TEAM_FOX].shadowScale = 3.0f;
+    sTitleTeam[TEAM_FOX].frameCount = 14;
+    sTitleTeam[TEAM_FOX].unk_5C = 5;
 
-    D_menu_801B8350[1].unk_00.x = -209.0f;
-    D_menu_801B8350[1].unk_00.y = 0.0f;
-    D_menu_801B8350[1].unk_00.z = -820.0f;
-    D_menu_801B8350[1].unk_0C = 0.0f;
-    D_menu_801B8350[1].unk_10 = 3.0f;
-    D_menu_801B8350[1].unk_58 = 0;
-    D_menu_801B8350[1].unk_5C = 5;
+    sTitleTeam[TEAM_FALCO].pos.x = -209.0f;
+    sTitleTeam[TEAM_FALCO].pos.y = 0.0f;
+    sTitleTeam[TEAM_FALCO].pos.z = -820.0f;
+    sTitleTeam[TEAM_FALCO].unk_0C = 0.0f;
+    sTitleTeam[TEAM_FALCO].shadowScale = 3.0f;
+    sTitleTeam[TEAM_FALCO].frameCount = 0;
+    sTitleTeam[TEAM_FALCO].unk_5C = 5;
 
-    D_menu_801B8350[2].unk_00.x = 62.0f;
-    D_menu_801B8350[2].unk_00.y = 0.0f;
-    D_menu_801B8350[2].unk_00.z = -813.0f;
-    D_menu_801B8350[2].unk_0C = 0.0f;
-    D_menu_801B8350[2].unk_10 = 3.0f;
-    D_menu_801B8350[2].unk_58 = 29;
-    D_menu_801B8350[2].unk_5C = 6;
+    sTitleTeam[TEAM_PEPPY].pos.x = 62.0f;
+    sTitleTeam[TEAM_PEPPY].pos.y = 0.0f;
+    sTitleTeam[TEAM_PEPPY].pos.z = -813.0f;
+    sTitleTeam[TEAM_PEPPY].unk_0C = 0.0f;
+    sTitleTeam[TEAM_PEPPY].shadowScale = 3.0f;
+    sTitleTeam[TEAM_PEPPY].frameCount = 29;
+    sTitleTeam[TEAM_PEPPY].unk_5C = 6;
 
-    D_menu_801B8350[3].unk_00.x = 183.0f;
-    D_menu_801B8350[3].unk_00.y = 0.0f;
-    D_menu_801B8350[3].unk_00.z = -990.0f;
-    D_menu_801B8350[3].unk_0C = 0.0f;
-    D_menu_801B8350[3].unk_10 = 3.0f;
-    D_menu_801B8350[3].unk_58 = 41;
-    D_menu_801B8350[3].unk_5C = 7;
+    sTitleTeam[TEAM_SLIPPY].pos.x = 183.0f;
+    sTitleTeam[TEAM_SLIPPY].pos.y = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].pos.z = -990.0f;
+    sTitleTeam[TEAM_SLIPPY].unk_0C = 0.0f;
+    sTitleTeam[TEAM_SLIPPY].shadowScale = 3.0f;
+    sTitleTeam[TEAM_SLIPPY].frameCount = 41;
+    sTitleTeam[TEAM_SLIPPY].unk_5C = 7;
 
     D_menu_801B84D0 = -6000.0f;
     D_menu_801B86BC = 22.0f;
@@ -1275,13 +1287,13 @@ void Title_8018A338(void) {
     D_menu_801B86AC = 7.0f;
     D_menu_801B86B4 = 400.0f;
     D_menu_801B86B8 = -100.0f;
-    D_menu_801B829C = 0.0f;
-    D_menu_801B82A0 = 1.0f;
-    D_menu_801B82A4 = 0.0f;
+    sTitleCamUpX = 0.0f;
+    sTitleCamUpY = 1.0f;
+    sTitleCamUpZ = 0.0f;
 
-    Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                   D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                   D_menu_801B86AC);
+    Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                    D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
+                    D_menu_801B86AC);
 }
 
 CameraPoint D_menu_801ADA94[50] = {
@@ -1321,23 +1333,23 @@ CameraPoint D_menu_801ADA94[50] = {
     { -357.60858f, 192.84035f, -1394.141f, 41.881878f, 129.81488f, -738.9043f },
 };
 
-void Title_8018A644(void) {
+void Title_CsTeamRunning_Update(void) {
     static s32 D_menu_801ADF44[] = { 63, 170, 268, 368 };
 
-    switch (D_menu_801B82C0) {
+    switch (sSceneState) {
         case 0:
-            Title_8018A338();
+            Title_CsTeamRunning_Setup();
             AUDIO_PLAY_SFX(NA_SE_DEMO_SIREN, gDefaultSfxSource, 4);
             AUDIO_PLAY_SFX(NA_SE_DEMO_RUNNING, D_menu_801B84D8, 0);
 
-            D_menu_801B82B4 = 0;
-            D_menu_801B82C8 = 0.0f;
+            sTimer3 = 0;
+            sPassageWayZoffset = 0.0f;
             D_menu_801B7BEC = 0;
-            D_menu_801B82C0++;
+            sSceneState++;
             break;
 
         case 1:
-            if (D_menu_801B82B4 == 20) {
+            if (sTimer3 == 20) {
                 D_menu_801B869C = 0;
             }
 
@@ -1346,29 +1358,29 @@ void Title_8018A644(void) {
             }
 
             if (D_menu_801B84D0 == 0.0f) {
-                D_menu_801B82B4 = 0;
+                sTimer3 = 0;
                 D_menu_801B8340 = 0;
                 D_menu_801B8294 = D_menu_801ADA94;
                 D_menu_801B8298 = 0;
                 D_menu_801B828C = 0.0f;
                 D_menu_801B8290 = 0.06f;
-                D_menu_801B82C0++;
+                sSceneState++;
             }
-            D_menu_801B82B4++;
+            sTimer3++;
             break;
 
         case 2:
-            Title_80191798(&D_menu_801B86A8, &D_menu_801B86AC);
-            Title_80191844(D_menu_801B86A8, D_menu_801B86AC);
-            Title_8018CC30(D_menu_801B8294, 34, D_menu_801B8290);
+            Title_GetCamRot(&D_menu_801B86A8, &D_menu_801B86AC);
+            Title_SetCamUp(D_menu_801B86A8, D_menu_801B86AC);
+            Title_Cutscene_SetCamera(D_menu_801B8294, 34, D_menu_801B8290);
 
-            if (D_menu_801B82B4 == D_menu_801ADF44[D_menu_801B8340]) {
-                D_menu_801B8344 = 1;
-                D_menu_801B82A8 = 40;
-                D_menu_801B82C0 = 3;
+            if (sTimer3 == D_menu_801ADF44[D_menu_801B8340]) {
+                sDrawTeamName = true;
+                sTimer1 = 40;
+                sSceneState = 3;
             }
 
-            if (D_menu_801B82B4 == 475) {
+            if (sTimer3 == 475) {
                 D_menu_801B869C = 1;
             }
 
@@ -1376,33 +1388,33 @@ void Title_8018A644(void) {
                 Audio_KillSfxById(NA_SE_DEMO_SIREN);
                 Audio_KillSfxBySourceAndId(D_menu_801B84D8, NA_SE_DEMO_RUNNING);
 
-                D_menu_801B82C0 = 0;
+                sSceneState = 0;
 
                 gDrawMode = DRAW_NONE;
 
-                D_menu_801B82C4 = 3;
+                sCutsceneState = TITLE_GREAT_FOX_CLOSE_UP;
             }
-            D_menu_801B82B4++;
+            sTimer3++;
             break;
 
         case 3:
-            if (D_menu_801B82A8 == 0) {
-                D_menu_801B8344 = 0;
-                D_menu_801B82C0 = 2;
+            if (sTimer1 == 0) {
+                sDrawTeamName = false;
+                sSceneState = 2;
                 D_menu_801B8340++;
             }
             break;
     }
 
-    Title_801912A0();
-    Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_ScreenFade_Update();
+    Title_SetLightRot(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
 
     D_menu_801B7BEC++;
 }
 
-void Title_8018A990(void) {
+void Title_CsTeamRunning_Draw(void) {
     s32 i;
-    static UnkStruct_D_menu_801ADF54 D_menu_801ADF54[4] = {
+    static AmbientRGB sAmbientRGB[4] = {
         { 255.0f, 155.0f, 155.0f },
         { 155.0f, 255.0f, 155.0f },
         { 135.0f, 206.0f, 255.0f },
@@ -1412,13 +1424,13 @@ void Title_8018A990(void) {
     if ((gGameFrameCount % 8U) == 7) {
         if (D_menu_801B8338 != 0) {
             D_menu_801B8334 = (D_menu_801B8334 + 1) % 4U;
-            D_menu_801B8328 = D_menu_801ADF54[D_menu_801B8334].unk_0;
-            D_menu_801B832C = D_menu_801ADF54[D_menu_801B8334].unk_4;
-            D_menu_801B8330 = D_menu_801ADF54[D_menu_801B8334].unk_8;
+            sAmbientR = sAmbientRGB[D_menu_801B8334].r;
+            sAmbientG = sAmbientRGB[D_menu_801B8334].g;
+            sAmbientB = sAmbientRGB[D_menu_801B8334].b;
         } else {
-            D_menu_801B8328 = 155.0f;
-            D_menu_801B832C = 155.0f;
-            D_menu_801B8330 = 155.0f;
+            sAmbientR = 155.0f;
+            sAmbientG = 155.0f;
+            sAmbientB = 155.0f;
         }
         D_menu_801B8338 ^= 1;
     }
@@ -1430,11 +1442,11 @@ void Title_8018A990(void) {
         }
     }
 
-    gAmbientR = D_menu_801B8328;
-    gAmbientG = D_menu_801B832C;
-    gAmbientB = D_menu_801B8330;
+    gAmbientR = sAmbientR;
+    gAmbientG = sAmbientG;
+    gAmbientB = sAmbientB;
 
-    Title_8018F438();
+    Title_Passage_Draw();
 
     gLight1R = D_menu_801B82F8;
     gLight1G = D_menu_801B82FC;
@@ -1443,13 +1455,13 @@ void Title_8018A990(void) {
     gAmbientG = D_menu_801B8308;
     gAmbientB = D_menu_801B830C;
 
-    for (i = 0; i < 4; i++) {
-        Title_8018E67C(i);
-        D_menu_801B8350[i].unk_58 += D_menu_801B8350[i].unk_5C;
+    for (i = 0; i < ARRAY_COUNT(sTitleTeam); i++) {
+        Title_TeamRunning_Draw(i);
+        sTitleTeam[i].frameCount += sTitleTeam[i].unk_5C;
     }
 }
 
-void Title_8018ABC0(void) {
+void Title_CsGreatFoxCloseUp_Setup(void) {
     gStarCount = 800;
 
     D_menu_801B869C = 255;
@@ -1475,28 +1487,28 @@ void Title_8018ABC0(void) {
     gCsCamAtY = 0.0f;
     gCsCamAtZ = 0.0f;
 
-    D_menu_801B829C = 0.0f;
-    D_menu_801B82A0 = 1.0f;
-    D_menu_801B82A4 = 0.0f;
+    sTitleCamUpX = 0.0f;
+    sTitleCamUpY = 1.0f;
+    sTitleCamUpZ = 0.0f;
 
-    D_menu_801B8658.pos.x = 0.0f;
-    D_menu_801B8658.pos.y = 0.0f;
-    D_menu_801B8658.pos.z = 0.0f;
-    D_menu_801B8658.angleX = 0.0f;
-    D_menu_801B8658.angleY = 0.0f;
-    D_menu_801B8658.angleZ = 0.0f;
+    sTitleGreatFox.pos.x = 0.0f;
+    sTitleGreatFox.pos.y = 0.0f;
+    sTitleGreatFox.pos.z = 0.0f;
+    sTitleGreatFox.xRot = 0.0f;
+    sTitleGreatFox.yRot = 0.0f;
+    sTitleGreatFox.zRot = 0.0f;
 }
 
-void Title_8018ACEC(void) {
-    switch (D_menu_801B82C0) {
+void Title_CsGreatFoxCloseUp_Update(void) {
+    switch (sSceneState) {
         case 0:
-            Title_8018ABC0();
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
+            Title_CsGreatFoxCloseUp_Setup();
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, sTitleGreatFox.sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, sTitleGreatFox.sfxSource, 0);
 
             D_menu_801B82CC = 0.01f;
-            D_menu_801B82B4 = 0;
-            D_menu_801B82C0++;
+            sTimer3 = 0;
+            sSceneState++;
             break;
 
         case 1:
@@ -1507,42 +1519,42 @@ void Title_8018ACEC(void) {
             Math_SmoothStepToF(&D_menu_801B86B0, 100.0f, D_menu_801B82CC, 100.0f, 0.0001f);
 
             D_menu_801B82CC *= 1.04f;
-            if (D_menu_801B82B4 == 50) {
+            if (sTimer3 == 50) {
                 D_menu_801B869C = 1;
             }
 
             if (gFillScreenAlpha == 255) {
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
+                Audio_KillSfxBySourceAndId(sTitleGreatFox.sfxSource, NA_SE_GREATFOX_ENGINE);
+                Audio_KillSfxBySourceAndId(sTitleGreatFox.sfxSource, NA_SE_GREATFOX_BURNER);
 
                 gDrawMode = DRAW_NONE;
 
-                D_menu_801B82C0 = 0;
-                D_menu_801B82C4 = 4;
+                sSceneState = 0;
+                sCutsceneState = TITLE_TAKE_OFF;
             }
-            Title_801912A0();
-            D_menu_801B82B4++;
+            Title_ScreenFade_Update();
+            sTimer3++;
             break;
     }
 
-    Title_80191320(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
-                   D_menu_801B86AC, D_menu_801B86B0);
-    Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_SetCamUp3(1, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86A8,
+                    D_menu_801B86AC, D_menu_801B86B0);
+    Title_SetLightRot(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     gStarfieldScrollX += 2.0f;
     gStarfieldScrollY += 2.0f;
 }
 
-void Title_8018B038(void) {
-    Title_8018E058();
+void Title_CsGreatFoxCloseUp_Draw(void) {
+    Title_GreatFox_Draw();
 }
 
-void Title_8018B058(void) {
+void Title_CsTakeOff_Setup(void) {
     f32 var_fv0;
     s32 i;
 
-    D_menu_801B7C98 = 10;
+    sMaxExplosions = 10;
 
     for (i = 0; i < 10; i++) {
         D_menu_801B7BF8[i] = 10.0f + RAND_FLOAT(10.0f);
@@ -1583,41 +1595,42 @@ void Title_8018B058(void) {
     gLight1R = 90;
     gLight1G = 75;
     gLight1B = 90;
+
     gAmbientR = 45;
     gAmbientG = 34;
     gAmbientB = 56;
 
-    D_menu_801B8688.pos.x = 0.0f;
-    D_menu_801B8688.pos.y = 0.0f;
-    D_menu_801B8688.pos.z = 1000.0f;
-    D_menu_801B8688.scale = 2.0f;
-    D_menu_801B8688.unk_0C = 0;
+    sTitleCorneria.pos.x = 0.0f;
+    sTitleCorneria.pos.y = 0.0f;
+    sTitleCorneria.pos.z = 1000.0f;
+    sTitleCorneria.scale = 2.0f;
+    sTitleCorneria.draw = false;
 
     D_menu_801B7BE4 = 1;
 
     var_fv0 = -120.0f;
 
-    for (i = 0; i < 4; i++, var_fv0 += 75.0f) {
-        D_menu_801B84E8[i].unk_00.x = var_fv0;
-        D_menu_801B84E8[i].unk_00.y = 0.0f;
-        D_menu_801B84E8[i].unk_00.z = 0.0f;
-        D_menu_801B84E8[i].unk_0C = 0.5f;
-        D_menu_801B84E8[i].unk_18 = 0.0f;
-        D_menu_801B84E8[i].unk_1C = 0.0f;
-        D_menu_801B84E8[i].unk_20 = 0.0f;
-        D_menu_801B84E8[i].unk_24 = -60.0f;
-        D_menu_801B84E8[i].unk_28 = -10.0f;
-        D_menu_801B84E8[i].unk_2C = 0.0f;
-        D_menu_801B84E8[i].unk_30 = 0.0f;
-        D_menu_801B84E8[i].unk_34 = 4 - i;
+    for (i = 0; i < ARRAY_COUNT(sTitleArwing); i++, var_fv0 += 75.0f) {
+        sTitleArwing[i].pos.x = var_fv0;
+        sTitleArwing[i].pos.y = 0.0f;
+        sTitleArwing[i].pos.z = 0.0f;
+        sTitleArwing[i].scale = 0.5f;
+        sTitleArwing[i].xRot = 0.0f;
+        sTitleArwing[i].yRot = 0.0f;
+        sTitleArwing[i].zRot = 0.0f;
+        sTitleArwing[i].cockpitGlassXrot = -60.0f;
+        sTitleArwing[i].laserGunsYpos = -10.0f;
+        sTitleArwing[i].teamFaceXrot = 0.0f;
+        sTitleArwing[i].teamFaceYrot = 0.0f;
+        sTitleArwing[i].drawFace = 4 - i;
 
-        D_menu_801B84E8[i].unk_3C = 0;
-        D_menu_801B84E8[i].unk_40 = 0;
-        D_menu_801B84E8[i].unk_44 = 0.0f;
-        D_menu_801B84E8[i].unk_10 = 0.05f;
+        sTitleArwing[i].unk_3C = 0;
+        sTitleArwing[i].unk_40 = 0;
+        sTitleArwing[i].unk_44 = 0.0f;
+        sTitleArwing[i].vel = 0.05f;
 
-        D_menu_801B84E8[i].unk_48 = 1;
-        D_menu_801B84E8[i].unk_4C = 1;
+        sTitleArwing[i].drawShadow = true;
+        sTitleArwing[i].draw = true;
     }
 
     D_menu_801B86BC = 140.0f;
@@ -1627,57 +1640,57 @@ void Title_8018B058(void) {
     D_menu_801B86AC = 90.0f;
     D_menu_801B86B4 = 90.0f;
     D_menu_801B86B8 = -50.0f;
-    D_menu_801B829C = 0.0f;
-    D_menu_801B82A0 = 1.0f;
-    D_menu_801B82A4 = 0.0f;
+    sTitleCamUpX = 0.0f;
+    sTitleCamUpY = 1.0f;
+    sTitleCamUpZ = 0.0f;
 
-    Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                   D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                   D_menu_801B86AC);
+    Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                    D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
+                    D_menu_801B86AC);
 
-    D_menu_801B9044 = 25.0f;
+    sTitleDeckLauncherZpos = 25.0f;
     D_menu_801B9048 = 84.0f;
     D_menu_801B904C = -20.0f;
     D_menu_801B9050 = -33.0f;
 }
 
-void Title_8018B5C4(void) {
+void Title_CsTakeOff_Update(void) {
     s32 i;
     f32 temp[4];
 
-    switch (D_menu_801B82C0) {
+    switch (sSceneState) {
         case 0:
             D_menu_801B7BEC = 0;
 
-            Title_8018B058();
+            Title_CsTakeOff_Setup();
             Audio_SetEnvSfxReverb(104);
 
-            D_menu_801B82A8 = 30;
+            sTimer1 = 30;
 
-            D_menu_801B84E8[3].unk_38 = 70;
-            D_menu_801B84E8[2].unk_38 = 102;
-            D_menu_801B84E8[1].unk_38 = 132;
-            D_menu_801B84E8[0].unk_38 = 171;
+            sTitleArwing[TEAM_SLIPPY].timer = 70;
+            sTitleArwing[TEAM_PEPPY].timer = 102;
+            sTitleArwing[TEAM_FALCO].timer = 132;
+            sTitleArwing[TEAM_FOX].timer = 171;
 
             D_menu_801B8294 = D_menu_801B6C60;
             D_menu_801B8298 = 0;
             D_menu_801B828C = 0.0f;
             D_menu_801B8290 = 0.024f;
-            D_menu_801B82C0 = 10;
+            sSceneState = 10;
             break;
 
         case 10:
-            if (D_menu_801B82A8 == 0) {
+            if (sTimer1 == 0) {
                 AUDIO_PLAY_SFX(NA_SE_LIFT_UP, gDefaultSfxSource, 4);
-                D_menu_801B82B4 = 0;
-                D_menu_801B82C0 = 1;
+                sTimer3 = 0;
+                sSceneState = 1;
             }
             break;
 
         case 1:
-            Title_80191798(&D_menu_801B86A8, &D_menu_801B86AC);
-            Title_80191844(D_menu_801B86A8, D_menu_801B86AC);
-            Title_8018CC30(D_menu_801B8294, 10, D_menu_801B8290);
+            Title_GetCamRot(&D_menu_801B86A8, &D_menu_801B86AC);
+            Title_SetCamUp(D_menu_801B86A8, D_menu_801B86AC);
+            Title_Cutscene_SetCamera(D_menu_801B8294, 10, D_menu_801B8290);
 
             if (D_menu_801B9048 > 0.0f) {
                 D_menu_801B9048 -= 0.41f;
@@ -1687,52 +1700,52 @@ void Title_8018B5C4(void) {
                 }
             }
 
-            if (D_menu_801B82B4 == 60) {
-                D_menu_801B7BF0 = 2;
+            if (sTimer3 == 60) {
+                sTitleCardState = TITLE_CARD_ARWING;
             }
 
-            for (i = 3; i >= 0; i--) {
-                if (D_menu_801B84E8[i].unk_38 > 0) {
-                    D_menu_801B84E8[i].unk_38--;
+            for (i = ARRAY_COUNT(sTitleArwing) - 1; i >= 0; i--) {
+                if (sTitleArwing[i].timer > 0) {
+                    sTitleArwing[i].timer--;
                 }
 
-                if (D_menu_801B84E8[i].unk_38 == 1) {
-                    AUDIO_PLAY_SFX(NA_SE_ARWING_HATCH, D_menu_801B84E8[i].unk_50, 0);
+                if (sTitleArwing[i].timer == 1) {
+                    AUDIO_PLAY_SFX(NA_SE_ARWING_HATCH, sTitleArwing[i].sfxSource, 0);
                 };
 
-                if (D_menu_801B84E8[i].unk_38 == 0) {
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_28, 0.0f, D_menu_801B84E8[i].unk_10, 100.0f, 0.01f);
-                    temp[i] = Math_SmoothStepToF(&(D_menu_801B84E8[i].unk_24), 0.0f, D_menu_801B84E8[i].unk_10, 100.0f,
+                if (sTitleArwing[i].timer == 0) {
+                    Math_SmoothStepToF(&sTitleArwing[i].laserGunsYpos, 0.0f, sTitleArwing[i].vel, 100.0f, 0.01f);
+                    temp[i] = Math_SmoothStepToF(&(sTitleArwing[i].cockpitGlassXrot), 0.0f, sTitleArwing[i].vel, 100.0f,
                                                  0.01f);
-                    D_menu_801B84E8[i].unk_10 *= 1.04f;
+                    sTitleArwing[i].vel *= 1.04f;
                     if (temp[i] == 0.0f) {
-                        Audio_KillSfxBySourceAndId(D_menu_801B84E8[i].unk_50, NA_SE_ARWING_HATCH);
+                        Audio_KillSfxBySourceAndId(sTitleArwing[i].sfxSource, NA_SE_ARWING_HATCH);
                     }
                 }
             }
 
-            if (D_menu_801B82B4 == 70) {
+            if (sTimer3 == 70) {
                 D_menu_801B7BE4 = 0;
-                D_menu_801B84E8[0].unk_4C = 0;
+                sTitleArwing[TEAM_FOX].draw = false;
             }
 
-            if (D_menu_801B82B4 == 80) {
-                D_menu_801B84E8[1].unk_4C = 0;
+            if (sTimer3 == 80) {
+                sTitleArwing[TEAM_FALCO].draw = false;
 
                 for (i = 0; i < 4; i++) {
-                    D_menu_801B84E8[i].unk_48 = 0;
+                    sTitleArwing[i].drawShadow = false;
                 }
             }
 
-            if (D_menu_801B82B4 == 115) {
-                D_menu_801B84E8[0].unk_4C = 1;
-                D_menu_801B84E8[1].unk_4C = 1;
+            if (sTimer3 == 115) {
+                sTitleArwing[TEAM_FOX].draw = true;
+                sTitleArwing[TEAM_FALCO].draw = true;
             }
 
-            if (D_menu_801B82B4 == 226) {
-                D_menu_801B7BF0 = 0;
+            if (sTimer3 == 226) {
+                sTitleCardState = TITLE_CARD_NONE;
 
-                AUDIO_PLAY_SFX(NA_SE_ENGINE_START, D_menu_801B84E8[3].unk_50, 0);
+                AUDIO_PLAY_SFX(NA_SE_ENGINE_START, sTitleArwing[TEAM_SLIPPY].sfxSource, 0);
 
                 D_menu_801B86BC = 105.0f;
                 D_menu_801B86C0 = 0.0f;
@@ -1742,13 +1755,13 @@ void Title_8018B5C4(void) {
                 D_menu_801B86B4 = 36.0f;
                 D_menu_801B86B8 = -70.0f;
 
-                Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                               D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                               D_menu_801B86AC);
+                Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY,
+                                &gCsCamEyeZ, D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8,
+                                D_menu_801B86A8, D_menu_801B86AC);
 
-                D_menu_801B82B4 = 0;
+                sTimer3 = 0;
 
-                D_menu_801B84E8[3].unk_44 = 0.0f;
+                sTitleArwing[TEAM_SLIPPY].unk_44 = 0.0f;
 
                 D_menu_801B86C8 = 60.0f;
                 D_menu_801B86CC = 0.0f;
@@ -1764,25 +1777,25 @@ void Title_8018B5C4(void) {
                 gAmbientG = 24;
                 gAmbientB = 46;
 
-                D_menu_801B82C0++;
+                sSceneState++;
             }
-            D_menu_801B82B4++;
+            sTimer3++;
             break;
 
         case 2:
-            if (D_menu_801B82B4 == 30) {
-                D_menu_801B84E8[3].unk_40 = 1;
+            if (sTimer3 == 30) {
+                sTitleArwing[TEAM_SLIPPY].unk_40 = 1;
             }
 
-            if (D_menu_801B82B4 == 40) {
-                D_menu_801B84E8[3].unk_3C = 1;
+            if (sTimer3 == 40) {
+                sTitleArwing[TEAM_SLIPPY].unk_3C = 1;
             }
 
-            if (D_menu_801B82B4 > 40) {
-                D_menu_801B84E8[3].unk_44 += 0.002f;
+            if (sTimer3 > 40) {
+                sTitleArwing[TEAM_SLIPPY].unk_44 += 0.002f;
 
-                if (D_menu_801B84E8[3].unk_44 > 0.2f) {
-                    D_menu_801B84E8[3].unk_44 = 0.2f;
+                if (sTitleArwing[TEAM_SLIPPY].unk_44 > 0.2f) {
+                    sTitleArwing[TEAM_SLIPPY].unk_44 = 0.2f;
                 }
 
                 Math_SmoothStepToF(&D_menu_801B82EC, 240.0f, 0.06f, 2.0f, 0.01f);
@@ -1794,111 +1807,111 @@ void Title_8018B5C4(void) {
                 gLight1B = D_menu_801B82F4;
             }
 
-            if ((D_menu_801B82B4 > 60) && (gFillScreenAlpha < 255)) {
+            if ((sTimer3 > 60) && (gFillScreenAlpha < 255)) {
                 gFillScreenAlpha++;
             }
 
             if (gFillScreenAlpha == 128) {
-                D_menu_801B82A8 = 7;
-                D_menu_801B84E8[3].unk_3C = 0;
-                D_menu_801B84E8[3].unk_40 = 0;
+                sTimer1 = 7;
+                sTitleArwing[TEAM_SLIPPY].unk_3C = 0;
+                sTitleArwing[TEAM_SLIPPY].unk_40 = 0;
                 gFillScreenAlpha = 255;
-                D_menu_801B82C0++;
+                sSceneState++;
             }
 
-            if (D_menu_801B82B4 == 50) {
-                D_menu_801B84E8[0].unk_4C = 0;
+            if (sTimer3 == 50) {
+                sTitleArwing[TEAM_FOX].draw = false;
             }
 
-            if (D_menu_801B82B4 == 60) {
-                D_menu_801B84E8[1].unk_4C = 0;
+            if (sTimer3 == 60) {
+                sTitleArwing[TEAM_FALCO].draw = false;
             }
 
             Math_SmoothStepToF(&D_menu_801B86B4, 16.0f, 0.01f, 100.0f, 0.01f);
             Math_SmoothStepToF(&D_menu_801B86AC, 138.0f, 0.01f, 100.0f, 0.01f);
 
-            Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                           D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                           D_menu_801B86AC);
-            D_menu_801B82B4++;
+            Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                            D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
+                            D_menu_801B86AC);
+            sTimer3++;
             break;
 
         case 3:
-            if (D_menu_801B82A8 == 0) {
-                Audio_KillSfxBySourceAndId(D_menu_801B84E8[3].unk_50, NA_SE_ENGINE_START);
-                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, D_menu_801B84E8[3].unk_50, 0);
+            if (sTimer1 == 0) {
+                Audio_KillSfxBySourceAndId(sTitleArwing[TEAM_SLIPPY].sfxSource, NA_SE_ENGINE_START);
+                AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, sTitleArwing[TEAM_SLIPPY].sfxSource, 0);
 
-                D_menu_801B82A8 = 4;
+                sTimer1 = 4;
 
                 gFillScreenAlpha = 0;
 
                 for (i = 0; i < 4; i++) {
-                    D_menu_801B84E8[i].unk_3C = 1;
-                    D_menu_801B84E8[i].unk_44 = 0.9f;
+                    sTitleArwing[i].unk_3C = 1;
+                    sTitleArwing[i].unk_44 = 0.9f;
                 }
 
-                D_menu_801B82B4 = 0;
+                sTimer3 = 0;
 
                 gStarCount = 800;
 
-                D_menu_801B82C0++;
+                sSceneState++;
             }
             break;
 
         case 4:
-            if (D_menu_801B82A8 == 0) {
-                D_menu_801B84E8[3].unk_44 = 1.2f;
+            if (sTimer1 == 0) {
+                sTitleArwing[TEAM_SLIPPY].unk_44 = 1.2f;
 
-                Math_SmoothStepToF(&D_menu_801B84E8[3].unk_00.z, 900.0f, 0.06f, 100.0f, 0.0001f);
+                Math_SmoothStepToF(&sTitleArwing[TEAM_SLIPPY].pos.z, 900.0f, 0.06f, 100.0f, 0.0001f);
                 Math_SmoothStepToF(&D_menu_801B86AC, 154.0f, 0.2f, 100.0f, 0.01f);
                 Math_SmoothStepToF(&D_menu_801B86A8, -5.0f, 0.2f, 100.0f, 0.01f);
                 Math_SmoothStepToF(&D_menu_801B86BC, 100.0f, 0.2f, 100.0f, 0.01f);
                 Math_SmoothStepToF(&D_menu_801B86B4, 40.0f, 0.2f, 100.0f, 0.01f);
 
-                Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                               D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                               D_menu_801B86AC);
+                Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY,
+                                &gCsCamEyeZ, D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8,
+                                D_menu_801B86A8, D_menu_801B86AC);
 
-                if (D_menu_801B82B4 > 8) {
+                if (sTimer3 > 8) {
                     Audio_SetEnvSfxReverb(0);
-                    D_menu_801B82C0 = 0;
-                    D_menu_801B82C4 = 5;
+                    sSceneState = 0;
+                    sCutsceneState = TITLE_TAKE_OFF_SPACE;
                 }
-                D_menu_801B82B4++;
+                sTimer3++;
             }
             break;
     }
-    Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_SetLightRot(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     D_menu_801B7BEC++;
 }
 
-void Title_8018C114(void) {
+void Title_CsTakeOff_Draw(void) {
     s32 i;
 
-    if (D_menu_801B8688.unk_0C != 0) {
-        Title_8018DF0C(0.0f);
+    if (sTitleCorneria.draw) {
+        Title_Corneria_Draw(0.0f);
     }
 
-    Title_80190950();
+    Title_GreatFoxDeck_Draw();
 
-    for (i = 3; i >= 0; i--) {
-        if (D_menu_801B84E8[i].unk_4C) {
-            Title_80190B30(i);
+    for (i = ARRAY_COUNT(sTitleArwing) - 1; i >= 0; i--) {
+        if (sTitleArwing[i].draw) {
+            Title_GreatFoxDeckLauncher_Draw(i);
         }
     }
 
-    for (i = 0; i < 4; i++) {
-        if (D_menu_801B84E8[i].unk_4C) {
-            Title_8018D2B8(i);
+    for (i = 0; i < ARRAY_COUNT(sTitleArwing); i++) {
+        if (sTitleArwing[i].draw) {
+            Title_Arwing_Draw(i);
         }
     }
 }
 
-void Title_8018C1C0(void) {
+void Title_CsTakeOffSpace_Setup(void) {
     s32 i;
 
     gStarCount = 1;
-    D_menu_801B7C98 = 10;
+    sMaxExplosions = 10;
 
     for (i = 0; i < 10; i++) {
         D_menu_801B7BF8[i] = RAND_FLOAT(10.0f) + 10.0f;
@@ -1911,7 +1924,7 @@ void Title_8018C1C0(void) {
         D_menu_801B7CA0[i] = 0;
     }
 
-    D_menu_801B86A0 = 1;
+    sDrawTakeOffSpace = true;
     D_menu_801B86BC = 0.0f;
     D_menu_801B86C0 = -38.0f;
     D_menu_801B86C4 = 35.0f;
@@ -1928,19 +1941,19 @@ void Title_8018C1C0(void) {
     gFillScreenGreen = 0;
     gFillScreenBlue = 0;
 
-    D_menu_801B8688.pos.x = 130.0f;
-    D_menu_801B8688.pos.y = -30.0f;
-    D_menu_801B8688.pos.z = 2000.0f;
-    D_menu_801B8688.scale = 8.0f;
-    D_menu_801B8688.unk_0C = 0;
+    sTitleCorneria.pos.x = 130.0f;
+    sTitleCorneria.pos.y = -30.0f;
+    sTitleCorneria.pos.z = 2000.0f;
+    sTitleCorneria.scale = 8.0f;
+    sTitleCorneria.draw = false;
 
-    D_menu_801B8658.pos.x = 0.0f;
-    D_menu_801B8658.pos.y = 0.0f;
-    D_menu_801B8658.pos.z = 0.0f;
-    D_menu_801B8658.angleX = 0.0f;
-    D_menu_801B8658.angleY = 0.0f;
-    D_menu_801B8658.angleZ = 0.0f;
-    D_menu_801B8658.scale = 0.1f;
+    sTitleGreatFox.pos.x = 0.0f;
+    sTitleGreatFox.pos.y = 0.0f;
+    sTitleGreatFox.pos.z = 0.0f;
+    sTitleGreatFox.xRot = 0.0f;
+    sTitleGreatFox.yRot = 0.0f;
+    sTitleGreatFox.zRot = 0.0f;
+    sTitleGreatFox.scale = 0.1f;
 
     D_menu_801B86C8 = 0.0f;
     D_menu_801B86CC = 0.0f;
@@ -1952,25 +1965,25 @@ void Title_8018C1C0(void) {
     gAmbientG = 4;
     gAmbientB = 10;
 
-    for (i = 0; i < 4; i++) {
-        D_menu_801B84E8[i].unk_00.x = 0.0f;
-        D_menu_801B84E8[i].unk_00.y = -40.0f;
-        D_menu_801B84E8[i].unk_00.z = -30.0f;
-        D_menu_801B84E8[i].unk_0C = 0.1f;
-        D_menu_801B84E8[i].unk_18 = 0.0f;
-        D_menu_801B84E8[i].unk_1C = 0.0f;
-        D_menu_801B84E8[i].unk_20 = 0.0f;
-        D_menu_801B84E8[i].unk_10 = 0.05f;
-        D_menu_801B84E8[i].unk_24 = 0.0f;
-        D_menu_801B84E8[i].unk_28 = 0.0f;
-        D_menu_801B84E8[i].unk_2C = 0.0f;
-        D_menu_801B84E8[i].unk_30 = 0.0f;
-        D_menu_801B84E8[i].unk_34 = i + 1;
-        D_menu_801B84E8[i].unk_3C = 1;
-        D_menu_801B84E8[i].unk_40 = 0;
-        D_menu_801B84E8[i].unk_44 = 1.2f;
-        D_menu_801B84E8[i].unk_48 = 0;
-        D_menu_801B84E8[i].unk_4C = 0;
+    for (i = 0; i < ARRAY_COUNT(sTitleArwing); i++) {
+        sTitleArwing[i].pos.x = 0.0f;
+        sTitleArwing[i].pos.y = -40.0f;
+        sTitleArwing[i].pos.z = -30.0f;
+        sTitleArwing[i].scale = 0.1f;
+        sTitleArwing[i].xRot = 0.0f;
+        sTitleArwing[i].yRot = 0.0f;
+        sTitleArwing[i].zRot = 0.0f;
+        sTitleArwing[i].vel = 0.05f;
+        sTitleArwing[i].cockpitGlassXrot = 0.0f;
+        sTitleArwing[i].laserGunsYpos = 0.0f;
+        sTitleArwing[i].teamFaceXrot = 0.0f;
+        sTitleArwing[i].teamFaceYrot = 0.0f;
+        sTitleArwing[i].drawFace = i + 1;
+        sTitleArwing[i].unk_3C = 1;
+        sTitleArwing[i].unk_40 = 0;
+        sTitleArwing[i].unk_44 = 1.2f;
+        sTitleArwing[i].drawShadow = false;
+        sTitleArwing[i].draw = false;
     }
 
     D_menu_801B86BC = -8.0f;
@@ -1982,13 +1995,13 @@ void Title_8018C1C0(void) {
     D_menu_801B86B4 = 235.0f;
     D_menu_801B86B8 = 50.00f;
 
-    D_menu_801B829C = 0.0f;
-    D_menu_801B82A0 = 1.0f;
-    D_menu_801B82A4 = 0.0f;
+    sTitleCamUpX = 0.0f;
+    sTitleCamUpY = 1.0f;
+    sTitleCamUpZ = 0.0f;
 
-    Title_801914AC(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
-                   D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
-                   D_menu_801B86AC);
+    Title_SetCamUp2(D_menu_801B86BC, D_menu_801B86C0, D_menu_801B86C4, &gCsCamEyeX, &gCsCamEyeY, &gCsCamEyeZ,
+                    D_menu_801B86B4, &gCsCamAtX, &gCsCamAtY, &gCsCamAtZ, D_menu_801B86B8, D_menu_801B86A8,
+                    D_menu_801B86AC);
 }
 
 CameraPoint D_menu_801ADF84[50] = {
@@ -2003,7 +2016,7 @@ CameraPoint D_menu_801ADF84[50] = {
     { 481.63818f, -313.2934f, -628.9213f, 96.2103f, -5.343582f, -4.23885f },
 };
 
-void Title_8018C644(void) {
+void Title_CsTakeOffSpace_Update(void) {
     s32 i;
     f32 x;
     f32 y;
@@ -2012,127 +2025,124 @@ void Title_8018C644(void) {
     static f32 D_menu_801AE444[4] = { -50.0f, -45.0f, -55.0f, -60.0f };
     static f32 D_menu_801AE454[4] = { 265.0f, 260.0f, 255.0f, 230.0f };
 
-    switch (D_menu_801B82C0) {
+    switch (sSceneState) {
         case 0:
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, D_menu_801B8658.unk_24, 0);
-            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, D_menu_801B8658.unk_24, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, sTitleGreatFox.sfxSource, 0);
+            AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, sTitleGreatFox.sfxSource, 0);
 
-            Title_8018C1C0();
+            Title_CsTakeOffSpace_Setup();
 
-            D_menu_801B82B4 = 0;
+            sTimer3 = 0;
             D_menu_801B7BEC = 0;
-            D_menu_801B8688.unk_0C = 1;
+            sTitleCorneria.draw = true;
 
-            D_menu_801B84E8[0].unk_38 = 3;
-            D_menu_801B84E8[1].unk_38 = 23;
-            D_menu_801B84E8[2].unk_38 = 43;
-            D_menu_801B84E8[3].unk_38 = 63;
+            sTitleArwing[TEAM_FOX].timer = 3;
+            sTitleArwing[TEAM_FALCO].timer = 23;
+            sTitleArwing[TEAM_PEPPY].timer = 43;
+            sTitleArwing[TEAM_SLIPPY].timer = 63;
 
             D_menu_801B8294 = D_menu_801ADF84;
             D_menu_801B8298 = 0;
             D_menu_801B828C = 0.0f;
             D_menu_801B8290 = 0.042f;
 
-            D_menu_801B82C0++;
+            sSceneState++;
             break;
 
         case 1:
-            for (i = 0; i < 4; i++) {
-                if (D_menu_801B84E8[i].unk_38 > 0) {
-                    D_menu_801B84E8[i].unk_38--;
+            for (i = 0; i < ARRAY_COUNT(sTitleArwing); i++) {
+                if (sTitleArwing[i].timer > 0) {
+                    sTitleArwing[i].timer--;
                 } else {
-                    if (D_menu_801B84E8[i].unk_38 == 0) {
-                        AUDIO_PLAY_SFX(NA_SE_PASS, D_menu_801B84E8[i].unk_50, 0);
-                        D_menu_801B84E8[i].unk_38 = -1;
-                        D_menu_801B84E8[i].unk_4C = 1;
+                    if (sTitleArwing[i].timer == 0) {
+                        AUDIO_PLAY_SFX(NA_SE_PASS, sTitleArwing[i].sfxSource, 0);
+                        sTitleArwing[i].timer = -1;
+                        sTitleArwing[i].draw = true;
                     }
 
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.y, D_menu_801AE444[i], D_menu_801B84E8[i].unk_10,
-                                       100.0f, 0.001f);
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.x, D_menu_801AE434[i], D_menu_801B84E8[i].unk_10,
-                                       100.0f, 0.001f);
-                    Math_SmoothStepToF(&D_menu_801B84E8[i].unk_00.z, D_menu_801AE454[i], D_menu_801B84E8[i].unk_10,
-                                       100.0f, 0.001f);
+                    Math_SmoothStepToF(&sTitleArwing[i].pos.y, D_menu_801AE444[i], sTitleArwing[i].vel, 100.0f, 0.001f);
+                    Math_SmoothStepToF(&sTitleArwing[i].pos.x, D_menu_801AE434[i], sTitleArwing[i].vel, 100.0f, 0.001f);
+                    Math_SmoothStepToF(&sTitleArwing[i].pos.z, D_menu_801AE454[i], sTitleArwing[i].vel, 100.0f, 0.001f);
 
-                    D_menu_801B84E8[i].unk_10 *= 1.05f;
+                    sTitleArwing[i].vel *= 1.05f;
 
-                    if (D_menu_801B84E8[i].unk_00.z == D_menu_801AE454[i]) {
-                        D_menu_801B84E8[i].unk_0C -= 0.002f;
-                        if (D_menu_801B84E8[i].unk_0C < 0.0f) {
-                            D_menu_801B84E8[i].unk_0C = 0.0f;
-                            D_menu_801B84E8[i].unk_4C = 0;
+                    if (sTitleArwing[i].pos.z == D_menu_801AE454[i]) {
+                        sTitleArwing[i].scale -= 0.002f;
+                        if (sTitleArwing[i].scale < 0.0f) {
+                            sTitleArwing[i].scale = 0.0f;
+                            sTitleArwing[i].draw = false;
                         }
                     }
 
-                    x = D_menu_801AE434[i] - D_menu_801B84E8[i].unk_00.x;
-                    y = D_menu_801AE444[i] - D_menu_801B84E8[i].unk_00.y;
-                    z = D_menu_801AE454[i] + 10.0f - D_menu_801B84E8[i].unk_00.z;
+                    x = D_menu_801AE434[i] - sTitleArwing[i].pos.x;
+                    y = D_menu_801AE444[i] - sTitleArwing[i].pos.y;
+                    z = D_menu_801AE454[i] + 10.0f - sTitleArwing[i].pos.z;
 
-                    D_menu_801B84E8[i].unk_18 = RAD_TO_DEG(-Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
-                    D_menu_801B84E8[i].unk_1C = RAD_TO_DEG(Math_Atan2F(x, z));
+                    sTitleArwing[i].xRot = RAD_TO_DEG(-Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
+                    sTitleArwing[i].yRot = RAD_TO_DEG(Math_Atan2F(x, z));
                 }
             }
 
-            if (D_menu_801B82B4 == 125) {
+            if (sTimer3 == 125) {
                 D_menu_801B869C = 1;
             }
 
             if (gFillScreenAlpha == 255) {
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_ENGINE);
-                Audio_KillSfxBySourceAndId(D_menu_801B8658.unk_24, NA_SE_GREATFOX_BURNER);
-                D_menu_801B82C0++;
+                Audio_KillSfxBySourceAndId(sTitleGreatFox.sfxSource, NA_SE_GREATFOX_ENGINE);
+                Audio_KillSfxBySourceAndId(sTitleGreatFox.sfxSource, NA_SE_GREATFOX_BURNER);
+                sSceneState++;
             }
-            Title_801912A0();
-            D_menu_801B82B4++;
+            Title_ScreenFade_Update();
+            sTimer3++;
             break;
 
         case 2:
             gFillScreenAlpha = 0;
             gStarCount = 0;
-            D_menu_801B86A0 = 0;
-            D_menu_801B82A8 = 20;
-            D_menu_801B82C0++;
+            sDrawTakeOffSpace = false;
+            sTimer1 = 20;
+            sSceneState++;
             break;
 
         case 3:
-            if (D_menu_801B82A8 != 0) {
+            if (sTimer1 != 0) {
                 break;
             }
-            D_menu_801B82C0 = 0;
+            sSceneState = 0;
             gDrawMode = DRAW_NONE;
-            D_menu_801B82C4 = 0;
+            sCutsceneState = TITLE_SCREEN;
             AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
             break;
     }
 
-    Title_80191798(&D_menu_801B86A8, &D_menu_801B86AC);
-    Title_80191844(D_menu_801B86A8, D_menu_801B86AC);
-    Title_8018CC30(D_menu_801B8294, 9, D_menu_801B8290);
-    Title_80191674(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
+    Title_GetCamRot(&D_menu_801B86A8, &D_menu_801B86AC);
+    Title_SetCamUp(D_menu_801B86A8, D_menu_801B86AC);
+    Title_Cutscene_SetCamera(D_menu_801B8294, 9, D_menu_801B8290);
+    Title_SetLightRot(D_menu_801B86C8, D_menu_801B86CC, 100.0f, &D_menu_801B82E0, &D_menu_801B82E4, &D_menu_801B82E8);
     Camera_SetStarfieldPos(gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ);
 
     D_menu_801B7BEC++;
 }
 
-void Title_8018CB90(void) {
+void Title_CsTakeOffSpace_Draw(void) {
     s32 i;
 
-    if (D_menu_801B86A0 != 0) {
-        if (D_menu_801B8688.unk_0C != 0) {
-            Title_8018DF0C(-1000.0f);
+    if (sDrawTakeOffSpace) {
+        if (sTitleCorneria.draw) {
+            Title_Corneria_Draw(-1000.0f);
         }
 
-        Title_8018E058();
+        Title_GreatFox_Draw();
 
         for (i = 0; i < 4; i++) {
-            if ((D_menu_801B84E8[i].unk_38 <= 0) && (D_menu_801B84E8[i].unk_4C != 0)) {
-                Title_8018D2B8(i);
+            if ((sTitleArwing[i].timer <= 0) && sTitleArwing[i].draw) {
+                Title_Arwing_Draw(i);
             }
         }
     }
 }
 
-void Title_8018CC30(CameraPoint* arg0, s32 arg1, f32 arg2) {
+void Title_Cutscene_SetCamera(CameraPoint* arg0, s32 arg1, f32 arg2) {
     s32 var_a3;
     CameraPoint pos;
 
@@ -2152,7 +2162,8 @@ void Title_8018CC30(CameraPoint* arg0, s32 arg1, f32 arg2) {
             var_a3 = 2;
         }
 
-        Title_8018CD9C(&pos, &arg0[D_menu_801B8298], D_menu_801B828C, var_a3);
+        Title_Camera_Calc(&pos, &arg0[D_menu_801B8298], D_menu_801B828C, var_a3);
+
         gCsCamEyeX = pos.eye.x;
         gCsCamEyeY = pos.eye.y;
         gCsCamEyeZ = pos.eye.z;
@@ -2172,7 +2183,8 @@ void Title_8018CC30(CameraPoint* arg0, s32 arg1, f32 arg2) {
     }
 }
 
-void Title_8018CD9C(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3) {
+// Calculation of camera movements using Cubic spline interpolation
+void Title_Camera_Calc(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3) {
     f32 temp1;
     f32 temp2;
     f32 temp3;
@@ -2231,7 +2243,8 @@ void Title_8018CD9C(CameraPoint* pos, CameraPoint* arg1, f32 weight, s32 arg3) {
                 (temp4 * (arg1 + 3)->at.z);
 }
 
-void Title_8018D2B8(s32 arg0) {
+// Arwings in the take off cutscene
+void Title_Arwing_Draw(TitleTeam teamIdx) {
     ArwingInfo arwing;
 
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
@@ -2241,15 +2254,15 @@ void Title_8018D2B8(s32 arg0) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B84E8[arg0].unk_00.x, D_menu_801B84E8[arg0].unk_00.y,
-                     D_menu_801B84E8[arg0].unk_00.z, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleArwing[teamIdx].pos.x, sTitleArwing[teamIdx].pos.y, sTitleArwing[teamIdx].pos.z,
+                     MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C, D_menu_801B84E8[arg0].unk_0C,
+    Matrix_Scale(gGfxMatrix, sTitleArwing[teamIdx].scale, sTitleArwing[teamIdx].scale, sTitleArwing[teamIdx].scale,
                  MTXF_APPLY);
 
-    Matrix_RotateZ(gGfxMatrix, D_menu_801B84E8[arg0].unk_20 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, D_menu_801B84E8[arg0].unk_18 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, D_menu_801B84E8[arg0].unk_1C * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, sTitleArwing[teamIdx].zRot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, sTitleArwing[teamIdx].xRot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, sTitleArwing[teamIdx].yRot * M_DTOR, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -2257,33 +2270,34 @@ void Title_8018D2B8(s32 arg0) {
     arwing.laserGunsXpos = arwing.wingsXrot = arwing.wingsYrot = arwing.wingsZrot = arwing.upperRightFlapYrot =
         arwing.bottomRightFlapYrot = arwing.upperLeftFlapYrot = arwing.bottomLeftFlapYrot = arwing.unk_28 = 0.0f;
 
-    arwing.laserGunsYpos = D_menu_801B84E8[arg0].unk_28;
-    arwing.drawFace = D_menu_801B84E8[arg0].unk_34;
-    arwing.teamFaceXrot = D_menu_801B84E8[arg0].unk_2C;
-    arwing.teamFaceYrot = D_menu_801B84E8[arg0].unk_30;
-    arwing.windshieldXrot = D_menu_801B84E8[arg0].unk_24;
+    arwing.laserGunsYpos = sTitleArwing[teamIdx].laserGunsYpos;
+    arwing.drawFace = sTitleArwing[teamIdx].drawFace;
+    arwing.teamFaceXrot = sTitleArwing[teamIdx].teamFaceXrot;
+    arwing.teamFaceYrot = sTitleArwing[teamIdx].teamFaceYrot;
+    arwing.cockpitGlassXrot = sTitleArwing[teamIdx].cockpitGlassXrot;
 
     Display_ArwingWings(&arwing);
 
-    Object_UpdateSfxSource(D_menu_801B84E8[arg0].unk_50);
+    Object_UpdateSfxSource(sTitleArwing[teamIdx].sfxSource);
 
-    if (D_menu_801B84E8[arg0].unk_40 != 0) {
-        Title_8018D80C(arg0);
+    if (sTitleArwing[teamIdx].unk_40 != 0) {
+        Title_EngineGlowParticles_Draw(teamIdx);
     }
 
-    if (D_menu_801B84E8[arg0].unk_3C != 0) {
-        Title_8018D510(arg0);
+    if (sTitleArwing[teamIdx].unk_3C != 0) {
+        Title_Arwing_DrawEngineGlow(teamIdx);
     }
 
-    if (D_menu_801B84E8[arg0].unk_48 != 0) {
-        Title_8018DDB8(arg0);
+    if (sTitleArwing[teamIdx].drawShadow) {
+        Title_ArwingShadow_Draw(teamIdx);
     }
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018D510(s32 arg0) {
-    f32 var_fv0;
+// Engine glow of Team Arwing in the take off cutscene
+void Title_Arwing_DrawEngineGlow(TitleTeam teamIdx) {
+    f32 engineGlowScale;
     f32 sp40;
     f32 sp3C;
     f32 var_fv1;
@@ -2293,7 +2307,7 @@ void Title_8018D510(s32 arg0) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    if (D_menu_801B84E8[arg0].unk_40 == 1) {
+    if (sTitleArwing[teamIdx].unk_40 == 1) {
         var_fa0 = -30.0f;
         var_fv1 = 0.02f;
         gDPSetEnvColor(gMasterDisp++, 128, 128, 255, 255);
@@ -2303,36 +2317,36 @@ void Title_8018D510(s32 arg0) {
         gDPSetEnvColor(gMasterDisp++, 0, 0, 255, 255);
     }
 
-    var_fv0 = D_menu_801B84E8[arg0].unk_44;
+    engineGlowScale = sTitleArwing[teamIdx].unk_44;
 
     if ((gGameFrameCount % 2) != 0) {
-        var_fv0 += var_fv1;
+        engineGlowScale += var_fv1;
     }
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, var_fa0, MTXF_APPLY);
-    Matrix_Scale(gGfxMatrix, var_fv0, var_fv0 * 0.7f, var_fv0, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, engineGlowScale, engineGlowScale * 0.7f, engineGlowScale, MTXF_APPLY);
 
-    Matrix_RotateZ(gGfxMatrix, -D_menu_801B84E8[arg0].unk_20 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, -sTitleArwing[teamIdx].zRot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, -sTitleArwing[teamIdx].xRot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, -sTitleArwing[teamIdx].yRot * M_DTOR, MTXF_APPLY);
 
-    sp3C = -Math_Atan2F(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x, gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z);
-    temp = sqrtf(SQ(gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z) + SQ(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x));
-    sp40 = Math_Atan2F(gCsCamEyeY - D_menu_801B84E8[arg0].unk_00.y, temp);
+    sp3C = -Math_Atan2F(gCsCamEyeX - sTitleArwing[teamIdx].pos.x, gCsCamEyeZ - sTitleArwing[teamIdx].pos.z);
+    temp = sqrtf(SQ(gCsCamEyeZ - sTitleArwing[teamIdx].pos.z) + SQ(gCsCamEyeX - sTitleArwing[teamIdx].pos.x));
+    sp40 = Math_Atan2F(gCsCamEyeY - sTitleArwing[teamIdx].pos.y, temp);
 
     Matrix_RotateY(gGfxMatrix, -sp3C, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, -sp40, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_TITLE_60320E0);
+    gSPDisplayList(gMasterDisp++, aTitleArwingEngineGlowDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018D80C(s32 arg0) {
+void Title_EngineGlowParticles_Draw(TitleTeam teamIdx) {
     s32 i;
     f32 sp70;
     f32 sp6C;
@@ -2373,9 +2387,9 @@ void Title_8018D80C(s32 arg0) {
         }
     }
 
-    sp6C = -Math_Atan2F(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x, gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z);
-    temp = sqrtf(SQ(gCsCamEyeZ - D_menu_801B84E8[arg0].unk_00.z) + SQ(gCsCamEyeX - D_menu_801B84E8[arg0].unk_00.x));
-    sp70 = Math_Atan2F(gCsCamEyeY - D_menu_801B84E8[arg0].unk_00.y, temp);
+    sp6C = -Math_Atan2F(gCsCamEyeX - sTitleArwing[teamIdx].pos.x, gCsCamEyeZ - sTitleArwing[teamIdx].pos.z);
+    temp = sqrtf(SQ(gCsCamEyeZ - sTitleArwing[teamIdx].pos.z) + SQ(gCsCamEyeX - sTitleArwing[teamIdx].pos.x));
+    sp70 = Math_Atan2F(gCsCamEyeY - sTitleArwing[teamIdx].pos.y, temp);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_49);
 
@@ -2392,26 +2406,26 @@ void Title_8018D80C(s32 arg0) {
         Matrix_Translate(gGfxMatrix, D_menu_801B7D40[i], D_menu_801B7DE0[i], D_menu_801B7E80[i], MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, D_menu_801B7FC0[i], D_menu_801B7FC0[i], D_menu_801B7FC0[i], MTXF_APPLY);
 
-        Matrix_RotateZ(gGfxMatrix, -D_menu_801B84E8[arg0].unk_20 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, -D_menu_801B84E8[arg0].unk_18 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, -D_menu_801B84E8[arg0].unk_1C * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, -sTitleArwing[teamIdx].zRot * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, -sTitleArwing[teamIdx].xRot * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, -sTitleArwing[teamIdx].yRot * M_DTOR, MTXF_APPLY);
 
         Matrix_RotateY(gGfxMatrix, -sp6C, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, -sp70, MTXF_APPLY);
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_TITLE_60320E0);
+        gSPDisplayList(gMasterDisp++, aTitleArwingEngineGlowDL);
 
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void Title_8018DDB8(s32 arg0) {
+void Title_ArwingShadow_Draw(s32 arg0) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f,
-                     (D_menu_801B9050 - D_menu_801B84E8[arg0].unk_00.y * 2.05f) + (D_menu_801B9048 - 84.0f) * 1.99f,
-                     0.0f, MTXF_APPLY);
+                     (D_menu_801B9050 - sTitleArwing[arg0].pos.y * 2.05f) + (D_menu_801B9048 - 84.0f) * 1.99f, 0.0f,
+                     MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -2419,64 +2433,65 @@ void Title_8018DDB8(s32 arg0) {
     RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 240);
-    gSPDisplayList(gMasterDisp++, D_TITLE_6032580);
+    gSPDisplayList(gMasterDisp++, aTitleArwingShadowDL);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018DF0C(f32 arg0) {
-    f32 sp34;
-    f32 sp30;
+void Title_Corneria_Draw(f32 zPos) {
+    f32 xRot;
+    f32 yRot;
 
-    Title_80191798(&sp34, &sp30);
+    Title_GetCamRot(&xRot, &yRot);
     RCP_SetupDL(&gMasterDisp, SETUPDL_53);
 
-    if (arg0 != 0.0f) {
-        D_menu_801B8688.pos.z = gCsCamEyeZ - arg0;
+    if (zPos != 0.0f) {
+        sTitleCorneria.pos.z = gCsCamEyeZ - zPos;
     }
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, D_menu_801B8688.pos.x, D_menu_801B8688.pos.y, D_menu_801B8688.pos.z, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * sp30, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * sp34, MTXF_APPLY);
-    Matrix_Scale(gGfxMatrix, D_menu_801B8688.scale, D_menu_801B8688.scale, D_menu_801B8688.scale, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleCorneria.pos.x, sTitleCorneria.pos.y, sTitleCorneria.pos.z, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * yRot, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * xRot, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, sTitleCorneria.scale, sTitleCorneria.scale, sTitleCorneria.scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_TITLE_6037CF0);
-    Title_8018E200();
+    gSPDisplayList(gMasterDisp++, aPlanetCorneriaDL);
+    Title_CorneriaExplosions_Draw();
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018E058(void) {
+void Title_GreatFox_Draw(void) {
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
                        gAmbientR, gAmbientG, gAmbientB);
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B8658.pos.x, D_menu_801B8658.pos.y, D_menu_801B8658.pos.z, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleGreatFox.pos.x, sTitleGreatFox.pos.y, sTitleGreatFox.pos.z, MTXF_APPLY);
 
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B8658.angleZ, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, M_DTOR * D_menu_801B8658.angleX, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, M_DTOR * D_menu_801B8658.angleY, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * sTitleGreatFox.zRot, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, M_DTOR * sTitleGreatFox.xRot, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, M_DTOR * sTitleGreatFox.yRot, MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, D_menu_801B8658.scale, D_menu_801B8658.scale, D_menu_801B8658.scale, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, sTitleGreatFox.scale, sTitleGreatFox.scale, sTitleGreatFox.scale, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
 
-    gGreatFoxIntact = true;
+    gGreatFoxIntact = true; // Unused here
 
     Cutscene_DrawGreatFox();
-    Object_UpdateSfxSource(D_menu_801B8658.unk_24);
+
+    Object_UpdateSfxSource(sTitleGreatFox.sfxSource);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018E200(void) {
+void Title_CorneriaExplosions_Draw(void) {
     f32 scale;
     s32 i;
 
-    for (i = 0; i < D_menu_801B7C98; i++) {
+    for (i = 0; i < sMaxExplosions; i++) {
         switch (D_menu_801B7CA0[i]) {
             case 0:
                 D_menu_801B7C48[i] += 0.15f;
@@ -2522,11 +2537,11 @@ void Title_8018E200(void) {
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_49);
 
-    for (i = 0; i < D_menu_801B7C98; i++) {
+    for (i = 0; i < sMaxExplosions; i++) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 200, 200, D_menu_801B7CC8[i]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, D_menu_801B7CF0[i]);
 
-        scale = D_menu_801B7C48[i] / D_menu_801B8688.scale;
+        scale = D_menu_801B7C48[i] / sTitleCorneria.scale;
 
         Matrix_Push(&gGfxMatrix);
 
@@ -2534,84 +2549,83 @@ void Title_8018E200(void) {
         Matrix_RotateZ(gGfxMatrix, D_menu_801B7C20[i] * M_DTOR, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, D_menu_801B7BF8[i], 0.0f, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
-
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_TITLE_60320E0);
+        gSPDisplayList(gMasterDisp++, aTitleArwingEngineGlowDL);
 
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void Title_8018E67C(s32 arg0) {
-    Vec3f sp60[50];
-    s32 sp5C;
+void Title_TeamRunning_Draw(TitleTeam teamIdx) {
+    Vec3f frameTable[50];
+    s32 frame;
     f32 temp_fv1;
 
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
                        gAmbientR, gAmbientG, gAmbientB);
 
-    sp5C = D_menu_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_menu_801ADA00[arg0].unk_0);
+    frame = sTitleTeam[teamIdx].frameCount % Animation_GetFrameCount(sTeamAnim[teamIdx].cutscene);
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x, D_menu_801B8350[arg0].unk_00.y,
-                     D_menu_801B8350[arg0].unk_00.z + D_menu_801B84D0, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleTeam[teamIdx].pos.x, sTitleTeam[teamIdx].pos.y,
+                     sTitleTeam[teamIdx].pos.z + D_menu_801B84D0, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, D_menu_801B84D4, D_menu_801B84D4, D_menu_801B84D4, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    if (arg0 == 2) {
+    if (teamIdx == TEAM_PEPPY) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
 
-    Animation_GetFrameData(D_menu_801ADA00[arg0].unk_0, sp5C, sp60);
-    Animation_DrawSkeleton(0, D_menu_801ADA00[arg0].skeleton, sp60, NULL, NULL, NULL, &gIdentityMatrix);
+    Animation_GetFrameData(sTeamAnim[teamIdx].cutscene, frame, frameTable);
+    Animation_DrawSkeleton(0, sTeamAnim[teamIdx].skeleton, frameTable, NULL, NULL, NULL, &gIdentityMatrix);
 
-    if (arg0 == 2) {
+    if (teamIdx == TEAM_PEPPY) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
 
-    if (arg0 == 0) {
+    if (teamIdx == TEAM_FOX) {
         Object_UpdateSfxSource(D_menu_801B84D8);
     }
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x - 5.0f, 5.0f,
-                     D_menu_801B8350[arg0].unk_00.z + 10.0f + D_menu_801B84D0, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleTeam[teamIdx].pos.x - 5.0f, 5.0f,
+                     sTitleTeam[teamIdx].pos.z + 10.0f + D_menu_801B84D0, MTXF_APPLY);
 
-    Matrix_Scale(gGfxMatrix, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10, D_menu_801B8350[arg0].unk_10,
-                 MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, sTitleTeam[teamIdx].shadowScale, sTitleTeam[teamIdx].shadowScale,
+                 sTitleTeam[teamIdx].shadowScale, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
     RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
-    gSPDisplayList(gMasterDisp++, D_TITLE_6041070);
+    gSPDisplayList(gMasterDisp++, aTeamShadowDL);
 
     Matrix_Pop(&gGfxMatrix);
 
-    temp_fv1 = SIN_DEG(sp5C * 12.0f) * 15.0f;
+    temp_fv1 = SIN_DEG(frame * 12.0f) * 15.0f;
 
     if (temp_fv1 >= 0) {
-        D_menu_801B8350[arg0].unk_0C = temp_fv1;
+        sTitleTeam[teamIdx].unk_0C = temp_fv1;
     } else if (temp_fv1 > -2.0f) {
-        D_menu_801B8350[arg0].unk_0C = -temp_fv1;
+        sTitleTeam[teamIdx].unk_0C = -temp_fv1;
     } else {
-        D_menu_801B8350[arg0].unk_0C = 0.0f;
+        sTitleTeam[teamIdx].unk_0C = 0.0f;
     }
-    D_menu_801B8350[arg0].unk_10 = 3.0f - (D_menu_801B8350[arg0].unk_0C / 100.0f);
+    sTitleTeam[teamIdx].shadowScale = 3.0f - (sTitleTeam[teamIdx].unk_0C / 100.0f);
 }
 
-void Title_8018EA78(s32 arg0) {
-    Vec3f sp48[50];
-    s32 sp44;
-
-    sp44 = D_menu_801B8350[arg0].unk_58 % Animation_GetFrameCount(D_menu_801ADA00[arg0].unk_4);
+void Title_Team_Draw(TitleTeam teamIdx) {
+    Vec3f frameTable[50];
+    s32 frame;
+    // return; // DEBUG
+    frame = sTitleTeam[teamIdx].frameCount % Animation_GetFrameCount(sTeamAnim[teamIdx].title);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
 
@@ -2620,150 +2634,151 @@ void Title_8018EA78(s32 arg0) {
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_RotateX(gGfxMatrix, D_menu_801B8350[arg0].unk_48 * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gGfxMatrix, D_menu_801B8350[arg0].unk_4C * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gGfxMatrix, D_menu_801B8350[arg0].unk_50 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, sTitleTeam[teamIdx].unk_48 * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gGfxMatrix, sTitleTeam[teamIdx].unk_4C * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, sTitleTeam[teamIdx].unk_50 * M_DTOR, MTXF_APPLY);
 
-    Matrix_Translate(gGfxMatrix, D_menu_801B8350[arg0].unk_00.x, D_menu_801B8350[arg0].unk_00.y,
-                     D_menu_801B8350[arg0].unk_00.z, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleTeam[teamIdx].pos.x, sTitleTeam[teamIdx].pos.y, sTitleTeam[teamIdx].pos.z,
+                     MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, D_menu_801B84D4, D_menu_801B84D4, D_menu_801B84D4, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    Math_SmoothStepToVec3fArray(sp48, D_menu_801B86E0[arg0], 1,
-                                Animation_GetFrameData(D_menu_801ADA00[arg0].unk_4, sp44, sp48), 0.2f, 100.0f, 0.0001f);
-    Animation_DrawSkeleton(1, D_menu_801ADA00[arg0].skeleton, D_menu_801B86E0[arg0], Title_8018EDC8, NULL, &arg0,
-                           &gIdentityMatrix);
+    Math_SmoothStepToVec3fArray(frameTable, sCharFrameTable[teamIdx], 1,
+                                Animation_GetFrameData(sTeamAnim[teamIdx].title, frame, frameTable), 0.2f, 100.0f,
+                                0.0001f);
+    Animation_DrawSkeleton(1, sTeamAnim[teamIdx].skeleton, sCharFrameTable[teamIdx], Title_Team_OverrideLimbDraw, NULL,
+                           &teamIdx, &gIdentityMatrix);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-bool Title_8018EDC8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Title_Team_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     f32 x;
     f32 y;
     f32 z;
-    s32 i = *(s32*) data;
+    TitleTeam teamIdx = *(TitleTeam*) thisx;
 
     if ((D_menu_801B86A4 < 2) && D_menu_801B9040) {
-        x = D_menu_801B905C - D_menu_801B8350[i].unk_00.x;
-        y = D_menu_801B9060 - (D_menu_801B8350[i].unk_00.y + D_menu_801B8350[i].unk_14);
-        z = D_menu_801B9064 - D_menu_801B8350[i].unk_00.z;
+        x = D_menu_801B905C - sTitleTeam[teamIdx].pos.x;
+        y = D_menu_801B9060 - (sTitleTeam[teamIdx].pos.y + sTitleTeam[teamIdx].unk_14);
+        z = D_menu_801B9064 - sTitleTeam[teamIdx].pos.z;
 
-        D_menu_801B8350[i].unk_28 = Math_Atan2F(x, sqrtf(SQ(y) + SQ(z))) * M_RTOD;
-        D_menu_801B8350[i].unk_2C = Math_Atan2F(y, z) * M_RTOD;
+        sTitleTeam[teamIdx].unk_28 = Math_Atan2F(x, sqrtf(SQ(y) + SQ(z))) * M_RTOD;
+        sTitleTeam[teamIdx].unk_2C = Math_Atan2F(y, z) * M_RTOD;
 
-        D_menu_801B8350[i].unk_38 = D_menu_801B8350[i].unk_28;
-        D_menu_801B8350[i].unk_3C = D_menu_801B8350[i].unk_2C;
+        sTitleTeam[teamIdx].unk_38 = sTitleTeam[teamIdx].unk_28;
+        sTitleTeam[teamIdx].unk_3C = sTitleTeam[teamIdx].unk_2C;
 
-        if (D_menu_801B8350[i].unk_28 < -45.0f) {
-            D_menu_801B8350[i].unk_28 = -45.0f;
-        } else if (D_menu_801B8350[i].unk_28 > 45.0f) {
-            D_menu_801B8350[i].unk_28 = 45.0f;
+        if (sTitleTeam[teamIdx].unk_28 < -45.0f) {
+            sTitleTeam[teamIdx].unk_28 = -45.0f;
+        } else if (sTitleTeam[teamIdx].unk_28 > 45.0f) {
+            sTitleTeam[teamIdx].unk_28 = 45.0f;
         }
 
-        if (D_menu_801B8350[i].unk_2C < -40.0f) {
-            D_menu_801B8350[i].unk_2C = -40.0f;
-        } else if (D_menu_801B8350[i].unk_2C > 55.0f) {
-            D_menu_801B8350[i].unk_2C = 55.0f;
+        if (sTitleTeam[teamIdx].unk_2C < -40.0f) {
+            sTitleTeam[teamIdx].unk_2C = -40.0f;
+        } else if (sTitleTeam[teamIdx].unk_2C > 55.0f) {
+            sTitleTeam[teamIdx].unk_2C = 55.0f;
         }
 
-        if (D_menu_801B8350[i].unk_38 < -20.0f) {
-            D_menu_801B8350[i].unk_38 = D_menu_801B8350[i].unk_38 - (-20.0f);
-            if (D_menu_801B8350[i].unk_38 < -20.0f) {
-                D_menu_801B8350[i].unk_38 = -20.0f;
+        if (sTitleTeam[teamIdx].unk_38 < -20.0f) {
+            sTitleTeam[teamIdx].unk_38 = sTitleTeam[teamIdx].unk_38 - (-20.0f);
+            if (sTitleTeam[teamIdx].unk_38 < -20.0f) {
+                sTitleTeam[teamIdx].unk_38 = -20.0f;
             }
-        } else if (D_menu_801B8350[i].unk_38 > 20.0f) {
-            D_menu_801B8350[i].unk_38 = D_menu_801B8350[i].unk_38 - 20.0f;
-            if (D_menu_801B8350[i].unk_38 > 20.0f) {
-                D_menu_801B8350[i].unk_38 = 20.0f;
-            }
-        } else {
-            D_menu_801B8350[i].unk_38 = 0.0f;
-        }
-
-        if (D_menu_801B8350[i].unk_3C < -35.0f) {
-            D_menu_801B8350[i].unk_3C = D_menu_801B8350[i].unk_3C - (-35.0f);
-            if (D_menu_801B8350[i].unk_3C < -10.0f) {
-                D_menu_801B8350[i].unk_3C = -10.0f;
-            }
-        } else if (D_menu_801B8350[i].unk_3C > 40.0f) {
-            D_menu_801B8350[i].unk_3C = D_menu_801B8350[i].unk_3C - 40.0f;
-            if (D_menu_801B8350[i].unk_3C > 10.0f) {
-                D_menu_801B8350[i].unk_3C = 10.0f;
+        } else if (sTitleTeam[teamIdx].unk_38 > 20.0f) {
+            sTitleTeam[teamIdx].unk_38 = sTitleTeam[teamIdx].unk_38 - 20.0f;
+            if (sTitleTeam[teamIdx].unk_38 > 20.0f) {
+                sTitleTeam[teamIdx].unk_38 = 20.0f;
             }
         } else {
-            D_menu_801B8350[i].unk_3C = 0.0f;
+            sTitleTeam[teamIdx].unk_38 = 0.0f;
         }
 
-        Math_SmoothStepToF(&D_menu_801B8350[i].unk_30, D_menu_801B8350[i].unk_28, 0.01f, 100.0f, 0.0001f);
-        Math_SmoothStepToF(&D_menu_801B8350[i].unk_34, D_menu_801B8350[i].unk_2C, 0.01f, 100.0f, 0.0001f);
-        Math_SmoothStepToF(&D_menu_801B8350[i].unk_40, D_menu_801B8350[i].unk_38, 0.005f, 100.0f, 0.0001f);
-        Math_SmoothStepToF(&D_menu_801B8350[i].unk_44, D_menu_801B8350[i].unk_3C, 0.005f, 100.0f, 0.0001f);
+        if (sTitleTeam[teamIdx].unk_3C < -35.0f) {
+            sTitleTeam[teamIdx].unk_3C = sTitleTeam[teamIdx].unk_3C - (-35.0f);
+            if (sTitleTeam[teamIdx].unk_3C < -10.0f) {
+                sTitleTeam[teamIdx].unk_3C = -10.0f;
+            }
+        } else if (sTitleTeam[teamIdx].unk_3C > 40.0f) {
+            sTitleTeam[teamIdx].unk_3C = sTitleTeam[teamIdx].unk_3C - 40.0f;
+            if (sTitleTeam[teamIdx].unk_3C > 10.0f) {
+                sTitleTeam[teamIdx].unk_3C = 10.0f;
+            }
+        } else {
+            sTitleTeam[teamIdx].unk_3C = 0.0f;
+        }
+
+        Math_SmoothStepToF(&sTitleTeam[teamIdx].unk_30, sTitleTeam[teamIdx].unk_28, 0.01f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&sTitleTeam[teamIdx].unk_34, sTitleTeam[teamIdx].unk_2C, 0.01f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&sTitleTeam[teamIdx].unk_40, sTitleTeam[teamIdx].unk_38, 0.005f, 100.0f, 0.0001f);
+        Math_SmoothStepToF(&sTitleTeam[teamIdx].unk_44, sTitleTeam[teamIdx].unk_3C, 0.005f, 100.0f, 0.0001f);
     }
 
-    switch (i) {
-        case 0:
+    switch (teamIdx) {
+        case TEAM_FOX:
             if (limbIndex == 1) {
-                rot->z += D_menu_801B8350[i].unk_18;
+                rot->z += sTitleTeam[teamIdx].unk_18;
             }
             if (limbIndex == 19) {
-                rot->x += D_menu_801B8350[i].unk_30;
-                rot->y += D_menu_801B8350[i].unk_34;
+                rot->x += sTitleTeam[teamIdx].unk_30;
+                rot->y += sTitleTeam[teamIdx].unk_34;
             }
             if (limbIndex == 20) {
-                rot->x += D_menu_801B8350[i].unk_40;
-                rot->y += D_menu_801B8350[i].unk_44;
+                rot->x += sTitleTeam[teamIdx].unk_40;
+                rot->y += sTitleTeam[teamIdx].unk_44;
             }
             break;
 
-        case 1:
+        case TEAM_FALCO:
             if (limbIndex == 1) {
-                rot->z += D_menu_801B8350[i].unk_18;
+                rot->z += sTitleTeam[teamIdx].unk_18;
             }
             if (limbIndex == 11) {
-                rot->z += D_menu_801B8350[i].unk_20;
+                rot->z += sTitleTeam[teamIdx].unk_20;
             }
             if (limbIndex == 19) {
-                rot->x += D_menu_801B8350[i].unk_30;
-                rot->y += D_menu_801B8350[i].unk_34;
+                rot->x += sTitleTeam[teamIdx].unk_30;
+                rot->y += sTitleTeam[teamIdx].unk_34;
             }
             if (limbIndex == 20) {
-                rot->x += D_menu_801B8350[i].unk_40;
-                rot->y += D_menu_801B8350[i].unk_44;
+                rot->x += sTitleTeam[teamIdx].unk_40;
+                rot->y += sTitleTeam[teamIdx].unk_44;
             }
             if (limbIndex == 21) {
                 rot->x += -5.0f;
             }
             break;
 
-        case 2:
+        case TEAM_PEPPY:
             if (limbIndex == 1) {
-                rot->z += D_menu_801B8350[i].unk_18;
+                rot->z += sTitleTeam[teamIdx].unk_18;
             }
             if (limbIndex == 19) {
-                rot->x += D_menu_801B8350[i].unk_30;
-                rot->y += D_menu_801B8350[i].unk_34;
+                rot->x += sTitleTeam[teamIdx].unk_30;
+                rot->y += sTitleTeam[teamIdx].unk_34;
             }
             if (limbIndex == 20) {
-                rot->x += D_menu_801B8350[i].unk_40;
-                rot->y += D_menu_801B8350[i].unk_44;
+                rot->x += sTitleTeam[teamIdx].unk_40;
+                rot->y += sTitleTeam[teamIdx].unk_44;
             }
             if (limbIndex == 21) {
                 rot->x += 10.0f;
             }
             break;
 
-        case 3:
+        case TEAM_SLIPPY:
             if (limbIndex == 1) {
-                rot->z += D_menu_801B8350[i].unk_18;
+                rot->z += sTitleTeam[teamIdx].unk_18;
             }
             if (limbIndex == 17) {
-                rot->x += D_menu_801B8350[i].unk_30;
-                rot->y += D_menu_801B8350[i].unk_34;
+                rot->x += sTitleTeam[teamIdx].unk_30;
+                rot->y += sTitleTeam[teamIdx].unk_34;
             }
             if (limbIndex == 18) {
-                rot->x += D_menu_801B8350[i].unk_40;
-                rot->y += D_menu_801B8350[i].unk_44;
+                rot->x += sTitleTeam[teamIdx].unk_40;
+                rot->y += sTitleTeam[teamIdx].unk_44;
             }
             if (limbIndex == 19) {
                 rot->x += 4.0f;
@@ -2774,134 +2789,136 @@ bool Title_8018EDC8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* da
     return false;
 }
 
-void Title_8018F438(void) {
-    f32 sp54;
+void Title_Passage_Draw(void) {
+    f32 sZoffsetScale;
 
     Lights_SetOneLight(&gMasterDisp, 0, 0, 0, 0, 0, 0, gAmbientR, gAmbientG, gAmbientB);
 
     if (gCsCamAtZ < gCsCamEyeZ) {
-        sp54 = 1.0f;
+        sZoffsetScale = 1.0f;
     } else {
-        sp54 = 3.0f;
+        sZoffsetScale = 3.0f;
     }
 
-    D_menu_801B82C8 += 70.0f;
-    D_menu_801B82C8 = Math_ModF(D_menu_801B82C8, 4101.6f);
+    sPassageWayZoffset += 70.0f;
+    sPassageWayZoffset = Math_ModF(sPassageWayZoffset, 4101.6f);
 
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, 255, 995, 1000);
 
     Matrix_Push(&gGfxMatrix);
 
-    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, (3079.2002f * sp54) - D_menu_801B82C8, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, (3079.2002f * sZoffsetScale) - sPassageWayZoffset, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 0.6f, 0.6f, 0.6f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_TITLE_602E380);
+    gSPDisplayList(gMasterDisp++, aTitleCsPassageWayDL);
 
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6836.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_TITLE_602E380);
+    gSPDisplayList(gMasterDisp++, aTitleCsPassageWayDL);
 
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -6836.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_TITLE_602E380);
+    gSPDisplayList(gMasterDisp++, aTitleCsPassageWayDL);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018F680(void) {
+void Title_StarfoxLogo_Draw(void) {
     s32 i;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 30; i++) {
-        TextureRect_RGBA16(&gMasterDisp, gTitleStarfoxLogo + (236 * 2 * i), 236, 2, D_menu_801B9054,
-                           D_menu_801B9058 + (i * 2.0f), 1.0f, 1.0f);
+        Lib_TextureRect_RGBA16(&gMasterDisp, aTitleStarfoxLogoTex + (236 * 2 * i), 236, 2, sTitleStarfoxLogoXpos,
+                               sTitleStarfoxLogoYpos + (i * 2.0f), 1.0f, 1.0f);
     }
 }
 
-void Title_8018F77C(void) {
+void Title_64Logo_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_53);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, D_menu_801B905C, D_menu_801B9060, D_menu_801B9064, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, D_menu_801B9068, D_menu_801B906C, 1.0f, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, M_DTOR * 90, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_TITLE_60148D0);
+    gSPDisplayList(gMasterDisp++, a64LogoDL);
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_8018F85C(void) {
+void Title_CopyrightSymbol_Draw(void) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    TextureRect_IA8(&gMasterDisp, gTitleCopyrightSymbol, 16, 16, 234.0f, 20.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, aTitleCopyrightTex, 16, 16, 234.0f, 20.0f, 1.0f, 1.0f);
 }
 
-void Title_8018F8E4(void) {
-    f32 temp2;
+void Title_PressStart_Draw(void) {
+    f32 yPos;
     s32 i;
-    static f32 D_menu_801AE464 = 68.0f;
-    static f32 D_menu_801AE468 = 170.0f;
-    static f32 D_menu_801AE46C = 5.55f;
-    static f32 D_menu_801AE470 = 0.9f;
+    static f32 sNoControllerBgXpos = 68.0f;
+    static f32 sNoControllerBgYpos = 170.0f;
+    static f32 sNoControllerBgXscale = 5.55f;
+    static f32 sNoControllerBgYscale = 0.9f;
     static f32 D_menu_801AE474 = 70.0f;
     static f32 D_menu_801AE478 = 172.0f;
 
     if (gControllerLock == 0) {
-        temp2 = 188.0f;
+        yPos = 188.0f;
 
-        if ((s32) Math_SmoothStepToF(&D_menu_801B7BC8, D_menu_801B7BCC, 0.5f, 100.0f, 1.0f) == 0.0f) {
-            if (D_menu_801B7BC8 == 32.0f) {
-                D_menu_801B7BCC = 255.0f;
+        if ((s32) Math_SmoothStepToF(&sTitleTextPrimCol, sTitleTextPrimColTarget, 0.5f, 100.0f, 1.0f) == 0.0f) {
+            if (sTitleTextPrimCol == 32.0f) {
+                sTitleTextPrimColTarget = 255.0f;
             } else {
-                D_menu_801B7BCC = 32.0f;
+                sTitleTextPrimColTarget = 32.0f;
             }
         }
 
         if (gMainController < 0) {
+            // No Controller background
             RCP_SetupDL(&gMasterDisp, SETUPDL_85);
-
             gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 200);
 
-            TextureRect_CI8(&gMasterDisp, D_TITLE_601D750, D_TITLE_601DB50, 32, 32, D_menu_801AE464, D_menu_801AE468,
-                            D_menu_801AE46C, D_menu_801AE470);
-            RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+            Lib_TextureRect_CI8(&gMasterDisp, aNoControllerBgTex, aNoControllerBgTLUT, 32, 32, sNoControllerBgXpos,
+                                sNoControllerBgYpos, sNoControllerBgXscale, sNoControllerBgYscale);
 
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) D_menu_801B7BC8, (s32) D_menu_801B7BC8, 255);
+            // No Controller
+            RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) sTitleTextPrimCol, (s32) sTitleTextPrimCol, 255);
 
             for (i = 0; i < 6; i++) {
-                TextureRect_IA8(&gMasterDisp, gTitleNoController + (176 * 4 * i), 176, 4, D_menu_801AE474,
-                                D_menu_801AE478 + (i * 4.0f), 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, aTitleNoControllerTex + (176 * 4 * i), 176, 4, D_menu_801AE474,
+                                    D_menu_801AE478 + (i * 4.0f), 1.0f, 1.0f);
             }
         } else {
+            // Press Start
             RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) D_menu_801B7BC8, (s32) D_menu_801B7BC8, 255);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, (s32) sTitleTextPrimCol, (s32) sTitleTextPrimCol, 255);
 
             for (i = 0; i < 2; i++) {
-                TextureRect_IA8(&gMasterDisp, gTitlePressStart + (120 * 6 * i), 120, 6, 101.0f, temp2 + (i * 6.0f),
-                                1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, aTitlePressStartTex + (120 * 6 * i), 120, 6, 101.0f,
+                                    yPos + (i * 6.0f), 1.0f, 1.0f);
             }
-            TextureRect_IA8(&gMasterDisp, gTitlePressStart + 120 * 6 * 2, 120, 1, 101.0f, temp2 + 12, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTitlePressStartTex + 120 * 6 * 2, 120, 1, 101.0f, yPos + 12, 1.0f, 1.0f);
         }
     }
 }
 
-void Title_8018FC14(void) {
+void Title_Copyright_Draw(void) {
     s32 i;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
-        TextureRect_IA8(&gMasterDisp, gTitleNintendoCopyright + (120 * 6 * i), 120, 6, 102.0f, 209.0f + (i * 6.0f),
-                        1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, a1997NintendoTex + (120 * 6 * i), 120, 6, 102.0f, 209.0f + (i * 6.0f), 1.0f,
+                            1.0f);
     }
 }
 
-void Title_8018FD08(void) {
+void Title_TeamName_Draw(void) {
     s32 i;
     Gfx* temp_v1;
     f32 temp_fs2;
@@ -2919,27 +2936,28 @@ void Title_8018FD08(void) {
 
     switch (D_menu_801B8340) {
         case 0:
-            TextureRect_IA8(&gMasterDisp, gTitleSlippyCard, 144, 13, temp_fs2, temp, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, gTitleSlippyCard, 144, 13, temp_fs2, temp, 1.0f, 1.0f);
             break;
 
         case 1:
-            TextureRect_IA8(&gMasterDisp, gTitlePeppyCard, 120, 13, temp_fs2, temp, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, gTitlePeppyCard, 120, 13, temp_fs2, temp, 1.0f, 1.0f);
             break;
 
         case 2:
             for (i = 0; i < 3; i++) {
-                TextureRect_IA8(&gMasterDisp, gTitleFalcoCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
-                                1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, gTitleFalcoCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4),
+                                    1.0f, 1.0f);
             }
-            TextureRect_IA8(&gMasterDisp, gTitleFalcoCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12.0f, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, gTitleFalcoCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12.0f, 1.0f,
+                                1.0f);
             break;
 
         case 3:
             for (i = 0; i < 3; i++) {
-                TextureRect_IA8(&gMasterDisp, gTitleFoxCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
-                                1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, gTitleFoxCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
+                                    1.0f);
             }
-            TextureRect_IA8(&gMasterDisp, gTitleFoxCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, gTitleFoxCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12, 1.0f, 1.0f);
             break;
     }
 }
@@ -2965,7 +2983,7 @@ s32 D_menu_801AE528[] = {
     80, 64, 48, 32, 12, 32, 44, 32, 42, 36, 12, 38,
 };
 
-void Title_8018FF74(void) {
+void Title_SunGlare_Draw(void) {
     if (D_menu_801B7BD8 != 0) {
         if ((D_menu_801B7BB8 > -870.0f) && (D_menu_801B7BB8 < 900.0f) && (gFillScreenAlpha > 0)) {
             if ((D_menu_801B7BB8 < 0.0f) && (D_menu_801B7BD0 < 255)) {
@@ -2981,20 +2999,20 @@ void Title_8018FF74(void) {
             gDPSetColorDither(gMasterDisp++, G_CD_NOISE);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_menu_801B7BD0);
 
-            TextureRect_RGBA16(&gMasterDisp, gTitleSunBeam, 32, 32, D_menu_801B9080, D_menu_801B9084, D_menu_801B7BB0,
-                               D_menu_801B7BB4);
+            Lib_TextureRect_RGBA16(&gMasterDisp, aTitleSunGlareTex, 32, 32, D_menu_801B9080, D_menu_801B9084,
+                                   D_menu_801B7BB0, D_menu_801B7BB4);
             D_menu_801B9080 += 1.66f;
         }
 
-        Title_801918FC();
-        Title_80190144();
-        Title_801903B8();
+        Title_Matrix_Push();
+        Title_Sun_Draw();
+        Title_SunGlare2_Draw();
 
         Matrix_Pop(&gGfxMatrix);
     }
 }
 
-void Title_80190144(void) {
+void Title_Sun_Draw(void) {
     s32 i;
 
     if (gFillScreenAlpha > 0) {
@@ -3040,7 +3058,7 @@ void Title_80190144(void) {
     }
 }
 
-void Title_801903B8(void) {
+void Title_SunGlare2_Draw(void) {
     static s32 D_menu_801AE558 = 12;
     f32 temp_fs3;
     f32 temp_fs4;
@@ -3090,36 +3108,37 @@ void Title_801903B8(void) {
     }
 }
 
-void Title_801906A0(void) {
+// Draws the Starfox and N64 logos
+void Title_Logos_Draw(void) {
     s32 i;
 
-    switch (D_menu_801B7BD4) {
-        case 0:
+    switch (sTitleLogoState) {
+        case TITLE_LOGO_STARFOX_IN:
             RCP_SetupDL(&gMasterDisp, SETUPDL_85);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BDC);
-            TextureRect_CI4(&gMasterDisp, gTextIntroStarfox, gTextIntroStarfoxPalette, 256, 13, 90.0f, 110.0f, 1.0f,
-                            1.0f);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BE0);
-            TextureRect_CI4(&gMasterDisp, gTextIntroIn, gTextIntroInPalette, 32, 13, 150.0f, 110.0f, 1.0f, 1.0f);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) sStarfoxLogoAlpha);
+            Lib_TextureRect_CI4(&gMasterDisp, aIntroStarfoxLogoTex, aIntroStarfoxLogoTLUT, 256, 13, 90.0f, 110.0f, 1.0f,
+                                1.0f);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) sInAlpha);
+            Lib_TextureRect_CI4(&gMasterDisp, aIntroInTex, aIntroInTLUT, 32, 13, 150.0f, 110.0f, 1.0f, 1.0f);
             break;
 
-        case 1:
+        case TITLE_LOGO_NINTENDO_64:
             RCP_SetupDL(&gMasterDisp, SETUPDL_83);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801B7BDC);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) sStarfoxLogoAlpha);
 
             for (i = 0; i < 5; i++) {
-                TextureRect_RGBA16(&gMasterDisp, gTitleNintendo64Logo + (128 * 16 * i), 128, 16, D_menu_801B9070,
-                                   D_menu_801B9074 + (16 * i * D_menu_801B907C), D_menu_801B9078, D_menu_801B907C);
+                Lib_TextureRect_RGBA16(&gMasterDisp, aTitleN64LogoTex + (128 * 16 * i), 128, 16, D_menu_801B9070,
+                                       D_menu_801B9074 + (16 * i * D_menu_801B907C), D_menu_801B9078, D_menu_801B907C);
             }
-            TextureRect_RGBA16(&gMasterDisp, gTitleNintendo64Logo + (128 * 16 * 5), 128, 8, D_menu_801B9070,
-                               (80.0f * D_menu_801B907C) + D_menu_801B9074, D_menu_801B9078, D_menu_801B907C);
+            Lib_TextureRect_RGBA16(&gMasterDisp, aTitleN64LogoTex + (128 * 16 * 5), 128, 8, D_menu_801B9070,
+                                   (80.0f * D_menu_801B907C) + D_menu_801B9074, D_menu_801B9078, D_menu_801B907C);
 
-        case -1:
+        case TITLE_LOGO_NONE:
             break;
     }
 }
 
-void Title_80190950(void) {
+void Title_GreatFoxDeck_Draw(void) {
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, 0, 0, 0, gAmbientR, gAmbientG,
                        gAmbientB);
     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
@@ -3129,132 +3148,133 @@ void Title_80190950(void) {
     Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 0.4f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_TITLE_6018D40);
+    gSPDisplayList(gMasterDisp++, aTitleGreatFoxDeckDL);
 
     if (D_menu_801B7BE4 != 0) {
-        Title_80190A98();
+        Title_GreatFoxDeckPlatform_Draw();
     }
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_80190A98(void) {
+void Title_GreatFoxDeckPlatform_Draw(void) {
     Matrix_Translate(gGfxMatrix, 401.0f, -249.0f, -22.0f, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_TITLE_602A720);
+    gSPDisplayList(gMasterDisp++, aTitleGreatFoxDeckPlatformDL);
 }
 
-void Title_80190B30(s32 arg0) {
+void Title_GreatFoxDeckLauncher_Draw(TitleTeam teamidx) {
     Lights_SetOneLight(&gMasterDisp, D_menu_801B82E0, D_menu_801B82E4, D_menu_801B82E8, gLight1R, gLight1G, gLight1B,
                        gAmbientR, gAmbientG, gAmbientB);
     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_Translate(gGfxMatrix, D_menu_801B84E8[arg0].unk_00.x, -12.8f, D_menu_801B9044, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, sTitleArwing[teamidx].pos.x, -12.8f, sTitleDeckLauncherZpos, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_TITLE_601C7C0);
+    gSPDisplayList(gMasterDisp++, aTitleGreatFoxDeckLauncherDL);
 
     Matrix_Pop(&gGfxMatrix);
 }
 
-void Title_80190C9C(void) {
+void Title_TitleCard_Draw(void) {
     s32 i;
-    static f32 D_menu_801AE55C = 89.0f;
-    static f32 D_menu_801AE560 = 17.0f;
-    static f32 D_menu_801AE564 = 101.0f;
-    static f32 D_menu_801AE568 = 197.0f;
+    static f32 aTitleGreatFoxCardXpos = 89.0f;
+    static f32 aTitleGreatFoxCardYpos = 17.0f;
+    static f32 sTitleArwingCardXpos = 101.0f;
+    static f32 sTitleArwingCardYpos = 197.0f;
 
-    switch (D_menu_801B7BF0) {
-        case 0:
+    switch (sTitleCardState) {
+        case TITLE_CARD_NONE:
             break;
 
-        case 1:
+        case TITLE_CARD_GREAT_FOX:
             RCP_SetupDL(&gMasterDisp, SETUPDL_83);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            TextureRect_IA8(&gMasterDisp, gTitleGreatFoxCard, 144, 28, D_menu_801AE55C, D_menu_801AE560, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTitleGreatFoxCardTex, 144, 28, aTitleGreatFoxCardXpos,
+                                aTitleGreatFoxCardYpos, 1.0f, 1.0f);
             break;
 
-        case 2:
+        case TITLE_CARD_ARWING:
             RCP_SetupDL(&gMasterDisp, SETUPDL_83);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
             for (i = 0; i < 4; i++) {
-                TextureRect_IA8(&gMasterDisp, gTitleArwingCard + (112 * 6 * i), 112, 6, D_menu_801AE564,
-                                D_menu_801AE568 + (6.0f * i), 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, aTitleArwingCardTex + (112 * 6 * i), 112, 6, sTitleArwingCardXpos,
+                                    sTitleArwingCardYpos + (6.0f * i), 1.0f, 1.0f);
             }
-            TextureRect_IA8(&gMasterDisp, gTitleArwingCard + (112 * 6 * 4), 112, 2, D_menu_801AE564,
-                            D_menu_801AE568 + (6.0f * 4), 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTitleArwingCardTex + (112 * 6 * 4), 112, 2, sTitleArwingCardXpos,
+                                sTitleArwingCardYpos + (6.0f * 4), 1.0f, 1.0f);
     }
 }
 
-void Title_80190E64(void) {
-    if (D_menu_801B82C4 == 0) {
-        Title_80190FD0();
+// Redirect to either Title Screen or Option menu
+void Title_NextState_Check(void) {
+    if (sCutsceneState == TITLE_SCREEN) {
+        Title_NextState_OptionMenu();
     } else {
-        Title_80190EA4();
+        Title_NextState_TitleScreen();
     }
 }
 
-void Title_80190EA4(void) {
-    switch (D_menu_801B8280) {
-        case 0:
+void Title_NextState_TitleScreen(void) {
+    switch (sLevelStartState) {
+        case 0: // Wait for input
             if (gControllerPress[gMainController].button &
-                (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS |
-                 R_CBUTTONS)) { // START, A, B, C-left, C-Down, C-Up, C-Right
+                (START_BUTTON | A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | U_CBUTTONS | R_CBUTTONS)) {
                 AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
-                D_menu_801B8284 = 0;
-                D_menu_801B8280 = 1;
+                sWipeHeight = 0;
+                sLevelStartState = true;
                 gControllerLock = 30;
             }
             break;
 
-        case 1:
-            if (D_menu_801B8284 < 120) {
-                D_menu_801B8284 += 18;
+        case 1: // Go to the title screen
+            if (sWipeHeight < 120) {
+                sWipeHeight += 18;
             } else {
                 AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_23);
                 gStarCount = 0;
                 gRadioState = 0;
-                D_menu_801B82C0 = 0;
+                sSceneState = 0;
                 gDrawMode = DRAW_NONE;
-                D_menu_801B82C4 = 0;
+                sCutsceneState = TITLE_SCREEN;
                 gControllerLock = 30;
-                D_menu_801B8284 = 0;
-                D_menu_801B8280 = 0;
+                sWipeHeight = 0;
+                sLevelStartState = false;
             }
             break;
     }
 }
 
-void Title_80190FD0(void) {
+void Title_NextState_OptionMenu(void) {
     if (gControllerLock == 0) {
-        switch (D_menu_801B8280) {
-            case 0:
+        switch (sLevelStartState) {
+            case 0: // Wait for input
                 if (((gControllerPress[gMainController].button & START_BUTTON) ||
                      (gControllerPress[gMainController].button & A_BUTTON)) &&
-                    (D_menu_801B8280 == 0)) {
+                    !sLevelStartState) {
                     AUDIO_PLAY_SFX(NA_SE_DECIDE, gDefaultSfxSource, 4);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 30);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 30);
-                    D_menu_801B8284 = 0;
-                    D_menu_801B8280 = 1;
+                    sWipeHeight = 0;
+                    sLevelStartState = true;
                 }
                 break;
 
-            case 1:
-                if (D_menu_801B8284 < 120) {
-                    D_menu_801B8284 += 18;
+            case 1: // Go to the Option Menu
+                if (sWipeHeight < 120) {
+                    sWipeHeight += 18;
                 } else {
                     gGameState = GSTATE_MENU;
                     gNextGameStateTimer = 2;
                     gOptionMenuStatus = OPTION_WAIT;
                     gDrawMode = DRAW_NONE;
                     gStarCount = 0;
-                    D_menu_801B8280 = 0;
-                    D_menu_801B8284 = 0;
+                    sLevelStartState = false;
+                    sWipeHeight = 0;
                     gControllerLock = 3;
                 }
                 break;
@@ -3262,29 +3282,29 @@ void Title_80190FD0(void) {
     }
 }
 
-void Title_8019111C(void) {
-    f32 x;
-    f32 y;
+void Title_Screen_Input(void) {
+    f32 stickX;
+    f32 stickY;
 
-    if ((D_menu_801B82B0 == 0) && (D_menu_801B9040 == 0) &&
+    if ((D_menu_801B82B0 == 0) && !D_menu_801B9040 &&
         ((gControllerPress[gMainController].stick_x != 0) || (gControllerPress[gMainController].stick_y != 0))) {
-        D_menu_801B9040 = 1;
-        D_menu_801B86A4 = 0;
+        D_menu_801B9040 = true;
+        D_menu_801B86A4 = false;
     }
 
-    x = gControllerPress[gMainController].stick_x;
-    y = gControllerPress[gMainController].stick_y;
+    stickX = gControllerPress[gMainController].stick_x;
+    stickY = gControllerPress[gMainController].stick_y;
 
-    if (D_menu_801B9040 != 0) {
-        if (((x * 0.2f) + D_menu_801B905C > -500.0f) && ((x * 0.2f) + D_menu_801B905C < 500.0f)) {
-            D_menu_801B905C += x * 0.2f;
+    if (D_menu_801B9040) {
+        if (((D_menu_801B905C + (stickX * 0.2f)) > -500.0f) && ((D_menu_801B905C + (stickX * 0.2f)) < 500.0f)) {
+            D_menu_801B905C += stickX * 0.2f;
         }
-        if (((y * 0.2f) + D_menu_801B9060 > -500.0f) && ((y * 0.2f) + D_menu_801B9060 < 500.0f)) {
-            D_menu_801B9060 += y * 0.2f;
+        if (((D_menu_801B9060 + (stickY * 0.2f)) > -500.0f) && ((D_menu_801B9060 + (stickY * 0.2f)) < 500.0f)) {
+            D_menu_801B9060 += stickY * 0.2f;
         }
     }
 
-    if ((D_menu_801B9040 != 0) && (gControllerPress[gMainController].stick_x == 0) &&
+    if (D_menu_801B9040 && (gControllerPress[gMainController].stick_x == 0) &&
         (gControllerPress[gMainController].stick_y == 0)) {
         D_menu_801B86A4++;
     } else {
@@ -3292,7 +3312,7 @@ void Title_8019111C(void) {
     }
 }
 
-void Title_801912A0(void) {
+void Title_ScreenFade_Update(void) {
     switch (D_menu_801B869C) {
         case 0:
             gFillScreenAlpha -= 4;
@@ -3312,8 +3332,8 @@ void Title_801912A0(void) {
     }
 }
 
-void Title_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7, f32 arg8,
-                    f32 arg9) {
+void Title_SetCamUp3(bool arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* arg5, f32* arg6, f32 arg7, f32 arg8,
+                     f32 arg9) {
     Vec3f sp54;
     Vec3f sp48;
     f32* sp44;
@@ -3323,7 +3343,7 @@ void Title_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* a
     f32* var_v0;
     f32* var_v1;
 
-    if (arg0 != 0) {
+    if (arg0) {
         var_v0 = arg4;
         var_v1 = arg5;
         var_t0 = arg6;
@@ -3361,117 +3381,117 @@ void Title_80191320(s32 arg0, f32* arg1, f32* arg2, f32* arg3, f32* arg4, f32* a
     Matrix_RotateX(gCalcMatrix, M_DTOR * arg7, MTXF_APPLY);
     Matrix_MultVec3f(gCalcMatrix, &sp48, &sp54);
 
-    D_menu_801B829C = sp54.x;
-    D_menu_801B82A0 = sp54.y;
-    D_menu_801B82A4 = sp54.z;
+    sTitleCamUpX = sp54.x;
+    sTitleCamUpY = sp54.y;
+    sTitleCamUpZ = sp54.z;
 }
 
-void Title_801914AC(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
-                    f32* arg9, f32 argA, f32 argB, f32 argC) {
-    Vec3f sp44;
-    Vec3f sp38;
+void Title_SetCamUp2(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5, f32 arg6, f32* arg7, f32* arg8,
+                     f32* arg9, f32 argA, f32 argB, f32 argC) {
+    Vec3f dest;
+    Vec3f src;
 
-    sp38.x = 0.0f;
-    sp38.y = 0.0f;
-    sp38.z = argA;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = argA;
 
     Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, MTXF_NEW);
 
     Matrix_RotateY(gCalcMatrix, M_DTOR * argC, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, M_DTOR * argB, MTXF_APPLY);
 
-    Matrix_MultVec3f(gCalcMatrix, &sp38, &sp44);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-    *arg7 = sp44.x;
-    *arg8 = sp44.y;
-    *arg9 = sp44.z;
+    *arg7 = dest.x;
+    *arg8 = dest.y;
+    *arg9 = dest.z;
 
-    sp38.x = 0.0f;
-    sp38.y = 0.0f;
-    sp38.z = arg6;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = arg6;
 
     Matrix_Translate(gCalcMatrix, arg0, arg1, arg2, MTXF_NEW);
     Matrix_RotateY(gCalcMatrix, M_DTOR * argC, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, M_DTOR * argB, MTXF_APPLY);
-    Matrix_MultVec3f(gCalcMatrix, &sp38, &sp44);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-    *arg3 = sp44.x;
-    *arg4 = sp44.y;
-    *arg5 = sp44.z;
+    *arg3 = dest.x;
+    *arg4 = dest.y;
+    *arg5 = dest.z;
 
-    sp38.x = 0.0f;
-    sp38.y = 1.0f;
-    sp38.z = 0.0f;
+    src.x = 0.0f;
+    src.y = 1.0f;
+    src.z = 0.0f;
 
     Matrix_RotateY(gCalcMatrix, M_DTOR * argC, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, M_DTOR * argB, MTXF_APPLY);
-    Matrix_MultVec3f(gCalcMatrix, &sp38, &sp44);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-    D_menu_801B829C = sp44.x;
-    D_menu_801B82A0 = sp44.y;
-    D_menu_801B82A4 = sp44.z;
+    sTitleCamUpX = dest.x;
+    sTitleCamUpY = dest.y;
+    sTitleCamUpZ = dest.z;
 }
 
-void Title_80191674(f32 arg0, f32 arg1, f32 arg2, f32* arg3, f32* arg4, f32* arg5) {
-    f32 sp34;
-    f32 sp30;
-    Vec3f sp24;
-    Vec3f sp18;
+void Title_SetLightRot(f32 xRot, f32 yRot, f32 zSrc, f32* dirX, f32* dirY, f32* dirZ) {
+    f32 xRotTarget;
+    f32 yRotTarget;
+    Vec3f dest;
+    Vec3f src;
 
-    sp18.x = 0.0f;
-    sp18.y = 0.0f;
-    sp18.z = arg2;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = zSrc;
 
-    Title_80191798(&sp34, &sp30);
+    Title_GetCamRot(&xRotTarget, &yRotTarget);
 
-    Matrix_RotateX(gCalcMatrix, M_DTOR * -sp34, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * -sp30, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * -xRotTarget, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * -yRotTarget, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
 
-    Matrix_MultVec3f(gCalcMatrix, &sp18, &sp24);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-    *arg3 = sp24.x;
-    *arg4 = sp24.y;
-    *arg5 = sp24.z;
+    *dirX = dest.x;
+    *dirY = dest.y;
+    *dirZ = dest.z;
 }
 
-void Title_80191798(f32* arg0, f32* arg1) {
-    f32 temp_fv1 = gCsCamEyeX - gCsCamAtX;
-    f32 temp_fv2 = gCsCamEyeY - gCsCamAtY;
-    f32 temp_ft4 = gCsCamEyeZ - gCsCamAtZ;
+void Title_GetCamRot(f32* xRot, f32* yRot) {
+    f32 x = gCsCamEyeX - gCsCamAtX;
+    f32 y = gCsCamEyeY - gCsCamAtY;
+    f32 z = gCsCamEyeZ - gCsCamAtZ;
 
-    *arg0 = -Math_Atan2F(temp_fv2, sqrtf(SQ(temp_fv1) + SQ(temp_ft4))) * M_RTOD;
-    *arg1 = Math_Atan2F(temp_fv1, temp_ft4) * M_RTOD;
+    *xRot = -Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))) * M_RTOD;
+    *yRot = +Math_Atan2F(x, z) * M_RTOD;
 }
 
-void Title_80191844(f32 arg0, f32 arg1) {
-    Vec3f sp24;
-    Vec3f sp18;
+void Title_SetCamUp(f32 xRot, f32 yRot) {
+    Vec3f dest;
+    Vec3f src;
 
-    sp18.x = 0.0f;
-    sp18.y = 1.0f;
-    sp18.z = 0.0f;
+    src.x = 0.0f;
+    src.y = 1.0f;
+    src.z = 0.0f;
 
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg1, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg0, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
 
-    Matrix_MultVec3f(gCalcMatrix, &sp18, &sp24);
+    Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-    D_menu_801B829C = sp24.x;
-    D_menu_801B82A0 = sp24.y;
-    D_menu_801B82A4 = sp24.z;
+    sTitleCamUpX = dest.x;
+    sTitleCamUpY = dest.y;
+    sTitleCamUpZ = dest.z;
 }
 
-void Title_801918FC(void) {
+void Title_Matrix_Push(void) {
     Matrix_Push(&gGfxMatrix);
-    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, D_menu_801B829C,
-                  D_menu_801B82A0, D_menu_801B82A4, MTXF_APPLY);
+    Matrix_LookAt(gGfxMatrix, gCsCamEyeX, gCsCamEyeY, gCsCamEyeZ, gCsCamAtX, gCsCamAtY, gCsCamAtZ, sTitleCamUpX,
+                  sTitleCamUpY, sTitleCamUpZ, MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
-void Title_801919C4(u16** msgList, RadioCharacterId character) {
+void Title_Radio_PlayMessage(u16** msgList, RadioCharacterId character) {
     gRadioMsgList = msgList;
     gRadioMsgListIndex = 0;
     gRadioMsg = msgList[gRadioMsgListIndex];

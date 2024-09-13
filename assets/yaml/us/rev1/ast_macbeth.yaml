@@ -13,8 +13,8 @@
       - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
 
-D_MA_6000000:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 160, height: 28, offset: 0x6000000, symbol: D_MA_6000000}
+aMaTitleCardTex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 160, height: 28, offset: 0x6000000, symbol: aMaTitleCardTex}
 
 D_MA_6001180:
   {type: GFX, offset: 0x6001180, symbol: D_MA_6001180}

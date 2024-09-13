@@ -15,8 +15,8 @@
       - '#include "sf64mesg.h"'
 
 # Sector Y: Combat Zone
-D_SY_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 12, offset: 0x6000000, symbol: D_SY_6000000 }
+aSyTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 12, offset: 0x6000000, symbol: aSyTitleCardTex }
 
 # Saruzin flagship icon in radar
 D_SY_6000840:

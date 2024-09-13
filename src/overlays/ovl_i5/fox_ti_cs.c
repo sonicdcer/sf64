@@ -416,11 +416,11 @@ void Titania_LevelComplete(Player* player) {
 
     switch (gCsFrameCount) {
         case 831:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1031:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 50:

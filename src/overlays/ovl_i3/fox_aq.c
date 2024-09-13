@@ -4057,7 +4057,7 @@ void Aquas_AqAnglerFish_Draw(AqAnglerFish* this) {
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) this->iwork[12]);
     gDPSetEnvColor(gMasterDisp++, 127, 127, 0, (s32) this->iwork[12]);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
     Matrix_Pop(&gGfxMatrix);
 }
 

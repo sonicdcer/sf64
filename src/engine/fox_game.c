@@ -376,11 +376,11 @@ void Game_Update(void) {
             case GSTATE_SHOW_LOGO:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 gGameState++;
                 break;
 
@@ -400,11 +400,11 @@ void Game_Update(void) {
             case GSTATE_LOGO_WAIT:
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
-                TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 0], 128, 16, 100.0f, 86.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 1], 128, 16, 100.0f, 102.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 2], 128, 16, 100.0f, 118.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 3], 128, 16, 100.0f, 134.0f, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, &gNintendoLogo[128 * 16 * 4], 128, 10, 100.0f, 150.0f, 1.0f, 1.0f);
                 break;
 
             case GSTATE_START:
@@ -556,7 +556,7 @@ void Game_Update(void) {
             gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 1 - 1, SCREEN_WIDTH - SCREEN_MARGIN,
                              SCREEN_HEIGHT / 2 + 1);
 
-            HUD_dummy_8008CB8C();
+            HUD_8008CB8C();
         }
 
         partialFill = false;
@@ -568,7 +568,7 @@ void Game_Update(void) {
                 Radio_Draw();
                 if (gShowHud) {
                     HUD_Draw();
-                    HUD_DrawEdgeArrows();
+                    HUD_EdgeArrows_Update();
                 }
                 HUD_DrawBossHealth();
             }

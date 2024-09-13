@@ -3,11 +3,11 @@
 #include "fox_option.h"
 #include "sf64audio_provisional.h"
 
-extern s32 spectrumAnalyzerMode;
+extern s32 sSpectrumAnalyzerMode;
 extern bool sMusicPlaying;
-extern s32 D_menu_801B9244;
-extern OptionId D_menu_801B9124;
-extern s32 D_menu_801B912C;
+extern bool sMainMenuFromCancel;
+extern OptionId sMenuEntryState;
+extern s32 sMainMenuState;
 
 static s32 showJukebox = 0;
 static u32 prevSfx = NA_SE_NONE;
@@ -171,9 +171,9 @@ void Jukebox_Update(void) {
             AUDIO_PLAY_SFX(NA_SE_ARWING_CANCEL, gDefaultSfxSource, 4);
             AUDIO_PLAY_BGM(NA_BGM_SELECT);
             gDrawMode = DRAW_NONE;
-            D_menu_801B9124 = 1000;
-            D_menu_801B912C = 0;
-            D_menu_801B9244 = 1;
+            sMenuEntryState = 1000;
+            sMainMenuState = 0;
+            sMainMenuFromCancel = 1;
             return;
         } else {
             AUDIO_PLAY_SFX(NA_SE_CANCEL, gDefaultSfxSource, 4);
@@ -186,9 +186,9 @@ void Jukebox_Update(void) {
 
     // Spectrum Analyzer mode selector
     if (contPress->button & Z_TRIG) {
-        spectrumAnalyzerMode++;
-        if (spectrumAnalyzerMode > 2) {
-            spectrumAnalyzerMode = 0;
+        sSpectrumAnalyzerMode++;
+        if (sSpectrumAnalyzerMode > 2) {
+            sSpectrumAnalyzerMode = 0;
         }
     }
 

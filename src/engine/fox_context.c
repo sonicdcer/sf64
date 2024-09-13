@@ -18,6 +18,11 @@ LevelMode gLevelMode;
 DrawMode gDrawMode;
 s32 gPlayerNum;
 s32 gCamCount;
+/**
+ * gTeamShields[1] = Falco
+ * gTeamShields[2] = Slippy
+ * gTeamShields[3] = Peppy
+ */
 s32 gTeamShields[6];
 s32 gSavedTeamShields[6];
 s32 gPrevPlanetSavedTeamShields[6];
@@ -46,6 +51,11 @@ s32 gTitleState;
 s32 gMainController;
 s32 gMapState;
 s32 gMissionNumber;
+/**
+ *  0x 00 FF 00 00 Peppy
+ *  0x 00 00 FF 00 Slippy
+ *  0x 00 00 00 FF Falco
+ */
 s32 gMissionTeamStatus[7];
 s32 gMissionHitCount[7];
 PlanetId gMissionPlanet[7];
@@ -351,8 +361,8 @@ s32 gLeftWingDebrisTimer[4];
 s32 gBombCount[4];
 s32 gVsPoints[4];
 s32 gVsKills[4][10];
-s32 gVsMatchOver;
-s32 gVsMatchStart;
+s32 gVsMatchWon;
+bool gVsMatchStart;
 bool gChangeTo360;
 Vec3f gTeamArrowsViewPos[10];
 f32 D_ctx_80177F20[65]; // Seem to be an early implementation of RadarMark

@@ -795,7 +795,7 @@ void Fortuna_LevelComplete(Player* player) {
 
             gBosses[0].swork[0] = 1;
 
-            if ((HUD_FoBase_ExplodeCs(&gBosses[0]) == 2) || (gMissionStatus != MISSION_COMPLETE)) {
+            if ((FoBase_ExplodeCs(&gBosses[0]) == 2) || (gMissionStatus != MISSION_COMPLETE)) {
                 Play_ClearObjectData();
                 if (gMissionStatus == MISSION_COMPLETE) {
                     player->csState = 10;
@@ -1292,7 +1292,7 @@ void Fortuna_LevelComplete(Player* player) {
                     break;
 
                 case 1080:
-                    gShowLevelClearStatusScreen = 1;
+                    gShowLevelClearStatusScreen = true;
                     break;
 
                 case 1240:
@@ -1317,7 +1317,7 @@ void Fortuna_LevelComplete(Player* player) {
                         peppy->fwork[29] = 5.0f;
                         peppy->iwork[11] = 2;
                     }
-                    gShowLevelClearStatusScreen = 0;
+                    gShowLevelClearStatusScreen = false;
                     break;
 
                 case 1300:
@@ -1425,10 +1425,10 @@ void Fortuna_LevelComplete(Player* player) {
     if (player->csState < 20) {
         switch (gCsFrameCount) {
             case 1020:
-                gShowLevelClearStatusScreen = 1;
+                gShowLevelClearStatusScreen = true;
                 break;
             case 1220:
-                gShowLevelClearStatusScreen = 0;
+                gShowLevelClearStatusScreen = false;
                 break;
         }
     }

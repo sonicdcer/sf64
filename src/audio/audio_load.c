@@ -946,7 +946,7 @@ void AudioLoad_Init(void) {
         }
     }
 
-    gAudioSpecId = AUDIOSPEC_0;
+    gAudioSpecId = AUDIOSPEC_CO;
     gAudioResetStep = 1;
     AudioHeap_ResetStep();
 

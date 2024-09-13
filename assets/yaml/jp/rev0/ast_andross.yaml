@@ -16,8 +16,8 @@
 D_ANDROSS_C000000:
   {type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 28, offset: 0xC000000, symbol: D_ANDROSS_C000000}
 
-D_ANDROSS_C000A80:
-  {type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 28, offset: 0xC000A80, symbol: D_ANDROSS_C000A80}
+aAndTitleCardTex:
+  {type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 28, offset: 0xC000A80, symbol: aAndTitleCardTex}
 
 D_ANDROSS_C001880:
   {type: GFX, offset: 0xC001880, symbol: D_ANDROSS_C001880}

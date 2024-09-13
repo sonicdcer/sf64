@@ -1200,7 +1200,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
     this->vel.z = sp64.z - gPathVelZ;
 
     if (this->state < 20) {
-        gRadarMarks[59].status = 1;
+        gRadarMarks[59].enabled = true;
         gRadarMarks[59].type = 102;
         gRadarMarks[59].pos.x = this->obj.pos.x;
         gRadarMarks[59].pos.y = this->obj.pos.y;
@@ -1654,7 +1654,7 @@ void Andross_Effect396_Update(Effect396* this) {
 
 Gfx* D_i6_801A6790[10] = {
     D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880,
-    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_arwing_3016660,  D_arwing_3015D80,
+    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, aAwLeftWingDL,     aAwRightWingDL,
 };
 
 void Andross_Effect396_Draw(Effect396* this) {
@@ -3517,7 +3517,7 @@ void Andross_AndAndross_Draw(AndAndross* this) {
                     Matrix_Scale(gGfxMatrix, 1.1f, 1.1f, 1.1f, MTXF_APPLY);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Matrix_Pop(&gGfxMatrix);
             }
 
@@ -3643,7 +3643,7 @@ void Andross_AndLaserEmitter_Draw(AndLaserEmitter* this) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 128, 128, alpha);
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
     }
 }
 
@@ -4308,10 +4308,10 @@ void Andross_80193C4C(Player* player) {
                         }
                         break;
                     case 1050:
-                        gShowLevelClearStatusScreen = 1;
+                        gShowLevelClearStatusScreen = true;
                         break;
                     case 1250:
-                        gShowLevelClearStatusScreen = 0;
+                        gShowLevelClearStatusScreen = false;
                         break;
                 }
                 if (gCsFrameCount > 1300) {
@@ -4333,10 +4333,10 @@ void Andross_80193C4C(Player* player) {
                         gCsFrameCount += 230;
                         break;
                     case 1050:
-                        gShowLevelClearStatusScreen = 1;
+                        gShowLevelClearStatusScreen = true;
                         break;
                     case 1250:
-                        gShowLevelClearStatusScreen = 0;
+                        gShowLevelClearStatusScreen = false;
                         break;
                 }
             }

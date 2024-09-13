@@ -81,14 +81,14 @@ void Ending_80187520(s32 arg0) {
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {
-                TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
-            TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
+            Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
             break;
 
         case 1:
             for (j = 0, i = 0; i < 60; j += 316 * 4, i++) {
-                TextureRect_RGBA16(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
             break;
     }
@@ -109,7 +109,7 @@ void Ending_801876A4(void) {
         Matrix_RotateX(gGfxMatrix, (D_ending_80196D08[i].rot.x + 5.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, D_ending_80196D08[i].rot.z * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_TITLE_6041070);
+        gSPDisplayList(gMasterDisp++, aTeamShadowDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -118,7 +118,7 @@ void Ending_80187860(s32 arg0, s32 arg1) {
     Vec3f frameTable[50];
     s32 i;
     s32 limbCount;
-    Animation* sp70[4] = { &D_TITLE_60246F8, &D_TITLE_60338DC, &D_TITLE_6036278, &D_TITLE_603531C };
+    Animation* sp70[4] = { &D_TITLE_60246F8, &aFalcoAnim, &aSlippyAnim, &aPeppyAnim };
     s32 pad;
 
     for (i = arg0; i < D_ending_80196F88; i++) {
@@ -152,13 +152,13 @@ void Ending_80187860(s32 arg0, s32 arg1) {
                     limbCount = Animation_GetFrameData(&D_TITLE_60246F8, 0, frameTable);
                     break;
                 case 1:
-                    limbCount = Animation_GetFrameData(&D_TITLE_60338DC, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aFalcoAnim, 0, frameTable);
                     break;
                 case 2:
-                    limbCount = Animation_GetFrameData(&D_TITLE_6036278, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aSlippyAnim, 0, frameTable);
                     break;
                 case 3:
-                    limbCount = Animation_GetFrameData(&D_TITLE_603531C, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aPeppyAnim, 0, frameTable);
                     break;
             }
             Math_SmoothStepToVec3fArray(frameTable, D_ending_80197900[i], 1, limbCount, 0.1f, 100.0f, 0.01f);
@@ -180,7 +180,7 @@ void Ending_80187D3C(s32 arg0) {
     Vec3f sp23C = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp13C[4] = {
         { &D_TITLE_602A710,
-          D_TITLE_602FBAC,
+          aFoxSkel,
           23,
           { 110.0f, -520.0f, -1390.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -190,7 +190,7 @@ void Ending_80187D3C(s32 arg0) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_601E424,
-          D_TITLE_603088C,
+          aFalcoSkel,
           23,
           { 380.0f, -670.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -200,7 +200,7 @@ void Ending_80187D3C(s32 arg0) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_6020058,
-          D_TITLE_60313AC,
+          aSlippySkel,
           23,
           { -100.0f, -590.0f, -1630.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -210,7 +210,7 @@ void Ending_80187D3C(s32 arg0) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_6029BE4,
-          D_TITLE_6032084,
+          aPeppySkel,
           23,
           { -330.0f, -660.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
@@ -222,7 +222,7 @@ void Ending_80187D3C(s32 arg0) {
     };
     UnkStruct_196D08 sp3C[4] = {
         { &D_TITLE_602A710,
-          D_TITLE_602FBAC,
+          aFoxSkel,
           23,
           { -80.0f, -400.0f, -50.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -232,7 +232,7 @@ void Ending_80187D3C(s32 arg0) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_601E424,
-          D_TITLE_603088C,
+          aFalcoSkel,
           23,
           { -160.0f, -400.0f, 350.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -242,7 +242,7 @@ void Ending_80187D3C(s32 arg0) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_6020058,
-          D_TITLE_60313AC,
+          aSlippySkel,
           23,
           { 60.0f, -400.0f, 150.0f },
           { 0.0f, 180.0f, 0.0f },
@@ -252,7 +252,7 @@ void Ending_80187D3C(s32 arg0) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_6029BE4,
-          D_TITLE_6032084,
+          aPeppySkel,
           23,
           { 160.0f, -400.0f, 350.0f },
           { 350.0f, 180.0f, 0.0f },
@@ -430,16 +430,16 @@ void Ending_801886F4(void) {
 
     switch ((D_ending_80196F90 % 8) / 2) {
         case 3:
-            TextureRect_CI4(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 2:
-            TextureRect_CI4(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 1:
-            TextureRect_CI4(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 0:
-            TextureRect_CI4(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
     }
 }
 
@@ -504,8 +504,8 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_60338DC,
-          D_TITLE_603088C,
+        { &aFalcoAnim,
+          aFalcoSkel,
           23,
           { 230.0f, -370.0f, -620.0f },
           { 350.0f, 0.0f, 0.0f },
@@ -514,8 +514,8 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_6036278,
-          D_TITLE_60313AC,
+        { &aSlippyAnim,
+          aSlippySkel,
           23,
           { -120.0f, -350.0f, -600.0f },
           { 350.0f, 10.0f, 0.0f },
@@ -524,8 +524,8 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_603531C,
-          D_TITLE_6032084,
+        { &aPeppyAnim,
+          aPeppySkel,
           23,
           { -260.0f, -350.0f, -710.0f },
           { 350.0f, 10.0f, 0.0f },
@@ -535,7 +535,7 @@ void Ending_80188DB4(void) {
           0,
           { 0, 0, 0, 0 } },
         { &D_TITLE_60246F8,
-          D_TITLE_602FBAC,
+          aFoxSkel,
           23,
           { 30.0f, -330.0f, -320.0f },
           { 350.0f, 0.0f, 0.0f },

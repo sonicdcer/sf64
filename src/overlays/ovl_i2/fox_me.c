@@ -2418,11 +2418,11 @@ void Meteo_LevelComplete(Player* player) {
             break;
 
         case 976:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1176:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1300:

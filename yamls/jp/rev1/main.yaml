@@ -1,0 +1,37 @@
+  - name: makerom
+    type: code
+    start: 0x0
+    subsegments:
+      - {start: 0x0, type: header, name: header}
+      - {start: 0x40, type: textbin, name: ipl3}
+      - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
+
+  - name: main
+    type: code
+    start: 0x1050
+    vram: 0x80000450
+    bss_size: 0x95A50
+    subsegments:
+      # Microcode
+      - [0x01050, textbin, rspboot]
+      - [0x01120, textbin, aspmain]
+      - [0x02020, textbin, f3dex]
+
+      # Nintendo libraries  
+      - [0x03450, asm]
+
+  - name: dma_table
+    type: code
+    start: 0xE93C0
+    vram: 0x8017E210
+    follows_vram: main
+    subsegments:
+     - [0xE93C0, .data, dmatable]
+
+  - name: buffers
+    exclusive_ram_id: buffer
+    type: code
+    vram: 0x80281000
+    bss_size: 0x17F000
+    subsegments:
+    - { type: .bss, vram: 0x80281000, name: buffers }

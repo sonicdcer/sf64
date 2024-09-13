@@ -69,7 +69,7 @@ gTeamEventActorIndex = 0x800CFF80;//size:0x10
 
 gLockOnTargetViewPos = 0x80161578;//size:0x30
 D_display_800CA23C = 0x800CA23C;//size:0x18
-D_display_800CA26C = 0x800CA26C;//size:0x20
+sFaceDL = 0x800CA26C;//size:0x20
 D_800CA260 = 0x800CA260;//size:0xC
 D_display_801613E0 = 0x801613E0;//size:0x18
 gObjectInfo = 0x800CC124;//type:u8

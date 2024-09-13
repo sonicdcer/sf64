@@ -1664,7 +1664,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
 
         if (this->index == 0) {
             radarMark = &gRadarMarks[this->index + 1];
-            radarMark->status = 1;
+            radarMark->enabled = true;
             radarMark->type = 102;
             radarMark->pos.x = this->obj.pos.x;
             radarMark->pos.y = this->obj.pos.y;
@@ -1672,7 +1672,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
             radarMark->yRot = this->rot_078.y + 180.0f;
         } else {
             radarMark = &gRadarMarks[this->index + 4];
-            radarMark->status = 1;
+            radarMark->enabled = true;
             radarMark->type = 10;
             radarMark->pos.x = this->obj.pos.x;
             radarMark->pos.y = this->obj.pos.y;
@@ -1925,7 +1925,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
             Matrix_Translate(gGfxMatrix, this->fwork[1], this->fwork[2], this->fwork[3], MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, sp9C, sp9C, sp9C, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
 
         if (this->fwork[34] != 0.0f) {
@@ -1947,7 +1947,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
             Matrix_RotateY(gGfxMatrix, -sp8C, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -sp88, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
 
         if (this->index == 0) {
@@ -1963,7 +1963,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
                 Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->fwork[41] * 2.0f, this->fwork[41], this->fwork[41] * 2.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
             }
 
             if (this->fwork[42] != 0.0f) {
@@ -1978,7 +1978,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
                 Matrix_RotateZ(gGfxMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->fwork[42] * 2.0f, this->fwork[42], this->fwork[42] * 2.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
             }
         }
 
@@ -1992,7 +1992,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, this->fwork[43], this->fwork[43], this->fwork[43], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
 
         if (this->fwork[46] != 0.0f) {
@@ -2006,10 +2006,10 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
                              MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 0.4f, 0.2f, 0.2f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             Matrix_Translate(gGfxMatrix, -46.0f, 0, 0, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
     }
 }
@@ -2347,11 +2347,11 @@ void SectorY_LevelComplete(Player* player) {
             break;
 
         case 1163:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1363:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1440:
@@ -3874,7 +3874,7 @@ void SectorY_SyRobot_Draw(SyRobot* this) {
         Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
     }
 }
 

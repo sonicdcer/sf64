@@ -44,18 +44,18 @@ void Ending_8018CE20(u32 arg0) {
                         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
                         gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
-                        TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 0, 192, 5, 64.0f, 105.0f,
-                                        1.0f, 1.0f);
-                        TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 1, 192, 5, 64.0f, 110.0f,
-                                        1.0f, 1.0f);
-                        TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 2, 192, 5, 64.0f, 115.0f,
-                                        1.0f, 1.0f);
-                        TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 3, 192, 5, 64.0f, 120.0f,
-                                        1.0f, 1.0f);
-                        TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 4, 192, 5, 64.0f, 125.0f,
-                                        1.0f, 1.0f);
-                        TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 5, 192, 5, 64.0f, 130.0f,
-                                        1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 0, 192, 5, 64.0f,
+                                            105.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 1, 192, 5, 64.0f,
+                                            110.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 2, 192, 5, 64.0f,
+                                            115.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 3, 192, 5, 64.0f,
+                                            120.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 4, 192, 5, 64.0f,
+                                            125.0f, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, D_ending_80192E74[i].unk_00 + 192 * 5 * 5, 192, 5, 64.0f,
+                                            130.0f, 1.0f, 1.0f);
                     } else {
                         xPos = (320 - Graphics_GetSmallTextWidth(D_ending_80192E74[i].unk_00)) / 2;
                         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
@@ -158,9 +158,9 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
     if (gExpertMode != 0) {
         for (i = 0; i < 240; i += 4) {
             if (gVenomHardClear == 0) {
-                TextureRect_RGBA16(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
-                TextureRect_RGBA16(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             }
         }
     } else {
@@ -183,10 +183,13 @@ void Ending_8018D814(u32 arg0, AssetInfo* asset) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, asset->prim.r, asset->prim.g, asset->prim.b, alpha);
 
-    TextureRect_IA8(&gMasterDisp, sLargeText_1997_1, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
-    TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f, 1.0f);
-    TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f, 1.0f);
-    TextureRect_IA8(&gMasterDisp, sLargeText_1997_7, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_1, 16, 15, asset->unk_18.x, asset->unk_18.y, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 1, asset->unk_18.y, 1.0f,
+                        1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_9, 16, 15, asset->unk_18.x + 16.0f * 2, asset->unk_18.y, 1.0f,
+                        1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, sLargeText_1997_7, 16, 15, asset->unk_18.x + 16.0f * 3, asset->unk_18.y, 1.0f,
+                        1.0f);
 }
 
 void Ending_8018DA0C(u32 arg0, AssetInfo* asset) {
@@ -234,27 +237,27 @@ bool Ending_8018DCB4(void) {
     s32 k;
     s32 m;
     s32 temp;
-    s32 temp2 = 0;
+    s32 teamAlive = 0;
     s32 temp3 = 0;
     s32 temp4[10];
-    s32 unk_5E[10][7];
+    s32 stats[10][7];
     s32 unk40[10];
 
     for (i = 0; i < gMissionNumber + 1; i++) {
-        temp2 += ((gMissionTeamStatus[i] & 0x00FF0000) >> 16) & 1;
-        temp2 += ((gMissionTeamStatus[i] & 0x0000FF00) >> 8) & 1;
-        temp2 += (gMissionTeamStatus[i] & 0x000000FF) & 1;
+        teamAlive += ((gMissionTeamStatus[i] & TEAMSTATUS_PEPPY) >> 16) & 1;
+        teamAlive += ((gMissionTeamStatus[i] & TEAMSTATUS_SLIPPY) >> 8) & 1;
+        teamAlive += (gMissionTeamStatus[i] & TEAMSTATUS_FALCO) & 1;
     }
 
     for (i = 0; i < 10; i += 1) {
         temp4[i] = 0;
-        unk40[i] = gSaveFile.save.data.unk_40[i];
+        unk40[i] = gSaveFile.save.data.rankingLives[i];
 
         for (j = 0; j < 7; j += 1) {
-            temp4[i] += gSaveFile.save.data.unk_5E[i][j].unk_0 + (gSaveFile.save.data.unk_5E[i][j].unk_C * 256);
-            unk_5E[i][0] += gSaveFile.save.data.unk_5E[i][j].unk_D & 1;
-            unk_5E[i][1] += gSaveFile.save.data.unk_5E[i][j].unk_F & 1;
-            unk_5E[i][2] += gSaveFile.save.data.unk_5E[i][j].unk_E & 1;
+            temp4[i] += gSaveFile.save.data.stats[i][j].hitCount + (gSaveFile.save.data.stats[i][j].unk_C * 256);
+            stats[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
+            stats[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
+            stats[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;
         }
     }
 
@@ -280,10 +283,10 @@ bool Ending_8018DCB4(void) {
                                 temp3 = 0;
 
                                 for (m = 0; m < 3; m++) {
-                                    temp3 += unk_5E[k][m];
+                                    temp3 += stats[k][m];
                                 }
 
-                                if (temp2 > temp3) {
+                                if (teamAlive > temp3) {
                                     temp = k;
                                     break;
                                 }
@@ -733,7 +736,7 @@ void Ending_80190778(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_arwing_3005AB0);
+    gSPDisplayList(gMasterDisp++, aAwSlippyHeadDL);
 }
 
 void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
@@ -861,7 +864,7 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
         D_ending_80198590.drawFace = false;
     }
 
-    D_ending_80198590.windshieldXrot = 0.0f;
+    D_ending_80198590.cockpitGlassXrot = 0.0f;
     D_ending_80198590.teamFaceXrot = +D_ending_801985F0.x;
     D_ending_80198590.teamFaceYrot = -D_ending_801985F0.y;
 

@@ -13,8 +13,8 @@
       - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
 
-D_SX_6000000:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 12, offset: 0x6000000, symbol: D_SX_6000000 }
+aSxTitleCardTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 176, height: 12, offset: 0x6000000, symbol: aSxTitleCardTex }
 
 aSxSpaceMineDL:
   { type: GFX, offset: 0x6000840, symbol: aSxSpaceMineDL }

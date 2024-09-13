@@ -9,20 +9,20 @@
       - '#include "sf64object.h"'
 
 # Restart Game (Game Over)
-D_MAP_6000000:
-  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 22, ctype: u8, symbol: D_MAP_6000000 }
+aMapRetryCourseGameOverTex:
+  { type: TEXTURE, format: IA8, offset: 0x6000000, width: 96, height: 22, ctype: u8, symbol: aMapRetryCourseGameOverTex }
 
 # Proceed to Next Course
-D_MAP_6000840:
-  { type: TEXTURE, format: IA8, offset: 0x6000840, width: 96, height: 22, ctype: u8, symbol: D_MAP_6000840 }
+aMapProceedNextCourseTex:
+  { type: TEXTURE, format: IA8, offset: 0x6000840, width: 96, height: 22, ctype: u8, symbol: aMapProceedNextCourseTex }
 
 # Retry Course (Lose 1 Arwing)
-D_MAP_6001080:
-  { type: TEXTURE, format: IA8, offset: 0x6001080, width: 96, height: 22, ctype: u8, symbol: D_MAP_6001080 }
+aMapRetryCourseLose1UPTex:
+  { type: TEXTURE, format: IA8, offset: 0x6001080, width: 96, height: 22, ctype: u8, symbol: aMapRetryCourseLose1UPTex }
 
 # Change Course
-D_MAP_60018C0:
-  { type: TEXTURE, format: IA8, offset: 0x60018C0, width: 96, height: 10, ctype: u8, symbol: D_MAP_60018C0 }
+aMapChangeCourseTex:
+  { type: TEXTURE, format: IA8, offset: 0x60018C0, width: 96, height: 10, ctype: u8, symbol: aMapChangeCourseTex }
 
 # Aquas Ocean
 D_MAP_6001C80:
@@ -141,62 +141,62 @@ D_MAP_6016760:
 
 # Zones
 # Toxic Waste Area
-D_MAP_6017640:
+D_MAP_6017640: 
   { type: TEXTURE, format: IA8, offset: 0x6017640, width: 112, height: 28, ctype: u8, symbol: D_MAP_6017640 }
 
 # Invasion Aftermath
-D_MAP_6018280:
+D_MAP_6018280: 
   { type: TEXTURE, format: IA8, offset: 0x6018280, width: 184, height: 19, ctype: u8, symbol: D_MAP_6018280 }
 
-D_MAP_6019030:
-  { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: D_MAP_6019030 }
+aMapPrologueTextFadeTex: 
+  { type: TEXTURE, format: IA8, offset: 0x6019030, width: 8, height: 16, ctype: u8, symbol: aMapPrologueTextFadeTex }
 
 # Clouds ?
-D_MAP_60190B0:
-  { type: TEXTURE, format: IA8, offset: 0x60190B0, width: 96, height: 96, ctype: u8, symbol: D_MAP_60190B0 }
+aMapVenomCloudTex: 
+  { type: TEXTURE, format: IA8, offset: 0x60190B0, width: 96, height: 96, ctype: u8, symbol: aMapVenomCloudTex }
 
-D_MAP_601B4B0:
-  { type: TEXTURE, format: IA8, offset: 0x601B4B0, width: 32, height: 32, ctype: u8, symbol: D_MAP_601B4B0 }
+aMapOptionBgTex: 
+  { type: TEXTURE, format: IA8, offset: 0x601B4B0, width: 32, height: 32, ctype: u8, symbol: aMapOptionBgTex }
 
 # Some text in japanese
-D_MAP_601B8B0:
+D_MAP_601B8B0: 
   { type: TEXTURE, format: IA8, offset: 0x601B8B0, width: 80, height: 26, ctype: u8, symbol: D_MAP_1B8B0 }
 
-D_MAP_601C0D0:
-  { type: GFX, offset: 0x601C0D0, symbol: D_MAP_601C0D0 }
+aMapSectorXDL:
+  { type: GFX, offset: 0x601C0D0, symbol: aMapSectorXDL }
 
 D_MAP_601C160:
   { type: TEXTURE, format: RGBA16, offset: 0x0601C160, width: 32, height: 32, ctype: u16, symbol: D_MAP_601C160 }
 
-D_MAP_601C960:
-  { type: GFX, offset: 0x601C960, symbol: D_MAP_601C960 }
+aMapSectorYDL:
+  { type: GFX, offset: 0x601C960, symbol: aMapSectorYDL }
 
 D_MAP_601C9F0:
   { type: TEXTURE, format: RGBA16, offset: 0x0601C9F0, width: 32, height: 32, ctype: u16, symbol: D_MAP_601C9F0 }
 
-D_MAP_601D1F0:
-  { type: GFX, offset: 0x601D1F0, symbol: D_MAP_601D1F0 }
+aMapMedalDL:
+  { type: GFX, offset: 0x601D1F0, symbol: aMapMedalDL }
 
-D_MAP_601D2F0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x0601D2F0, symbol: D_MAP_601D2F0, tlut: 0x0601DAF0 }
+aMapMedalTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x0601D2F0, symbol: aMapMedalTex, tlut: 0x0601DAF0 }
 
 D_MAP_601DAF0:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 144, offset: 0x0601DAF0, symbol: D_MAP_601DAF0 }
 
-D_MAP_601DC10:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601DC10, symbol: D_MAP_601DC10, tlut: 0x0601DC90 }
+aMapArwingIconTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601DC10, symbol: aMapArwingIconTex, tlut: 0x0601DC90 }
 
-D_MAP_601DC90:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x0601DC90, symbol: D_MAP_601DC90 }
+aMapArwingIconTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x0601DC90, symbol: aMapArwingIconTLUT }
 
-D_MAP_601DCA0:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 7, offset: 0x0601DCA0, symbol: D_MAP_601DCA0, tlut: 0x0601DCD8 }
+aMapXTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 7, offset: 0x0601DCA0, symbol: aMapXTex, tlut: 0x0601DCD8 }
 
-D_MAP_601DCD8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 5, offset: 0x0601DCD8, symbol: D_MAP_601DCD8 }
+aMapXTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 5, offset: 0x0601DCD8, symbol: aMapXTLUT }
 
-D_MAP_601DCF0:
-  { type: GFX, offset: 0x601DCF0, symbol: D_MAP_601DCF0 }
+aMapCursorDL:
+  { type: GFX, offset: 0x601DCF0, symbol: aMapCursorDL }
 
 D_MAP_601DDE8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601DDE8, symbol: D_MAP_601DDE8, tlut: 0x0601DE68 }
@@ -204,8 +204,8 @@ D_MAP_601DDE8:
 D_MAP_601DE68:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 12, offset: 0x0601DE68, symbol: D_MAP_601DE68 }
 
-D_MAP_601DE80:
-  { type: GFX, offset: 0x601DE80, symbol: D_MAP_601DE80 }
+aMapArea6DL:
+  { type: GFX, offset: 0x601DE80, symbol: aMapArea6DL }
 
 D_MAP_601F2B0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0601F2B0, symbol: D_MAP_601F2B0, tlut: 0x0601F4B0 }
@@ -219,8 +219,8 @@ D_MAP_601E8F8:
 D_MAP_601E978:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601E978, symbol: D_MAP_601E978 }
 
-D_MAP_601E9A0:
-  { type: GFX, offset: 0x601E9A0, symbol: D_MAP_601E9A0 }
+aMapArea6ShipDL:
+  { type: GFX, offset: 0x601E9A0, symbol: aMapArea6ShipDL }
 
 D_MAP_601F4D0:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0601F4D0, symbol: D_MAP_601F4D0, tlut: 0x0601F550 }
@@ -240,110 +240,110 @@ D_MAP_601F610:
 D_MAP_601F690:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0601F690, symbol: D_MAP_601F690 }
 
-D_MAP_601F6B0:
-  { type: GFX, offset: 0x601F6B0, symbol: D_MAP_601F6B0 }
+aMapSectorZDL:
+  { type: GFX, offset: 0x601F6B0, symbol: aMapSectorZDL }
 
 D_MAP_601F740:
   { type: TEXTURE, format: RGBA16, offset: 0x0601F740, width: 32, height: 32, ctype: u16, symbol: D_MAP_601F740 }
 
 # Looks like Aquas
-D_MAP_601FF40:
-  { type: TEXTURE, format: CI8, offset: 0x601FF40, width: 96, height: 96, ctype: u8, symbol: D_MAP_601FF40, tlut: 0x06022340 }
+aMapAquasTex:
+  { type: TEXTURE, format: CI8, offset: 0x601FF40, width: 96, height: 96, ctype: u8, symbol: aMapAquasTex, tlut: 0x06022340 }
 
-D_MAP_6022340:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 75, offset: 0x06022340, symbol: D_MAP_6022340 }
+gMapAquasTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x06022340, symbol: gMapAquasTLUT }
 
 # Looks like Venom
-D_MAP_60223E0:
-  { type: TEXTURE, format: CI8, offset: 0x60223E0, width: 96, height: 96, ctype: u8, symbol: D_MAP_60223E0, tlut: 0x060247E0 }
+aMapVenomTex:
+  { type: TEXTURE, format: CI8, offset: 0x60223E0, width: 96, height: 96, ctype: u8, symbol: aMapVenomTex, tlut: 0x060247E0 }
 
-D_MAP_60247E0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x060247E0, symbol: D_MAP_60247E0 }
+gMapVenomTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 88, offset: 0x060247E0, symbol: gMapVenomTLUT }
 
 # Looks like Corneria
-D_MAP_6024890:
-  { type: TEXTURE, format: CI8, offset: 0x6024890, width: 96, height: 96, ctype: u8, symbol: D_MAP_6024890, tlut: 0x06026C90 }
+aMapCorneriaTex:
+  { type: TEXTURE, format: CI8, offset: 0x6024890, width: 96, height: 96, ctype: u8, symbol: aMapCorneriaTex, tlut: 0x06026C90 }
 
-D_MAP_6026C90:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 108, offset: 0x06026C90, symbol: D_MAP_6026C90 }
+gMapCorneriaTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 112, offset: 0x06026C90, symbol: gMapCorneriaTLUT }
 
 # Looks like Zones
-D_MAP_6026D70:
-  { type: TEXTURE, format: CI8, offset: 0x6026D70, width: 96, height: 96, ctype: u8, symbol: D_MAP_6026D70, tlut: 0x06029170 }
+aMapFortunaTex:
+  { type: TEXTURE, format: CI8, offset: 0x6026D70, width: 96, height: 96, ctype: u8, symbol: aMapFortunaTex, tlut: 0x06029170 }
 
-D_MAP_6029170:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x06029170, symbol: D_MAP_6029170 }
+gMapFortunaTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 88, offset: 0x06029170, symbol: gMapFortunaTLUT }
 
 # Looks like Solar
-D_MAP_6029220:
-  { type: TEXTURE, format: CI8, offset: 0x6029220, width: 96, height: 96, ctype: u8, symbol: D_MAP_6029220, tlut: 0x0602B620 }
+aMapKatinaTex:
+  { type: TEXTURE, format: CI8, offset: 0x6029220, width: 96, height: 96, ctype: u8, symbol: aMapKatinaTex, tlut: 0x0602B620 }
 
-D_MAP_602B620:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 84, offset: 0x0602B620, symbol: D_MAP_602B620 }
+gMapKatinaTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 88, offset: 0x0602B620, symbol: gMapKatinaTLUT }
 
 # Looks like Macbeth
-D_MAP_602B6D0:
-  { type: TEXTURE, format: CI8, offset: 0x602B6D0, width: 96, height: 96, ctype: u8, symbol: D_MAP_602B6D0, tlut: 0x0602DAD0 }
+aMapMacbethTex:
+  { type: TEXTURE, format: CI8, offset: 0x602B6D0, width: 96, height: 96, ctype: u8, symbol: aMapMacbethTex, tlut: 0x0602DAD0 }
 
-D_MAP_602DAD0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 68, offset: 0x0602DAD0, symbol: D_MAP_602DAD0 }
+gMapMacbethTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 72, offset: 0x0602DAD0, symbol: gMapMacbethTLUT }
 
 # Looks like Sector Z
-D_MAP_602DB60:
-  { type: TEXTURE, format: CI8, offset: 0x602DB60, width: 96, height: 96, ctype: u8, symbol: D_MAP_602DB60, tlut: 0x0602FF60 }
+aMapTitaniaTex:
+  { type: TEXTURE, format: CI8, offset: 0x602DB60, width: 96, height: 96, ctype: u8, symbol: aMapTitaniaTex, tlut: 0x0602FF60 }
 
-D_MAP_602FF60:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x0602FF60, symbol: D_MAP_602FF60 }
+gMapTitaniaTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x0602FF60, symbol: gMapTitaniaTLUT }
 
-D_MAP_602FFD0:
-  { type: TEXTURE, format: CI8, offset: 0x602FFD0, width: 96, height: 96, ctype: u8, symbol: D_MAP_602FFD0, tlut: 0x060323D0 }
+aMapZonessTex:
+  { type: TEXTURE, format: CI8, offset: 0x602FFD0, width: 96, height: 96, ctype: u8, symbol: aMapZonessTex, tlut: 0x060323D0 }
 
-D_MAP_60323D0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 52, offset: 0x060323D0, symbol: D_MAP_60323D0 }
+gMapZonessTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 56, offset: 0x060323D0, symbol: gMapZonessTLUT }
 
 # Portrait of Falco
-D_MAP_6032440:
-  { type: TEXTURE, format: RGBA16, offset: 0x06032440, width: 28, height: 28, ctype: u16, symbol: D_MAP_6032440 }
+aMapRadioCharFalcoTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06032440, width: 28, height: 28, ctype: u16, symbol: aMapRadioCharFalcoTex }
 
 # Portrait of Peppy
-D_MAP_6032A60:
-  { type: TEXTURE, format: RGBA16, offset: 0x06032A60, width: 28, height: 28, ctype: u16, symbol: D_MAP_6032A60 }
+aMapRadioCharPeppyTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06032A60, width: 28, height: 28, ctype: u16, symbol: aMapRadioCharPeppyTex }
 
 # Picture of Peppy, James and Pigma used in the narrated intro.
-D_MAP_6033080:
-  { type: TEXTURE, format: RGBA16, offset: 0x06033080, width: 96, height: 52, ctype: u16, symbol: D_MAP_6033080 }
+aMapPrologue3Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06033080, width: 96, height: 52, ctype: u16, symbol: aMapPrologue3Tex }
 
 # Picture of Andross, General Pepper and Venom in the background, used in the narrated intro.
-D_MAP_6035780:
-  { type: TEXTURE, format: RGBA16, offset: 0x06035780, width: 96, height: 52, ctype: u16, symbol: D_MAP_6035780 }
+aMapPrologue2Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06035780, width: 96, height: 52, ctype: u16, symbol: aMapPrologue2Tex }
 
 # Picture of Andross, hands open, Corneria in the middle, used in the narrated intro.
-D_MAP_6037E80:
-  { type: TEXTURE, format: RGBA16, offset: 0x06037E80, width: 96, height: 52, ctype: u16, symbol: D_MAP_6037E80 }
+aMapPrologue6Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06037E80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue6Tex }
 
 # Picture of an Arwing dodging attacks from enemies, used in the narrated intro.
-D_MAP_603A580:
-  { type: TEXTURE, format: RGBA16, offset: 0x0603A580, width: 96, height: 52, ctype: u16, symbol: D_MAP_603A580 }
+aMapPrologue4Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603A580, width: 96, height: 52, ctype: u16, symbol: aMapPrologue4Tex }
 
 # Picture of Slippy, Peppy, Fox and Falco, used in the narrated intro.
-D_MAP_603CC80:
-  { type: TEXTURE, format: RGBA16, offset: 0x0603CC80, width: 96, height: 52, ctype: u16, symbol: D_MAP_603CC80 }
+aMapPrologue7Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603CC80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue7Tex }
 
 # Picture of Peppy returning from Vemon, used in the narrated intro.
-D_MAP_603F380:
-  { type: TEXTURE, format: RGBA16, offset: 0x0603F380, width: 96, height: 52, ctype: u16, symbol: D_MAP_603F380 }
+aMapPrologue5Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x0603F380, width: 96, height: 52, ctype: u16, symbol: aMapPrologue5Tex }
 
 # Picture of Corneria, used in the narrated intro.
-D_MAP_6041A80:
-  { type: TEXTURE, format: RGBA16, offset: 0x06041A80, width: 96, height: 52, ctype: u16, symbol: D_MAP_6041A80 }
+aMapPrologue1Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06041A80, width: 96, height: 52, ctype: u16, symbol: aMapPrologue1Tex }
 
 # Portrait of Slippy
-D_MAP_6044180:
-  { type: TEXTURE, format: RGBA16, offset: 0x06044180, width: 28, height: 28, ctype: u16, symbol: D_MAP_6044180 }
+aMapRadioCharSlippyTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06044180, width: 28, height: 28, ctype: u16, symbol: aMapRadioCharSlippyTex }
 
 # White Square ?
-D_MAP_60447A0:
-  { type: TEXTURE, format: RGBA16, offset: 0x060447A0, width: 8, height: 8, ctype: u16, symbol: D_MAP_60447A0 }
+aMapWhiteSquareTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x060447A0, width: 8, height: 8, ctype: u16, symbol: aMapWhiteSquareTex }
 
 # Picture of Fox receiving orders from General Pepper, used in the map (briefing)
 D_MAP_6044820:
@@ -354,26 +354,29 @@ D_MAP_6046CD0:
   { type: TEXTURE, format: RGBA16, offset: 0x06046CD0, width: 32, height: 34, ctype: u16, symbol: D_MAP_6046CD0 }
 
 # Black Square with borders.
-D_MAP_6047550:
-  { type: TEXTURE, format: RGBA16, offset: 0x06047550, width: 24, height: 24, ctype: u16, symbol: D_MAP_6047550 }
+aMapPathBoxTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x06047550, width: 24, height: 24, ctype: u16, symbol: aMapPathBoxTex }
 
-D_MAP_60479D0:
-  { type: GFX, offset: 0x60479D0, symbol: D_MAP_60479D0 }
+aMapPlanetExplosionDL:
+  { type: GFX, offset: 0x60479D0, symbol: aMapPlanetExplosionDL }
 
 D_MAP_6047A68:
   { type: TEXTURE, format: IA8, offset: 0x06047A68, width: 32, height: 32, ctype: u8, symbol: D_MAP_6047A68 }
 
-D_MAP_6047E70:
-  { type: GFX, offset: 0x6047E70, symbol: D_MAP_6047E70 }
+aMapVenomCloudDL:
+  { type: GFX, offset: 0x6047E70, symbol: aMapVenomCloudDL }
 
-D_MAP_6047F80:
-  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 64, ctype: u8, symbol: D_MAP_6047F80 }
+aMapVenomCloud1Tex:
+  { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u8, symbol: aMapVenomCloud1Tex }
+
+aMapVenomCloud2Tex:
+  { type: TEXTURE, format: IA8, offset: 0x06048780, width: 64, height: 32, ctype: u8, symbol: aMapVenomCloud2Tex }
 
 D_MAP_6048F80:
   { type: TEXTURE, format: IA8, offset: 0x06048F80, width: 64, height: 64, ctype: u8, symbol: D_MAP_6048F80 }
-
-D_MAP_6049F80:
-  { type: GFX, offset: 0x6049F80, symbol: D_MAP_6049F80 }
+  
+aMapExplosion4DL:
+  { type: GFX, offset: 0x6049F80, symbol: aMapExplosion4DL }
 
 D_MAP_604A048:
   { type: TEXTURE, format: CI8, offset: 0x0604A048, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A048, tlut: 0x0602FF60 }
@@ -381,8 +384,8 @@ D_MAP_604A048:
 D_MAP_604A148:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 32, offset: 0x0604A148, symbol: D_MAP_604A148 }
 
-D_MAP_604A190:
-  { type: GFX, offset: 0x604A190, symbol: D_MAP_604A190 }
+aMapExplosion3DL:
+  { type: GFX, offset: 0x604A190, symbol: aMapExplosion3DL }
 
 D_MAP_604A258:
   { type: TEXTURE, format: CI8, offset: 0x0604A258, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A258, tlut: 0x0604A358 }
@@ -390,8 +393,8 @@ D_MAP_604A258:
 D_MAP_604A358:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 80, offset: 0x0604A358, symbol: D_MAP_604A358 }
 
-D_MAP_604A400:
-  { type: GFX, offset: 0x604A400, symbol: D_MAP_604A400 }
+aMapExplosion2DL:
+  { type: GFX, offset: 0x604A400, symbol: aMapExplosion2DL }
 
 D_MAP_604A4C8:
   { type: TEXTURE, format: CI8, offset: 0x0604A4C8, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A4C8, tlut: 0x0604A5C8 }
@@ -399,8 +402,8 @@ D_MAP_604A4C8:
 D_MAP_604A5C8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 160, offset: 0x0604A5C8, symbol: D_MAP_604A5C8 }
 
-D_MAP_604A710:
-  { type: GFX, offset: 0x604A710, symbol: D_MAP_604A710 }
+aMapExplosion1DL:
+  { type: GFX, offset: 0x604A710, symbol: aMapExplosion1DL }
 
 D_MAP_604A7D8:
   { type: TEXTURE, format: CI8, offset: 0x0604A7D8, width: 16, height: 16, ctype: u8, symbol: D_MAP_604A7D8, tlut: 0x0604A8D8 }
@@ -418,7 +421,7 @@ ast_map_seg6_vtx_4AD50:
 D_MAP_604B510:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604B510, symbol: D_MAP_604B510, tlut: 0x0604B590 }
 
-D_MAP_604B590:
+D_MAP_604B590: 
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604B590, symbol: D_MAP_604B590 }
 
 D_MAP_604B5B0:
@@ -431,48 +434,48 @@ D_MAP_604B650:
   { type: TEXTURE, format: RGBA16, offset: 0x0604B650, width: 8, height: 16, ctype: u16, symbol: D_MAP_604B650 }
 
 # Model of Bolse
-D_MAP_604B750:
-  { type: GFX, offset: 0x604B750, symbol: D_MAP_604B750 }
+aMapBolseDL:
+  { type: GFX, offset: 0x604B750, symbol: aMapBolseDL }
 
 D_MAP_604BC48:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0604BC48, symbol: D_MAP_604BC48, tlut: 0x0604BC48 }
 
-D_MAP_604BE48:
+D_MAP_604BE48: 
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604BE48, symbol: D_MAP_604BE48 }
 
 D_MAP_604BE68:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0604BE68, symbol: D_MAP_604BE68, tlut: 0x0604C068 }
 
-D_MAP_604C068:
+D_MAP_604C068: 
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C068, symbol: D_MAP_604C068 }
 
 D_MAP_604C088:
   { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x0604C088, symbol: D_MAP_604C088, tlut: 0x0604C288 }
 
-D_MAP_604C288:
+D_MAP_604C288: 
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C288, symbol: D_MAP_604C288 }
 
 D_MAP_604C2A8:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0604C2A8, symbol: D_MAP_604C2A8, tlut: 0x0604C328 }
 
-D_MAP_604C328:
+D_MAP_604C328: 
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x0604C328, symbol: D_MAP_604C328 }
 
 # Television outcoming light Model, used during briefing.
-D_MAP_604C350:
-  { type: GFX, offset: 0x604C350, symbol: D_MAP_604C350 }
+aMapTvScreenGlowDL:
+  { type: GFX, offset: 0x604C350, symbol: aMapTvScreenGlowDL }
 
-D_MAP_604C4C0:
-  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u8, symbol: D_MAP_604C4C0 }
+aMapTvScreenGlowTex:
+  { type: TEXTURE, format: IA8, offset: 0x0604C4C0, width: 8, height: 16, ctype: u8, symbol: aMapTvScreenGlowTex }
 
-D_MAP_604C540:
-  { type: GFX, offset: 0x604C540, symbol: D_MAP_604C540 }
+aMapTitaniaRings1DL:
+  { type: GFX, offset: 0x604C540, symbol: aMapTitaniaRings1DL }
 
 D_MAP_604C5D8:
   { type: TEXTURE, format: IA8, offset: 0x0604C5D8, width: 32, height: 64, ctype: u8, symbol: D_MAP_604C5D8 }
 
-D_MAP_604CDE0:
-  { type: GFX, offset: 0x604CDE0, symbol: D_MAP_604CDE0 }
+aMapTitaniaRings2DL:
+  { type: GFX, offset: 0x604CDE0, symbol: aMapTitaniaRings2DL }
 
 D_MAP_604CE78:
   { type: TEXTURE, format: IA8, offset: 0x0604CE78, width: 32, height: 64, ctype: u8, symbol: D_MAP_604CE78 }
@@ -484,8 +487,8 @@ D_MAP_604D708:
   { type: TEXTURE, format: IA8, offset: 0x0604D708, width: 32, height: 32, ctype: u8, symbol: D_MAP_604D708 }
 
 # Solar Rays
-D_MAP_604DB10:
-  { type: GFX, offset: 0x604DB10, symbol: D_MAP_604DB10 }
+aMapSolarDL:
+  { type: GFX, offset: 0x604DB10, symbol: aMapSolarDL }
 
 D_MAP_604DD20:
   { type: TEXTURE, format: IA8, offset: 0x0604DD20, width: 128, height: 32, ctype: u8, symbol: D_MAP_604DD20 }
@@ -499,8 +502,8 @@ D_MAP_604FD20:
 D_MAP_6050D20:
   { type: TEXTURE, format: IA8, offset: 0x06050D20, width: 128, height: 32, ctype: u8, symbol: D_MAP_6050D20 }
 
-D_MAP_6051D20:
-  { type: GFX, offset: 0x6051D20, symbol: D_MAP_6051D20 }
+aMapGralPepperFace2DL:
+  { type: GFX, offset: 0x6051D20, symbol: aMapGralPepperFace2DL }
 
 D_MAP_6051F20:
   { type: TEXTURE, format: RGBA16, offset: 0x06051F20, width: 64, height: 32, ctype: u16, symbol: D_MAP_6051F20 }
@@ -514,8 +517,8 @@ D_MAP_6053F20:
 D_MAP_6054F20:
   { type: TEXTURE, format: RGBA16, offset: 0x06054F20, width: 64, height: 32, ctype: u16, symbol: D_MAP_6054F20 }
 
-D_MAP_6055F20:
-  { type: GFX, offset: 0x6055F20, symbol: D_MAP_6055F20 }
+aMapGralPepperFace1DL:
+  { type: GFX, offset: 0x6055F20, symbol: aMapGralPepperFace1DL }
 
 D_MAP_6056120:
   { type: TEXTURE, format: RGBA16, offset: 0x06056120, width: 64, height: 32, ctype: u16, symbol: D_MAP_6056120 }
@@ -565,8 +568,8 @@ D_MAP_605F610:
 D_MAP_605FE10:
   { type: TEXTURE, format: IA8, offset: 0x0605FE10, width: 64, height: 32, ctype: u8, symbol: D_MAP_605FE10 }
 
-D_MAP_6060610:
-  { type: GFX, offset: 0x6060610, symbol: D_MAP_6060610 }
+aMapMeteorDL:
+  { type: GFX, offset: 0x6060610, symbol: aMapMeteorDL }
 
 D_MAP_6060698:
   { type: TEXTURE, format: RGBA16, offset: 0x06060698, width: 32, height: 32, ctype: u16, symbol: D_MAP_6060698 }

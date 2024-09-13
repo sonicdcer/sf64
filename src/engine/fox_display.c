@@ -333,8 +333,8 @@ void Display_Landmaster(Player* player) {
     Matrix_Pop(&gGfxMatrix);
 }
 
-Gfx* D_display_800CA26C[] = { D_arwing_3000090, D_arwing_3016CC0, D_arwing_3005AB0, D_arwing_3003CE0 };
-Gfx* D_display_800CA27C[] = { D_arwing_3001C90, D_arwing_3016CC0, D_arwing_3005AB0, D_arwing_3003CE0 };
+Gfx* sFaceDL[] = { aAwFoxHeadDL, aAwFalcoHeadDL, aAwSlippyHeadDL, aAwPeppyHeadDL };
+Gfx* sExpertFaceDL[] = { aAwJamesHeadDL, aAwFalcoHeadDL, aAwSlippyHeadDL, aAwPeppyHeadDL };
 f32 D_display_800CA28C = 2.0f;
 f32 D_display_800CA290 = 13.0f;
 f32 D_display_800CA294 = -10.0f;
@@ -361,7 +361,7 @@ void Display_LandmasterMuzzleFlash(Player* player) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_67);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
             gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 255);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
     }
     Matrix_Pop(&gGfxMatrix);
@@ -463,7 +463,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
                 *gfxPtr = NULL;
             }
             if (arwing->rightWingState == WINGSTATE_BROKEN) {
-                *gfxPtr = D_arwing_3015120;
+                *gfxPtr = aAwLeftWingBrokenDL;
             }
             if (D_display_800CA22C && ((gRightWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_34);
@@ -497,7 +497,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
                 *gfxPtr = NULL;
             }
             if (arwing->leftWingState == WINGSTATE_BROKEN) {
-                *gfxPtr = D_arwing_3014BF0;
+                *gfxPtr = aAwRightWingBrokenDL;
             }
             if (D_display_800CA22C && ((gLeftWingFlashTimer[0] % 2) != 0)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_34);
@@ -595,20 +595,23 @@ void Display_ArwingWings(ArwingInfo* arwing) {
         Matrix_RotateY(gGfxMatrix, arwing->teamFaceYrot * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, arwing->teamFaceXrot * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 1.0f / 70.925f, 1.0f / 70.925f, 1.0f / 70.925f, MTXF_APPLY);
+
         if (gGameState == GSTATE_ENDING) {
             Matrix_Scale(gGfxMatrix, 0.95f, 0.95f, 0.95f, MTXF_APPLY);
         }
+
         Matrix_SetGfxMtx(&gMasterDisp);
+
         if (gExpertMode) {
-            gSPDisplayList(gMasterDisp++, D_display_800CA27C[drawFace - 1]);
+            gSPDisplayList(gMasterDisp++, sExpertFaceDL[drawFace - 1]);
         } else {
-            gSPDisplayList(gMasterDisp++, D_display_800CA26C[drawFace - 1]);
+            gSPDisplayList(gMasterDisp++, sFaceDL[drawFace - 1]);
         }
         Matrix_Pop(&gGfxMatrix);
     }
 
     Matrix_Translate(gGfxMatrix, 0.0f, 17.2f, -25.8f, MTXF_APPLY);
-    Matrix_RotateX(gGfxMatrix, arwing->windshieldXrot * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gGfxMatrix, arwing->cockpitGlassXrot * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL_64_2();
 
@@ -674,7 +677,7 @@ void Display_Arwing(Player* player, s32 reflectY) {
             Matrix_Translate(gGfxMatrix, 0.0f, -8.0f, 5.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_arwing_30131F0);
+            gSPDisplayList(gMasterDisp++, aAwCockpitViewDL);
             Matrix_Pop(&gGfxMatrix);
         }
     } else {
@@ -808,7 +811,7 @@ void Display_PlayerShadow_Draw(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_102A8A0);
+            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             Matrix_Pop(&gGfxMatrix);
             break;
@@ -833,7 +836,7 @@ void Display_DrawEngineGlow(EngineGlowColor color) {
             gDPSetEnvColor(gMasterDisp++, 255, 64, 0, 255);
             break;
     }
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
 }
 
 void Display_LandmasterEngineGlow_Draw(Player* player) {
@@ -927,8 +930,8 @@ void Display_UnusedShield(Player* player) {
         gDPSetEnvColor(gMasterDisp++, 255, 0, 255, (s32) gShieldAlpha[player->num]);
         gSPDisplayList(gMasterDisp++, aUnusedShieldDL);
         Matrix_Pop(&gGfxMatrix);
-        Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
-        Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
+        Lib_Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
+        Lib_Texture_Scroll(aUnusedShieldTex, 32, 32, 3);
     }
 }
 
@@ -990,10 +993,10 @@ void Display_ArwingLaserCharge(Player* player) {
 
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 53.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * -53.0f * 2.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
         Matrix_Pop(&gGfxMatrix);
 
         if (player->alternateView && (gLevelMode == LEVELMODE_ON_RAILS)) {
@@ -1008,7 +1011,7 @@ void Display_ArwingLaserCharge(Player* player) {
             Matrix_Scale(gGfxMatrix, 1.3f, 1.3f, 1.0f, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
         Matrix_Pop(&gGfxMatrix);
     }
 
@@ -1039,7 +1042,7 @@ void Display_ArwingLaserCharge(Player* player) {
                 Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
                              MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
@@ -1060,7 +1063,7 @@ void Display_ArwingLaserCharge(Player* player) {
                 Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
                              MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Matrix_Pop(&gGfxMatrix);
 
                 Matrix_Push(&gGfxMatrix);
@@ -1068,7 +1071,7 @@ void Display_ArwingLaserCharge(Player* player) {
                 Matrix_Scale(gGfxMatrix, gMuzzleFlashScale[player->num], gMuzzleFlashScale[player->num], 1.0f,
                              MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;
@@ -1119,11 +1122,11 @@ void Display_LandmasterLaserCharge(Player* player) {
 
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 53.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
 
         Matrix_RotateZ(gGfxMatrix, gGameFrameCount * -53.0f * 2.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_101C2E0);
+        gSPDisplayList(gMasterDisp++, aStarDL);
 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, MTXF_APPLY);
@@ -1134,7 +1137,7 @@ void Display_LandmasterLaserCharge(Player* player) {
             Matrix_Scale(gGfxMatrix, 1.3f, 1.3f, 1.0f, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_1024AC0);
+        gSPDisplayList(gMasterDisp++, aOrbDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -1243,7 +1246,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102A8A0);
+            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
             Matrix_Pop(&gGfxMatrix);
         }
         if (player->arwing.rightWingState == WINGSTATE_INTACT) {
@@ -1256,7 +1259,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102A8A0);
+            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -1712,7 +1715,9 @@ void Display_Update(void) {
         tempVec.x = camPlayer->cam.eye.x - camPlayer->pos.x;
         tempVec.y = camPlayer->cam.eye.y - camPlayer->pos.y;
         tempVec.z = camPlayer->cam.eye.z - (camPlayer->trueZpos + camPlayer->zPath);
+
         Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayCamEye);
+
         gPlayCamEye.x += camPlayer->pos.x;
         gPlayCamEye.y += camPlayer->pos.y;
         gPlayCamEye.z += camPlayer->trueZpos + camPlayer->zPath;
@@ -1720,7 +1725,9 @@ void Display_Update(void) {
         tempVec.x = camPlayer->cam.at.x - camPlayer->pos.x;
         tempVec.y = camPlayer->cam.at.y - camPlayer->pos.y;
         tempVec.z = camPlayer->cam.at.z - (camPlayer->trueZpos + camPlayer->zPath);
+
         Matrix_MultVec3f(gCalcMatrix, &tempVec, &gPlayCamAt);
+
         gPlayCamAt.x += camPlayer->pos.x;
         gPlayCamAt.y += camPlayer->pos.y;
         gPlayCamAt.z += camPlayer->trueZpos + camPlayer->zPath;
@@ -1900,7 +1907,7 @@ void Display_Update(void) {
     if ((gCamCount != 1) &&
         ((camPlayer->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (camPlayer->state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
         HUD_Draw();
-        HUD_DrawEdgeArrows();
+        HUD_EdgeArrows_Update();
     }
     Matrix_Pop(&gGfxMatrix);
     Display_DrawHelpAlert();

@@ -5,6 +5,7 @@
 #include "sf64object.h"
 #include "sf64player.h"
 #include "sf64mesg.h"
+#include "fox_hud.h"
 
 // fox_360
 void AllRange_FortunaIntro(Player*);
@@ -376,54 +377,54 @@ void Effect_Effect399_Draw(Effect*);
 void Wipe_Draw(WipeMode mode, s32 frame);
 
 // fox_hud
-void func_hud_80084B94(s32);
-void func_hud_800857DC(f32, f32, f32, f32);
-void func_hud_80085890(f32, f32, f32, f32);
-void func_hud_80086110(f32, f32, s32);
-void func_hud_80086664(f32, f32);
-void func_hud_800869A0(f32, f32, s32, f32, s32, s32);
-void func_hud_80087530(f32, f32, s32);
-void func_hud_800884E4(void);
-void func_hud_80088564(void);
+void HUD_TeamDownWrench_Draw(s32);
+void HUD_BoostGaugeOverheat_Draw(f32, f32, f32, f32);
+void HUD_BoostGaugeCool_Draw(f32, f32, f32, f32);
+void HUD_TeamShields_Draw(f32, f32, s32);
+void HUD_TitleCard_Draw(f32, f32);
+void HUD_Number_Draw(f32, f32, s32, f32, bool, s32);
+void HUD_LivesCount2_Draw(f32, f32, s32);
+void HUD_SetMissionTeamStatus(void);
+void HUD_Bolse_Area6_SaveData(void);
 void HUD_DrawStatusScreens(void);
-s32 ActorMissileSeek_ModeCheck(s32);
+s32 ActorMissileSeek_ModeCheck(ActorMissileSeekMode mode);
 void HUD_RadioCharacterName_Draw(void);
-void func_hud_8008B5B0(f32 x, f32 y);
-s32 func_hud_8008B774(void);
-void func_hud_8008BD00(u8*, s32, s32, u8);
-void func_hud_8008C104(u16*, u16*);
+void HUD_PlayerShieldGauge_Draw(f32 x, f32 y);
+s32 HUD_RadioDamage_Type(void);
+void HUD_Texture_Scroll(u8*, s32, s32, u8);
+void HUD_Texture_Wave(u16*, u16*);
 void HUD_DisplaySmallNumber(f32, f32, f32, s32);
-void func_hud_8008C5C8(f32, f32, f32, s32);
-void func_hud_8008C6F4(s32, s32);
-s32 func_hud_8008BCBC(s32);
-void HUD_DrawEdgeArrows(void);
-s32 HUD_dummy_8008CB8C(void);
-void func_hud_8008D0DC(f32, f32, f32, f32, f32);
+void HUD_VsModePortraitTex_Draw(f32, f32, f32, s32);
+void HUD_EdgeArrows_Draw(s32, bool);
+s32 HUD_CountDigits(s32);
+void HUD_EdgeArrows_Update(void);
+s32 HUD_8008CB8C(void);
+void HUD_VS_ShieldGaugeTex_Draw(f32, f32, f32, f32, f32);
 void HUD_DrawBossHealth(void);
 void HUD_DrawCountdown(s32* , f32);
-void func_hud_8008E9EC(f32, f32);
-void func_hud_8008EA14(f32, f32);
+void HUD_Shield_GoldRings_HitPoints(f32, f32);
+void HUD_BombCounter_Draw(f32, f32);
 void HUD_Draw(void);
-void HUD_FoBase_Draw(Boss*);
-void func_hud_8008FFF0(Boss*, s32);
-s32 HUD_FoBase_ExplodeCs(Boss* this);
-bool func_hud_8009092C(Actor*);
-void HUD_FoBase_Update(Boss*);
-bool func_hud_800915FC(Actor*);
-bool func_hud_800924E0(Actor*);
+void FoBase_Draw(Boss*);
+void FoBase_BurnEffects(Boss*, s32);
+s32 FoBase_ExplodeCs(Boss* this);
+bool ActorTeamBoss_SetTarget(Actor*);
+void FoBase_Update(Boss*);
+bool ActorTeamBoss_ObstacleCheck(Actor*);
+bool ActorTeamBoss_SomerSault(Actor*);
 
 void ActorTeamBoss_Init(Actor*);
 void ActorTeamBoss_Update(Actor* this);
-void func_hud_80093164(Actor*);
-void HUD_AquasStart(Player*);
-void func_hud_800953A0(Actor*, s32);
-void func_hud_8009546C(Actor*, s32);
-void func_hud_80095538(Actor*, s32);
-void HUD_AquasComplete(Player*);
-void Hud_Effect363_Update(Effect*);
-void Hud_Effect363_Draw(Effect*);
-void func_hud_80094D20(f32, f32);
-void func_hud_80096A74(Player* player);
+void Aquas_CsIntroActors_Update(Actor*);
+void Aquas_CsLevelStart(Player*);
+void Aquas_AqBump2_Setup(Actor*, s32);
+void Aquas_AqCoralReef2_Setup(Actor*, s32);
+void Aquas_AqRock_Setup(Actor*, s32);
+void Aquas_CsLevelComplete(Player*);
+void Aquas_Effect363_Update(Effect*);
+void Aquas_Effect363_Draw(Effect*);
+void HUD_Hitpoints_Draw(f32, f32);
+void Venom1_LevelStart2(Player* player);
 
 // fox_col1
 void func_col1_80098860(PlaneF* plane, Vec3f* point, Vec3f* normal);

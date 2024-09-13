@@ -150,7 +150,7 @@ typedef struct ArwingInfo {
     /* 0x2C */ u8 drawFace;
     /* 0x30 */ f32 teamFaceXrot;
     /* 0x34 */ f32 teamFaceYrot;
-    /* 0x38 */ f32 windshieldXrot;
+    /* 0x38 */ f32 cockpitGlassXrot;
 } ArwingInfo; // size = 0x3C
 
 typedef struct PlayerSfx {
@@ -246,8 +246,8 @@ typedef struct Player {
     /* 0x184 */ f32 unk_184;
     /* 0x188 */ f32 unk_188;
     /* 0x18C */ f32 unk_18C;
-    /* 0x190 */ f32 unk_190;
-    /* 0x194 */ f32 unk_194;
+    /* 0x190 */ f32 unk_190; // Related to engine glow. Investigate
+    /* 0x194 */ f32 unk_194; // Related to engine glow. Investigate
     /* 0x198 */ s32 savedAlternateView;
     /* 0x19C */ s32 unk_19C; // used to indicate whether a U-turn is forced, whether to draw ground in TI intro, and to stop the landmaster
     /* 0x1A0 */ s32 unk_1A0; // tank muzzle flash timer

@@ -14,8 +14,8 @@
 
 # Fortuna
 # Former Defense Post
-D_FO_6000000:
-  { type: TEXTURE, format: IA8, width: 168, height: 28, offset: 0x6000000, ctype: u8, symbol: D_FO_6000000 }
+aFoTitleCardTex:
+  { type: TEXTURE, format: IA8, width: 168, height: 28, offset: 0x6000000, ctype: u8, symbol: aFoTitleCardTex }
 
 D_FO_6001260:
   { type: TEXTURE, format: IA8, width: 16, height: 16, offset: 0x6001260, ctype: u8, symbol: D_FO_6001260 }

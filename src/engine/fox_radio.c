@@ -169,7 +169,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX:
-            radioPortraitTex = D_10050E0;
+            radioPortraitTex = aFoxPortraitTex;
             break;
         case RCID_FOX_RED + 1:
             sRadioUseRedBox = true;
@@ -187,7 +187,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO:
-            radioPortraitTex = D_10032A0;
+            radioPortraitTex = aFalcoPortraitTex;
             break;
         case RCID_FALCO_RED + 1:
             sRadioUseRedBox = true;
@@ -199,7 +199,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY:
-            radioPortraitTex = D_100D900;
+            radioPortraitTex = aSlippyPortraitTex;
             break;
         case RCID_SLIPPY_RED + 1:
             sRadioUseRedBox = true;
@@ -211,7 +211,7 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY:
-            radioPortraitTex = D_100BAC0;
+            radioPortraitTex = aPeppyPortraitTex;
             break;
         case RCID_PEPPY_RED + 1:
             sRadioUseRedBox = true;
@@ -428,22 +428,22 @@ void func_radio_800BAAE8(void) {
 
         if (mirror) {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
-                                        gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
-                                        gRadioPortraitScaleY);
+                Lib_TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
+                                            gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY),
+                                            1.0f, gRadioPortraitScaleY);
             }
-            TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
-                                    gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
-                                    gRadioPortraitScaleY);
+            Lib_TextureRect_RGBA16_MirX(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+                                        gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                        gRadioPortraitScaleY);
         } else {
             for (i = 0, j = 0; i < 2; i++, j += 44 * 20) {
-                TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
-                                   gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
-                                   gRadioPortraitScaleY);
+                Lib_TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[j], 44, 20, gRadioPortraitPosX,
+                                       gRadioPortraitPosY + 20.0f + sp38 + (i * 20.0f * gRadioPortraitScaleY), 1.0f,
+                                       gRadioPortraitScaleY);
             }
-            TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
-                               gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
-                               gRadioPortraitScaleY);
+            Lib_TextureRect_RGBA16(&gMasterDisp, &radioPortraitTex[44 * 20 * 2], 44, 4, gRadioPortraitPosX,
+                                   gRadioPortraitPosY + 20.0f + sp38 + (40.0f * gRadioPortraitScaleY), 1.0f,
+                                   gRadioPortraitScaleY);
         }
     }
 }
@@ -471,13 +471,13 @@ void func_radio_800BB388(void) {
         switch (gGameState) {
             case GSTATE_TITLE:
             case GSTATE_ENDING:
-                texture = D_TITLE_601D750;
-                palette = D_TITLE_601DB50;
+                texture = aNoControllerBgTex;
+                palette = aNoControllerBgTLUT;
                 break;
 
             case GSTATE_PLAY:
-                texture = D_1013170;
-                palette = D_1013570;
+                texture = aMsgWindowBgTex;
+                palette = aMsgWindowBgTLUT;
                 break;
         }
 
@@ -487,8 +487,8 @@ void func_radio_800BB388(void) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 60, 60, 255, 170);
         }
 
-        TextureRect_CI8(&gMasterDisp, texture, palette, 32, 32, gRadioTextBoxPosX, gRadioTextBoxPosY + 16.0f + sp30,
-                        gRadioTextBoxScaleX, gRadioTextBoxScaleY);
+        Lib_TextureRect_CI8(&gMasterDisp, texture, palette, 32, 32, gRadioTextBoxPosX, gRadioTextBoxPosY + 16.0f + sp30,
+                            gRadioTextBoxScaleX, gRadioTextBoxScaleY);
     }
 
     if (gRadioTextBoxScaleY == 1.3f) {
@@ -712,11 +712,11 @@ void Radio_Draw(void) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);
                 Graphics_DisplaySmallText(31, 167, 1.0f, 1.0f, "DOWN");
-                func_hud_80084B94(1);
+                HUD_TeamDownWrench_Draw(1);
             }
             if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                func_hud_80086110(22.0f, 165.0f, gTeamShields[idx]);
+                HUD_TeamShields_Draw(22.0f, 165.0f, gTeamShields[idx]);
             }
         }
 
@@ -764,7 +764,7 @@ void Radio_Draw(void) {
             }
             if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&
                 (gCurrentRadioPortrait != RCID_1000)) {
-                func_hud_80086110(22.0f, 165.0f, gActors[idx].health * 2.55f);
+                HUD_TeamShields_Draw(22.0f, 165.0f, gActors[idx].health * 2.55f);
             }
         }
         if (((gCurrentRadioPortrait != RCID_STATIC) && (gCurrentRadioPortrait != RCID_STATIC + 1)) &&

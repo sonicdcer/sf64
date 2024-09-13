@@ -1,0 +1,139 @@
+  - name: ovl_i1
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i1
+    start: 0xDEF870
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0xA10
+    symbol_name_format: i1_$VRAM
+    subsegments:
+    - [0xDEF870, asm, fox_i1]
+    - [0xDEF880, asm, fox_co]
+    - [0xDFA440, asm, fox_ve1]
+    - [0xE00BF0, asm, fox_tr]
+    - [0xE00F60, asm, fox_tr360]
+
+  - name: ovl_i2
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i2
+    start: 0xE039D0
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x40
+    symbol_name_format: i2_$VRAM
+    subsegments:
+    - [0xE039D0, asm, fox_i2]
+    - [0xE039E0, asm, fox_me]
+    - [0xE118E0, asm, fox_sx]
+
+  - name: ovl_i3
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i3
+    start: 0xE12220
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x2220
+    symbol_name_format: i3_$VRAM
+    subsegments:
+    - [0xE12220, asm, fox_i3]
+    - [0xE1AC50, asm, fox_a6]
+    - [0xE294F0, asm, fox_zo]
+    - [0xE33B30, asm, fox_so]
+    - [0xE499B0, asm, fox_aq]
+
+  - name: ovl_i4
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i4
+    start: 0xE4CF40
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x1B0
+    symbol_name_format: i4_$VRAM
+    subsegments:
+    - [0xE4CF40, asm, fox_i4]
+    - [0xE4D010, asm, fox_fo]
+    - [0xE51780, asm, fox_bo]
+    - [0xE58200, asm, fox_ka]
+    - [0xE5F320, asm, fox_sz]
+    - [0xE64800, data]
+
+  - name: ovl_i5
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i5
+    start: 0xE65DE0
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0xAF80
+    symbol_name_format: i5_$VRAM
+    subsegments:
+    # should be one more file split here
+    - [0xE65DE0, asm, fox_i5]
+    - [0xE65DF0, asm]
+    - [0xE677F0, asm]
+    - [0xE93290, asm]
+    - [0xE95B60, asm]
+
+  - name: ovl_i6
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_i6
+    start: 0xE9A7A0
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x520
+    symbol_name_format: i6_$VRAM
+    subsegments:
+    - [0xE9A7A0, asm, fox_i6]
+    - [0xEA9490, asm, fox_andross]
+    - [0xEAADB0, asm, fox_ve2]
+    - [0xEB87E0, asm, fox_sy]
+    - [0xEB99E0, asm, fox_turret]
+
+  - name: ovl_menu
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_menu
+    start: 0xEBB1B0
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x17590
+    symbol_name_format: menu_$VRAM
+    subsegments:
+    - [0xEBB1B0, asm, fox_i_menu]
+    - [0xEBB270, asm, fox_title]
+    - [0xEC57B0, asm, fox_option]
+    - [0xEE1690, asm, fox_map]
+
+  - name: ovl_ending
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_ending
+    start: 0xEEB830
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x2710
+    symbol_name_format: ending_$VRAM
+    subsegments:
+    - [0xEEB830, asm, fox_end1]
+    - [0xEF1130, asm, fox_end2]
+    - [0xEF6B30, data]
+
+  - name: ovl_unused
+    exclusive_ram_id: overlay
+    type: code
+    dir: overlays/ovl_unused
+    start: 0xEFB010
+    vram: 0x80187520
+    follows_vram: main
+  #  bss_size: 0x10
+    symbol_name_format: unused_$VRAM
+    subsegments:
+    - [0xEFB010, asm, fox_unused]
+    - [0xEFB040, asm]
+
+  - [0xEFB0B0]

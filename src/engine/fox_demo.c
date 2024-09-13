@@ -167,11 +167,11 @@ void Cutscene_WarpZoneComplete(Player* player) {
                     break;
 
                 case 200:
-                    gShowLevelClearStatusScreen = 1;
+                    gShowLevelClearStatusScreen = true;
                     break;
 
                 case 400:
-                    gShowLevelClearStatusScreen = 0;
+                    gShowLevelClearStatusScreen = false;
                     break;
 
                 case 420:
@@ -623,7 +623,7 @@ void Cutscene_LevelStart(Player* player) {
                 break;
 
             case LEVEL_AQUAS:
-                HUD_AquasStart(player);
+                Aquas_CsLevelStart(player);
                 break;
 
             case LEVEL_AREA_6:
@@ -1251,11 +1251,11 @@ void Cutscene_CoComplete2(Player* player) {
 
     switch (gCsFrameCount) {
         case 961:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1161:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1255:
@@ -1389,7 +1389,7 @@ void Cutscene_LevelComplete(Player* player) {
 
         case FORM_BLUE_MARINE:
             if (gCurrentLevel == LEVEL_AQUAS) {
-                HUD_AquasComplete(player);
+                Aquas_CsLevelComplete(player);
             }
             break;
     }
@@ -2301,7 +2301,7 @@ void func_demo_8004F798(ActorCutscene* this) {
 
 void ActorCutscene_Update(ActorCutscene* this) {
     if (gCurrentLevel == LEVEL_AQUAS) {
-        func_hud_80093164(this);
+        Aquas_CsIntroActors_Update(this);
         return;
     }
 
@@ -2499,7 +2499,7 @@ void func_demo_8004FCB8(ActorCutscene* this, s32 arg1) {
             Matrix_RotateY(gGfxMatrix, angle, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
         }
     }
 }
@@ -2565,7 +2565,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             RCP_SetupDL_49();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->iwork[0]);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 00, this->iwork[0]);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 20:
@@ -2764,7 +2764,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             gDPSetEnvColor(gMasterDisp++, this->iwork[4], this->iwork[5], this->iwork[6], this->iwork[7]);
             Matrix_Scale(gGfxMatrix, this->scale, this->fwork[4], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case 38:
@@ -2794,7 +2794,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
                 Matrix_RotateX(gGfxMatrix, -x, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Math_SmoothStepToF(&this->fwork[0], 0.0f, 0.1f, 0.2f, 0.05f);
             }
 
@@ -2826,7 +2826,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
                 Matrix_RotateX(gGfxMatrix, -x, MTXF_APPLY);
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Math_SmoothStepToF(&this->fwork[6], 0.00f, 0.1f, 0.6f, 0);
             }
             break;
@@ -2856,7 +2856,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Matrix_Scale(gGfxMatrix, this->fwork[0], this->fwork[0], this->fwork[0], MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
 
             if (this->iwork[0] != 0) {
                 this->iwork[0] -= 7;
@@ -2899,11 +2899,11 @@ void Cutscene_DrawGreatFox(void) {
     PRINTF("d Enm->wrk0 %d\n");
 
     if (gGameState == GSTATE_TITLE) {
-        dList = D_TITLE_60320E0;
+        dList = aTitleArwingEngineGlowDL;
     } else if (gGameState == GSTATE_ENDING) {
         dList = D_END_7010970;
     } else {
-        dList = D_1024AC0;
+        dList = aOrbDL;
     }
 
     if (gCurrentLevel == LEVEL_TITANIA) {

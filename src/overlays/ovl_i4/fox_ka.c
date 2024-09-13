@@ -273,7 +273,7 @@ void Katina_LaserEnergyParticlesDraw(Effect358* this) {
     Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 0.4f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
@@ -1491,7 +1491,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             this->obj.rot.y += 360.0f;
         }
 
-        gRadarMarks[64].status = 1;
+        gRadarMarks[64].enabled = true;
         gRadarMarks[64].type = 101;
         gRadarMarks[64].pos.x = this->obj.pos.x;
         gRadarMarks[64].pos.y = this->obj.pos.y;
@@ -1665,7 +1665,7 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
                          this->fwork[BOSS_LASER_LIGHT_SCALE], MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             Matrix_Pop(&gGfxMatrix);
 
             Matrix_Push(&gGfxMatrix);
@@ -1677,7 +1677,7 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
                          MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -90 * M_DTOR, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             Matrix_Pop(&gGfxMatrix);
         }
 
@@ -1982,11 +1982,11 @@ void Katina_LevelComplete(Player* player) {
                     break;
 
                 case 350:
-                    gShowLevelClearStatusScreen = 1;
+                    gShowLevelClearStatusScreen = true;
                     break;
 
                 case 550:
-                    gShowLevelClearStatusScreen = 0;
+                    gShowLevelClearStatusScreen = false;
                     break;
 
                 case 1010:
@@ -2595,7 +2595,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
     ActorAllRange_ApplyDamage(this);
 
     radarMark = &gRadarMarks[this->index];
-    radarMark->status = 1;
+    radarMark->enabled = true;
     radarMark->type = this->aiType;
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;

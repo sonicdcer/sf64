@@ -2666,7 +2666,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, D_i5_801BE688[1].x, D_i5_801BE688[1].y + 50.0f,
@@ -2674,7 +2674,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             } else if (this->state == 2) {
@@ -2687,7 +2687,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
                 Matrix_RotateX(gCalcMatrix, (D_PI / 2), MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, this->vel.z, this->vel.z / 2, this->vel.z, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1024AC0);
+                gSPDisplayList(gMasterDisp++, aOrbDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5625,6 +5625,7 @@ void Macbeth_LevelStart(Player* player) {
             break;
 
         case 4:
+
         default:
             break;
     }
@@ -5640,7 +5641,7 @@ void Macbeth_LevelStart(Player* player) {
     player->rockPhase += player->vel.z * 5.0f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
 
-    Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
+    Lib_Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
 
     if ((gCsFrameCount > 150) && ((-player->trueZpos - player->zPath) > 200.0f)) {
         if (D_i5_801BA768 < 11.5f) {
@@ -6213,7 +6214,7 @@ void Macbeth_Effect379_Draw(Effect379* this) {
 
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024AC0);
+    gSPDisplayList(gMasterDisp++, aOrbDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -7151,7 +7152,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1817:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1960:
@@ -7160,7 +7161,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 2017:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 2040:
@@ -7513,7 +7514,7 @@ void Macbeth_801B38E0(void) {
     s16 j;
 
     for (i = 0; i < ARRAY_COUNT(gRadarMarks); i++) {
-        gRadarMarks[i].status = 0;
+        gRadarMarks[i].enabled = false;
     }
 
     for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
@@ -7735,11 +7736,11 @@ void Macbeth_LevelComplete1(Player* player) {
 
     switch (gCsFrameCount) {
         case 755:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1025:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 50:

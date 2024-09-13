@@ -29,7 +29,7 @@ typedef struct {
     /* 0x18 */ s32 alpha;
 } PlanetPath; // size = 0x1C
 
-typedef enum {
+typedef enum PlanetAnim {
     /* 0 */ PL_ANIM_STATIC,
     /* 1 */ PL_ANIM_BILLBOARD,
     /* 2 */ PL_ANIM_ROTATE_Y,
@@ -62,5 +62,35 @@ typedef struct {
     /* 0x8 */ s32 height;
     /* 0xC */ f32 xPos;
 } TitleCard; // size = 0x10
+
+typedef enum MapStates {
+    /* 0 */ MAP_PROLOGUE,
+    /* 1 */ MAP_LYLAT_CARD,
+    /* 2 */ MAP_ZOOM_PLANET,
+    /* 3 */ MAP_IDLE,
+    /* 4 */ MAP_LEVEL_START,
+    /* 5 */ MAP_ZOOM_PLANET_PATH, // After level ends
+    /* 6 */ MAP_PATH_CHANGE, // Path selection by the player
+    /* 7 */ MAP_GAME_OVER
+} MapStates;
+
+typedef enum PlanetStatus {
+    /* 0 */ PLANET_UNCLEARED,
+    /* 1 */ PLANET_CLEARED,
+    /* 2 */ PLANET_MEDAL
+} PlanetStatus;
+
+typedef enum PlanetExplosions {
+    /* 0 */ EXPLOSIONS_CORNERIA,
+    /* 1 */ EXPLOSIONS_KATINA,
+    /* 2 */ EXPLOSIONS_SECTOR_Y,
+    /* 3 */ EXPLOSIONS_MAX
+} PlanetExplosions;
+
+typedef enum PlanetSaveSlotTypes {
+    /* 0 */ SAVETYPE_PLAYED,
+    /* 1 */ SAVETYPE_MEDAL,
+    /* 2 */ SAVETYPE_CLEAR
+} PlanetSaveSlotTypes;
 
 #endif

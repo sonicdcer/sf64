@@ -4999,11 +4999,11 @@ void Zoness_LevelComplete(Player* player) {
             break;
 
         case 906:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1106:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 1180:

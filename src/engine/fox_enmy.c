@@ -2131,7 +2131,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
-    gRadarMarks[63].status = 1;
+    gRadarMarks[63].enabled = true;
     gRadarMarks[63].type = 103;
     gRadarMarks[63].pos.x = this->obj.pos.x;
     gRadarMarks[63].pos.y = this->obj.pos.y;

@@ -2223,7 +2223,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
     ActorAllRange_ApplyDamage(this);
 
     radarMark = &gRadarMarks[this->index];
-    radarMark->status = 1;
+    radarMark->enabled = true;
 
     if (this->aiType == AI360_MISSILE) {
         radarMark->type = 100;

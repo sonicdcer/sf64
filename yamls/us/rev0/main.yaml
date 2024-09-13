@@ -1,0 +1,168 @@
+  - name: makerom
+    type: code
+    start: 0x0
+    subsegments:
+      - {start: 0x0, type: header, name: header}
+      - {start: 0x40, type: textbin, name: ipl3}
+      - {start: 0x1000, type: asm, vram: 0x80000400, name: entry}
+
+  - name: main
+    type: code
+    start: 0x1050
+    vram: 0x80000450
+    bss_size: 0x9B1F0
+    subsegments:
+      # Microcode
+      - [0x01050, textbin, rspboot]
+      - [0x01120, textbin, aspmain] # vram: 0x04001080
+      - [0x02010, textbin, f3dex]
+
+      # Nintendo libraries
+      - [0x03440, asm]
+      - [0x3A80, asm]
+      - [0x41D0, asm]
+      - [0x4650, asm]
+      - [0x5A20, asm]
+      - [0x7B20, asm]
+      - [0x7D30, asm]
+      - [0x7FC0, asm]
+      - [0x8CC0, asm]
+      - [0xC870, asm]
+      - [0xF0A0, asm]
+      - [0x12490, asm]
+      - [0x14AA0, asm]
+      - [0x17650, asm]
+      - [0x1EB50, asm]
+      - [0x1FA60, asm]
+      - [0x1FA70, asm]
+      - [0x1FB10, asm]
+      - [0x205E0, asm]
+      - [0x206B0, asm]
+      - [0x20A60, asm]
+      - [0x20F80, asm]
+      - [0x211E0, asm]
+      - [0x21320, asm]
+      - [0x21470, asm]
+      - [0x21520, asm]
+      - [0x21B40, asm]
+      - [0x21DD0, asm]
+      - [0x222C0, asm]
+      - [0x22340, asm]
+      - [0x223F0, asm]
+      - [0x22500, asm]
+      - [0x225A0, asm]
+      - [0x226C0, asm]
+      - [0x22730, asm]
+      - [0x228F0, asm]
+      - [0x22920, asm]
+      - [0x22990, asm]
+      - [0x22A00, asm]
+      - [0x22D90, asm]
+      - [0x22DA0, asm]
+      - [0x22EF0, asm]
+      - [0x233A0, asm]
+      - [0x23530, asm]
+      - [0x238A0, asm]
+      - [0x23930, asm]
+      - [0x23C60, asm]
+      - [0x23C70, asm]
+      - [0x23D50, asm]
+      - [0x24050, asm]
+      - [0x24860, asm]
+      - [0x24900, asm]
+      - [0x255C0, asm]
+      - [0x255F0, asm]
+      - [0x25600, asm]
+      - [0x25850, asm]
+      - [0x25930, asm]
+      - [0x25940, asm]
+      - [0x259F0, asm]
+      - [0x25A00, asm]
+      - [0x25AB0, asm]
+      - [0x25BB0, asm]
+      - [0x26870, asm]
+      - [0x27100, asm]
+      - [0x27370, asm]
+      - [0x274F0, asm]
+      - [0x27630, asm]
+      - [0x27640, asm]
+      - [0x27650, asm]
+      - [0x279E0, asm]
+      - [0x27A60, asm]
+      - [0x27AA0, asm]
+      - [0x27B30, asm]
+      - [0x27B60, asm]
+      - [0x27F80, asm]
+      - [0x27F90, asm]
+      - [0x282F0, asm]
+      - [0x283F0, asm]
+      - [0x287C0, asm]
+      - [0x28C70, asm]
+      - [0x28D20, asm]
+      - [0x28D80, asm]
+      - [0x28DE0, asm]
+      - [0x28E80, asm]
+      - [0x29120, asm]
+      - [0x29BE0, asm]
+      - [0x29C40, asm]
+      - [0x2A4C0, asm]
+      - [0x2A660, asm]
+      - [0x2A770, asm]
+      - [0x2A830, asm]
+      - [0x2A840, asm]
+      - [0x2A8A0, asm]
+      - [0x2A8F0, asm]
+      - [0x2A990, asm]
+      - [0x2A9E0, asm]
+      - [0x2AB70, asm]
+      - [0x324C0, asm]
+      - [0x3F650, asm]
+      - [0x3FA10, asm]
+      - [0x45250, asm]
+      - [0x4E2C0, asm]
+      - [0x55310, asm]
+      - [0x55E50, asm]
+      - [0x66F40, asm]
+      - [0x739D0, asm]
+      - [0x80B00, asm]
+      - [0x810C0, asm]
+      - [0x93B10, asm]
+      - [0x96110, asm]
+      - [0x9E040, asm]
+      - [0xA0430, asm]
+      - [0xA06E0, asm]
+      - [0xB5550, asm]
+      - [0xB6EE0, asm]
+      - [0xB8EE0, asm]
+      - [0xBEFB0, asm]
+      - [0xBFA60, data]
+            
+       # dma_table
+      - [0xD9A90, data, dma_table]
+      
+    #  - [0xDA030, bin] # assets (ast_audioseq)
+
+
+      # last overlay data
+    #  - [0xDE1360, bin, ast_radio]
+
+      # overlay vram: 0x80187520
+
+    #  - [0xDEF870, asm, ovl_i1]
+    #  - [0xE039D0, asm, ovl_i2]
+    #  - [0xE12220, asm, ovl_i3]
+    #  - [0xE4CF40, asm, ovl_i4]
+    #  - [0xE65DE0, asm, ovl_i5]
+    #  - [0xE9A7A0, asm, ovl_i6]
+    #  - [0xEBB1B0, asm, ovl_menu]
+    #  - [0xEEB830, asm, fox_ending]
+    #  - [0xEFB010, asm, fox_unused]
+
+#  - name: dma_table
+#    type: code
+#    start: 0xD9A90
+#    vram: 0x80178A70
+#    follows_vram: main
+#    subsegments:
+#     - [0xD9A90, data, dmatable]
+

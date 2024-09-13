@@ -82,7 +82,7 @@ u8 sSeqCmdWritePos = 0;
 u8 sSeqCmdReadPos = 0;
 u8 sStartSeqDisabled = 0;
 u8 sSoundModeList[4] = { SOUNDMODE_STEREO, SOUNDMODE_HEADSET, SOUNDMODE_SURROUND, SOUNDMODE_MONO };
-u8 sAudioSpecId = AUDIOSPEC_0;
+u8 sAudioSpecId = AUDIOSPEC_CO;
 u8 sAudioResetStatus = AUDIORESET_READY;
 s32 D_800C5D5C = 0; // unused. file split?
 s8 sEnvReverb = 0;
@@ -130,35 +130,35 @@ SoundTestTrack sSoundTestTracks[] = {
     /*  1 */ { NA_BGM_TITLE, AUDIOSPEC_23 | (SFXCHAN_0 << 8), -1 },
     /*  2 */ { NA_BGM_SELECT, AUDIOSPEC_23 | (SFXCHAN_0 << 8), -1 },
     /*  3 */ { NA_BGM_MAP, AUDIOSPEC_24 | (SFXCHAN_1 << 8), -1 },
-    /*  4 */ { NA_BGM_START_DEMO, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
-    /*  5 */ { NA_BGM_START_DEMO_S, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
-    /*  6 */ { NA_BGM_START_DEMO_M, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
-    /*  7 */ { NA_BGM_ME_START_DEMO, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
-    /*  8 */ { NA_BGM_FO_START_DEMO, AUDIOSPEC_8 | (SFXCHAN_0 << 8), -1 },
-    /*  9 */ { NA_BGM_STAGE_CO, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
-    /* 10 */ { NA_BGM_STAGE_ME, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
-    /* 11 */ { NA_BGM_STAGE_TI, AUDIOSPEC_2 | (SFXCHAN_0 << 8), -1 },
-    /* 12 */ { NA_BGM_STAGE_SX, AUDIOSPEC_3 | (SFXCHAN_0 << 8), -1 },
-    /* 13 */ { NA_BGM_STAGE_ZO, AUDIOSPEC_4 | (SFXCHAN_0 << 8), -1 },
-    /* 14 */ { NA_BGM_STAGE_A6, AUDIOSPEC_5 | (SFXCHAN_0 << 8), -1 },
+    /*  4 */ { NA_BGM_START_DEMO, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
+    /*  5 */ { NA_BGM_START_DEMO_S, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
+    /*  6 */ { NA_BGM_START_DEMO_M, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
+    /*  7 */ { NA_BGM_ME_START_DEMO, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
+    /*  8 */ { NA_BGM_FO_START_DEMO, AUDIOSPEC_FO | (SFXCHAN_0 << 8), -1 },
+    /*  9 */ { NA_BGM_STAGE_CO, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
+    /* 10 */ { NA_BGM_STAGE_ME, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
+    /* 11 */ { NA_BGM_STAGE_TI, AUDIOSPEC_TI | (SFXCHAN_0 << 8), -1 },
+    /* 12 */ { NA_BGM_STAGE_SX, AUDIOSPEC_SX | (SFXCHAN_0 << 8), -1 },
+    /* 13 */ { NA_BGM_STAGE_ZO, AUDIOSPEC_ZO | (SFXCHAN_0 << 8), -1 },
+    /* 14 */ { NA_BGM_STAGE_A6, AUDIOSPEC_A6 | (SFXCHAN_0 << 8), -1 },
     /* 15 */ { NA_BGM_STAGE_VE1, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
-    /* 16 */ { NA_BGM_STAGE_SY, AUDIOSPEC_7 | (SFXCHAN_0 << 8), -1 },
-    /* 17 */ { NA_BGM_STAGE_FO, AUDIOSPEC_8 | (SFXCHAN_0 << 8), -1 },
-    /* 18 */ { NA_BGM_STAGE_BO, AUDIOSPEC_10 | (SFXCHAN_0 << 8), -1 },
-    /* 19 */ { NA_BGM_STAGE_KA, AUDIOSPEC_11 | (SFXCHAN_0 << 8), -1 },
-    /* 20 */ { NA_BGM_STAGE_AQ, AUDIOSPEC_12 | (SFXCHAN_0 << 8), -1 },
-    /* 21 */ { NA_BGM_STAGE_WZ, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
-    /* 22 */ { NA_BGM_KATT, AUDIOSPEC_13 | (SFXCHAN_0 << 8), -1 },
-    /* 23 */ { NA_BGM_BILL, AUDIOSPEC_11 | (SFXCHAN_0 << 8), -1 },
-    /* 24 */ { NA_BGM_BOSS_CO, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
-    /* 25 */ { NA_BGM_BOSS_ME, AUDIOSPEC_1 | (SFXCHAN_0 << 8), 0 },
-    /* 26 */ { NA_BGM_BOSS_ME, AUDIOSPEC_1 | (SFXCHAN_0 << 8), -1 },
-    /* 27 */ { NA_BGM_REAL_BOSS, AUDIOSPEC_7 | (SFXCHAN_0 << 8), -1 },
-    /* 28 */ { NA_BGM_BOSS_BO, AUDIOSPEC_10 | (SFXCHAN_0 << 8), -1 },
+    /* 16 */ { NA_BGM_STAGE_SY, AUDIOSPEC_SY | (SFXCHAN_0 << 8), -1 },
+    /* 17 */ { NA_BGM_STAGE_FO, AUDIOSPEC_FO | (SFXCHAN_0 << 8), -1 },
+    /* 18 */ { NA_BGM_STAGE_BO, AUDIOSPEC_BO | (SFXCHAN_0 << 8), -1 },
+    /* 19 */ { NA_BGM_STAGE_KA, AUDIOSPEC_KA | (SFXCHAN_0 << 8), -1 },
+    /* 20 */ { NA_BGM_STAGE_AQ, AUDIOSPEC_AQ | (SFXCHAN_0 << 8), -1 },
+    /* 21 */ { NA_BGM_STAGE_WZ, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
+    /* 22 */ { NA_BGM_KATT, AUDIOSPEC_SZ | (SFXCHAN_0 << 8), -1 },
+    /* 23 */ { NA_BGM_BILL, AUDIOSPEC_KA | (SFXCHAN_0 << 8), -1 },
+    /* 24 */ { NA_BGM_BOSS_CO, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
+    /* 25 */ { NA_BGM_BOSS_ME, AUDIOSPEC_ME | (SFXCHAN_0 << 8), 0 },
+    /* 26 */ { NA_BGM_BOSS_ME, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
+    /* 27 */ { NA_BGM_REAL_BOSS, AUDIOSPEC_SY | (SFXCHAN_0 << 8), -1 },
+    /* 28 */ { NA_BGM_BOSS_BO, AUDIOSPEC_BO | (SFXCHAN_0 << 8), -1 },
     /* 29 */ { NA_BGM_STARWOLF, AUDIOSPEC_6 | (SFXCHAN_0 << 8), -1 },
-    /* 30 */ { NA_BGM_COURSE_CLEAR, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
-    /* 31 */ { NA_BGM_COURSE_FAILURE, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
-    /* 32 */ { NA_BGM_PLAYER_DOWN, AUDIOSPEC_0 | (SFXCHAN_0 << 8), -1 },
+    /* 30 */ { NA_BGM_COURSE_CLEAR, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
+    /* 31 */ { NA_BGM_COURSE_FAILURE, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
+    /* 32 */ { NA_BGM_PLAYER_DOWN, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
     /* 33 */ { NA_BGM_GAME_OVER, AUDIOSPEC_25 | (SFXCHAN_0 << 8), -1 },
     /* 34 */ { NA_BGM_TRAINING, AUDIOSPEC_28 | (SFXCHAN_0 << 8), -1 },
     /* 35 */ { NA_BGM_BATTLE, AUDIOSPEC_16 | (SFXCHAN_3 << 8), -1 },
@@ -618,7 +618,7 @@ void Audio_LoadInstruments(void) {
 }
 
 void Audio_LoadAquasSequence(void) {
-    if (sAudioSpecId == AUDIOSPEC_12) {
+    if (sAudioSpecId == AUDIOSPEC_AQ) {
         AUDIOCMD_GLOBAL_SYNC_LOAD_SEQ_PARTS(NA_BGM_STAGE_AQ, 0);
     }
 }
@@ -2714,7 +2714,7 @@ void Audio_RestartSeqPlayers(void) {
     u16 fadeIn = 1;
 
     Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
-    if (sAudioSpecId == AUDIOSPEC_12) {
+    if (sAudioSpecId == AUDIOSPEC_AQ) {
         fadeIn = 360;
     } else if (sAudioSpecId < AUDIOSPEC_23) {
         fadeIn = 90;

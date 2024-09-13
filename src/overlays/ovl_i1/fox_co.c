@@ -657,7 +657,7 @@ void Corneria_CoGranga_Update(CoGranga* this) {
         }
         gBossFrameCount++;
 
-        gRadarMarks[59].status = 1;
+        gRadarMarks[59].enabled = true;
         gRadarMarks[59].type = 102;
         gRadarMarks[59].pos.x = this->obj.pos.x;
         gRadarMarks[59].pos.y = this->obj.pos.y;
@@ -1336,7 +1336,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
     switch (this->state) {
         case 0:
             this->fwork[1] += 20.0f;
-            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             this->animFrame = 0;
 
             this->fwork[0] += 1.0f;
@@ -1417,7 +1417,7 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
 
         case 1:
             this->fwork[0] = -10.0f;
-            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             if (this->timer_0BC == 0) {
                 this->state = 2;
                 this->iwork[2] = RAND_INT(10.0f) + 10;
@@ -1426,7 +1426,7 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
 
         case 2:
             this->fwork[0] = -10.0f;
-            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             this->animFrame++;
 
             if (this->animFrame >= Animation_GetFrameCount(&D_CO_602AA04)) {
@@ -1485,7 +1485,7 @@ void Corneria_CoGaruda3_Update(CoGaruda3* this) {
         case 1:
             this->fwork[0] = 5.0f;
             this->fwork[1] += 5.0f;
-            Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
             this->animFrame++;
             if (this->animFrame >= Animation_GetFrameCount(&aCoGaruda3Anim)) {
                 this->animFrame = 0;
@@ -2918,26 +2918,26 @@ void Corneria_LevelStart(Player* player) {
 
     // Cloud reflexions on Arwing windshields
     if (sp2C >= 0.0f) {
-        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
-        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
+        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
+        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
     } else {
-        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
-        Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
+        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
+        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
     }
 
     for (i = 0; (i < 40) && (D_ctx_80177A48[6] >= 0.2f); i++, D_ctx_80177A48[6] -= 0.2f) {
         if (sp44 >= 0) {
-            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
+            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
         } else {
-            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
+            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
         }
     }
 
     for (i = 0; (i < 40) && (D_ctx_80177A48[7] >= 0.3f); i++, D_ctx_80177A48[7] -= 0.3f) {
         if (sp40 >= 0) {
-            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 0);
+            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 0);
         } else {
-            Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 1);
+            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 1);
         }
     }
 
@@ -3626,11 +3626,11 @@ void Corneria_LevelComplete1(Player* player) {
 
     switch (gCsFrameCount) {
         case 981:
-            gShowLevelClearStatusScreen = 1;
+            gShowLevelClearStatusScreen = true;
             break;
 
         case 1181:
-            gShowLevelClearStatusScreen = 0;
+            gShowLevelClearStatusScreen = false;
             break;
 
         case 240:

@@ -14,8 +14,8 @@
 
 # Katina
 # Frontline Base
-D_KA_6000000:
-  { type: TEXTURE, format: IA8, width: 168, height: 28, offset: 0x6000000, ctype: u8, symbol: D_KA_6000000 }
+aKaTitleCardTex:
+  { type: TEXTURE, format: IA8, width: 168, height: 28, offset: 0x6000000, ctype: u8, symbol: aKaTitleCardTex }
 
 D_KA_6001260:
   { type: TEXTURE, format: IA8, width: 8, height: 8, offset: 0x6001260, ctype: u8, symbol: D_KA_6001260 }

@@ -252,23 +252,23 @@ void ActorDebris_Draw(ActorDebris* this) {
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_arwing_3016660);
+            gSPDisplayList(gMasterDisp++, aAwLeftWingDL);
             break;
 
         case 1:
             Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_arwing_3015D80);
+            gSPDisplayList(gMasterDisp++, aAwRightWingDL);
             break;
 
         case 2:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_arwing_30155E0);
+            gSPDisplayList(gMasterDisp++, aAwFlap1DL);
             break;
 
         case 3:
-            gSPDisplayList(gMasterDisp++, D_arwing_3011720);
+            gSPDisplayList(gMasterDisp++, aAwLaserGun1DL);
             break;
 
         case 4:
@@ -509,7 +509,7 @@ void Actor_DrawEngineAndContrails(Actor* this) {
         Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_102A8A0);
+        gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, -70.0f, -10.0f, -100.0f, MTXF_APPLY);
@@ -518,7 +518,7 @@ void Actor_DrawEngineAndContrails(Actor* this) {
         Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_102A8A0);
+        gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -581,7 +581,7 @@ void ActorTeamArwing_Draw(ActorTeamArwing* this) {
         gActorTeamArwing.bottomRightFlapYrot = this->fwork[26];
         gActorTeamArwing.bottomLeftFlapYrot = this->fwork[27];
         gActorTeamArwing.laserGunsYpos = gActorTeamArwing.laserGunsXpos = gActorTeamArwing.wingsXrot =
-            gActorTeamArwing.wingsYrot = gActorTeamArwing.windshieldXrot = gActorTeamArwing.wingsZrot = 0.0f;
+            gActorTeamArwing.wingsYrot = gActorTeamArwing.cockpitGlassXrot = gActorTeamArwing.wingsZrot = 0.0f;
         gActorTeamArwing.unk_28 = this->fwork[17];
         gActorTeamArwing.drawFace = this->iwork[14];
         gActorTeamArwing.teamFaceXrot = this->fwork[20];
@@ -680,7 +680,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_102A8A0);
+                gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
             }
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
@@ -704,7 +704,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     Matrix_Scale(gGfxMatrix, temp_fv0, temp_fv0, temp_fv0, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_1024AC0);
+                    gSPDisplayList(gMasterDisp++, aOrbDL);
                     break;
 
                 default:
@@ -731,7 +731,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             }
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Graphics_SetScaleMtx(150.0f);
-            gSPDisplayList(gMasterDisp++, D_102A8A0);
+            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
             break;
 
         case OBJ_BOSS_CO_CARRIER:
@@ -778,7 +778,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_Scale(gGfxMatrix, gActors[index].scale, 1.0f, gActors[index].scale, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case OBJ_ACTOR_TI_DESERT_CRAWLER:
@@ -793,7 +793,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_Scale(gGfxMatrix, 6.0f, 1.0f, 7.5f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case OBJ_ACTOR_TI_BOMB:
@@ -806,7 +806,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             Matrix_Scale(gGfxMatrix, 1.2f, 1.0f, 1.2f, MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case OBJ_ACTOR_MA_BOULDER:
@@ -815,7 +815,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 255);
             Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024AC0);
+            gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
         case OBJ_BOSS_VE1_GOLEMECH:
