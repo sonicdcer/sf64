@@ -770,7 +770,7 @@ void Titania_8018B1B4(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Titania_TiRasco_Update(Actor* this) {
+void Titania_TiRasco_Update(TiRasco* this) {
     Vec3f src;
     Vec3f dest;
     Actor* sp3C = this->iwork[0];
@@ -1724,7 +1724,7 @@ void Titania_TiDelphor_Init(TiDelphor* this) {
     Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp40, &this->obj.pos.y, &sp40);
 
     this->obj.pos.y -= 20.0f;
-    delphorHead = gActors;
+    delphorHead = &gActors[0];
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++, delphorHead++) {
         if (delphorHead->obj.status == OBJ_FREE) {

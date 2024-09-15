@@ -3582,7 +3582,7 @@ void Andross_AndLaserEmitter_Update(AndLaserEmitter* this) {
             break;
 
         case 1:
-            otherActor = gActors;
+            otherActor = &gActors[0];
             for (i = 0; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if ((i != this->index) && (otherActor->obj.status == OBJ_ACTIVE) &&
                     (otherActor->obj.id == OBJ_ACTOR_AND_LASER_EMITTER) &&
@@ -3773,8 +3773,8 @@ void Andross_80193710(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-void Andross_801939A0(s32 actorIndex) {
-    Actor* actor = &gActors[actorIndex];
+void Andross_801939A0(s32 actorIdx) {
+    Actor* actor = &gActors[actorIdx];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
@@ -3787,13 +3787,13 @@ void Andross_801939A0(s32 actorIndex) {
     actor->fwork[0] = 50.0f;
     actor->fwork[1] = 6.5f;
 
-    if (actorIndex == 10) {
+    if (actorIdx == 10) {
         actor->iwork[14] = 1;
     }
-    if (actorIndex == 1) {
+    if (actorIdx == 1) {
         actor->state = 1;
         actor->work_046 = 255;
-        actor->animFrame = 1000;
+        actor->animFrame = ACTOR_CS_1000;
     }
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -3823,7 +3823,7 @@ void Andross_80193AE4(s32 actorIndex) {
 
     if (actorIndex == 0) {
         actor->state = 200;
-        actor->animFrame = 1;
+        actor->animFrame = ACTOR_CS_GREAT_FOX;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);
     } else {
         actor->iwork[11] = 1;

@@ -21,20 +21,21 @@ f32 D_i2_80195534[] = { 0.15f, 0.45f, 0.75f, 1.3f, 0.75f, 0.45f, 0.15f, 0.0f };
 
 f32 D_i2_80195554[] = { 101.0f, 96.0f, 85.0f, 80.0f, 69.0f, 64.0f, 53.0f, 48.0f, 37.0f, 32.0f, 21.0f, 16.0f };
 
-f32 D_i2_80195584[] = { 180.0f, -180.0f, 0.0f, -1500.0f };
+f32 sMeLevelStartTeamSetupXpos[] = { 180.0f, -180.0f, 0.0f, -1500.0f };
 
-f32 D_i2_80195594[] = { 50.0f, 100.0f, -50.0f, 0.0f };
+f32 sMeLevelStartTeamSetupYpos[] = { 50.0f, 100.0f, -50.0f, 0.0f };
 
-f32 D_i2_801955A4[] = { 240.0f, 480.0f, 720.0f, -5000.0f };
+f32 sMeLevelStartTeamSetupZpos[] = { 240.0f, 480.0f, 720.0f, -5000.0f };
 
-s32 D_i2_801955B4[] = { 0, 0, 0, 1 };
+s32 sMeLevelStartTeamSetupModel[] = { ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING,
+                                      ACTOR_CS_GREAT_FOX };
 
 Vec3f D_i2_801955C4 = { 0.0f, 0.0f, 100.0f };
 
-Vec3f D_i2_801955D0[] = { 2000.0f, 2000.0f,  2000.0f, -2000.0f, 2000.0f,  2000.0f,
-                          0.0f,    -3000.0f, 3000.0f, 5000.0f,  -3000.0f, -3000.0f };
+Vec3f sMeLevelCompleteTeamSetupPos[] = { 2000.0f, 2000.0f,  2000.0f, -2000.0f, 2000.0f,  2000.0f,
+                                         0.0f,    -3000.0f, 3000.0f, 5000.0f,  -3000.0f, -3000.0f };
 
-f32 D_i2_80195600[] = { 75.0f, -80.0f, 85.0f, 0.0f };
+f32 sMeLevelCompleteTeamSetupModel[] = { 75.0f, -80.0f, 85.0f, 0.0f };
 
 Vec3f D_i2_80195610[] = {
     { 200.0f, -10.0f, 200.0f },
@@ -230,7 +231,7 @@ void Meteo_80187D08(f32 x, f32 y, f32 z, f32 arg3, f32 xRot, f32 yRot, s32 arg6,
     }
 }
 
-void Meteo_80187D98(Effect369* this, f32 x, f32 y, f32 z, f32 arg4, bool arg5) {
+void Meteo_80187D98(Effect369* this, f32 x, f32 y, f32 z, f32 arg4, bool rotate) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_369;
@@ -240,10 +241,10 @@ void Meteo_80187D98(Effect369* this, f32 x, f32 y, f32 z, f32 arg4, bool arg5) {
     this->obj.pos.z = z;
 
     this->unk_60.z = arg4;
-    this->unk_48 = arg5;
+    this->unk_48 = rotate;
     this->obj.rot.x = 45.0f;
 
-    if (arg5) {
+    if (rotate) {
         this->obj.rot.x = -45.0f;
     }
 
@@ -1500,8 +1501,8 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
     }
 }
 
-void Meteo_8018B7C4(s32 arg0) {
-    f32 xScale = arg0 * 0.83333f; // approx 5 / 6
+void Meteo_MeCrusherEngineGlow_Draw(s32 scale) {
+    f32 xScale = scale * 0.83333f; // approx 5 / 6
 
     if ((gGameFrameCount % 2) != 0) {
         xScale *= 1.1f;
@@ -1514,7 +1515,7 @@ void Meteo_8018B7C4(s32 arg0) {
     Matrix_Scale(gGfxMatrix, 10.0f * xScale, 10.0f * xScale, 10.0f * xScale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 70);
-    gSPDisplayList(gMasterDisp++, D_102ED50);
+    gSPDisplayList(gMasterDisp++, aBlueSphereDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -1523,7 +1524,7 @@ void Meteo_8018B7C4(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 60);
-    gSPDisplayList(gMasterDisp++, D_102ED50);
+    gSPDisplayList(gMasterDisp++, aBlueSphereDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -1532,7 +1533,7 @@ void Meteo_8018B7C4(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 50);
-    gSPDisplayList(gMasterDisp++, D_102ED50);
+    gSPDisplayList(gMasterDisp++, aBlueSphereDL);
 
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
@@ -1541,7 +1542,7 @@ void Meteo_8018B7C4(s32 arg0) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 40);
-    gSPDisplayList(gMasterDisp++, D_102ED50);
+    gSPDisplayList(gMasterDisp++, aBlueSphereDL);
     Matrix_Pop(&gGfxMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
@@ -1552,7 +1553,8 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
     f32 var_fs1;
     s32 pad;
 
-    gSPDisplayList(gMasterDisp++, D_ME_6001310);
+    gSPDisplayList(gMasterDisp++, aMeCrusherDL);
+
     RCP_SetupDL_64();
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
 
@@ -1591,12 +1593,12 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 32, 32, 128);
                 Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_102ED50);
+                gSPDisplayList(gMasterDisp++, aBlueSphereDL);
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
                 Matrix_Scale(gGfxMatrix, var_fs1 * 6.0f, var_fs1 * 6.0f, var_fs1 * 6.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_102ED50);
+                gSPDisplayList(gMasterDisp++, aBlueSphereDL);
             }
             Matrix_Pop(&gGfxMatrix);
         }
@@ -1687,7 +1689,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
             }
 
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102ED50);
+            gSPDisplayList(gMasterDisp++, aBlueSphereDL);
             Matrix_Pop(&gGfxMatrix);
             Matrix_RotateX(gGfxMatrix, -M_PI / 6, MTXF_APPLY);
 
@@ -1713,7 +1715,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
             Matrix_Scale(gGfxMatrix, var_fs1, var_fs1, var_fs1, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_102ED50);
+        gSPDisplayList(gMasterDisp++, aBlueSphereDL);
         Matrix_Pop(&gGfxMatrix);
     }
 
@@ -1761,7 +1763,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, 650.0f, 600.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        Meteo_8018B7C4(this->swork[0] - 1);
+        Meteo_MeCrusherEngineGlow_Draw(this->swork[0] - 1);
         Matrix_Pop(&gGfxMatrix);
     }
 
@@ -1769,23 +1771,23 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, 0.0f, -650.0f, 600.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        Meteo_8018B7C4(this->swork[1] - 1);
+        Meteo_MeCrusherEngineGlow_Draw(this->swork[1] - 1);
         Matrix_Pop(&gGfxMatrix);
     }
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Meteo_8018C77C(ActorCutscene* this, s32 arg1) {
+void Meteo_LevelStart_SetupTeam(ActorCutscene* this, s32 teamIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i2_80195584[arg1] + gPlayer[0].pos.x;
-    this->obj.pos.y = D_i2_80195594[arg1] + gPlayer[0].pos.y;
-    this->obj.pos.z = D_i2_801955A4[arg1] + gPlayer[0].trueZpos;
+    this->obj.pos.x = sMeLevelStartTeamSetupXpos[teamIdx] + gPlayer[0].pos.x;
+    this->obj.pos.y = sMeLevelStartTeamSetupYpos[teamIdx] + gPlayer[0].pos.y;
+    this->obj.pos.z = sMeLevelStartTeamSetupZpos[teamIdx] + gPlayer[0].trueZpos;
 
-    this->animFrame = D_i2_801955B4[arg1];
+    this->animFrame = sMeLevelStartTeamSetupModel[teamIdx];
     this->obj.rot.y = 180.0f;
     Object_SetInfo(&this->info, this->obj.id);
     this->info.cullDistance = 200.0f;
@@ -1800,38 +1802,38 @@ void Meteo_8018C77C(ActorCutscene* this, s32 arg1) {
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
 }
 
-void Meteo_8018C8F4(MeMeteor2* actor182, ActorCutscene* actorCs) {
-    Actor_Initialize(actor182);
-    actor182->obj.status = OBJ_INIT;
-    actor182->obj.id = OBJ_ACTOR_ME_METEOR_2;
+void Meteo_8018C8F4(MeMeteor2* this, ActorCutscene* actorCs) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_ME_METEOR_2;
 
-    actor182->obj.pos.x = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actorCs->obj.pos.x;
-    actor182->obj.pos.y = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actorCs->obj.pos.y;
-    actor182->obj.pos.z = RAND_FLOAT_CENTERED_SEEDED(500.0f) + actorCs->obj.pos.z - 9000.0f;
+    this->obj.pos.x = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actorCs->obj.pos.x;
+    this->obj.pos.y = RAND_FLOAT_CENTERED_SEEDED(2000.0f) + actorCs->obj.pos.y;
+    this->obj.pos.z = RAND_FLOAT_CENTERED_SEEDED(500.0f) + actorCs->obj.pos.z - 9000.0f;
 
-    actor182->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
-    actor182->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
+    this->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
+    this->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
 
-    actor182->timer_0C2 = 10000;
-    actor182->vel.z = 30.0f;
-    Object_SetInfo(&actor182->info, actor182->obj.id);
+    this->timer_0C2 = 10000;
+    this->vel.z = 30.0f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_8018CA10(Actor* actor182, ActorCutscene* actorCs, f32 x, f32 y, f32 z) {
-    Actor_Initialize(actor182);
-    actor182->obj.status = OBJ_INIT;
-    actor182->obj.id = OBJ_ACTOR_ME_METEOR_2;
+void Meteo_8018CA10(MeMeteor2* this, ActorCutscene* actorCs, f32 x, f32 y, f32 z) {
+    Actor_Initialize(this);
+    this->obj.status = OBJ_INIT;
+    this->obj.id = OBJ_ACTOR_ME_METEOR_2;
 
-    actor182->obj.pos.x = actorCs->obj.pos.x + x;
-    actor182->obj.pos.y = actorCs->obj.pos.y + y;
-    actor182->obj.pos.z = actorCs->obj.pos.x + z;
+    this->obj.pos.x = actorCs->obj.pos.x + x;
+    this->obj.pos.y = actorCs->obj.pos.y + y;
+    this->obj.pos.z = actorCs->obj.pos.x + z;
 
-    actor182->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
-    actor182->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
+    this->obj.rot.y = RAND_FLOAT_SEEDED(360.0f);
+    this->obj.rot.x = RAND_FLOAT_SEEDED(360.0f);
 
-    actor182->timer_0C2 = 10000;
-    actor182->vel.z = 30.0f;
-    Object_SetInfo(&actor182->info, actor182->obj.id);
+    this->timer_0C2 = 10000;
+    this->vel.z = 30.0f;
+    Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Meteo_8018CAD8(void) {
@@ -1845,7 +1847,7 @@ void Meteo_8018CAD8(void) {
     actorCs->obj.pos.y = 0.0f;
     actorCs->obj.pos.z = 9000.0f;
 
-    actorCs->animFrame = 10;
+    actorCs->animFrame = ACTOR_CS_ME_CORNERIA_BG;
     Object_SetInfo(&actorCs->info, actorCs->obj.id);
 }
 
@@ -1875,7 +1877,7 @@ void Meteo_Effect346_Spawn(ActorEvent* this) {
 
     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
-    for (i = 0; i < 25; ++i) {
+    for (i = 0; i < 25; i++) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
                 Meteo_Effect346_Setup(&gEffects[j], this);
@@ -1888,10 +1890,10 @@ void Meteo_Effect346_Spawn(ActorEvent* this) {
 void Meteo_LevelStart(Player* player) {
     u8 sp8F;
     s32 i;
-    Actor* actor0 = &gActors[0];
-    Actor* actor1 = &gActors[1];
-    Actor* actor2 = &gActors[2];
-    Actor* actor3 = &gActors[3];
+    Actor* falco = &gActors[0];
+    Actor* slippy = &gActors[1];
+    Actor* peppy = &gActors[2];
+    Actor* greatFox = &gActors[3];
     f32 x;
     f32 y;
     f32 z;
@@ -1909,20 +1911,20 @@ void Meteo_LevelStart(Player* player) {
             gCsFrameCount = 0;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Meteo_8018C77C(actor0, 0);
+                Meteo_LevelStart_SetupTeam(falco, 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Meteo_8018C77C(actor1, 1);
+                Meteo_LevelStart_SetupTeam(slippy, 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Meteo_8018C77C(actor2, 2);
+                Meteo_LevelStart_SetupTeam(peppy, 2);
             }
 
-            Meteo_8018C77C(actor3, 3);
+            Meteo_LevelStart_SetupTeam(greatFox, 3);
             Meteo_8018CAD8();
 
             for (i = 5; i < 15; i++) {
-                Meteo_8018C8F4(&gActors[i], actor3);
+                Meteo_8018C8F4(&gActors[i], greatFox);
             }
 
             D_ctx_80177A48[1] = -13000.0f;
@@ -1942,7 +1944,7 @@ void Meteo_LevelStart(Player* player) {
             D_ctx_80177A48[3] = 1.0f;
 
         case 1:
-            actor3->vel.z = 4.0f;
+            greatFox->vel.z = 4.0f;
             gCsCamEyeX = player->pos.x + 100.0f;
             gCsCamEyeY = player->pos.y;
             gCsCamEyeZ = D_ctx_80177A48[1] + player->trueZpos;
@@ -1956,16 +1958,16 @@ void Meteo_LevelStart(Player* player) {
 
             D_ctx_80177A48[0] = 0.1f;
             if (gCsFrameCount == 680) {
-                actor3->state = 10;
+                greatFox->state = 10;
             }
             if (gCsFrameCount == 720) {
-                actor0->state = 11;
+                falco->state = 11;
             }
             if (gCsFrameCount == 750) {
-                actor2->state = 12;
+                peppy->state = 12;
             }
             if (gCsFrameCount == 780) {
-                actor1->state = 13;
+                slippy->state = 13;
             }
             if (gCsFrameCount > 810) {
                 player->csState = 2;
@@ -1995,27 +1997,27 @@ void Meteo_LevelStart(Player* player) {
                 sp8F = true;
             }
             if (gCsFrameCount == 600) {
-                Meteo_8018CA10(&gActors[16], actor3, 100.0f, 500.0f, 1500.0f);
-                Meteo_8018CA10(&gActors[17], actor3, 300.0f, 400.0f, 2000.0f);
+                Meteo_8018CA10(&gActors[16], greatFox, 100.0f, 500.0f, 1500.0f);
+                Meteo_8018CA10(&gActors[17], greatFox, 300.0f, 400.0f, 2000.0f);
             }
             if (gCsFrameCount == 660) {
                 for (i = 4; i < 15; i++) {
                     gActors[i].obj.status = OBJ_FREE;
                 }
 
-                actor3->obj.pos.x += 1000.0f;
-                actor3->obj.pos.z += 4000.0f;
+                greatFox->obj.pos.x += 1000.0f;
+                greatFox->obj.pos.z += 4000.0f;
 
                 for (i = 4; i < 9; i++) {
-                    Meteo_8018C8F4(&gActors[i], actor3);
+                    Meteo_8018C8F4(&gActors[i], greatFox);
                 }
 
-                actor3->obj.pos.x -= 1000.0f;
-                actor3->obj.pos.z -= 4000.0f;
+                greatFox->obj.pos.x -= 1000.0f;
+                greatFox->obj.pos.z -= 4000.0f;
 
-                Meteo_8018CA10(&gActors[13], actor3, 1500.0f, 200.0f, 100.0f);
-                Meteo_8018CA10(&gActors[14], actor3, 1200.0f, -200.0f, -500.0f);
-                Meteo_8018CA10(&gActors[15], actor3, 2000.0f, -100.0f, -1000.0f);
+                Meteo_8018CA10(&gActors[13], greatFox, 1500.0f, 200.0f, 100.0f);
+                Meteo_8018CA10(&gActors[14], greatFox, 1200.0f, -200.0f, -500.0f);
+                Meteo_8018CA10(&gActors[15], greatFox, 2000.0f, -100.0f, -1000.0f);
 
                 gActors[50].obj.status = gActors[16].obj.status = gActors[17].obj.status = OBJ_FREE;
             }
@@ -2034,9 +2036,9 @@ void Meteo_LevelStart(Player* player) {
                 if (sp8F != 0) {
                     sp58 = D_i2_801955C4;
                     D_ctx_80177A48[3] *= -1.0f;
-                    x = gActors[player->meTargetIndex].obj.pos.x - (actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f));
-                    y = gActors[player->meTargetIndex].obj.pos.y - (actor3->obj.pos.y - 232.0f);
-                    z = gActors[player->meTargetIndex].obj.pos.z - (actor3->obj.pos.z - 1190.0f);
+                    x = gActors[player->meTargetIndex].obj.pos.x - (greatFox->obj.pos.x + (D_ctx_80177A48[3] * 74.0f));
+                    y = gActors[player->meTargetIndex].obj.pos.y - (greatFox->obj.pos.y - 232.0f);
+                    z = gActors[player->meTargetIndex].obj.pos.z - (greatFox->obj.pos.z - 1190.0f);
 
                     sp64 = Math_RadToDeg(Math_Atan2F(x, z));
                     x = sqrtf(SQ(x) + SQ(z));
@@ -2046,9 +2048,9 @@ void Meteo_LevelStart(Player* player) {
                     Matrix_RotateX(gCalcMatrix, M_DTOR * sp68, MTXF_APPLY);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp58, &sp4C);
 
-                    Actor_SpawnGreatFoxLaser(100, actor3->obj.pos.x + (D_ctx_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
-                                             actor3->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
-                                             actor3->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z,
+                    Actor_SpawnGreatFoxLaser(100, greatFox->obj.pos.x + (D_ctx_80177A48[3] * 74.0f) + (sp4C.x * 0.6f),
+                                             greatFox->obj.pos.y - 232.0f + (sp4C.y * 0.8f),
+                                             greatFox->obj.pos.z - 1190.0f + (sp4C.z * 0.8f), sp4C.x, sp4C.y, sp4C.z,
                                              sp68, sp64, 0.0f);
                 }
                 if (player->csEventTimer == 1) {
@@ -2190,24 +2192,24 @@ void Meteo_Effect371_Draw(Effect371* this) {
     }
 }
 
-void Meteo_8018DF08(ActorCutscene* this, s32 idx) {
+void Meteo_LevelComplete_SetupTeam(ActorCutscene* this, s32 teamIdx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i2_801955D0[idx].x + gPlayer[0].pos.x;
-    this->obj.pos.y = D_i2_801955D0[idx].y + gPlayer[0].pos.y;
-    this->obj.pos.z = D_i2_801955D0[idx].z + gPlayer[0].trueZpos;
+    this->obj.pos.x = sMeLevelCompleteTeamSetupPos[teamIdx].x + gPlayer[0].pos.x;
+    this->obj.pos.y = sMeLevelCompleteTeamSetupPos[teamIdx].y + gPlayer[0].pos.y;
+    this->obj.pos.z = sMeLevelCompleteTeamSetupPos[teamIdx].z + gPlayer[0].trueZpos;
 
     this->rot_0F4.y = 0.0f;
-    this->rot_0F4.z = D_i2_80195600[idx];
+    this->rot_0F4.z = sMeLevelCompleteTeamSetupModel[teamIdx];
 
     Object_SetInfo(&this->info, this->obj.id);
 
-    if (idx == 3) {
+    if (teamIdx == 3) {
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
     } else {
         this->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
@@ -2356,15 +2358,15 @@ void Meteo_LevelComplete(Player* player) {
             Object_Kill(&gActors[2].obj, gActors[2].sfxSource);
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Meteo_8018DF08(&gActors[0], 0);
+                Meteo_LevelComplete_SetupTeam(&gActors[0], 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Meteo_8018DF08(&gActors[1], 1);
+                Meteo_LevelComplete_SetupTeam(&gActors[1], 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Meteo_8018DF08(&gActors[2], 2);
+                Meteo_LevelComplete_SetupTeam(&gActors[2], 2);
             }
-            Meteo_8018DF08(&gActors[3], 3);
+            Meteo_LevelComplete_SetupTeam(&gActors[3], 3);
             break;
 
         case 370:

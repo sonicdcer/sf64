@@ -23,8 +23,8 @@ D_ME_6000A80:
 D_ME_6000B10:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06000B10, symbol: D_ME_6000B10 }
 
-D_ME_6001310:
-  { type: GFX, offset: 0x6001310, symbol: D_ME_6001310 }
+aMeCrusherDL:
+  { type: GFX, offset: 0x6001310, symbol: aMeCrusherDL }
 
 D_ME_6004738:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06004738, symbol: D_ME_6004738 }
@@ -207,14 +207,14 @@ D_ME_601FF80:
 D_ME_6020008:  
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06020008, symbol: D_ME_6020008 }
 
-D_ME_6020810:
-  { type: GFX, offset: 0x06020810, symbol: D_ME_6020810 }
+aMeCorneriaBgDL:
+  { type: GFX, offset: 0x06020810, symbol: aMeCorneriaBgDL }
 
-D_ME_6020920:  
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06020920, symbol: D_ME_6020920 }
+aMeCorneriaBg1Tex:  
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06020920, symbol: aMeCorneriaBg1Tex }
 
-D_ME_6021920:  
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06021920, symbol: D_ME_6021920 }
+aMeCorneriaBg2Tex:  
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06021920, symbol: aMeCorneriaBg2Tex }
 
 aMeLaserCannon1DL:
   { type: GFX, offset: 0x06022920, symbol: aMeLaserCannon1DL }

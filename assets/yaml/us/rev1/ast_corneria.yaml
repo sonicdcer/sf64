@@ -369,8 +369,8 @@ D_CO_6031130:
 D_CO_6031280:
   { type: GFX, offset: 0x6031280, symbol: D_CO_6031280 }
 
-D_CO_60329C0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060329C0, symbol: D_CO_60329C0 }
+aCoGarudaTracksTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060329C0, symbol: aCoGarudaTracksTex }
   
 CoMoleMissileDL:
   { type: GFX, offset: 0x6032BC0, symbol: CoMoleMissileDL }

@@ -410,8 +410,8 @@ D_AQ_601F830:
 D_AQ_601FD70:
   { type: GFX, offset: 0x601FD70, symbol: D_AQ_601FD70 }
 
-D_AQ_6020A40:
-  { type: SF64:ANIM, offset: 0x6020A40, symbol: D_AQ_6020A40 }
+aAqSeaweedAnim:
+  { type: SF64:ANIM, offset: 0x6020A40, symbol: aAqSeaweedAnim }
 
 aAqSeaweedSkel:
   { type: SF64:SKELETON, offset: 0x6020C6C, symbol: aAqSeaweedSkel }

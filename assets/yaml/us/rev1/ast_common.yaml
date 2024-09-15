@@ -944,8 +944,8 @@ D_102CD50:
 D_102DD50:
   { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102DD50, symbol: D_102DD50 }
 
-D_102ED50:
-  { type: GFX, offset: 0x102ED50, symbol: D_102ED50 }
+aBlueSphereDL:
+  { type: GFX, offset: 0x102ED50, symbol: aBlueSphereDL }
 
 D_102EDD8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102EDD8, symbol: D_102EDD8 }

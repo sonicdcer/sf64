@@ -5509,7 +5509,7 @@ void Macbeth_801AC6B4(ActorCutscene* this) {
     this->obj.rot.y = 180.0f;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
-    this->animFrame = 1;
+    this->animFrame = ACTOR_CS_GREAT_FOX;
 }
 
 f32 D_i5_801BA768 = 0.0f;
@@ -6355,7 +6355,7 @@ void Macbeth_801AF27C(ActorCutscene* this, s32 arg1) {
         this->state = 30;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
         this->state = 21;
         this->obj.rot.z = 32.5f;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
@@ -6391,7 +6391,7 @@ void Macbeth_801AF44C(void) {
     actor->obj.rot.z = -330.0f;
 
     actor->fwork[0] = 0.0f;
-    actor->animFrame = 24;
+    actor->animFrame = ACTOR_CS_KATT;
     actor->iwork[11] = 1;
     actor->state = 15;
     actor->fwork[3] = D_i5_801BA820[4];
@@ -6415,7 +6415,7 @@ void Macbeth_801AF628(ActorCutscene* this, s32 index) {
     this->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[index].x;
     this->obj.pos.y = D_i5_801BA834[index].y;
     this->obj.pos.z = D_i5_801BA834[index].z - gPathProgress;
-    this->animFrame = 37;
+    this->animFrame = ACTOR_CS_37;
     this->obj.rot.y = D_i5_801BA84C[index];
     this->iwork[4] = this->iwork[5] = 192;
     this->iwork[0] = this->iwork[1] = this->iwork[2] = this->iwork[7] = this->iwork[3] = 255;
@@ -7466,7 +7466,7 @@ void Macbeth_LevelComplete1_TeamSetup(Actor* this, s32 teamIndex) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
         return;
     }
-    this->animFrame = 1;
+    this->animFrame = ACTOR_CS_GREAT_FOX;
     this->state = 20;
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
     this->fwork[9] = 20.0f;
@@ -7500,7 +7500,7 @@ void Macbeth_801B3718(void) {
     actor->obj.rot.z = -actor->rot_0F4.z;
 
     actor->fwork[0] = 30.0f;
-    actor->animFrame = 24;
+    actor->animFrame = ACTOR_CS_KATT;
     actor->iwork[11] = 1;
     actor->state = 10;
     actor->fwork[3] = D_i5_801BA900;

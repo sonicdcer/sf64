@@ -1537,7 +1537,7 @@ void Scenery360_Draw(Scenery360* this) {
     f32 sp3C = 2000.0f;
     f32 sp38 = 0.5f;
 
-    if (this->obj.id == OBJ_SCENERY_UNK_156) {
+    if (this->obj.id == OBJ_SCENERY_SY_SHOGUN_SHIP) {
         sp44 = 4000.0f;
         sp40 = -13000.0f;
         sp3C = 4500.0f;
@@ -1751,7 +1751,7 @@ void Object_DrawAll(s32 arg0) {
         }
     }
 
-    for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+    for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
         if (actor->obj.status >= OBJ_ACTIVE) {
             if ((actor->timer_0C6 % 2) == 0) {
                 if (gCurrentLevel == LEVEL_UNK_15) {

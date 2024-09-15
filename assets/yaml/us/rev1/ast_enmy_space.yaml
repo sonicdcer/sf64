@@ -29,17 +29,17 @@ D_ENMY_SPACE_4001108:
 aAttacker2DL:
   { type: GFX, offset: 0x4001310, symbol: aAttacker2DL }
 
-D_ENMY_SPACE_4001A30:
-  { type: TEXTURE, format: RGBA16, offset: 0x4001A30, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001A30 }
+aCommanderTex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x4001A30, width: 16, height: 16, ctype: u16, symbol: aCommanderTex1 }
 
-D_ENMY_SPACE_4001C30:
-  { type: TEXTURE, format: RGBA16, offset: 0x04001C30, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001C30 }
+aCommanderTex2:
+  { type: TEXTURE, format: RGBA16, offset: 0x04001C30, width: 16, height: 16, ctype: u16, symbol: aCommanderTex2 }
 
-D_ENMY_SPACE_4001E30:
-  { type: TEXTURE, format: RGBA16, offset: 0x04001E30, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001E30 }
+aCommanderTex3:
+  { type: TEXTURE, format: RGBA16, offset: 0x04001E30, width: 16, height: 16, ctype: u16, symbol: aCommanderTex3 }
 
-D_ENMY_SPACE_4002030:
-  { type: TEXTURE, format: RGBA16, offset: 0x04002030, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4002030 }
+aCommanderTex4:
+  { type: TEXTURE, format: RGBA16, offset: 0x04002030, width: 16, height: 16, ctype: u16, symbol: aCommanderTex4 }
 
 D_ENMY_SPACE_4002230:
   { type: GFX, offset: 0x4002230, symbol: D_ENMY_SPACE_4002230 }
@@ -50,8 +50,8 @@ D_ENMY_SPACE_4002C50:
 D_ENMY_SPACE_4002E50:
   { type: TEXTURE, format: RGBA16, offset: 0x04002E50, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4002E50 }
 
-D_ENMY_SPACE_4003050:
-  { type: TEXTURE, format: RGBA16, offset: 0x04003050, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4003050 }
+aCommanderTex6:
+  { type: TEXTURE, format: RGBA16, offset: 0x04003050, width: 16, height: 16, ctype: u16, symbol: aCommanderTex6 }
 
 D_ENMY_SPACE_4003250:
   { type: TEXTURE, format: RGBA16, offset: 0x04003250, width: 4, height: 4, ctype: u16, symbol: D_ENMY_SPACE_4003250 }
@@ -59,8 +59,8 @@ D_ENMY_SPACE_4003250:
 D_ENMY_SPACE_4003270:
   { type: TEXTURE, format: RGBA16, offset: 0x04003270, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4003270 }
 
-D_ENMY_SPACE_4003470:
-  { type: TEXTURE, format: RGBA16, offset: 0x04003470, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4003470 }
+aCommanderTex5:
+  { type: TEXTURE, format: RGBA16, offset: 0x04003470, width: 16, height: 16, ctype: u16, symbol: aCommanderTex5 }
 
 D_ENMY_SPACE_4003670:
   { type: TEXTURE, format: RGBA16, offset: 0x04003670, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_4003670 }

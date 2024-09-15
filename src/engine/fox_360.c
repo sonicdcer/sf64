@@ -2482,7 +2482,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 } else if (gCurrentLevel == LEVEL_KATINA) {
                     switch (this->animFrame) {
                         case 0:
-                            gSPDisplayList(gMasterDisp++, aKaEnemy1LowPolyDL);
+                            gSPDisplayList(gMasterDisp++, aKaEnemyLowPolyDL);
                             break;
                         case 1:
                             gSPDisplayList(gMasterDisp++, aKaCornerianFighterDL);
@@ -2490,13 +2490,13 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                             Actor_DrawEngineGlow(this, EG_RED);
                             break;
                         case 3:
-                            gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
+                            gSPDisplayList(gMasterDisp++, aKaEnemyDL);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
                             ActorAllRange_DrawShield(this);
                             break;
                     }
                 } else if (gCurrentLevel == LEVEL_SECTOR_Z) {
-                    gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
+                    gSPDisplayList(gMasterDisp++, aSzInvaderIIIDL);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {

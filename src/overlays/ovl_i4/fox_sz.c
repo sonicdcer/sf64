@@ -698,7 +698,7 @@ void SectorZ_CsObjectInit(void) {
         Actor_Initialize(actor);
         actor->obj.status = OBJ_INIT;
         actor->obj.id = OBJ_ACTOR_CUTSCENE;
-        actor->animFrame = 25;
+        actor->animFrame = ACTOR_CS_SZ_SPACE_JUNK;
         actor->obj.pos.x = sInitialCsObjectPos[i].x;
         actor->obj.pos.y = sInitialCsObjectPos[i].y;
         actor->obj.pos.z = sInitialCsObjectPos[i].z;
@@ -718,7 +718,7 @@ void SectorZ_CsGreatFoxInit(void) {
     greatFox->obj.pos.y = 0.0f;
     greatFox->obj.pos.z = 0.0f;
     greatFox->obj.rot.y = 270.0f;
-    greatFox->animFrame = 1;
+    greatFox->animFrame = ACTOR_CS_GREAT_FOX;
     greatFox->vel.x = -20.0f;
     Object_SetInfo(&greatFox->info, greatFox->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, greatFox->sfxSource, 0);
@@ -747,7 +747,7 @@ void SectorZ_CsEnemies(ActorCutscene* this, s32 index) {
     this->obj.rot.x = 10.0f;
     this->obj.rot.z = sInitialCsEnemyZrot[index];
 
-    this->animFrame = 26;
+    this->animFrame = ACTOR_CS_SZ_INVADER;
     this->iwork[11] = 1;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
@@ -1097,7 +1097,7 @@ void SectorZ_CsLevelCompleteTeamInit(ActorCutscene* this, s32 index) {
         this->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
         this->fwork[0] = 20.0f;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
@@ -1124,7 +1124,7 @@ void SectorZ_CsLevelCompleteKattInit(void) {
     katt->obj.rot.z = -katt->rot_0F4.z;
 
     katt->fwork[0] = 30.0f;
-    katt->animFrame = 24;
+    katt->animFrame = ACTOR_CS_KATT;
     katt->iwork[11] = 1;
     katt->state = 10;
     katt->timer_0BC = 130;
@@ -1656,7 +1656,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
             break;
     }
 
-    if (this->animFrame == 24) {
+    if (this->animFrame == ACTOR_CS_KATT) {
         switch (gCsFrameCount) {
             case 290:
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
