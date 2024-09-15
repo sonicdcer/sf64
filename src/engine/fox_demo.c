@@ -2125,7 +2125,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
     switch (gCurrentLevel) {
         case LEVEL_BOLSE:
             switch (this->animFrame) {
-                case 0:
+                case ACTOR_CS_TEAM_ARWING:
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
                         this->rot_0F4.z += this->rot_0F4.y;
                         this->vel.x = SIN_DEG(this->rot_0F4.z) * 10.0f;
@@ -2155,20 +2155,20 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     }
                     break;
 
-                case 31:
+                case ACTOR_CS_31:
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
 
-                case 32:
+                case ACTOR_CS_32:
                     this->obj.rot.z += this->rot_0F4.z;
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
 
-                case 30:
+                case ACTOR_CS_30:
                     break;
             }
             break;
@@ -2179,11 +2179,11 @@ void func_demo_8004F05C(ActorCutscene* this) {
 
         case LEVEL_SECTOR_Y:
             switch (this->animFrame) {
-                case 0:
+                case ACTOR_CS_TEAM_ARWING:
                     SectorY_8019FF00(this);
                     break;
 
-                case 42:
+                case ACTOR_CS_42:
                     if (this->timer_0BC == 0) {
                         if (this->obj.pos.x >= -3500.0f) {
                             if (this->obj.pos.z <= 3000.0f) {
@@ -2196,7 +2196,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     }
                     break;
 
-                case 43:
+                case ACTOR_CS_43:
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }

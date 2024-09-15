@@ -2313,12 +2313,12 @@ void ActorAllRange_Update(ActorAllRange* this) {
 
 void ActorAllRange_DrawShield(ActorAllRange* this) {
     f32 sp24;
-    s32 sp20;
+    s32 alpha;
 
     if (this->fwork[22] > 0) {
         Matrix_Push(&gGfxMatrix);
         sp24 = 3.5f;
-        sp20 = (s32) (this->fwork[22] * 60.0f);
+        alpha = (s32) (this->fwork[22] * 60.0f);
         if (gCurrentLevel == LEVEL_VENOM_2) {
             sp24 *= 1.5f;
         }
@@ -2328,11 +2328,11 @@ void ActorAllRange_DrawShield(ActorAllRange* this) {
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         if (gCurrentLevel == LEVEL_KATINA) {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 255, 255, sp20);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 255, 255, alpha);
         } else if (gCurrentLevel == LEVEL_BOLSE) {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, sp20);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, alpha);
         } else {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 48, 255, 255, sp20);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 48, 255, 255, alpha);
         }
         gSPDisplayList(gMasterDisp++, D_1031630);
         Matrix_Pop(&gGfxMatrix);
@@ -2367,7 +2367,7 @@ void ActorAllRange_DrawBarrelRoll(ActorAllRange* this) {
 }
 
 bool ActorAllRange_MissileOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* this = thisx;
+    ActorAllRange* this = (ActorAllRange*) thisx;
 
     if ((this->timer_0C6 % 2) != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_34);

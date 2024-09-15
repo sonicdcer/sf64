@@ -801,13 +801,13 @@ typedef enum ActorCutsceneModels {
     /* 39 */ ACTOR_CS_SY_SHIP_1 = 39,
     /* 40 */ ACTOR_CS_40,
     /* 41 */ ACTOR_CS_AQ_FISHGROUP,
-    /* 42 */ ACTOR_CS_42,
-    /* 43 */ ACTOR_CS_43,
+    /* 42 */ ACTOR_CS_42, // Related to Sector Y
+    /* 43 */ ACTOR_CS_43, // Related to Sector Y
     /* 44 */ ACTOR_CS_AQ_SEAWEED,
     /* 45 */ ACTOR_CS_AQ_BUMP_2,
     /* 46 */ ACTOR_CS_AQ_CORAL_REEF_2,
     /* 47 */ ACTOR_CS_AQ_ROCK,
-    /* 1000 */ ACTOR_CS_1000 = 1000
+    /* 1000 */ ACTOR_CS_1000 = 1000 // James? Is that you?
 } ActorCutsceneModels;
 
 Actor* Game_SpawnActor(ObjectId);
