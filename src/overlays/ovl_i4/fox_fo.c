@@ -609,7 +609,7 @@ void Fortuna_CsExplosion(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = -9000.0f;
-    actor->animFrame = ACTOR_CS_11;
+    actor->animFrame = ACTOR_CS_FO_EXPLOSION;
     actor->scale = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }

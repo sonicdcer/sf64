@@ -782,22 +782,22 @@ typedef enum AllRangeAi {
 typedef enum ActorCutsceneModels {
     /*  0 */ ACTOR_CS_TEAM_ARWING,
     /*  1 */ ACTOR_CS_GREAT_FOX,
-    /* 10 */ ACTOR_CS_ME_CORNERIA_BG = 10, // Planet Corneria in the background of level start CS
-    /* 11 */ ACTOR_CS_11, // Katina explosion in a mission complete ending cutscene?
+    /* 10 */ ACTOR_CS_ME_CORNERIA_BG = 10, // Planet Corneria in the background of level start CS.
+    /* 11 */ ACTOR_CS_FO_EXPLOSION, // Fortuna explosion in a mission complete ending.
     /* 20 */ ACTOR_CS_COMMANDER = 20,
     /* 24 */ ACTOR_CS_KATT = 24,
     /* 25 */ ACTOR_CS_SZ_SPACE_JUNK,
     /* 26 */ ACTOR_CS_SZ_INVADER,
-    /* 28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow
+    /* 28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow.
     /* 30 */ ACTOR_CS_30 = 30, // Related to LEVEL_BOLSE
     /* 31 */ ACTOR_CS_31,
     /* 32 */ ACTOR_CS_32,
-    /* 33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3
+    /* 33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3.
     /* 34 */ ACTOR_CS_KA_ENEMY,
-    /* 35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8
+    /* 35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8.
     /* 36 */ ACTOR_CS_SY_SHIP_2,
     /* 37 */ ACTOR_CS_37,
-    /* 38 */ ACTOR_CS_38,
+    /* 38 */ ACTOR_CS_38, // Related to Sector Y
     /* 39 */ ACTOR_CS_SY_SHIP_1 = 39,
     /* 40 */ ACTOR_CS_40,
     /* 41 */ ACTOR_CS_AQ_FISHGROUP,

@@ -2451,7 +2451,7 @@ Vec3f D_demo_800CA0EC[] = {
     { 295.0, -92.0, -1301.0 },
     { -295.0, -92.0, -1301.0 },
 };
-Vec3f D_demo_800CA110[8] = {
+Vec3f sCsSyShipPos[8] = {
     { 170.0f, -35.0f, -380.0f },   { -170.0f, -40.0f, -380.0f }, { 170.0f, -130.0f, -380.0f },
     { -170.0f, -140.0f, -380.0f }, { 140.0f, 40.0f, -250.0f },   { -150.0f, 40.0f, -250.0f },
     { 140.0f, 0.0f, -250.0f },     { -150.0f, 0.0f, -250.0f },
@@ -2473,7 +2473,7 @@ Animation* D_demo_800CA1F4[] = {
     &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
 };
 
-void func_demo_8004FCB8(ActorCutscene* this, s32 idx) {
+void ActorCutscene_SyShip_Setup(ActorCutscene* this, s32 idx) {
     f32 angle;
     f32 scale;
     s32 i;
@@ -2494,8 +2494,8 @@ void func_demo_8004FCB8(ActorCutscene* this, s32 idx) {
         for (i = idx; i < (idx + 4); i++) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, D_demo_800CA110[i].x + this->obj.pos.x, D_demo_800CA110[i].y + this->obj.pos.y,
-                             D_demo_800CA110[i].z + this->obj.pos.z, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, sCsSyShipPos[i].x + this->obj.pos.x, sCsSyShipPos[i].y + this->obj.pos.y,
+                             sCsSyShipPos[i].z + this->obj.pos.z, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, angle, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -2554,7 +2554,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             gSPDisplayList(gMasterDisp++, aMeCorneriaBgDL);
             break;
 
-        case ACTOR_CS_11:
+        case ACTOR_CS_FO_EXPLOSION:
             RCP_SetupDL_64_2();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, MTXF_APPLY);
@@ -2748,14 +2748,14 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             /* fallthrough */
         case ACTOR_CS_SY_SHIP_1:
             gSPDisplayList(gMasterDisp++, aSyShip1DL);
-            func_demo_8004FCB8(this, 4);
+            ActorCutscene_SyShip_Setup(this, 4);
             break;
 
         case ACTOR_CS_SY_SHIP_2:
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aSyShip2DL);
-            func_demo_8004FCB8(this, 0);
+            ActorCutscene_SyShip_Setup(this, 0);
             break;
 
         case ACTOR_CS_37:
