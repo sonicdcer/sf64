@@ -3846,7 +3846,7 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
     return false;
 }
 
-void ActorEvent_DrawEVID_SX_WARP_GATE(ActorEvent* this) {
+void ActorEvent_SxWarpGate_Draw(ActorEvent* this) {
     Vec3f frameTable[10];
 
     Animation_GetFrameData(&D_SX_6013820, 0, frameTable);
@@ -4082,7 +4082,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_SX_WARP_GATE:
-                    ActorEvent_DrawEVID_SX_WARP_GATE(this);
+                    ActorEvent_SxWarpGate_Draw(this);
                     break;
 
                 case EVID_SY_ROBOT_1:
