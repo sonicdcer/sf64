@@ -2276,7 +2276,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 ZO_HIT_12(this)->y.offset = 863.19995f;  // 13 * 66.4
                 ZO_HIT_12(this)->y.size = 171.59999f;    // 13 * 13.2
                 ZO_HIT_12(this)->x.offset = 0.0f;
-                ZO_HIT_12(this)->x.size = 93.6f; // 13 * 7.2
+                ZO_HIT_12(this)->x.size = 93.6f;         // 13 * 7.2
             }
 
             Math_SmoothStepToF(&this->fwork[ZO_FWK_4], 100.0f, 0.1f, 1.0f, 0.0f);
@@ -3272,7 +3272,11 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
         }
     }
 
+#ifdef AVOID_UB
+    if (i < ARRAY_COUNT(gActors)) {
+#else
     if (i >= ARRAY_COUNT(gActors)) {
+#endif
         actor245->obj.status = OBJ_FREE;
     }
 }
