@@ -77,7 +77,7 @@ void Corneria_CoGranga_ShootLaser(CoGranga* this, f32 x, f32 y, f32 z) {
                       this->obj.pos.z + dest.z, 100.0f);
 }
 
-void Corneria_Granga_SpawnItem(s32 arg0, f32 x, f32 y, f32 z, ObjectId itemId) {
+void Corneria_Granga_SpawnItem(Boss* this, f32 x, f32 y, f32 z, ObjectId itemId) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gItems); i++) {
