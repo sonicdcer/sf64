@@ -7,6 +7,8 @@
 #include "global.h"
 #include "assets/ast_sector_y.h"
 
+#define SHOGUN_SHIP (0)
+
 typedef void (*BossFuncs)(SyShogun*);
 
 void SectorY_80198244(SyShogun*);
@@ -83,7 +85,7 @@ void SectorY_SyShogun_Init(SyShogun* this) {
 
         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_START_360) {
             this->obj.pos.z = -28900.0f;
-            gScenery360[0].obj.pos.z = -30000.0f;
+            gScenery360[SHOGUN_SHIP].obj.pos.z = -30000.0f;
         }
 
         this->rot_078.y = 0.0f;
@@ -626,8 +628,8 @@ void SectorY_80199438(SyShogun* this) {
                 Object_Kill(&gActors[D_ctx_80177A10[9]].obj, gActors[D_ctx_80177A10[9]].sfxSource);
                 if ((gBosses[1].obj.status == OBJ_FREE) || (gBosses[2].obj.status == OBJ_FREE)) {
                     gBosses[0].work_04A = 1;
-                    gScenery360[0].info.dList = aSySaruzinDL;
-                    gScenery360[0].info.drawType = 0;
+                    gScenery360[SHOGUN_SHIP].info.dList = aSySaruzinDL;
+                    gScenery360[SHOGUN_SHIP].info.drawType = 0;
                 } else {
                     gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
                     Camera_UpdateArwing360(&gPlayer[0], true);
@@ -1091,7 +1093,7 @@ void SectorY_8019AEEC(SyShogun* this) {
             this->vel.z = 80.0f;
             this->fwork[13] = 80.0f;
             this->obj.pos.z = -12000.0f;
-            gScenery360[0].obj.pos.z = -20000.0f;
+            gScenery360[SHOGUN_SHIP].obj.pos.z = -20000.0f;
             this->fwork[43] = 0.0f;
             this->vel.y = 0.0f;
             gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
@@ -1133,9 +1135,9 @@ bool SectorY_8019B5CC(SyShogun* this) {
 
     Math_Vec3fFromAngles(&pos, this->rot_078.x, this->rot_078.y, 700.0f);
 
-    if ((fabsf(gScenery360[0].obj.pos.x - (this->obj.pos.x + pos.x)) < 2500.0f) &&
-        (fabsf(gScenery360[0].obj.pos.z - (this->obj.pos.z + pos.z)) < 5000.0f) &&
-        (fabsf(gScenery360[0].obj.pos.y - (this->obj.pos.y + pos.y)) < 1800.0f)) {
+    if ((fabsf(gScenery360[SHOGUN_SHIP].obj.pos.x - (this->obj.pos.x + pos.x)) < 2500.0f) &&
+        (fabsf(gScenery360[SHOGUN_SHIP].obj.pos.z - (this->obj.pos.z + pos.z)) < 5000.0f) &&
+        (fabsf(gScenery360[SHOGUN_SHIP].obj.pos.y - (this->obj.pos.y + pos.y)) < 1800.0f)) {
         return true;
     }
 
@@ -1410,9 +1412,9 @@ void SectorY_SyShogun_Update(SyShogun* this) {
     if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
         if (this->swork[34] == 1) {
             if (this->health > 0) {
-                gScenery360[0].obj.pos.z += 20.0f;
+                gScenery360[SHOGUN_SHIP].obj.pos.z += 20.0f;
             }
-            if (gScenery360[0].obj.pos.z == 0.0f) {
+            if (gScenery360[SHOGUN_SHIP].obj.pos.z == 0.0f) {
                 this->swork[34]++;
             }
         }
@@ -2058,11 +2060,11 @@ void SectorY_8019EB80(void) {
         Object_SetInfo(&actor->info, actor->obj.id);
 
         if (i >= 3) {
-            actor->animFrame = 35;
+            actor->animFrame = ACTOR_CS_SY_SHIP_1_SHRINK;
             actor->rot_0F4.z = 0.0f;
         }
         if (i >= 7) {
-            actor->animFrame = 36;
+            actor->animFrame = ACTOR_CS_SY_SHIP_2;
             actor->scale = 0.125f;
         }
         actor->iwork[11] = 1;
@@ -2529,13 +2531,13 @@ void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
         case 1:
         case 2:
         case 8:
-            this->animFrame = 38;
+            this->animFrame = ACTOR_CS_38;
             this->obj.rot.y = 90.0f;
             Object_SetInfo(&this->info, this->obj.id);
             break;
 
         case 3:
-            this->animFrame = 36;
+            this->animFrame = ACTOR_CS_SY_SHIP_2;
             this->vel.z = -5.0f;
             this->scale = 1.0f;
             this->obj.rot.y = 180.0f;
@@ -2543,27 +2545,27 @@ void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
             break;
 
         case 4:
-            this->animFrame = 37;
+            this->animFrame = ACTOR_CS_37;
             this->obj.rot.y = 90.0f;
             Object_SetInfo(&this->info, this->obj.id);
             break;
 
         case 5:
         case 9:
-            this->animFrame = 39;
+            this->animFrame = ACTOR_CS_SY_SHIP_1;
             this->obj.rot.y = 180.0f;
             Object_SetInfo(&this->info, this->obj.id);
             break;
 
         case 6:
-            this->animFrame = 36;
+            this->animFrame = ACTOR_CS_SY_SHIP_2;
             this->obj.rot.y = 180.0f;
             this->scale = 1.0f;
             Object_SetInfo(&this->info, this->obj.id);
             break;
 
         case 7:
-            this->animFrame = 40;
+            this->animFrame = ACTOR_CS_40;
             Object_SetInfo(&this->info, this->obj.id);
             break;
 
@@ -2629,7 +2631,7 @@ void SectorY_801A07FC(Actor* actor0, ActorCutscene* actor1) {
     actor1->vel.z = dest.z;
     actor1->obj.rot.x = actor0->obj.rot.x;
     actor1->obj.rot.y = actor0->obj.rot.y;
-    actor1->animFrame = 42;
+    actor1->animFrame = ACTOR_CS_42;
     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, actor1->sfxSource, 4);
 }
 
@@ -2645,7 +2647,7 @@ void SectorY_801A0A08(ActorCutscene* this, f32 xPos, f32 yPos, f32 zPos, f32 arg
     Object_SetInfo(&this->info, this->obj.id);
     this->timer_0BC = 35;
     this->iwork[0] = 255;
-    this->animFrame = 43;
+    this->animFrame = ACTOR_CS_43;
     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
 }
 

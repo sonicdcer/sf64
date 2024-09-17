@@ -323,7 +323,7 @@ void Venom1_Ve1TempleEntrance_Update(Ve1TempleEntrance* this) {
     }
 }
 
-void Venom1_Ve1Pillar1_Init(Actor* this) {
+void Venom1_Ve1Pillar1_Init(Ve1Pillar1* this) {
 }
 
 void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
@@ -880,7 +880,7 @@ void Venom1_Ve1Golemech_Init(Ve1Golemech* this) {
 }
 
 bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Boss* this = thisx;
+    Ve1Golemech* this = (Ve1Golemech*) thisx;
     bool override;
     s32 i;
     s32 lum;
@@ -975,7 +975,7 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
 
 void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
     s32 spBC;
-    Boss* this = thisx;
+    Ve1Golemech* this = (Ve1Golemech*) thisx;
     Vec3f spAC;
     UnkStruct_i1_8019A058* var_s1;
     UnkStruct_i1_8019B838* var_s7;

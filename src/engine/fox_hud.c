@@ -4846,7 +4846,7 @@ void Aquas_CsIntroGreatFox_Init(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y += 1700.0f;
     actor->obj.pos.z -= 5000.0f;
-    actor->animFrame = 1;
+    actor->animFrame = ACTOR_CS_GREAT_FOX;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, actor->sfxSource, 0);

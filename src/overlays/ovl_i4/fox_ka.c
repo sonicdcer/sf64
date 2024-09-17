@@ -11,7 +11,7 @@
 Vec3f D_i4_8019F0F0[] = { { 7000.0f, 500.0f, -50 }, { 7700.0f, 550.0f, -50.0f }, { 6000.0f, 300.0f, 1950.0f } };
 Vec3f D_i4_8019F114[] = { { -30.0f, 0.0f, 0.0f }, { -30.0f, 0.0f, 0.0f }, { 0.0f, 5.0f, -40.0f } };
 Vec3f D_i4_8019F138[] = { { 0.0f, -135.0f, -5.0f }, { 0.0f, -135.0f, 15.0f }, { -10.0f, 135.0f, 0.0f } };
-s32 D_i4_8019F15C[] = { 33, 34, 33 };
+s32 sKaStartCsModels[] = { ACTOR_CS_CORNERIAN_FIGHTER, ACTOR_CS_KA_ENEMY, ACTOR_CS_CORNERIAN_FIGHTER };
 Vec3f D_i4_8019F168[] = { { 700.0f, 50.0f, -700.0f }, { -500.0f, 150.0f, -500 }, { 100.0f, 100.0f, -1200.0f } };
 f32 D_i4_8019F18C[] = { 200.0f, 160.0f, 185.0f };
 u8 D_i4_8019F198[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -338,7 +338,7 @@ void Katina_StartCutsceneUpdate(void) {
             actor->vel.x = dest.x;
             actor->vel.y = dest.y;
             actor->vel.z = dest.z;
-            actor->animFrame = D_i4_8019F15C[i];
+            actor->animFrame = sKaStartCsModels[i];
             actor->drawShadow = true;
             actor->iwork[KA_ACTOR_IWORK_11] = 1;
             Object_SetInfo(&actor->info, actor->obj.id);
@@ -1781,7 +1781,7 @@ void Katina_SFTeam_LevelComplete_Update(void) {
             actor->state = 1;
 
             if (i >= 3) {
-                actor->animFrame = 33;
+                actor->animFrame = ACTOR_CS_CORNERIAN_FIGHTER;
             }
 
             Object_SetInfo(&actor->info, actor->obj.id);
@@ -2643,9 +2643,9 @@ void Katina_EnemyDraw(ActorAllRange* this) {
     switch (this->animFrame) {
         case 0:
             if (this->iwork[KA_ACTOR_LOW_POLY]) {
-                gSPDisplayList(gMasterDisp++, aKaEnemy1LowPolyDL);
+                gSPDisplayList(gMasterDisp++, aKaEnemyLowPolyDL);
             } else {
-                gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
+                gSPDisplayList(gMasterDisp++, aKaEnemyDL);
             }
             break;
 

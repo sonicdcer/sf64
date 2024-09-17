@@ -2025,7 +2025,7 @@ void Player_CollisionCheck(Player* player) {
             }
         }
 
-        for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+        for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_ME_MOLAR_ROCK) {
                     temp_v0 = Player_CheckPolyCollision(player, actor->obj.id, actor->obj.pos.x, actor->obj.pos.y,
@@ -3166,7 +3166,7 @@ bool Player_CanLockOn(s32 playerNum) {
     Actor* actor;
     s32 i;
 
-    for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+    for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->lockOnTimers[playerNum] != 0)) {
             return false;
         }

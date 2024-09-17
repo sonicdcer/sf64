@@ -462,7 +462,7 @@ typedef enum ObjectId {
     /* 153 */ OBJ_SCENERY_BO_BUILDING,
     /* 154 */ OBJ_SCENERY_KA_FLBASE,
     /* 155 */ OBJ_SCENERY_UNK_155,
-    /* 156 */ OBJ_SCENERY_UNK_156,
+    /* 156 */ OBJ_SCENERY_SY_SHOGUN_SHIP,
     /* 157 */ OBJ_SCENERY_SZ_SPACE_JUNK_3,
     /* 158 */ OBJ_SCENERY_SZ_SPACE_JUNK_1,
     /* 159 */ OBJ_SCENERY_VE2_TOWER,
@@ -556,7 +556,7 @@ typedef enum ObjectId {
     /* 247 */ OBJ_ACTOR_ZO_BARRIER, // Barrier with opening rudders on the sides.
     /* 248 */ OBJ_ACTOR_ZO_CRANE_MAGNET,
     /* 249 */ OBJ_ACTOR_SPIKEBALL,  // Spikeball shot by Zoness boss.
-    /* 250 */ OBJ_ACTOR_ZO_CARGOSHIP,
+    /* 250 */ OBJ_ACTOR_ZO_TANKER, // Cargo ship, usually carries contaners.
     /* 251 */ OBJ_ACTOR_ZO_CONTAINER,
     /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
     /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
@@ -778,6 +778,37 @@ typedef enum AllRangeAi {
     /* 200 */ AI360_MISSILE = 200,
     /* 200 */ AI360_EVENT_HANDLER = 1000,
 } AllRangeAi;
+
+typedef enum ActorCutsceneModels {
+    /*  0 */ ACTOR_CS_TEAM_ARWING,
+    /*  1 */ ACTOR_CS_GREAT_FOX,
+    /* 10 */ ACTOR_CS_ME_CORNERIA_BG = 10, // Planet Corneria in the background of level start CS.
+    /* 11 */ ACTOR_CS_FO_EXPLOSION, // Fortuna explosion in a mission complete ending.
+    /* 20 */ ACTOR_CS_COMMANDER = 20,
+    /* 24 */ ACTOR_CS_KATT = 24,
+    /* 25 */ ACTOR_CS_SZ_SPACE_JUNK,
+    /* 26 */ ACTOR_CS_SZ_INVADER,
+    /* 28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow.
+    /* 30 */ ACTOR_CS_30 = 30, // Related to LEVEL_BOLSE
+    /* 31 */ ACTOR_CS_31,
+    /* 32 */ ACTOR_CS_32,
+    /* 33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3.
+    /* 34 */ ACTOR_CS_KA_ENEMY,
+    /* 35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8.
+    /* 36 */ ACTOR_CS_SY_SHIP_2,
+    /* 37 */ ACTOR_CS_37,
+    /* 38 */ ACTOR_CS_38, // Related to Sector Y
+    /* 39 */ ACTOR_CS_SY_SHIP_1 = 39,
+    /* 40 */ ACTOR_CS_40,
+    /* 41 */ ACTOR_CS_AQ_FISHGROUP,
+    /* 42 */ ACTOR_CS_42, // Related to Sector Y
+    /* 43 */ ACTOR_CS_43, // Related to Sector Y
+    /* 44 */ ACTOR_CS_AQ_SEAWEED,
+    /* 45 */ ACTOR_CS_AQ_BUMP_2,
+    /* 46 */ ACTOR_CS_AQ_CORAL_REEF_2,
+    /* 47 */ ACTOR_CS_AQ_ROCK,
+    /* 1000 */ ACTOR_CS_1000 = 1000 // James? Is that you?
+} ActorCutsceneModels;
 
 Actor* Game_SpawnActor(ObjectId);
 
@@ -1185,7 +1216,7 @@ typedef Actor ZoMine;
 typedef Actor ZoBarrier;
 typedef Actor ZoCraneMagnet;
 typedef Actor ZoSpikeBall;
-typedef Actor ZoCargoShip;
+typedef Actor ZoTanker;
 typedef Actor ZoContainer;
 typedef Actor ZoRadarBuoy;
 typedef Actor ZoSupplyCrane;

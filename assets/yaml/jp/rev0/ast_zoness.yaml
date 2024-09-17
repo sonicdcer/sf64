@@ -48,8 +48,8 @@ D_ZO_6002810:
 D_ZO_6002A10:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x6002A10, symbol: D_ZO_6002A10}
 
-D_ZO_6002E10:
-  { type: GFX, offset: 0x6002E10, symbol: D_ZO_6002E10}
+aZoRadarBuoyDL:
+  { type: GFX, offset: 0x6002E10, symbol: aZoRadarBuoyDL}
 
 D_ZO_6003288:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003288, symbol: D_ZO_6003288}
@@ -363,8 +363,8 @@ D_ZO_601F940:
 D_ZO_601FBC4:
   { type: SF64:ANIM, offset: 0x601FBC4, symbol: D_ZO_601FBC4}
 
-D_ZO_601FC90:
-  { type: SF64:SKELETON, offset: 0x601FC90, symbol: D_ZO_601FC90}
+aZoBarrierSkel:
+  { type: SF64:SKELETON, offset: 0x601FC90, symbol: aZoBarrierSkel}
 
 aZoIslandDL:
   { type: GFX, offset: 0x601FCB0, symbol: aZoIslandDL}
@@ -529,8 +529,8 @@ aZoObnemaHitbox:
 aZoBarrierHitbox:
   { type: SF64:HITBOX, offset: 0x602BFC4, symbol: aZoBarrierHitbox}
 
-D_ZO_602C028:
-  { type: SF64:HITBOX, offset: 0x602C028, symbol: D_ZO_602C028}
+aZoBarrierHitbox2:
+  { type: SF64:HITBOX, offset: 0x602C028, symbol: aZoBarrierHitbox2}
 
 aZoSarumarineHitbox:
   { type: SF64:HITBOX, offset: 0x602C044, symbol: aZoSarumarineHitbox}
@@ -538,8 +538,8 @@ aZoSarumarineHitbox:
 aZoSarumarinePeriscopeHitbox:
   { type: SF64:HITBOX, offset: 0x602C1A0, symbol: aZoSarumarinePeriscopeHitbox}
 
-aZoCargoShipHitbox:
-  { type: SF64:HITBOX, offset: 0x602C1D4, symbol: aZoCargoShipHitbox}
+aZoTankerHitbox:
+  { type: SF64:HITBOX, offset: 0x602C1D4, symbol: aZoTankerHitbox}
 
 aZoContainerHitbox:
   { type: SF64:HITBOX, offset: 0x602C218, symbol: aZoContainerHitbox}

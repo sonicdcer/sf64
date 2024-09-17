@@ -17,21 +17,21 @@ void SectorX_SxSpyborg_PostLimbDraw(s32, Vec3f*, void*);
 
 void SectorX_8018F030(void) {
     s32 i;
-    Actor* actor = &gActors[0];
+    SxSlippy* slippy = &gActors[0];
 
-    for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
-        if (actor->obj.status == OBJ_FREE) {
-            Actor_Initialize(actor);
-            actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_SX_SLIPPY;
-            actor->animFrame = 1;
-            actor->obj.rot.y = 180.0f;
-            actor->obj.pos.x = gPlayer[0].cam.eye.x - 300.0f;
-            actor->obj.pos.y = gPlayer[0].cam.eye.y + 200.0f;
-            actor->obj.pos.z = gPlayer[0].cam.eye.z - gPathProgress + 300.0f;
-            actor->iwork[11] = 1;
-            actor->aiType = AI360_SLIPPY;
-            Object_SetInfo(&actor->info, actor->obj.id);
+    for (i = 0; i < ARRAY_COUNT(gActors); i++, slippy++) {
+        if (slippy->obj.status == OBJ_FREE) {
+            Actor_Initialize(slippy);
+            slippy->obj.status = OBJ_INIT;
+            slippy->obj.id = OBJ_ACTOR_SX_SLIPPY;
+            slippy->animFrame = 1;
+            slippy->obj.rot.y = 180.0f;
+            slippy->obj.pos.x = gPlayer[0].cam.eye.x - 300.0f;
+            slippy->obj.pos.y = gPlayer[0].cam.eye.y + 200.0f;
+            slippy->obj.pos.z = gPlayer[0].cam.eye.z - gPathProgress + 300.0f;
+            slippy->iwork[11] = 1;
+            slippy->aiType = AI360_SLIPPY;
+            Object_SetInfo(&slippy->info, slippy->obj.id);
             Radio_PlayMessage(gMsg_ID_5475, RCID_SLIPPY);
             break;
         }
@@ -193,7 +193,7 @@ void SectorX_SxSlippy_Draw(SxSlippy* this) {
 
 void SectorX_8018FA04(f32 x, f32 y, f32 z) {
     s32 i;
-    Actor* actor;
+    Actor* slippy;
     f32 yRot;
     f32 xRot;
     f32 pad;
@@ -201,16 +201,16 @@ void SectorX_8018FA04(f32 x, f32 y, f32 z) {
     Vec3f dest;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        actor = &gActors[i];
-        if (actor->obj.status == OBJ_FREE) {
-            Actor_Initialize(actor);
-            actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_SX_SLIPPY;
-            actor->obj.pos.x = x;
-            actor->obj.pos.y = y;
-            actor->obj.pos.z = z;
-            Object_SetInfo(&actor->info, actor->obj.id);
-            actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxBaseWallTile1Hitbox);
+        slippy = &gActors[i];
+        if (slippy->obj.status == OBJ_FREE) {
+            Actor_Initialize(slippy);
+            slippy->obj.status = OBJ_INIT;
+            slippy->obj.id = OBJ_ACTOR_SX_SLIPPY;
+            slippy->obj.pos.x = x;
+            slippy->obj.pos.y = y;
+            slippy->obj.pos.z = z;
+            Object_SetInfo(&slippy->info, slippy->obj.id);
+            slippy->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxBaseWallTile1Hitbox);
             xRot = Math_Atan2F(gPlayer[0].pos.x - x, gPlayer[0].trueZpos - z);
             pad = sqrtf(SQ(gPlayer[0].pos.x - x) + SQ(gPlayer[0].trueZpos - z));
             yRot = -Math_Atan2F(gPlayer[0].pos.y - y, pad);
@@ -220,9 +220,9 @@ void SectorX_8018FA04(f32 x, f32 y, f32 z) {
             src.y = 0.0f;
             src.z = 60.0f;
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-            actor->vel.x = dest.x;
-            actor->vel.y = dest.y;
-            actor->vel.z = dest.z - gPathVelZ;
+            slippy->vel.x = dest.x;
+            slippy->vel.y = dest.y;
+            slippy->vel.z = dest.z - gPathVelZ;
             break;
         }
     }
@@ -230,36 +230,36 @@ void SectorX_8018FA04(f32 x, f32 y, f32 z) {
 
 void SectorX_8018FBBC(Vec3f* pos) {
     s32 i;
-    Actor* actor;
+    Actor* slippy;
     f32 xRot;
     f32 yRot;
     Vec3f src;
     Vec3f dest;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-        actor = &gActors[i];
-        if ((actor->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - actor->obj.pos.x) < 2500.0f) &&
-            (fabsf(pos->z - actor->obj.pos.z) < 2500.0f) && (actor->state != 1000) && (actor->timer_0C2 == 0) &&
-            (actor->scale < 0.0f) &&
-            Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x, actor->vwork[29].y,
-                                        actor->vwork[29].z + actor->rot_0F4.z)) {
-            Play_PlaySfxFirstPlayer(actor->sfxSource, NA_SE_SLIPPY_HIT);
-            actor->state = 1000;
-            xRot = Math_Atan2F(actor->obj.pos.x - pos->x, actor->obj.pos.z - pos->z);
-            yRot = -Math_Atan2F(actor->obj.pos.y - pos->y,
-                                sqrtf(SQ(actor->obj.pos.x - pos->x) + SQ(actor->obj.pos.z - pos->z)));
+        slippy = &gActors[i];
+        if ((slippy->obj.status >= OBJ_ACTIVE) && (fabsf(pos->x - slippy->obj.pos.x) < 2500.0f) &&
+            (fabsf(pos->z - slippy->obj.pos.z) < 2500.0f) && (slippy->state != 1000) && (slippy->timer_0C2 == 0) &&
+            (slippy->scale < 0.0f) &&
+            Object_CheckHitboxCollision(pos, slippy->info.hitbox, &slippy->obj, slippy->vwork[29].x,
+                                        slippy->vwork[29].y, slippy->vwork[29].z + slippy->rot_0F4.z)) {
+            Play_PlaySfxFirstPlayer(slippy->sfxSource, NA_SE_SLIPPY_HIT);
+            slippy->state = 1000;
+            xRot = Math_Atan2F(slippy->obj.pos.x - pos->x, slippy->obj.pos.z - pos->z);
+            yRot = -Math_Atan2F(slippy->obj.pos.y - pos->y,
+                                sqrtf(SQ(slippy->obj.pos.x - pos->x) + SQ(slippy->obj.pos.z - pos->z)));
             Matrix_RotateY(gCalcMatrix, xRot, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, yRot, MTXF_APPLY);
             src.x = 0.0f;
             src.y = 0.0f;
             src.z = 20.0f;
             Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-            actor->vel.x = dest.x;
-            actor->vel.z = 10.0f;
-            actor->vel.y = dest.y;
-            actor->fwork[15] = actor->vel.x * 0.2f;
-            actor->fwork[16] = actor->vel.y * -0.2f;
-            actor->timer_0C6 = 10;
+            slippy->vel.x = dest.x;
+            slippy->vel.z = 10.0f;
+            slippy->vel.y = dest.y;
+            slippy->fwork[15] = slippy->vel.x * 0.2f;
+            slippy->fwork[16] = slippy->vel.y * -0.2f;
+            slippy->timer_0C6 = 10;
         }
     }
 }
@@ -1162,10 +1162,10 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
     }
 }
 
-bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     Vec3f dest;
-    SxSpyborg* boss = (SxSpyborg*) data;
+    SxSpyborg* boss = (SxSpyborg*) thisx;
 
     if (D_i2_80195640 != 0) {
         *dList = NULL;
@@ -1284,14 +1284,14 @@ bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
     return false;
 }
 
-void SectorX_SxSpyborg_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
+void SectorX_SxSpyborg_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp64 = { 87.0f, -323.0f, 200.0f };
     Vec3f sp58 = { 87.0f, -323.0f, -200.0f };
     Vec3f sp4C = { 87.0f, -323.0f, 200.0f };
     Vec3f sp40 = { 87.0f, -323.0f, -200.0f };
     Vec3f src;
     Vec3f dest;
-    Boss* boss = (Boss*) data;
+    SxSpyborg* boss = (SxSpyborg*) thisx;
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1386,7 +1386,7 @@ void SectorX_SxSpyborg_Draw(SxSpyborg* this) {
             Matrix_Translate(gGfxMatrix, this->fwork[35], this->fwork[36], this->fwork[37], MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102ED50);
+            gSPDisplayList(gMasterDisp++, aBlueSphereDL);
             Matrix_Pop(&gGfxMatrix);
         }
 
@@ -1402,7 +1402,7 @@ void SectorX_SxSpyborg_Draw(SxSpyborg* this) {
             Matrix_Translate(gGfxMatrix, this->fwork[38], this->fwork[39], this->fwork[40], MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102ED50);
+            gSPDisplayList(gMasterDisp++, aBlueSphereDL);
             Matrix_Pop(&gGfxMatrix);
         }
 
@@ -1699,7 +1699,7 @@ void SectorX_801944D4(ActorCutscene* this, s32 index) {
     Object_SetInfo(&this->info, this->obj.id);
 
     if (index == 3) {
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
         this->state = 20;
         this->obj.rot.x = -player->rot.x - 10.0f;
         this->obj.rot.y = (player->rot.y + 180.0f) - 10.0f;

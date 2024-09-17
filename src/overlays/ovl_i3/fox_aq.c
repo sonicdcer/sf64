@@ -801,20 +801,20 @@ void Aquas_801AA4BC(Player* player) {
 }
 
 void Aquas_UpdateCamera(Player* player) {
-    f32 var_fv0 = gInputPress->stick_x;
-    f32 var_fv1 = -gInputPress->stick_y;
-    f32 temp;
+    f32 stickX = +gInputPress->stick_x;
+    f32 stickY = -gInputPress->stick_y;
+    f32 zRot;
 
     if (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
-        var_fv0 = var_fv1 = 0.0f;
+        stickX = stickY = 0.0f;
     }
 
-    Math_SmoothStepToF(&player->unk_030, var_fv0, 0.05f, 1.0f, 0.05f);
+    Math_SmoothStepToF(&player->unk_030, stickX, 0.05f, 1.0f, 0.05f);
 
     if (player->pos.y < (gGroundHeight + 50.0f)) {
-        Math_SmoothStepToF(&player->unk_02C, var_fv1 * 0.3f, 0.05f, 1.0f, 0.05f);
+        Math_SmoothStepToF(&player->unk_02C, stickY * 0.3f, 0.05f, 1.0f, 0.05f);
     } else {
-        Math_SmoothStepToF(&player->unk_02C, var_fv1, 0.05f, 2.0f, 0.05f);
+        Math_SmoothStepToF(&player->unk_02C, stickY, 0.05f, 2.0f, 0.05f);
     }
 
     gCsCamEyeX = (player->pos.x - player->xPath) * (600.0f / player->pathWidth);
@@ -852,9 +852,9 @@ void Aquas_UpdateCamera(Player* player) {
 
     Math_SmoothStepToF(&player->unk_014, 1.0f, 1.0f, 0.05f, 0.0f);
 
-    temp = -player->rot.z;
+    zRot = -player->rot.z;
 
-    Math_SmoothStepToF(&player->camRoll, temp * 0.3f, 0.1f, 1.5f, 0.0f);
+    Math_SmoothStepToF(&player->camRoll, zRot * 0.3f, 0.1f, 1.5f, 0.0f);
 }
 
 void Aquas_BlueMarineMove(Player* player) {
@@ -862,9 +862,9 @@ void Aquas_BlueMarineMove(Player* player) {
     Vec3f sp80;
     Vec3f sp74;
     Vec3f sp68;
-    f32 sp64;
+    f32 stickX;
     f32 sp60;
-    f32 sp5C;
+    f32 stickY;
     f32 sp58;
     f32 var_fa0;
     f32 var_fa1;
@@ -875,12 +875,12 @@ void Aquas_BlueMarineMove(Player* player) {
     Aquas_801A99D4(player);
     Aquas_801A8E30();
 
-    sp64 = -gInputPress->stick_x;
-    sp5C = gInputPress->stick_y;
+    stickX = -gInputPress->stick_x;
+    stickY = +gInputPress->stick_y;
 
     gPlayerTurnStickMod = 0.68f;
 
-    Math_SmoothStepToF(&player->unk_180, sp64 * gPlayerTurnStickMod, 1.0f, 10.0f, 0.0001f);
+    Math_SmoothStepToF(&player->unk_180, stickX * gPlayerTurnStickMod, 1.0f, 10.0f, 0.0001f);
 
     var_fa0 = fabsf(player->unk_180 * 0.5f);
     if (var_fa0 > 2.0f) {
@@ -917,7 +917,7 @@ void Aquas_BlueMarineMove(Player* player) {
         Math_SmoothStepToF(&D_i3_801C41B8[9], 0.0f, 0.1f, 20.0f, 0.0001f);
     }
 
-    Math_SmoothStepToF(&player->unk_17C, sp5C * gPlayerTurnStickMod, 1.0f, 7.0f, 0.0001f);
+    Math_SmoothStepToF(&player->unk_17C, stickY * gPlayerTurnStickMod, 1.0f, 7.0f, 0.0001f);
 
     var_fa1 = fabsf(player->unk_17C * 0.05f);
     if (var_fa1 > 2.0f) {
@@ -963,7 +963,7 @@ void Aquas_BlueMarineMove(Player* player) {
     Math_SmoothStepToF(&player->rot.x, sp58, 1.0f, gPlayerTurnRate, 0.00001f);
 
     var_fv1_2 = 2.0f;
-    if (sp64 == 0.0f) {
+    if (stickX == 0.0f) {
         var_fv1_2 = 1.0f;
     }
 
@@ -3677,7 +3677,7 @@ f32 D_i3_801C0224[11] = {
 Vec3f D_i3_801C0250 = { 0.0f, 0.0f, 0.0f };
 
 bool Aquas_AqSculpin_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* this = (Actor*) thisx;
+    AqSculpin* this = (AqSculpin*) thisx;
 
     if ((this->timer_0C6 % 2) == 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -3693,7 +3693,7 @@ bool Aquas_AqSculpin_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
 
 void Aquas_AqSculpin_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = D_i3_801C0250;
-    Actor* this = (Actor*) thisx;
+    AqSculpin* this = (AqSculpin*) thisx;
 
     if (this->health == 0) {
         switch (limbIndex) {
@@ -4411,7 +4411,7 @@ bool Aquas_AqSpindlyFish_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos
 
 void Aquas_AqSpindlyFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Actor* this = (Actor*) thisx;
+    AqSpindlyFish* this = (AqSpindlyFish*) thisx;
 
     if (this->health == -100) {
         switch (limbIndex) {
@@ -4493,7 +4493,7 @@ void Aquas_AqSpindlyFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Aquas_AqSpindlyFish_Draw(Actor* this) {
+void Aquas_AqSpindlyFish_Draw(AqSpindlyFish* this) {
     Vec3f frameTable[30];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
@@ -4832,7 +4832,7 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
 }
 
 bool Aquas_AqGaroa_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Actor* this = thisx;
+    AqGaroa* this = (AqGaroa*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_58);
     if ((this->timer_0C6 % 2) != 0) {
@@ -4853,7 +4853,7 @@ void Aquas_AqGaroa_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp40 = { 108.0f, 0.0f, 24.0f };
     Vec3f sp34 = { 102.0f, 14.0f, -21.0f };
     Vec3f sp28 = { 0.0f, 0.0f, 0.0f };
-    Actor* this = (Actor*) thisx;
+    AqGaroa* this = (AqGaroa*) thisx;
 
     switch (limbIndex) {
         case 1:
@@ -5099,7 +5099,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
             if (this->animFrame >= 37) {
                 this->obj.rot.y += 20.0f;
                 this->fwork[2] += 20.0f;
-                if (((gGameFrameCount % 4) == 0)) {
+                if ((gGameFrameCount % 4) == 0) {
                     Matrix_RotateY(gCalcMatrix, this->fwork[2] * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->vwork[27].x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gCalcMatrix, this->vwork[27].z * M_DTOR, MTXF_APPLY);
@@ -5137,7 +5137,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
 void Aquas_AqSquid_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp34 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp28 = { -27.0f, 7.0f, 5.0f };
-    Actor* this = (Actor*) thisx;
+    AqSquid* this = (AqSquid*) thisx;
 
     if ((this->health == 0) || (limbIndex == 12)) {
         switch (limbIndex) {
@@ -5250,11 +5250,11 @@ void Aquas_AqSeaweed_Update(AqSeaweed* this) {
             /* fallthrough */
         case 1:
             this->animFrame += 2;
-            if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6020A40)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAqSeaweedAnim)) {
                 this->animFrame = 0;
             }
 
-            sp3E = Animation_GetFrameData(&D_AQ_6020A40, this->animFrame, frameTable);
+            sp3E = Animation_GetFrameData(&aAqSeaweedAnim, this->animFrame, frameTable);
 
             if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 150.0f) &&
                 (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 500.0f) &&
@@ -5288,7 +5288,7 @@ void Aquas_AqSeaweed_Draw(AqSeaweed* this) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
-void Venom1_AqBoulder_Init(AqBoulder* this) {
+void Aquas_AqBoulder_Init(AqBoulder* this) {
     if (this->state == 0) {
         this->scale = 1.0f;
         this->gravity = 0.3f;
@@ -5507,7 +5507,7 @@ s32 D_i3_801C04A0[6] = {
     15, -15, 10, -10, 7, -7,
 };
 
-void Venom1_AqJellyfish_Init(AqJellyfish* this) {
+void Aquas_AqJellyfish_Init(AqJellyfish* this) {
     s32 sp64;
     s32 sp60;
     Vec3f sp54;

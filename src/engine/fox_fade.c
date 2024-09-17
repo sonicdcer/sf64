@@ -11,15 +11,15 @@ void Wipe_Vertical(s32 frame) {
 }
 
 void Wipe_Circular(s32 frame) {
-    s32 var_s1;
+    s32 angle;
 
     RCP_SetupDL_12();
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -150.0f, MTXF_NEW);
-    for (var_s1 = 0; var_s1 < MIN(360, frame * 15); var_s1 += 15) {
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, MIN((frame - (var_s1 / 15)) * 15, 255));
+    for (angle = 0; angle < MIN(360, frame * 15); angle += 15) {
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, MIN((frame - (angle / 15)) * 15, 255));
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateZ(gGfxMatrix, var_s1 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateZ(gGfxMatrix, angle * M_DTOR, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 0.53f, 1.0f, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_Gfx_800D9688);

@@ -1336,7 +1336,7 @@ void Corneria_CoGaruda1_Update(CoGaruda1* this) {
     switch (this->state) {
         case 0:
             this->fwork[1] += 20.0f;
-            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(aCoGarudaTracksTex, 16, 16, 1);
             this->animFrame = 0;
 
             this->fwork[0] += 1.0f;
@@ -1417,7 +1417,7 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
 
         case 1:
             this->fwork[0] = -10.0f;
-            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(aCoGarudaTracksTex, 16, 16, 1);
             if (this->timer_0BC == 0) {
                 this->state = 2;
                 this->iwork[2] = RAND_INT(10.0f) + 10;
@@ -1426,7 +1426,7 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
 
         case 2:
             this->fwork[0] = -10.0f;
-            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(aCoGarudaTracksTex, 16, 16, 1);
             this->animFrame++;
 
             if (this->animFrame >= Animation_GetFrameCount(&D_CO_602AA04)) {
@@ -1485,7 +1485,7 @@ void Corneria_CoGaruda3_Update(CoGaruda3* this) {
         case 1:
             this->fwork[0] = 5.0f;
             this->fwork[1] += 5.0f;
-            Lib_Texture_Scroll(D_CO_60329C0, 16, 16, 1);
+            Lib_Texture_Scroll(aCoGarudaTracksTex, 16, 16, 1);
             this->animFrame++;
             if (this->animFrame >= Animation_GetFrameCount(&aCoGaruda3Anim)) {
                 this->animFrame = 0;

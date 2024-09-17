@@ -193,7 +193,7 @@ extern s32 sUnlockOnFoot; // sUnlockOnFoot
 extern s32 gVsCountdown[];
 
 // gfx_data
-extern u16 D_Tex_800DACB8[][32];
+extern u16 D_Tex_800DACB8[];
 extern u16 D_Tex_800D99F8[];
 extern u16 gTextCharPalettes[];
 extern Gfx gRcpInitDL[];

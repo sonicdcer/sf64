@@ -20,7 +20,7 @@ void Titania_80187530(ActorCutscene* this) {
     this->obj.rot.y = 180.0f;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
-    this->animFrame = 1;
+    this->animFrame = ACTOR_CS_GREAT_FOX;
 }
 
 void Titania_801875D0(ActorCutscene* this, s32 arg1) {
@@ -276,7 +276,7 @@ void Titania_80188108(Actor* this, s32 index) {
         this->state = 30;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
         this->state = 20;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
         this->fwork[9] = 20.0f;

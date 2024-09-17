@@ -5,6 +5,7 @@
 #include "assets/ast_allies.h"
 #include "assets/ast_great_fox.h"
 #include "assets/ast_ending.h"
+#include "prevent_bss_reordering.h"
 
 void Ending_8018CE20(s32);
 void Ending_801926D4(void);

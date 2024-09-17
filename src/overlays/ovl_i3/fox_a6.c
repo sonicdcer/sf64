@@ -2137,7 +2137,7 @@ void Area6_8018D4E0(Actor* this) {
 }
 
 void Area6_8018D5C8(void) {
-    s32 i = 0;
+    s32 i = 0; // Fake ?
 
     Actor_Initialize(&gActors[i]);
     gActors[i].obj.status = OBJ_INIT;
@@ -2146,16 +2146,17 @@ void Area6_8018D5C8(void) {
     gActors[i].obj.pos.y = 3750.0f;
     gActors[i].obj.pos.z = 13000.0f;
 
-    gActors[i].animFrame = 1;
+    gActors[i].animFrame = ACTOR_CS_GREAT_FOX;
     gActors[i].state = 90;
     gActors[i].fwork[0] = 0.0f;
     gActors[i].obj.id = OBJ_ACTOR_CUTSCENE;
+
     Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[i].sfxSource, 0);
 }
 
 void Area6_8018D694(ActorCutscene* this, s32 index) {
-    Vec3f sp2C[5] = {
+    Vec3f commanderSetupPos[5] = {
         { -150.0f, 0.0f, 200.0f },   { 0.0f, 50.0f, 0.0f },       { 150.0f, -50.0f, 100.0f },
         { -350.0f, 100.0f, 300.0f }, { 100.0f, -300.0f, 100.0f },
     };
@@ -2164,18 +2165,19 @@ void Area6_8018D694(ActorCutscene* this, s32 index) {
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = sp2C[index].x + 100.0f;
-    this->obj.pos.y = sp2C[index].y + 350.0f;
-    this->obj.pos.z = sp2C[index].z + 1000.0f;
+    this->obj.pos.x = commanderSetupPos[index].x + 100.0f;
+    this->obj.pos.y = commanderSetupPos[index].y + 350.0f;
+    this->obj.pos.z = commanderSetupPos[index].z + 1000.0f;
 
     this->state = 1;
-    this->animFrame = 28;
+    this->animFrame = ACTOR_CS_COMMANDER_GLOW;
     this->iwork[11] = 1;
     this->rot_0F4.y = 90.0f;
     this->fwork[0] = 1.5f;
     this->fwork[7] = RAND_FLOAT_SEEDED(360.0f);
     this->fwork[8] = RAND_FLOAT_SEEDED(360.0f);
     this->fwork[9] = RAND_FLOAT_SEEDED(360.0f);
+
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
 }
@@ -2575,7 +2577,7 @@ void Area6_8018EA88(ActorCutscene* this) {
     this->obj.pos.x = 0.0f;
     this->obj.pos.y = 0.0f;
     this->obj.pos.z = gBosses[0].obj.pos.z + 500.0f;
-    this->animFrame = 37;
+    this->animFrame = ACTOR_CS_37;
     this->state = 100;
     this->iwork[0] = 255;
     this->iwork[1] = 255;
@@ -2599,9 +2601,10 @@ void Area6_8018EB3C(ActorCutscene* this) {
     this->obj.pos.x = player->pos.x;
     this->obj.pos.y = player->pos.y + 600.0f;
     this->obj.pos.z = player->pos.z + 2800.0f;
-    this->animFrame = 1;
+    this->animFrame = ACTOR_CS_GREAT_FOX;
     this->state = 100;
     this->fwork[0] = 0.0f;
+
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);

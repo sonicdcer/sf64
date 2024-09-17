@@ -461,7 +461,7 @@ void func_effect_80078AE0(Effect* this) {
 void Effect_Effect355_Draw(Effect355* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 180);
     Graphics_SetScaleMtx(this->scale2 * (13.0f + ((s32) (gGameFrameCount % 2U) * 2.5f)));
-    gSPDisplayList(gMasterDisp++, D_102ED50);
+    gSPDisplayList(gMasterDisp++, aBlueSphereDL);
 }
 
 void Effect_Effect353_Draw(Effect353* this) {

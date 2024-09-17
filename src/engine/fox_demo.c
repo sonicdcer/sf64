@@ -96,7 +96,7 @@ void func_demo_80048CC4(ActorCutscene* this, s32 index) {
     if (index == 3) {
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
     } else {
         this->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
@@ -330,7 +330,7 @@ f32 D_demo_800C9FF0[] = { -100.0f, 0.0f, 100.0f, 500.0f };
 f32 D_demo_800CA000[] = { -150.0f, 150.0f, 0.0f, 0.0f };
 f32 D_demo_800CA010[] = { 0.0f, 0.0f, 80.0f, 1000.0f };
 f32 D_demo_800CA020[] = { 45.0f, -45.0f, 10.0f, 0.0f };
-s32 D_demo_800CA030[] = { 0, 0, 0, 1 };
+s32 D_demo_800CA030[] = { ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_GREAT_FOX };
 s32 D_demo_800CA040[] = { 0, 0, 0, 0 };
 
 void func_demo_80049968(ActorCutscene* this, s32 index) {
@@ -2125,7 +2125,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
     switch (gCurrentLevel) {
         case LEVEL_BOLSE:
             switch (this->animFrame) {
-                case 0:
+                case ACTOR_CS_TEAM_ARWING:
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
                         this->rot_0F4.z += this->rot_0F4.y;
                         this->vel.x = SIN_DEG(this->rot_0F4.z) * 10.0f;
@@ -2155,20 +2155,20 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     }
                     break;
 
-                case 31:
+                case ACTOR_CS_31:
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
 
-                case 32:
+                case ACTOR_CS_32:
                     this->obj.rot.z += this->rot_0F4.z;
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
 
-                case 30:
+                case ACTOR_CS_30:
                     break;
             }
             break;
@@ -2179,11 +2179,11 @@ void func_demo_8004F05C(ActorCutscene* this) {
 
         case LEVEL_SECTOR_Y:
             switch (this->animFrame) {
-                case 0:
+                case ACTOR_CS_TEAM_ARWING:
                     SectorY_8019FF00(this);
                     break;
 
-                case 42:
+                case ACTOR_CS_42:
                     if (this->timer_0BC == 0) {
                         if (this->obj.pos.x >= -3500.0f) {
                             if (this->obj.pos.z <= 3000.0f) {
@@ -2196,7 +2196,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     }
                     break;
 
-                case 43:
+                case ACTOR_CS_43:
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
@@ -2451,7 +2451,7 @@ Vec3f D_demo_800CA0EC[] = {
     { 295.0, -92.0, -1301.0 },
     { -295.0, -92.0, -1301.0 },
 };
-Vec3f D_demo_800CA110[8] = {
+Vec3f sCsSyShipPos[8] = {
     { 170.0f, -35.0f, -380.0f },   { -170.0f, -40.0f, -380.0f }, { 170.0f, -130.0f, -380.0f },
     { -170.0f, -140.0f, -380.0f }, { 140.0f, 40.0f, -250.0f },   { -150.0f, 40.0f, -250.0f },
     { 140.0f, 0.0f, -250.0f },     { -150.0f, 0.0f, -250.0f },
@@ -2473,7 +2473,7 @@ Animation* D_demo_800CA1F4[] = {
     &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
 };
 
-void func_demo_8004FCB8(ActorCutscene* this, s32 arg1) {
+void ActorCutscene_SyShip_Setup(ActorCutscene* this, s32 idx) {
     f32 angle;
     f32 scale;
     s32 i;
@@ -2491,11 +2491,11 @@ void func_demo_8004FCB8(ActorCutscene* this, s32 arg1) {
         gDPSetEnvColor(gMasterDisp++, 16, 16, 240, 255);
         angle = Math_Atan2F(gPlayer[0].cam.eye.x - gPlayer[0].cam.at.x, gPlayer[0].cam.eye.z - gPlayer[0].cam.at.z);
 
-        for (i = arg1; i < (arg1 + 4); i++) {
+        for (i = idx; i < (idx + 4); i++) {
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, D_demo_800CA110[i].x + this->obj.pos.x, D_demo_800CA110[i].y + this->obj.pos.y,
-                             D_demo_800CA110[i].z + this->obj.pos.z, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, sCsSyShipPos[i].x + this->obj.pos.x, sCsSyShipPos[i].y + this->obj.pos.y,
+                             sCsSyShipPos[i].z + this->obj.pos.z, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, angle, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -2525,7 +2525,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
     f32 x;
 
     switch (this->animFrame) {
-        case 1000:
+        case ACTOR_CS_1000:
             RCP_SetupDL(&gMasterDisp, SETUPDL_45);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->work_046);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
@@ -2535,11 +2535,11 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             }
             break;
 
-        case 0:
+        case ACTOR_CS_TEAM_ARWING:
             ActorTeamArwing_Draw(this);
             break;
 
-        case 1:
+        case ACTOR_CS_GREAT_FOX:
             if (gCurrentLevel == LEVEL_SECTOR_Z) {
                 gSPFogPosition(gMasterDisp++, gFogNear, 1005);
             }
@@ -2547,14 +2547,14 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Cutscene_DrawGreatFox();
             break;
 
-        case 10:
+        case ACTOR_CS_ME_CORNERIA_BG:
             RCP_SetupDL_40();
             Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_ME_6020810);
+            gSPDisplayList(gMasterDisp++, aMeCorneriaBgDL);
             break;
 
-        case 11:
+        case ACTOR_CS_FO_EXPLOSION:
             RCP_SetupDL_64_2();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
             Matrix_Scale(gGfxMatrix, 60.0f, 60.0f, 1.0f, MTXF_APPLY);
@@ -2568,16 +2568,16 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
-        case 20:
+        case ACTOR_CS_COMMANDER:
             gSPDisplayList(gMasterDisp++, aCommanderDL);
             break;
 
-        case 24:
+        case ACTOR_CS_KATT:
             gSPDisplayList(gMasterDisp++, aKattShipDL);
             Actor_DrawEngineAndContrails(this);
             break;
 
-        case 25:
+        case ACTOR_CS_SZ_SPACE_JUNK:
             if ((this->index % 2) != 0) {
                 gSPDisplayList(gMasterDisp++, aSzSpaceJunk3DL);
             } else {
@@ -2585,19 +2585,19 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             }
             break;
 
-        case 26:
-            gSPDisplayList(gMasterDisp++, D_SZ_6004FE0);
+        case ACTOR_CS_SZ_INVADER:
+            gSPDisplayList(gMasterDisp++, aSzInvaderIIIDL);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
             Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
-        case 28:
+        case ACTOR_CS_COMMANDER_GLOW:
             gSPDisplayList(gMasterDisp++, aCommanderDL);
             Matrix_Translate(gGfxMatrix, 0.f, 0.f, -60.0f, MTXF_APPLY);
             Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
-        case 30:
+        case ACTOR_CS_30:
             Display_SetSecondLight(&this->obj.pos);
 
             if (this->work_046 != 0) {
@@ -2717,18 +2717,18 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             }
             break;
 
-        case 31:
+        case ACTOR_CS_31:
             RCP_SetupDL_21();
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 2.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, D_101ABD0);
             break;
 
-        case 32:
+        case ACTOR_CS_32:
             gSPDisplayList(gMasterDisp++, D_BO_6008770);
             break;
 
-        case 33:
+        case ACTOR_CS_CORNERIAN_FIGHTER:
             if ((this->index == 3) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                 gSPDisplayList(gMasterDisp++, aBillShipDL);
             } else {
@@ -2738,27 +2738,27 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Actor_DrawEngineGlow(this, EG_RED);
             break;
 
-        case 34:
-            gSPDisplayList(gMasterDisp++, aKaEnemy1DL);
+        case ACTOR_CS_KA_ENEMY:
+            gSPDisplayList(gMasterDisp++, aKaEnemyDL);
             break;
 
-        case 35:
+        case ACTOR_CS_SY_SHIP_1_SHRINK:
             Matrix_Scale(gGfxMatrix, 0.125f, 0.125f, 0.125f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             /* fallthrough */
-        case 39:
+        case ACTOR_CS_SY_SHIP_1:
             gSPDisplayList(gMasterDisp++, aSyShip1DL);
-            func_demo_8004FCB8(this, 4);
+            ActorCutscene_SyShip_Setup(this, 4);
             break;
 
-        case 36:
+        case ACTOR_CS_SY_SHIP_2:
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aSyShip2DL);
-            func_demo_8004FCB8(this, 0);
+            ActorCutscene_SyShip_Setup(this, 0);
             break;
 
-        case 37:
+        case ACTOR_CS_37:
             RCP_SetupDL_49();
             gDPSetPrimColor(gMasterDisp++, 0, 0, this->iwork[0], this->iwork[1], this->iwork[2], this->iwork[3]);
             gDPSetEnvColor(gMasterDisp++, this->iwork[4], this->iwork[5], this->iwork[6], this->iwork[7]);
@@ -2767,7 +2767,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
-        case 38:
+        case ACTOR_CS_38:
             animFrameData = Animation_GetFrameData(D_demo_800CA1F4[this->iwork[4]], this->iwork[5], sp144);
             Math_SmoothStepToVec3fArray(sp144, this->vwork, 1, animFrameData, this->fwork[2], 100.0f, .0f);
             RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2831,19 +2831,19 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             }
             break;
 
-        case 40:
+        case ACTOR_CS_40:
             gSPDisplayList(gMasterDisp++, D_SY_60132A0);
             break;
 
-        case 41:
+        case ACTOR_CS_AQ_FISHGROUP:
             Aquas_801BE0F0(this);
             break;
 
-        case 42:
+        case ACTOR_CS_42:
             gSPDisplayList(gMasterDisp++, D_SY_6014A40);
             break;
 
-        case 43:
+        case ACTOR_CS_43:
             RCP_SetupDL_49();
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->iwork[0]);
@@ -2864,24 +2864,24 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             this->fwork[0] += 0.2f;
             break;
 
-        case 44:
-            Animation_GetFrameData(&D_AQ_6020A40, this->iwork[0], this->vwork);
+        case ACTOR_CS_AQ_SEAWEED:
+            Animation_GetFrameData(&aAqSeaweedAnim, this->iwork[0], this->vwork);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             Animation_DrawSkeleton(1, aAqSeaweedSkel, this->vwork, 0, 0, &this->index, &gIdentityMatrix);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             break;
 
-        case 45:
+        case ACTOR_CS_AQ_BUMP_2:
             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aAqBump2DL);
             break;
 
-        case 46:
+        case ACTOR_CS_AQ_CORAL_REEF_2:
             gSPDisplayList(gMasterDisp++, aAqCoralReef2DL);
             break;
 
-        case 47:
+        case ACTOR_CS_AQ_ROCK:
             gSPDisplayList(gMasterDisp++, aAqRockDL);
             break;
     }

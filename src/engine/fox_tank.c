@@ -491,7 +491,7 @@ void func_tank_80044868(Player* player) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
         if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
-            func_tank_80043280(D_landmaster_3005EA8, *D_Tex_800DACB8, gGameFrameCount * -55.0f);
+            func_tank_80043280(D_landmaster_3005EA8, D_Tex_800DACB8, gGameFrameCount * -55.0f);
         }
     }
     if (player->baseSpeed > 10.0f) {
@@ -506,6 +506,7 @@ void func_tank_80044868(Player* player) {
 void func_tank_80045130(Player* player) {
     Math_SmoothStepToF(&player->unk_170, 0.0f, 1.0f, 0.2f, 0.0f);
     Math_SmoothStepToF(&player->unk_16C, 0.0f, 1.0f, 0.2f, 0.0f);
+
     if (gInputPress->button & Z_TRIG) {
         player->sfx.bank = 1;
         if ((player->rollInputTimerL != 0) && (player->zRotBank > 0.0f) && (player->boostMeter < 10.0f)) {
@@ -519,6 +520,7 @@ void func_tank_80045130(Player* player) {
             player->rollInputTimerL = 10;
         }
     }
+
     if (gInputPress->button & R_TRIG) {
         player->sfx.bank = 1;
         if ((player->rollInputTimerR != 0) && (player->zRotBank < 0.0f) && (player->boostMeter < 10.0f)) {
@@ -790,7 +792,7 @@ void func_tank_80046260(Player* player) {
     Scenery* scenery;
     s32 i;
 
-    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+    for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z) && (scenery->obj.pos.y < player->pos.y)) {
             func_tank_800460E0(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
@@ -843,6 +845,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
     sp84 = sp64.x + arg2;
     sp80 = sp64.y + arg3;
     sp7C = sp64.z + arg4;
+
     if (Play_CheckPolyCollision(arg1, arg2, arg3, arg4, sp84, sp80, sp7C, &sp58, &sp4C)) {
         if (D_MA_801BE250[27] < arg3 + sp58.y) {
             D_MA_801BE250[27] = arg3 + sp58.y;
@@ -863,6 +866,7 @@ void func_tank_8004641C(Player* player, s32 arg1, f32 arg2, f32 arg3, f32 arg4, 
             player->rollRate = player->baseRollRate = -20;
         }
     }
+
     if (Play_CheckPolyCollision(arg1, arg2, arg3, arg4, sp84, arg3, sp7C, &sp58, &sp4C) &&
         (D_800C9F10 <= arg3 + sp58.y)) {
         D_800C9F10 = arg3 + sp58.y;
@@ -1344,7 +1348,7 @@ void func_tank_800481F4(Player* player) {
     Player_UpdateHitbox(player);
     func_tank_800444BC(player);
     if (player->mercyTimer == 0) {
-        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id != OBJ_SCENERY_TI_BRIDGE) &&
                 (scenery->obj.id != OBJ_SCENERY_MA_TRAIN_TRACK_13) && (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_1) &&
                 (scenery->obj.id != OBJ_SCENERY_MA_BUILDING_2) && (scenery->obj.id != OBJ_SCENERY_GUILLOTINE_HOUSING) &&
@@ -1386,7 +1390,7 @@ void func_tank_800481F4(Player* player) {
             }
         }
 
-        for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+        for (i = 0, boss = &gBosses[0]; i < ARRAY_COUNT(gBosses); i++, boss++) {
             if (boss->obj.status == OBJ_ACTIVE) {
                 temp_v0 = Player_CheckHitboxCollision(player, boss->info.hitbox, &sp98, boss->obj.pos.x,
                                                       boss->obj.pos.y, boss->obj.pos.z, boss->obj.rot.x,
@@ -1397,7 +1401,7 @@ void func_tank_800481F4(Player* player) {
             }
         }
 
-        for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+        for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_EVENT) {
                     temp_v0 = Player_CheckHitboxCollision(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
@@ -1454,6 +1458,7 @@ void func_tank_800481F4(Player* player) {
                         player->vel.x = 0.0f;
                         player->vel.y = 30.0f;
                         player->pos.x = player->basePos.x;
+
                         actor->dmgType = DMG_COLLISION;
                         if (actor->info.damage != 0) {
                             Player_ApplyDamage(player, 0, 20);
@@ -1482,7 +1487,7 @@ void func_tank_800481F4(Player* player) {
                 }
             }
         }
-        for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+        for (i = 0, sprite = &gSprites[0]; i < ARRAY_COUNT(gSprites); i++, sprite++) {
             if (sprite->obj.status == OBJ_ACTIVE) {
                 if ((player->trueZpos - 200.0f) < sprite->obj.pos.z) {
                     temp_v0 = Player_CheckHitboxCollision(player, sprite->info.hitbox, &sp98, sprite->obj.pos.x,

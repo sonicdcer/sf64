@@ -764,7 +764,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                 }
             }
         }
-        for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+        for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status >= OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 switch (actor->obj.id) {
                     case OBJ_ACTOR_ME_MOLAR_ROCK:
@@ -1716,7 +1716,7 @@ bool PlayerShot_FindLockTarget(PlayerShot* shot) {
     } else {
         lockRange = 200.0f;
     }
-    for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+    for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->info.targetOffset != 0.0f) &&
             ((actor->lockOnTimers[shot->sourceId] == 0) && (fabsf(shot->obj.pos.x - actor->obj.pos.x) <= lockRange) &&
              (fabsf(shot->obj.pos.y - (actor->obj.pos.y + actor->info.targetOffset)) <= lockRange) &&
@@ -1898,7 +1898,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             }
         }
     }
-    actor = gActors;
+    actor = &gActors[0];
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) &&
             !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) &&
@@ -2112,7 +2112,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
     } else {
         var_a3 = 0;
         if (shot->unk_60 == 0) {
-            for (i = 0, actor = gActors; i < ARRAY_COUNT(gActors); i++, actor++) {
+            for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
                 if ((actor->obj.status == OBJ_ACTIVE) && (actor->info.targetOffset != 0.0f) &&
                     (actor->lockOnTimers[shot->sourceId] != 0)) {
                     var_a3 = 1;

@@ -626,7 +626,7 @@ void Game_Update(void) {
 #endif
 
 Actor* Game_SpawnActor(ObjectId objId) {
-    Actor* actor = gActors;
+    Actor* actor = &gActors[0];
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {

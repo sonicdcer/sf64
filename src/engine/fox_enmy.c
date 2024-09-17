@@ -1341,8 +1341,8 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_BOSS_ZO_SARUMARINE:
             Zoness_ZoSarumarine_Init(&gBosses[index]);
             break;
-        case OBJ_ACTOR_ZO_CARGOSHIP:
-            Zoness_ZoCargoShip_Init(&gActors[index]);
+        case OBJ_ACTOR_ZO_TANKER:
+            Zoness_ZoTanker_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_ZO_CONTAINER:
             Zoness_ZoContainer_Init(&gActors[index]);
@@ -1391,10 +1391,10 @@ void Object_Init(s32 index, ObjectId objId) {
             Venom1_Ve1MonkeyStatue_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_BOULDER:
-            Venom1_AqBoulder_Init(&gActors[index]);
+            Aquas_AqBoulder_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_JELLYFISH:
-            Venom1_AqJellyfish_Init(&gActors[index]);
+            Aquas_AqJellyfish_Init(&gActors[index]);
             break;
     }
 }
@@ -1757,7 +1757,7 @@ void Actor_Despawn(Actor* this) {
         if (this->itemDrop) {
             if (D_enmy_800CFE5C[this->itemDrop] < 0.0f) {
                 otherActor = &gActors[0];
-                for (i = 0, otherActor = gActors; i < ARRAY_COUNT(gActors); i++, otherActor++) {
+                for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                     if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != this->index) &&
                         (otherActor->iwork[15] == this->iwork[15])) {
                         return;

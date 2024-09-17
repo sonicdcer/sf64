@@ -1030,7 +1030,7 @@ void Bolse_BoBase_Draw(BoBase* this) {
 f32 D_i4_8019EFDC[] = { 180.0f, -180.0f, 0.0f };
 f32 D_i4_8019EFE8[] = { 100.0f, 200.0f, -80.0f };
 f32 D_i4_8019EFF4[] = { 400.0f, 800.0f, 1200.0f };
-s32 D_i4_8019F000[] = { 0, 0, 0 };
+s32 D_i4_8019F000[] = { ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING };
 f32 D_i4_8019F00C[] = { 0.0f, 80.0f, 150.0f };
 f32 D_i4_8019F018[] = { 3.0f, -4.0f, 5.0f, 700.0f, 300.0f, 1000.0f };
 
@@ -1059,7 +1059,7 @@ void Bolse_8018EC1C(void) {
     actor->obj.pos.x = 0;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = -9000.0f;
-    actor->animFrame = 30;
+    actor->animFrame = ACTOR_CS_30;
     actor->fwork[20] = 1.0f;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1093,7 +1093,7 @@ void Bolse_8018ED44(void) {
             actor->obj.pos.y = gActors[50].obj.pos.y + RAND_FLOAT(100.0f);
             actor->obj.pos.z = -9000.0f;
             actor->timer_0BC = 50;
-            actor->animFrame = 31;
+            actor->animFrame = ACTOR_CS_31;
             actor->vel.z = 200.0f;
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, actor->sfxSource, 4);
@@ -1115,7 +1115,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
             actor->obj.pos.y = gActors[50].obj.pos.y + y;
             actor->obj.pos.z = -9000.0f;
             actor->timer_0BC = 200;
-            actor->animFrame = 32;
+            actor->animFrame = ACTOR_CS_32;
             actor->vel.z = 80.0f;
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
             actor->rot_0F4.z = RAND_FLOAT_CENTERED(1.0f);

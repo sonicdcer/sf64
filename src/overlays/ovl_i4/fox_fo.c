@@ -609,7 +609,7 @@ void Fortuna_CsExplosion(void) {
     actor->obj.pos.x = 0.0f;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = -9000.0f;
-    actor->animFrame = 11;
+    actor->animFrame = ACTOR_CS_FO_EXPLOSION;
     actor->scale = 0.0f;
     Object_SetInfo(&actor->info, actor->obj.id);
 }
@@ -636,7 +636,7 @@ void Fortuna_LevelComplete_CsSpawnTeam(ActorCutscene* this, s32 actorIdx) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     } else {
         this->obj.pos.z = -9500.0f;
-        this->animFrame = 1;
+        this->animFrame = ACTOR_CS_GREAT_FOX;
         this->vel.z = 22.0f;
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, this->sfxSource, 0);
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
