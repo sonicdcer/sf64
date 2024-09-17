@@ -3275,6 +3275,7 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
 #ifdef AVOID_UB
     if (i < ARRAY_COUNT(gActors)) {
 #else
+    // @Bug: checking out of bounds
     if (i >= ARRAY_COUNT(gActors)) {
 #endif
         actor245->obj.status = OBJ_FREE;
