@@ -2110,7 +2110,7 @@ void Player_CollisionCheck(Player* player) {
                             }
                         } else {
                             actor->dmgType = DMG_COLLISION;
-                            if (actor->obj.id == OBJ_MISSILE_SEEK_TEAM) {
+                            if (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM) {
                                 actor->dmgType = -1;
                             }
                             if (actor->info.damage) {

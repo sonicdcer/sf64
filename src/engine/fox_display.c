@@ -811,7 +811,7 @@ void Display_PlayerShadow_Draw(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+            gSPDisplayList(gMasterDisp++, aBallDL);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
             Matrix_Pop(&gGfxMatrix);
             break;
@@ -1246,7 +1246,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+            gSPDisplayList(gMasterDisp++, aBallDL);
             Matrix_Pop(&gGfxMatrix);
         }
         if (player->arwing.rightWingState == WINGSTATE_INTACT) {
@@ -1259,7 +1259,7 @@ void Display_ArwingWingTrail_Draw(Player* player) {
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+            gSPDisplayList(gMasterDisp++, aBallDL);
             Matrix_Pop(&gGfxMatrix);
         }
     }

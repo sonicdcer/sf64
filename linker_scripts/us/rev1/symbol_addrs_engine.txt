@@ -772,3 +772,4 @@ gNoHitbox = 0x800CBF34;
 D_bg_8015F970 = 0x8015F970;
 D_bg_8015F984 = 0x8015F984;
 gTeamLowHealthMsgTimer = 0x8017796C;
+Effect_Effect399_Draw = 0x80084194;

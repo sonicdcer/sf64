@@ -372,7 +372,7 @@ void Effect_Effect347_Draw(Effect347* this) {
 void Effect_Effect351_Draw(Effect351* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
-    gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+    gSPDisplayList(gMasterDisp++, aBallDL);
 }
 
 void Effect_Clouds_Draw(EffectClouds* this) {
@@ -3500,7 +3500,7 @@ void Effect_Effect395_Update(Effect395* this) {
     velocity.y = this->vel.y;
     velocity.z = this->vel.z;
 
-    //! FAKE: Probably some debug stuff printing different messages depending on what unk_4E is.
+    //! FAKE: Probably some debug stuff printing different messages depending on what state is.
     if ((this->state != 0) && (this->state != 6) && (this->state != 7) && (this->state != 11)) {
         if (gCurrentLevel) {}
         PRINTF("ＺＯ＿ＭＯＶＥ ＨＥＬＰ %d\n");

@@ -2525,7 +2525,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
     f32 x;
 
     switch (this->animFrame) {
-        case ACTOR_CS_1000:
+        case ACTOR_CS_JAMES_ARWING:
             RCP_SetupDL(&gMasterDisp, SETUPDL_45);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->work_046);
             gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);

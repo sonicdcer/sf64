@@ -333,7 +333,6 @@ void func_enmy_80061B68(void) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-
             x = gPlayer[0].pos.x + RAND_FLOAT_CENTERED(2000.0f) + (5.0f * gPlayer[0].vel.x);
             y = 0;
             while (y <= gGroundHeight) {
@@ -1234,8 +1233,8 @@ void Object_Init(s32 index, ObjectId objId) {
                 gActors[index].obj.status = OBJ_FREE;
             }
             break;
-        case OBJ_MISSILE_SEEK_TEAM:
-        case OBJ_MISSILE_SEEK_PLAYER:
+        case OBJ_ACTOR_MISSILE_SEEK_TEAM:
+        case OBJ_ACTOR_MISSILE_SEEK_PLAYER:
             AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_ENGINE, gActors[index].sfxSource, 4);
             break;
         case OBJ_ACTOR_CO_SKIBOT:
@@ -1459,7 +1458,7 @@ void func_enmy_800654E4(Object* obj) {
 void func_enmy_800655C8(ActorMissileSeekTeam* this, f32 xPos, f32 yPos, f32 zPos, s32 eventType) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_MISSILE_SEEK_TEAM;
+    this->obj.id = OBJ_ACTOR_MISSILE_SEEK_TEAM;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -1506,7 +1505,7 @@ void ActorMissileSeek_Update(Actor* this) {
     var_ra = (gLevelMode == LEVELMODE_ALL_RANGE) ? 2 : 0;
 
     if (this->iwork[2] == 0) {
-        if (this->obj.id == OBJ_MISSILE_SEEK_TEAM) {
+        if (this->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM) {
             for (i = 0; i < 3; i++) {
                 spB4[i] = gTeamShields[i + 1];
                 spA8[i] = var_ra + i;
@@ -2139,7 +2138,7 @@ void ActorSupplies_Update(ActorSupplies* this) {
     gRadarMarks[63].yRot = 0.0f;
 }
 
-void ActorSupplies_Draw(Actor* this) {
+void ActorSupplies_Draw(ActorEvent* this) {
     s32 i;
 
     Lights_SetOneLight(&gMasterDisp, -60, -60, 60, 150, 150, 150, 20, 20, 20);

@@ -45,16 +45,12 @@ u16 gStarColors[16] = {
     0x294B, 0x18DF, 0x294B, 0x1085, 0x39FF, 0x108B, 0x18CD, 0x108B,
 };
 Gfx* sSunDLs[13] = {
-    aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL,
-    aRadarMarkKaSaucererDL, D_BG_PLANET_20112C0,    aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL,
-    aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, D_BG_PLANET_20112C0,
-    aRadarMarkKaSaucererDL,
+    aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, D_BG_PLANET_20112C0,
+    aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, D_BG_PLANET_20112C0,
+    aBallDL,
 };
 Gfx* sKaSunDLs[13] = {
-    aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL,
-    aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL,
-    aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL, aRadarMarkKaSaucererDL,
-    aRadarMarkKaSaucererDL,
+    aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL,
 };
 f32 sSunShifts[13] = {
     0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 13.0f, 20.0f, 35.0f, 40.0f, 50.0f, 50.0f, 70.0f,

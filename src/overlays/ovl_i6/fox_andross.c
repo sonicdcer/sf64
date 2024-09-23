@@ -3648,7 +3648,6 @@ void Andross_AndLaserEmitter_Draw(AndLaserEmitter* this) {
 }
 
 void Andross_AndDoor_Update(AndDoor* this) {
-
     switch (this->state) {
         case 0:
             if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 1800.0f) {
@@ -3793,7 +3792,7 @@ void Andross_801939A0(s32 actorIdx) {
     if (actorIdx == 1) {
         actor->state = 1;
         actor->work_046 = 255;
-        actor->animFrame = ACTOR_CS_1000;
+        actor->animFrame = ACTOR_CS_JAMES_ARWING;
     }
 
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -3855,7 +3854,7 @@ void Andross_80193C4C(Player* player) {
     f32 sp80;
     Vec3f sp74;
     Vec3f sp68;
-    s32 temp_v0_2;
+    s32 rnd;
 
     Math_SmoothStepToF(D_ctx_80177A48, 1.0f, 1.0f, 0.01f, 0.0f);
 
@@ -4314,11 +4313,12 @@ void Andross_80193C4C(Player* player) {
                         gShowLevelClearStatusScreen = false;
                         break;
                 }
+                // Shooting Star. James? Is that you?
                 if (gCsFrameCount > 1300) {
                     gStarOffsetsX[109] += 1.0f;
                     gStarOffsetsY[109] += 0.5f;
-                    temp_v0_2 = RAND_INT(100.0f);
-                    gStarFillColors[109] = FILL_COLOR(gStarColors[temp_v0_2 % 16U]);
+                    rnd = RAND_INT(100.0f);
+                    gStarFillColors[109] = FILL_COLOR(gStarColors[rnd % 16U]);
                 }
             } else {
                 switch (gCsFrameCount) {

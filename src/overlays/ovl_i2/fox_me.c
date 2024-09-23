@@ -1041,9 +1041,9 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
         s32 objId;
 
         if (ActorMissileSeek_ModeCheck(0) >= 4) {
-            objId = OBJ_MISSILE_SEEK_PLAYER;
+            objId = OBJ_ACTOR_MISSILE_SEEK_PLAYER;
         } else {
-            objId = OBJ_MISSILE_SEEK_TEAM;
+            objId = OBJ_ACTOR_MISSILE_SEEK_TEAM;
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_BARREL_SHOT, this->sfxSource, 4);

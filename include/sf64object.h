@@ -496,8 +496,8 @@ typedef enum ObjectId {
     /* 187 */ OBJ_ACTOR_ME_LASER_CANNON_2,
     /* 188 */ OBJ_ACTOR_AQ_UNK_188, // Unimplemented actor.
     /* 189 */ OBJ_ACTOR_DEBRIS,
-    /* 190 */ OBJ_MISSILE_SEEK_TEAM,
-    /* 191 */ OBJ_MISSILE_SEEK_PLAYER,
+    /* 190 */ OBJ_ACTOR_MISSILE_SEEK_TEAM,
+    /* 191 */ OBJ_ACTOR_MISSILE_SEEK_PLAYER,
     /* 192 */ OBJ_ACTOR_CO_SKIBOT,
     /* 193 */ OBJ_ACTOR_CO_RADAR,
     /* 194 */ OBJ_ACTOR_ME_MORA,
@@ -780,34 +780,34 @@ typedef enum AllRangeAi {
 } AllRangeAi;
 
 typedef enum ActorCutsceneModels {
-    /*  0 */ ACTOR_CS_TEAM_ARWING,
-    /*  1 */ ACTOR_CS_GREAT_FOX,
-    /* 10 */ ACTOR_CS_ME_CORNERIA_BG = 10, // Planet Corneria in the background of level start CS.
-    /* 11 */ ACTOR_CS_FO_EXPLOSION, // Fortuna explosion in a mission complete ending.
-    /* 20 */ ACTOR_CS_COMMANDER = 20,
-    /* 24 */ ACTOR_CS_KATT = 24,
-    /* 25 */ ACTOR_CS_SZ_SPACE_JUNK,
-    /* 26 */ ACTOR_CS_SZ_INVADER,
-    /* 28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow.
-    /* 30 */ ACTOR_CS_30 = 30, // Related to LEVEL_BOLSE
-    /* 31 */ ACTOR_CS_31,
-    /* 32 */ ACTOR_CS_32,
-    /* 33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3.
-    /* 34 */ ACTOR_CS_KA_ENEMY,
-    /* 35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8.
-    /* 36 */ ACTOR_CS_SY_SHIP_2,
-    /* 37 */ ACTOR_CS_37,
-    /* 38 */ ACTOR_CS_38, // Related to Sector Y
-    /* 39 */ ACTOR_CS_SY_SHIP_1 = 39,
-    /* 40 */ ACTOR_CS_40,
-    /* 41 */ ACTOR_CS_AQ_FISHGROUP,
-    /* 42 */ ACTOR_CS_42, // Related to Sector Y
-    /* 43 */ ACTOR_CS_43, // Related to Sector Y
-    /* 44 */ ACTOR_CS_AQ_SEAWEED,
-    /* 45 */ ACTOR_CS_AQ_BUMP_2,
-    /* 46 */ ACTOR_CS_AQ_CORAL_REEF_2,
-    /* 47 */ ACTOR_CS_AQ_ROCK,
-    /* 1000 */ ACTOR_CS_1000 = 1000 // James? Is that you?
+    /*    0 */ ACTOR_CS_TEAM_ARWING,
+    /*    1 */ ACTOR_CS_GREAT_FOX,
+    /*   10 */ ACTOR_CS_ME_CORNERIA_BG = 10, // Planet Corneria in the background of level start CS.
+    /*   11 */ ACTOR_CS_FO_EXPLOSION, // Fortuna explosion in a mission complete ending.
+    /*   20 */ ACTOR_CS_COMMANDER = 20,
+    /*   24 */ ACTOR_CS_KATT = 24,
+    /*   25 */ ACTOR_CS_SZ_SPACE_JUNK,
+    /*   26 */ ACTOR_CS_SZ_INVADER,
+    /*   28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow.
+    /*   30 */ ACTOR_CS_30 = 30, // Related to LEVEL_BOLSE
+    /*   31 */ ACTOR_CS_31,
+    /*   32 */ ACTOR_CS_32,
+    /*   33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3.
+    /*   34 */ ACTOR_CS_KA_ENEMY,
+    /*   35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8.
+    /*   36 */ ACTOR_CS_SY_SHIP_2,
+    /*   37 */ ACTOR_CS_37,
+    /*   38 */ ACTOR_CS_38, // Related to Sector Y
+    /*   39 */ ACTOR_CS_SY_SHIP_1 = 39,
+    /*   40 */ ACTOR_CS_40,
+    /*   41 */ ACTOR_CS_AQ_FISHGROUP,
+    /*   42 */ ACTOR_CS_42, // Related to Sector Y
+    /*   43 */ ACTOR_CS_43, // Related to Sector Y
+    /*   44 */ ACTOR_CS_AQ_SEAWEED,
+    /*   45 */ ACTOR_CS_AQ_BUMP_2,
+    /*   46 */ ACTOR_CS_AQ_CORAL_REEF_2,
+    /*   47 */ ACTOR_CS_AQ_ROCK,
+    /* 1000 */ ACTOR_CS_JAMES_ARWING = 1000 // James McCloud Arwing seen for the last time in the ending CS.
 } ActorCutsceneModels;
 
 Actor* Game_SpawnActor(ObjectId);

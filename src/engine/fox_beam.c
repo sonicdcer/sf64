@@ -1916,7 +1916,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             actor->hitPos.z = shot->obj.pos.z;
             if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
                 if ((actor->obj.id == OBJ_ACTOR_CO_RADAR) || (actor->obj.id == OBJ_ACTOR_ME_LASER_CANNON_1) ||
-                    (actor->obj.id == OBJ_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_ACTOR_ME_HOPBOT) ||
+                    (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_ACTOR_ME_HOPBOT) ||
                     (actor->obj.id == OBJ_ACTOR_ME_METEO_BALL) || (actor->obj.id == OBJ_ACTOR_ME_LASER_CANNON_2) ||
                     ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SUPPLY_CRATE)) ||
                     ((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->eventType == EVID_SX_WARP_GATE)) ||

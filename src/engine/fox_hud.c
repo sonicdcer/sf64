@@ -1742,7 +1742,7 @@ void HUD_RadarMark_KaSaucerer_Draw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, 255);
     Matrix_Scale(gGfxMatrix, 125.0f, 125.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+    gSPDisplayList(gMasterDisp++, aBallDL);
 }
 
 void HUD_RadarMark_Missile_Draw(void) {
@@ -2174,19 +2174,20 @@ s32 ActorMissileSeek_ModeCheck(ActorMissileSeekMode mode) {
     for (i = 0, actor = &gActors[0]; i < 60; i++, actor++) {
         switch (mode) {
             case MISSILE_SEEK_TEAMMATES:
-                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_TEAM)) {
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM)) {
                     ret++;
                 }
                 break;
 
             case MISSILE_SEEK_PLAYER:
-                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) {
+                if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_PLAYER)) {
                     ret++;
                 }
                 break;
 
             case MISSILE_SEEK_EITHER:
-                if (((actor->obj.id == OBJ_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_MISSILE_SEEK_PLAYER)) &&
+                if (((actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM) ||
+                     (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_PLAYER)) &&
                     (actor->obj.status == OBJ_ACTIVE)) {
                     ret++;
                 }
@@ -3677,13 +3678,13 @@ void HUD_Draw(void) {
     HUD_PauseScreen_Update();
 }
 
-void FoBase_Draw(Boss* boss) {
+void FoBase_Draw(Boss* this) {
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPDisplayList(gMasterDisp++, aFoBaseDL2);
     RCP_SetupDL_34(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) boss->fwork[1], (s32) boss->fwork[2], 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 0, (s32) this->fwork[1], (s32) this->fwork[2], 255);
     gSPDisplayList(gMasterDisp++, aFoBaseDL1);
     gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 }

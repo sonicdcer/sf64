@@ -509,7 +509,7 @@ void Actor_DrawEngineAndContrails(Actor* this) {
         Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+        gSPDisplayList(gMasterDisp++, aBallDL);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
         Matrix_Translate(gGfxMatrix, -70.0f, -10.0f, -100.0f, MTXF_APPLY);
@@ -518,7 +518,7 @@ void Actor_DrawEngineAndContrails(Actor* this) {
         Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_DTOR * sp54, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+        gSPDisplayList(gMasterDisp++, aBallDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -680,7 +680,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+                gSPDisplayList(gMasterDisp++, aBallDL);
             }
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
@@ -731,7 +731,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             }
             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
             Graphics_SetScaleMtx(150.0f);
-            gSPDisplayList(gMasterDisp++, aRadarMarkKaSaucererDL);
+            gSPDisplayList(gMasterDisp++, aBallDL);
             break;
 
         case OBJ_BOSS_CO_CARRIER:

@@ -361,7 +361,7 @@ void Area6_ActorMissileSeekPlayer_Setup(ActorMissileSeekPlayer* this, f32 xPos, 
     PRINTF("おふ\n"); // Off
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_MISSILE_SEEK_PLAYER;
+    this->obj.id = OBJ_ACTOR_MISSILE_SEEK_PLAYER;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -1142,7 +1142,8 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                         }
 
                         if ((gActors[spf124].obj.status == OBJ_FREE) ||
-                            (gActors[spf124].obj.id != OBJ_MISSILE_SEEK_PLAYER) || (D_i3_801C2250[A6_BSS_24] == 0)) {
+                            (gActors[spf124].obj.id != OBJ_ACTOR_MISSILE_SEEK_PLAYER) ||
+                            (D_i3_801C2250[A6_BSS_24] == 0)) {
                             D_i3_801C2250[A6_BSS_12_0 + var_s0] = 0;
 
                             spf124 = 0;

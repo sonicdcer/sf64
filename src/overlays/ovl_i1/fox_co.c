@@ -397,9 +397,9 @@ ObjectId Corneria_CoGranga_ChooseMissileTarget(CoGranga* this) {
      */
     if (this->swork[GRANGA_MISSILE_COUNT] >= 5) {
         this->swork[GRANGA_MISSILE_COUNT] = 0;
-        return OBJ_MISSILE_SEEK_PLAYER;
+        return OBJ_ACTOR_MISSILE_SEEK_PLAYER;
     } else if (ActorMissileSeek_ModeCheck(0) < 4) {
-        return OBJ_MISSILE_SEEK_TEAM;
+        return OBJ_ACTOR_MISSILE_SEEK_TEAM;
     } else {
         return 0;
     }
@@ -1642,10 +1642,10 @@ void Corneria_CoGarudaDestroy_Draw(CoGarudaDestroy* this) {
 
 void Corneria_CoCarrier_ChooseMissileTarget(CoCarrier* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, s32 arg5,
                                             s32 eventType) {
-    ObjectId objId = OBJ_MISSILE_SEEK_PLAYER;
+    ObjectId objId = OBJ_ACTOR_MISSILE_SEEK_PLAYER;
 
     if (ActorMissileSeek_ModeCheck(0) < 4) {
-        objId = OBJ_MISSILE_SEEK_TEAM;
+        objId = OBJ_ACTOR_MISSILE_SEEK_TEAM;
     }
 
     Corneria_BossMissile_Spawn(this->obj.pos.x + xPos, this->obj.pos.y + yPos, this->obj.pos.z + zPos, arg4,
