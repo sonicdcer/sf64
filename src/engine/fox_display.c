@@ -706,6 +706,7 @@ void Display_Arwing(Player* player, s32 reflectY) {
     }
 }
 
+// Arwing only
 void Display_Reticle(Player* player) {
     Vec3f* translate;
     s32 i;

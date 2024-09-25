@@ -561,7 +561,7 @@ typedef enum ObjectId {
     /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
     /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
     /* 254 */ OBJ_ACTOR_ZO_SEARCHLIGHT,
-    /* 255 */ OBJ_ACTOR_255,
+    /* 255 */ OBJ_ACTOR_255, // OBJ_ACTOR_AQ_SANADA (Named after from SFX_ID)
     /* 256 */ OBJ_ACTOR_256,
     /* 257 */ OBJ_ACTOR_257,
     /* 258 */ OBJ_ACTOR_AQ_PEARL,

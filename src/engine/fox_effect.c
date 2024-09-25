@@ -3328,8 +3328,9 @@ void func_effect_800815DC(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if ((gEffects[i].obj.id == OBJ_EFFECT_366 || (gEffects[i].obj.id == OBJ_EFFECT_395 && gEffects[i].state == 1) ||
-             gEffects[i].obj.id == OBJ_EFFECT_364 || gEffects[i].obj.id == OBJ_EFFECT_346) &&
+        if (((gEffects[i].obj.id == OBJ_EFFECT_366) ||
+             ((gEffects[i].obj.id == OBJ_EFFECT_395) && (gEffects[i].state == 1)) ||
+             (gEffects[i].obj.id == OBJ_EFFECT_364) || (gEffects[i].obj.id == OBJ_EFFECT_346)) &&
             gEffects[i].obj.status == OBJ_ACTIVE) {
             gEffects[i].obj.status = OBJ_FREE;
             break;
