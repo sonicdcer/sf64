@@ -176,6 +176,7 @@ void Game_InitMasterDL(Gfx** dList) {
     } else {
         gDPSetFillColor((*dList)++, FILL_COLOR(gBgColor | 1));
     }
+
     gDPFillRectangle((*dList)++, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN - 1,
                      SCREEN_HEIGHT - SCREEN_MARGIN);
     gDPPipeSync((*dList)++);

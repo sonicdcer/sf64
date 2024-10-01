@@ -386,7 +386,7 @@ void Play_Setup360_CO(void) {
         }
     }
 
-    for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++) {
+    for (i = 0, sprite = &gSprites[0]; i < ARRAY_COUNT(gSprites); i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
@@ -1952,7 +1952,7 @@ void Player_CollisionCheck(Player* player) {
             }
         }
 
-        for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+        for (i = 0, boss = &gBosses[0]; i < ARRAY_COUNT(gBosses); i++, boss++) {
             if (boss->obj.status == OBJ_ACTIVE) {
                 if ((boss->obj.id == OBJ_BOSS_VE2_BASE) || (boss->obj.id == OBJ_BOSS_FO_BASE) ||
                     (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX) || (boss->obj.id == OBJ_BOSS_BO_BASE)) {
@@ -2727,7 +2727,7 @@ void Play_Init(void) {
         gSceneSetup = 0;
     }
 
-    gShowHud = 1;
+    gShowHud = true;
     gDrawGround = gDrawBackdrop = 1;
     gAqDrawMode = sOverheadCam = 0;
     gCamDistortion = sOverheadCamDist = 0.0f;
@@ -4952,7 +4952,7 @@ void Player_UpdateTankRoll(Player* player) {
 void Player_ArwingBoost(Player* player) {
     f32 sp2C;
     f32 sp28;
-    s32 var;
+    s32 stickY;
 
     if ((player->boostMeter != 0.0f) && (gInputHold->button & gBrakeButton[player->num]) &&
         (gInputHold->button & gBoostButton[player->num])) {
@@ -4970,7 +4970,7 @@ void Player_ArwingBoost(Player* player) {
 
     player->sfx.boost = 0;
 
-    var = gInputPress->stick_y; // fake?
+    stickY = gInputPress->stick_y; // fake?
 
     if (gLoopDownTimers[gPlayerNum] != 0) {
         gLoopDownTimers[gPlayerNum]--;
@@ -4980,7 +4980,7 @@ void Player_ArwingBoost(Player* player) {
         gLoopBoostTimers[gPlayerNum]--;
     }
     if (!player->somersault && (gDrawBackdrop < 5)) {
-        if (var >= -50) {
+        if (stickY >= -50) {
             gLoopDownTimers[gPlayerNum] = 5;
         }
         if ((gLoopDownTimers[gPlayerNum] > 0) && (gLoopDownTimers[gPlayerNum] < 5) &&
@@ -5529,7 +5529,7 @@ void Player_Down(Player* player) {
     player->hitTimer = 0;
     player->radioDamageTimer = 0;
     player->damageShake = 0.0f;
-    gShowHud = 0;
+    gShowHud = false;
 }
 
 void Player_UpdateOnRails(Player* player) {
@@ -5777,7 +5777,7 @@ void Player_Update(Player* player) {
     switch (player->state_1C8) {
         case PLAYERSTATE_1C8_STANDBY:
             player->draw = false;
-            gShowHud = 0;
+            gShowHud = false;
             gPauseEnabled = false;
             break;
 
@@ -5788,14 +5788,14 @@ void Player_Update(Player* player) {
             break;
 
         case PLAYERSTATE_1C8_LEVEL_INTRO:
-            gShowHud = 0;
+            gShowHud = false;
             gPauseEnabled = false;
             player->arwing.drawFace = true;
             Cutscene_LevelStart(player);
             break;
 
         case PLAYERSTATE_1C8_ACTIVE:
-            gShowHud = 1;
+            gShowHud = true;
             Player_LowHealthMsg(player);
             player->arwing.drawFace = false;
             D_hud_80161704 = 255;
@@ -5899,7 +5899,7 @@ void Player_Update(Player* player) {
             gPauseEnabled = false;
             Player_UpdateShields(player);
             Cutscene_EnterWarpZone(player);
-            gShowHud = 0;
+            gShowHud = false;
             break;
 
         case PLAYERSTATE_1C8_START_360:
@@ -5913,7 +5913,7 @@ void Player_Update(Player* player) {
         case PLAYERSTATE_1C8_GFOX_REPAIR:
             gPauseEnabled = false;
             AllRange_GreatFoxRepair(player);
-            gShowHud = 0;
+            gShowHud = false;
             break;
 
         case PLAYERSTATE_1C8_ANDROSS_MOUTH:
@@ -5945,7 +5945,7 @@ void Player_Update(Player* player) {
             break;
 
         case PLAYERSTATE_1C8_NEXT:
-            gShowHud = 0;
+            gShowHud = false;
 
             if (!gVersusMode) {
                 gPauseEnabled = false;

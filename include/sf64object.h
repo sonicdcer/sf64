@@ -797,7 +797,7 @@ typedef enum ActorCutsceneModels {
     /*   35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8.
     /*   36 */ ACTOR_CS_SY_SHIP_2,
     /*   37 */ ACTOR_CS_37,
-    /*   38 */ ACTOR_CS_38, // Related to Sector Y
+    /*   38 */ ACTOR_CS_SY_ROBOT,
     /*   39 */ ACTOR_CS_SY_SHIP_1 = 39,
     /*   40 */ ACTOR_CS_40,
     /*   41 */ ACTOR_CS_AQ_FISHGROUP,

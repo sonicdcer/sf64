@@ -28,7 +28,7 @@ typedef struct PlanetStats {
     /* bit D */ u16 peppyAlive : 1;
     /* bit E */ u16 falcoAlive : 1;
     /* bit F */ u16 slippyAlive : 1;
-} PlanetStats; // size = 0x10
+} PlanetStats; // size = 0x1
 
 typedef struct SaveData {
     /* 0x00 */ PlanetData planet[16];

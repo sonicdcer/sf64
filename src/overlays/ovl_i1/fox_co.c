@@ -2850,7 +2850,6 @@ void Corneria_CsTeamSetup(ActorCutscene* this, s32 teamIdx) {
     this->fwork[0] = RAND_FLOAT(360.0f);
 
     Object_SetInfo(&this->info, this->obj.id);
-
     this->drawShadow = true;
     this->iwork[11] = 1;
     this->info.cullDistance = 200.0f;

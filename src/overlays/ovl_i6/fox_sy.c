@@ -2531,7 +2531,7 @@ void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
         case 1:
         case 2:
         case 8:
-            this->animFrame = ACTOR_CS_38;
+            this->animFrame = ACTOR_CS_SY_ROBOT;
             this->obj.rot.y = 90.0f;
             Object_SetInfo(&this->info, this->obj.id);
             break;

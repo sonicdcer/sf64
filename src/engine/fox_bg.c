@@ -115,6 +115,7 @@ void Background_DrawStarfield(void) {
     gDPSetCycleType(gMasterDisp++, G_CYC_FILL);
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);
     gDPSetRenderMode(gMasterDisp++, G_RM_OPA_SURF, G_RM_OPA_SURF2);
+
     starCount = gStarCount;
     if (starCount != 0) {
         if (gStarfieldX >= 1.5f * SCREEN_WIDTH) {
@@ -139,8 +140,10 @@ void Background_DrawStarfield(void) {
         if (gGameState != GSTATE_PLAY) {
             starCount = 1000;
         }
+
         zCos = __cosf(gStarfieldRoll);
         zSin = __sinf(gStarfieldRoll);
+
         for (i = 0; i < starCount; i++, yStar++, xStar++, color++) {
             bx = *xStar + xField;
             by = *yStar + yField;
@@ -181,6 +184,7 @@ void Background_DrawPartialStarfield(s32 yMin, s32 yMax) {
     f32* sp60;
     f32* sp5C;
     u32* sp58;
+
     gDPPipeSync(gMasterDisp++);
     gDPSetCycleType(gMasterDisp++, G_CYC_FILL);
     gDPSetCombineMode(gMasterDisp++, G_CC_SHADE, G_CC_SHADE);
@@ -209,6 +213,7 @@ void Background_DrawPartialStarfield(s32 yMin, s32 yMax) {
 
     cos = __cosf(gStarfieldRoll);
     sin = __sinf(gStarfieldRoll);
+
     for (i = 0; i < var_s2; i++, sp5C++, sp60++, sp58++) {
         bx = *sp60 + spf68;
         by = *sp5C + spf64;
@@ -817,6 +822,7 @@ void Background_DrawLensFlare(void) {
     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, gSunViewX, gSunViewY, -200.0f, MTXF_APPLY);
     RCP_SetupDL_62();
+
     lensFlareOffsetX = gSunViewX * -0.03f;
     lensFlareOffsetY = gSunViewY * 0.03f;
     lensFlareColor = &sSunColors[5];
@@ -1198,26 +1204,39 @@ void Background_DrawGround(void) {
     Matrix_Pop(&gGfxMatrix);
 }
 
+// Unused. Early water implementation in Aquas?
 void func_bg_80042D38(void) {
     f32 xEye;
     f32 zEye;
 
-    if (!gPlayer[gPlayerNum].cam.eye.x) {}
-    if (!gPlayer[gPlayerNum].cam.eye.y) {} // all sorts of fake
+    // all sorts of fake
+
+    if (gPlayer[gPlayerNum].cam.eye.x == 0.0f) {
+        // Commented out code?
+    }
+    if (gPlayer[gPlayerNum].cam.eye.z == 0.0f) {
+        // Commented out code?
+    }
 
     Matrix_Push(&gGfxMatrix);
+
     xEye = gPlayer[gPlayerNum].cam.eye.x;
-    if (0) {}
+    if (0) {} //! FAKE
     zEye = gPlayer[gPlayerNum].cam.eye.z;
+
     Matrix_Translate(gGfxMatrix, xEye, 2.0f + gCameraShakeY, zEye, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
+
     RCP_SetupDL_37(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 125);
+
     Matrix_SetGfxMtx(&gMasterDisp);
+
     if ((gGameFrameCount % 2) != 0) {
         gSPDisplayList(gMasterDisp++, D_AQ_602C030);
     } else {
         gSPDisplayList(gMasterDisp++, D_AQ_602C088);
     }
+
     Matrix_Pop(&gGfxMatrix);
 }

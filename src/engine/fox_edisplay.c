@@ -1,3 +1,8 @@
+/*
+ * File: fox_edisplay.c
+ * Description: Object Draw routines
+ */
+
 #include "prevent_bss_reordering.h"
 #include "global.h"
 #include "sf64object.h"
@@ -39,8 +44,8 @@ void Object_ApplyWaterDistortion(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
 }
 
-void Object_SetCullDirection(s32 arg0) {
-    if (arg0 < 0) {
+void Object_SetCullDirection(s32 cullDirection) {
+    if (cullDirection < 0) {
         gSPSetGeometryMode(gMasterDisp++, G_CULL_FRONT);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     }
@@ -939,7 +944,7 @@ void ItemMeteoWarp_Draw(ItemMeteoWarp* this) {
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK | G_LIGHTING);
 }
 
-void func_edisplay_8005D008(Object* obj, s32 drawType) {
+void Object_SetMatrix(Object* obj, s32 drawType) {
     if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, gPathProgress, MTXF_APPLY);
         Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, MTXF_NEW);
@@ -960,7 +965,7 @@ void func_edisplay_8005D008(Object* obj, s32 drawType) {
     }
 }
 
-void func_edisplay_8005D1F0(Object* obj, s32 drawType) {
+void Boss_SetMatrix(Object* obj, s32 drawType) {
     if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, gPathProgress, MTXF_APPLY);
         Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, MTXF_NEW);
@@ -980,7 +985,8 @@ void func_edisplay_8005D1F0(Object* obj, s32 drawType) {
     }
 }
 
-void func_edisplay_8005D3CC(Object* obj, f32 xRot, f32 yRot, f32 zRot, s32 drawType) {
+// Used for EVID_A6_UMBRA_STATION, OBJ_EFFECT_ENEMY_LASER_1 and OBJ_EFFECT_369
+void ObjSpecial_SetMatrix(Object* obj, f32 xRot, f32 yRot, f32 zRot, s32 drawType) {
     if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, gPathProgress, MTXF_APPLY);
         Matrix_Translate(gCalcMatrix, obj->pos.x, obj->pos.y, obj->pos.z, MTXF_NEW);
@@ -1007,9 +1013,9 @@ void func_edisplay_8005D3CC(Object* obj, f32 xRot, f32 yRot, f32 zRot, s32 drawT
     }
 }
 
-void Scenery_Draw(Scenery* this, s32 arg1) {
+void Scenery_Draw(Scenery* this, s32 cullDirection) {
     this->obj.pos.y += gCameraShakeY;
-    func_edisplay_8005D008(&this->obj, this->info.drawType);
+    Object_SetMatrix(&this->obj, this->info.drawType);
     this->obj.pos.y -= gCameraShakeY;
 
     if (this->info.drawType == 0) {
@@ -1018,7 +1024,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
             RCP_SetupDL_57(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
 
-            if (arg1 < 0) {
+            if (cullDirection < 0) {
                 Object_ApplyWaterDistortion();
             }
 
@@ -1026,15 +1032,15 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         } else {
             if (this->obj.id == OBJ_SCENERY_CO_HIGHWAY_3) {
-                if (arg1 < 0) {
+                if (cullDirection < 0) {
                     return; // weird control flow
                 }
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
 
-            Object_SetCullDirection(arg1);
+            Object_SetCullDirection(cullDirection);
 
-            if (arg1 < 0) {
+            if (cullDirection < 0) {
                 Object_ApplyWaterDistortion();
             }
 
@@ -1045,7 +1051,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
             }
         }
     } else if (this->info.draw != NULL) {
-        Object_SetCullDirection(arg1);
+        Object_SetCullDirection(cullDirection);
         this->info.draw(&this->obj);
     }
 }
@@ -1053,7 +1059,7 @@ void Scenery_Draw(Scenery* this, s32 arg1) {
 void Sprite_Draw(Sprite* this, s32 arg1) {
     if (arg1 >= 0) {
         this->obj.pos.y += gCameraShakeY;
-        func_edisplay_8005D008(&this->obj, 0);
+        Object_SetMatrix(&this->obj, 0);
         this->obj.pos.y -= gCameraShakeY;
 
         if (this->info.drawType == 0) {
@@ -1082,13 +1088,13 @@ void Actor_DrawOnRails(Actor* this) {
         } else {
             if (this->info.unk_19 != 0) {
                 this->obj.pos.y += gCameraShakeY;
-                func_edisplay_8005D008(&this->obj, this->info.drawType);
+                Object_SetMatrix(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
             } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_A6_UMBRA_STATION)) {
-                func_edisplay_8005D3CC(&this->obj, this->vwork[29].x, this->vwork[29].y,
-                                       this->vwork[29].z + this->rot_0F4.z, this->info.drawType);
+                ObjSpecial_SetMatrix(&this->obj, this->vwork[29].x, this->vwork[29].y,
+                                     this->vwork[29].z + this->rot_0F4.z, this->info.drawType);
             } else {
-                func_edisplay_8005D008(&this->obj, this->info.drawType);
+                Object_SetMatrix(&this->obj, this->info.drawType);
             }
 
             if (this->info.drawType == 0) {
@@ -1227,10 +1233,10 @@ void Boss_Draw(Boss* this, s32 arg1) {
 
     if (this->info.unk_19 != 0) {
         this->obj.pos.y += this->yOffset + gCameraShakeY;
-        func_edisplay_8005D1F0(&this->obj, this->info.drawType);
+        Boss_SetMatrix(&this->obj, this->info.drawType);
         this->obj.pos.y -= this->yOffset + gCameraShakeY;
     } else {
-        func_edisplay_8005D1F0(&this->obj, this->info.drawType);
+        Boss_SetMatrix(&this->obj, this->info.drawType);
     }
 
     Matrix_MultVec3f(&D_edisplay_801615F0, &origin, &D_edisplay_801615D0);
@@ -1289,13 +1295,13 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
     }
 
     if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER_1) || (this->obj.id == OBJ_EFFECT_369)) {
-        func_edisplay_8005D3CC(&this->obj, this->unk_60.x, this->unk_60.y, this->unk_60.z, 0);
+        ObjSpecial_SetMatrix(&this->obj, this->unk_60.x, this->unk_60.y, this->unk_60.z, 0);
     } else if (this->info.unk_14 == -1) {
         this->obj.pos.y += gCameraShakeY;
-        func_edisplay_8005D008(&this->obj, 0);
+        Object_SetMatrix(&this->obj, 0);
         this->obj.pos.y -= gCameraShakeY;
     } else {
-        func_edisplay_8005D008(&this->obj, 0);
+        Object_SetMatrix(&this->obj, 0);
     }
 
     if (this->info.draw != NULL) {
@@ -1664,7 +1670,7 @@ bool func_edisplay_8005F9DC(Vec3f* arg0) {
     return false;
 }
 
-void Object_DrawAll(s32 arg0) {
+void Object_DrawAll(s32 cullDirection) {
     Vec3f spAC;
     s32 i;
     s32 pad[5]; // probably separate iterators for each loop
@@ -1699,20 +1705,20 @@ void Object_DrawAll(s32 arg0) {
     } else {
         RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
 
-        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if (scenery->obj.status >= OBJ_ACTIVE) {
-                if (arg0 > 0) {
+                if (cullDirection > 0) {
                     Display_SetSecondLight(&scenery->obj.pos);
                 }
                 Matrix_Push(&gGfxMatrix);
-                Scenery_Draw(scenery, arg0);
+                Scenery_Draw(scenery, cullDirection);
                 Matrix_Pop(&gGfxMatrix);
                 Object_UpdateSfxSource(scenery->sfxSource);
             }
         }
     }
 
-    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+    for (i = 0, boss = &gBosses[0]; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status >= OBJ_ACTIVE) && (boss->obj.id != OBJ_BOSS_BO_BASE_SHIELD)) {
             if ((boss->timer_05C % 2) == 0) {
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -1721,9 +1727,9 @@ void Object_DrawAll(s32 arg0) {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 64, 64, 255, 255);
             }
 
-            Object_SetCullDirection(arg0);
+            Object_SetCullDirection(cullDirection);
             Matrix_Push(&gGfxMatrix);
-            Boss_Draw(boss, arg0);
+            Boss_Draw(boss, cullDirection);
             Matrix_Pop(&gGfxMatrix);
             if (boss->drawShadow && (D_edisplay_801615D0.y > 0.0f)) {
                 Matrix_Push(&gGfxMatrix);
@@ -1736,7 +1742,7 @@ void Object_DrawAll(s32 arg0) {
     Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR, gAmbientG,
                        gAmbientB);
 
-    for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+    for (i = 0, sprite = &gSprites[0]; i < ARRAY_COUNT(gSprites); i++, sprite++) {
         if ((sprite->obj.status >= OBJ_ACTIVE) && func_enmy_80060FE4(&sprite->obj.pos, -12000.0f)) {
             Matrix_Push(&gGfxMatrix);
 
@@ -1746,7 +1752,7 @@ void Object_DrawAll(s32 arg0) {
                 RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
 
-            Sprite_Draw(sprite, arg0);
+            Sprite_Draw(sprite, cullDirection);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -1779,7 +1785,7 @@ void Object_DrawAll(s32 arg0) {
                         Display_SetSecondLight(&actor->obj.pos);
                     }
 
-                    Object_SetCullDirection(arg0);
+                    Object_SetCullDirection(cullDirection);
                     Actor_DrawOnRails(actor);
                     Matrix_Pop(&gGfxMatrix);
 
@@ -1814,8 +1820,8 @@ void Object_DrawAll(s32 arg0) {
         if (item->obj.status >= OBJ_ACTIVE) {
             Matrix_Push(&gGfxMatrix);
             RCP_SetupDL(&gMasterDisp, SETUPDL_29);
-            Object_SetCullDirection(arg0);
-            Item_Draw(item, arg0);
+            Object_SetCullDirection(cullDirection);
+            Item_Draw(item, cullDirection);
             Matrix_Pop(&gGfxMatrix);
         }
     }

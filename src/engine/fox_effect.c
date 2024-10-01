@@ -1,3 +1,9 @@
+/*
+ * File: fox_effect.c
+ * System: Effect
+ * Description: Effect Draw routines
+ */
+
 #include "global.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_arwing.h"

@@ -2767,7 +2767,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             gSPDisplayList(gMasterDisp++, aOrbDL);
             break;
 
-        case ACTOR_CS_38:
+        case ACTOR_CS_SY_ROBOT:
             animFrameData = Animation_GetFrameData(D_demo_800CA1F4[this->iwork[4]], this->iwork[5], sp144);
             Math_SmoothStepToVec3fArray(sp144, this->vwork, 1, animFrameData, this->fwork[2], 100.0f, .0f);
             RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
