@@ -488,7 +488,7 @@ typedef enum ObjectId {
     /* 179 */ OBJ_ACTOR_CO_GARUDA_DESTROY,
     /* 180 */ OBJ_ACTOR_ME_MOLAR_ROCK,
     /* 181 */ OBJ_ACTOR_ME_METEOR_1,
-    /* 182 */ OBJ_ACTOR_ME_METEOR_2, // Smaller than Meteor 1
+    /* 182 */ OBJ_ACTOR_ME_METEOR_2, // Smaller than Meteor 1, used in Meteo intro cutscene.
     /* 183 */ OBJ_ACTOR_ME_METEOR_SHOWER_1,
     /* 184 */ OBJ_ACTOR_ME_METEOR_SHOWER_2,
     /* 185 */ OBJ_ACTOR_ME_METEOR_SHOWER_3,

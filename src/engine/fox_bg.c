@@ -244,8 +244,8 @@ void func_bg_8003E1E0(void) {
 // TODO: use SCREEN_WIDTH and _HEIGHT
 void Background_DrawBackdrop(void) {
     f32 sp13C;
-    f32 sp138;
-    f32 sp134;
+    f32 bgXpos;
+    f32 bgYpos;
     f32 sp130;
     f32 sp12C;
     f32 sp128;
@@ -280,10 +280,10 @@ void Background_DrawBackdrop(void) {
                 case LEVEL_KATINA:
                 case LEVEL_VENOM_2:
                 case LEVEL_VERSUS:
-                    sp134 = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.4f);
+                    bgYpos = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.4f);
                     sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].camYaw) * (-7280.0f / 360.0f) * 5.0f, 7280.0f);
                     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
-                    Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + bgYpos, -6000.0f, MTXF_APPLY);
 
                     if (gCurrentLevel == LEVEL_FORTUNA) {
                         Matrix_Translate(gGfxMatrix, 0.0f, -2000.0f, 0, MTXF_APPLY);
@@ -339,10 +339,10 @@ void Background_DrawBackdrop(void) {
 
                 case LEVEL_CORNERIA:
                 case LEVEL_VENOM_1:
-                    sp134 = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
+                    bgYpos = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                     sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].camYaw) * (-7280.0f / 360.0f) * 5.0f, 7280.0f);
                     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
-                    Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + bgYpos, -6000.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
 
                     switch (gCurrentLevel) {
@@ -388,11 +388,11 @@ void Background_DrawBackdrop(void) {
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, (s32) gAndrossUnkBrightness,
                                             (s32) gAndrossUnkBrightness, (s32) gAndrossUnkAlpha);
 
-                            sp134 = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.4f);
+                            bgYpos = (gPlayer[gPlayerNum].camPitch * -6000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.4f);
                             sp13C = Math_ModF(Math_RadToDeg(gPlayer[gPlayerNum].camYaw) * (-7280.0f / 360.0f) * 5.0f,
                                               7280.0f);
                             Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
-                            Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + sp134, -6000.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, sp13C, -2000.0f + bgYpos, -6000.0f, MTXF_APPLY);
                             Matrix_Translate(gGfxMatrix, 0.0f, -2500.0f, 0.0f, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_VE2_60038E0);
@@ -431,13 +431,13 @@ void Background_DrawBackdrop(void) {
                 case LEVEL_AQUAS:
                     if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
                         sp13C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].yRot_114;
-                        sp134 = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
+                        bgYpos = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                         sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f); // close to 7280.0f / 180.0f
                         RCP_SetupDL_17();
                         Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
                         Matrix_Push(&gGfxMatrix);
-                        Matrix_Translate(gGfxMatrix, sp13C, sp134, -7000.0f, MTXF_APPLY);
+                        Matrix_Translate(gGfxMatrix, sp13C, bgYpos, -7000.0f, MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
 
                         if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
@@ -468,7 +468,7 @@ void Background_DrawBackdrop(void) {
                 case LEVEL_MACBETH:
                 case LEVEL_TITANIA:
                     sp12C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].yRot_114;
-                    sp134 = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
+                    bgYpos = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                     sp13C = sp12C * -40.44444f * 2.0f; // close to 7280.0f / 180.0f
 
                     if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
@@ -479,7 +479,7 @@ void Background_DrawBackdrop(void) {
                     if ((gCurrentLevel == LEVEL_SOLAR) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
                         (gPlayer[0].csState >= 2) && (gPlayer[0].cam.eye.z <= -1900.0f)) {
                         D_bg_8015F968 = __sinf(gPlayer[0].camPitch) * 7000.0f;
-                        sp134 -= fabsf(D_bg_8015F968);
+                        bgYpos -= fabsf(D_bg_8015F968);
                     }
 
                     sp13C = Math_ModF(sp13C, 7280.0f);
@@ -488,11 +488,11 @@ void Background_DrawBackdrop(void) {
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
 
                     if ((gCurrentLevel == LEVEL_TITANIA) || (gCurrentLevel == LEVEL_ZONESS)) {
-                        Matrix_Translate(gGfxMatrix, sp13C, -3000.0f + sp134, -7000.0f, MTXF_APPLY);
+                        Matrix_Translate(gGfxMatrix, sp13C, -3000.0f + bgYpos, -7000.0f, MTXF_APPLY);
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
-                        Matrix_Translate(gGfxMatrix, sp13C, -3500.0f + sp134, -7000.0f, MTXF_APPLY);
+                        Matrix_Translate(gGfxMatrix, sp13C, -3500.0f + bgYpos, -7000.0f, MTXF_APPLY);
                     } else if (gCurrentLevel == LEVEL_MACBETH) {
-                        Matrix_Translate(gGfxMatrix, sp13C, -4000.0f + sp134, -7000.0f, MTXF_APPLY);
+                        Matrix_Translate(gGfxMatrix, sp13C, -4000.0f + bgYpos, -7000.0f, MTXF_APPLY);
                     }
                     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -533,37 +533,41 @@ void Background_DrawBackdrop(void) {
                 sp130 = Math_RadToDeg(gPlayer[0].camPitch);
                 if (((sp12C < 45.0f) || (sp12C > 315.0f)) && ((sp130 < 40.0f) || (sp130 > 325.0f))) {
                     RCP_SetupDL_36();
-                    sp138 = gStarfieldX;
-                    sp134 = gStarfieldY;
+                    bgXpos = gStarfieldX; /* Range: 0 - 320.0f */
+                    bgYpos = gStarfieldY;
+
                     if (((gCurrentLevel == LEVEL_SECTOR_X) || (gCurrentLevel == LEVEL_METEO)) && (gLevelPhase == 1)) {
                         levelId = LEVEL_WARP_ZONE;
                     }
+
+                    /* Modulus Xpos should be SCREEN_WIDTH + 80.0f * 2 (+ 80.0f for each side) */
+                    /* Modulus Ypos should be SCREEN_HEIGHT + 60.0f * 2 (+ 60.0f for each side) */
                     if (levelId == LEVEL_SECTOR_X) {
-                        sp138 = Math_ModF(sp138 + 60.0f, 480.0f);
-                        sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
+                        bgXpos = Math_ModF(bgXpos + 60.0f, SCREEN_WIDTH + (80.0f * 2));
+                        bgYpos = Math_ModF(bgYpos + 360.0f - 40.0f, 360.0f);
                     } else if (levelId == LEVEL_TRAINING) {
-                        sp138 = Math_ModF(sp138 - 30.0f, 480.0f);
-                        sp134 = Math_ModF(sp134 + 360.0f - 40.0f, 360.0f);
+                        bgXpos = Math_ModF(bgXpos - 30.0f, SCREEN_WIDTH + (80.0f * 2));
+                        bgYpos = Math_ModF(bgYpos + 360.0f - 40.0f, 360.0f);
                     } else if ((levelId == LEVEL_SECTOR_Y) && (gLevelMode == LEVELMODE_ON_RAILS)) {
-                        sp138 = Math_ModF(sp138 + 480.0f - 60.0f, 480.0f);
-                        sp134 = Math_ModF(sp134, 360.0f);
+                        bgXpos = Math_ModF(bgXpos + 480.0f - 60.0f, SCREEN_WIDTH + (80.0f * 2));
+                        bgYpos = Math_ModF(bgYpos, 360.0f);
                     } else if (levelId == LEVEL_FORTUNA) {
-                        sp138 = Math_ModF(sp138 - 34.5f, 480.0f);
-                        sp134 = Math_ModF(sp134 + 19.0f, 360.0f);
+                        bgXpos = Math_ModF(bgXpos - 34.5f, SCREEN_WIDTH + (80.0f * 2));
+                        bgYpos = Math_ModF(bgYpos + 19.0f, 360.0f);
                     } else if (levelId == LEVEL_BOLSE) {
                         if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].csState < 10)) {
-                            sp134 = Math_ModF(sp134 + 360.0f - 100.0f, 360.0f);
+                            bgYpos = Math_ModF(bgYpos + 360.0f - 100.0f, 360.0f);
                         }
                     } else {
-                        sp138 = Math_ModF(sp138, 480.0f);
-                        sp134 = Math_ModF(sp134, 360.0f);
+                        bgXpos = Math_ModF(bgXpos, SCREEN_WIDTH + (80.0f * 2));
+                        bgYpos = Math_ModF(bgYpos, SCREEN_HEIGHT + (60.0f * 2));
                     }
 
-                    if ((sp12C < 180.0f) && (sp138 > 380.0f)) {
-                        sp138 = -(480.0f - sp138);
+                    if ((sp12C < 180.0f) && (bgXpos > 380.0f)) {
+                        bgXpos = -(480.0f - bgXpos);
                     }
-                    if ((sp130 > 180.0f) && (sp134 > 280.0f)) {
-                        sp134 = -(360.0f - sp134);
+                    if ((sp130 > 180.0f) && (bgYpos > 280.0f)) {
+                        bgYpos = -(360.0f - bgYpos);
                     }
 
                     Matrix_RotateZ(gGfxMatrix, gStarfieldRoll, MTXF_APPLY);
@@ -573,7 +577,7 @@ void Background_DrawBackdrop(void) {
                             if ((s32) gWarpZoneBgAlpha != 0) {
                                 RCP_SetupDL_62();
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) gWarpZoneBgAlpha);
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 1.7f, 1.7f, 1.0f, MTXF_APPLY);
                                 Matrix_Push(&gGfxMatrix);
                                 Matrix_RotateZ(gGfxMatrix, -(f32) gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
@@ -588,13 +592,13 @@ void Background_DrawBackdrop(void) {
 
                         case LEVEL_METEO:
                             if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCsFrameCount > 260)) {
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 30.0f, -290.0f,
+                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f) - 30.0f, -290.0f,
                                                  MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 gSPDisplayList(gMasterDisp++, D_ME_600DDF0);
                             } else if (gPathProgress > 185668.0f) {
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f) - 130.0f, -290.0f,
+                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f) - 130.0f, -290.0f,
                                                  MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -604,7 +608,7 @@ void Background_DrawBackdrop(void) {
 
                         case LEVEL_SECTOR_X:
                             if (gSceneSetup == 0) {
-                                Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                                Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
                                 RCP_SetupDL_62();
@@ -614,7 +618,7 @@ void Background_DrawBackdrop(void) {
                             break;
 
                         case LEVEL_TRAINING:
-                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, 0.2f, 0.2f, 1.0f, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();
@@ -635,7 +639,7 @@ void Background_DrawBackdrop(void) {
                                 }
                             }
                             sp128 = sp128;
-                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, sp128 * 0.75, sp128 * 0.75f, 1.0f, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_A6_601BB40);
@@ -646,7 +650,7 @@ void Background_DrawBackdrop(void) {
                             if ((gCsFrameCount > 400) && (gMissionStatus == MISSION_COMPLETE)) {
                                 sp128 = 0.75f;
                             }
-                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_FO_600B4B0);
@@ -657,14 +661,14 @@ void Background_DrawBackdrop(void) {
                             if ((gCsFrameCount > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
                                 sp128 = 1.3f;
                             }
-                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, sp128, sp128, sp128, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_BO_600D190);
                             break;
 
                         case LEVEL_SECTOR_Z:
-                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
@@ -672,7 +676,7 @@ void Background_DrawBackdrop(void) {
                             break;
 
                         case LEVEL_SECTOR_Y:
-                            Matrix_Translate(gGfxMatrix, sp138 - 120.0f, -(sp134 - 120.0f), -290.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, 0.4f, 0.4f, 1.0f, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();

@@ -11,7 +11,7 @@
 Vec3f D_i4_8019F0F0[] = { { 7000.0f, 500.0f, -50 }, { 7700.0f, 550.0f, -50.0f }, { 6000.0f, 300.0f, 1950.0f } };
 Vec3f D_i4_8019F114[] = { { -30.0f, 0.0f, 0.0f }, { -30.0f, 0.0f, 0.0f }, { 0.0f, 5.0f, -40.0f } };
 Vec3f D_i4_8019F138[] = { { 0.0f, -135.0f, -5.0f }, { 0.0f, -135.0f, 15.0f }, { -10.0f, 135.0f, 0.0f } };
-s32 sKaStartCsModels[] = { ACTOR_CS_CORNERIAN_FIGHTER, ACTOR_CS_KA_ENEMY, ACTOR_CS_CORNERIAN_FIGHTER };
+ActorCutsceneModels sKaStartCsModels[] = { ACTOR_CS_CORNERIAN_FIGHTER, ACTOR_CS_KA_ENEMY, ACTOR_CS_CORNERIAN_FIGHTER };
 Vec3f D_i4_8019F168[] = { { 700.0f, 50.0f, -700.0f }, { -500.0f, 150.0f, -500 }, { 100.0f, 100.0f, -1200.0f } };
 f32 D_i4_8019F18C[] = { 200.0f, 160.0f, 185.0f };
 u8 D_i4_8019F198[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
