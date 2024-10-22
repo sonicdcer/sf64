@@ -1422,33 +1422,33 @@ void Option_Sound_SetSoundMode(void) {
 }
 
 void Option_Sound_SetVolumeLevels(void) {
-    s32 var_v1;
+    s32 volume;
 
     D_menu_801B924C = D_menu_801AE99C[D_menu_801B9288 - 1];
 
     if (Option_Input_Sound_X(&(D_menu_801AEB48[D_menu_801B9288 - 1].xPos), 146.0f, 245.0f, &D_menu_801B9268)) {
-        var_v1 = D_menu_801AEB48[D_menu_801B9288 - 1].xPos - 146.0f;
+        volume = D_menu_801AEB48[D_menu_801B9288 - 1].xPos - 146.0f;
 
-        gVolumeSettings[D_menu_801B9288 - 1] = var_v1;
+        gVolumeSettings[D_menu_801B9288 - 1] = volume;
 
-        if (var_v1 > 99) {
-            var_v1 = 99;
+        if (volume > 99) {
+            volume = 99;
         }
 
         switch (D_menu_801B9288 - 1) {
             case 0:
-                gSaveFile.save.data.musicVolume = var_v1;
+                gSaveFile.save.data.musicVolume = volume;
                 break;
 
             case 1:
-                gSaveFile.save.data.voiceVolume = var_v1;
+                gSaveFile.save.data.voiceVolume = volume;
                 break;
 
             case 2:
-                gSaveFile.save.data.sfxVolume = var_v1;
+                gSaveFile.save.data.sfxVolume = volume;
                 break;
         }
-        Audio_SetVolume(D_menu_801B924C, var_v1);
+        Audio_SetVolume(D_menu_801B924C, volume);
     }
 }
 
