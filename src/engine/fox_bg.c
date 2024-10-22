@@ -1155,7 +1155,7 @@ void Background_DrawGround(void) {
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
                     gSPDisplayList(gMasterDisp++, D_BO_600A810);
                 } else if (gCurrentLevel == LEVEL_VENOM_2) {
-                    gSPDisplayList(gMasterDisp++, aMaProximityLightSidesDL);
+                    gSPDisplayList(gMasterDisp++, D_VE2_6010700);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
