@@ -3762,7 +3762,7 @@ s32 Option_Input_DataSelect_X(s32* arg0) {
                 *arg0 = 1;
                 ret = -1;
             }
-            D_menu_801B91A0 = ARRAY_COUNT(sOptionCardList);
+            D_menu_801B91A0 = 6;
         }
     }
 
