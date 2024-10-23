@@ -22,9 +22,7 @@ typedef struct {
 
 typedef struct {
     /* 0x00 */ PosRot unk_00;
-    /* 0x18 */ f32 unk_18;
-    /* 0x1C */ f32 unk_1C;
-    /* 0x20 */ f32 unk_20;
+    /* 0x18 */ Vec3f unk_18;
     /* 0x24 */ s16 unk_24;
     /* 0x26 */ u16 unk_26;
 } UnkStruct_i5_801BBF00; // size = 0x28
@@ -2250,7 +2248,7 @@ void Titania_TiGoras_Init(TiGoras* this) {
     for (var_v1 = D_i5_801BBF00, i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++, var_v1++) {
         var_v1->unk_26 = 0;
         var_v1->unk_00.pos.x = var_v1->unk_00.pos.y = var_v1->unk_00.pos.z = var_v1->unk_00.rot.x =
-            var_v1->unk_00.rot.y = var_v1->unk_00.rot.z = var_v1->unk_18 = var_v1->unk_1C = var_v1->unk_20 = 0.0f;
+            var_v1->unk_00.rot.y = var_v1->unk_00.rot.z = var_v1->unk_18.x = var_v1->unk_18.y = var_v1->unk_18.z = 0.0f;
     }
 
     for (i = 0; i < ARRAY_COUNT(D_i5_801BD218); i++) {
@@ -2826,13 +2824,13 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
 
                 if (sp88 != 0) {
-                    Matrix_RotateZ(gCalcMatrix, D_i5_801BBF00[i].unk_20 * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateY(gCalcMatrix, D_i5_801BBF00[i].unk_1C * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateX(gCalcMatrix, D_i5_801BBF00[i].unk_18 * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, D_i5_801BBF00[i].unk_18.z * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, D_i5_801BBF00[i].unk_18.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, D_i5_801BBF00[i].unk_18.x * M_DTOR, MTXF_APPLY);
                 } else {
-                    rot->z += D_i5_801BBF00[i].unk_20;
-                    rot->y += D_i5_801BBF00[i].unk_1C;
-                    rot->x += D_i5_801BBF00[i].unk_18;
+                    rot->z += D_i5_801BBF00[i].unk_18.z;
+                    rot->y += D_i5_801BBF00[i].unk_18.y;
+                    rot->x += D_i5_801BBF00[i].unk_18.x;
                 }
 
                 if (sp88 != 0) {
@@ -3910,7 +3908,7 @@ void Titania_80193DF0(TiGoras* this) {
         D_i5_801BBEF0[6]--;
         if (D_i5_801BBEF0[6] == 0) {
             for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
-                D_i5_801BBF00[i].unk_18 = D_i5_801BBF00[i].unk_1C = D_i5_801BBF00[i].unk_20 = 0.0f;
+                D_i5_801BBF00[i].unk_18.x = D_i5_801BBF00[i].unk_18.y = D_i5_801BBF00[i].unk_18.z = 0.0f;
             }
         }
     }
@@ -3975,7 +3973,7 @@ void Titania_80193DF0(TiGoras* this) {
             if (this->animFrame) {}
 
             if (j == ARRAY_COUNT(D_i5_801B8160)) {
-                D_i5_801BBF00[i].unk_20 = RAND_FLOAT(5.0f) - 2.5f;
+                D_i5_801BBF00[i].unk_18.z = RAND_FLOAT(5.0f) - 2.5f;
             }
         }
     }
