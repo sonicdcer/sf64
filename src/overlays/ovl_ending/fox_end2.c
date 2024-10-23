@@ -254,7 +254,8 @@ bool Ending_8018DCB4(void) {
         unk40[i] = gSaveFile.save.data.rankingLives[i];
 
         for (j = 0; j < 7; j++) {
-            temp4[i] += gSaveFile.save.data.stats[i][j].hitCount + (gSaveFile.save.data.stats[i][j].unk_C * 0x100);
+            temp4[i] +=
+                gSaveFile.save.data.stats[i][j].hitCount + (gSaveFile.save.data.stats[i][j].hitCountOver256 * 256);
             stats[i][0] += gSaveFile.save.data.stats[i][j].peppyAlive & 1;
             stats[i][1] += gSaveFile.save.data.stats[i][j].slippyAlive & 1;
             stats[i][2] += gSaveFile.save.data.stats[i][j].falcoAlive & 1;

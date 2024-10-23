@@ -479,7 +479,7 @@ s32 Title_GetRankTotalHits(void) {
 
         for (j = 0; j < rankingRoute; j++) {
             hitCount = gSaveFile.save.data.stats[i][j].hitCount;
-            hitCount |= (gSaveFile.save.data.stats[i][j].unk_C & 1) << 8;
+            hitCount |= (gSaveFile.save.data.stats[i][j].hitCountOver256 & 1) << 8;
 
             gTotalHitsRanking[i] += hitCount;
 

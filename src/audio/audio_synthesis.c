@@ -400,7 +400,7 @@ void func_80009124(s16** arg0) {
     for (var_t2 = 0; var_t2 < 4; var_t2++) {
         var_v1 = var_t2 * 0x40;
         temp_s0 = var_t3 >> 0x18;
-        
+
         var_t3 <<= 8;
 
         temp_v1 = ((temp_s0 >> 4) & 0xF);
