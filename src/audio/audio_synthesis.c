@@ -367,13 +367,14 @@ void func_80008780(f32* arg0, s32 arg1, f32* arg2) {
 #pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/audio/audio_synthesis/func_80008780.s")
 #endif
 
-// https://decomp.me/scratch/mYlns
+// https://decomp.me/scratch/TZQNS
 #ifdef NON_MATCHING
 void func_80009124(s16** arg0) {
     s16* var_a1;
     s32 temp_a0;
     u8 temp_s0;
     u8 temp_s1;
+    u8 temp_u1;
     s32 temp_t5_4;
     s32 temp_v0;
     u8 temp_v1;
@@ -384,35 +385,38 @@ void func_80009124(s16** arg0) {
     u32 var_t3;
     s32 i;
     s32 j;
+    s16 new_var2;
 
     var_a1 = *arg0;
 
     for (i = 255; i >= 0; i--) {
         D_80145D48[i] = 0.0f;
     }
-    var_t3 = *var_a1++ << 0x10;
-    var_t3 |= *var_a1++;
+    temp_v0 = *var_a1++;
+    var_t3 = temp_v0 << 0x10;
+    temp_v0 = *var_a1++;
+    var_t3 |= temp_v0;
 
-    for (var_t2 = 0; var_t2 != 0x100; var_t2 += 0x40) {
+    for (var_t2 = 0; var_t2 < 4; var_t2++) {
+        var_v1 = var_t2 * 0x40;
         temp_s0 = var_t3 >> 0x18;
-        var_v1 = var_t2;
+
         var_t3 <<= 8;
 
-        temp_v0 = ((temp_s0 >> 4) & 0xF);
+        temp_v1 = ((temp_s0 >> 4) & 0xF);
         temp_a0 = temp_s0 & 0xF;
-        if (((temp_s0 >> 4) & 0xF) == 0) {
+        if (temp_v1 == 0) {
             continue;
         }
-        switch (temp_v0) {
+        switch (temp_v1) {
             case 1:
                 while (true) {
                     var_s0 = *var_a1++;
                     for (var_s1 = 0; var_s1 < 4; var_s1++) {
-                        temp_s1 = (var_s0 >> 0xC) & 0xF;
+                        temp_u1 = (var_s0 >> 0xC) & 0xF;
                         var_s0 <<= 4;
-                        D_80145D48[var_v1++] = ((temp_s1 & 7) - 4) << temp_a0;
-
-                        if (temp_s1 >= 8) {
+                        D_80145D48[var_v1++] = ((temp_u1 & 7) - 4) << temp_a0;
+                        if (temp_u1 >= 8) {
                             goto case_1_break;
                         }
                     }
@@ -420,49 +424,47 @@ void func_80009124(s16** arg0) {
             case_1_break:
                 break;
             case 2:
-                var_s1 = -1;
-                while (++var_s1 < 16) {
+                for (var_s1 = 0; var_s1 < 16; var_s1++) {
                     var_s0 = *var_a1++;
                     for (i = 0; i < 4; i++) {
-                        temp_s1 = (var_s0 >> 0xC) & 0xF;
+                        temp_u1 = (var_s0 >> 0xC) & 0xF;
                         var_s0 <<= 4;
-                        D_80145D48[var_v1++] = (temp_s1 - 8) << temp_a0;
+                        D_80145D48[var_v1++] = (temp_u1 - 8) << temp_a0;
                     }
                 }
                 break;
             case 6:
                 while (true) {
                     var_s0 = *var_a1++;
-                    temp_s1 = (var_s0 >> 8) & 0xFF;
-
-                    D_80145D48[var_v1] = ((temp_s1 & 0x3F) - 0x20) << temp_a0;
-                    if (temp_s1 >> 6 == 0) {
-
+                    temp_u1 = (var_s0 >> 8) & 0xFF;
+                    temp_t5_4 = temp_u1 >> 6;
+                    D_80145D48[var_v1] = ((temp_u1 & 0x3F) - 0x20) << temp_a0;
+                    if (temp_t5_4 == 0) {
                         break;
                     }
-                    var_v1 += temp_s1 >> 6;
-                    temp_s1 = var_s0 & 0xFF;
-                    D_80145D48[var_v1] = ((temp_s1 & 0x3F) - 0x20) << temp_a0;
-                    if (temp_s1 >> 6 == 0) {
-
+                    var_v1 += temp_t5_4;
+                    temp_u1 = var_s0 & 0xFF;
+                    temp_t5_4 = temp_u1 >> 6;
+                    D_80145D48[var_v1] = ((temp_u1 & 0x3F) - 0x20) << temp_a0;
+                    if (temp_t5_4 == 0) {
                         break;
                     }
-                    var_v1 += temp_s1 >> 6;
+                    var_v1 += temp_t5_4;
                 }
                 break;
             case 3:
                 while (true) {
                     var_s0 = *var_a1++;
+                    temp_u1 = (var_s0 >> 8) & 0xFF;
 
-                    temp_s1 = (var_s0 >> 8) & 0xFF;
+                    D_80145D48[var_v1++] = ((temp_u1 & 0x7F) - 0x40) << temp_a0;
 
-                    D_80145D48[var_v1++] = ((temp_s1 & 0x7F) - 0x40) << temp_a0;
-                    if (temp_s1 >= 0x80) {
+                    if (temp_u1 >= 0x80) {
                         break;
                     }
-                    temp_s1 = var_s0 & 0xFF;
-                    D_80145D48[var_v1++] = ((temp_s1 & 0x7F) - 0x40) << temp_a0;
-                    if (temp_s1 >= 0x80) {
+                    temp_u1 = var_s0 & 0xFF;
+                    D_80145D48[var_v1++] = ((temp_u1 & 0x7F) - 0x40) << temp_a0;
+                    if (temp_u1 >= 0x80) {
                         break;
                     }
                 }
@@ -481,8 +483,9 @@ void func_80009124(s16** arg0) {
             case 5:
                 while (true) {
                     var_s0 = *var_a1++;
+                    temp_t5_4 = var_s0 >> 0xF;
                     D_80145D48[var_v1] = ((var_s0 & 0x7FFF) - 0x4000) << temp_a0;
-                    if ((var_s0 >> 0xF) == 1) {
+                    if (temp_t5_4 == 1) {
                         break;
                     }
                     var_v1++;

@@ -3223,7 +3223,7 @@ void HUD_Radar(void) {
     HUD_RadarMarks_Update();
 }
 
-void HUD_Hitpoints_Update(f32 xPos, f32 yPos) {
+void HUD_Score_Update(f32 xPos, f32 yPos) {
     f32 r;
     f32 g;
     f32 b;
@@ -3309,25 +3309,23 @@ void HUD_Hitpoints_Update(f32 xPos, f32 yPos) {
         r = 255;
         g = 255;
         b = 255;
+    } else if (medalStatus) {
+        r = 200;
+        g = 100;
+        b = 50;
     } else {
-        if (medalStatus) {
-            r = 200;
-            g = 100;
-            b = 50;
-        } else {
-            r = 90;
-            g = 160;
-            b = 200;
-        }
+        r = 90;
+        g = 160;
+        b = 200;
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
     gDPSetPrimColor(gMasterDisp++, 0, 0, r, g, b, 255);
-    HUD_Hitpoints_Draw(xPos, yPos);
+    HUD_Score_Draw(xPos, yPos);
 }
 
-void HUD_Shield_GoldRings_HitPoints(f32 xPos, f32 yPos) {
-    HUD_Hitpoints_Update(xPos, yPos);
+void HUD_Shield_GoldRings_Score(f32 xPos, f32 yPos) {
+    HUD_Score_Update(xPos, yPos);
     HUD_PlayerShield_GoldRings();
 }
 
@@ -3553,7 +3551,7 @@ void HUD_SinglePlayer(void) {
     HUD_IncomingMsg();
 
     if (D_hud_80161708 != 0) {
-        HUD_Shield_GoldRings_HitPoints(24.0f, 30.0f);
+        HUD_Shield_GoldRings_Score(24.0f, 30.0f);
         if (gCurrentLevel != LEVEL_TRAINING) {
             HUD_LivesCount2_Draw(248.0f, 11.0f, gLifeCount[gPlayerNum]);
         }
@@ -5417,7 +5415,7 @@ void stub_80094D10(void) {
 void stub_80094D18(void) {
 }
 
-void HUD_Hitpoints_Draw(f32 x, f32 y) {
+void HUD_Score_Draw(f32 x, f32 y) {
     u8* D_800D24DC[] = { aLargeText_0, aLargeText_1, aLargeText_2, aLargeText_3, aLargeText_4,
                          aLargeText_5, aLargeText_6, aLargeText_7, aLargeText_8, aLargeText_9 };
     s32 D_800D2504[] = { 100, 10, 1 };

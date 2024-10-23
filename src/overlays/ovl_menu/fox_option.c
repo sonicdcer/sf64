@@ -2413,7 +2413,7 @@ void Option_RankingHitCount_Draw(s32 rankIdx, s32 routeIdx, f32 xPos, f32 yPos) 
     if ((yPos > 22.0f) && (yPos < 162.0f)) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_83);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-        hitCount = (gSaveFile.save.data.stats[rankIdx][routeIdx].unk_C & 1) << 8;
+        hitCount = (gSaveFile.save.data.stats[rankIdx][routeIdx].hitCountOver256 & 1) << 8;
         hitCount |= gSaveFile.save.data.stats[rankIdx][routeIdx].hitCount;
         Graphics_DisplaySmallNumber(xPos + 15.0f - (HUD_CountDigits(hitCount) - 1) * 8, yPos + 24.0f + 1.0f, hitCount);
     }
@@ -4186,13 +4186,13 @@ void Option_Ranking_SaveData(void) {
     }
 
     for (j = 0; j < ROUTE_MAX; j++) {
-        planetStats[10][j].unk_C = 0;
+        planetStats[10][j].hitCountOver256 = 0;
 
         missionHitCount = gMissionHitCount[j];
 
         if (missionHitCount > 255) {
             missionHitCount -= 256;
-            planetStats[10][j].unk_C = 1;
+            planetStats[10][j].hitCountOver256 = 1;
         }
 
         planetStats[10][j].hitCount = missionHitCount;
@@ -4225,7 +4225,7 @@ void Option_Ranking_SaveData(void) {
         for (j = 0; j < ROUTE_MAX; j++) {
             planetStats[i][j].hitCount = gSaveFile.save.data.stats[i][j].hitCount;
             planetStats[i][j].planetId = gSaveFile.save.data.stats[i][j].planetId;
-            planetStats[i][j].unk_C = gSaveFile.save.data.stats[i][j].unk_C;
+            planetStats[i][j].hitCountOver256 = gSaveFile.save.data.stats[i][j].hitCountOver256;
             planetStats[i][j].peppyAlive = gSaveFile.save.data.stats[i][j].peppyAlive;
             planetStats[i][j].falcoAlive = gSaveFile.save.data.stats[i][j].falcoAlive;
             planetStats[i][j].slippyAlive = gSaveFile.save.data.stats[i][j].slippyAlive;
@@ -4248,7 +4248,7 @@ void Option_Ranking_SaveData(void) {
         for (j = 0; j < ROUTE_MAX; j++) {
             gSaveFile.save.data.stats[i][j].hitCount = planetStats[currentRankIdx][j].hitCount;
             gSaveFile.save.data.stats[i][j].planetId = planetStats[currentRankIdx][j].planetId;
-            gSaveFile.save.data.stats[i][j].unk_C = planetStats[currentRankIdx][j].unk_C;
+            gSaveFile.save.data.stats[i][j].hitCountOver256 = planetStats[currentRankIdx][j].hitCountOver256;
             gSaveFile.save.data.stats[i][j].peppyAlive = planetStats[currentRankIdx][j].peppyAlive;
             gSaveFile.save.data.stats[i][j].falcoAlive = planetStats[currentRankIdx][j].falcoAlive;
             gSaveFile.save.data.stats[i][j].slippyAlive = planetStats[currentRankIdx][j].slippyAlive;
