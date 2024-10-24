@@ -24,7 +24,7 @@ typedef struct {
 typedef struct PlanetStats {
     /* bit 0 */ u16 hitCount : 8;
     /* bit 8 */ u16 planetId : 4;
-    /* bit C */ u16 unk_C : 1; // hitCount related
+    /* bit C */ u16 hitCountOver256 : 1;
     /* bit D */ u16 peppyAlive : 1;
     /* bit E */ u16 falcoAlive : 1;
     /* bit F */ u16 slippyAlive : 1;
