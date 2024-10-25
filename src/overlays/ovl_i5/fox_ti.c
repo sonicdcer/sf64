@@ -5622,9 +5622,9 @@ void Titania_801990DC(TiGoras* this) {
             break;
     }
 
-    if ((this->timer_050 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
+    if ((this->timer_050 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE)) {
         Object_Kill(&this->obj, this->sfxSource);
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+        gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
         gPlayer[0].csState = 0;
     }
 }

@@ -490,7 +490,7 @@ void func_tank_80044868(Player* player) {
         if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
             func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
-        if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+        if ((gCurrentLevel == LEVEL_MACBETH) && (player->state_1C8 == PLAYERSTATE_LEVEL_COMPLETE)) {
             func_tank_80043280(D_landmaster_3005EA8, D_Tex_800DACB8, gGameFrameCount * -55.0f);
         }
     }
@@ -1305,7 +1305,7 @@ void func_tank_80047FBC(Player* player) {
     if (!(D_800C9F08 & 1)) {
         Math_SmoothStepToF(&player->rot.z, -((player->vel.z / 5.0f) * 4.0f), 0.4f, 8.0f, 0.01f);
         if (player->rot.z >= 3.0f) {
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+            if (gPlayer[0].state_1C8 != PLAYERSTATE_LEVEL_COMPLETE) {
                 AUDIO_PLAY_SFX(NA_SE_RAILWAY_BOUND, player->sfxSource, 0);
             }
             D_800C9F08 |= 1;

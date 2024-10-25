@@ -806,7 +806,7 @@ void Aquas_UpdateCamera(Player* player) {
     f32 stickY = -gInputPress->stick_y;
     f32 zRot;
 
-    if (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
+    if (player->state_1C8 != PLAYERSTATE_ACTIVE) {
         stickX = stickY = 0.0f;
     }
 
@@ -1510,7 +1510,7 @@ void Aquas_BlueMarineBoost(Player* player) {
         }
 
         if ((gBoostButton[player->num] & gInputHold->button) && (player->unk_230 == 0) &&
-            (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->boostCooldown == 0)) {
+            (player->state_1C8 != PLAYERSTATE_U_TURN) && (player->boostCooldown == 0)) {
             if (player->boostMeter == 0) {
                 AUDIO_PLAY_SFX(NA_SE_MARINE_BOOST, player->sfxSource, 4);
             }
@@ -1558,7 +1558,7 @@ void Aquas_BlueMarineBrake(Player* player) {
     player->sfx.brake = false;
 
     if ((gInputHold->button & gBrakeButton[player->num]) && (player->unk_230 == 0) &&
-        (player->state_1C8 != PLAYERSTATE_1C8_U_TURN) && (player->boostCooldown == 0)) {
+        (player->state_1C8 != PLAYERSTATE_U_TURN) && (player->boostCooldown == 0)) {
         if (player->boostMeter == 0) {
             AUDIO_PLAY_SFX(NA_SE_MARINE_BRAKE, player->sfxSource, 4);
         }
@@ -3083,9 +3083,9 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                                 Boss_AwardBonus(this);
                                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
                                 gTeamLowHealthMsgTimer = -1;
-                                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-                                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
+                                    (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
+                                    gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
                                     gPlayer[0].csState = 0;
                                 }
                                 D_i3_801C4190[1] = 0;
