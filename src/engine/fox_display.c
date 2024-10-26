@@ -713,8 +713,7 @@ void Display_Reticle(Player* player) {
 
     if ((gPlayerNum == player->num) && ((player->form == FORM_ARWING) || (player->form == FORM_LANDMASTER)) &&
         player->draw &&
-        (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_ACTIVE)) ||
-         (gGameState == GSTATE_MENU))) {
+        (((gGameState == GSTATE_PLAY) && (player->state_1C8 == PLAYERSTATE_ACTIVE)) || (gGameState == GSTATE_MENU))) {
         for (i = 0; i < 2; i++) {
             translate = &D_display_801613E0[i];
             Matrix_Push(&gGfxMatrix);
@@ -1852,8 +1851,7 @@ void Display_Update(void) {
 
     if ((gCurrentLevel != LEVEL_AQUAS) &&
         (((gCurrentLevel != LEVEL_CORNERIA) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) ||
-         ((gPlayer[0].state_1C8 != PLAYERSTATE_LEVEL_COMPLETE) &&
-          (gPlayer[0].state_1C8 != PLAYERSTATE_LEVEL_INTRO)))) {
+         ((gPlayer[0].state_1C8 != PLAYERSTATE_LEVEL_COMPLETE) && (gPlayer[0].state_1C8 != PLAYERSTATE_LEVEL_INTRO)))) {
         Effect_Draw(0);
     }
 
@@ -1872,8 +1870,7 @@ void Display_Update(void) {
     }
 
     if (((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) &&
-        ((gPlayer[0].state_1C8 == PLAYERSTATE_LEVEL_COMPLETE) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_LEVEL_INTRO))) {
+        ((gPlayer[0].state_1C8 == PLAYERSTATE_LEVEL_COMPLETE) || (gPlayer[0].state_1C8 == PLAYERSTATE_LEVEL_INTRO))) {
         Effect_Draw(0);
     }
 

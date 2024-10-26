@@ -1185,8 +1185,8 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             break;
 
         case 11:
-            if ((this->timer_052 == 160) && ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                                             (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
+            if ((this->timer_052 == 160) &&
+                ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
                 gPlayer[0].csState = 0;
             }

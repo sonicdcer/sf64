@@ -185,8 +185,7 @@ void Corneria_CoGranga_HandleDamage(CoGranga* this) {
 
                 gCsFrameCount = 0;
 
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                    (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = gPlayer[0].csTimer = 0;
                     gPlayer[0].rot.y += gPlayer[0].yRot_114;

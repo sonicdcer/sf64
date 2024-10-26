@@ -1165,8 +1165,7 @@ void Actor_DrawAllRange(Actor* this) {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &srcViewPos, &sViewPos);
 
-        if ((gPlayer[0].state_1C8 == PLAYERSTATE_LEVEL_INTRO) ||
-            (gPlayer[0].state_1C8 == PLAYERSTATE_STANDBY) ||
+        if ((gPlayer[0].state_1C8 == PLAYERSTATE_LEVEL_INTRO) || (gPlayer[0].state_1C8 == PLAYERSTATE_STANDBY) ||
             ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) ||
             ((this->obj.id == OBJ_ACTOR_CUTSCENE) && (this->info.bonus != 0))) {
             var_ft5 = var_fv0 = 3000.0f;

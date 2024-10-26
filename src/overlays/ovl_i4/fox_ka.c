@@ -1175,8 +1175,8 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
 
             Math_SmoothStepToF(&this->fwork[BOSS_MOVEMENT_SPEED], 5.0f, 0.1f, 0.5f, 0.0f);
 
-            if ((this->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                                           (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
+            if ((this->timer_050 == 0) &&
+                ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
                 gShowAllRangeCountdown = false;
                 this->timer_050 = 1000;
                 this->state = 15;
@@ -1403,8 +1403,8 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
 
             Math_SmoothStepToF(&this->fwork[BOSS_MOVEMENT_SPEED], 0.0f, 0.1f, 3.0f, 0.0f);
 
-            if ((this->timer_050 == 0) && ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                                           (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
+            if ((this->timer_050 == 0) &&
+                ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
                 gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
                 gPlayer[0].csState = 0;
                 gMissionStatus = MISSION_ACCOMPLISHED;

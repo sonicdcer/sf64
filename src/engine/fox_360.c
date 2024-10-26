@@ -1684,8 +1684,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                                 this->fwork[1] = gActors[this->aiIndex].fwork[0] - 5.0f;
                             } else {
                                 this->fwork[1] = gPlayer[0].baseSpeed - 5.0f;
-                                if ((gCurrentLevel == LEVEL_VENOM_2) &&
-                                    (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN) &&
+                                if ((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN) &&
                                     (gPlayer[0].aerobaticPitch > 100.0f)) {
                                     this->iwork[16] = STATE360_8;
                                 }

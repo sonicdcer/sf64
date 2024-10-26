@@ -2584,8 +2584,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = false;
                 Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                    (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
                     gCsFrameCount = 0;
                     gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = gPlayer[0].csTimer = 0;

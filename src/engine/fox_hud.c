@@ -5387,8 +5387,8 @@ void Aquas_Effect363_Update(Effect363* this) {
         this->scale2 += 0.8f;
         this->unk_4A -= this->unk_46;
 
-        if ((this->unk_4A < 0) || ((player->state_1C8 == PLAYERSTATE_LEVEL_INTRO) &&
-                                   (gCurrentLevel == LEVEL_AQUAS) && (player->csState == 5))) {
+        if ((this->unk_4A < 0) || ((player->state_1C8 == PLAYERSTATE_LEVEL_INTRO) && (gCurrentLevel == LEVEL_AQUAS) &&
+                                   (player->csState == 5))) {
             Object_Kill(&this->obj, this->sfxSource);
         }
         this->obj.rot.z += this->unk_48;

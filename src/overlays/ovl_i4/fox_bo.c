@@ -267,8 +267,7 @@ void Bolse_UpdateEventHandler(ActorEvent* this) {
             if (gBosses[2].state == 10) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                    (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
+                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
                     gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csTimer = 30;
                     gPlayer[0].csState = 0;

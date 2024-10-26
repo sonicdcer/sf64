@@ -1735,8 +1735,8 @@ bool PlayerShot_FindLockTarget(PlayerShot* shot) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((player->state_1C8 == PLAYERSTATE_ACTIVE) && !player->somersault &&
-                (player->form != FORM_ON_FOOT) && (i != shot->sourceId) && (gVsLockOnTimers[i][shot->sourceId] == 0) &&
+            if ((player->state_1C8 == PLAYERSTATE_ACTIVE) && !player->somersault && (player->form != FORM_ON_FOOT) &&
+                (i != shot->sourceId) && (gVsLockOnTimers[i][shot->sourceId] == 0) &&
                 (fabsf(shot->obj.pos.x - player->pos.x) <= lockRange) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= lockRange) &&
                 (fabsf(shot->obj.pos.z - player->trueZpos) <= lockRange)) {
@@ -2056,8 +2056,8 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->timer > 0) && (shot->timer < 30)) {
-                if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) ||
-                                     (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
+                if (!gVersusMode &&
+                    ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
                     test.x = gPlayer[0].pos.x - shot->obj.pos.x;
                     test.y = gPlayer[0].pos.y - shot->obj.pos.y;
                     test.z = gPlayer[0].trueZpos - shot->obj.pos.z;
