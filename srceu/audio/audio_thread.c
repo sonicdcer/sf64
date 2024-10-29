@@ -10,27 +10,27 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001E898.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001E920.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_QueueCmd.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001E978.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_QueueCmdF32.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001E99C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_QueueCmdS32.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001E9C0.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_QueueCmdS8.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001E9F0.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_ScheduleProcessCmds.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EA68.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EA7C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001ED7C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_GetAsyncLoadStatus.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EDE4.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_GetFontsForSequence.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EE04.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_ResetComplete.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EE5C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_ResetAudioHeap.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EED0.s")
 

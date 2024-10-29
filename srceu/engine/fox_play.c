@@ -27,7 +27,7 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A5EA0.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A5F04.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_Setup.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A600C.s")
 
@@ -47,7 +47,7 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A67D8.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A6808.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_ClearObjectData.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A6C50.s")
 

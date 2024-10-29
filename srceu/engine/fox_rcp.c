@@ -1,6 +1,6 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/func_800B9500.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/RCP_SetupDL.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/func_800B9544.s")
 

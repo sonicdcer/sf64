@@ -81,7 +81,12 @@ typedef enum BgmSeqIds {
     /* 63 */ SEQ_ID_TRAINING,
     /* 64 */ SEQ_ID_VE_CLEAR,
     /* 65 */ SEQ_ID_BOSS_RESUME,
+#ifdef VERSION_EU
+    /* 66 */ SEQ_ID_LYLAT,
+    /* 67 */ SEQ_ID_MAX,
+#else
     /* 66 */ SEQ_ID_MAX,
+#endif
     /* -1 */ SEQ_ID_NONE = 0xFFFF,
 } BgmSeqIds;
 

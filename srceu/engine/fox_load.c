@@ -1,5 +1,7 @@
 #include "sf64dma.h"
 
+/* Had to comment these out because the rom didn't match */
+#if 0
 u8 D_800CAFC0 = 3;
 
 #include "fox_load_inits.c"
@@ -22,8 +24,9 @@ Scene D_800CCC44 = {
       /* 0xE */ NO_SEGMENT,
       /* 0xF */ NO_SEGMENT },
 };
+#endif
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80058B10.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_TextLanguage.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80058BD8.s")
 
@@ -31,6 +34,6 @@ Scene D_800CCC44 = {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80059428.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80059470.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_SetTextLanguage.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/D_800D7350.s")
