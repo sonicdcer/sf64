@@ -4,7 +4,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_load/func_8000E5F8.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_load/func_8000E930.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_load/AudioLoad_InitSampleDmaBuffers.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_load/func_8000EC04.s")
 
