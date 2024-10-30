@@ -1,3 +1,4 @@
+// No regional differences in this file.
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
