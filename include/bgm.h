@@ -82,7 +82,7 @@ typedef enum BgmSeqIds {
     /* 64 */ SEQ_ID_VE_CLEAR,
     /* 65 */ SEQ_ID_BOSS_RESUME,
 #ifdef VERSION_EU
-    /* 66 */ SEQ_ID_LYLAT,
+    /* 66 */ SEQ_ID_VOICE_LYLAT,
     /* 67 */ SEQ_ID_MAX,
 #else
     /* 66 */ SEQ_ID_MAX,
@@ -94,6 +94,7 @@ typedef enum BgmSeqIds {
 
 #define NA_BGM_SE               (SEQ_ID_SFX)
 #define NA_BGM_VO               (SEQ_ID_VOICE)
+#define NA_BGM_VO_LYLAT         (SEQ_ID_VOICE_LYLAT)
 #define NA_BGM_STAGE_CO         (SEQ_ID_CORNERIA | SEQ_FLAG)
 #define NA_BGM_STAGE_ME         (SEQ_ID_METEO | SEQ_FLAG)
 #define NA_BGM_STAGE_TI         (SEQ_ID_TITANIA | SEQ_FLAG)

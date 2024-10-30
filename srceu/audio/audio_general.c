@@ -30,7 +30,7 @@ extern f32 sBombFreqMod[4];
 extern u8 sBombType[4];
 extern u8 sBombState[4];
 extern s32 sBombStartFrame[4];
-extern u8 D_800C6A88;
+extern u8 gVoiceLanguage;
 extern u8 sAudioSpecId;
 extern u8 sStartSeqDisabled;
 extern u8 sAudioResetStatus;
@@ -269,7 +269,7 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
         case SFX_BANK_SYSTEM:
 #ifdef VERSION_EU
             if (entry->state == 2) {
-                AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, channelId, 1, D_800C6A88);
+                AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, channelId, 1, gVoiceLanguage);
             }
 #endif
             if (sSfxChannelLayout == SFXCHAN_3) {
@@ -2442,13 +2442,13 @@ void Audio_KillAllSfx(void) {
 // Function doesn't exist in JP/US
 #ifdef VERSION_EU
 void Audio_SetVoiceLanguage(u8 language) {
-    D_800C6A88 = language;
+    gVoiceLanguage = language;
 
-    if (D_800C6A88 == 0) {
+    if (gVoiceLanguage == 0) {
         Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
     } else {
         // 0x42 sets voice language to Lylat ?
-        Audio_StartSequence(SEQ_PLAYER_VOICE, SEQ_ID_LYLAT, -1, 1);
+        Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO_LYLAT, -1, 1);
     }
 }
 #endif
@@ -2472,7 +2472,7 @@ void Audio_InitSounds(void) {
     Audio_ResetActiveSequencesAndVolume();
     Audio_ResetSfx();
 #ifdef VERSION_EU
-    AUDIOCMD_GLOBAL_SYNC_LOAD_SEQ_PARTS(SEQ_ID_LYLAT, 0);
+    AUDIOCMD_GLOBAL_SYNC_LOAD_SEQ_PARTS(NA_BGM_VO_LYLAT, 0);
 #endif
     Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
     Audio_StartSequence(SEQ_PLAYER_SFX, NA_BGM_SE, -1, 10);
@@ -2485,10 +2485,10 @@ void Audio_RestartSeqPlayers(void) {
     u16 fadeIn = 1;
 
 #ifdef VERSION_EU
-    if (D_800C6A88 == 0) {
+    if (gVoiceLanguage == 0) {
         Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
     } else {
-        Audio_StartSequence(SEQ_PLAYER_VOICE, SEQ_ID_LYLAT, -1, 1);
+        Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO_LYLAT, -1, 1);
     }
 #else
     Audio_StartSequence(SEQ_PLAYER_VOICE, NA_BGM_VO, -1, 1);
