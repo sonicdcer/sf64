@@ -214,7 +214,7 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
     gSampleDmaReuseQueue2WrPos = gSampleDmaCount - gSampleDmaListSize1;
 }
 
-// Updates the audiotable entries with their absolute ROM addresses
+// Updates the audiotable entries with their relative ROM addresses
 void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam) {
     s32 i;
 

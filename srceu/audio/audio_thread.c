@@ -34,6 +34,6 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EED0.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/func_8001EF0C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/AudioThread_Init.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_thread/D_800C9D00.s")
