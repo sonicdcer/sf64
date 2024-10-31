@@ -2,7 +2,7 @@
 
 /* Had to comment these out because the rom didn't match */
 #if 0
-u8 D_800CAFC0 = 3;
+u8 sFillTimer = 3;
 
 #include "fox_load_inits.c"
 
@@ -26,14 +26,40 @@ Scene D_800CCC44 = {
 };
 #endif
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_TextLanguage.s")
+// No difference
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_RomFile.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80058BD8.s")
+// No difference
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_SceneFiles.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80058EA4.s")
+// No difference
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_SceneSetup.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80059428.s")
+// https://decomp.me/scratch/vQ0WZ (matching)
+/*
+void func_80059428(void) {
+    if (gStopTasks != 1) {
+        Lib_DmaRead(dma_table_ROM_START, gDmaTable, audio_seq_ROM_START - dma_table_ROM_START);
+    }
+}
+*/
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_SetTextLanguage.s")
+
+// https://decomp.me/scratch/pCmOV
+/*
+void Load_SetTextLanguage(void) {
+    if (gStopTasks != 1) {
+        switch (D_8017AACB) {
+        case 0:
+            Load_RomFile(&ast_radio_en_ROM_START, &D_fr_8017B230,(u32) &ast_radio_fr_ROM_START -
+(u32)&ast_radio_en_ROM_START); break; case 1: Load_RomFile(&ast_radio_fr_ROM_START, &D_fr_8017B230,
+(u32)&ast_radio_fr_ROM_END - (u32)&ast_radio_fr_ROM_START); break; case 2: Load_RomFile(&ast_radio_de_ROM_START,
+&D_fr_8017B230, (u32)&ast_radio_de_ROM_END - (u32)&ast_radio_de_ROM_START); break;
+        }
+    }
+}
+*/
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/D_800D7350.s")
