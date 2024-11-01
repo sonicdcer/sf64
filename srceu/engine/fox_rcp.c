@@ -30,7 +30,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/func_800B9A58.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/func_800B9A88.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/RCP_SetupDL_36.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_rcp/func_800B9AB8.s")
 

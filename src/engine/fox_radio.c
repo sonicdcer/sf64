@@ -778,6 +778,7 @@ void Radio_Draw(void) {
     }
 }
 
+// Unused in VERSION_US and absent in VERSION_EU, probably a leftover from VERSION_JP ?
 void func_radio_800BC040(void) {
     if (gPlayState != PLAY_PAUSE) {
         if (gRadioStateTimer > 0) {

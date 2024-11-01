@@ -35,6 +35,7 @@ Scene D_800CCC44 = {
 // No difference
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/Load_SceneSetup.s")
 
+// It's a version of Load_InitDmaAndMsg, although Msg isn't here, but in Load_SetTextLanguage
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_load/func_80059428.s")
 // https://decomp.me/scratch/vQ0WZ (matching)
 /*
