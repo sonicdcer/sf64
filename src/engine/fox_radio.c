@@ -756,7 +756,7 @@ void Radio_Draw(void) {
             }
 
             if ((gActors[idx].obj.status != OBJ_ACTIVE) && (gGameFrameCount & 4) &&
-                (gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) && (gCurrentRadioPortrait != RCID_STATIC) &&
+                (gPlayer[0].state == PLAYERSTATE_ACTIVE) && (gCurrentRadioPortrait != RCID_STATIC) &&
                 (gCurrentRadioPortrait != RCID_STATIC + 1) && (gCurrentRadioPortrait != RCID_1000)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_76);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 0, 255);

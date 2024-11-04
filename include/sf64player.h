@@ -259,7 +259,7 @@ typedef struct Player {
     /* 0x1BC */ s32 turretRecoil;
     /* 0x1C0 */ s32 turretLockOnCount;
     /* 0x1C4 */ s32 num;
-    /* 0x1C8 */ PlayerState state_1C8;
+    /* 0x1C8 */ PlayerState state;
     /* 0x1CC */ PlayerForm form;
     /* 0x1D0 */ s32 csState;
     /* 0x1D4 */ bool grounded;

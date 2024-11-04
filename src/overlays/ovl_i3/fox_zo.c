@@ -2584,9 +2584,9 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = false;
                 Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
+                if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN)) {
                     gCsFrameCount = 0;
-                    gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
+                    gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = gPlayer[0].csTimer = 0;
                     gPlayer[0].rot.y += gPlayer[0].yRot_114;
                     if (gPlayer[0].rot.y > 360.0f) {
@@ -4745,7 +4745,7 @@ void Zoness_LevelStart(Player* player) {
             if (gCsFrameCount >= 270) {
                 AUDIO_PLAY_BGM(NA_BGM_STAGE_ZO);
                 gLevelStartStatusScreenTimer = 80;
-                player->state_1C8 = PLAYERSTATE_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
                 player->csState = 0;
                 player->csTimer = 0;
                 player->csEventTimer = 0;
@@ -4933,7 +4933,7 @@ void Zoness_LevelComplete(Player* player) {
                 if (gFillScreenAlpha == 255) {
                     Audio_StopPlayerNoise(0);
                     Audio_FadeOutAll(10);
-                    player->state_1C8 = PLAYERSTATE_NEXT;
+                    player->state = PLAYERSTATE_NEXT;
                     player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[LEVEL_ZONESS] = Play_CheckMedalStatus(250) + 1;

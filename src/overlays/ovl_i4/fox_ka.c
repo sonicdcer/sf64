@@ -439,7 +439,7 @@ void Katina_LevelStart(Player* player) {
             if (gCsFrameCount == 240) {
                 Object_Kill(&gActors[4].obj, gActors[4].sfxSource);
                 Object_Kill(&gActors[6].obj, gActors[6].sfxSource);
-                player->state_1C8 = PLAYERSTATE_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
                 player->unk_014 = 0.0001f;
 
                 AUDIO_PLAY_BGM(gBgmSeqId);
@@ -659,7 +659,7 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
     if (this->dmgType != DMG_NONE) {
         this->dmgType = DMG_NONE;
 
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_STANDBY) {
+        if (gPlayer[0].state == PLAYERSTATE_STANDBY) {
             return;
         }
 
@@ -743,7 +743,7 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
         }
     }
 
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) {
+    if (gPlayer[0].state == PLAYERSTATE_ACTIVE) {
         if ((gGameFrameCount % 16) == 0) {
             for (i = 0; i < 4; i++) {
                 if ((this->swork[10 + i] <= 0) && (Rand_ZeroOne() < 0.2f)) {
@@ -916,11 +916,11 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
          * Set checkpoint.
          */
         case SAUCERER_CS_APPROACH_BASE:
-            if ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN)) {
+            if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN)) {
                 if (this->obj.pos.z < 4500.0f) {
                     this->state++;
 
-                    gPlayer[0].state_1C8 = PLAYERSTATE_STANDBY;
+                    gPlayer[0].state = PLAYERSTATE_STANDBY;
 
                     gPlayer[0].cam.eye.x = -900.0f;
                     gPlayer[0].cam.eye.y = 100.0f;
@@ -1044,8 +1044,8 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
 
                 this->state++;
 
-                if (gPlayer[0].state_1C8 == PLAYERSTATE_STANDBY) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_ACTIVE;
+                if (gPlayer[0].state == PLAYERSTATE_STANDBY) {
+                    gPlayer[0].state = PLAYERSTATE_ACTIVE;
                     Camera_Update360(&gPlayer[0], true);
                 }
 
@@ -1176,7 +1176,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             Math_SmoothStepToF(&this->fwork[BOSS_MOVEMENT_SPEED], 5.0f, 0.1f, 0.5f, 0.0f);
 
             if ((this->timer_050 == 0) &&
-                ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
+                ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
                 gShowAllRangeCountdown = false;
                 this->timer_050 = 1000;
                 this->state = 15;
@@ -1192,7 +1192,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
 
-                gPlayer[0].state_1C8 = PLAYERSTATE_STANDBY;
+                gPlayer[0].state = PLAYERSTATE_STANDBY;
 
                 gPlayer[0].camRoll = 0.0f;
 
@@ -1217,7 +1217,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             }
 
             if (this->timer_050 == 500) {
-                gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
+                gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                 gPlayer[0].csState = 100;
                 gPlayer[0].draw = false;
                 gCsFrameCount = 5000;
@@ -1239,7 +1239,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 this->obj.rot.x = 180.0f;
                 this->fwork[BOSS_FWORK_13] = 15.0f;
 
-                gPlayer[0].state_1C8 = PLAYERSTATE_STANDBY;
+                gPlayer[0].state = PLAYERSTATE_STANDBY;
                 gPlayer[0].cam.eye.x = this->obj.pos.x;
                 gPlayer[0].cam.eye.y = 600.0f;
                 gPlayer[0].cam.eye.z = this->obj.pos.z - 1500.0f;
@@ -1371,7 +1371,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 gFillScreenBlue = 255;
 
                 if (gFillScreenAlpha == 255) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
+                    gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = 2;
                     gPlayer[0].draw = true;
 
@@ -1404,8 +1404,8 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             Math_SmoothStepToF(&this->fwork[BOSS_MOVEMENT_SPEED], 0.0f, 0.1f, 3.0f, 0.0f);
 
             if ((this->timer_050 == 0) &&
-                ((gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) || (gPlayer[0].state_1C8 == PLAYERSTATE_U_TURN))) {
-                gPlayer[0].state_1C8 = PLAYERSTATE_LEVEL_COMPLETE;
+                ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
+                gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                 gPlayer[0].csState = 0;
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 this->obj.pos.z = 0.0f;
@@ -1969,7 +1969,7 @@ void Katina_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaStep = 8;
                 if (gFillScreenAlpha == 255) {
-                    player->state_1C8 = PLAYERSTATE_NEXT;
+                    player->state = PLAYERSTATE_NEXT;
                     player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[LEVEL_KATINA] = Play_CheckMedalStatus(150) + 1;
@@ -2160,7 +2160,7 @@ void Katina_801981F8(Actor* this) {
     Vec3f dest;
     s32 pad;
 
-    if ((this->timer_0C0 == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_STANDBY)) {
+    if ((this->timer_0C0 == 0) && (gPlayer[0].state != PLAYERSTATE_STANDBY)) {
         this->timer_0C0 = 2;
         src.x = 0.0f;
         src.y = 0.0f;
@@ -2320,7 +2320,7 @@ void Katina_UpdateEvents(ActorAllRange* this) {
             if (((gAllRangeEventTimer % 256) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 AllRange_PlayMessage(gMsg_ID_18060, RCID_BILL);
             }
-        } else if ((gAllRangeEventTimer > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_ACTIVE) &&
+        } else if ((gAllRangeEventTimer > 500) && (gPlayer[0].state == PLAYERSTATE_ACTIVE) &&
                    ((gAllRangeEventTimer % 512) == 0)) {
             switch (RAND_INT(3.99f)) {
                 case 0:
@@ -2482,7 +2482,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
                 this->fwork[KA_ACTOR_FWORK_1] = 40.0f;
                 yRand = RAND_FLOAT(1000.0f);
 
-                if (gPlayer[0].state_1C8 == PLAYERSTATE_STANDBY) {
+                if (gPlayer[0].state == PLAYERSTATE_STANDBY) {
                     xRand = RAND_FLOAT_CENTERED(5000.0f);
                     zRand = RAND_FLOAT_CENTERED(5000.0f);
                 } else {
