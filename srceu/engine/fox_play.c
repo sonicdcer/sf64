@@ -29,11 +29,11 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_Setup.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A600C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_InitEnvironment.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A642C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A657C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_SetupStarfield.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A6660.s")
 
@@ -49,7 +49,7 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_ClearObjectData.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A6C50.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_UpdateFillScreen.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A6D4C.s")
 
@@ -85,17 +85,17 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AAEBC.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AB968.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_InitializeAll.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AB9C0.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AB9F0.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_InitLevel.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AC020.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_ResetVsData.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AC0C4.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AC170.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_Init.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AC95C.s")
 
@@ -125,7 +125,7 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AE944.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AEB70.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_MoveArwing360.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AF3AC.s")
 
@@ -169,7 +169,7 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B4E2C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B4FE4.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B5DE4.s")
 
@@ -191,14 +191,15 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B7B08.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B80D8.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_UpdateLevel.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B8A54.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B8C54.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B8DCC.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800B8DF4.s")
+// has this added D_80163BC8 = 1.2f;
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Play_Main.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/D_800D9760.s")

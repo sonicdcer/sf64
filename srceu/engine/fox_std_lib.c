@@ -66,7 +66,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009FC90.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009FF44.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Graphics_FillRectangle.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_800A009C.s")
 

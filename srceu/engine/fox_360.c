@@ -30,7 +30,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_360/func_8002EFA0.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_360/func_8002F2BC.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_360/ActorAllRange_SpawnTeam.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_360/func_8002F51C.s")
 

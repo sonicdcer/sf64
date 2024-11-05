@@ -117,7 +117,7 @@ s8 Audio_GetSfxPan(f32 xPos, f32 zPos, u8 mode);
 f32 Audio_GetSfxFreqMod(u8 bankId, u8 entryIndex);
 s8 Audio_GetSfxReverb(u8 bankId, u8 entryIndex, u8 channelId);
 
-void func_80016A30(void) {
+void Audio_dummy_80016A30(void) {
 }
 
 f32 Audio_GetSfxFalloff(u8 bankId, u8 entryIndex) {

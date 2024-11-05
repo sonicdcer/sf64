@@ -14,7 +14,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_game/Game_InitViewport.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_game/func_800A2AEC.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_game/Game_Draw.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_game/Game_SetScene.s")
 
