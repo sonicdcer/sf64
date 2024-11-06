@@ -8,9 +8,9 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A46AC.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A4B20.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_WingEffects.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A4D60.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_DamageEffects.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800A5300.s")
 
@@ -123,7 +123,7 @@ void func_800A59F0(void) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AE624.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/func_800AE944.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_CheckBounds360.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_play/Player_MoveArwing360.s")
 

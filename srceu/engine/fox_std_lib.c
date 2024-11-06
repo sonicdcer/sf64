@@ -26,7 +26,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Math_SmoothStepToF.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009C708.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Math_SmoothStepToAngle.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009C8BC.s")
 
