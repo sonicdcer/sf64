@@ -43,8 +43,9 @@ typedef struct SaveData {
     /* 0x4A */ u16 rankingMedal[RANKING_MAX]; // Medals obtained in the current record
     /* 0x5E */ PlanetStats stats[RANKING_MAX][ROUTE_MAX];
     /* 0xEA */ u8 unk_EA;
-    /* 0xEB */ char padEB[0x3];
-    /* 0xEE */ char padEE[0x10];
+    /* 0xEB */ u8 textLanguage;  // EU Only text language selection
+    /* 0xEC */ u8 voiceLanguage; // EU Only voice language selection
+    /* 0xED */ char padEE[0x11];
 } SaveData; // size = 0xFE
 
 typedef struct {

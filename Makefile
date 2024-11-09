@@ -332,6 +332,7 @@ build/src/libultra/rmon/%.o: OPTFLAGS := -O1 -g0
 build/src/libultra/debug/%.o: OPTFLAGS := -O1 -g0
 build/src/libultra/host/%.o:	OPTFLAGS := -O1 -g0
 build/src/audio/%.o: OPTFLAGS := -O2 -g0
+build/srceu/audio/%.o: OPTFLAGS := -O2 -g0 # temporary
 
 # per-file flags
 build/src/audio/audio_effects.o: CFLAGS += -use_readwrite_const

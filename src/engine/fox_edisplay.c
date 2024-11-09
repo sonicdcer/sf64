@@ -562,15 +562,15 @@ void ActorTeamArwing_Draw(ActorTeamArwing* this) {
     Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
     if ((((fabsf(dest.z) < 3000.0f) && (fabsf(dest.x) < 3000.0f) && !gBossActive) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
-         (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
+         (gPlayer[0].state == PLAYERSTATE_STANDBY) || (gCurrentLevel == LEVEL_VENOM_ANDROSS) ||
+         (gCurrentLevel == LEVEL_VENOM_2) || (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE)) &&
         (gCurrentLevel != LEVEL_MACBETH) && (gCurrentLevel != LEVEL_TITANIA)) {
         if (this->obj.id == OBJ_ACTOR_CUTSCENE) {
-            if (((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+            if (((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) &&
                  (this->index == 10)) ||
-                ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gPlayer[0].csState >= 100) &&
+                ((gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) && (gPlayer[0].csState >= 100) &&
                  (gCurrentLevel == LEVEL_KATINA) && (this->index == 1)) ||
-                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) &&
+                ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPlayer[0].state == PLAYERSTATE_STANDBY) &&
                  (this->state == 5))) {
                 gActorTeamArwing.rightWingState = gPlayer[0].arwing.rightWingState;
                 gActorTeamArwing.leftWingState = gPlayer[0].arwing.leftWingState;
@@ -730,7 +730,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
             break;
 
         case OBJ_BOSS_KA_SAUCERER:
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) {
+            if (gPlayer[0].state == PLAYERSTATE_STANDBY) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_64);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 0, 0, 200);
             }
@@ -1154,7 +1154,7 @@ void Actor_DrawAllRange(Actor* this) {
                     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                     this->info.draw(&this->obj);
                     sDrewActor = true;
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->obj.id == OBJ_ACTOR_ALLRANGE) &&
+                    if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) && (this->obj.id == OBJ_ACTOR_ALLRANGE) &&
                         (this->aiType == AI360_MISSILE)) {
                         gTeamArrowsViewPos[0] = sViewPos;
                     }
@@ -1165,8 +1165,7 @@ void Actor_DrawAllRange(Actor* this) {
         Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, MTXF_APPLY);
         Matrix_MultVec3f(gGfxMatrix, &srcViewPos, &sViewPos);
 
-        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
-            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY) ||
+        if ((gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) || (gPlayer[0].state == PLAYERSTATE_STANDBY) ||
             ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType >= AI360_GREAT_FOX)) ||
             ((this->obj.id == OBJ_ACTOR_CUTSCENE) && (this->info.bonus != 0))) {
             var_ft5 = var_fv0 = 3000.0f;
@@ -1189,7 +1188,7 @@ void Actor_DrawAllRange(Actor* this) {
                         Matrix_SetGfxMtx(&gMasterDisp);
                         this->info.draw(&this->obj);
                         sDrewActor = true;
-                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) &&
+                        if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) &&
                             (((this->obj.id == OBJ_ACTOR_ALLRANGE) &&
                               ((this->aiType <= AI360_PEPPY) || (this->aiType == AI360_KATT) ||
                                (this->aiType == AI360_BILL))) ||
@@ -1606,7 +1605,7 @@ void Display_SetSecondLight(Vec3f* pos) {
         sp9C.z = pos->z - gLight3z;
 
         lightDist = VEC3F_MAG(&sp9C);
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+        if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
             lightFade = 700.0f / lightDist;
         } else {
             lightFade = 200.0f / lightDist;
@@ -1780,8 +1779,8 @@ void Object_DrawAll(s32 cullDirection) {
                 case LEVELMODE_TURRET:
                     Matrix_Push(&gGfxMatrix);
 
-                    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) ||
-                        (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {
+                    if ((gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) ||
+                        (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) || (gCurrentLevel == LEVEL_AQUAS)) {
                         Display_SetSecondLight(&actor->obj.pos);
                     }
 
@@ -1881,7 +1880,7 @@ void Object_Draw(s32 arg0) {
     gReflectY = 1;
     Object_DrawAll(1);
 
-    if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state != PLAYERSTATE_LEVEL_INTRO)) {
         gReflectY = -1;
         Lights_SetOneLight(&gMasterDisp, gLight1x, -1 * gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,
                            gAmbientG, gAmbientB);
@@ -1898,7 +1897,7 @@ void Effect_Draw(u8 arg0) {
     if (arg0 == 0) {
         gReflectY = 1;
         Effect_DrawAll(1);
-    } else if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    } else if ((gGroundSurface == SURFACE_WATER) && (gPlayer[0].state != PLAYERSTATE_LEVEL_INTRO)) {
         gReflectY = -1;
         Matrix_Push(&gGfxMatrix);
         Matrix_Scale(gGfxMatrix, 1.0f, -1.0f, 1.0f, MTXF_APPLY);

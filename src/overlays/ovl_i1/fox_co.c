@@ -101,8 +101,8 @@ void Corneria_Granga_Init(CoGranga* this) {
     gBossFrameCount = 0;
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_START_360;
+        if (gPlayer[0].state == PLAYERSTATE_ACTIVE) {
+            gPlayer[0].state = PLAYERSTATE_START_360;
             gPlayer[0].csState = 0;
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
             SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
@@ -185,9 +185,8 @@ void Corneria_CoGranga_HandleDamage(CoGranga* this) {
 
                 gCsFrameCount = 0;
 
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN)) {
+                    gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = gPlayer[0].csTimer = 0;
                     gPlayer[0].rot.y += gPlayer[0].yRot_114;
 
@@ -620,7 +619,7 @@ void Corneria_CoGranga_Update(CoGranga* this) {
     Vec3f sp6C = { 0.0f, 0.0f, -30.0f };
     f32 sp5C;
 
-    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
+    if (gPlayer[0].state != PLAYERSTATE_START_360) {
         if (!this->swork[GRANGA_INIT]) {
             this->swork[GRANGA_INIT]++;
 
@@ -2193,8 +2192,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                         this->vel.y *= 1.5f;
                         gMissionStatus = MISSION_ACCOMPLISHED;
 
-                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
+                        if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN)) {
                             Boss_CompleteLevel(gPlayer, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
                         }
 
@@ -3331,7 +3329,7 @@ void Corneria_LevelStart(Player* player) {
                 player->cam.eye.x = player->pos.x;
                 player->cam.eye.y = (player->pos.y * player->unk_148) + 50.0f;
                 player->cam.eye.z = 30.0f;
-                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
                 player->csState = 0;
                 player->cam.at.x = player->pos.x;
                 player->cam.at.y = (player->pos.y * player->unk_148) + 20.0f;
@@ -3614,7 +3612,7 @@ void Corneria_LevelComplete1(Player* player) {
                 gFillScreenAlphaStep = 8;
 
                 if (gFillScreenAlpha == 255) {
-                    player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                    player->state = PLAYERSTATE_NEXT;
                     player->csTimer = 0;
                     gFadeoutType = 4;
                     gLeveLClearStatus[gCurrentLevel] = Play_CheckMedalStatus(150) + 1;

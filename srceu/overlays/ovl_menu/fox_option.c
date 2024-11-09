@@ -1,44 +1,46 @@
 #include "common.h"
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80195880.s")
+// difference from US: there's a call to func_menu_8019626C after setting gVIsPerFrame
+// sOptionCardList setup is missing from this function, perhaps it was moved to func_menu_8019626C?
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Setup.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80195E4C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Main.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80195F18.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Entry_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801960D8.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Entry_Draw.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019626C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80196408.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Entry_Setup.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801964EC.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019668C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80196810.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Map_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019688C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Training_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80196944.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80196D60.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_MainMenu_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801979D8.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_MainMenu_Draw.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80197C78.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80197DE0.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Versus_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80198700.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80198888.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80198AB8.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Sound_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80198CFC.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Sound_SetSoundMode.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80198DE0.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Sound_SetVolumeLevels.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80198F04.s")
 
@@ -46,13 +48,13 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80199CFC.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80199D64.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_ExpertSound_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_80199F94.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019A69C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019A724.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Language_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019A790.s")
 
@@ -66,19 +68,19 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019B490.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019B4D4.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Data_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019B754.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Data_Select.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019B970.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019BFF0.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019C098.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Ranking_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019C138.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019C160.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Ranking_Select.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019C210.s")
 
@@ -166,7 +168,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019E630.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019E790.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_VersusMenu_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019E808.s")
 
@@ -180,13 +182,13 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019F450.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019F47C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_VersusStage_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019F4E8.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Vs_PointMatch_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019F56C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Vs_BattleRoyal_Update.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019F5D8.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Vs_TimeTrial_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_8019F65C.s")
 
@@ -238,7 +240,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A174C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A1A44.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Input_MoveCursor_Y.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A1BCC.s")
 
@@ -248,7 +250,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A1EF4.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A2110.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_NameEntry_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A21F0.s")
 
@@ -262,13 +264,13 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A3344.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A33A0.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Score_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A34E8.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A35D8.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A369C.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/Option_Invoice_Update.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_menu/fox_option/func_menu_801A38F0.s")
 

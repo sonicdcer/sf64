@@ -24,9 +24,9 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009C154.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009C5FC.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Math_SmoothStepToF.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009C708.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Math_SmoothStepToAngle.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009C8BC.s")
 
@@ -46,7 +46,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009E09C.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009E364.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Lib_TextureRect_IA8.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009E61C.s")
 
@@ -66,7 +66,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009FC90.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_8009FF44.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/Graphics_FillRectangle.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_std_lib/func_800A009C.s")
 

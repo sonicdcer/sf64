@@ -850,7 +850,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                 }
                 test.z = test.x;
                 if ((i != shot->sourceId) &&
-                    ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_DOWN)) &&
+                    ((player->state == PLAYERSTATE_ACTIVE) || (player->state == PLAYERSTATE_DOWN)) &&
                     (fabsf(player->trueZpos - shot->obj.pos.z) < test.z) &&
                     (fabsf(player->pos.x - shot->obj.pos.x) < test.x) &&
                     (fabsf(player->pos.y - shot->obj.pos.y) < test.y)) {
@@ -1099,8 +1099,7 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
     if (gCamCount < 4) {
         RCP_SetupDL_21();
         twinLaserSeparation = 9.0f;
-        if ((shot->unk_58 == 0) ||
-            ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO))) {
+        if ((shot->unk_58 == 0) || ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO))) {
             width = 4.0f;
             length = 20.0f;
         } else {
@@ -1136,7 +1135,7 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
                     var_a1 = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
-                if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO) {
+                if (gPlayer[0].state != PLAYERSTATE_LEVEL_INTRO) {
                     if (shot->sourceId > NPC_SHOT_ID + AI360_PEPPY) {
                         if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 0) {
                             var_a1 = 1;
@@ -1735,8 +1734,8 @@ bool PlayerShot_FindLockTarget(PlayerShot* shot) {
     }
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-            if ((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && !player->somersault &&
-                (player->form != FORM_ON_FOOT) && (i != shot->sourceId) && (gVsLockOnTimers[i][shot->sourceId] == 0) &&
+            if ((player->state == PLAYERSTATE_ACTIVE) && !player->somersault && (player->form != FORM_ON_FOOT) &&
+                (i != shot->sourceId) && (gVsLockOnTimers[i][shot->sourceId] == 0) &&
                 (fabsf(shot->obj.pos.x - player->pos.x) <= lockRange) &&
                 (fabsf(shot->obj.pos.y - player->pos.y) <= lockRange) &&
                 (fabsf(shot->obj.pos.z - player->trueZpos) <= lockRange)) {
@@ -1991,7 +1990,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
     if (gVersusMode) {
         player = gPlayer;
         for (i = 0; i < gCamCount; i++, player++) {
-            if ((i != shot->sourceId) && (player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (player->hitTimer == 0)) {
+            if ((i != shot->sourceId) && (player->state == PLAYERSTATE_ACTIVE) && (player->hitTimer == 0)) {
                 dx = player->pos.x - shot->obj.pos.x;
                 dy = player->pos.y - shot->obj.pos.y;
                 dz = player->trueZpos - shot->obj.pos.z;
@@ -2056,8 +2055,8 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f, 1.5f, 0.001f);
             if ((shot->timer > 0) && (shot->timer < 30)) {
-                if (!gVersusMode && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-                                     (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
+                if (!gVersusMode &&
+                    ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
                     test.x = gPlayer[0].pos.x - shot->obj.pos.x;
                     test.y = gPlayer[0].pos.y - shot->obj.pos.y;
                     test.z = gPlayer[0].trueZpos - shot->obj.pos.z;
@@ -2122,7 +2121,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                 }
             }
             for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
-                if (((player->state_1C8 == PLAYERSTATE_1C8_ACTIVE) || (player->state_1C8 == PLAYERSTATE_1C8_U_TURN)) &&
+                if (((player->state == PLAYERSTATE_ACTIVE) || (player->state == PLAYERSTATE_U_TURN)) &&
                     (gVsLockOnTimers[i][shot->sourceId] != 0)) {
                     var_a3 = 1;
                     gVsLockOnTimers[i][shot->sourceId] = 2;
@@ -2286,7 +2285,7 @@ void PlayerShot_Update(PlayerShot* shot) {
 
                 case PLAYERSHOT_SINGLE_LASER:
                 case PLAYERSHOT_TWIN_LASER:
-                    if ((shot->unk_58 == 0) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) {
+                    if ((shot->unk_58 == 0) || (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO)) {
                         ticks = 4;
                     } else {
                         ticks = 3;

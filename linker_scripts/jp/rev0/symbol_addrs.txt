@@ -4119,7 +4119,6 @@ D_8017E111 = 0x8017E111;
 D_8017E112 = 0x8017E112;
 gDmaTable = 0x8017E210; //size:0x590
 
-func_i1_8017E7A0 = 0x8017E7A0; //segment:ovl_i1
 func_i1_8017E7B0 = 0x8017E7B0; //segment:ovl_i1
 func_i1_8017E7BC = 0x8017E7BC; //segment:ovl_i1
 func_i1_8017E824 = 0x8017E824; //segment:ovl_i1
@@ -7271,4 +7270,3 @@ gTextureRenderBuffer = 0x80387800; //size:0x7880 segment:buffers defined:true
 gFillBuffer = 0x8038F080; //size:0x780 segment:buffers defined:true
 gFrameBuffers = 0x8038F800; //size:0x70800 segment:buffers defined:true
 D_8038F300 = 0x8038F300; //ignore:true
-
