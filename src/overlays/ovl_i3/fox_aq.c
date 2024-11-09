@@ -6555,7 +6555,7 @@ void Aquas_801BDF14(void) {
         actor->obj.pos.y = D_i3_801C0504[i].y;
         actor->obj.pos.z = D_i3_801C0504[i].z;
         actor->rot_0F4.y = D_i3_801C075C[i];
-        actor->animFrame = 41;
+        actor->animFrame = ACTOR_CS_AQ_FISHGROUP;
         actor->iwork[0] = RAND_INT(20.0f);
         actor->iwork[2] = i;
         actor->timer_0BC = 231;

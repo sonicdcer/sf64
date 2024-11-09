@@ -2972,9 +2972,9 @@ void Corneria_LevelStart(Player* player) {
             Corneria_CsTeamSetup(slippy, 1);
             Corneria_CsTeamSetup(peppy, 2);
 
-            falco->iwork[14] = 2;
-            slippy->iwork[14] = 3;
-            peppy->iwork[14] = 4;
+            falco->iwork[TEAM_FACE] = FACE_FALCO;
+            slippy->iwork[TEAM_FACE] = FACE_SLIPPY;
+            peppy->iwork[TEAM_FACE] = FACE_PEPPY;
 
             player->cam.eye.x = gCsCamEyeX = player->pos.x - 400.0f;
             gPlayer[0].cam.eye.y = gCsCamEyeY = player->pos.y + 600.0f;

@@ -1872,7 +1872,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
     Player* player;
     f32 radius = shot->scale * 60.0f;
 
-    scenery = gScenery;
+    scenery = &gScenery[0];
     for (i = 0; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_CO_DOORS)) {
             dx = scenery->obj.pos.x - shot->obj.pos.x;
@@ -1884,7 +1884,8 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             scenery->dmgPart = 0;
         }
     }
-    sprite = gSprites;
+
+    sprite = &gSprites[0];
     for (i = 0; i < ARRAY_COUNT(gSprites); i++, sprite++) {
         if ((sprite->obj.status == OBJ_ACTIVE) &&
             ((sprite->obj.id == OBJ_SPRITE_FO_POLE) || (sprite->obj.id == OBJ_SPRITE_TI_CACTUS) ||
@@ -1897,6 +1898,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             }
         }
     }
+
     actor = &gActors[0];
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) &&
@@ -1910,9 +1912,11 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             if ((gLevelMode == LEVELMODE_ON_RAILS) && (dz < 0.0f)) {
                 dz *= 0.6f;
             }
+
             actor->hitPos.x = shot->obj.pos.x;
             actor->hitPos.y = shot->obj.pos.y;
             actor->hitPos.z = shot->obj.pos.z;
+
             if (sqrtf(SQ(dx) + SQ(dy) + SQ(dz)) < radius) {
                 if ((actor->obj.id == OBJ_ACTOR_CO_RADAR) || (actor->obj.id == OBJ_ACTOR_ME_LASER_CANNON_1) ||
                     (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM) || (actor->obj.id == OBJ_ACTOR_ME_HOPBOT) ||
@@ -1953,6 +1957,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             }
         }
     }
+
     if (gCurrentLevel == LEVEL_MACBETH) {
         Macbeth_801AD144(shot);
     } else if (gCurrentLevel == LEVEL_VENOM_1) {
@@ -1960,7 +1965,8 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
     } else {
         PlayerShot_CheckBossHitbox(shot);
     }
-    effect = gEffects;
+
+    effect = &gEffects[0];
     for (i = 0; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status == OBJ_ACTIVE) {
             dx = effect->obj.pos.x - shot->obj.pos.x;
@@ -1987,6 +1993,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
             }
         }
     }
+
     if (gVersusMode) {
         player = gPlayer;
         for (i = 0; i < gCamCount; i++, player++) {
@@ -2023,14 +2030,17 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                 PlayerShot_ExplodeBomb(shot);
                 break;
             }
+
             if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
                 PlayerShot_ExplodeBomb(shot);
                 break;
             }
+
             if ((gPlayer[shot->sourceId].form == FORM_LANDMASTER) || (gPlayer[shot->sourceId].form == FORM_ON_FOOT)) {
                 shot->vel.y -= 1.0f;
                 Math_SmoothStepToF(&shot->obj.rot.x, -90.0f, 0.05f, 1.0f, 0.0f);
             }
+
             if (shot->timer < 25) {
                 if (gVersusMode) {
                     if (gControllerPress[shot->sourceId].button & gBombButton[shot->sourceId]) {
@@ -2044,16 +2054,19 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                     }
                 }
             }
+
             if (!((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gBosses[0].obj.status == OBJ_ACTIVE) &&
                   (gBosses[0].state == 17))) {
                 PlayerShot_CollisionCheck(shot);
             }
             PlayerShot_SetBombLight(shot);
             break;
+
         case 1:
             gGroundClipMode = 2;
             shot->obj.rot.y += 1.0f;
             Math_SmoothStepToF(&shot->scale, shot->unk_48, 0.05f, 1.5f, 0.001f);
+
             if ((shot->timer > 0) && (shot->timer < 30)) {
                 if (!gVersusMode &&
                     ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
@@ -2069,6 +2082,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                 }
                 PlayerShot_SetBombLight(shot);
             }
+
             if (shot->timer == 0) {
                 shot->unk_58 -= 8;
                 if (shot->unk_58 < 0) {
@@ -2120,7 +2134,8 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                     sLockOnPos.y += actor->info.targetOffset;
                 }
             }
-            for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
+
+            for (i = 0, player = &gPlayer[0]; i < gCamCount; i++, player++) {
                 if (((player->state == PLAYERSTATE_ACTIVE) || (player->state == PLAYERSTATE_U_TURN)) &&
                     (gVsLockOnTimers[i][shot->sourceId] != 0)) {
                     var_a3 = 1;
@@ -2134,6 +2149,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                     sLockOnPos.z = player->trueZpos;
                 }
             }
+
             if (var_a3 != 0) {
                 sp6C = shot->obj.pos.x - sLockOnPos.x;
                 sp68 = shot->obj.pos.y - sLockOnPos.y;
@@ -2159,12 +2175,14 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                 shot->unk_60 = 1;
             }
         }
+
         Math_SmoothStepToF(&shot->unk_50, 360.0f, 1.0f, 3.0f, 0.f);
         if (shot->unk_60 != 0) {
             Math_SmoothStepToF(&shot->unk_54, 169.0f, 1.0f, 13.0f, 0.f);
         } else {
             Math_SmoothStepToF(&shot->unk_54, 91.0f, 1.0f, 7.7999997f, 0.f);
         }
+
         if (!((gPlayer[shot->sourceId].form == FORM_LANDMASTER) && (shot->unk_60 != 0))) {
             Vec3f sp44;
             Vec3f sp38;
@@ -2180,6 +2198,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
             shot->vel.y = sp38.y;
             shot->vel.z = sp38.z;
         }
+
         PlayerShot_CollisionCheck(shot);
         gLight3x = shot->obj.pos.x;
         gLight3y = shot->obj.pos.y;
@@ -2198,6 +2217,7 @@ void PlayerShot_UpdateShot(PlayerShot* shot, s32 index) {
     shot->obj.pos.x += shot->vel.x;
     shot->obj.pos.y += shot->vel.y;
     shot->obj.pos.z += shot->vel.z;
+
     switch (shot->obj.id) {
         case PLAYERSHOT_SINGLE_LASER:
             PlayerShot_UpdateBeam(shot, index);

@@ -8,6 +8,16 @@
 #define HITBOX_SHADOW 300000.0f
 #define HITBOX_WHOOSH 400000.0f
 
+#define TEAM_FACE (14)
+
+typedef enum ActorCSTeamFace {
+    /* 0 */ FACE_NONE,
+    /* 1 */ FACE_FOX,
+    /* 2 */ FACE_FALCO,
+    /* 3 */ FACE_SLIPPY,
+    /* 4 */ FACE_PEPPY
+} ActorCSTeamFace;
+
 typedef struct {
     /* 0x0 */ f32 offset;
     /* 0x4 */ f32 size;
