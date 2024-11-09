@@ -680,7 +680,7 @@ void Meteo_Effect370_Update(Effect370* this) {
 }
 
 void Meteo_Effect371_Update(Effect371* this) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+    if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 
@@ -933,9 +933,8 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                         this->vel.x = 0.0f;
                         this->vel.y = 0.0f;
 
-                        if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-                            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN)) {
-                            gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                        if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN)) {
+                            gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                             gPlayer[0].csState = 0;
                             gCsFrameCount = 0;
                         }
@@ -1263,7 +1262,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
             this->obj.rot.z = this->obj.rot.z + ((0.0f - this->obj.rot.z) * 0.02f);
             Math_SmoothStepToF(&this->fwork[0x15], 4.0f, 1.0f, 0.1f, 0.0f);
 
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT) {
+            if (gPlayer[0].state != PLAYERSTATE_NEXT) {
                 gFillScreenRed = gFillScreenAlpha = gFillScreenGreen = gFillScreenBlue = 0;
 
                 if ((this->timer_050 == 10) || (this->timer_050 == 30) || (this->timer_050 == 50) ||
@@ -2077,7 +2076,7 @@ void Meteo_LevelStart(Player* player) {
             if (player->csTimer == 0) {
                 AUDIO_PLAY_BGM(gBgmSeqId);
                 gLevelStartStatusScreenTimer = 80;
-                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
                 player->csState = 0;
                 player->csTimer = 0;
                 player->csEventTimer = 0;
@@ -2337,7 +2336,7 @@ void Meteo_LevelComplete(Player* player) {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlphaStep = 8;
                     if (gFillScreenAlpha == 255) {
-                        player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                        player->state = PLAYERSTATE_NEXT;
                         player->csTimer = 0;
                         gFadeoutType = 4;
                         gLeveLClearStatus[LEVEL_METEO] = Play_CheckMedalStatus(200) + 1;

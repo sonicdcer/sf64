@@ -111,7 +111,7 @@ void SectorX_SxSlippy_Update(SxSlippy* this) {
 
                 gBosses[0].swork[6] = 0;
                 gTeamShields[TEAM_ID_SLIPPY] = -2;
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
+                gPlayer[0].state = PLAYERSTATE_STANDBY;
 
                 this->timer_0BC = 200;
                 this->iwork[14] = 3;
@@ -146,7 +146,7 @@ void SectorX_SxSlippy_Update(SxSlippy* this) {
             Math_SmoothStepToF(&gPlayer[0].cam.eye.y, this->obj.pos.y, this->fwork[1], 20.0f, 0.0f);
 
             if (this->timer_0BC == 0) {
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                gPlayer[0].state = PLAYERSTATE_ACTIVE;
                 if (gPlayer[0].alternateView) {
                     Camera_UpdateCockpitOnRails(&gPlayer[0], 1);
                 }
@@ -503,7 +503,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
         }
     }
 
-    if (((this->state != 8) && (this->state != 20)) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE)) {
+    if (((this->state != 8) && (this->state != 20)) && (gPlayer[0].state != PLAYERSTATE_ACTIVE)) {
         this->state = 8;
         this->fwork[0] = 0.0f;
         Audio_KillSfxBySourceAndId(D_i2_80195D88, NA_SE_EN_SZMIS_ENGINE);
@@ -902,7 +902,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                 this->animFrame++;
                 if (this->animFrame >= Animation_GetFrameCount(&D_SX_60123BC)) {
                     this->animFrame = Animation_GetFrameCount(&D_SX_60123BC) - 1;
-                    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY) {
+                    if (gPlayer[0].state != PLAYERSTATE_STANDBY) {
                         this->animFrame = 0;
                         this->state = 10;
                         this->fwork[0] = 0.0f;
@@ -1087,8 +1087,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
 
             if (this->timer_050 == 120) {
-                if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_NEXT) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_DOWN)) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                if ((gPlayer[0].state != PLAYERSTATE_NEXT) && (gPlayer[0].state != PLAYERSTATE_DOWN)) {
+                    gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = 0;
                     gPlayer[0].draw = true;
                 }
@@ -1629,7 +1629,7 @@ void SectorX_LevelStart(Player* player) {
                 player->baseSpeed = gArwingSpeed;
                 AUDIO_PLAY_BGM(gBgmSeqId);
                 gLevelStartStatusScreenTimer = 80;
-                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
                 player->csState = player->csTimer = player->csEventTimer = 0;
                 player->cam.eye.y = player->pos.y * player->unk_148 + 50.0f;
                 player->cam.eye.z = 400.0f;
@@ -1794,7 +1794,7 @@ void SectorX_LevelComplete(Player* player) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlphaTarget = 255;
                 if (gFillScreenAlpha == 255) {
-                    player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+                    player->state = PLAYERSTATE_NEXT;
                     gFadeoutType = 4;
                     player->csTimer = 0;
                     Play_ClearObjectData();

@@ -807,7 +807,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     gSPDisplayList(gMasterDisp++, D_END_7000000);
 }
 
-void Ending_80191234(s32 arg0, s32 arg1) {
+void Ending_80191234(u32 arg0, AssetInfo* asset) {
     gLastGameState = GSTATE_ENDING;
     gGameState = GSTATE_MENU;
     gNextGameStateTimer = 2;

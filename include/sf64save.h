@@ -50,7 +50,7 @@ typedef struct SaveData {
     /* 0xEB */ u8 textLanguage;  // EU Only text language selection
     /* 0xEC */ u8 voiceLanguage; // EU Only voice language selection
     /* 0xED */ char padEE[0x11];
-} SaveData;                      // size = 0xFE
+} SaveData; // size = 0xFE
 
 typedef struct {
     /* 0x00 */ union {

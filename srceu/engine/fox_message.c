@@ -14,4 +14,4 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_message/func_800C38C8.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_message/func_800C3ABC.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/engine/fox_message/Message_IsPrintingChar.s")

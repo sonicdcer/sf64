@@ -12,9 +12,9 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_80005CA4.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_80005DB4.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/Matrix_RotateX.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_80005F00.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/Matrix_RotateY.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_80006050.s")
 
@@ -26,7 +26,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_800069E0.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_80006A90.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/Matrix_MultVec3fNoTranslate.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/sys/sys_matrix/func_80006B28.s")
 
