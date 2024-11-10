@@ -84,7 +84,7 @@ f32 Audio_GetPortamentoFreqScale(Portamento* portamento) {
     return temp2;
 }
 
-s16 func_800137DC(VibratoState* vibrato) {
+s16 Audio_GetVibratoPitchChange(VibratoState* vibrato) {
     s32 index;
 
     vibrato->time += (s32) vibrato->rate;
@@ -130,7 +130,7 @@ f32 Audio_GetVibratoFreqScale(VibratoState* vibrato) {
     if (vibrato->depth == 0.0f) {
         return 1.0f;
     }
-    ret = func_800137DC(vibrato);
+    ret = Audio_GetVibratoPitchChange(vibrato);
     temp = vibrato->depth / 4096.0f;
     temp2 = 1.0f + temp * (gBendPitchOneOctaveFrequencies[0x80 + ret] - 1.0f);
     return temp2;
