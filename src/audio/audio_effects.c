@@ -3,13 +3,13 @@
 
 static const char devstr[] = "Audio:Envp: overflow  %f\n";
 
-void func_80013400(SequenceChannel* channel, s32 updateVolume) {
+void Audio_SequenceChannelProcessSound(SequenceChannel* channel, s32 updateVolume) {
     s32 i;
 
     if (channel->changes.s.volume || updateVolume) {
         f32 channelVolume = channel->volume * channel->volumeMod * channel->seqPlayer->appliedFadeVolume;
 
-        if (channel->seqPlayer->muted && (channel->muteBehavior & 0x20)) {
+        if (channel->seqPlayer->muted && (channel->muteBehavior & MUTE_BEHAVIOR_SOFTEN)) {
             channelVolume = channel->seqPlayer->muteVolumeMod * channelVolume;
         }
         channel->appliedVolume = SQ(channelVolume);
@@ -65,7 +65,7 @@ void Audio_SequencePlayerProcessSound(SequencePlayer* seqplayer) {
     }
     for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
         if ((IS_SEQUENCE_CHANNEL_VALID(seqplayer->channels[i]) == 1) && (seqplayer->channels[i]->enabled == 1)) {
-            func_80013400(seqplayer->channels[i], seqplayer->recalculateVolume);
+            Audio_SequenceChannelProcessSound(seqplayer->channels[i], seqplayer->recalculateVolume);
         }
     }
     seqplayer->recalculateVolume = false;
