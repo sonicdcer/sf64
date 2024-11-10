@@ -329,7 +329,7 @@ void Andross_80188468(void) {
     actor->obj.pos.y = 300.0f;
     actor->obj.pos.z = -11959.0f;
     actor->iwork[11] = 1;
-    actor->iwork[14] = 1;
+    actor->iwork[TEAM_FACE] = FACE_FOX;
     actor->obj.id = OBJ_ACTOR_TEAM_ARWING;
     Object_SetInfo(&actor->info, actor->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, actor->sfxSource, 4);
@@ -3787,7 +3787,7 @@ void Andross_801939A0(s32 actorIdx) {
     actor->fwork[1] = 6.5f;
 
     if (actorIdx == 10) {
-        actor->iwork[14] = 1;
+        actor->iwork[TEAM_FACE] = FACE_FOX;
     }
     if (actorIdx == 1) {
         actor->state = 1;

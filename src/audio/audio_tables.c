@@ -112,7 +112,7 @@ u8 gSeqFontTableInit[283] = {
     AS_BYTES(277), AS_BYTES(279), AS_BYTES(281),
 
     // sound font for SFX sequence
-    1,  0,
+    1, 0,
     // sound fonts voice sequence
     20, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9,  8, 7,  6, 5,  4, 3,  1, 2,
     // sound fonts for BGM sequences. Each sequence has a single sound font.

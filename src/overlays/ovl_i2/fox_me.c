@@ -1791,7 +1791,7 @@ void Meteo_LevelStart_SetupTeam(ActorCutscene* this, s32 teamIdx) {
     Object_SetInfo(&this->info, this->obj.id);
     this->info.cullDistance = 200.0f;
 
-    if (this->animFrame == 0) {
+    if (this->animFrame == ACTOR_CS_TEAM_ARWING) {
         this->iwork[11] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
         return;

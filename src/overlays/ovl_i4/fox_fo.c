@@ -884,9 +884,9 @@ void Fortuna_LevelComplete(Player* player) {
                 D_ctx_80177A48[1] = 0.0f;
                 D_ctx_80177A48[2] = -400.0f;
                 D_ctx_80177A48[3] = 0.0f;
-                falco->iwork[14] = 2;
-                slippy->iwork[14] = 3;
-                peppy->iwork[14] = 4;
+                falco->iwork[TEAM_FACE] = FACE_FALCO;
+                slippy->iwork[TEAM_FACE] = FACE_SLIPPY;
+                peppy->iwork[TEAM_FACE] = FACE_PEPPY;
             }
 
             if (gCsFrameCount == 200) {

@@ -2635,7 +2635,7 @@ void Area6_8018EC38(ActorCutscene* this, s32 teamIdx) {
 
         // Peppy is omitted, probably because it's outside of the camera view.
         if (teamIdx + 1 != 3) {
-            this->iwork[14] = teamIdx + 2;
+            this->iwork[TEAM_FACE] = teamIdx + 2;
         }
 
         Object_SetInfo(&this->info, this->obj.id);

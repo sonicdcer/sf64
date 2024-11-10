@@ -5584,7 +5584,7 @@ void Aquas_AqCoralReef2_Setup(ActorCutscene* this, s32 posIdx) {
     this->obj.id = OBJ_ACTOR_CUTSCENE;
     this->obj.pos = sAqCoralReef2Pos[posIdx];
     this->obj.pos.z -= gPathProgress;
-    this->animFrame = 46;
+    this->animFrame = ACTOR_CS_AQ_CORAL_REEF_2;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -5599,7 +5599,7 @@ void Aquas_AqRock_Setup(ActorCutscene* this, s32 posIdx) {
     this->obj.id = OBJ_ACTOR_CUTSCENE;
     this->obj.pos = sAqRockPos[posIdx];
     this->obj.pos.z -= gPathProgress;
-    this->animFrame = 47;
+    this->animFrame = ACTOR_CS_AQ_ROCK;
     Object_SetInfo(&this->info, this->obj.id);
 }
 

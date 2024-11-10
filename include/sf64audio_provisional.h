@@ -1021,14 +1021,14 @@ typedef struct {
 
 // audio_synthesis
 void func_80008780(f32*, s32, f32*);
-Acmd* func_80009B64(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
+Acmd* AudioSynth_Update(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
 
 // audio_effects
-void func_800135A8(SequencePlayer* seqplayer);
-void func_80013A18(Note* note);
-void func_80013A84(Note* note);
-void func_80013B6C(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2);
-f32 func_80013B90(AdsrState* adsr);
+void Audio_SequencePlayerProcessSound(SequencePlayer* seqplayer);
+void Audio_NoteVibratoUpdate(Note* note);
+void Audio_NoteVibratoInit(Note* note);
+void Audio_AdsrInit(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2);
+f32 Audio_AdsrUpdate(AdsrState* adsr);
 
 // audio_heap
 void AudioHeap_DiscardFont(s32 fontId);
@@ -1058,29 +1058,29 @@ void AudioLoad_DiscardSeqFonts(s32 seqId);
 s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status);
 
 // audio_playback
-TunedSample* func_80011D10(Instrument* instrument, s32 arg1);
+TunedSample* Audio_GetInstrumentTunedSample(Instrument* instrument, s32 semitone);
 Instrument* Audio_GetInstrument(s32, s32);
 Drum* Audio_GetDrum(s32, s32);
-void func_80011F4C(Note* note);
-void func_80011FA8(void);
-void func_8001266C(SequenceLayer* layer);
-void func_800127B0(Note* note, SequenceLayer* layer);
-void func_80012864(NotePool* pool);
-void func_800128B4(void);
-void func_80012964(NotePool* pool);
-void func_80012AC4(NotePool* pool, s32);
-void func_80012C40(Note* note);
-Note* func_8001301C(SequenceLayer* layer);
-void func_800132E8(void);
+void Audio_NoteDisable(Note* note);
+void Audio_ProcessNotes(void);
+void Audio_SeqLayerNoteDecay(SequenceLayer* layer);
+void Audio_InitSyntheticWave(Note* note, SequenceLayer* layer);
+void Audio_InitNoteLists(NotePool* pool);
+void Audio_InitNoteFreeList(void);
+void Audio_NotePoolClear(NotePool* pool);
+void Audio_NotePoolFill(NotePool* pool, s32);
+void Audio_AudioListRemove(Note* note);
+Note* Audio_AllocNote(SequenceLayer* layer);
+void Audio_NoteInitAll(void);
 
 // audio_seqplayer
-void func_8001415C(SequenceChannel* channel);
-void func_800144E4(SequencePlayer* seqPlayer);
-void func_800145BC(AudioListItem* list, AudioListItem* item);
-void* func_800145FC(AudioListItem* list);
-void func_8001678C(s32 arg0);
-void func_80016804(s32 arg0);
-void func_800168BC(void);
+void AudioSeq_SequenceChannelDisable(SequenceChannel* channel);
+void AudioSeq_SequencePlayerDisable(SequencePlayer* seqPlayer);
+void AudioSeq_AudioListPushBack(AudioListItem* list, AudioListItem* item);
+void* AudioSeq_AudioListPopBack(AudioListItem* list);
+void AudioSeq_ProcessSequences(s32 arg0);
+void AudioSeq_ResetSequencePlayer(s32 arg0);
+void AudioSeq_InitSequencePlayers(void);
 
 // audio_thread
 void AudioThread_ScheduleProcessCmds(void);
