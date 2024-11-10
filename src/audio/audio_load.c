@@ -383,7 +383,7 @@ void AudioLoad_SyncInitSeqPlayerInternal(s32 playerIdx, s32 seqId, s32 arg2) {
 
     seqId = AudioLoad_GetLoadTableIndex(SEQUENCE_TABLE, seqId);
 
-    func_800144E4(&gSeqPlayers[playerIdx]);
+    AudioSeq_SequencePlayerDisable(&gSeqPlayers[playerIdx]);
 
     index = *((u16*) gSeqFontTable + seqId);
     numFonts = gSeqFontTable[index++];
@@ -396,7 +396,7 @@ void AudioLoad_SyncInitSeqPlayerInternal(s32 playerIdx, s32 seqId, s32 arg2) {
 
     seqData = AudioLoad_SyncLoadSeq(seqId);
 
-    func_80016804(playerIdx);
+    AudioSeq_ResetSequencePlayer(playerIdx);
 
     gSeqPlayers[playerIdx].seqId = seqId;
     gSeqPlayers[playerIdx].defaultFont = fontId;
@@ -978,7 +978,7 @@ void AudioLoad_Init(void) {
     }
 
     AudioHeap_InitPool(&gPermanentPool.pool, ramAddr, gPermanentPoolSize);
-    func_800168BC();
+    AudioSeq_InitSequencePlayers();
 }
 
 static const char devstr38[] = "Entry--- %d %d\n";

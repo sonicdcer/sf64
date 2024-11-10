@@ -42,7 +42,7 @@ void func_80013400(SequenceChannel* channel, s32 updateVolume) {
     channel->changes.asByte = 0;
 }
 
-void func_800135A8(SequencePlayer* seqplayer) {
+void Audio_SequencePlayerProcessSound(SequencePlayer* seqplayer) {
     s32 i;
 
     if (seqplayer->fadeTimer != 0) {
@@ -56,14 +56,14 @@ void func_800135A8(SequencePlayer* seqplayer) {
         }
         seqplayer->fadeTimer--;
         if ((seqplayer->fadeTimer == 0) && (seqplayer->state == 2)) {
-            func_800144E4(seqplayer);
+            AudioSeq_SequencePlayerDisable(seqplayer);
             return;
         }
     }
     if (seqplayer->recalculateVolume) {
         seqplayer->appliedFadeVolume = seqplayer->fadeVolume * seqplayer->fadeVolumeMod;
     }
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
         if ((IS_SEQUENCE_CHANNEL_VALID(seqplayer->channels[i]) == 1) && (seqplayer->channels[i]->enabled == 1)) {
             func_80013400(seqplayer->channels[i], seqplayer->recalculateVolume);
         }
@@ -71,7 +71,7 @@ void func_800135A8(SequencePlayer* seqplayer) {
     seqplayer->recalculateVolume = false;
 }
 
-f32 func_80013708(Portamento* portamento) {
+f32 Audio_GetPortamentoFreqScale(Portamento* portamento) {
     u32 temp;
     f32 temp2;
 
@@ -92,7 +92,7 @@ s16 func_800137DC(VibratoState* vibrato) {
     return vibrato->curve[index] >> 8;
 }
 
-f32 func_80013820(VibratoState* vibrato) {
+f32 Audio_GetVibratoFreqScale(VibratoState* vibrato) {
     s32 ret;
     f32 temp;
     f32 temp2;
@@ -136,16 +136,16 @@ f32 func_80013820(VibratoState* vibrato) {
     return temp2;
 }
 
-void func_80013A18(Note* note) {
+void Audio_NoteVibratoUpdate(Note* note) {
     if (note->playbackState.portamento.mode != 0) {
-        note->playbackState.portamentoFreqMod = func_80013708(&note->playbackState.portamento);
+        note->playbackState.portamentoFreqMod = Audio_GetPortamentoFreqScale(&note->playbackState.portamento);
     }
     if ((note->playbackState.vibratoState.active != 0) && (note->playbackState.parentLayer != NO_LAYER)) {
-        note->playbackState.vibratoFreqMod = func_80013820(&note->playbackState.vibratoState);
+        note->playbackState.vibratoFreqMod = Audio_GetVibratoFreqScale(&note->playbackState.vibratoState);
     }
 }
 
-void func_80013A84(Note* note) {
+void Audio_NoteVibratoInit(Note* note) {
     NotePlaybackState* noteState = &note->playbackState;
     VibratoState* vibrato = &noteState->vibratoState;
 
@@ -173,7 +173,7 @@ void func_80013A84(Note* note) {
     noteState->portamento = noteState->parentLayer->portamento;
 }
 
-void func_80013B6C(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2) {
+void Audio_AdsrInit(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2) {
     adsr->action.asByte = 0;
     adsr->state = 0;
     adsr->delay = 0;
@@ -182,7 +182,7 @@ void func_80013B6C(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2) {
     adsr->current = 0.0f;
 }
 
-f32 func_80013B90(AdsrState* adsr) {
+f32 Audio_AdsrUpdate(AdsrState* adsr) {
     u8 action = adsr->action.asByte;
     u8 state = adsr->state;
 
