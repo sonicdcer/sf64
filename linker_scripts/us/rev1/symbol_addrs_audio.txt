@@ -222,25 +222,25 @@ sAudioResetMsg = 0x8015661C;
 
 
 // functions
-func_800080C0 = 0x800080C0;
-func_80008364 = 0x80008364;
-func_80008780 = 0x80008780;
+AudioSynth_InitNextRingBuf = 0x800080C0;
+AudioSynth_InverseDiscreteCosineTransform = 0x80008364;
+AudioSynth_HartleyTransform = 0x80008780;
 func_80009124 = 0x80009124;
 func_80009504 = 0x80009504;
 func_8000967C = 0x8000967C;
 func_800097A8 = 0x800097A8;
-func_800098DC = 0x800098DC;
-func_80009984 = 0x80009984;
-func_80009A2C = 0x80009A2C;
-func_80009AAC = 0x80009AAC;
+AudioSynth_LoadRingBufferPart = 0x800098DC;
+AudioSynth_SaveRingBufferPart = 0x80009984;
+AudioSynth_DisableSampleStates = 0x80009A2C;
+AudioSynth_SyncSampleStates = 0x80009AAC;
 AudioSynth_Update = 0x80009B64;
-func_80009D78 = 0x80009D78;
-func_8000A128 = 0x8000A128;
-func_8000A25C = 0x8000A25C;
+AudioSynth_LoadReverbSamples = 0x80009D78;
+AudioSynth_SaveReverbSamples = 0x8000A128;
+AudioSynth_DoOneAudioUpdate = 0x8000A25C;
 AudioSynth_ProcessNote = 0x8000A700;
 AudioSynth_LoadWaveSamples = 0x8000B3F0;
-func_8000B480 = 0x8000B480;
-func_8000B51C = 0x8000B51C;
+AudioSynth_FinalResample = 0x8000B480;
+AudioSynth_ProcessEnvelope = 0x8000B51C;
 AudioSynth_ApplyHaasEffect = 0x8000B98C;
 
 

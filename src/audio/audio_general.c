@@ -2241,7 +2241,7 @@ void Audio_AnalyzeFrequencies(f32* buffer0, f32* buffer1, s32 length, f32* buffe
     buff1half1 = buffer1;
 
     // FFT buffer 1 using buffer 2
-    func_80008780(buffer1, length, buffer2);
+    AudioSynth_HartleyTransform(buffer1, length, buffer2);
 
     // handle i = 0 case
     buff0fromStart[0] = buff1half1[0];

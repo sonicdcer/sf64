@@ -52,8 +52,8 @@ typedef void (*AudioCustomUpdateFunction)(void);
 // Samples are processed in groups of 16 called a "frame"
 #define SAMPLES_PER_FRAME ADPCMFSIZE
 
-// The length of one left/right channel is 13 frames
-#define DMEM_1CH_SIZE (13 * SAMPLES_PER_FRAME * SAMPLE_SIZE)
+// The length of one left/right channel is 12 frames
+#define DMEM_1CH_SIZE (12 * SAMPLES_PER_FRAME * SAMPLE_SIZE)
 // Both left and right channels
 #define DMEM_2CH_SIZE (2 * DMEM_1CH_SIZE)
 
@@ -840,7 +840,7 @@ typedef struct {
 typedef struct {
     /* 0x00 */ AudioTableBase base;
     /* 0x10 */ AudioTableEntry entries[]; // (dynamic size)
-} AudioTable;                             // size >= 0x20
+} AudioTable; // size >= 0x20
 
 typedef struct SampleDma {
     /* 0x00 */ u8* ramAddr;
@@ -1020,7 +1020,7 @@ typedef struct {
 #define SEQ_BYTE2(seqId) (((seqId) & (0xFF << 16)) >> 13 & 0xFFFF)
 
 // audio_synthesis
-void func_80008780(f32*, s32, f32*);
+void AudioSynth_HartleyTransform(f32*, s32, f32*);
 Acmd* AudioSynth_Update(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
 
 // audio_effects
