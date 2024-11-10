@@ -612,43 +612,7 @@ typedef struct {
     /* 0x0A */ u16 resampleRate;
     /* 0x0C */ s16* waveSampleAddr;
 } NoteSubEu; // size = 0x10
-typedef struct {
-    struct {
-        /* 0x00 */ volatile u8 enabled : 1;
-        /* 0x00 */ u8 needsInit : 1;
-        /* 0x00 */ u8 finished : 1;
-        /* 0x00 */ u8 unused : 1;
-        /* 0x00 */ u8 strongRight : 1;
-        /* 0x00 */ u8 strongLeft : 1;
-        /* 0x00 */ u8 strongReverbRight : 1;
-        /* 0x00 */ u8 strongReverbLeft : 1;
-    } bitField0;
-    struct {
-        /* 0x01 */ u8 reverbIndex : 3;
-        /* 0x01 */ u8 bookOffset : 2;
-        /* 0x01 */ u8 isSyntheticWave : 1;
-        /* 0x01 */ u8 hasTwoParts : 1;
-        /* 0x01 */ u8 useHaasEffect : 1;
-    } bitField1;
-    /* 0x02 */ u8 gain; // Increases volume by a multiplicative scaling factor. Represented as a UQ4.4 number
-    /* 0x03 */ u8 haasEffectLeftDelaySize;
-    /* 0x04 */ u8 haasEffectRightDelaySize;
-    /* 0x05 */ u8 targetReverbVol;
-    /* 0x06 */ u8 harmonicIndexCurAndPrev; // bits 3..2 store curHarmonicIndex, bits 1..0 store prevHarmonicIndex
-    /* 0x07 */ u8 combFilterSize;
-    /* 0x08 */ u16 targetVolLeft;
-    /* 0x0A */ u16 targetVolRight;
-    /* 0x0C */ u16 frequencyFixedPoint;
-    /* 0x0E */ u16 combFilterGain;
-        union {
-    /* 0x10 */ TunedSample* tunedSample;
-    /* 0x10 */ s16* waveSampleAddr; // used for synthetic waves
-        };
-    /* 0x14 */ s16* filter;
-    /* 0x18 */ u8 unk_18;
-    /* 0x19 */ u8 surroundEffectIndex;
-    /* 0x1A */ u8 unk_1A[0x6];
-} NoteSampleState; // size = 0x20
+
 typedef struct Note {
     /* 0x00 */ AudioListItem listItem;
     /* 0x10 */ NoteSynthesisState synthesisState;
