@@ -230,8 +230,8 @@ void AudioSeq_SequenceChannelEnable(SequencePlayer* seqPlayer, u8 channelIndex, 
     if (IS_SEQUENCE_CHANNEL_VALID(channel) != 0) {
         channel->scriptState.depth = 0;
         channel->scriptState.pc = script;
-        channel->enabled = 1;
-        channel->finished = 0;
+        channel->enabled = true;
+        channel->finished = false;
         channel->delay = 0;
         for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
             if (channel->layers[i] != NULL) {
@@ -246,10 +246,12 @@ void AudioSeq_SequencePlayerDisable(SequencePlayer* seqPlayer) {
     Audio_NotePoolClear(&seqPlayer->notePool);
     seqPlayer->finished = true;
     seqPlayer->enabled = false;
-    if ((gSeqLoadStatus[seqPlayer->seqId] >= 2) && (gSeqLoadStatus[seqPlayer->seqId] != 5)) {
+    if ((gSeqLoadStatus[seqPlayer->seqId] >= LOAD_STATUS_COMPLETE) &&
+        (gSeqLoadStatus[seqPlayer->seqId] != LOAD_STATUS_PERMANENTLY_LOADED)) {
         gSeqLoadStatus[seqPlayer->seqId] = LOAD_STATUS_DISCARDABLE;
     }
-    if ((gFontLoadStatus[seqPlayer->defaultFont] >= 2) && (gFontLoadStatus[seqPlayer->defaultFont] != 5)) {
+    if ((gFontLoadStatus[seqPlayer->defaultFont] >= LOAD_STATUS_COMPLETE) &&
+        (gFontLoadStatus[seqPlayer->defaultFont] != LOAD_STATUS_PERMANENTLY_LOADED)) {
         gFontLoadStatus[seqPlayer->defaultFont] = LOAD_STATUS_MAYBE_DISCARDABLE;
     }
     if (seqPlayer->defaultFont == gFontCache.temporary.entries[0].id) {

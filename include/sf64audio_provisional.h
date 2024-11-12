@@ -659,7 +659,7 @@ typedef struct {
  * processing audio commands. This struct parameterizes that buffer.
  */
 typedef struct {
-    /* 0x00 */ s16 count;
+    /* 0x00 */ s16 numBuffers;
     /* 0x02 */ u16 samplingFrequency;   // Target sampling rate in Hz
     /* 0x04 */ u16 aiSamplingFrequency; // True sampling rate of the audio interface (AI), see `osAiSetFrequency`
     /* 0x06 */ s16 samplesPerFrameTarget;
