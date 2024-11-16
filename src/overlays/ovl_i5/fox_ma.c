@@ -4227,6 +4227,10 @@ void Macbeth_Actor207_Update(Actor207* this) {
     s16 spC6;
     u8 i;
 
+#ifdef AVOID_UB
+    sp374 = 0.0f;
+#endif
+
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
