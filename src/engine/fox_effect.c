@@ -814,7 +814,7 @@ void Effect_Effect357_Draw(Effect357* this) {
 
                 case 16:
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, aSyShip4DestroyedDL);
+                    gSPDisplayList(gMasterDisp++, D_MA_600F6C0);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     break;
 
