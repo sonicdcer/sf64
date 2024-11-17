@@ -56,8 +56,7 @@ s16 D_i5_801BE320[35];
 f32 D_i5_801BE368[50];
 Vec3f D_i5_801BE430[50];
 Vec3f D_i5_801BE688[2];
-Vec3f D_i5_801BE6A0[6];
-Vec3f D_i5_801BE6E8[6];
+Vec3f D_i5_801BE6A0[12];
 s32 D_i5_801BE734[4];
 
 UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
@@ -2821,27 +2820,27 @@ void Macbeth_MaTrainStopBlock_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* this
     switch (limbIndex) {
         case 1:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[0]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[0]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[6]);
             break;
         case 2:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[1]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[1]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[7]);
             break;
         case 3:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[2]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[2]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[8]);
             break;
         case 4:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[3]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[3]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[9]);
             break;
         case 5:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[4]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[4]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[10]);
             break;
         case 11:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[5]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[5]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[11]);
             break;
 
         default:
