@@ -351,7 +351,12 @@ void Bolse_UpdateEventHandler(ActorEvent* this) {
         case 10:
             if (gBosses[1].obj.status != 0) {
                 if (fabsf(Math_SmoothStepToF(&gBosses[1].scale, 0.0f, 1.0f, 0.05f, 0.001f)) < 0.05f) {
+// @bug: i is uninitialized and likely contains stack garbage.
+#ifdef AVOID_UB
+                    Object_Kill(&gBosses[1].obj, gBosses[1].sfxSource);
+#else
                     Object_Kill(&gBosses[1].obj, gBosses[i].sfxSource);
+#endif
                     gLight1R = 100;
                     gLight1G = 100;
                     gLight1B = 80;
