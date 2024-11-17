@@ -5502,6 +5502,7 @@ bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos
     return false;
 }
 
+// unused
 void Macbeth_801AC6B4(ActorCutscene* this) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -6459,18 +6460,9 @@ void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     }
 }
 
-f32 D_i5_801BA854[4] = { 1.5f, -1.0f, 0.7f, 0.0f };
-f32 D_i5_801BA864 = 0.9f;
-f32 D_i5_801BA868 = 0.7f; // unused?
-f32 D_i5_801BA86C = -1.0f;
-f32 D_i5_801BA870 = 1.5f; // unused?
-f32 D_i5_801BA874[4] = { 200.0f, 300.0f, 400.0f, 0.0f };
-f32 D_i5_801BA884 = 500.0f;
-f32 D_i5_801BA888 = 100.0f;
-f32 D_i5_801BA88C = 120.0f;
-f32 D_i5_801BA890 = 100.0f; // unused?
-f32 D_i5_801BA894[5] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f };
-f32 D_i5_801BA8A8[3] = { 230.0f, 220.0f, 350.0f }; // unused?
+f32 D_i5_801BA854[8] = { 1.5f, -1.0f, 0.7f, 0.0f, 0.9f, 0.7f, -1.0f, 1.5f };
+f32 D_i5_801BA874[8] = { 200.0f, 300.0f, 400.0f, 0.0f, 500.0f, 100.0f, 120.0f, 100.0f };
+f32 D_i5_801BA894[8] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f, 230.0f, 220.0f, 350.0f };
 
 void Macbeth_LevelComplete2(Player* player) {
     s32 i;
@@ -7092,7 +7084,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1310:
-            D_i5_801BA888 = 220.0f;
+            D_i5_801BA874[5] = 220.0f;
             break;
 
         case 1350:
@@ -7116,7 +7108,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1460:
-            D_i5_801BA88C = 170.0f;
+            D_i5_801BA874[6] = 170.0f;
             break;
 
         case 1500:
@@ -7146,7 +7138,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1661:
-            D_i5_801BA86C = -0.5f;
+            D_i5_801BA854[6] = -0.5f;
             break;
 
         case 1810:
@@ -7247,12 +7239,12 @@ void Macbeth_801B28BC(ActorCutscene* this) {
 
     switch (this->state) {
         case 10:
-            this->fwork[3] += D_i5_801BA864;
+            this->fwork[3] += D_i5_801BA854[4];
 
             Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
 
             sp5C.x = 0.0f;
-            sp5C.y = D_i5_801BA884;
+            sp5C.y = D_i5_801BA874[4];
             sp5C.z = D_i5_801BA894[4];
 
             Math_SmoothStepToF(&D_i5_801BA894[4], 100.0f, 0.05f, 0.5f, 0.01f);
