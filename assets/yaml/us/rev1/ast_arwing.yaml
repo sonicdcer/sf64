@@ -193,10 +193,10 @@ D_arwing_30183D0:
   { type: GFX, offset: 0x30183D0, symbol: D_arwing_30183D0 }
 
 aWindshieldClouldReflextionTex:
-  { type: TEXTURE, format: RGBA16, offset: 0x30184D8, width: 32, height: 32, ctype: u16, symbol: aWindshieldClouldReflextionTex }
+  { type: TEXTURE, format: RGBA16, offset: 0x30184D8, width: 64, height: 32, ctype: u16, symbol: aWindshieldClouldReflextionTex }
 
-D_arwing_3018CD8:
-  { type: TEXTURE, format: RGBA16, offset: 0x3018CD8, width: 64, height: 16, ctype: u16, symbol: D_arwing_3018CD8 }
+D_ARWING_BLOB_1:
+  { type: BLOB, offset: 0x30194D8, size: 8, symbol: D_ARWING_BLOB_1 }
 
 # Windshield
 D_arwing_30194E0:
