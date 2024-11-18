@@ -267,8 +267,13 @@ void HUD_ShieldGaugeFrame_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
 }
 
 void HUD_ShieldGaugeBars_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale, f32 arg4) {
+#ifdef AVOID_UB
+    TextureRect_CI8_2(&gMasterDisp, aShieldGaugeTex, aShieldGaugeTLUT, 48, 8, xPos, yPos, xScale, yScale, 48.0f * arg4,
+                      8.0f);
+#else
     TextureRect_CI8_2(&gMasterDisp, aShieldGaugeTex, aShieldGaugeTLUT, 48, 12, xPos, yPos, xScale, yScale, 48.0f * arg4,
                       8.0f);
+#endif
 }
 
 void HUD_BoostGaugeFrame_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {

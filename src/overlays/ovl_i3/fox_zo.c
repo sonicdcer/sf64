@@ -3273,7 +3273,7 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
 
 #ifndef AVOID_UB
     // @Bug: checking out of bounds
-    // If this passes the boss kills himself.
+    // If this passes the boss kills himself, since gActors[60] overflows to gBosses[0].
     if (i >= ARRAY_COUNT(gActors)) {
         actor245->obj.status = OBJ_FREE;
     }
