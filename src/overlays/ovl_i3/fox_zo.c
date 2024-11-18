@@ -3215,7 +3215,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 }
 
 void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
-    ZoBall* actor245;
+    ZoBall* zoBall;
     Vec3f src = { 0.0f, 0.0f, 50.0f };
     Vec3f dest;
     s32 i;
@@ -3231,18 +3231,18 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
             sZoSwork[ZO_BSS_0 + arg1] = 40;
         }
 
-        for (i = 0, actor245 = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor245++) {
-            if (actor245->obj.status == OBJ_FREE) {
+        for (i = 0, zoBall = &gActors[0]; i < ARRAY_COUNT(gActors); i++, zoBall++) {
+            if (zoBall->obj.status == OBJ_FREE) {
                 D_ctx_801779A8[0] = 20.0f;
-                Actor_Initialize(actor245);
-                actor245->obj.status = OBJ_INIT;
-                actor245->obj.id = OBJ_ACTOR_ZO_BALL;
+                Actor_Initialize(zoBall);
+                zoBall->obj.status = OBJ_INIT;
+                zoBall->obj.id = OBJ_ACTOR_ZO_BALL;
 
-                actor245->obj.pos.x = this->obj.pos.x + xOff;
-                actor245->obj.pos.y = this->obj.pos.y + yOff;
-                actor245->obj.pos.z = this->obj.pos.z + zOff;
+                zoBall->obj.pos.x = this->obj.pos.x + xOff;
+                zoBall->obj.pos.y = this->obj.pos.y + yOff;
+                zoBall->obj.pos.z = this->obj.pos.z + zOff;
 
-                actor245->health = 10;
+                zoBall->health = 10;
 
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
@@ -3252,19 +3252,18 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-                actor245->vel.x = dest.x;
-                actor245->vel.y = dest.y;
-                actor245->vel.z = this->vel.z + dest.z;
+                zoBall->vel.x = dest.x;
+                zoBall->vel.y = dest.y;
+                zoBall->vel.z = this->vel.z + dest.z;
 
-                Object_SetInfo(&actor245->info, actor245->obj.id);
+                Object_SetInfo(&zoBall->info, zoBall->obj.id);
                 sZoFwork[ZO_BSF_35 + arg1] = 40.0f;
 
                 AUDIO_PLAY_SFX(NA_SE_EN_S_BALL_SHOT, this->sfxSource, 4);
 
                 for (i = 0; i < 4; i++) {
-                    Zoness_Effect394_Spawn3(actor245->obj.pos.x + (dest.x * 4.3f),
-                                            actor245->obj.pos.y + (dest.y * 4.3f),
-                                            actor245->obj.pos.z + (dest.z * 4.3f) + 100.0f, 30.0f);
+                    Zoness_Effect394_Spawn3(zoBall->obj.pos.x + (dest.x * 4.3f), zoBall->obj.pos.y + (dest.y * 4.3f),
+                                            zoBall->obj.pos.z + (dest.z * 4.3f) + 100.0f, 30.0f);
                 }
                 break;
             }
@@ -3275,7 +3274,7 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
     // @Bug: checking out of bounds
     // If this passes the boss kills himself, since gActors[60] overflows to gBosses[0].
     if (i >= ARRAY_COUNT(gActors)) {
-        actor245->obj.status = OBJ_FREE;
+        zoBall->obj.status = OBJ_FREE;
     }
 #endif
 }

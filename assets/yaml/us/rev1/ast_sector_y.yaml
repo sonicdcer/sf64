@@ -51,16 +51,10 @@ aSyShip4DL:
   { type: GFX, offset: 0x6005360, symbol: aSyShip4DL }
 
 D_SY_6005BE0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06005BE0, symbol: D_SY_6005BE0 }
-
-D_SY_60063E0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060063E0, symbol: D_SY_60063E0 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06005BE0, symbol: D_SY_6005BE0 }
 
 D_SY_6006BE0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06006BE0, symbol: D_SY_6006BE0 }
-
-D_SY_6006DE0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 24, offset: 0x06006DE0, symbol: D_SY_6006DE0 }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06006BE0, symbol: D_SY_6006BE0 }
 
 D_SY_60073E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x060073E0, symbol: D_SY_60073E0 }
