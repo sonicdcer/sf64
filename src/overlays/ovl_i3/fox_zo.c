@@ -3317,7 +3317,7 @@ void Zoness_801989FC(ZoSarumarine* this) {
 }
 
 void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
-    s32 var_s1;
+    s32 i;
     Effect398* effect398;
     Vec3f src = { 0.0f, 0.0f, 100.0f };
     Vec3f dest;
@@ -3336,7 +3336,7 @@ void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
             }
         }
 
-        for (var_s1 = 0, effect398 = &gEffects[0]; var_s1 < 100; var_s1++, effect398++) {
+        for (i = 0, effect398 = &gEffects[0]; i < 100; i++, effect398++) {
             if (effect398->obj.status == OBJ_FREE) {
                 Effect_Initialize(effect398);
                 effect398->obj.status = OBJ_INIT;
@@ -3361,9 +3361,11 @@ void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
                 break;
             }
         }
-        if (var_s1 >= ARRAY_COUNT(gActors)) {
+#ifndef AVOID_UB
+        if (i >= ARRAY_COUNT(gActors)) {
             effect398->obj.status = OBJ_FREE;
         }
+#endif
     }
 }
 
