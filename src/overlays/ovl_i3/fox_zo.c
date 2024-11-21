@@ -3999,13 +3999,13 @@ void Zoness_ZoSpikeBall_Draw(ZoSpikeBall* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_601BCC0);
 }
 
-Vec3f D_i3_801BF744[3] = {
-    { 0.0f, 50.0f, -200.0f },
+Vec3f sTankerCointainerInitPos[3] = {
+    { 0.0f, 50.0f, -200.0f }, // first position seems unused
     { 0.0f, 50.0f, 200.0f },
     { 0.0f, 50.0f, 600.0f },
 };
-Vec3f D_i3_801BF768[3] = {
-    { 0.0f, 300.0f, 0.0f },
+Vec3f sSupplyCraneCointainerInitPos[3] = {
+    { 0.0f, 300.0f, 0.0f }, // first position seems unused
     { 0.0f, 300.0f, -200.0f },
     { 0.0f, 300.0f, 300.0f },
 };
@@ -4018,19 +4018,23 @@ void Zoness_ZoTanker_Init(ZoTanker* actor) {
     s32 temp_v1;
     s32 containerIdx;
     s32 i;
-    s32 var_s6;
-    Vec3f sp84;
-    Vec3f sp78;
-    Vec3f sp6C;
+    s32 j;
+    Vec3f containerOffsetPos;
+    Vec3f tankerVelSrc;
+    Vec3f tankerVelDest;
 
     actor->obj.pos.y = 120.0f;
     actor->scale = -1.0f;
+
     Matrix_RotateY(gCalcMatrix, actor->obj.rot.y * M_DTOR, MTXF_NEW);
-    sp78.x = sp78.y = 0.0f;
-    sp78.z = actor->obj.rot.z;
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-    actor->vel.x = sp6C.x;
-    actor->vel.z = sp6C.z;
+
+    tankerVelSrc.x = tankerVelSrc.y = 0.0f;
+    tankerVelSrc.z = actor->obj.rot.z;
+
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &tankerVelSrc, &tankerVelDest);
+
+    actor->vel.x = tankerVelDest.x;
+    actor->vel.z = tankerVelDest.z;
     actor->obj.rot.z = 0.0f;
 
     containerIdx = 1;
@@ -4040,12 +4044,12 @@ void Zoness_ZoTanker_Init(ZoTanker* actor) {
         actor->obj.rot.x = (s32) fabsf(Math_ModF(actor->obj.rot.x, 100.0f));
     }
 
-    for (i = 0, var_s6 = 0; (containerIdx < 3) && (i < ARRAY_COUNT(gActors)); i++) {
+    for (i = 0, j = 0; (containerIdx < 3) && (i < ARRAY_COUNT(gActors)); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
             if (actor->state == 0) {
-                Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[containerIdx], &sp84);
+                Matrix_MultVec3f(gCalcMatrix, &sTankerCointainerInitPos[containerIdx], &containerOffsetPos);
             } else {
-                Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[containerIdx], &sp84);
+                Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneCointainerInitPos[containerIdx], &containerOffsetPos);
             }
 
             Actor_Initialize(&gActors[i]);
@@ -4056,14 +4060,18 @@ void Zoness_ZoTanker_Init(ZoTanker* actor) {
             } else {
                 gActors[i].obj.id = OBJ_ACTOR_ZO_SUPPLYCRANE;
             }
-            gActors[i].obj.pos.x = actor->obj.pos.x + sp84.x;
-            gActors[i].obj.pos.y = actor->obj.pos.y + sp84.y;
-            gActors[i].obj.pos.z = actor->obj.pos.z + sp84.z;
-            ((uintptr_t*) &actor->iwork[7])[containerIdx] = (s32) (actor->obj.rot.x * 3.0f) + containerIdx;
+
+            gActors[i].obj.pos.x = actor->obj.pos.x + containerOffsetPos.x;
+            gActors[i].obj.pos.y = actor->obj.pos.y + containerOffsetPos.y;
+            gActors[i].obj.pos.z = actor->obj.pos.z + containerOffsetPos.z;
+
+            ((s32*) &actor->iwork[7])[containerIdx] = (s32) (actor->obj.rot.x * 3.0f) + containerIdx;
+
             gActors[i].obj.rot.y = actor->obj.rot.y;
             gActors[i].iwork[0] = D_i3_801BF78C[((s32*) &actor->iwork[7])[containerIdx]];
             gActors[i].iwork[1] = actor->index;
             gActors[i].iwork[2] = containerIdx;
+
             Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
 
             if (actor->state != 0) {
@@ -4071,10 +4079,10 @@ void Zoness_ZoTanker_Init(ZoTanker* actor) {
                 if (D_i3_801BF804[actor->iwork[3]] >= 361.0f) {
                     gActors[i].obj.rot.x = actor->obj.rot.y;
                 } else {
-                    temp_v1 = (actor->iwork[3] * 2) + var_s6;
+                    temp_v1 = (actor->iwork[3] * 2) + j;
                     gActors[i].obj.rot.x = D_i3_801BF804[temp_v1];
                 }
-                var_s6++;
+                j++;
             }
             ((uintptr_t*) &actor->iwork[0])[containerIdx] = i;
             containerIdx++;
@@ -4099,7 +4107,7 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
                 actor = &gActors[this->iwork[i]];
                 if ((actor->obj.status != OBJ_FREE) && (actor->iwork[1] == this->index) &&
                     (actor->obj.id == OBJ_ACTOR_ZO_CONTAINER)) {
-                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF744[i], &sp58);
+                    Matrix_MultVec3f(gCalcMatrix, &sTankerCointainerInitPos[i], &sp58);
                     actor->obj.pos.x = this->obj.pos.x + sp58.x;
                     actor->obj.pos.y = this->obj.pos.y + sp58.y;
                     actor->obj.pos.z = this->obj.pos.z + sp58.z;
@@ -4112,7 +4120,7 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
                 actor = &gActors[this->iwork[i]];
                 if ((actor->obj.status != OBJ_FREE) && (actor->obj.id == OBJ_ACTOR_ZO_SUPPLYCRANE) &&
                     (actor->iwork[1] == this->index)) {
-                    Matrix_MultVec3f(gCalcMatrix, &D_i3_801BF768[i], &sp58);
+                    Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneCointainerInitPos[i], &sp58);
                     actor->obj.pos.x = this->obj.pos.x + sp58.x;
                     actor->obj.pos.y = this->obj.pos.y + sp58.y;
                     actor->obj.pos.z = this->obj.pos.z + sp58.z;
