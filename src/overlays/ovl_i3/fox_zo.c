@@ -8,6 +8,8 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"
 
+#define TRAP_ENEMY_LASERS (1000)
+
 typedef struct {
     f32 id;
     Vec3f tilt;
@@ -3999,12 +4001,12 @@ void Zoness_ZoSpikeBall_Draw(ZoSpikeBall* this) {
     gSPDisplayList(gMasterDisp++, D_ZO_601BCC0);
 }
 
-Vec3f sTankerCointainerInitPos[3] = {
+Vec3f sTankerContainerInitPos[3] = {
     { 0.0f, 50.0f, -200.0f }, // first position seems unused
     { 0.0f, 50.0f, 200.0f },
     { 0.0f, 50.0f, 600.0f },
 };
-Vec3f sSupplyCraneCointainerInitPos[3] = {
+Vec3f sSupplyCraneContainerInitPos[3] = {
     { 0.0f, 300.0f, 0.0f }, // first position seems unused
     { 0.0f, 300.0f, -200.0f },
     { 0.0f, 300.0f, 300.0f },
@@ -4012,7 +4014,7 @@ Vec3f sSupplyCraneCointainerInitPos[3] = {
 s32 D_i3_801BF78C[30] = {
     0, 7, 7, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 4, 7, 0, 0, 0, 0, 327, 324, 0, 322, 327, 0, 324, 324, 0, 336, 0,
 };
-f32 D_i3_801BF804[8] = { 0.0f, 0.0f, 270.0f, 90.0f, 0.0f, 180.0f, 400.0f, 400.0f };
+f32 sZoSupplyCraneXRots[8] = { 0.0f, 0.0f, 270.0f, 90.0f, 0.0f, 180.0f, 400.0f, 400.0f };
 
 void Zoness_ZoTanker_Init(ZoTanker* actor) {
     s32 temp_v1;
@@ -4047,9 +4049,9 @@ void Zoness_ZoTanker_Init(ZoTanker* actor) {
     for (i = 0, j = 0; (containerIdx < 3) && (i < ARRAY_COUNT(gActors)); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
             if (actor->state == 0) {
-                Matrix_MultVec3f(gCalcMatrix, &sTankerCointainerInitPos[containerIdx], &containerOffsetPos);
+                Matrix_MultVec3f(gCalcMatrix, &sTankerContainerInitPos[containerIdx], &containerOffsetPos);
             } else {
-                Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneCointainerInitPos[containerIdx], &containerOffsetPos);
+                Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneContainerInitPos[containerIdx], &containerOffsetPos);
             }
 
             Actor_Initialize(&gActors[i]);
@@ -4076,11 +4078,11 @@ void Zoness_ZoTanker_Init(ZoTanker* actor) {
 
             if (actor->state != 0) {
                 gActors[i].state = 3;
-                if (D_i3_801BF804[actor->iwork[3]] >= 361.0f) {
+                if (sZoSupplyCraneXRots[actor->iwork[3]] >= 361.0f) {
                     gActors[i].obj.rot.x = actor->obj.rot.y;
                 } else {
                     temp_v1 = (actor->iwork[3] * 2) + j;
-                    gActors[i].obj.rot.x = D_i3_801BF804[temp_v1];
+                    gActors[i].obj.rot.x = sZoSupplyCraneXRots[temp_v1];
                 }
                 j++;
             }
@@ -4107,7 +4109,7 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
                 actor = &gActors[this->iwork[i]];
                 if ((actor->obj.status != OBJ_FREE) && (actor->iwork[1] == this->index) &&
                     (actor->obj.id == OBJ_ACTOR_ZO_CONTAINER)) {
-                    Matrix_MultVec3f(gCalcMatrix, &sTankerCointainerInitPos[i], &sp58);
+                    Matrix_MultVec3f(gCalcMatrix, &sTankerContainerInitPos[i], &sp58);
                     actor->obj.pos.x = this->obj.pos.x + sp58.x;
                     actor->obj.pos.y = this->obj.pos.y + sp58.y;
                     actor->obj.pos.z = this->obj.pos.z + sp58.z;
@@ -4120,7 +4122,7 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
                 actor = &gActors[this->iwork[i]];
                 if ((actor->obj.status != OBJ_FREE) && (actor->obj.id == OBJ_ACTOR_ZO_SUPPLYCRANE) &&
                     (actor->iwork[1] == this->index)) {
-                    Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneCointainerInitPos[i], &sp58);
+                    Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneContainerInitPos[i], &sp58);
                     actor->obj.pos.x = this->obj.pos.x + sp58.x;
                     actor->obj.pos.y = this->obj.pos.y + sp58.y;
                     actor->obj.pos.z = this->obj.pos.z + sp58.z;
@@ -4147,9 +4149,10 @@ void Zoness_ZoContainer_Init(ZoContainer* this) {
     this->health = 30;
 }
 
-s32 D_i3_801BF824[10] = { DROP_SILVER_RING, DROP_BOMB,        DROP_LASERS, DROP_GOLD_RING_1, DROP_GOLD_RING_2,
-                          DROP_GOLD_RING_3, DROP_GOLD_RING_4, DROP_NONE,   DROP_1UP,         1000 };
-Vec3f D_i3_801BF84C[6] = {
+ItemDrop sZoContainerItemDrops[10] = { DROP_SILVER_RING, DROP_BOMB,        DROP_LASERS,      DROP_GOLD_RING_1,
+                                       DROP_GOLD_RING_2, DROP_GOLD_RING_3, DROP_GOLD_RING_4, DROP_NONE,
+                                       DROP_1UP,         TRAP_ENEMY_LASERS };
+Vec3f sZoContainerTrapLaserPos[6] = {
     { 5.0f, -10.0f, 0.0f },  { 10.0f, 0.0f, 0.0f },  { 5.0f, 10.0f, 0.0f },
     { -5.0f, -10.0f, 0.0f }, { -10.0f, 0.0f, 0.0f }, { -5.0f, 10.0f, 0.0f },
 };
@@ -4194,18 +4197,18 @@ void Zoness_ZoContainer_Update(ZoContainer* this) {
             }
             this->obj.pos.y += 100.0f;
 
-            if (D_i3_801BF824[this->iwork[0]] < 1000) {
-                this->itemDrop = D_i3_801BF824[this->iwork[0]];
+            if (sZoContainerItemDrops[this->iwork[0]] < 1000) {
+                this->itemDrop = sZoContainerItemDrops[this->iwork[0]];
                 Actor_Despawn(this);
             } else {
-                if (D_i3_801BF824[this->iwork[0]] == 1000) {
+                if (sZoContainerItemDrops[this->iwork[0]] == 1000) {
                     for (i = 0, j = 0; i < 10; i++, j++) {
                         if (j > 5) {
                             j = 0;
                         }
-                        spB4.x = D_i3_801BF84C[j].x + this->obj.pos.x;
-                        spB4.y = D_i3_801BF84C[j].y + this->obj.pos.y;
-                        spB4.z = D_i3_801BF84C[j].z + this->obj.pos.z;
+                        spB4.x = sZoContainerTrapLaserPos[j].x + this->obj.pos.x;
+                        spB4.y = sZoContainerTrapLaserPos[j].y + this->obj.pos.y;
+                        spB4.z = sZoContainerTrapLaserPos[j].z + this->obj.pos.z;
                         sp9C.x = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
