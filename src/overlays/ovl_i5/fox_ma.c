@@ -3798,7 +3798,8 @@ void Macbeth_MaFallingBoulder_Update(MaFallingBoulder* this) {
         }
 
         Macbeth_MaBoulder_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                (RAND_FLOAT(2.0f) + 20.0f) * this->iwork[4], 0.0f, this->iwork[4] * -34.0f, 0.0f, 2, 3);
+                                (RAND_FLOAT(2.0f) + 20.0f) * (s32) this->iwork[4], 0.0f, (s32) this->iwork[4] * -34.0f,
+                                0.0f, 2, 3);
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
