@@ -1,6 +1,7 @@
 #include "sys.h"
 #include "sf64audio_provisional.h"
 
+#define DMEM_WET_SCRATCH 0x470
 #define DMEM_COMPRESSED_ADPCM_DATA 0x990
 #define DMEM_LEFT_CH 0x990
 #define DMEM_RIGHT_CH 0xB10
@@ -95,7 +96,7 @@ void AudioSynth_InitNextRingBuf(s32 sampleCount, s32 itemIndex, s32 reverbIndex)
         ringItem->startPos = reverb->nextRingBufPos;
         reverb->nextRingBufPos += numSamples;
     } else {
-        ringItem->lengthA = (numSamples - extraSamples) * 2;
+        ringItem->lengthA = (numSamples - extraSamples) * SAMPLE_SIZE;
         ringItem->lengthB = extraSamples * SAMPLE_SIZE;
         ringItem->startPos = reverb->nextRingBufPos;
         reverb->nextRingBufPos = extraSamples;
@@ -721,11 +722,12 @@ Acmd* AudioSynth_LoadReverbSamples(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s
     } else {
         sp62 = (sp64->startPos & 7) * 2;
         sp60 = ALIGN16(sp62 + sp64->lengthA);
-        aList = AudioSynth_LoadRingBufferPart(aList, 0x470, sp64->startPos - (sp62 / 2), DMEM_1CH_SIZE, reverbIndex);
+        aList = AudioSynth_LoadRingBufferPart(aList, DMEM_WET_SCRATCH, sp64->startPos - (sp62 / 2), DMEM_1CH_SIZE,
+                                              reverbIndex);
         if (sp64->lengthB != 0) {
-            aList = AudioSynth_LoadRingBufferPart(aList, sp60 + 0x470, 0, DMEM_1CH_SIZE - sp60, reverbIndex);
+            aList = AudioSynth_LoadRingBufferPart(aList, sp60 + DMEM_WET_SCRATCH, 0, DMEM_1CH_SIZE - sp60, reverbIndex);
         }
-        aSetBuffer(aList++, 0, sp62 + 0x470, DMEM_WET_LEFT_CH, aiBufLen * 2);
+        aSetBuffer(aList++, 0, sp62 + DMEM_WET_SCRATCH, DMEM_WET_LEFT_CH, aiBufLen * 2);
         aResample(aList++, gSynthReverbs[reverbIndex].resampleFlags, gSynthReverbs[reverbIndex].unk_0A,
                   OS_K0_TO_PHYSICAL(gSynthReverbs[reverbIndex].unk_30));
         aSetBuffer(aList++, 0, sp62 + DMEM_UNCOMPRESSED_NOTE, DMEM_WET_RIGHT_CH, aiBufLen * 2);
@@ -736,9 +738,9 @@ Acmd* AudioSynth_LoadReverbSamples(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s
     }
 
     if ((gSynthReverbs[reverbIndex].leakRtL != 0) || (gSynthReverbs[reverbIndex].leakLtR != 0)) {
-        aDMEMMove(aList++, DMEM_WET_LEFT_CH, 0x470, DMEM_1CH_SIZE);
+        aDMEMMove(aList++, DMEM_WET_LEFT_CH, DMEM_WET_SCRATCH, DMEM_1CH_SIZE);
         aMix(aList++, DMEM_1CH_SIZE >> 4, gSynthReverbs[reverbIndex].leakRtL, DMEM_WET_RIGHT_CH, DMEM_WET_LEFT_CH);
-        aMix(aList++, DMEM_1CH_SIZE >> 4, gSynthReverbs[reverbIndex].leakLtR, 0x470, DMEM_WET_RIGHT_CH);
+        aMix(aList++, DMEM_1CH_SIZE >> 4, gSynthReverbs[reverbIndex].leakLtR, DMEM_WET_SCRATCH, DMEM_WET_RIGHT_CH);
     }
     return aList;
 }
@@ -830,7 +832,7 @@ Acmd* AudioSynth_DoOneAudioUpdate(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 upd
 
     j = aiBufLen * 2;
     aSetBuffer(aList++, 0, 0, DMEM_TEMP, j);
-    aInterleave(aList++, 0, DMEM_LEFT_CH, DMEM_RIGHT_CH, 0);
+    aInterleave(aList++, DMEM_LEFT_CH, DMEM_RIGHT_CH);
     aSaveBuffer(aList++, DMEM_TEMP, OS_K0_TO_PHYSICAL(aiBuf), j * 2);
 
     return aList;
