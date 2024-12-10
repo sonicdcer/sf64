@@ -54,7 +54,7 @@ SPTask* AudioThread_CreateTask(void) {
     s32 pad30;
 
     gAudioTaskCountQ++;
-    if ((gAudioTaskCountQ % gAudioBufferParams.count) != 0) {
+    if ((gAudioTaskCountQ % gAudioBufferParams.numBuffers) != 0) {
         return gWaitingAudioTask;
     }
 
@@ -114,7 +114,7 @@ SPTask* AudioThread_CreateTask(void) {
     while (MQ_GET_MESG(gThreadCmdProcQueue, &msg)) {
         AudioThread_ProcessCmds(msg);
     }
-    gCurAbiCmdBuffer = func_80009B64(gCurAbiCmdBuffer, &abiCmdCount, aiBuffer, gAiBuffLengths[aiBuffIndex]);
+    gCurAbiCmdBuffer = AudioSynth_Update(gCurAbiCmdBuffer, &abiCmdCount, aiBuffer, gAiBuffLengths[aiBuffIndex]);
     gAudioRandom = osGetCount() * (gAudioRandom + gAudioTaskCountQ);
     gAudioRandom = gAiBuffers[aiBuffIndex][gAudioTaskCountQ & 0xFF] + gAudioRandom;
 
@@ -151,7 +151,7 @@ SPTask* AudioThread_CreateTask(void) {
         gMaxAbiCmdCnt = abiCmdCount;
     }
 
-    if (gAudioBufferParams.count == 1) {
+    if (gAudioBufferParams.numBuffers == 1) {
         return gAudioCurTask;
     } else {
         gWaitingAudioTask = gAudioCurTask;
@@ -174,7 +174,7 @@ void AudioThread_ProcessGlobalCmd(AudioCmd* cmd) {
         case AUDIOCMD_OP_GLOBAL_DISABLE_SEQPLAYER:
             if (gSeqPlayers[cmd->arg0].enabled) {
                 if (cmd->asInt == 0) {
-                    func_800144E4(&gSeqPlayers[cmd->arg0]);
+                    AudioSeq_SequencePlayerDisable(&gSeqPlayers[cmd->arg0]);
                 } else {
                     AudioThread_SetFadeOutTimer(cmd->arg0, cmd->asInt);
                 }

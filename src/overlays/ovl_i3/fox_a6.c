@@ -1185,9 +1185,9 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             break;
 
         case 11:
-            if ((this->timer_052 == 160) && ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-                                             (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN))) {
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+            if ((this->timer_052 == 160) &&
+                ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
+                gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                 gPlayer[0].csState = 0;
             }
 
@@ -2456,7 +2456,7 @@ void Area6_LevelStart(Player* player) {
                 player->csTimer = 0;
 
                 AUDIO_PLAY_BGM(NA_BGM_STAGE_A6);
-                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
             }
             break;
     }
@@ -2543,7 +2543,7 @@ void Area6_LevelStart(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
-    if (player->state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
+    if (player->state != PLAYERSTATE_ACTIVE) {
         sp74.x = 0.0f;
         sp74.y = 0.0f;
         sp74.z = player->baseSpeed;
@@ -2635,7 +2635,7 @@ void Area6_8018EC38(ActorCutscene* this, s32 teamIdx) {
 
         // Peppy is omitted, probably because it's outside of the camera view.
         if (teamIdx + 1 != 3) {
-            this->iwork[14] = teamIdx + 2;
+            this->iwork[TEAM_FACE] = teamIdx + 2;
         }
 
         Object_SetInfo(&this->info, this->obj.id);

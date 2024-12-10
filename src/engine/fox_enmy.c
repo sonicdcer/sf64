@@ -98,7 +98,7 @@ bool func_enmy_80060FE4(Vec3f* arg0, f32 arg1) {
     Vec3f src;
     Vec3f dest;
 
-    if ((gLevelMode != LEVELMODE_ALL_RANGE) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+    if ((gLevelMode != LEVELMODE_ALL_RANGE) && (gPlayer[0].state != PLAYERSTATE_LEVEL_INTRO)) {
         return true;
     }
 
@@ -125,7 +125,7 @@ bool func_enmy_80061148(Vec3f* arg0, f32 arg1) {
         return true;
     }
 
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+    if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
         return func_enmy_80060FE4(arg0, arg1);
     }
 
@@ -1650,7 +1650,7 @@ void ActorMissileSeek_Update(Actor* this) {
     sp8C.z = this->vel.z;
 
     if ((Object_CheckCollision(this->index, &this->obj.pos, &sp8C, 1) != 0) || (this->dmgType != DMG_NONE) ||
-        (this->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+        (this->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE)) {
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f);
         Object_Kill(&this->obj, this->sfxSource);
         if (this->dmgType != DMG_NONE) {
@@ -1982,7 +1982,7 @@ void func_enmy_80066EE4(Sprite* this) {
 void Item_CheckBounds(Item* this) {
     f32 var_fa1;
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY)) {
+    if ((gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) || (gPlayer[0].state == PLAYERSTATE_STANDBY)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 
@@ -2417,7 +2417,7 @@ void ItemMeteoWarp_Update(ItemMeteoWarp* this) {
 
             gRingPassCount++;
             if (gRingPassCount >= 7) {
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_ENTER_WARP_ZONE;
+                gPlayer[0].state = PLAYERSTATE_ENTER_WARP_ZONE;
                 gPlayer[0].csState = 0;
                 AUDIO_PLAY_SFX(NA_SE_WARP_HOLE, gDefaultSfxSource, 0);
                 gMissionStatus = MISSION_WARP;
@@ -2487,14 +2487,14 @@ void ItemRingCheck_Update(Item* this) {
 void ItemPathChange_Update(Item* this) {
     gLastPathChange = this->obj.id;
 
-    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ACTIVE) {
+    if (gPlayer[0].state != PLAYERSTATE_ACTIVE) {
         Object_Kill(&this->obj, this->sfxSource);
     } else if (((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) && (gLevelPhase == 1)) {
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+        gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
         gPlayer[0].csState = 0;
         Object_Kill(&this->obj, this->sfxSource);
     } else if (gCurrentLevel == LEVEL_TRAINING) {
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_START_360;
+        gPlayer[0].state = PLAYERSTATE_START_360;
         gPlayer[0].csState = 0;
         Object_Kill(&this->obj, this->sfxSource);
     } else if (this->state == 0) {
@@ -2629,7 +2629,7 @@ void Object_Dying(s32 index, ObjectId objId) {
             break;
 
         case OBJ_BOSS_TI_GORAS:
-            Titania_801990DC(&gBosses[index]);
+            Titania_TiGoras_Dying(&gBosses[index]);
             break;
 
         case OBJ_ACTOR_TI_RASCO:
@@ -2659,7 +2659,7 @@ void Actor_Move(Actor* this) {
     if ((this->obj.id == OBJ_ACTOR_ZO_DODORA) || (gCurrentLevel == LEVEL_MACBETH) ||
         ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_TI_GREAT_FOX))) {
         var_fv0 = 8000.0f;
-    } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
+    } else if (gPlayer[0].state == PLAYERSTATE_ENTER_WARP_ZONE) {
         var_fv0 = 100000.0f;
     }
 
@@ -2710,7 +2710,7 @@ void Boss_Move(Boss* this) {
 }
 
 void Scenery_Move(Scenery* this) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+    if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
         this->obj.pos.z += this->effectVel.z;
         if (this->info.cullDistance < this->obj.pos.z) {
             Object_Kill(&this->obj, this->sfxSource);
@@ -3001,7 +3001,7 @@ void TexturedLine_Update(TexturedLine* this) {
 
     if (gGameState == GSTATE_PLAY) {
         if (((this->mode == 1) || (this->mode == 101) || (this->mode == 50)) &&
-            (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (gPlayer[0].hitTimer == 0)) {
+            (gPlayer[0].state == PLAYERSTATE_ACTIVE) && (gPlayer[0].hitTimer == 0)) {
             Matrix_RotateX(gCalcMatrix, -this->xRot, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, -this->yRot, MTXF_APPLY);
 
@@ -3062,13 +3062,13 @@ void Object_Update(void) {
 
     gCullObjects = false;
     if ((gLevelMode == LEVELMODE_ON_RAILS) &&
-        ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_INIT) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ENTER_WARP_ZONE) ||
-         (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_START_360) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT))) {
+        ((gPlayer[0].state == PLAYERSTATE_INIT) || (gPlayer[0].state == PLAYERSTATE_ACTIVE) ||
+         (gPlayer[0].state == PLAYERSTATE_DOWN) || (gPlayer[0].state == PLAYERSTATE_ENTER_WARP_ZONE) ||
+         (gPlayer[0].state == PLAYERSTATE_START_360) || (gPlayer[0].state == PLAYERSTATE_NEXT))) {
         gCullObjects = true;
     }
     if (gLevelMode != LEVELMODE_ALL_RANGE) {
-        if ((gLoadLevelObjects != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_INTRO)) {
+        if ((gLoadLevelObjects != 0) && (gPlayer[0].state != PLAYERSTATE_LEVEL_INTRO)) {
             Object_LoadLevelObjects();
         }
         for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {

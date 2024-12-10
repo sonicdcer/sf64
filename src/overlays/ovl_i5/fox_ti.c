@@ -3790,6 +3790,8 @@ const char D_i5_801BAB5C[] = "Enm->chpt=<%d>\n";
 #ifdef NON_MATCHING
 // https://decomp.me/scratch/KiTNa
 // Regalloc in the random ternary. Can't be a temp as it's too low on stack
+
+// Titania_TiGoras_Attack ?
 void Titania_80193DF0(TiGoras* this) {
     Vec3f spD4;
     Vec3f spC8;
@@ -5185,7 +5187,7 @@ void Titania_TiGoras_Update(Boss* boss) {
     boss->swork[31]++;
 }
 
-f32 D_i5_801B8D5C[50] = {
+f32 D_i5_801B8D5C[2][25] = {
     0.0f,  0.03f,  0.06f, 0.12f, 0.18f, 0.25f, 0.425f, 0.6f, 0.775f, 0.95f, 1.125f, 1.3f, 1.475f,
     1.65f, 1.825f, 2.0f,  1.8f,  1.6f,  1.4f,  1.2f,   1.0f, 0.8f,   0.6f,  0.4f,   0.2f, 0.0f,
     0.8f,  1.6f,   2.4f,  3.2f,  4.0f,  3.4f,  3.2f,   3.0f, 2.8f,   2.4f,  2.2f,   2.0f, 1.8f,
@@ -5365,7 +5367,7 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
                 Matrix_RotateX(gGfxMatrix, (boss->fwork[22] - 180.0f) * M_DTOR, MTXF_APPLY);
                 Matrix_RotateZ(gGfxMatrix, (boss->fwork[20] + ((boss->animFrame - 15) * 15.6f)) * M_DTOR, MTXF_APPLY);
 
-                Matrix_Scale(gGfxMatrix, D_i5_801B8D5C[temp], D_i5_801B8D5C[temp], D_i5_801B8D5C[temp + 25],
+                Matrix_Scale(gGfxMatrix, D_i5_801B8D5C[0][temp], D_i5_801B8D5C[0][temp], D_i5_801B8D5C[1][temp],
                              MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_49);
@@ -5470,10 +5472,10 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
 
 Vec3f D_i5_801B8E44 = { 3.0f, 0.0f, 0.0f };
 
-void Titania_801990DC(TiGoras* this) {
+void Titania_TiGoras_Dying(TiGoras* this) {
     s32 i;
     Vec3f sp60;
-    Actor* actor;
+    ActorDebris* debris;
 
     if (this->work_044 == 0) {
         AUDIO_PLAY_SFX(NA_SE_EN_TIBOSS_DW_CRY, this->sfxSource, 4);
@@ -5486,49 +5488,49 @@ void Titania_801990DC(TiGoras* this) {
 
         gShowBossHealth = false;
 
-        actor = &gActors[0];
-        for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
-            if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_DEBRIS) && (actor->state == 40)) {
-                actor->gravity = 0.2f;
+        debris = &gActors[0];
+        for (i = 0; i < ARRAY_COUNT(gActors); i++, debris++) {
+            if ((debris->obj.status == OBJ_ACTIVE) && (debris->obj.id == OBJ_ACTOR_DEBRIS) && (debris->state == 40)) {
+                debris->gravity = 0.2f;
             }
         }
 
         for (i = 0; i < ARRAY_COUNTU(D_i5_801BBF00); i++) {
             if (!(D_i5_801BBF00[i].unk_26 & 4)) {
-                actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
-                if (actor != NULL) {
-                    actor->state = 40;
+                debris = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
+                if (debris != NULL) {
+                    debris->state = 40;
 
-                    actor->work_046 = D_i5_801B7770[i][5];
-                    actor->work_048 = D_i5_801B7770[i][1];
+                    debris->work_046 = D_i5_801B7770[i][5];
+                    debris->work_048 = D_i5_801B7770[i][1];
 
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3f(gCalcMatrix, &D_i5_801BBF00[i].unk_00.pos, &sp60);
 
-                    actor->obj.pos.x = this->obj.pos.x + sp60.x;
-                    actor->obj.pos.y = this->obj.pos.y + sp60.y;
-                    actor->obj.pos.z = this->obj.pos.z + sp60.z;
+                    debris->obj.pos.x = this->obj.pos.x + sp60.x;
+                    debris->obj.pos.y = this->obj.pos.y + sp60.y;
+                    debris->obj.pos.z = this->obj.pos.z + sp60.z;
 
-                    actor->obj.rot.x = D_i5_801BBF00[i].unk_00.rot.x + this->obj.rot.x;
-                    actor->obj.rot.y = D_i5_801BBF00[i].unk_00.rot.y + this->obj.rot.y;
-                    actor->obj.rot.z = D_i5_801BBF00[i].unk_00.rot.z + this->obj.rot.z;
+                    debris->obj.rot.x = D_i5_801BBF00[i].unk_00.rot.x + this->obj.rot.x;
+                    debris->obj.rot.y = D_i5_801BBF00[i].unk_00.rot.y + this->obj.rot.y;
+                    debris->obj.rot.z = D_i5_801BBF00[i].unk_00.rot.z + this->obj.rot.z;
 
                     if (i == 51) {
-                        actor->vel.x = RAND_FLOAT(10.0f) - 5.0f;
-                        actor->vel.y = 30.0f;
-                        actor->vel.z = -30.0f;
-                        actor->gravity = 0.1f;
+                        debris->vel.x = RAND_FLOAT(10.0f) - 5.0f;
+                        debris->vel.y = 30.0f;
+                        debris->vel.z = -30.0f;
+                        debris->gravity = 0.1f;
                     } else {
-                        actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
-                        actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
+                        debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
+                        debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
                         Matrix_Push(&gCalcMatrix);
                         Matrix_RotateY(gCalcMatrix, RAND_FLOAT(360.0f) * M_DTOR, MTXF_NEW);
                         Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8E44, &sp60);
                         Matrix_Pop(&gCalcMatrix);
-                        actor->vel.x = sp60.x;
-                        actor->vel.y = SIGN_OF(D_i5_801BBF00[i].unk_00.pos.y - 250.0f) - RAND_FLOAT(0.5f) + 0.5f;
-                        actor->vel.z = (this->vel.z * 0.5f) + sp60.z;
-                        actor->gravity = 0.1f;
+                        debris->vel.x = sp60.x;
+                        debris->vel.y = SIGN_OF(D_i5_801BBF00[i].unk_00.pos.y - 250.0f) - RAND_FLOAT(0.5f) + 0.5f;
+                        debris->vel.z = (this->vel.z * 0.5f) + sp60.z;
+                        debris->gravity = 0.1f;
                     }
                 }
                 D_i5_801BBF00[i].unk_26 = 4;
@@ -5541,90 +5543,90 @@ void Titania_801990DC(TiGoras* this) {
 
     switch (this->timer_050) {
         case 100:
-            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
-            if (actor != NULL) {
-                actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
-                actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
+            debris = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
+            if (debris != NULL) {
+                debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
+                debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
 
-                actor->state = 40;
+                debris->state = 40;
 
-                actor->work_046 = 25;
-                actor->work_048 = 0;
-                actor->work_04A = 4 | 2;
+                debris->work_046 = 25;
+                debris->work_048 = 0;
+                debris->work_04A = 4 | 2;
 
-                actor->fwork[3] = 0.0f;
-                actor->fwork[4] = -200.0f;
+                debris->fwork[3] = 0.0f;
+                debris->fwork[4] = -200.0f;
 
-                actor->obj.pos.x = gPlayer[0].pos.x;
-                actor->obj.pos.y = 500.0f;
-                actor->obj.pos.z = gPlayer[0].trueZpos + actor->fwork[4];
+                debris->obj.pos.x = gPlayer[0].pos.x;
+                debris->obj.pos.y = 500.0f;
+                debris->obj.pos.z = gPlayer[0].trueZpos + debris->fwork[4];
 
-                actor->obj.rot.y = (RAND_FLOAT(5.0f) + 90.0f) - 2.5f;
-                actor->obj.rot.z = (RAND_FLOAT(5.0f) + 180.0f) - 2.5f;
+                debris->obj.rot.y = (RAND_FLOAT(5.0f) + 90.0f) - 2.5f;
+                debris->obj.rot.z = (RAND_FLOAT(5.0f) + 180.0f) - 2.5f;
 
-                actor->vel.y = -10.0f;
-                actor->gravity = 0.8f;
+                debris->vel.y = -10.0f;
+                debris->gravity = 0.8f;
             }
             break;
 
         case 120:
-            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
-            if (actor != NULL) {
-                actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
-                actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
+            debris = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
+            if (debris != NULL) {
+                debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
+                debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
 
-                actor->state = 40;
+                debris->state = 40;
 
-                actor->work_046 = 2;
-                actor->work_048 = 1;
-                actor->work_04A = 4 | 2;
+                debris->work_046 = 2;
+                debris->work_048 = 1;
+                debris->work_04A = 4 | 2;
 
-                actor->iwork[1] = (s32) 1;
-                actor->fwork[3] = -150.0f;
-                actor->fwork[4] = -200.0f;
-                actor->fwork[5] = 200.0f;
+                debris->iwork[1] = (s32) 1;
+                debris->fwork[3] = -150.0f;
+                debris->fwork[4] = -200.0f;
+                debris->fwork[5] = 200.0f;
 
-                actor->obj.pos.x = gPlayer[0].pos.x + actor->fwork[3];
-                actor->obj.pos.y = 500.0f;
-                actor->obj.pos.z = gPlayer[0].trueZpos + actor->fwork[4];
+                debris->obj.pos.x = gPlayer[0].pos.x + debris->fwork[3];
+                debris->obj.pos.y = 500.0f;
+                debris->obj.pos.z = gPlayer[0].trueZpos + debris->fwork[4];
 
-                actor->obj.rot.z = 90.0f;
-                actor->vel.y = -10.0f;
-                actor->gravity = 0.8f;
+                debris->obj.rot.z = 90.0f;
+                debris->vel.y = -10.0f;
+                debris->gravity = 0.8f;
             }
             break;
 
         case 140:
-            actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
-            if (actor != NULL) {
-                actor->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
-                actor->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
+            debris = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
+            if (debris != NULL) {
+                debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
+                debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
 
-                actor->state = 40;
+                debris->state = 40;
 
-                actor->work_046 = 2;
-                actor->work_048 = 1;
-                actor->work_04A = 4 | 2;
+                debris->work_046 = 2;
+                debris->work_048 = 1;
+                debris->work_04A = 4 | 2;
 
-                actor->iwork[1] = 2;
-                actor->fwork[3] = 100.0f;
-                actor->fwork[4] = -100.0f;
-                actor->fwork[5] = 200.0f;
+                debris->iwork[1] = 2;
+                debris->fwork[3] = 100.0f;
+                debris->fwork[4] = -100.0f;
+                debris->fwork[5] = 200.0f;
 
-                actor->obj.pos.x = gPlayer[0].pos.x + actor->fwork[3];
-                actor->obj.pos.y = 500.0f;
-                actor->obj.pos.z = gPlayer[0].trueZpos + actor->fwork[4];
+                debris->obj.pos.x = gPlayer[0].pos.x + debris->fwork[3];
+                debris->obj.pos.y = 500.0f;
+                debris->obj.pos.z = gPlayer[0].trueZpos + debris->fwork[4];
 
-                actor->obj.rot.z = 90.0f;
-                actor->vel.y = -10.0f;
-                actor->gravity = 0.8f;
+                debris->obj.rot.z = 90.0f;
+                debris->vel.y = -10.0f;
+                debris->gravity = 0.8f;
             }
             break;
     }
 
-    if ((this->timer_050 == 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
+    if ((this->timer_050 == 0) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
         Object_Kill(&this->obj, this->sfxSource);
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+        gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
         gPlayer[0].csState = 0;
     }
 }

@@ -38,7 +38,7 @@
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_ending/end1/func_ending_8018E3E8.s")
 
-#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_ending/end1/func_ending_8018E458.s")
+#pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_ending/end1/Ending_Main.s")
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/overlays/ovl_ending/end1/func_ending_8018E5D8.s")
 

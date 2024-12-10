@@ -87,7 +87,7 @@ void AllRange_GetStarWolfHits(Actor* this) {
 }
 
 bool AllRange_PlayMessage(u16* msg, RadioCharacterId rcid) {
-    if ((gRadioState == 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+    if ((gRadioState == 0) && (gPlayer[0].state != PLAYERSTATE_STANDBY)) {
         Radio_PlayMessage(msg, rcid);
         return true;
     } else {
@@ -229,7 +229,7 @@ void AllRange_GreatFoxRepair(Player* player) {
             gCsCamEyeX -= 1.0f;
             player->rot.x += 0.4f;
             if (gCsFrameCount >= 130) {
-                player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+                player->state = PLAYERSTATE_ACTIVE;
                 player->arwing.drawFace = false;
                 player->unk_014 = 0;
                 player->unk_018 = 0;
@@ -480,7 +480,7 @@ void ActorAllRange_SpawnStarWolf(void) {
 }
 
 void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character) {
-    if (!gHideRadio && (gActors[0].state == STATE360_2) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_STANDBY)) {
+    if (!gHideRadio && (gActors[0].state == STATE360_2) && (gPlayer[0].state != PLAYERSTATE_STANDBY)) {
         Radio_PlayMessage(msg, character);
     }
 }
@@ -511,7 +511,7 @@ void ActorAllRange_UpdateStarWolfEvents(ActorAllRange* this) {
     if (gAllRangeEventTimer == gAllRangeSpawnEvent) {
         ActorAllRange_SpawnStarWolf();
         this->state = STATE360_3;
-        gPlayer[0].state_1C8 = PLAYERSTATE_1C8_STANDBY;
+        gPlayer[0].state = PLAYERSTATE_STANDBY;
         if ((gCurrentLevel == LEVEL_VENOM_2) || (gCurrentLevel == LEVEL_BOLSE)) {
             gPlayer[0].camRoll = 20.0f;
         }
@@ -708,7 +708,7 @@ void ActorAllRange_SpawnSupplies(Actor* this) {
         }
     }
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && !gAllRangeSuppliesSent) {
+    if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) && !gAllRangeSuppliesSent) {
         if (gAllRangeWingRepairTimer != 0) {
             gAllRangeWingRepairTimer--;
         }
@@ -720,7 +720,7 @@ void ActorAllRange_SpawnSupplies(Actor* this) {
 }
 
 void ActorAllRange_UpdateEvents(Actor* this) {
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_DOWN) || (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_NEXT)) {
+    if ((gPlayer[0].state == PLAYERSTATE_DOWN) || (gPlayer[0].state == PLAYERSTATE_NEXT)) {
         Object_Kill(&this->obj, this->sfxSource);
         return;
     }
@@ -820,7 +820,7 @@ s32 ActorAllRange_CheckObjectNearby(ActorAllRange* this) {
     Boss* boss = &gBosses[0];
     s32 pad[4];
 
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+    if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
         return 0;
     }
 
@@ -1246,7 +1246,7 @@ void ActorAllRange_ApplyDamage(ActorAllRange* this) {
 }
 
 void ActorAllRange_CheckPlayerNearby(ActorAllRange* this) {
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) && (this->iwork[24] != 0) &&
+    if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) && (this->iwork[24] != 0) &&
         (fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 1000.0f) &&
         (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 1000.0f) &&
         (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 1000.0f)) {
@@ -1524,7 +1524,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
             break;
 
         case STATE360_0:
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_START_360) {
+            if (gPlayer[0].state != PLAYERSTATE_START_360) {
                 this->fwork[0] = this->fwork[1] = 40.0f;
 
                 if (gActors[0].state == STATE360_5) {
@@ -1598,7 +1598,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                 if (this->aiIndex == AI360_FOX) {
                     if (gCurrentLevel != LEVEL_VENOM_2) {
                         if ((gPlayer[0].somersault && (this->iwork[4] > 10)) ||
-                            ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY))) {
+                            ((gCurrentLevel == LEVEL_BOLSE) && (gPlayer[0].state == PLAYERSTATE_STANDBY))) {
                             this->state = STATE360_3;
                             this->counter_04E = 300;
                             this->timer_0BC = 160;
@@ -1684,8 +1684,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                                 this->fwork[1] = gActors[this->aiIndex].fwork[0] - 5.0f;
                             } else {
                                 this->fwork[1] = gPlayer[0].baseSpeed - 5.0f;
-                                if ((gCurrentLevel == LEVEL_VENOM_2) &&
-                                    (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_U_TURN) &&
+                                if ((gCurrentLevel == LEVEL_VENOM_2) && (gPlayer[0].state == PLAYERSTATE_U_TURN) &&
                                     (gPlayer[0].aerobaticPitch > 100.0f)) {
                                     this->iwork[16] = STATE360_8;
                                 }
@@ -1956,7 +1955,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                         spE0 = 0.0f;
                     }
                     spDC = RAND_FLOAT_CENTERED(10000.0f);
-                    if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_STANDBY)) {
+                    if ((gCurrentLevel == LEVEL_KATINA) && (gPlayer[0].state == PLAYERSTATE_STANDBY)) {
                         spE4 = RAND_FLOAT_CENTERED(5000.0f);
                         spDC = RAND_FLOAT_CENTERED(5000.0f);
                     }

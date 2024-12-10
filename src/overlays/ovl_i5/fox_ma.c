@@ -56,8 +56,7 @@ s16 D_i5_801BE320[35];
 f32 D_i5_801BE368[50];
 Vec3f D_i5_801BE430[50];
 Vec3f D_i5_801BE688[2];
-Vec3f D_i5_801BE6A0[6];
-Vec3f D_i5_801BE6E8[6];
+Vec3f D_i5_801BE6A0[12];
 s32 D_i5_801BE734[4];
 
 UnkStruct_D_i5_801B8E50 D_i5_801B8E50[156] = {
@@ -648,7 +647,7 @@ void Macbeth_8019A2F4(MaLocomotive* this) {
         }
     }
 
-    if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+    if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
         if (var_fa1 < (gPlayer[0].trueZpos - this->obj.pos.z - (D_i5_801BA1E4 * 1416 - 1416))) {
             Math_SmoothStepToF(&sMaTrainSpeedTarget, -6.0f, 0.1f, 0.2f, 0.01f);
         }
@@ -945,7 +944,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
         case 0:
             D_i5_801BE320[25] = 1;
             if ((D_i5_801BE320[9] <= 0) && (D_i5_801BE320[10] <= 0) && (D_i5_801BE320[17] != 0) &&
-                (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+                (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE)) {
                 D_i5_801BE320[30] = 0;
                 this->timer_0BC = 150;
                 this->timer_0BE = 200;
@@ -1040,8 +1039,8 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
             }
             if (this->timer_0BC == 100) {
                 Object_Kill(&this->obj, this->sfxSource);
-                if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
-                    gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                if (gPlayer[0].state == PLAYERSTATE_ACTIVE) {
+                    gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                     gPlayer[0].csState = 0;
                     gMissionStatus = MISSION_COMPLETE;
                 }
@@ -1087,7 +1086,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
         this->state = 4;
     }
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCsFrameCount > 630)) {
+    if ((gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) && (gCsFrameCount > 630)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
@@ -2333,7 +2332,7 @@ void Macbeth_Train_Draw(Actor* this) {
     Vec3f frameTable[50];
     s32 id;
 
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+    if (gPlayer[0].state == PLAYERSTATE_ACTIVE) {
         if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
             ((gPlayer[0].trueZpos - this->obj.pos.z) < -1000.0f)) {
             return;
@@ -2502,7 +2501,7 @@ void Macbeth_Train_Draw(Actor* this) {
             Animation_DrawSkeleton(1, D_MA_601042C, frameTable, Macbeth_MaLocomotive_OverrideLimbDraw,
                                    Macbeth_MaLocomotive_PostLimbDraw, this, &gIdentityMatrix);
 
-            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+            if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
                 gSPDisplayList(gMasterDisp++, D_MA_6003370);
@@ -2613,7 +2612,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
     switch (this->obj.id) {
         case OBJ_SCENERY_MA_TRAIN_TRACK_3:
         case OBJ_SCENERY_MA_TRAIN_TRACK_6:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+            if ((gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) &&
                 ((gPlayer[0].trueZpos - this->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
@@ -2622,7 +2621,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
 
         case OBJ_SCENERY_MA_TRAIN_TRACK_4:
         case OBJ_SCENERY_MA_TRAIN_TRACK_7:
-            if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) &&
+            if ((gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) &&
                 ((gPlayer[0].trueZpos - this->obj.pos.z) < -2500.0f)) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
@@ -2730,7 +2729,7 @@ void Macbeth_MaTower_Draw(Scenery* this) {
 
 // Scenery 77 to 82, and 84 to 91
 void Macbeth_IndicatorSign_Draw(Scenery* this) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+    if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 
@@ -2821,27 +2820,27 @@ void Macbeth_MaTrainStopBlock_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* this
     switch (limbIndex) {
         case 1:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[0]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[0]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[6]);
             break;
         case 2:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[1]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[1]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[7]);
             break;
         case 3:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[2]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[2]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[8]);
             break;
         case 4:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[3]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[3]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[9]);
             break;
         case 5:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[4]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[4]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[10]);
             break;
         case 11:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[5]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6E8[5]);
+            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[11]);
             break;
 
         default:
@@ -3399,7 +3398,7 @@ void Macbeth_MaRailwaySignal_Update(MaRailwaySignal* this) {
                 }
                 gObjectLoadIndex = i;
                 gTeamLowHealthMsgTimer = -1;
-                gPlayer[0].state_1C8 = PLAYERSTATE_1C8_LEVEL_COMPLETE;
+                gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
                 gPlayer[0].csState = 0;
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 this->timer_0BC = 5;
@@ -3799,7 +3798,8 @@ void Macbeth_MaFallingBoulder_Update(MaFallingBoulder* this) {
         }
 
         Macbeth_MaBoulder_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                (RAND_FLOAT(2.0f) + 20.0f) * this->iwork[4], 0.0f, this->iwork[4] * -34.0f, 0.0f, 2, 3);
+                                (RAND_FLOAT(2.0f) + 20.0f) * (s32) this->iwork[4], 0.0f, (s32) this->iwork[4] * -34.0f,
+                                0.0f, 2, 3);
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
@@ -4227,6 +4227,10 @@ void Macbeth_Actor207_Update(Actor207* this) {
     s16 spC6;
     u8 i;
 
+#ifdef AVOID_UB
+    sp374 = 0.0f;
+#endif
+
     switch (this->state) {
         case 0:
             Macbeth_8019A198(this);
@@ -4321,7 +4325,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             Macbeth_801A6984(this);
             Macbeth_Actor207_FacePlayer(this);
 
-            if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE)) {
+            if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
                 var_v1 = 0xFF;
                 if (D_i5_801BE320[18] == 2) {
                     var_v1 = 3;
@@ -5182,7 +5186,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
         }
     }
 
-    if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+    if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE)) {
         if (gBossFrameCount == 0) {
             Radio_PlayMessage(gMsg_ID_2225, RCID_SLIPPY);
         } else if (gBossFrameCount > 155) {
@@ -5236,7 +5240,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
         D_i5_801BE368[22] = 16.0f;
     }
 
-    if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (this->state < 20)) {
+    if ((gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) && (this->state < 20)) {
         D_i5_801BE320[3] = 0;
         D_i5_801BE320[2] = 1;
         D_i5_801BE320[31] = 30;
@@ -5429,7 +5433,7 @@ void Macbeth_Actor207_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 void Macbeth_Actor207_Draw(Actor207* this) {
-    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_ACTIVE) {
+    if (gPlayer[0].state == PLAYERSTATE_ACTIVE) {
         if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
             ((gPlayer[0].trueZpos - this->obj.pos.z) < -1000.0f)) {
             return;
@@ -5499,6 +5503,7 @@ bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos
     return false;
 }
 
+// unused
 void Macbeth_801AC6B4(ActorCutscene* this) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
@@ -5613,7 +5618,7 @@ void Macbeth_LevelStart(Player* player) {
         case 3:
             AUDIO_PLAY_BGM(NA_BGM_STAGE_MA);
             gLevelStartStatusScreenTimer = 50;
-            player->state_1C8 = PLAYERSTATE_1C8_ACTIVE;
+            player->state = PLAYERSTATE_ACTIVE;
             player->csState = player->csTimer = player->csEventTimer = player->hideShadow = 0;
             player->gravity = 3.0f;
             player->unk_014 = 0.0f;
@@ -6456,18 +6461,9 @@ void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
     }
 }
 
-f32 D_i5_801BA854[4] = { 1.5f, -1.0f, 0.7f, 0.0f };
-f32 D_i5_801BA864 = 0.9f;
-f32 D_i5_801BA868 = 0.7f; // unused?
-f32 D_i5_801BA86C = -1.0f;
-f32 D_i5_801BA870 = 1.5f; // unused?
-f32 D_i5_801BA874[4] = { 200.0f, 300.0f, 400.0f, 0.0f };
-f32 D_i5_801BA884 = 500.0f;
-f32 D_i5_801BA888 = 100.0f;
-f32 D_i5_801BA88C = 120.0f;
-f32 D_i5_801BA890 = 100.0f; // unused?
-f32 D_i5_801BA894[5] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f };
-f32 D_i5_801BA8A8[3] = { 230.0f, 220.0f, 350.0f }; // unused?
+f32 D_i5_801BA854[8] = { 1.5f, -1.0f, 0.7f, 0.0f, 0.9f, 0.7f, -1.0f, 1.5f };
+f32 D_i5_801BA874[8] = { 200.0f, 300.0f, 400.0f, 0.0f, 500.0f, 100.0f, 120.0f, 100.0f };
+f32 D_i5_801BA894[8] = { 200.0f, 250.0f, 220.0f, 0.0f, 200.0f, 230.0f, 220.0f, 350.0f };
 
 void Macbeth_LevelComplete2(Player* player) {
     s32 i;
@@ -7089,7 +7085,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1310:
-            D_i5_801BA888 = 220.0f;
+            D_i5_801BA874[5] = 220.0f;
             break;
 
         case 1350:
@@ -7113,7 +7109,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1460:
-            D_i5_801BA88C = 170.0f;
+            D_i5_801BA874[6] = 170.0f;
             break;
 
         case 1500:
@@ -7143,7 +7139,7 @@ void Macbeth_LevelComplete2(Player* player) {
             break;
 
         case 1661:
-            D_i5_801BA86C = -0.5f;
+            D_i5_801BA854[6] = -0.5f;
             break;
 
         case 1810:
@@ -7221,7 +7217,7 @@ void Macbeth_LevelComplete2(Player* player) {
         gFillScreenAlphaTarget = 255;
 
         if (gFillScreenAlpha == 255) {
-            player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+            player->state = PLAYERSTATE_NEXT;
             gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);
@@ -7244,12 +7240,12 @@ void Macbeth_801B28BC(ActorCutscene* this) {
 
     switch (this->state) {
         case 10:
-            this->fwork[3] += D_i5_801BA864;
+            this->fwork[3] += D_i5_801BA854[4];
 
             Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
 
             sp5C.x = 0.0f;
-            sp5C.y = D_i5_801BA884;
+            sp5C.y = D_i5_801BA874[4];
             sp5C.z = D_i5_801BA894[4];
 
             Math_SmoothStepToF(&D_i5_801BA894[4], 100.0f, 0.05f, 0.5f, 0.01f);
@@ -7879,7 +7875,7 @@ void Macbeth_LevelComplete1(Player* player) {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlphaTarget = 255;
         if (gFillScreenAlpha == 255) {
-            player->state_1C8 = PLAYERSTATE_1C8_NEXT;
+            player->state = PLAYERSTATE_NEXT;
             gFadeoutType = 4;
             Play_ClearObjectData();
             Audio_FadeOutAll(10);

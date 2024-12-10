@@ -1,6 +1,6 @@
 #include "sf64dma.h"
 
-Scene D_800CAFC4[1] = {
+Scene sNoOvl_Logo[1] = {
     { NO_OVERLAY,
       { /* 1 */ NO_SEGMENT,
         /* 2 */ NO_SEGMENT,
@@ -19,7 +19,7 @@ Scene D_800CAFC4[1] = {
         /* F */ ROM_SEGMENT(ast_logo) } },
 };
 
-Scene D_800CB05C[6] = {
+Scene sOvlending_Ending[6] = {
     { OVERLAY_OFFSETS(ovl_ending),
       { /* 1 */ NO_SEGMENT,
         /* 2 */ NO_SEGMENT,
@@ -118,7 +118,7 @@ Scene D_800CB05C[6] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CB3EC[1] = {
+Scene sOvlmenu_Title[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 1 */ NO_SEGMENT,
         /* 2 */ NO_SEGMENT,
@@ -137,7 +137,7 @@ Scene D_800CB3EC[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CB484[3] = {
+Scene sOvlmenu_Option[3] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 1 */ NO_SEGMENT,
         /* 2 */ NO_SEGMENT,
@@ -188,7 +188,7 @@ Scene D_800CB484[3] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CB64C[3] = {
+Scene sOvlmenu_Map[3] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 1 */ NO_SEGMENT,
         /* 2 */ NO_SEGMENT,
@@ -239,7 +239,7 @@ Scene D_800CB64C[3] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CB814[1] = {
+Scene sOvlmenu_GameOver[1] = {
     { OVERLAY_OFFSETS(ovl_menu),
       { /* 1 */ NO_SEGMENT,
         /* 2 */ NO_SEGMENT,
@@ -258,7 +258,7 @@ Scene D_800CB814[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CB8AC[1] = {
+Scene sOvli1_Corneria[1] = {
     { OVERLAY_OFFSETS(ovl_i1),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -277,7 +277,7 @@ Scene D_800CB8AC[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CB944[2] = {
+Scene sOvli2_Meteo[2] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -312,7 +312,7 @@ Scene D_800CB944[2] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CBA74[6] = {
+Scene sOvli5_Titania[6] = {
     { OVERLAY_OFFSETS(ovl_i5),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -411,7 +411,7 @@ Scene D_800CBA74[6] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CBE04[2] = {
+Scene sOvli2_SectorX[2] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -446,7 +446,7 @@ Scene D_800CBE04[2] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CBF34[1] = {
+Scene sOvli4_SectorZ[1] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -465,7 +465,7 @@ Scene D_800CBF34[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CBFCC[1] = {
+Scene sOvli3_Aquas[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -484,7 +484,7 @@ Scene D_800CBFCC[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC064[1] = {
+Scene sOvli3_Area6[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -503,7 +503,7 @@ Scene D_800CC064[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC0FC[2] = {
+Scene sOvli4_Fortuna[2] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -538,7 +538,7 @@ Scene D_800CC0FC[2] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC22C[1] = {
+Scene sOvli3_Unk4[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -557,7 +557,7 @@ Scene D_800CC22C[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC2C4[1] = {
+Scene sOvli6_SectorY[1] = {
     { OVERLAY_OFFSETS(ovl_i6),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -576,7 +576,7 @@ Scene D_800CC2C4[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC35C[1] = {
+Scene sOvli3_Solar[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -595,7 +595,7 @@ Scene D_800CC35C[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC3F4[1] = {
+Scene sOvli3_Zoness[1] = {
     { OVERLAY_OFFSETS(ovl_i3),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -614,7 +614,7 @@ Scene D_800CC3F4[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC48C[1] = {
+Scene sOvli1_Venom1[1] = {
     { OVERLAY_OFFSETS(ovl_i1),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -633,7 +633,7 @@ Scene D_800CC48C[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC524[1] = {
+Scene sOvli6_Andross[1] = {
     { OVERLAY_OFFSETS(ovl_i6),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -652,7 +652,7 @@ Scene D_800CC524[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC5BC[2] = {
+Scene sOvli6_Venom2[2] = {
     { OVERLAY_OFFSETS(ovl_i6),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -687,7 +687,7 @@ Scene D_800CC5BC[2] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC6EC[1] = {
+Scene sOvli2_Setup20[1] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -706,7 +706,7 @@ Scene D_800CC6EC[1] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC784[1] = {
+Scene sOvli4_Bolse[1] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_space),
@@ -725,7 +725,7 @@ Scene D_800CC784[1] = {
         /* F */ ROM_SEGMENT(ast_star_wolf) } },
 };
 
-Scene D_800CC81C[1] = {
+Scene sOvli4_Katina[1] = {
     { OVERLAY_OFFSETS(ovl_i4),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -744,7 +744,7 @@ Scene D_800CC81C[1] = {
         /* F */ ROM_SEGMENT(ast_star_wolf) } },
 };
 
-Scene D_800CC8B4[2] = {
+Scene sOvli5_Macbeth[2] = {
     { OVERLAY_OFFSETS(ovl_i5),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -779,7 +779,7 @@ Scene D_800CC8B4[2] = {
         /* F */ NO_SEGMENT } },
 };
 
-Scene D_800CC9E4[1] = {
+Scene sOvli1_Training[1] = {
     { OVERLAY_OFFSETS(ovl_i1),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),
@@ -798,7 +798,7 @@ Scene D_800CC9E4[1] = {
         /* F */ ROM_SEGMENT(ast_star_wolf) } },
 };
 
-Scene D_800CCA7C[2] = {
+Scene sOvli2_Versus[2] = {
     { OVERLAY_OFFSETS(ovl_i2),
       { /* 1 */ ROM_SEGMENT(ast_common),
         /* 2 */ ROM_SEGMENT(ast_bg_planet),

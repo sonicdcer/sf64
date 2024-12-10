@@ -99,9 +99,9 @@ void AudioHeap_DiscardFont(s32 fontId) {
                 note->playbackState.parentLayer->enabled = false;
                 note->playbackState.parentLayer->finished = true;
             }
-            func_80011F4C(note);
-            func_80012C40(note);
-            func_800145BC(&gNoteFreeLists.disabled, &note->listItem);
+            Audio_NoteDisable(note);
+            Audio_AudioListRemove(note);
+            AudioSeq_AudioListPushBack(&gNoteFreeLists.disabled, &note->listItem);
         }
     }
 }
@@ -111,7 +111,7 @@ void AudioHeap_DiscardSequence(s32 seqId) {
 
     for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
         if (gSeqPlayers[i].enabled && gSeqPlayers[i].seqId == seqId) {
-            func_800144E4(&gSeqPlayers[i]);
+            AudioSeq_SequencePlayerDisable(&gSeqPlayers[i]);
         }
     }
 }
@@ -535,7 +535,7 @@ void AudioHeap_UpdateReverbs(void) {
     s32 count;
     s32 reverbIndex;
 
-    if (gAudioBufferParams.count == 2) {
+    if (gAudioBufferParams.numBuffers == 2) {
         count = 2;
     } else {
         count = 1;
@@ -563,7 +563,7 @@ s32 AudioHeap_ResetStep(void) {
     s32 j;
     s32 sp24;
 
-    if (gAudioBufferParams.count == 2) {
+    if (gAudioBufferParams.numBuffers == 2) {
         sp24 = 2;
     } else {
         sp24 = 1;
@@ -571,7 +571,7 @@ s32 AudioHeap_ResetStep(void) {
     switch (gAudioResetStep) {
         case 5:
             for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
-                func_800144E4(&gSeqPlayers[i]);
+                AudioSeq_SequencePlayerDisable(&gSeqPlayers[i]);
             }
             gResetFadeoutFramesLeft = 4 / sp24;
             gAudioResetStep--;
@@ -664,12 +664,12 @@ void AudioHeap_Init(void) {
     gNumNotes = spec->numNotes;
     D_8014C1B0 = spec->unk_14;
     gMaxTempo = (u16) ((gAudioBufferParams.ticksPerUpdate * 2880000.0f / gSeqTicksPerBeat) / gMaxTempoTvTypeFactors);
-    gAudioBufferParams.count = spec->numBuffers;
-    gAudioBufferParams.samplesPerFrameTarget *= gAudioBufferParams.count;
-    gAudioBufferParams.maxAiBufferLength *= gAudioBufferParams.count;
-    gAudioBufferParams.minAiBufferLength *= gAudioBufferParams.count;
-    gAudioBufferParams.ticksPerUpdate *= gAudioBufferParams.count;
-    if (gAudioBufferParams.count >= 2) {
+    gAudioBufferParams.numBuffers = spec->numBuffers;
+    gAudioBufferParams.samplesPerFrameTarget *= gAudioBufferParams.numBuffers;
+    gAudioBufferParams.maxAiBufferLength *= gAudioBufferParams.numBuffers;
+    gAudioBufferParams.minAiBufferLength *= gAudioBufferParams.numBuffers;
+    gAudioBufferParams.ticksPerUpdate *= gAudioBufferParams.numBuffers;
+    if (gAudioBufferParams.numBuffers >= 2) {
         gAudioBufferParams.maxAiBufferLength -= 0x10;
     }
     gMaxAudioCmds = (gNumNotes * 20 * gAudioBufferParams.ticksPerUpdate) + (spec->numReverbs * 32) + 480;
@@ -696,8 +696,8 @@ void AudioHeap_Init(void) {
     AudioHeap_InitSampleCaches(spec->persistentSampleCacheSize, spec->temporarySampleCacheSize);
     AudioHeap_ResetLoadStatus();
     gNotes = AudioHeap_AllocZeroed(&gMiscPool, gNumNotes * sizeof(Note));
-    func_800132E8();
-    func_800128B4();
+    Audio_NoteInitAll();
+    Audio_InitNoteFreeList();
     gNoteSubsEu = AudioHeap_AllocZeroed(&gMiscPool, gAudioBufferParams.ticksPerUpdate * gNumNotes * sizeof(NoteSubEu));
     for (i = 0; i != 2; i++) {
         gAbiCmdBuffs[i] = AudioHeap_AllocZeroed(&gMiscPool, gMaxAudioCmds * 8);

@@ -302,13 +302,21 @@ void Spawner_ObjKill(void) {
 }
 
 // Use this function to add code that eases your documentation work!
-Spawner_Playground(void) {
+void Spawner_Playground(void) {
     Player* player = &gPlayer[0];
 
     player->mercyTimer = 100;
     gLaserStrength[0] = 2;
     gBombCount[0] = 9;
     gLifeCount[0] = 9;
+
+#if 0
+    if (gControllerPress[0].button & L_JPAD) {
+        gArwingSpeed -= 50;
+    } else if (gControllerPress[0].button & R_JPAD) {
+        gArwingSpeed += 50;
+    }
+#endif
 }
 
 void Spawner(void) {

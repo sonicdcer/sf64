@@ -429,7 +429,7 @@ void Background_DrawBackdrop(void) {
                     break;
 
                 case LEVEL_AQUAS:
-                    if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+                    if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
                         sp13C = Math_RadToDeg(gPlayer[gPlayerNum].camYaw) - gPlayer[gPlayerNum].yRot_114;
                         bgYpos = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                         sp13C = Math_ModF(sp13C * -40.44444f * 2.0f, 7280.0f); // close to 7280.0f / 180.0f
@@ -440,7 +440,7 @@ void Background_DrawBackdrop(void) {
                         Matrix_Translate(gGfxMatrix, sp13C, bgYpos, -7000.0f, MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
 
-                        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+                        if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
                             gSPDisplayList(gMasterDisp++, D_AQ_601AFF0);
                         } else {
                             gSPDisplayList(gMasterDisp++, D_AQ_601C080);
@@ -453,7 +453,7 @@ void Background_DrawBackdrop(void) {
                         }
                         Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) {
+                        if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
                             gSPDisplayList(gMasterDisp++, D_AQ_601AFF0);
 
                         } else {
@@ -471,12 +471,12 @@ void Background_DrawBackdrop(void) {
                     bgYpos = (gPlayer[gPlayerNum].camPitch * -7000.0f) - (gPlayer[gPlayerNum].cam.eye.y * 0.6f);
                     sp13C = sp12C * -40.44444f * 2.0f; // close to 7280.0f / 180.0f
 
-                    if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+                    if ((gCurrentLevel == LEVEL_TITANIA) && (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) &&
                         (gPlayer[0].csState < 3)) {
                         D_bg_8015F968 += __sinf(gPlayer[0].camYaw) * 20.0f;
                         sp13C += D_bg_8015F968;
                     }
-                    if ((gCurrentLevel == LEVEL_SOLAR) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) &&
+                    if ((gCurrentLevel == LEVEL_SOLAR) && (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) &&
                         (gPlayer[0].csState >= 2) && (gPlayer[0].cam.eye.z <= -1900.0f)) {
                         D_bg_8015F968 = __sinf(gPlayer[0].camPitch) * 7000.0f;
                         bgYpos -= fabsf(D_bg_8015F968);
@@ -527,7 +527,7 @@ void Background_DrawBackdrop(void) {
             break;
 
         case LEVELTYPE_SPACE:
-            if (gPlayer[0].state_1C8 != PLAYERSTATE_1C8_ENTER_WARP_ZONE) {
+            if (gPlayer[0].state != PLAYERSTATE_ENTER_WARP_ZONE) {
                 Matrix_Push(&gGfxMatrix);
                 sp12C = Math_RadToDeg(gPlayer[0].camYaw);
                 sp130 = Math_RadToDeg(gPlayer[0].camPitch);
@@ -555,7 +555,7 @@ void Background_DrawBackdrop(void) {
                         bgXpos = Math_ModF(bgXpos - 34.5f, SCREEN_WIDTH + (80.0f * 2));
                         bgYpos = Math_ModF(bgYpos + 19.0f, 360.0f);
                     } else if (levelId == LEVEL_BOLSE) {
-                        if ((gPlayer[0].state_1C8 != PLAYERSTATE_1C8_LEVEL_COMPLETE) || (gPlayer[0].csState < 10)) {
+                        if ((gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) || (gPlayer[0].csState < 10)) {
                             bgYpos = Math_ModF(bgYpos + 360.0f - 100.0f, 360.0f);
                         }
                     } else {
@@ -591,7 +591,7 @@ void Background_DrawBackdrop(void) {
                             break;
 
                         case LEVEL_METEO:
-                            if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) && (gCsFrameCount > 260)) {
+                            if ((gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) && (gCsFrameCount > 260)) {
                                 Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f) - 30.0f, -290.0f,
                                                  MTXF_APPLY);
                                 Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 1.0f, MTXF_APPLY);
@@ -632,7 +632,7 @@ void Background_DrawBackdrop(void) {
                             if (sp128 > 3.5f) {
                                 sp128 = 3.5f;
                             }
-                            if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                            if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
                                 sp128 = D_bg_8015F984;
                                 if (sp128 > 3.5f) {
                                     sp128 = 3.5f;
@@ -658,7 +658,7 @@ void Background_DrawBackdrop(void) {
 
                         case LEVEL_BOLSE:
                             sp128 = 1.0f;
-                            if ((gCsFrameCount > 500) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) {
+                            if ((gCsFrameCount > 500) && (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE)) {
                                 sp128 = 1.3f;
                             }
                             Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
@@ -736,9 +736,9 @@ void Background_DrawSun(void) {
         gPlayerGlareAlphas[gPlayerNum] = 0;
     }
 
-    if (((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO)) ||
-        (((gPlayer[gPlayerNum].state_1C8 == PLAYERSTATE_1C8_U_TURN) || (gLevelMode == LEVELMODE_ALL_RANGE) ||
-          (gPlayer[gPlayerNum].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE)) &&
+    if (((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO)) ||
+        (((gPlayer[gPlayerNum].state == PLAYERSTATE_U_TURN) || (gLevelMode == LEVELMODE_ALL_RANGE) ||
+          (gPlayer[gPlayerNum].state == PLAYERSTATE_LEVEL_COMPLETE)) &&
          (gLevelType == LEVELTYPE_PLANET) && (gCurrentLevel != LEVEL_TITANIA) && (gCurrentLevel != LEVEL_AQUAS))) {
         gPlayerGlareReds[gPlayerNum] = 128;
         gPlayerGlareGreens[gPlayerNum] = 128;
@@ -1112,9 +1112,9 @@ void Background_DrawGround(void) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_37);
                 }
 
-                if ((gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_INTRO) && (gPlayer[0].csState < 2)) {
+                if ((gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) && (gPlayer[0].csState < 2)) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                } else if (gPlayer[0].state_1C8 == PLAYERSTATE_1C8_LEVEL_COMPLETE) {
+                } else if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, D_bg_8015F974, D_bg_8015F978, D_bg_8015F97C,
                                     D_bg_8015F980);
                 } else {
