@@ -2463,7 +2463,7 @@ void Option_RankingPlanetRoute_Draw(s32 rankIdx, f32 y, s32 routeMax) {
     static f32 xAdvance = 40.1f;
     s32 i;
     PlanetId planet;
-    bool gotMedal;
+    s32 gotMedal;
     bool drawPlanetMedal;
     f32 x;
     s32 pad[2];
