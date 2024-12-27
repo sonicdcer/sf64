@@ -3,34 +3,70 @@
 
 #include "global.h"
 
-#define ORAM_ENTRY(struct, index, field, format) \
-    { ORAM_##struct, index, offsetof(struct, field), NULL, 0, FMT_##format, WIDTH_##format, 0, 0 }
-#define ORAM_OFF \
-    { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+#define WRAP_MODE(val, max) ((u16) ((val) + (max)) % (max))
 
-#define WRAP_MODE(val, max) ((u8) ((val) + (max)) % (max))
+typedef enum OramFieldType {
+    ORAM_TYPE_char,
+    ORAM_TYPE_short,
+    ORAM_TYPE_long,
+    ORAM_TYPE_uintptr_t,
+    ORAM_TYPE_s8,
+    ORAM_TYPE_u8,
+    ORAM_TYPE_s16,
+    ORAM_TYPE_u16,
+    ORAM_TYPE_s32,
+    ORAM_TYPE_u32,
+    ORAM_TYPE_f32,
+    ORAM_TYPE_STRUCT,
+    ORAM_TYPE_Vec3f,
+    ORAM_TYPE_Object,
+    ORAM_TYPE_ObjectInfo,
+    ORAM_TYPE_PlayerSfx,
+    ORAM_TYPE_ArwingInfo,
+} OramFieldType;
 
-#define OBJ_ARRAY_INFO(objarr, name) \
-    { objarr, sizeof(*objarr), ARRAY_COUNT(objarr), name }
+typedef struct OramFieldInfo {
+    char* name;
+    s32 offset;
+    s32 type;
+    s32 size;
+    s32 count;
+} OramFieldInfo;
+
+#define STRUCT_FIELD(st, type, name, count) {#name, offsetof(st,name), ORAM_TYPE_##type, sizeof(type), count} 
+
+#define OBJ_ARRAY_INFO(objarr, name, fields) \
+    { objarr, sizeof(*objarr), ARRAY_COUNT(objarr), name, fields, ARRAY_COUNT(fields) }
 
 typedef struct ObjArrayInfo {
     void* ptr;
     size_t size;
     s32 count;
     char* name;
+    OramFieldInfo* fields;
+    s32 fieldCount;
 } ObjArrayInfo;
 
 typedef struct RamEntry {
     s16 type;
     s16 index;
+    s16 field;
+    s16 element;
+    s16 component;
+    OramFieldInfo* fieldInfo;
     s16 offset;
-    Object* objPtr;
+    void* objPtr;
     void* dataPtr;
     s16 fmt;
     u8 width;
     u16 x;
     u16 y;
 } RamEntry;
+
+#define ORAM_ENTRY(struct, index, field) \
+    { ORAM_##struct, index, 0, 0, 0, NULL, offsetof(struct, field), NULL, NULL, 0, 0, 0, 0 }
+#define ORAM_OFF \
+    { 0 }
 
 typedef enum RamModMode {
     RAMMOD_OFF,
@@ -68,8 +104,6 @@ typedef struct CheatRamEntry {
         (ram)->size = sizeof(*(address)); \
         (ram)->data.i = (value); \
     }
-
-
 
 typedef struct CheatEntry {
     CheatMode mode;
@@ -109,8 +143,8 @@ typedef enum EditMode {
     EDM_TYPE,
     EDM_INDEX,
     EDM_OFFSET,
-    EDM_FORMAT,
-    EDM_WIDTH,
+    // EDM_FORMAT,
+    // EDM_WIDTH,
     EDM_VALUE,
     // EDM_POS,
     EDM_MAX,

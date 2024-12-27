@@ -198,17 +198,17 @@ void Jukebox_Update(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
 
     Graphics_Printf("SFX ID: %08X", sfx);
-    Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, gGfxPrintBuffer);
     Graphics_DisplaySmallText(20, 80, 1.0f, 1.0f, "B ID  X R S    FLAG   IMP");
     Graphics_Printf("%d %02X %d %d %d %d%d%d%d%d%d%d%d %02X", sfxBank, sfxId, sfxFlag, sfxRange, 1, sfxFlags[0],
                     sfxFlags[1], sfxFlags[2], sfxFlags[3], sfxFlags[4], sfxFlags[5], sfxFlags[6], sfxFlags[7],
                     sfxImport);
-    Graphics_DisplaySmallText(20, 70, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(20, 70, 1.0f, 1.0f, gGfxPrintBuffer);
 
     // Graphics_DisplaySmallText(80, 50, 1.0f, 1.0f, hexString);
     for (i = 0; i < 3; i++) {
         Graphics_Printf("%5.0f", sfxSource[i]);
-        Graphics_DisplaySmallText(20 + 90 * i, 100, 1.0f, 1.0f, D_801619A0);
+        Graphics_DisplaySmallText(20 + 90 * i, 100, 1.0f, 1.0f, gGfxPrintBuffer);
     }
     Graphics_DisplaySmallText(45, 110, 1.0f, 1.0f, "X");
     Graphics_DisplaySmallText(135, 110, 1.0f, 1.0f, "Y");
