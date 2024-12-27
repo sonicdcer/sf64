@@ -52,7 +52,7 @@ void ObjectRam_PrintFieldName(RamEntry* entry) {
     } else {
         Graphics_Printf("%s-%d-", field->name, entry->element);
     }
-    ObjectRam_Capitalize(D_801619A0);
+    ObjectRam_Capitalize(gGfxPrintBuffer);
 }
 
 void ObjectRam_EditPosition(RamEntry* entry) {
@@ -430,7 +430,7 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
 
     if (entry->type == ORAM_NONE) {
         // Graphics_Printf("%X  %X  %X", entry->index);
-        // Graphics_DisplaySmallText(x + 50, y, 1.0f, 1.0f, D_801619A0);
+        // Graphics_DisplaySmallText(x + 50, y, 1.0f, 1.0f, gGfxPrintBuffer);
         return;
     }
     SET_DRAW_COLOR(EDM_MAX)
@@ -438,16 +438,16 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
 
     SET_DRAW_COLOR(EDM_INDEX)
     Graphics_Printf("%02d", entry->index);
-    Graphics_DisplaySmallText(x + 32, y, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(x + 32, y, 1.0f, 1.0f, gGfxPrintBuffer);
 
     SET_DRAW_COLOR(EDM_MAX)
     Graphics_DisplaySmallText(x + 50, y, 1.0f, 1.0f, ".");
 
     SET_DRAW_COLOR(EDM_OFFSET)
     // Graphics_Printf("%03X", entry->offset);
-    // Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, D_801619A0);
+    // Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, gGfxPrintBuffer);
     ObjectRam_PrintFieldName(entry);
-    Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, gGfxPrintBuffer);
 
     // if(objArrays[entry->type].fields != NULL && (nameStr = ObjectRam_GetFieldName(entry))!= NULL) {
     //     ObjectRam_Capitalize(nameStr);
@@ -458,7 +458,7 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
     // Graphics_DisplaySmallText(x + 90, y, 1.0f, 1.0f, fmtTypes[entry->fmt]);
     // SET_DRAW_COLOR(EDM_WIDTH)
     // Graphics_Printf("%-2d", 1 << (entry->width + 3));
-    // Graphics_DisplaySmallText(x + 100, y, 1.0f, 1.0f, D_801619A0);
+    // Graphics_DisplaySmallText(x + 100, y, 1.0f, 1.0f, gGfxPrintBuffer);
 
     if ((num != selectNum) || !editingValue) {
         data.i = ObjectRam_GetData(entry);
@@ -488,7 +488,7 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
             break;
             // }
     }
-    Graphics_DisplaySmallText(x + 25, y + 12, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(x + 25, y + 12, 1.0f, 1.0f, gGfxPrintBuffer);
 }
 
 void ObjectRam_FieldInit(RamEntry* entry) {
@@ -869,7 +869,7 @@ void CheatRam_DrawEntry(CheatMode mode, s32 x, s32 y, s32 option) {
             Graphics_Printf("%s: %s %s", cheatNames[mode], (option > 3) ? "DOWN" : "HEAL", teamNames[option % 4]);
             break;
     }
-    Graphics_DisplaySmallText(x, y, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(x, y, 1.0f, 1.0f, gGfxPrintBuffer);
 }
 
 s32 medalCount[] = { 150, 200, 150, 300, 0, 200, 100, 250, 200, 0, 150, 100, 150, 50, 0, 150, 150, 100, 200 };

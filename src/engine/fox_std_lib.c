@@ -1,7 +1,7 @@
 #include "global.h"
 #include "assets/ast_text.h"
 
-char D_801619A0[100];
+char gGfxPrintBuffer[100];
 
 char* Graphics_ClearPrintBuffer(char* buf, s32 fill, s32 len) {
     s32 i;
@@ -18,8 +18,8 @@ s32 Graphics_Printf(const char* fmt, ...) {
     va_list args;
 
     va_start(args, fmt);
-    Graphics_ClearPrintBuffer(D_801619A0, 0, 100);
-    Lib_vsPrintf(D_801619A0, fmt, args);
+    Graphics_ClearPrintBuffer(gGfxPrintBuffer, 0, 100);
+    Lib_vsPrintf(gGfxPrintBuffer, fmt, args);
     va_end(args);
 
     return 0;
