@@ -9,7 +9,7 @@
  * For the full list of game states, see sf64thread.h.
  */
 // #define MODS_BOOT_STATE 3  // main menu
-// #define MODS_BOOT_STATE 4 // map
+#define MODS_BOOT_STATE 4 // map
 
 /**
  * Level Select:
@@ -54,7 +54,7 @@
  * Use D-Pad to move the cursor and change values
  * Press L to edit the highlighted value
  */
-#define MODS_RAM_MOD 0
+#define MODS_RAM_MOD 1
 
 /**
  * Spawner:
