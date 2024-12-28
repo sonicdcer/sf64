@@ -15,7 +15,7 @@ u8 D_800C9F04 = 0;
 u8 D_800C9F08 = 0;
 s32 D_800C9F0C = 0; // unused.
 f32 D_800C9F10 = 0.0f;
-s32 activeBurnerCount = 0;
+s32 gTankActiveBurnerCount = 0;
 s32 D_800C9F18[2] = { 0, 0 }; // unused.
 f32 D_800C9F20 = 0.0f;
 f32 D_800C9F24 = 0.0f;
@@ -549,7 +549,7 @@ void func_tank_80045348(Player* player) {
 
     if (player->unk_19C >= 0) {
         if ((gBoostButton[player->num] & gInputHold->button) && !player->boostCooldown) {
-            activeBurnerCount++;
+            gTankActiveBurnerCount++;
             sp2E = true;
             if (D_800C9F24 == 0.0f) {
                 player->unk_190 = player->unk_194 = 4.0f;
@@ -572,7 +572,7 @@ void func_tank_80045348(Player* player) {
             D_800C9F24 = 0.0f;
         }
         if ((gBrakeButton[player->num] & gInputHold->button) && !player->boostCooldown && !sp2E) {
-            activeBurnerCount++;
+            gTankActiveBurnerCount++;
             baseSpeedTarget = 5.0f;
             sp40 = 100.0f;
             sp3C = 0.2f;
@@ -599,7 +599,7 @@ void func_tank_80045678(Player* player) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
     }
     if ((gInputHold->button & Z_TRIG) && !player->boostCooldown) {
-        activeBurnerCount++;
+        gTankActiveBurnerCount++;
         if (D_800C9F20 == 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, player->sfxSource, 0);
         }
@@ -629,7 +629,7 @@ void func_tank_80045678(Player* player) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
     }
     if ((gInputHold->button & R_TRIG) && !player->boostCooldown) {
-        activeBurnerCount++;
+        gTankActiveBurnerCount++;
         if (player->unk_2C0 == 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, player->sfxSource, 0);
         }
@@ -1115,12 +1115,12 @@ void Tank_UpdateOnRails(Player* player) {
 
     player->wingPosition = 1;
     func_tank_80045130(player);
-    activeBurnerCount = 0;
+    gTankActiveBurnerCount = 0;
     func_tank_80045678(player);
     func_tank_80045348(player);
     if (!player->boostCooldown) {
-        if (activeBurnerCount != 0) {
-            if (activeBurnerCount >= 2) {
+        if (gTankActiveBurnerCount != 0) {
+            if (gTankActiveBurnerCount >= 2) {
                 player->boostMeter += 2.0f;
             } else {
                 player->boostMeter += 1.0f;
