@@ -394,7 +394,12 @@ f32 Aquas_801A958C(s32 arg0, f32 arg1) {
     return var_fv1;
 }
 
-void Aquas_801A95C8(void) {
+/**
+ * Unused.
+ * Smoothly moves the player's camera to the cutscene camera.
+ * Could be part of a scrapped cutscene.
+ */
+void Aquas_CsCamera_Update(void) {
     Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gCsCamEyeX, 0.1f, 50.0f, 0.0001f);
     Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gCsCamEyeY, 0.1f, 50.0f, 0.0001f);
     Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gCsCamEyeZ, 0.1f, 50.0f, 0.0001f);
