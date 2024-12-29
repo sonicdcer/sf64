@@ -1,9 +1,9 @@
 #include "object_ram.h"
+#include "object_ram_info.c"
 
 static RamEntry oRamEntries[7] = {
-    ORAM_ENTRY(Player, 0, unk_20C, s32),  ORAM_ENTRY(Player, 0, unk_19C, s32), ORAM_ENTRY(Player, 0, unk_1A0, s32),
-    ORAM_ENTRY(Player, 0, dmgType, s32),  ORAM_ENTRY(Player, 0, unk_2C0, f32), ORAM_ENTRY(Player, 0, xRot_0FC, f32),
-    ORAM_ENTRY(Player, 0, zRot_0FC, f32),
+    ORAM_ENTRY(Actor, 0, state),     ORAM_ENTRY(Actor, 0, obj.pos.x), ORAM_ENTRY(Actor, 0, obj.pos.y),
+    ORAM_ENTRY(Actor, 0, obj.pos.z), ORAM_ENTRY(Actor, 0, fwork[2]),  ORAM_ENTRY(Actor, 0, fwork[3]),
 };
 
 static s32 holdTimer = 0;
@@ -16,22 +16,44 @@ static s32 editingValue = false;
 static fu dataTemp;
 static OSContPad* contPress;
 static OSContPad* contHold;
+static u8 oramSetup = false;
 
-static ObjArrayInfo objArrays[] = {
-    { NULL, 0, 1, "--" },
-    { NULL, sizeof(Player), 1, "PL" },
-    { NULL, sizeof(Scenery360), 200, "SC" },
-    OBJ_ARRAY_INFO(gScenery, "SC"),
-    OBJ_ARRAY_INFO(gSprites, "SP"),
-    OBJ_ARRAY_INFO(gActors, "AC"),
-    OBJ_ARRAY_INFO(gBosses, "BS"),
-    OBJ_ARRAY_INFO(gItems, "IT"),
-    OBJ_ARRAY_INFO(gEffects, "EF"),
-    OBJ_ARRAY_INFO(gPlayerShots, "SH"),
-    OBJ_ARRAY_INFO(gTexturedLines, "TL"),
-    OBJ_ARRAY_INFO(gRadarMarks, "RM"),
-    OBJ_ARRAY_INFO(gBonusText, "BT"),
-};
+void ObjectRam_Capitalize(char* string) {
+    char c;
+
+    while (*string != '\0') {
+        if (*string >= 'a' && *string <= 'z') {
+            *string -= 'a' - 'A';
+        }
+        if (*string == '_') {
+            *string = '-';
+        }
+        string++;
+    }
+}
+
+void ObjectRam_PrintFieldName(RamEntry* entry) {
+    s32 i;
+    s32 ind;
+    OramFieldInfo* field = &objArrays[entry->type].fields[entry->field];
+
+    if (entry->fieldInfo->type == ORAM_TYPE_Vec3f) {
+        if (field->type >= ORAM_TYPE_Object) {
+            Graphics_Printf("%s.%s.%c", field->name, entry->fieldInfo->name, 'x' + entry->component);
+        } else if (field->count <= 1) {
+            Graphics_Printf("%s.%c", field->name, 'x' + entry->component);
+        } else {
+            Graphics_Printf("%s-%d-.%c", field->name, entry->element, 'x' + entry->component);
+        }
+    } else if (field->type >= ORAM_TYPE_Object) {
+        Graphics_Printf("%s.%s", field->name, entry->fieldInfo->name);
+    } else if (field->count == 0) {
+        Graphics_Printf("%s", field->name);
+    } else {
+        Graphics_Printf("%s-%d-", field->name, entry->element);
+    }
+    ObjectRam_Capitalize(gGfxPrintBuffer);
+}
 
 void ObjectRam_EditPosition(RamEntry* entry) {
     if ((contPress->button & U_JPAD) && (entry->y > 0)) {
@@ -76,6 +98,7 @@ void ObjectRam_EditIndex(RamEntry* entry) {
     }
 
     entry->index = WRAP_MODE(entry->index, objInfo->count);
+    entry->objPtr = (uintptr_t) objInfo->ptr + entry->index * objInfo->size;
 }
 
 void ObjectRam_EditFormat(RamEntry* entry) {
@@ -124,6 +147,148 @@ void ObjectRam_EditOffset(RamEntry* entry) {
         entry->offset = 0;
     } else if (entry->offset >= objInfo->size) {
         entry->offset = objInfo->size - (1 << entry->width);
+    }
+}
+
+s32 ObjectRam_GetSubstructField(RamEntry* entry) {
+    OramFieldInfo* subfieldInfo = NULL;
+    s32 subfieldCount = 0;
+
+    switch (objArrays[entry->type].fields[entry->field].type) {
+        case ORAM_TYPE_Object:
+            subfieldInfo = objFields;
+            subfieldCount = ARRAY_COUNT(objFields);
+            break;
+        case ORAM_TYPE_ObjectInfo:
+            subfieldInfo = objInfoFields;
+            subfieldCount = ARRAY_COUNT(objInfoFields);
+            break;
+        case ORAM_TYPE_ArwingInfo:
+            subfieldInfo = arwingFields;
+            subfieldCount = ARRAY_COUNT(arwingFields);
+            break;
+        case ORAM_TYPE_PlayerSfx:
+            subfieldInfo = playerSfxFields;
+            subfieldCount = ARRAY_COUNT(playerSfxFields);
+            break;
+        default:
+            return 0;
+    }
+    entry->element = WRAP_MODE(entry->element, subfieldCount);
+    entry->fieldInfo = &subfieldInfo[entry->element];
+    return entry->fieldInfo->offset;
+}
+
+void ObjectRam_EditField(RamEntry* entry) {
+    OramFieldInfo* fieldInfo = &objArrays[entry->type].fields[entry->field];
+
+    if (contHold->button & Z_TRIG) {
+        if ((fieldInfo->count > 0) || (fieldInfo->type > ORAM_TYPE_STRUCT)) {
+            if (entry->fieldInfo->type == ORAM_TYPE_Vec3f) {
+                if (contPress->button & U_JPAD) {
+                    entry->component++;
+                    if (entry->component >= 3) {
+                        entry->component = 0;
+                        entry->element++;
+                    }
+                } else if (contPress->button & D_JPAD) {
+                    entry->component--;
+                    if (entry->component < 0) {
+                        entry->component = 2;
+                        entry->element--;
+                    }
+                }
+            } else if (contPress->button & U_JPAD) {
+                entry->element++;
+            } else if (contPress->button & D_JPAD) {
+                entry->element--;
+            }
+            if (fieldInfo->count > 0) {
+                entry->element = WRAP_MODE(entry->element, fieldInfo->count);
+            }
+        }
+    } else if (contPress->button & U_JPAD) {
+        entry->field++;
+        entry->element = 0;
+    } else if (contPress->button & D_JPAD) {
+        entry->field--;
+        entry->element = 0;
+    }
+}
+
+void ObjectRam_UpdateFieldInfo(RamEntry* entry) {
+    OramFieldInfo* fieldInfo = objArrays[entry->type].fields;
+    s32 fieldCount = objArrays[entry->type].fieldCount;
+    s32 suboffset = 0;
+
+    if (entry->type == ORAM_NONE) {
+        return;
+    }
+
+    entry->field = WRAP_MODE(entry->field, fieldCount);
+    if (fieldInfo[entry->field].count == 0 && (fieldInfo[entry->field].type < ORAM_TYPE_Object)) {
+        entry->element = 0;
+        if (fieldInfo[entry->field].type != ORAM_TYPE_Vec3f) {
+            entry->component = 0;
+        }
+    }
+    if (fieldInfo[entry->field].type >= ORAM_TYPE_Object) {
+        suboffset = ObjectRam_GetSubstructField(entry);
+    } else {
+        entry->field = WRAP_MODE(entry->field, fieldCount);
+        entry->fieldInfo = &fieldInfo[entry->field];
+        suboffset = entry->element * entry->fieldInfo->size;
+    }
+    if (entry->fieldInfo->type == ORAM_TYPE_Vec3f) {
+        suboffset += entry->component * sizeof(f32);
+    }
+
+    entry->offset = fieldInfo[entry->field].offset + suboffset;
+    entry->objPtr = (uintptr_t) objArrays[entry->type].ptr + entry->index * objArrays[entry->type].size;
+    entry->dataPtr = (uintptr_t) entry->objPtr + entry->offset;
+
+    switch (entry->fieldInfo->type) {
+        case ORAM_TYPE_char:
+        case ORAM_TYPE_s8:
+        case ORAM_TYPE_u8:
+            entry->width = 0;
+            break;
+        case ORAM_TYPE_s16:
+        case ORAM_TYPE_u16:
+        case ORAM_TYPE_short:
+            entry->width = 1;
+            break;
+        case ORAM_TYPE_s32:
+        case ORAM_TYPE_u32:
+        case ORAM_TYPE_f32:
+        case ORAM_TYPE_Vec3f:
+        case ORAM_TYPE_uintptr_t:
+        case ORAM_TYPE_long:
+            entry->width = 2;
+            break;
+    }
+
+    switch (entry->fieldInfo->type) {
+        case ORAM_TYPE_char:
+        case ORAM_TYPE_short:
+        case ORAM_TYPE_long:
+        case ORAM_TYPE_uintptr_t:
+            entry->fmt = FMT_HEX;
+            break;
+        case ORAM_TYPE_s8:
+        case ORAM_TYPE_s16:
+        case ORAM_TYPE_s32:
+            entry->fmt = FMT_SIGN;
+            break;
+        case ORAM_TYPE_u8:
+        case ORAM_TYPE_u16:
+        case ORAM_TYPE_u32:
+            entry->fmt = FMT_UNSIGN;
+            break;
+        case ORAM_TYPE_f32:
+        case ORAM_TYPE_Vec3f:
+            entry->fmt = FMT_FLOAT;
+            break;
     }
 }
 
@@ -222,8 +387,15 @@ void ObjectRam_WriteValue(RamEntry* entry) {
     }
 }
 
-static char* objTypes[] = { "--", "PL", "SC", "SC", "SP", "AC", "BS", "IT", "EF", "SH", "TL", "RM", "BT" };
-static char* fmtTypes[] = { "X", "S", "U", "F" };
+void ObjectRam_PrintVec3f(RamEntry* entry) {
+    u32 stepback = (entry->element % 3) * sizeof(f32);
+    Vec3f* vecData = (Vec3f*) ((uintptr_t) entry->dataPtr - stepback);
+
+    Graphics_Printf("X:%8.1f Y:%8.1f, Z:%8.1f", vecData->x, vecData->y, vecData->z);
+}
+
+static const char* objTypes[] = { "--", "PL", "SC", "SC", "SP", "AC", "BS", "IT", "EF", "SH", "TL", "RM", "BT" };
+static const char* fmtTypes[] = { "X", "S", "U", "F" };
 
 #define SET_DRAW_COLOR(mode)                                        \
     if (num == selectNum) {                                         \
@@ -246,46 +418,48 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
     s32 offset;
     s32 index;
     ObjArrayInfo* objInfo;
+    OramFieldInfo* fieldInfo;
+    char* nameStr;
 
     if ((entry->type < ORAM_NONE) || (entry->type >= ORAM_MAX)) {
         return;
     }
 
-    objInfo = &objArrays[entry->type];
-
-    offset = MIN(entry->offset, objInfo->size - (1 << entry->width));
-    index = MIN(entry->index, objInfo->count - 1);
-
-    entry->objPtr = (uintptr_t) objInfo->ptr + index * objInfo->size;
-    entry->dataPtr = (uintptr_t) entry->objPtr + offset;
-
     SET_DRAW_COLOR(EDM_TYPE)
-    Graphics_DisplaySmallText(x + 10, y, 1.0f, 1.0f, objInfo->name);
+    Graphics_DisplaySmallText(x + 10, y, 1.0f, 1.0f, objArrays[entry->type].name);
 
     if (entry->type == ORAM_NONE) {
+        // Graphics_Printf("%X  %X  %X", entry->index);
+        // Graphics_DisplaySmallText(x + 50, y, 1.0f, 1.0f, gGfxPrintBuffer);
         return;
     }
     SET_DRAW_COLOR(EDM_MAX)
     Graphics_DisplaySmallText(x + 26, y, 1.0f, 1.0f, "-");
 
     SET_DRAW_COLOR(EDM_INDEX)
-    Graphics_Printf("%02d", index);
-    Graphics_DisplaySmallText(x + 32, y, 1.0f, 1.0f, D_801619A0);
+    Graphics_Printf("%02d", entry->index);
+    Graphics_DisplaySmallText(x + 32, y, 1.0f, 1.0f, gGfxPrintBuffer);
 
     SET_DRAW_COLOR(EDM_MAX)
     Graphics_DisplaySmallText(x + 50, y, 1.0f, 1.0f, ".");
 
     SET_DRAW_COLOR(EDM_OFFSET)
-    Graphics_Printf("%03X", offset);
-    Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, D_801619A0);
+    // Graphics_Printf("%03X", entry->offset);
+    // Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, gGfxPrintBuffer);
+    ObjectRam_PrintFieldName(entry);
+    Graphics_DisplaySmallText(x + 56, y, 1.0f, 1.0f, gGfxPrintBuffer);
 
-    SET_DRAW_COLOR(EDM_FORMAT)
-    Graphics_DisplaySmallText(x + 90, y, 1.0f, 1.0f, fmtTypes[entry->fmt]);
-    SET_DRAW_COLOR(EDM_WIDTH)
-    Graphics_Printf("%-2d", 1 << (entry->width + 3));
-    Graphics_DisplaySmallText(x + 100, y, 1.0f, 1.0f, D_801619A0);
+    // if(objArrays[entry->type].fields != NULL && (nameStr = ObjectRam_GetFieldName(entry))!= NULL) {
+    //     ObjectRam_Capitalize(nameStr);
+    //     Graphics_DisplaySmallText(x + 120, y, 1.0f, 1.0f, nameStr);
+    // }
 
-    SET_DRAW_COLOR(EDM_VALUE)
+    // SET_DRAW_COLOR(EDM_FORMAT)
+    // Graphics_DisplaySmallText(x + 90, y, 1.0f, 1.0f, fmtTypes[entry->fmt]);
+    // SET_DRAW_COLOR(EDM_WIDTH)
+    // Graphics_Printf("%-2d", 1 << (entry->width + 3));
+    // Graphics_DisplaySmallText(x + 100, y, 1.0f, 1.0f, gGfxPrintBuffer);
+
     if ((num != selectNum) || !editingValue) {
         data.i = ObjectRam_GetData(entry);
     } else if (entry->fmt == FMT_FLOAT) {
@@ -294,6 +468,10 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
         data.i = dataTemp.i;
     }
 
+    // if(entry->fieldInfo->type == ORAM_TYPE_Vec3f) {
+    //     ObjectRam_PrintVec3f(entry);
+    // } else {
+    SET_DRAW_COLOR(EDM_VALUE)
     switch (entry->fmt) {
         case FMT_HEX:
             Graphics_Printf("0X%0*X", 1 << (entry->width + 1), data.i);
@@ -308,17 +486,95 @@ void ObjectRam_DrawEntry(RamEntry* entry, s32 num) {
         case FMT_FLOAT:
             Graphics_Printf("%10.2f", data.f);
             break;
+            // }
     }
-    Graphics_DisplaySmallText(x + 25, y + 12, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(x + 25, y + 12, 1.0f, 1.0f, gGfxPrintBuffer);
 }
 
-// static char* omStr[] = { "OBJECT", "INDEX", "OFFSET", "FORMAT", "WIDTH", "VALUE" }; // "POSITION" };
-
-void ObjectRam_Update(void) {
+void ObjectRam_FieldInit(RamEntry* entry) {
     s32 i;
+    OramFieldInfo* objectFields = objArrays[entry->type].fields;
+    s32 fieldCount = objArrays[entry->type].fieldCount;
+
+    if (entry->type == ORAM_NONE) {
+        return;
+    }
+
+    for (i = 0; i < fieldCount; i++) {
+        if (entry->offset >= objectFields[i].offset &&
+            ((i == fieldCount - 1) || (entry->offset < objectFields[i + 1].offset))) {
+            entry->field = i;
+            entry->fieldInfo = &objectFields[i];
+            break;
+        }
+    }
+
+    if (entry->offset > objectFields[entry->field].offset) {
+        s32 suboffset = entry->offset - objectFields[entry->field].offset;
+        if (objectFields[entry->field].count > 0) {
+            entry->element = suboffset / objectFields[entry->field].size;
+            suboffset -= objectFields[entry->field].size * entry->element;
+        } else if (objectFields[entry->field].type >= ORAM_TYPE_Object) {
+            OramFieldInfo* subfieldInfo = NULL;
+            s32 subfieldCount = 0;
+            switch (objArrays[entry->type].fields[entry->field].type) {
+                case ORAM_TYPE_Object:
+                    subfieldInfo = objFields;
+                    subfieldCount = ARRAY_COUNT(objFields);
+                    break;
+                case ORAM_TYPE_ObjectInfo:
+                    subfieldInfo = objInfoFields;
+                    subfieldCount = ARRAY_COUNT(objInfoFields);
+                    break;
+                case ORAM_TYPE_ArwingInfo:
+                    subfieldInfo = arwingFields;
+                    subfieldCount = ARRAY_COUNT(arwingFields);
+                    break;
+                case ORAM_TYPE_PlayerSfx:
+                    subfieldInfo = playerSfxFields;
+                    subfieldCount = ARRAY_COUNT(playerSfxFields);
+                    break;
+            }
+            for (i = 0; i < subfieldCount; i++) {
+                if (entry->offset >= subfieldInfo[i].offset &&
+                    ((i == subfieldCount - 1) || (entry->offset < subfieldInfo[i + 1].offset))) {
+                    entry->element = i;
+                    break;
+                }
+            }
+            entry->fieldInfo = &subfieldInfo[entry->element];
+            suboffset -= subfieldInfo[entry->element].offset;
+            if (subfieldInfo[entry->element].type == ORAM_TYPE_Vec3f) {
+                entry->component = WRAP_MODE(suboffset / sizeof(f32), 3);
+            }
+        }
+        if (objectFields[entry->field].type == ORAM_TYPE_Vec3f) {
+            entry->component = WRAP_MODE(suboffset / sizeof(f32), 3);
+        }
+    }
+
+    ObjectRam_UpdateFieldInfo(entry);
+}
+
+void ObjectRam_Setup(void) {
+    s32 i;
+
     objArrays[ORAM_Player].ptr = gPlayer;
     objArrays[ORAM_Scenery360].ptr = gScenery360;
     objArrays[ORAM_Player].count = gCamCount;
+
+    for (i = 0; i < ARRAY_COUNT(oRamEntries); i++) {
+        ObjectRam_FieldInit(&oRamEntries[i]);
+    }
+    oramSetup = true;
+}
+
+void ObjectRam_Update(void) {
+    s32 i;
+
+    if (!oramSetup) {
+        ObjectRam_Setup();
+    }
 
     if (contPress->button & L_TRIG) {
         editing ^= 1;
@@ -340,14 +596,14 @@ void ObjectRam_Update(void) {
                 ObjectRam_EditIndex(&oRamEntries[selectNum]);
                 break;
             case EDM_OFFSET:
-                ObjectRam_EditOffset(&oRamEntries[selectNum]);
+                ObjectRam_EditField(&oRamEntries[selectNum]);
                 break;
-            case EDM_FORMAT:
-                ObjectRam_EditFormat(&oRamEntries[selectNum]);
-                break;
-            case EDM_WIDTH:
-                ObjectRam_EditWidth(&oRamEntries[selectNum]);
-                break;
+            // case EDM_FORMAT:
+            //     ObjectRam_EditFormat(&oRamEntries[selectNum]);
+            //     break;
+            // case EDM_WIDTH:
+            //     ObjectRam_EditWidth(&oRamEntries[selectNum]);
+            //     break;
             case EDM_VALUE:
                 ObjectRam_EditValue(&oRamEntries[selectNum]);
                 break;
@@ -356,38 +612,40 @@ void ObjectRam_Update(void) {
                 //     break;
         }
     }
+    ObjectRam_UpdateFieldInfo(&oRamEntries[selectNum]);
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
-    // Graphics_DisplaySmallText(20, 50, 1.0f, 1.0f, omStr[editMode]);
+
     for (i = 0; i < ARRAY_COUNT(oRamEntries); i++) {
         ObjectRam_DrawEntry(&oRamEntries[i], i);
     }
 
     if ((oRamEntries[selectNum].type > ORAM_Player) && (oRamEntries[selectNum].type < ORAM_TexturedLine)) {
+        Object* object = (Object*) oRamEntries[selectNum].objPtr;
+
         gTexturedLines[99].mode = 3;
         gTexturedLines[99].xyScale = 3.0f;
         gTexturedLines[99].posAA.x = gPlayer[0].pos.x;
         gTexturedLines[99].posAA.y = gPlayer[0].pos.y;
         gTexturedLines[99].posAA.z = gPlayer[0].pos.z - 100.0f;
-        if (oRamEntries[selectNum].objPtr->status != OBJ_FREE) {
+        if (object->status != OBJ_FREE) {
             gTexturedLines[99].timer = 15;
         }
         gTexturedLines[99].prim.r = 255;
         gTexturedLines[99].prim.g = (editing) ? 128 : 255;
         gTexturedLines[99].prim.b = 0;
         gTexturedLines[99].prim.a = 255;
-        gTexturedLines[99].posBB.x = oRamEntries[selectNum].objPtr->pos.x;
-        gTexturedLines[99].posBB.y = oRamEntries[selectNum].objPtr->pos.y;
-        gTexturedLines[99].posBB.z = oRamEntries[selectNum].objPtr->pos.z;
+        gTexturedLines[99].posBB.x = object->pos.x;
+        gTexturedLines[99].posBB.y = object->pos.y;
+        gTexturedLines[99].posBB.z = object->pos.z;
     }
 }
 
-bool sCheatSetup = false;
+static bool sCheatSetup = false;
 
-s32 sCheatOptions[] = { 2, 5, 1, 2, 1, 4, 2, 1, 2 };
-s32 sCheatStates[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+static s32 sCheatOptions[] = { 2, 5, 1, 2, 1, 4, 2, 1, 2 };
+static s32 sCheatStates[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-CheatEntry cheats[CHEAT_MAX];
+static CheatEntry cheats[CHEAT_MAX];
 
 void CheatRam_Select(void) {
     if (contPress->button & (U_JPAD | D_JPAD)) {
@@ -493,7 +751,7 @@ void CheatRam_Setup(void) {
                 cheat->option = MISSION_COMPLETE;
                 cheat->optionMax = MISSION_WARP;
                 cheat->action = 1;
-                if ((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) {}
+                // if ((gCurrentLevel == LEVEL_METEO) || (gCurrentLevel == LEVEL_SECTOR_X)) {}
                 SET_CHEAT_RAM(&cheat->ram[0], &gMissionStatus, cheat->option)
                 break;
         }
@@ -580,11 +838,11 @@ void CheatRam_UpdateEntry(CheatEntry* cheat) {
     CheatRam_SetValues(cheat->ram);
 }
 
-const char* cheatNames[] = { "SHIELDS", "LASERS", "BOMBS", "BOOST",      "LIVES",
-                             "TEAM",    "SPEED",  "HITS",  "CHECKPOINT", "MISSION" };
-const char* laserNames[] = { "SINGLE", "TWIN", "HYPER", "UNUSED" };
-const char* teamNames[] = { "ALL", "FALCO", "SLIPPY", "PEPPY" };
-const char* statusNames[] = { "COMPLETE", "ACCOMPLISHED", "WARP" };
+static const char* cheatNames[] = { "SHIELDS", "LASERS", "BOMBS", "BOOST",      "LIVES",
+                                    "TEAM",    "SPEED",  "HITS",  "CHECKPOINT", "MISSION" };
+static const char* laserNames[] = { "SINGLE", "TWIN", "HYPER", "UNUSED" };
+static const char* teamNames[] = { "ALL", "FALCO", "SLIPPY", "PEPPY" };
+static const char* statusNames[] = { "COMPLETE", "ACCOMPLISHED", "WARP" };
 
 void CheatRam_DrawEntry(CheatMode mode, s32 x, s32 y, s32 option) {
     switch (mode) {
@@ -611,7 +869,7 @@ void CheatRam_DrawEntry(CheatMode mode, s32 x, s32 y, s32 option) {
             Graphics_Printf("%s: %s %s", cheatNames[mode], (option > 3) ? "DOWN" : "HEAL", teamNames[option % 4]);
             break;
     }
-    Graphics_DisplaySmallText(x, y, 1.0f, 1.0f, D_801619A0);
+    Graphics_DisplaySmallText(x, y, 1.0f, 1.0f, gGfxPrintBuffer);
 }
 
 s32 medalCount[] = { 150, 200, 150, 300, 0, 200, 100, 250, 200, 0, 150, 100, 150, 50, 0, 150, 150, 100, 200 };
