@@ -2334,8 +2334,8 @@ void HUD_PlayerShieldGauge_Update(void) {
     switch (gShieldGaugeState) {
         case SHIELD_GAUGE_NEUTRAL:
             shieldUpgradeTimer = 0; // The timer for the shield upgrade animation (on collecting 3 gold rings)
-            D_8016179C = 20.0f; //Unused 
-            D_801617A0 = 18.0f; //Unused 
+            D_8016179C = 20.0f;     // Unused
+            D_801617A0 = 18.0f;     // Unused
 
             if (gGoldRingCount[0] >= 3) {
                 shieldGaugeDesiredScale = shieldGaugeCurrentScale = 1.5f;
@@ -2359,7 +2359,7 @@ void HUD_PlayerShieldGauge_Update(void) {
                 gShieldGaugeState = SHIELD_GAUGE_UPGRADING;
             }
 
-        case SHIELD_GAUGE_UPGRADING: //Shield Gauge State: Performing upgrade
+        case SHIELD_GAUGE_UPGRADING: // Shield Gauge State: Performing upgrade
             shieldBorderColorR = shieldBorderColorG = shieldBorderColorB = 255;
             if (shieldUpgradeTimer > 0) {
                 if (--shieldUpgradeTimer == 0) {
@@ -2367,7 +2367,8 @@ void HUD_PlayerShieldGauge_Update(void) {
                 }
             }
 
-            if (((shieldUpgradeTimer != 0) || ((shieldGaugeDesiredScale - shieldGaugeCurrentScale) > 0.1f)) && ((gGameFrameCount & 2) != 0)) {
+            if (((shieldUpgradeTimer != 0) || ((shieldGaugeDesiredScale - shieldGaugeCurrentScale) > 0.1f)) &&
+                ((gGameFrameCount & 2) != 0)) {
                 shieldBorderColorR = 0;
                 shieldBorderColorG = 255;
                 shieldBorderColorB = 0;
