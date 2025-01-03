@@ -2521,17 +2521,17 @@ void Play_InitLevel(void) {
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TR);
             gTeamLowHealthMsgTimer = -1;
             break;
         case LEVEL_VENOM_1:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_VE);
             break;
         case LEVEL_VENOM_2:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_VE);
             break;
         case LEVEL_VENOM_ANDROSS:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_15);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_AND);
             Audio_SetEnvSfxReverb(0);
             gTeamLowHealthMsgTimer = -1;
             break;
