@@ -4949,8 +4949,8 @@ void Player_UpdateTankRoll(Player* player) {
 }
 
 void Player_ArwingBoost(Player* player) {
-    f32 sp2C;
-    f32 sp28;
+    f32 boostRecoverRate;
+    f32 boostDepleteRate;
     s32 stickY;
 
     if ((player->boostMeter != 0.0f) && (gInputHold->button & gBrakeButton[player->num]) &&
@@ -4959,12 +4959,12 @@ void Player_ArwingBoost(Player* player) {
     }
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        sp28 = 3.0f;
-        sp2C = 0.5f;
+        boostDepleteRate = 3.0f;
+        boostRecoverRate = 0.5f;
 
     } else {
-        sp28 = 1.5f;
-        sp2C = 0.35f;
+        boostDepleteRate = 1.5f;
+        boostRecoverRate = 0.35f;
     }
 
     player->sfx.boost = 0;
@@ -5044,7 +5044,7 @@ void Player_ArwingBoost(Player* player) {
                 Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
             }
-            player->boostMeter += sp28;
+            player->boostMeter += boostDepleteRate;
             if (player->boostMeter > 90.0f) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = true;
@@ -5063,7 +5063,7 @@ void Player_ArwingBoost(Player* player) {
             Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             if (player->boostMeter > 0.0f) {
-                player->boostMeter -= sp2C;
+                player->boostMeter -= boostRecoverRate;
                 if (player->boostMeter <= 0.0f) {
                     player->boostMeter = 0.0f;
                     player->boostCooldown = false;
@@ -5085,16 +5085,16 @@ void Player_ArwingBoost2(Player* player) {
 }
 
 void Player_ArwingBrake(Player* player) {
-    f32 sp34;
-    f32 sp30;
+    f32 brakeRecoverRate;
+    f32 brakeDepleteRate;
     s32 stickY;
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        sp30 = 3.0f;
-        sp34 = 0.5f;
+        brakeDepleteRate = 3.0f;
+        brakeRecoverRate = 0.5f;
     } else {
-        sp30 = 1.5f;
-        sp34 = 0.35f;
+        brakeDepleteRate = 1.5f;
+        brakeRecoverRate = 0.35f;
     }
 
     player->sfx.brake = false;
@@ -5143,7 +5143,7 @@ void Player_ArwingBrake(Player* player) {
             Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, -90.0f, 0.2f, 100.0f, 0.0f);
         }
 
-        player->boostMeter += sp30;
+        player->boostMeter += brakeDepleteRate;
         if (player->boostMeter > 90.0f) {
             player->boostCooldown = true;
             player->boostMeter = 90.0f;
@@ -5159,7 +5159,7 @@ void Player_ArwingBrake(Player* player) {
         player->sfx.brake = true;
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
     } else if (player->boostMeter > 0.0f) {
-        player->boostMeter -= sp34;
+        player->boostMeter -= brakeRecoverRate;
         if (player->boostMeter <= 0.0f) {
             player->boostMeter = 0.0f;
             player->boostCooldown = false;
