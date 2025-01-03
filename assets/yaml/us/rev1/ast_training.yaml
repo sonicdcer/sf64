@@ -73,8 +73,8 @@ D_TR_6006AA4:
 D_TR_6008EF8:
   { type: SF64:OBJECT_INIT, offset: 0x6008EF8, symbol: D_TR_6008EF8 }
 
-D_TR_6009B34:
-  { type: SF64:SCRIPT, offset: 0x6009B34, symbol: D_TR_6009B34 }
+aTrEventScript:
+  { type: SF64:SCRIPT, offset: 0x6009B34, symbol: aTrEventScript }
 
 aTrBuildingHitbox:
   { type: SF64:HITBOX, offset: 0x6009CC4, symbol: aTrBuildingHitbox }

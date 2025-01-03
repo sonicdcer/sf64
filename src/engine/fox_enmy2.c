@@ -1075,49 +1075,49 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
     switch (gCurrentLevel) {
         case LEVEL_VENOM_ANDROSS:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C037E3C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aAndEventScript);
             break;
         case LEVEL_CORNERIA:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aCoEventScript);
             break;
         case LEVEL_METEO:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_ME_602F3AC);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aMeEventScript);
             break;
         case LEVEL_AQUAS:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_AQ_60308B8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aAqEventScript);
             break;
         case LEVEL_TITANIA:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_TI_600631C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aTiEventScript);
             break;
         case LEVEL_SECTOR_X:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aSxEventScript);
             break;
         case LEVEL_UNK_4:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_A6_60289FC);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aA6Unk4EventScript);
             break;
         case LEVEL_AREA_6:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_A6_6027F50);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aA6EventScript);
             break;
         case LEVEL_SECTOR_Y:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_SY_6032E18);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aSyEventScript);
             break;
         case LEVEL_SOLAR:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_SO_6020DD0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aSoEventScript);
             break;
         case LEVEL_ZONESS:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_ZO_602AAC0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aZoEventScript);
             break;
         case LEVEL_VENOM_1:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_VE1_601B1E4);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aVe1EventScript);
             break;
         case LEVEL_MACBETH:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_MA_60381D8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aMaEventScript);
             break;
         case LEVEL_TRAINING:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_TR_6009B34);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aTrEventScript);
             break;
         default:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aCoEventScript);
             break;
     }
     actorScript = SEGMENTED_TO_VIRTUAL(levelScripts[this->aiType]);

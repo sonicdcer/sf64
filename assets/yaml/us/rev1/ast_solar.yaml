@@ -208,8 +208,8 @@ D_SO_601F1F0:
 D_SO_601F234:
   { type: SF64:OBJECT_INIT, offset: 0x601F234, symbol: D_SO_601F234}
 
-D_SO_6020DD0:
-  { type: SF64:SCRIPT, offset: 0x6020DD0, symbol: D_SO_6020DD0}
+aSoEventScript:
+  { type: SF64:SCRIPT, offset: 0x6020DD0, symbol: aSoEventScript}
 
 D_SO_6020F60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x6020F60, symbol: D_SO_6020F60}

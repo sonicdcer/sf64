@@ -196,8 +196,8 @@ D_ANDROSS_C036B6C:
 D_ANDROSS_C03733C:
   {type: SF64:OBJECT_INIT, offset: 0xC03733C, symbol: D_ANDROSS_C03733C}
 
-D_ANDROSS_C037E3C:
-  {type: SF64:SCRIPT, offset: 0xC037E3C, symbol: D_ANDROSS_C037E3C}
+aAndEventScript:
+  {type: SF64:SCRIPT, offset: 0xC037E3C, symbol: aAndEventScript}
 
 D_ANDROSS_C037FCC:
   {type: SF64:HITBOX, offset: 0xC037FCC, symbol: D_ANDROSS_C037FCC}

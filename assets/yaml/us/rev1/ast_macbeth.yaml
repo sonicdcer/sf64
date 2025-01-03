@@ -934,5 +934,5 @@ aMaSpearHitbox:
 aMaShockBoxHitbox:
   {type: SF64:HITBOX, offset: 0x6036968, symbol: aMaShockBoxHitbox}
 
-D_MA_60381D8:
-  {type: SF64:SCRIPT, offset: 0x60381D8, symbol: D_MA_60381D8}
+aMaEventScript:
+  {type: SF64:SCRIPT, offset: 0x60381D8, symbol: aMaEventScript}

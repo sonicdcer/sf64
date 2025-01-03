@@ -492,8 +492,8 @@ D_ZO_60266D0:
 D_ZO_6026714:
   { type: SF64:OBJECT_INIT, offset: 0x6026714, symbol: D_ZO_6026714}
 
-D_ZO_602AAC0:
-  { type: SF64:SCRIPT, offset: 0x602AAC0, symbol: D_ZO_602AAC0}
+aZoEventScript:
+  { type: SF64:SCRIPT, offset: 0x602AAC0, symbol: aZoEventScript}
 
 D_ZO_602AC50:
   { type: ARRAY, count: 289, array_type: u16, offset: 0x602AC50, symbol: D_ZO_602AC50}

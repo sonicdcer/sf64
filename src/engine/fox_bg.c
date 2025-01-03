@@ -376,6 +376,7 @@ void Background_DrawBackdrop(void) {
                             gSPDisplayList(gMasterDisp++, D_VE2_600F670);
                         } else if ((gDrawBackdrop == 3) || (gDrawBackdrop == 4)) {
                             RCP_SetupDL(&gMasterDisp, SETUPDL_62);
+
                             if (gDrawBackdrop == 4) {
                                 if ((gGameFrameCount & 8) == 0) {
                                     Math_SmoothStepToF(&gAndrossUnkBrightness, 0.0f, 1.0f, 30.0f, 0);
@@ -385,6 +386,7 @@ void Background_DrawBackdrop(void) {
                             } else {
                                 gAndrossUnkBrightness = 255.0f;
                             }
+
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, (s32) gAndrossUnkBrightness,
                                             (s32) gAndrossUnkBrightness, (s32) gAndrossUnkAlpha);
 
@@ -407,6 +409,7 @@ void Background_DrawBackdrop(void) {
                             } else {
                                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 128, (s32) gAndrossUnkAlpha);
                             }
+
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -290.0f, MTXF_APPLY);
                             Matrix_Push(&gGfxMatrix);
                             Matrix_Scale(gGfxMatrix, 11.0f, 11.0f, 1.0f, MTXF_APPLY);
@@ -415,6 +418,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
                             Matrix_Pop(&gGfxMatrix);
+
                             if (gDrawBackdrop != 5) {
                                 Matrix_Push(&gGfxMatrix);
                                 Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 1.0f, MTXF_APPLY);
@@ -483,6 +487,7 @@ void Background_DrawBackdrop(void) {
                     }
 
                     sp13C = Math_ModF(sp13C, 7280.0f);
+
                     RCP_SetupDL_17();
                     Matrix_RotateZ(gGfxMatrix, gPlayer[gPlayerNum].camRoll * M_DTOR, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
@@ -505,11 +510,13 @@ void Background_DrawBackdrop(void) {
                     } else if (gCurrentLevel == LEVEL_SOLAR) {
                         gSPDisplayList(gMasterDisp++, D_SO_601E150);
                     }
+
                     if (sp13C < 0) {
                         sp13C = 1.0f;
                     } else {
                         sp13C = -1.0f;
                     }
+
                     Matrix_Translate(gGfxMatrix, 7280.0f * sp13C, 0.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
 
@@ -638,7 +645,6 @@ void Background_DrawBackdrop(void) {
                                     sp128 = 3.5f;
                                 }
                             }
-                            sp128 = sp128;
                             Matrix_Translate(gGfxMatrix, bgXpos - 120.0f, -(bgYpos - 120.0f), -290.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, sp128 * 0.75, sp128 * 0.75f, 1.0f, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);

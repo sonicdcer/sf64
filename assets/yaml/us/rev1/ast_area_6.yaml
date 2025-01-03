@@ -225,8 +225,8 @@ D_A6_6023F20:
 D_A6_6023F64:
   { type: SF64:OBJECT_INIT, offset: 0x6023F64, symbol: D_A6_6023F64}
 
-D_A6_6027F50:
-  { type: SF64:SCRIPT, offset: 0x6027F50, symbol: D_A6_6027F50}
+aA6EventScript:
+  { type: SF64:SCRIPT, offset: 0x6027F50, symbol: aA6EventScript}
 
 aA6UmbraStationHitbox:
   { type: SF64:HITBOX, offset: 0x60280E0, symbol: aA6UmbraStationHitbox }
@@ -249,5 +249,5 @@ D_A6_6028760:
 D_A6_60287A4:
   { type: SF64:OBJECT_INIT, offset: 0x60287A4, symbol: D_A6_60287A4}
 
-D_A6_60289FC:
-  { type: SF64:SCRIPT, offset: 0x60289FC, symbol: D_A6_60289FC}
+aA6Unk4EventScript:
+  { type: SF64:SCRIPT, offset: 0x60289FC, symbol: aA6Unk4EventScript}

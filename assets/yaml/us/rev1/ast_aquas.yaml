@@ -653,8 +653,8 @@ D_AQ_602E584:
 D_AQ_602E5C8:
   { type: SF64:OBJECT_INIT, offset: 0x602E5C8, symbol: D_AQ_602E5C8 }
 
-D_AQ_60308B8:
-  { type: SF64:SCRIPT, offset: 0x60308B8, symbol: D_AQ_60308B8 }
+aAqEventScript:
+  { type: SF64:SCRIPT, offset: 0x60308B8, symbol: aAqEventScript }
 
 aBoss301Hitbox:
   { type: SF64:HITBOX, offset: 0x6030B10, symbol: aBoss301Hitbox }

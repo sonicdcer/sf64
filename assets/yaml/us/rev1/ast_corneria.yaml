@@ -441,8 +441,8 @@ aCoOnRailsLevelObjects:
 aCoAllRangeLevelObjects: 
   { type: SF64:OBJECT_INIT, offset: 0x603B074, symbol: aCoAllRangeLevelObjects }
 
-D_CO_603D9E8:
-  { type: SF64:SCRIPT, offset: 0x603D9E8, symbol: D_CO_603D9E8 }
+aCoEventScript:
+  { type: SF64:SCRIPT, offset: 0x603D9E8, symbol: aCoEventScript }
 
 # Seems unused
 D_CO_603DC40:

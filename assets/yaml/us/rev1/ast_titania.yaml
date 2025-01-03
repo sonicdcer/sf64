@@ -73,8 +73,8 @@ D_TI_6004C00:
 D_TI_6005000:
   {type: SF64:ENVIRONMENT, offset: 0x6005000, symbol: D_TI_6005000}
 
-D_TI_600631C:
-  {type: SF64:SCRIPT, offset: 0x600631C, symbol: D_TI_600631C}
+aTiEventScript:
+  {type: SF64:SCRIPT, offset: 0x600631C, symbol: aTiEventScript}
 
 aTi1LandmineHitbox:
   {type: SF64:HITBOX, offset: 0x60064AC, symbol: aTi1LandmineHitbox}
