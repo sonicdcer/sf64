@@ -37,10 +37,10 @@ s32 D_80161794;
 s32 D_80161798;
 f32 D_8016179C;
 f32 D_801617A0;
-f32 shieldGaugeDesiredScale;
-f32 shieldGaugeCurrentScale;
-f32 shieldFillAmount;
-s32 shieldUpgradeTimer;
+f32 sShieldGaugeDesiredScale;
+f32 sShieldGaugeCurrentScale;
+f32 sShieldFillAmount;
+s32 sShieldUpgradeTimer;
 s32 gMedalStatus;
 s32 gMedalFlashTimer;
 s32 D_801617C0[10];
@@ -2324,27 +2324,27 @@ void HUD_IncomingMsg(void) {
     }
 }
 
-s32 shieldBorderColorR = 255;
-s32 shieldBorderColorG = 255;
-s32 shieldBorderColorB = 255;
+s32 sShieldBorderColorR = 255;
+s32 sShieldBorderColorG = 255;
+s32 sShieldBorderColorB = 255;
 
 void HUD_PlayerShieldGauge_Update(void) {
     f32 shields;
 
     switch (gShieldGaugeState) {
         case SHIELD_GAUGE_NEUTRAL:
-            shieldUpgradeTimer = 0; // The timer for the shield upgrade animation (on collecting 3 gold rings)
-            D_8016179C = 20.0f;     // Unused
-            D_801617A0 = 18.0f;     // Unused
+            sShieldUpgradeTimer = 0; // The timer for the shield upgrade animation (on collecting 3 gold rings)
+            D_8016179C = 20.0f;      // Unused
+            D_801617A0 = 18.0f;      // Unused
 
             if (gGoldRingCount[0] >= 3) {
-                shieldGaugeDesiredScale = shieldGaugeCurrentScale = 1.5f;
+                sShieldGaugeDesiredScale = sShieldGaugeCurrentScale = 1.5f;
             } else {
-                shieldGaugeDesiredScale = shieldGaugeCurrentScale = 1.0f;
+                sShieldGaugeDesiredScale = sShieldGaugeCurrentScale = 1.0f;
             }
 
             shields = gPlayer[0].shields;
-            shieldFillAmount = shields / ((256.0f * shieldGaugeCurrentScale) - 1.0f);
+            sShieldFillAmount = shields / ((256.0f * sShieldGaugeCurrentScale) - 1.0f);
 
             if (gGoldRingCount[0] >= 3) {
                 gShieldGaugeState = SHIELD_GAUGE_UPGRADING;
@@ -2355,38 +2355,38 @@ void HUD_PlayerShieldGauge_Update(void) {
 
         case SHIELD_GAUGE_CHECK_UPGRADE:
             if (gGoldRingCount[0] >= 3) {
-                shieldUpgradeTimer = 55;
+                sShieldUpgradeTimer = 55;
                 gShieldGaugeState = SHIELD_GAUGE_UPGRADING;
             }
 
         case SHIELD_GAUGE_UPGRADING: // Shield Gauge State: Performing upgrade
-            shieldBorderColorR = shieldBorderColorG = shieldBorderColorB = 255;
-            if (shieldUpgradeTimer > 0) {
-                if (--shieldUpgradeTimer == 0) {
+            sShieldBorderColorR = sShieldBorderColorG = sShieldBorderColorB = 255;
+            if (sShieldUpgradeTimer > 0) {
+                if (--sShieldUpgradeTimer == 0) {
                     gPlayer[0].heal += 128;
                 }
             }
 
-            if (((shieldUpgradeTimer != 0) || ((shieldGaugeDesiredScale - shieldGaugeCurrentScale) > 0.1f)) &&
+            if (((sShieldUpgradeTimer != 0) || ((sShieldGaugeDesiredScale - sShieldGaugeCurrentScale) > 0.1f)) &&
                 ((gGameFrameCount & 2) != 0)) {
-                shieldBorderColorR = 0;
-                shieldBorderColorG = 255;
-                shieldBorderColorB = 0;
+                sShieldBorderColorR = 0;
+                sShieldBorderColorG = 255;
+                sShieldBorderColorB = 0;
             }
 
-            if ((shieldUpgradeTimer == 0) && (gGoldRingCount[0] >= 3)) {
-                shieldGaugeDesiredScale = 1.5f;
+            if ((sShieldUpgradeTimer == 0) && (gGoldRingCount[0] >= 3)) {
+                sShieldGaugeDesiredScale = 1.5f;
             } else {
-                shieldGaugeDesiredScale = 1.0f;
+                sShieldGaugeDesiredScale = 1.0f;
             }
 
-            Math_SmoothStepToF(&shieldGaugeCurrentScale, shieldGaugeDesiredScale, 0.02f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&sShieldGaugeCurrentScale, sShieldGaugeDesiredScale, 0.02f, 1000.0f, 0.001f);
 
             shields = gPlayer[0].shields;
-            if (shields > (256.0f * shieldGaugeCurrentScale) - 1.0f) {
-                shields = (256.0f * shieldGaugeCurrentScale) - 1.0f;
+            if (shields > (256.0f * sShieldGaugeCurrentScale) - 1.0f) {
+                shields = (256.0f * sShieldGaugeCurrentScale) - 1.0f;
             }
-            shieldFillAmount = shields / ((256.0f * shieldGaugeCurrentScale) - 1.0f);
+            sShieldFillAmount = shields / ((256.0f * sShieldGaugeCurrentScale) - 1.0f);
             break;
     }
 }
@@ -2394,13 +2394,13 @@ void HUD_PlayerShieldGauge_Update(void) {
 void HUD_PlayerShieldGauge_Draw(f32 x, f32 y) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_75);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    HUD_ShieldGaugeBars_Draw(x + 8.0f, y + 2.0f, shieldGaugeCurrentScale, 1.0f, shieldFillAmount);
+    HUD_ShieldGaugeBars_Draw(x + 8.0f, y + 2.0f, sShieldGaugeCurrentScale, 1.0f, sShieldFillAmount);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, shieldBorderColorR, shieldBorderColorG, shieldBorderColorB, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, sShieldBorderColorR, sShieldBorderColorG, sShieldBorderColorB, 255);
     HUD_ShieldGaugeEdgeLeft_Draw(x, y, 1.0f, 1.0f);
-    HUD_ShieldGaugeEdgeRight_Draw(x + 7.0f + (shieldGaugeCurrentScale * 6.0f * 8.0f), y, 1.0f, 1.0f);
-    HUD_ShieldGaugeFrame_Draw(x + 7.0f, y, shieldGaugeCurrentScale * 6.0f, 1.0f);
+    HUD_ShieldGaugeEdgeRight_Draw(x + 7.0f + (sShieldGaugeCurrentScale * 6.0f * 8.0f), y, 1.0f, 1.0f);
+    HUD_ShieldGaugeFrame_Draw(x + 7.0f, y, sShieldGaugeCurrentScale * 6.0f, 1.0f);
 }
 
 void HUD_PlayerShield_GoldRings(void) {
