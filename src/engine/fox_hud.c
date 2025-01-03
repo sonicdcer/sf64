@@ -18,7 +18,7 @@ s32 D_80161718;
 s32 D_8016171C;
 f32 D_hud_80161720[3];
 s32 gDisplayedHitCount;
-s32 D_hud_80161730;
+s32 gShieldGaugeState;
 s32 gShowBossHealth;
 s32 D_80161738[4];
 s32 D_80161748[4];
@@ -37,10 +37,10 @@ s32 D_80161794;
 s32 D_80161798;
 f32 D_8016179C;
 f32 D_801617A0;
-f32 D_801617A4;
-f32 D_801617A8;
-f32 D_801617AC;
-s32 D_801617B0;
+f32 sShieldGaugeDesiredScale;
+f32 sShieldGaugeCurrentScale;
+f32 sShieldFillAmount;
+s32 sShieldUpgradeTimer;
 s32 gMedalStatus;
 s32 gMedalFlashTimer;
 s32 D_801617C0[10];
@@ -2324,68 +2324,69 @@ void HUD_IncomingMsg(void) {
     }
 }
 
-s32 D_800D1EB4 = 255;
-s32 D_800D1EB8 = 255;
-s32 D_800D1EBC = 255;
+s32 sShieldBorderColorR = 255;
+s32 sShieldBorderColorG = 255;
+s32 sShieldBorderColorB = 255;
 
 void HUD_PlayerShieldGauge_Update(void) {
     f32 shields;
 
-    switch (D_hud_80161730) {
-        case 0:
-            D_801617B0 = 0;
-            D_8016179C = 20.0f;
-            D_801617A0 = 18.0f;
+    switch (gShieldGaugeState) {
+        case SHIELD_GAUGE_NEUTRAL:
+            sShieldUpgradeTimer = 0; // The timer for the shield upgrade animation (on collecting 3 gold rings)
+            D_8016179C = 20.0f;      // Unused
+            D_801617A0 = 18.0f;      // Unused
 
             if (gGoldRingCount[0] >= 3) {
-                D_801617A4 = D_801617A8 = 1.5f;
+                sShieldGaugeDesiredScale = sShieldGaugeCurrentScale = 1.5f;
             } else {
-                D_801617A4 = D_801617A8 = 1.0f;
+                sShieldGaugeDesiredScale = sShieldGaugeCurrentScale = 1.0f;
             }
 
             shields = gPlayer[0].shields;
-            D_801617AC = shields / ((256.0f * D_801617A8) - 1.0f);
+            sShieldFillAmount = shields / ((256.0f * sShieldGaugeCurrentScale) - 1.0f);
 
             if (gGoldRingCount[0] >= 3) {
-                D_hud_80161730 = 2;
+                gShieldGaugeState = SHIELD_GAUGE_UPGRADING;
             } else {
-                D_hud_80161730 = 1;
+                gShieldGaugeState = SHIELD_GAUGE_CHECK_UPGRADE;
             }
             break;
 
-        case 1:
+        case SHIELD_GAUGE_CHECK_UPGRADE:
             if (gGoldRingCount[0] >= 3) {
-                D_801617B0 = 55;
-                D_hud_80161730 = 2;
+                sShieldUpgradeTimer = 55;
+                gShieldGaugeState = SHIELD_GAUGE_UPGRADING;
             }
 
-        case 2:
-            D_800D1EB4 = D_800D1EB8 = D_800D1EBC = 255;
-            if (D_801617B0 > 0) {
-                if (--D_801617B0 == 0) {
+        case SHIELD_GAUGE_UPGRADING: // Shield Gauge State: Performing upgrade
+            sShieldBorderColorR = sShieldBorderColorG = sShieldBorderColorB = 255;
+            if (sShieldUpgradeTimer > 0) {
+                if (--sShieldUpgradeTimer == 0) {
                     gPlayer[0].heal += 128;
                 }
             }
 
-            if (((D_801617B0 != 0) || ((D_801617A4 - D_801617A8) > 0.1f)) && ((gGameFrameCount & 2) != 0)) {
-                D_800D1EB4 = 0;
-                D_800D1EB8 = 255;
-                D_800D1EBC = 0;
+            if (((sShieldUpgradeTimer != 0) || ((sShieldGaugeDesiredScale - sShieldGaugeCurrentScale) > 0.1f)) &&
+                ((gGameFrameCount & 2) != 0)) {
+                sShieldBorderColorR = 0;
+                sShieldBorderColorG = 255;
+                sShieldBorderColorB = 0;
             }
 
-            if ((D_801617B0 == 0) && (gGoldRingCount[0] >= 3)) {
-                D_801617A4 = 1.5f;
+            if ((sShieldUpgradeTimer == 0) && (gGoldRingCount[0] >= 3)) {
+                sShieldGaugeDesiredScale = 1.5f;
             } else {
-                D_801617A4 = 1.0f;
+                sShieldGaugeDesiredScale = 1.0f;
             }
 
-            Math_SmoothStepToF(&D_801617A8, D_801617A4, 0.02f, 1000.0f, 0.001f);
+            Math_SmoothStepToF(&sShieldGaugeCurrentScale, sShieldGaugeDesiredScale, 0.02f, 1000.0f, 0.001f);
 
             shields = gPlayer[0].shields;
-            if (shields > (256.0f * D_801617A8) - 1.0f) {
-                shields = (256.0f * D_801617A8) - 1.0f;
+            if (shields > (256.0f * sShieldGaugeCurrentScale) - 1.0f) {
+                shields = (256.0f * sShieldGaugeCurrentScale) - 1.0f;
             }
-            D_801617AC = shields / ((256.0f * D_801617A8) - 1.0f);
+            sShieldFillAmount = shields / ((256.0f * sShieldGaugeCurrentScale) - 1.0f);
             break;
     }
 }
@@ -2393,13 +2394,13 @@ void HUD_PlayerShieldGauge_Update(void) {
 void HUD_PlayerShieldGauge_Draw(f32 x, f32 y) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_75);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-    HUD_ShieldGaugeBars_Draw(x + 8.0f, y + 2.0f, D_801617A8, 1.0f, D_801617AC);
+    HUD_ShieldGaugeBars_Draw(x + 8.0f, y + 2.0f, sShieldGaugeCurrentScale, 1.0f, sShieldFillAmount);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D1EB4, D_800D1EB8, D_800D1EBC, 255);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, sShieldBorderColorR, sShieldBorderColorG, sShieldBorderColorB, 255);
     HUD_ShieldGaugeEdgeLeft_Draw(x, y, 1.0f, 1.0f);
-    HUD_ShieldGaugeEdgeRight_Draw(x + 7.0f + (D_801617A8 * 6.0f * 8.0f), y, 1.0f, 1.0f);
-    HUD_ShieldGaugeFrame_Draw(x + 7.0f, y, D_801617A8 * 6.0f, 1.0f);
+    HUD_ShieldGaugeEdgeRight_Draw(x + 7.0f + (sShieldGaugeCurrentScale * 6.0f * 8.0f), y, 1.0f, 1.0f);
+    HUD_ShieldGaugeFrame_Draw(x + 7.0f, y, sShieldGaugeCurrentScale * 6.0f, 1.0f);
 }
 
 void HUD_PlayerShield_GoldRings(void) {
@@ -3572,7 +3573,7 @@ void HUD_Draw(void) {
     s32 goldRings;
     bool medalStatus;
 
-    if (D_hud_80161730 == 0) {
+    if (gShieldGaugeState == SHIELD_GAUGE_NEUTRAL) {
         for (i = 0; i < 10; i++) {
             D_801617E8[i] = 0;
             D_801617C0[i] = 0;

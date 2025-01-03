@@ -55,4 +55,10 @@ typedef enum ActorMissileSeekMode {
     /* 2 */ MISSILE_SEEK_EITHER,
 } ActorMissileSeekMode;
 
+typedef enum ShieldGaugeState {
+    /* 0 */ SHIELD_GAUGE_NEUTRAL,
+    /* 1 */ SHIELD_GAUGE_CHECK_UPGRADE,
+    /* 2 */ SHIELD_GAUGE_UPGRADING,
+} ShieldGaugeState;
+
 #endif

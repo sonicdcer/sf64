@@ -4544,7 +4544,7 @@ void Player_Setup(Player* playerx) {
     D_hud_80161720[2] = 0.0f;
 
     gDisplayedHitCount = gHitCount;
-    D_hud_80161730 = 0;
+    gShieldGaugeState = SHIELD_GAUGE_NEUTRAL;
     gMissedZoSearchlight = gSavedZoSearchlightStatus;
     gObjectLoadIndex = gSavedObjectLoadIndex;
     gGroundSurface = gSavedGroundSurface;
