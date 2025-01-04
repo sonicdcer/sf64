@@ -653,7 +653,9 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
         }
         return false;
     }
-    // return false;
+#ifdef AVOID_UB
+    return false;
+#endif
 }
 
 void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex) {
