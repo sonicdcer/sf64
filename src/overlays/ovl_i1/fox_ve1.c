@@ -1100,7 +1100,8 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 #ifdef NON_MATCHING
-// Lots of problems with loop at 2082. Seems related to spE8. https://decomp.me/scratch/gOy2L
+// Lots of problems with loop at 2082. Seems related to spE8.
+// https://decomp.me/scratch/9bwdD
 void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
     s32 is0;
     Vec3f sp118[27];
@@ -1598,8 +1599,8 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
             case 2:
                 if (D_i1_8019A500[this->dmgPart] == 15) {
                     AUDIO_PLAY_SFX(NA_SE_EN_VEBOSS_DAMAGE, this->sfxSource, 4);
-                    D_i1_8019B838[15].unk_02[2] = 10;
-                    D_i1_8019B838[15].unk_02[3] = 0;
+                    D_i1_8019B838[15].unk_02[3] = 10;
+                    D_i1_8019B838[15].unk_02[4] = 0;
                     D_i1_8019B838[15].unk_7C |= 0x80;
                     if (this->health > 0) {
                         this->health -= this->damage;
