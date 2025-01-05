@@ -151,8 +151,8 @@ aSzMissileSkel:
 D_SZ_6006E70:
   { type: SF64:ENVIRONMENT, offset: 0x6006E70, symbol: D_SZ_6006E70 }
 
-D_SZ_6006EB4:
-  { type: SF64:OBJECT_INIT, offset: 0x6006EB4, symbol: D_SZ_6006EB4 }
+aSzLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6006EB4, symbol: aSzLevelObjects }
 
 D_SZ_6007558:
   {type: SF64:COLPOLY, count: 316, offset: 0x6007558, symbol: D_SZ_6007558, mesh_symbol: D_SZ_OFFSET }

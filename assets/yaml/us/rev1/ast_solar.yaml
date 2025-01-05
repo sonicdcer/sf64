@@ -205,8 +205,8 @@ D_SO_601E1E8:
 D_SO_601F1F0:
   { type: SF64:ENVIRONMENT, offset: 0x601F1F0, symbol: D_SO_601F1F0}
 
-D_SO_601F234:
-  { type: SF64:OBJECT_INIT, offset: 0x601F234, symbol: D_SO_601F234}
+aSoLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x601F234, symbol: aSoLevelObjects}
 
 aSoEventScript:
   { type: SF64:SCRIPT, offset: 0x6020DD0, symbol: aSoEventScript}

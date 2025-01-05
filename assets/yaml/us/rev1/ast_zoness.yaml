@@ -489,8 +489,8 @@ D_ZO_6025F98:
 D_ZO_60266D0:
   { type: SF64:ENVIRONMENT, offset: 0x60266D0, symbol: D_ZO_60266D0}
 
-D_ZO_6026714:
-  { type: SF64:OBJECT_INIT, offset: 0x6026714, symbol: D_ZO_6026714}
+aZoLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6026714, symbol: aZoLevelObjects}
 
 aZoEventScript:
   { type: SF64:SCRIPT, offset: 0x602AAC0, symbol: aZoEventScript}

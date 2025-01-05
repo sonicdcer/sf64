@@ -106,8 +106,8 @@ D_MA_6003FC8:
 D_MA_60043C8:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 56, offset: 0x60043C8, symbol: D_MA_60043C8}
 
-D_MA_6004440:
-  {type: GFX, offset: 0x6004440, symbol: D_MA_6004440}
+aMaContainerBoxDL:
+  {type: GFX, offset: 0x6004440, symbol: aMaContainerBoxDL}
 
 D_MA_6004640:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 32, offset: 0x6004640, symbol: D_MA_6004640, tlut: 0x6004A40}
@@ -250,17 +250,17 @@ D_MA_600C2E0:
 D_MA_600C3E0:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 40, offset: 0x600C3E0, symbol: D_MA_600C3E0}
 
-D_MA_600C4D0:
-  {type: SF64:ANIM, offset: 0x600C4D0, symbol: D_MA_600C4D0}
+aMaTrainStopBlockAnim:
+  {type: SF64:ANIM, offset: 0x600C4D0, symbol: aMaTrainStopBlockAnim}
 
-D_MA_600C65C:
-  {type: SF64:SKELETON, offset: 0x600C65C, symbol: D_MA_600C65C}
+aMaTrainStopBlockSkel:
+  {type: SF64:SKELETON, offset: 0x600C65C, symbol: aMaTrainStopBlockSkel}
 
 D_MA_600CD18:
   {type: SF64:ANIM, offset: 0x600CD18, symbol: D_MA_600CD18}
 
-D_MA_600D1E4:
-  {type: SF64:SKELETON, offset: 0x600D1E4, symbol: D_MA_600D1E4}
+aMaMechbethSkel:
+  {type: SF64:SKELETON, offset: 0x600D1E4, symbol: aMaMechbethSkel}
 
 D_MA_600D280:
   { type: TEXTURE, format: IA16, ctype: u16, width: 16, height: 16, offset: 0x600D280, symbol: D_MA_600D280}
@@ -334,8 +334,8 @@ D_MA_6010144:
 D_MA_6010220:
   {type: SF64:ANIM, offset: 0x6010220, symbol: D_MA_6010220}
 
-D_MA_601042C:
-  {type: SF64:SKELETON, offset: 0x601042C, symbol: D_MA_601042C}
+aMaLocomotiveSkel:
+  {type: SF64:SKELETON, offset: 0x601042C, symbol: aMaLocomotiveSkel}
 
 D_MA_6010470:
   {type: GFX, offset: 0x6010470, symbol: D_MA_6010470}
@@ -409,8 +409,8 @@ D_MA_6016B2C:
 D_MA_6017714:
   {type: SF64:ANIM, offset: 0x6017714, symbol: D_MA_6017714}
 
-D_MA_6017720:
-  {type: GFX, offset: 0x6017720, symbol: D_MA_6017720}
+aMaCopperheadMissileDL:
+  {type: GFX, offset: 0x6017720, symbol: aMaCopperheadMissileDL}
 
 D_MA_6017EB8:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6017EB8, symbol: D_MA_6017EB8}
@@ -487,11 +487,11 @@ D_MA_601D188:
 D_MA_601EA28:
   {type: SF64:ANIM, offset: 0x601EA28, symbol: D_MA_601EA28}
 
-D_MA_601EAB0:
-  {type: SF64:ANIM, offset: 0x601EAB0, symbol: D_MA_601EAB0}
+aMaTenderAnim:
+  {type: SF64:ANIM, offset: 0x601EAB0, symbol: aMaTenderAnim}
 
-D_MA_601EBBC:
-  {type: SF64:SKELETON, offset: 0x601EBBC, symbol: D_MA_601EBBC}
+aMaTenderSkel:
+  {type: SF64:SKELETON, offset: 0x601EBBC, symbol: aMaTenderSkel}
 
 aMaWall2DL:
   {type: GFX, offset: 0x601F1D0, symbol: aMaWall2DL}
@@ -508,8 +508,8 @@ D_MA_60200E0:
 D_MA_6020E600:
   {type: GFX, offset: 0x6020E60, symbol: D_MA_6020E60}
 
-D_MA_6022200:
-  {type: GFX, offset: 0x6022200, symbol: D_MA_6022200}
+aMaContainerBoxDestroyedDL:
+  {type: GFX, offset: 0x6022200, symbol: aMaContainerBoxDestroyedDL}
 
 D_MA_60223C0:
   {type: GFX, offset: 0x60223C0, symbol: D_MA_60223C0}
@@ -565,8 +565,8 @@ D_MA_6024230:
 D_MA_6024630:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 32, offset: 0x6024630, symbol: D_MA_6024630}
 
-D_MA_6024670:
-  {type: GFX, offset: 0x6024670, symbol: D_MA_6024670}
+aMaTankCarDL:
+  {type: GFX, offset: 0x6024670, symbol: aMaTankCarDL}
 
 aMaHorizontalLockBarDL:
   {type: GFX, offset: 0x60251A0, symbol: aMaHorizontalLockBarDL}
@@ -586,17 +586,17 @@ D_MA_6025A70:
 D_MA_6025B50:
   { type: GFX, offset: 0x6025B50, symbol: D_MA_6025B50}
 
-D_MA_6025CA0:
-  {type: SF64:ANIM, offset: 0x6025CA0, symbol: D_MA_6025CA0}
+aMaSwitchTrackAnim:
+  {type: SF64:ANIM, offset: 0x6025CA0, symbol: aMaSwitchTrackAnim}
 
-D_MA_6025DAC:
-  {type: SF64:SKELETON, offset: 0x6025DAC, symbol: D_MA_6025DAC}
+aMaSwitchTrackSkel:
+  {type: SF64:SKELETON, offset: 0x6025DAC, symbol: aMaSwitchTrackSkel}
 
 D_MA_6026860:
   {type: GFX, offset: 0x6026860, symbol: D_MA_6026860}
 
-D_MA_60269E0:
-  {type: GFX, offset: 0x60269E0, symbol: D_MA_60269E0}
+aMaMissileCarDL:
+  {type: GFX, offset: 0x60269E0, symbol: aMaMissileCarDL}
 
 D_MA_6026C00:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 32, offset: 0x6026C00, symbol: D_MA_6026C00, tlut: 0x6027000}
@@ -610,11 +610,11 @@ aMaWall1DL:
 aMaBuilding2DL:
   { type: GFX, offset: 0x6027180, symbol: aMaBuilding2DL}
 
-D_MA_6027320:
-  {type: SF64:ANIM, offset: 0x6027320, symbol: D_MA_6027320}
+aMaCannonAnim:
+  {type: SF64:ANIM, offset: 0x6027320, symbol: aMaCannonAnim}
 
-D_MA_602742C:
-  {type: SF64:SKELETON, offset: 0x602742C, symbol: D_MA_602742C}
+aMaCannonSkel:
+  {type: SF64:SKELETON, offset: 0x602742C, symbol: aMaCannonSkel}
 
 aMaFloor2DL:
   {type: GFX, offset: 0x6027900, symbol: aMaFloor2DL}
@@ -631,14 +631,14 @@ D_MA_6027BF0:
 D_MA_6027D40:
   {type: GFX, offset: 0x6027D40, symbol: D_MA_6027D40}
 
-D_MA_6027EB0:
-  {type: GFX, offset: 0x6027EB0, symbol: D_MA_6027EB0}
+aMaBoulderCarEmptyDL:
+  {type: GFX, offset: 0x6027EB0, symbol: aMaBoulderCarEmptyDL}
 
-D_MA_60288A0:
-  {type: GFX, offset: 0x60288A0, symbol: D_MA_60288A0}
+aMaBoulderCarFullDL:
+  {type: GFX, offset: 0x60288A0, symbol: aMaBoulderCarFullDL}
 
-D_MA_6029890:
-  {type: GFX, offset: 0x6029890, symbol: D_MA_6029890}
+aMaRobotDL:
+  {type: GFX, offset: 0x6029890, symbol: aMaRobotDL}
 
 D_MA_VTX_602A0D0:
   {type: VTX, count: 395, offset: 0x602A0D0, symbol: D_MA_VTX_602A0D0}
@@ -676,17 +676,17 @@ D_MA_602EA0C:
 D_MA_602EBB8:
   {type: SF64:SKELETON, offset: 0x602EBB8, symbol: D_MA_602EBB8}
 
-D_MA_602F098:
-  {type: SF64:ANIM, offset: 0x602F098, symbol: D_MA_602F098}
+aMaRailwaySignalBaseAnim:
+  {type: SF64:ANIM, offset: 0x602F098, symbol: aMaRailwaySignalBaseAnim}
 
-D_MA_602F264:
-  {type: SF64:SKELETON, offset: 0x602F264, symbol: D_MA_602F264}
+aMaRailwaySignalBaseSkel:
+  {type: SF64:SKELETON, offset: 0x602F264, symbol: aMaRailwaySignalBaseSkel}
 
-D_MA_602F2E0:
-  {type: SF64:ANIM, offset: 0x602F2E0, symbol: D_MA_602F2E0}
+aMaRailwaySignalLeverAnim:
+  {type: SF64:ANIM, offset: 0x602F2E0, symbol: aMaRailwaySignalLeverAnim}
 
-D_MA_602F36C:
-  {type: SF64:SKELETON, offset: 0x602F36C, symbol: D_MA_602F36C}
+aMaRailwaySignalLeverSkel:
+  {type: SF64:SKELETON, offset: 0x602F36C, symbol: aMaRailwaySignalLeverSkel}
 
 D_MA_602F380:
   {type: GFX, offset: 0x602F380, symbol: D_MA_602F380}
@@ -742,17 +742,17 @@ D_MA_6030F64:
 D_MA_6030FC4:
   {type: SF64:TRIANGLE, count: 2, offset: 0x6030FC4, symbol: D_MA_6030FC4, mesh_symbol: D_MA_OFFSET}
 
-D_MA_6031000:
-  {type: SF64:OBJECT_INIT, offset: 0x6031000, symbol: D_MA_6031000}
+aMaLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0x6031000, symbol: aMaLevelObjects}
 
-D_MA_6035678:
-  {type: SF64:OBJECT_INIT, offset: 0x6035678, symbol: D_MA_6035678}
+aMaCsLongTrainObjects:
+  {type: SF64:OBJECT_INIT, offset: 0x6035678, symbol: aMaCsLongTrainObjects}
 
-D_MA_60357CC:
-  {type: SF64:OBJECT_INIT, offset: 0x60357CC, symbol: D_MA_60357CC}
+aMaLongTrainObjects:
+  {type: SF64:OBJECT_INIT, offset: 0x60357CC, symbol: aMaLongTrainObjects}
 
-D_MA_6035920:
-  {type: SF64:OBJECT_INIT, offset: 0x6035920, symbol: D_MA_6035920}
+aMaShortTrainObjects:
+  {type: SF64:OBJECT_INIT, offset: 0x6035920, symbol: aMaShortTrainObjects}
 
 D_MA_60359AC:
   {type: SF64:HITBOX, offset: 0x60359AC, symbol: D_MA_60359AC}
@@ -760,17 +760,17 @@ D_MA_60359AC:
 aMaLocomotiveHitbox:
   {type: SF64:HITBOX, offset: 0x60359C8, symbol: aMaLocomotiveHitbox}
 
-aMaTrainCar2Hitbox:
-  {type: SF64:HITBOX, offset: 0x6035A14, symbol: aMaTrainCar2Hitbox}
+aMaMissileCarHitbox:
+  {type: SF64:HITBOX, offset: 0x6035A14, symbol: aMaMissileCarHitbox}
 
-aMaTrainCar1Hitbox:
-  {type: SF64:HITBOX, offset: 0x6035A48, symbol: aMaTrainCar1Hitbox}
+aMaTenderHitbox:
+  {type: SF64:HITBOX, offset: 0x6035A48, symbol: aMaTenderHitbox}
 
 D_MA_6035A94:
   {type: SF64:HITBOX, offset: 0x6035A94, symbol: D_MA_6035A94}
 
-aMaTrainCar3Hitbox:
-  {type: SF64:HITBOX, offset: 0x6035AE0, symbol: aMaTrainCar3Hitbox}
+aMaRobotHitbox:
+  {type: SF64:HITBOX, offset: 0x6035AE0, symbol: aMaRobotHitbox}
 
 D_MA_6035B44:
   {type: SF64:HITBOX, offset: 0x6035B44, symbol: D_MA_6035B44}
@@ -790,14 +790,14 @@ D_MA_6035CD4:
 D_MA_6035D38:
   {type: SF64:HITBOX, offset: 0x6035D38, symbol: D_MA_6035D38}
 
-aMaTrainCar4Hitbox:
-  {type: SF64:HITBOX, offset: 0x6035D9C, symbol: aMaTrainCar4Hitbox}
+aMaBoulderCarHitbox:
+  {type: SF64:HITBOX, offset: 0x6035D9C, symbol: aMaBoulderCarHitbox}
 
 D_MA_6035DD0:
   {type: SF64:HITBOX, offset: 0x6035DD0, symbol: D_MA_6035DD0}
 
-aMaTrainCar5Hitbox:
-  {type: SF64:HITBOX, offset: 0x6035E04, symbol: aMaTrainCar5Hitbox}
+aMaContainerBoxHitbox:
+  {type: SF64:HITBOX, offset: 0x6035E04, symbol: aMaContainerBoxHitbox}
 
 D_MA_6035E68:
   {type: SF64:HITBOX, offset: 0x6035E68, symbol: D_MA_6035E68}
@@ -817,11 +817,11 @@ D_MA_6035FF8:
 D_MA_603605C:
   {type: SF64:HITBOX, offset: 0x603605C, symbol: D_MA_603605C}
 
-aMaTrainCar6Hitbox:
-  {type: SF64:HITBOX, offset: 0x60360C0, symbol: aMaTrainCar6Hitbox}
+aMaCannonCarHitbox:
+  {type: SF64:HITBOX, offset: 0x60360C0, symbol: aMaCannonCarHitbox}
 
-aMaTrainCar7Hitbox:
-  {type: SF64:HITBOX, offset: 0x6036154, symbol: aMaTrainCar7Hitbox}
+aMaTankCarHitbox:
+  {type: SF64:HITBOX, offset: 0x6036154, symbol: aMaTankCarHitbox}
 
 D_MA_6036188:
   {type: SF64:HITBOX, offset: 0x6036188, symbol: D_MA_6036188}
@@ -910,8 +910,8 @@ aMaFallingBoulderHitbox:
 aMaFloor6Hitbox:
   {type: SF64:HITBOX, offset: 0x6036760, symbol: aMaFloor6Hitbox}
 
-aMaActor207Hitbox:
-  {type: SF64:HITBOX, offset: 0x603677C, symbol: aMaActor207Hitbox}
+aMaMechbethHitbox:
+  {type: SF64:HITBOX, offset: 0x603677C, symbol: aMaMechbethHitbox}
 
 D_MA_6036818:
   {type: SF64:HITBOX, offset: 0x6036818, symbol: D_MA_6036818}

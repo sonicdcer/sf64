@@ -146,8 +146,8 @@ D_FO_600DA88:
 D_FO_600EA90:
   { type: SF64:ENVIRONMENT, offset: 0x600EA90, symbol: D_FO_600EA90 }
 
-D_FO_600EAD4:
-  { type: SF64:OBJECT_INIT, offset: 0x600EAD4, symbol: D_FO_600EAD4 }
+aFoLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x600EAD4, symbol: aFoLevelObjects }
 
 D_FO_600F1DC:
   { type: SF64:COLPOLY, offset: 0x600F1DC, count: 22, symbol: D_FO_600F1DC, mesh_symbol: D_FO_OFFSET }

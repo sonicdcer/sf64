@@ -166,8 +166,8 @@ D_KA_6010780:
 D_KA_6011000:
   { type: SF64:ENVIRONMENT, offset: 0x6011000, symbol: D_KA_6011000 }
 
-D_KA_6011044:
-  { type: SF64:OBJECT_INIT, offset: 0x6011044, symbol: D_KA_6011044 }
+aKaLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6011044, symbol: aKaLevelObjects }
 
 aKaSaucererHitbox:
   { type: SF64:HITBOX, offset: 0x6011058, symbol: aKaSaucererHitbox }

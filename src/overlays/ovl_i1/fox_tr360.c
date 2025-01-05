@@ -10,7 +10,7 @@
 void Training_Setup360(void) {
     Scenery360* scenery360;
     s32 i;
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aTrAllRangeLevelObjects);
 
     Rand_SetSeed(1, 29000, 9876);
 
