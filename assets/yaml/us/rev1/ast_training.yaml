@@ -67,11 +67,11 @@ D_TR_60069D8:
 D_TR_6006A60:
   { type: SF64:ENVIRONMENT, offset: 0x6006A60, symbol: D_TR_6006A60 }
 
-D_TR_6006AA4:
-  { type: SF64:OBJECT_INIT, offset: 0x6006AA4, symbol: D_TR_6006AA4 }
+aTrOnRailsLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6006AA4, symbol: aTrOnRailsLevelObjects }
 
-D_TR_6008EF8:
-  { type: SF64:OBJECT_INIT, offset: 0x6008EF8, symbol: D_TR_6008EF8 }
+aTrAllRangeLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6008EF8, symbol: aTrAllRangeLevelObjects }
 
 aTrEventScript:
   { type: SF64:SCRIPT, offset: 0x6009B34, symbol: aTrEventScript }

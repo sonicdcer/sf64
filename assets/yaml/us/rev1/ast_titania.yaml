@@ -181,8 +181,8 @@ D_TI_6006C28:
 aTiBridgeHitbox:
   {type: SF64:HITBOX, offset: 0x6006C44, symbol: aTiBridgeHitbox}
 
-D_TI_6006C60:
-  {type: SF64:OBJECT_INIT, offset: 0x6006C60, symbol: D_TI_6006C60}
+aTiLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0x6006C60, symbol: aTiLevelObjects}
 
 D_TI_6009BB8:
   {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6009BB8, symbol: D_TI_6009BB8}

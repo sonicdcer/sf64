@@ -1413,7 +1413,7 @@ void func_tank_800481F4(Player* player) {
                         actor->dmgType = DMG_COLLISION;
                         actor->dmgSource = player->num + 1;
                     }
-                } else if (actor->obj.id == OBJ_ACTOR_207) {
+                } else if (actor->obj.id == OBJ_ACTOR_MA_MECHBETH) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
                                            actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
                                            0.0f, 0.0f) != 0) {
@@ -1437,7 +1437,7 @@ void func_tank_800481F4(Player* player) {
                         Player_ApplyDamage(player, 0, 5);
                         player->mercyTimer = 1;
                     }
-                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
+                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TANK_CAR)) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f,

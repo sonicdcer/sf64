@@ -178,11 +178,11 @@ D_ANDROSS_C033D98:
 D_ANDROSS_C035110:
   {type: SF64:ENVIRONMENT, offset: 0xC035110, symbol: D_ANDROSS_C035110}
 
-D_ANDROSS_C035154:
-  {type: SF64:OBJECT_INIT, offset: 0xC035154, symbol: D_ANDROSS_C035154}
+aVe1AndLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0xC035154, symbol: aVe1AndLevelObjects}
 
-D_ANDROSS_C0356A4:
-  {type: SF64:OBJECT_INIT, offset: 0xC0356A4, symbol: D_ANDROSS_C0356A4}
+aVe1AndBossLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0xC0356A4, symbol: aVe1AndBossLevelObjects}
 
 D_ANDROSS_C0356CC:
   {type: SF64:OBJECT_INIT, offset: 0xC0356CC, symbol: D_ANDROSS_C0356CC}

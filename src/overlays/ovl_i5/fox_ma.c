@@ -35,7 +35,7 @@ void Macbeth_8019D048(Actor*);
 void Macbeth_8019FC54(Actor*, s32*, s32*, s32, s32, f32, f32, s32*);
 void Macbeth_MaBoulder_Spawn(f32, f32, f32, f32, f32, f32, f32, s32, u8);
 void Macbeth_8019D910(Actor*, s32*, s32*, s32, f32, f32, s32*, s32*);
-bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
+bool Macbeth_MaTender_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
 void Macbeth_MaBoulder_HandleDamage(Actor*);
 void Macbeth_MaBombDrop_Spawn(f32, f32, f32, f32, f32, f32);
 void Macbeth_MaSpear_Spawn(f32, f32, f32, f32, f32, f32, s16);
@@ -54,7 +54,7 @@ s16 D_i5_801BE316;
 s16 D_i5_801BE318;
 s16 D_i5_801BE320[35];
 f32 D_i5_801BE368[50];
-Vec3f D_i5_801BE430[50];
+Vec3f sMaMechbethJointTable[50];
 Vec3f D_i5_801BE688[2];
 Vec3f D_i5_801BE6A0[12];
 s32 D_i5_801BE734[4];
@@ -487,26 +487,26 @@ void Macbeth_Train_Init(Actor* this) {
             this->health = 50;
             D_i5_801BE314 = this->index;
             break;
-        case OBJ_ACTOR_207:
+        case OBJ_ACTOR_MA_MECHBETH:
             this->health = 250;
             D_i5_801BE316 = this->index;
             break;
-        case OBJ_ACTOR_MA_TRAIN_CAR_2:
+        case OBJ_ACTOR_MA_MISSILE_CAR:
             this->health = 20;
             /* fallthrough */
-        case OBJ_ACTOR_MA_TRAIN_CAR_3:
+        case OBJ_ACTOR_MA_ROBOT:
             this->health = 20;
             break;
-        case OBJ_ACTOR_MA_TRAIN_CAR_5:
+        case OBJ_ACTOR_MA_CONTAINER_BOX:
             this->health = 20;
             break;
-        case OBJ_ACTOR_MA_TRAIN_CAR_6:
+        case OBJ_ACTOR_MA_CANNON_CAR:
             this->health = 200;
             break;
-        case OBJ_ACTOR_MA_TRAIN_CAR_7:
+        case OBJ_ACTOR_MA_TANK_CAR:
             this->health = 80;
             break;
-        case OBJ_ACTOR_MA_TRAIN_CAR_4:
+        case OBJ_ACTOR_MA_BOULDER_CAR:
             this->health = 160;
         default:
             break;
@@ -560,7 +560,7 @@ void Macbeth_RotateTrainWheels(void) {
     Macbeth_Texture_RotateZ(D_MA_6023388, D_Tex_800DB4B8, gGameFrameCount * -20.0f);
 }
 
-void Macbeth_8019A198(Actor* this) {
+void Macbeth_TrainCarSpeed_Update(Actor* this) {
     if ((this->iwork[5] >= D_i5_801BA1E4) || (this->iwork[5] >= D_MA_801BE2F0[3])) {
         Math_SmoothStepToF(&this->vel.z, 0.0f, 0.02f, 10.0f, 0.01f);
     } else {
@@ -682,7 +682,7 @@ void Macbeth_8019A728(Actor* this) {
             this->iwork[2] = j;
 
             if ((D_i5_801BA1EC[j - 1].unk_10 == this->iwork[5]) && (this->iwork[1] == 0)) {
-                if (this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_6) {
+                if (this->obj.id == OBJ_ACTOR_MA_CANNON_CAR) {
                     this->timer_0BC = 30;
                     Radio_PlayMessage(gMsg_ID_17476, RCID_BOSS_MACBETH);
                 }
@@ -934,7 +934,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
     D_i5_801BE368[6] = this->vwork[0].z + this->obj.pos.z;
 
     Macbeth_8019A2F4(this);
-    Macbeth_8019A198(this);
+    Macbeth_TrainCarSpeed_Update(this);
     Macbeth_801A015C(this);
     Macbeth_8019A830(this);
 
@@ -1091,10 +1091,10 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
     }
 }
 
-void Macbeth_MaTrainCar4_Update(Actor* this) {
+void Macbeth_MaBoulderCar_Update(MaBoulderCar* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019FC54(this, &this->iwork[10], &this->iwork[11], 1, 1, this->fwork[25], 0.0f, &this->iwork[13]);
             Macbeth_8019A728(this);
@@ -1241,10 +1241,10 @@ void Macbeth_MaBoulder_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 zVel, f
     }
 }
 
-void Macbeth_MaTrainCar3_Update(MaTrainCar3* this) {
+void Macbeth_MaRobot_Update(MaRobot* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019D910(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[21], -420.0f, &this->iwork[12],
                              &this->iwork[13]);
@@ -1343,7 +1343,7 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
             if (((this->dmgType != DMG_NONE) && (arg3 == this->dmgPart)) ||
                 ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
                 (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5])) ||
-                ((this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_3) && (arg3 == 2))) {
+                ((this->obj.id == OBJ_ACTOR_MA_ROBOT) && (arg3 == 2))) {
                 AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                 this->dmgType = DMG_NONE;
                 Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
@@ -1353,7 +1353,7 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
                 if ((*arg2 <= 0) ||
                     ((D_MA_801BE2F0[1] - 1 == (this->iwork[5])) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
                     (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5])) ||
-                    ((this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_3) && (arg3 == 2))) {
+                    ((this->obj.id == OBJ_ACTOR_MA_ROBOT) && (arg3 == 2))) {
                     gHitCount++;
                     (*arg1)++;
                 }
@@ -1366,7 +1366,7 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
         case 3:
             Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f, 0.0f, 0.0f,
                              10.0f, 5);
-            if ((this->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_3) || (arg3 != 2)) {
+            if ((this->obj.id != OBJ_ACTOR_MA_ROBOT) || (arg3 != 2)) {
                 for (i = 0; i < 15; i++) {
                     Macbeth_Effect357_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f,
                                              this->obj.pos.z + arg5 + RAND_FLOAT(20.0f), RAND_FLOAT_CENTERED(10.0f),
@@ -1423,10 +1423,10 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
     }
 }
 
-void Macbeth_MaTrainCar5_Update(MaTrainCar5* this) {
+void Macbeth_MaContainerBox_Update(MaContainerBox* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019D910(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[21], -420.0f, &this->iwork[12],
                              &this->iwork[13]);
@@ -1551,10 +1551,10 @@ void Macbeth_8019E624(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
     }
 }
 
-void Macbeth_MaTrainCar2_Update(Actor* this) {
+void Macbeth_MaMissileCar_Update(Actor* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019E624(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[25], 0.0f, &this->iwork[13]);
             Macbeth_8019A830(this);
@@ -1639,10 +1639,10 @@ void Macbeth_8019EBF8(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
     }
 }
 
-void Macbeth_MaTrainCar7_Update(Actor* this) {
+void Macbeth_MaTankCar_Update(Actor* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019EBF8(this, &this->iwork[10], &this->iwork[11], 1, this->fwork[25], 0.0f, &this->iwork[13]);
             Macbeth_8019A830(this);
@@ -1705,7 +1705,7 @@ void Macbeth_MaTrainCar7_Update(Actor* this) {
     }
 }
 
-void Macbeth_8019F164(MaTrainCar6* this) {
+void Macbeth_8019F164(MaCannonCar* this) {
     static Vec3f D_i5_801BA708 = { 0.0f, 610.0f, 0.0f };
     static Vec3f D_i5_801BA714 = { 0.0f, 0.0f, 65.0f };
     Vec3f sp84;
@@ -1898,7 +1898,7 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
                 if ((*arg2 <= 0) || ((D_MA_801BE2F0[1] - 1 == this->iwork[5]) && (this->iwork[5] < D_MA_801BE2F0[3])) ||
                     (((D_MA_801BE2F0[1] + 1) == this->iwork[5]) && (D_MA_801BE2F0[3] < this->iwork[5]))) {
                     gHitCount++;
-                    if ((this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_4) && (this->iwork[3] < 2)) {
+                    if ((this->obj.id == OBJ_ACTOR_MA_BOULDER_CAR) && (this->iwork[3] < 2)) {
                         gHitCount += 5;
                     }
                     (*arg1)++;
@@ -1912,7 +1912,7 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
 
         case 1:
             Macbeth_8019A8C8(this, 6);
-            if (this->obj.id == OBJ_ACTOR_MA_TRAIN_CAR_6) {
+            if (this->obj.id == OBJ_ACTOR_MA_CANNON_CAR) {
                 Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 360.0f, this->obj.pos.z, 0.0f,
                                  0.0f, 0.0f, 20.0f, 20);
                 Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 660.0f, this->obj.pos.z, 0.0f,
@@ -1929,10 +1929,10 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
     }
 }
 
-void Macbeth_MaTrainCar6_Update(MaTrainCar6* this) {
+void Macbeth_MaCannonCar_Update(MaCannonCar* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019FC54(this, &this->iwork[10], &this->iwork[11], 1, 3, this->fwork[25], 0.0f, &this->iwork[13]);
             Macbeth_8019A728(this);
@@ -2253,8 +2253,8 @@ void Macbeth_MaSwitchTrack_Update(MaSwitchTrack* this) {
     }
 }
 
-bool Macbeth_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Scenery* this = (Scenery*) thisx;
+bool Macbeth_MaSwitchTrack_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    MaSwitchTrack* this = (MaSwitchTrack*) thisx;
 
     if (limbIndex == 5) {
         rot->y += this->vel.y;
@@ -2265,7 +2265,7 @@ bool Macbeth_801A0DD8(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return false;
 }
 
-void Macbeth_801A0E2C(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Macbeth_MaSwitchTrack_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
     s32 pad;
 
@@ -2350,7 +2350,7 @@ void Macbeth_Train_Draw(Actor* this) {
     Matrix_RotateX(gGfxMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    if ((this->obj.id != OBJ_ACTOR_MA_TRAIN_CAR_1) && (this->obj.id != OBJ_ACTOR_MA_LOCOMOTIVE)) {
+    if ((this->obj.id != OBJ_ACTOR_MA_TENDER) && (this->obj.id != OBJ_ACTOR_MA_LOCOMOTIVE)) {
         if (((gPlayer[0].trueZpos - this->obj.pos.z) > 3000.0f) && (D_i5_801BE310 != this->iwork[5])) {
             gSPDisplayList(gMasterDisp++, D_MA_6027BF0);
             gSPDisplayList(gMasterDisp++, D_MA_601BE90);
@@ -2362,7 +2362,7 @@ void Macbeth_Train_Draw(Actor* this) {
     }
 
     switch (this->obj.id) {
-        case OBJ_ACTOR_MA_TRAIN_CAR_6:
+        case OBJ_ACTOR_MA_CANNON_CAR:
             if (this->iwork[13] == 0) {
                 if ((this->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
@@ -2371,12 +2371,12 @@ void Macbeth_Train_Draw(Actor* this) {
                 if (this->iwork[7] > 0) {
                     this->iwork[7]--;
                 }
-                Animation_GetFrameData(&D_MA_6027320, 0, frameTable);
-                Animation_DrawSkeleton(1, D_MA_602742C, frameTable, Macbeth_801A0B20, NULL, this, &gIdentityMatrix);
+                Animation_GetFrameData(&aMaCannonAnim, 0, frameTable);
+                Animation_DrawSkeleton(1, aMaCannonSkel, frameTable, Macbeth_801A0B20, NULL, this, &gIdentityMatrix);
             }
             break;
 
-        case OBJ_ACTOR_MA_TRAIN_CAR_4:
+        case OBJ_ACTOR_MA_BOULDER_CAR:
             if (this->iwork[13] == 0) {
                 Animation_GetFrameData(&D_MA_6027A04, 0, frameTable);
                 Animation_DrawSkeleton(1, D_MA_6027AF0, frameTable, Macbeth_801A0B00, NULL, this, &gIdentityMatrix);
@@ -2394,14 +2394,14 @@ void Macbeth_Train_Draw(Actor* this) {
                 }
 
                 if (this->iwork[3] >= 3) {
-                    gSPDisplayList(gMasterDisp++, D_MA_6027EB0);
+                    gSPDisplayList(gMasterDisp++, aMaBoulderCarEmptyDL);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_MA_60288A0);
+                    gSPDisplayList(gMasterDisp++, aMaBoulderCarFullDL);
                 }
             }
             break;
 
-        case OBJ_ACTOR_MA_TRAIN_CAR_3:
+        case OBJ_ACTOR_MA_ROBOT:
             if (this->iwork[17] != 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -2412,12 +2412,12 @@ void Macbeth_Train_Draw(Actor* this) {
                 if (this->iwork[8] > 0) {
                     this->iwork[8]--;
                 }
-                gSPDisplayList(gMasterDisp++, D_MA_6029890);
+                gSPDisplayList(gMasterDisp++, aMaRobotDL);
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             break;
 
-        case OBJ_ACTOR_MA_TRAIN_CAR_5:
+        case OBJ_ACTOR_MA_CONTAINER_BOX:
             if (this->iwork[17] != 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -15.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -2431,18 +2431,18 @@ void Macbeth_Train_Draw(Actor* this) {
                 }
                 if (this->iwork[17] == 0) {
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_MA_6004440);
+                    gSPDisplayList(gMasterDisp++, aMaContainerBoxDL);
                 } else {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_MA_6022200);
+                    gSPDisplayList(gMasterDisp++, aMaContainerBoxDestroyedDL);
                     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
                 }
                 RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             }
             break;
 
-        case OBJ_ACTOR_MA_TRAIN_CAR_7:
+        case OBJ_ACTOR_MA_TANK_CAR:
             if (this->iwork[13] < 2) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
@@ -2454,12 +2454,12 @@ void Macbeth_Train_Draw(Actor* this) {
                 if (this->iwork[7] > 0) {
                     this->iwork[7]--;
                 }
-                gSPDisplayList(gMasterDisp++, D_MA_6024670);
+                gSPDisplayList(gMasterDisp++, aMaTankCarDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             break;
 
-        case OBJ_ACTOR_MA_TRAIN_CAR_2:
+        case OBJ_ACTOR_MA_MISSILE_CAR:
             if (this->iwork[13] < 2) {
                 if ((this->iwork[7] % 2) != 0) {
                     RCP_SetupDL_27();
@@ -2471,19 +2471,19 @@ void Macbeth_Train_Draw(Actor* this) {
                 if (this->iwork[13] == 0) {
                     Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_MA_60269E0);
+                    gSPDisplayList(gMasterDisp++, aMaMissileCarDL);
                 } else {
                     Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_MA_6017720);
+                    gSPDisplayList(gMasterDisp++, aMaCopperheadMissileDL);
                 }
                 gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             }
             break;
 
-        case OBJ_ACTOR_MA_TRAIN_CAR_1:
-            Animation_GetFrameData(&D_MA_601EAB0, 0, frameTable);
-            Animation_DrawSkeleton(1, D_MA_601EBBC, frameTable, Macbeth_MaTrainCar1_OverrideLimbDraw, NULL, this,
+        case OBJ_ACTOR_MA_TENDER:
+            Animation_GetFrameData(&aMaTenderAnim, 0, frameTable);
+            Animation_DrawSkeleton(1, aMaTenderSkel, frameTable, Macbeth_MaTender_OverrideLimbDraw, NULL, this,
                                    &gIdentityMatrix);
             break;
 
@@ -2498,7 +2498,7 @@ void Macbeth_Train_Draw(Actor* this) {
                 Animation_GetFrameData(&D_MA_6010144, D_i5_801BE320[22], frameTable);
             }
 
-            Animation_DrawSkeleton(1, D_MA_601042C, frameTable, Macbeth_MaLocomotive_OverrideLimbDraw,
+            Animation_DrawSkeleton(1, aMaLocomotiveSkel, frameTable, Macbeth_MaLocomotive_OverrideLimbDraw,
                                    Macbeth_MaLocomotive_PostLimbDraw, this, &gIdentityMatrix);
 
             if (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE) {
@@ -2545,7 +2545,7 @@ void Macbeth_Train_Draw(Actor* this) {
     Matrix_Pop(&gGfxMatrix);
 
     id = this->obj.id;
-    if ((id == OBJ_ACTOR_MA_TRAIN_CAR_3) || (id == OBJ_ACTOR_MA_TRAIN_CAR_5)) {
+    if ((id == OBJ_ACTOR_MA_ROBOT) || (id == OBJ_ACTOR_MA_CONTAINER_BOX)) {
         if (this->iwork[13] != 2) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, this->fwork[21], this->fwork[6] + 10.0f, -420.0f, MTXF_APPLY);
@@ -2563,11 +2563,11 @@ void Macbeth_Train_Draw(Actor* this) {
 
             if (this->iwork[13] == 0) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_MA_6004440);
+                gSPDisplayList(gMasterDisp++, aMaContainerBoxDL);
             } else {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_MA_6022200);
+                gSPDisplayList(gMasterDisp++, aMaContainerBoxDestroyedDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2591,11 +2591,11 @@ void Macbeth_Train_Draw(Actor* this) {
 
             if (this->iwork[21] == 0) {
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_MA_6004440);
+                gSPDisplayList(gMasterDisp++, aMaContainerBoxDL);
             } else {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_MA_6022200);
+                gSPDisplayList(gMasterDisp++, aMaContainerBoxDestroyedDL);
                 RCP_SetupDL(&gMasterDisp, SETUPDL_29);
             }
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
@@ -2650,9 +2650,9 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
 
         case OBJ_SCENERY_MA_SWITCH_TRACK:
             Matrix_Push(&gGfxMatrix);
-            Animation_GetFrameData(&D_MA_6025CA0, 0, frameTable);
-            Animation_DrawSkeleton(1, D_MA_6025DAC, frameTable, Macbeth_801A0DD8, Macbeth_801A0E2C, this,
-                                   &gIdentityMatrix);
+            Animation_GetFrameData(&aMaSwitchTrackAnim, 0, frameTable);
+            Animation_DrawSkeleton(1, aMaSwitchTrackSkel, frameTable, Macbeth_MaSwitchTrack_OverrideLimbDraw,
+                                   Macbeth_MaSwitchTrack_PostLimbDraw, this, &gIdentityMatrix);
             Matrix_Pop(&gGfxMatrix);
 
             if ((this->state == 1) && (this->timer_4C <= 0)) {
@@ -2718,7 +2718,7 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
 
-void Macbeth_MaTower_Draw(Scenery* this) {
+void Macbeth_MaTower_Draw(MaTower* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     gSPDisplayList(gMasterDisp++, aMaTowerBottomDL);
@@ -2853,8 +2853,8 @@ void Macbeth_MaTrainStopBlock_Draw(MaTrainStopBlock* this) {
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    Animation_GetFrameData(&D_MA_600C4D0, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_600C65C, frameTable, NULL, Macbeth_MaTrainStopBlock_PostLimbDraw, this,
+    Animation_GetFrameData(&aMaTrainStopBlockAnim, 0, frameTable);
+    Animation_DrawSkeleton(1, aMaTrainStopBlockSkel, frameTable, NULL, Macbeth_MaTrainStopBlock_PostLimbDraw, this,
                            &gIdentityMatrix);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
@@ -3444,7 +3444,7 @@ void Macbeth_MaRailwaySignal_Update(MaRailwaySignal* this) {
     }
 }
 
-bool Macbeth_MaRailwaySignal_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_MaRailwaySignalBase_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     MaRailwaySignal* this = (MaRailwaySignal*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -3473,7 +3473,7 @@ bool Macbeth_MaRailwaySignal_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f
     return false;
 }
 
-bool Macbeth_MaRailwaySignal_OverrideLimbDraw1(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_MaRailwaySignalLever_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     MaRailwaySignal* this = (MaRailwaySignal*) thisx;
 
     pos->y = this->fwork[6] + pos->y;
@@ -3487,14 +3487,14 @@ void Macbeth_MaRailwaySignal_Draw(MaRailwaySignal* this) {
     Vec3f frameTable[50];
 
     Matrix_Push(&gGfxMatrix);
-    Animation_GetFrameData(&D_MA_602F2E0, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_602F36C, frameTable, Macbeth_MaRailwaySignal_OverrideLimbDraw1, NULL, this,
-                           &gIdentityMatrix);
+    Animation_GetFrameData(&aMaRailwaySignalLeverAnim, 0, frameTable);
+    Animation_DrawSkeleton(1, aMaRailwaySignalLeverSkel, frameTable, Macbeth_MaRailwaySignalLever_OverrideLimbDraw,
+                           NULL, this, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
-    Animation_GetFrameData(&D_MA_602F098, 0, frameTable);
-    Animation_DrawSkeleton(1, D_MA_602F264, frameTable, Macbeth_MaRailwaySignal_OverrideLimbDraw2, NULL, this,
-                           &gIdentityMatrix);
+    Animation_GetFrameData(&aMaRailwaySignalBaseAnim, 0, frameTable);
+    Animation_DrawSkeleton(1, aMaRailwaySignalBaseSkel, frameTable, Macbeth_MaRailwaySignalBase_OverrideLimbDraw, NULL,
+                           this, &gIdentityMatrix);
     Matrix_Pop(&gGfxMatrix);
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
 }
@@ -3808,7 +3808,7 @@ void Macbeth_MaFallingBoulder_Draw(MaFallingBoulder* this) {
     /* Unimplemented */
 }
 
-void Macbeth_801A68F8(Actor207* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
+void Macbeth_801A68F8(MaMechbeth* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     gTexturedLines[arg1].mode = 3;
     gTexturedLines[arg1].posAA.x = arg2;
     gTexturedLines[arg1].posAA.y = arg3;
@@ -3822,7 +3822,7 @@ void Macbeth_801A68F8(Actor207* this, s16 arg1, f32 arg2, f32 arg3, f32 arg4, f3
     gTexturedLines[arg1].posBB.z = arg7;
 }
 
-void Macbeth_801A6984(Actor207* this) {
+void Macbeth_801A6984(MaMechbeth* this) {
     s16 var_s3 = 0;
     Vec3f test;
     f32 temp_fs3;
@@ -3887,7 +3887,7 @@ void Macbeth_801A6984(Actor207* this) {
     Macbeth_Texture_Scroll2(D_MA_6012C98, 4, 8);
 }
 
-void Macbeth_801A6C78(Actor207* this) {
+void Macbeth_801A6C78(MaMechbeth* this) {
     // FAKE
     if (1) {}
 
@@ -3947,7 +3947,7 @@ void Macbeth_801A6C78(Actor207* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A6FB4(Actor207* this) {
+void Macbeth_801A6FB4(MaMechbeth* this) {
     // FAKE
     if (1) {}
 
@@ -4001,7 +4001,7 @@ void Macbeth_801A6FB4(Actor207* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A72DC(Actor207* this) {
+void Macbeth_801A72DC(MaMechbeth* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4026,7 +4026,7 @@ void Macbeth_801A72DC(Actor207* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A74C4(Actor207* this) {
+void Macbeth_801A74C4(MaMechbeth* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4092,7 +4092,7 @@ void Macbeth_801A74C4(Actor207* this) {
     Math_SmoothStepToF(&this->obj.pos.z, 1200.0f + D_i5_801BE368[6], 0.2f, 30.0f, 0.01f);
 }
 
-void Macbeth_801A78B0(Actor207* this) {
+void Macbeth_801A78B0(MaMechbeth* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4115,7 +4115,7 @@ void Macbeth_801A78B0(Actor207* this) {
     Math_SmoothStepToF(&this->obj.pos.x, this->fwork[19] + D_i5_801BE368[1], 0.1f, 10.0f, 0.01f);
 }
 
-void Macbeth_801A7A30(Actor207* this) {
+void Macbeth_801A7A30(MaMechbeth* this) {
     Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
     switch (D_i5_801BE320[0]) {
@@ -4166,7 +4166,7 @@ void Macbeth_801A7A30(Actor207* this) {
     this->obj.pos.z = 1200.0f + D_i5_801BE368[6];
 }
 
-void Macbeth_Actor207_FacePlayer(Actor207* this) {
+void Macbeth_MaMechbeth_FacePlayer(MaMechbeth* this) {
     f32 xDist;
     f32 yDist;
     f32 xRot;
@@ -4185,7 +4185,7 @@ void Macbeth_Actor207_FacePlayer(Actor207* this) {
     Math_SmoothStepToAngle(&this->obj.rot.x, Math_RadToDeg(xRot), 0.1f, 20.0f, 0.01f);
 }
 
-void Macbeth_Actor207_Init(Actor207* this) {
+void Macbeth_MaMechbeth_Init(MaMechbeth* this) {
     u8 i;
 
     Macbeth_Train_Init(this);
@@ -4208,7 +4208,7 @@ void Macbeth_Actor207_Init(Actor207* this) {
 Vec3f D_i5_801BA744 = { 0.0f, 0.0f, 0.0f };
 Vec3f D_i5_801BA750 = { 0.0f, 0.0f, 30.0f };
 
-void Macbeth_Actor207_Update(Actor207* this) {
+void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
     s32 pad;
     f32 temp;
     f32 sp374;
@@ -4233,7 +4233,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
 
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
 
             this->obj.pos.y += 250.0f;
@@ -4250,7 +4250,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             break;
 
         case 1:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             this->obj.pos.y += 250.0f;
 
@@ -4264,7 +4264,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             break;
 
         case 2:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
             if (this->timer_0BC == 0) {
@@ -4273,7 +4273,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 D_i5_801BE320[7] = 1;
                 if ((this->fwork[5] + 500.0f) <= this->obj.pos.y) {
                     Radio_PlayMessage(gMsg_ID_17430, RCID_BOSS_MACBETH);
-                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaMechbethHitbox);
                     this->state = 3;
                 }
             }
@@ -4282,7 +4282,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             break;
 
         case 3:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
 
             if (this->timer_0BC == 0) {
                 this->obj.pos.z -= 2.0f;
@@ -4314,7 +4314,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
 
         case 4:
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
 
             D_i5_801BE320[3]++;
             if (D_i5_801BE320[3] >= 60) {
@@ -4323,7 +4323,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
 
             Macbeth_801A6C78(this);
             Macbeth_801A6984(this);
-            Macbeth_Actor207_FacePlayer(this);
+            Macbeth_MaMechbeth_FacePlayer(this);
 
             if ((D_i5_801BE320[16] != 0) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
                 var_v1 = 0xFF;
@@ -4401,7 +4401,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             break;
 
         case 5:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
             Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
@@ -4414,12 +4414,12 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 this->timer_0BC = 0;
                 this->state = 6;
             }
-            Macbeth_Actor207_FacePlayer(this);
+            Macbeth_MaMechbeth_FacePlayer(this);
             Macbeth_801A6984(this);
             break;
 
         case 6:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
 
             if (this->timer_0BC <= 0) {
                 this->state = 7;
@@ -4427,7 +4427,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
 
             D_i5_801BE368[9] = gPlayer[0].pos.x;
 
-            Macbeth_Actor207_FacePlayer(this);
+            Macbeth_MaMechbeth_FacePlayer(this);
             Macbeth_801A6984(this);
             break;
 
@@ -4442,7 +4442,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 } else {
                     this->info.hitbox = SEGMENTED_TO_VIRTUAL(gNoHitbox);
                     if ((gPlayer[0].pos.y + 1200.0f) < this->obj.pos.y) {
-                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaMechbethHitbox);
                         D_i5_801BE320[3] = 0;
                         D_i5_801BE320[2] = 1;
                         D_i5_801BE320[31] = 30;
@@ -4470,7 +4470,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             }
 
             if (var_fv0 < (gPlayer[0].trueZpos - this->obj.pos.z)) {
-                Macbeth_Actor207_FacePlayer(this);
+                Macbeth_MaMechbeth_FacePlayer(this);
                 D_i5_801BE368[9] = gPlayer[0].pos.x;
             }
 
@@ -4488,9 +4488,9 @@ void Macbeth_Actor207_Update(Actor207* this) {
             break;
 
         case 8:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
 
-            if (((gGameFrameCount % 16) == 0)) {
+            if ((gGameFrameCount % 16) == 0) {
                 AUDIO_PLAY_SFX(NA_SE_EN_MABOSS_RAGE, this->sfxSource, 4);
             }
 
@@ -4498,7 +4498,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             Macbeth_801A6984(this);
 
             if (D_i5_801BE320[3] < (Animation_GetFrameCount(&D_MA_6017714) - 1)) {
-                D_i5_801BE320[3] = (s16) (D_i5_801BE320[3] + 1);
+                D_i5_801BE320[3]++;
             } else {
                 D_i5_801BE320[3] = 0;
             }
@@ -4635,7 +4635,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.1f, 20.0f, 0.01f);
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
 
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A6FB4(this);
             Macbeth_801A6984(this);
 
@@ -4671,7 +4671,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                                              D_i5_801BE368[0] * 0.8f, -10.0f, 8.0f);
                     D_i5_801BE320[11]++;
                     if (D_i5_801BE320[11] >= var_s0) {
-                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaMechbethHitbox);
                         D_i5_801BE320[3] = 0;
                         D_i5_801BE320[2] = 1;
                         D_i5_801BE320[31] = 30;
@@ -4716,7 +4716,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 D_i5_801BE320[3] = 0;
             }
 
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A72DC(this);
             Macbeth_801A6984(this);
 
@@ -4762,7 +4762,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 D_i5_801BE320[3]++;
             }
 
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A72DC(this);
             Macbeth_801A6984(this);
 
@@ -4803,7 +4803,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 D_i5_801BE320[3]++;
             }
 
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
 
             this->vel.y += 1.0f;
 
@@ -4814,7 +4814,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
 
             if (this->timer_0BC == 0) {
                 this->vel.y = 0.0f;
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaMechbethHitbox);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
                 D_i5_801BE320[31] = 30;
@@ -4835,7 +4835,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 D_i5_801BE320[3]++;
             }
 
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A6984(this);
 
             if (this->timer_0BC < 100) {
@@ -4898,7 +4898,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 D_i5_801BE320[3]++;
             }
 
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A6984(this);
 
             if (this->timer_0BC < (D_i5_801BE320[27] - 40)) {
@@ -4998,7 +4998,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             }
             if (this->timer_0BC == 0) {
                 Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_RNG_BEAM_SHOT);
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaActor207Hitbox);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMaMechbethHitbox);
                 D_i5_801BE320[3] = 0;
                 D_i5_801BE320[2] = 1;
                 D_i5_801BE320[31] = 30;
@@ -5008,7 +5008,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
             break;
 
         case 18:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A0308(this, this->obj.pos.z, this->obj.rot.y, 0);
 
             Math_SmoothStepToF(&this->obj.pos.x, gPlayer[0].pos.x, 0.1f, 10.0f, 0.01f);
@@ -5023,14 +5023,14 @@ void Macbeth_Actor207_Update(Actor207* this) {
                 this->state = 19;
             }
 
-            Macbeth_Actor207_FacePlayer(this);
+            Macbeth_MaMechbeth_FacePlayer(this);
             Macbeth_801A6984(this);
             break;
 
         case 19:
             this->vel.z = gPlayer[0].vel.z;
 
-            Macbeth_Actor207_FacePlayer(this);
+            Macbeth_MaMechbeth_FacePlayer(this);
 
             D_i5_801BE368[4] += D_i5_801BE368[32];
             D_i5_801BE368[5] += D_i5_801BE368[33];
@@ -5064,7 +5064,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
 
         case 20:
             Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 20.0f, 0.01f);
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
 
             this->vel.z = gActors[D_i5_801BE314].vel.z;
 
@@ -5250,41 +5250,41 @@ void Macbeth_Actor207_Update(Actor207* this) {
     switch (D_i5_801BE320[2]) {
         case 1:
             temp_a3 = Animation_GetFrameData(&D_MA_600CD18, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.2f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.2f, 100.0f, 0.01f);
             break;
 
         case 2:
             temp_a3 = Animation_GetFrameData(&D_MA_601D188, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.15f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.15f, 100.0f, 0.01f);
             break;
 
         case 3:
             temp_a3 = Animation_GetFrameData(&D_MA_6017714, D_i5_801BE320[3], spD4);
             if (D_i5_801BE320[31] != 0) {
-                Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.1f, 100.0f, 0.01f);
+                Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.1f, 100.0f, 0.01f);
             } else {
-                Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 1.0f, 100.0f, 0.01f);
+                Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 1.0f, 100.0f, 0.01f);
             }
             break;
 
         case 4:
             temp_a3 = Animation_GetFrameData(&D_MA_6016B2C, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.2f, 50.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.2f, 50.0f, 0.01f);
             break;
 
         case 5:
             temp_a3 = Animation_GetFrameData(&D_MA_60163F0, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.2f, 100.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.2f, 100.0f, 0.01f);
             break;
 
         case 6:
             temp_a3 = Animation_GetFrameData(&D_MA_6016040, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.1f, 50.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.1f, 50.0f, 0.01f);
             break;
 
         case 7:
             temp_a3 = Animation_GetFrameData(&D_MA_6015C24, D_i5_801BE320[3], spD4);
-            Math_SmoothStepToVec3fArray(spD4, D_i5_801BE430, 1, temp_a3, 0.1f, 50.0f, 0.01f);
+            Math_SmoothStepToVec3fArray(spD4, sMaMechbethJointTable, 1, temp_a3, 0.1f, 50.0f, 0.01f);
             break;
     }
 
@@ -5293,7 +5293,7 @@ void Macbeth_Actor207_Update(Actor207* this) {
     }
 }
 
-bool Macbeth_Actor207_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_MaMechbeth_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = (Actor*) thisx;
     s16 sp62;
 
@@ -5412,9 +5412,9 @@ bool Macbeth_Actor207_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
     return false;
 }
 
-void Macbeth_Actor207_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Macbeth_MaMechbeth_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
-    Actor207* this = (Actor207*) thisx;
+    MaMechbeth* this = (MaMechbeth*) thisx;
 
     switch (limbIndex) {
         case 14:
@@ -5432,7 +5432,7 @@ void Macbeth_Actor207_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-void Macbeth_Actor207_Draw(Actor207* this) {
+void Macbeth_MaMechbeth_Draw(MaMechbeth* this) {
     if (gPlayer[0].state == PLAYERSTATE_ACTIVE) {
         if (((gPlayer[0].trueZpos - this->obj.pos.z) > 7000.0f) ||
             ((gPlayer[0].trueZpos - this->obj.pos.z) < -1000.0f)) {
@@ -5449,19 +5449,19 @@ void Macbeth_Actor207_Draw(Actor207* this) {
         Matrix_Translate(gCalcMatrix, this->fwork[25], 0.0f, 0.0f, MTXF_APPLY);
         Matrix_RotateY(gCalcMatrix, this->fwork[26] * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gCalcMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
-        Animation_GetFrameData(&D_MA_601EA28, D_i5_801BE320[3], D_i5_801BE430);
+        Animation_GetFrameData(&D_MA_601EA28, D_i5_801BE320[3], sMaMechbethJointTable);
     }
-    Animation_DrawSkeleton(3, D_MA_600D1E4, D_i5_801BE430, Macbeth_Actor207_OverrideLimbDraw,
-                           Macbeth_Actor207_PostLimbDraw, this, gCalcMatrix);
+    Animation_DrawSkeleton(3, aMaMechbethSkel, sMaMechbethJointTable, Macbeth_MaMechbeth_OverrideLimbDraw,
+                           Macbeth_MaMechbeth_PostLimbDraw, this, gCalcMatrix);
 }
 
 void Macbeth_801AC42C(s32 arg0) {
 }
 
-void Macbeth_MaTrainCar1_Update(MaTrainCar1* this) {
+void Macbeth_MaTender_Update(MaTender* this) {
     switch (this->state) {
         case 0:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Macbeth_8019A728(this);
             if (this->iwork[1] != 0) {
@@ -5474,7 +5474,7 @@ void Macbeth_MaTrainCar1_Update(MaTrainCar1* this) {
             break;
 
         case 1:
-            Macbeth_8019A198(this);
+            Macbeth_TrainCarSpeed_Update(this);
             Macbeth_801A015C(this);
             Math_SmoothStepToF(&D_i5_801BE368[8], 160.0f, 0.1f, 3.0f, 0.01f);
             Macbeth_8019A830(this);
@@ -5487,7 +5487,7 @@ void Macbeth_MaTrainCar1_Update(MaTrainCar1* this) {
     }
 }
 
-bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_MaTender_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
 
@@ -5504,7 +5504,7 @@ bool Macbeth_MaTrainCar1_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos
 }
 
 // unused
-void Macbeth_801AC6B4(ActorCutscene* this) {
+void Macbeth_CsGreatFox_Setup(ActorCutscene* this) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -5535,7 +5535,7 @@ void Macbeth_LevelStart(Player* player) {
 
     switch (player->csState) {
         case 0:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035678);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(aMaCsLongTrainObjects);
 
             for (i = 0, objInit = gLevelObjects; objInit->id != OBJ_INVALID; i++, objInit++) {
                 Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
@@ -5687,20 +5687,20 @@ void Macbeth_EffectClouds_Spawn(void) {
     }
 }
 
-void Macbeth_801ACFBC(void) {
+void Macbeth_LongTrainObjects(void) {
     ObjectInit* objInit;
 
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_60357CC);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aMaLongTrainObjects);
 
     for (objInit = gLevelObjects; objInit->id != OBJ_INVALID; objInit++) {
         Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
     }
 }
 
-void Macbeth_801AD080(void) {
+void Macbeth_ShortTrainObjects(void) {
     ObjectInit* objInit;
 
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_MA_6035920);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aMaShortTrainObjects);
 
     for (objInit = gLevelObjects; objInit->id != OBJ_INVALID; objInit++) {
         Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
@@ -5724,7 +5724,7 @@ void Macbeth_801AD144(PlayerShot* shot) {
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) &&
-            (actor->obj.id >= OBJ_ACTOR_MA_LOCOMOTIVE) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
+            (actor->obj.id >= OBJ_ACTOR_MA_LOCOMOTIVE) && (actor->obj.id <= OBJ_ACTOR_MA_TANK_CAR)) {
             temp_s6 = gGameFrameCount % 8U;
             var_s1 = &actor->info.hitbox[0];
             temp_ft3 = var_s1[0];
@@ -5769,7 +5769,7 @@ void Macbeth_801AD144(PlayerShot* shot) {
                             } else {
                                 actor->damage = 1;
                             }
-                            if (actor->obj.id == OBJ_ACTOR_207) {
+                            if (actor->obj.id == OBJ_ACTOR_MA_MECHBETH) {
                                 actor->damage = 4;
                             }
                         }

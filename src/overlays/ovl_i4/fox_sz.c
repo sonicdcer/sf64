@@ -284,9 +284,9 @@ void SectorZ_KattCutscene(ActorCutscene* this) {
         gPlayer[0].cam.eye.y = 2500.0f;
         gPlayer[0].cam.eye.z = 25000.0f;
 
-        gPlayer[0].cam.at.x = gActors[8].obj.pos.x;
-        gPlayer[0].cam.at.y = gActors[8].obj.pos.y;
-        gPlayer[0].cam.at.z = gActors[8].obj.pos.z;
+        gPlayer[0].cam.at.x = gActors[AI360_KATT].obj.pos.x;
+        gPlayer[0].cam.at.y = gActors[AI360_KATT].obj.pos.y;
+        gPlayer[0].cam.at.z = gActors[AI360_KATT].obj.pos.z;
 
         sKattEnabled = true;
     }
@@ -604,6 +604,12 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             gActors[3].state = 2;
 
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
+                //! @bug: Assigning aiIndex and state to potentially non-existent actors
+#ifdef AVOID_UB
+                if (gActors[i].obj.status == OBJ_FREE) {
+                    continue;
+                }
+#endif
                 gActors[i].aiIndex = -1;
                 gActors[i].state = 3;
             }
@@ -1868,7 +1874,12 @@ void SectorZ_LoadLevelObjects(void) {
         }
     }
 
+//! @bug: aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[59] only account for 10 of them.
+#ifdef AVOID_UB
+    for (j = 48, actor = &gActors[j], i = 0; i < 1000; i++) {
+#else
     for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
+#endif
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }

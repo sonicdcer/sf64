@@ -24,13 +24,14 @@ s32 gLastPathChange;
 u8 gMissedZoSearchlight;
 
 ObjectInit* gLevelObjectInits[] = {
-    aCoOnRailsLevelObjects, D_ME_6026CC4,      D_SX_602A164,  D_A6_6023F64,
-    D_A6_60287A4,           D_SY_602E4F4,      D_VE1_6007E74, D_SO_601F234,
-    D_ZO_6026714,           D_ANDROSS_C035154, D_TR_6006AA4,  D_MA_6031000,
-    D_TI_6006C60,           D_AQ_602E5C8,      D_FO_600EAD4,  NULL,
-    D_KA_6011044,           D_BO_600FF74,      D_SZ_6006EB4,  D_VE2_6014D94,
-    D_versus_302DE3C,
+    aCoOnRailsLevelObjects, aMeLevelObjects,        aSxLevelObjects,        aA6LevelObjects,
+    aA6Unk4LevelObjects,    aSyOnRailsLevelObjects, aVe1LevelObjects,       aSoLevelObjects,
+    aZoLevelObjects,        aVe1AndLevelObjects,    aTrOnRailsLevelObjects, aMaLevelObjects,
+    aTiLevelObjects,        aAqLevelObjects,        aFoLevelObjects,        NULL,
+    aKaLevelObjects,        aBoLevelObjects,        aSzLevelObjects,        aVe2LevelObjects,
+    aVsCoLevelObjects,
 };
+
 s32 D_enmy_800CFDF4[] = {
     /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
@@ -59,18 +60,22 @@ s32 D_enmy_800CFDF4[] = {
     /* 24 */ OBJ_SCENERY_CO_STONE_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
+
 f32 D_enmy_800CFE5C[] = {
     0.0f, 1.0f, 0.5f, 0.33f, 0.25f, 1.0f,  0.5f,  0.33f, 0.25f, 1.0f, 0.5f, 0.33f, 0.25f,
     1.0f, 1.0f, 1.0f, 1.0f,  1.0f,  -1.0f, -1.0f, -1.0f, -1.0f, 0.1f, 1.0f, 1.0f,  1.0f,
 };
+
 Vec3f D_enmy_800CFEC4[] = {
     { 0.0f, 0.0f, 50.0f }, { -50.0f, 0.0f, 0.0f }, { 50.0f, 0.0f, 0.0f },
     { 0.0f, 50.0f, 0.0f }, { 0.0f, 0.0f, -50.0f }, { 0.0f, -50.0f, 0.0f },
 };
+
 Vec3f D_enmy_800CFF0C[] = {
     { 0.0f, 0.0f, 0.0f },   { 0.0f, -90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f },
     { -90.0f, 0.0f, 0.0f }, { 0.0f, 180.0f, 0.0f }, { 90.0f, 0.0f, 0.0f },
 };
+
 u32 gWarpRingSfx[] = {
     NA_SE_WARP_RING_1, NA_SE_WARP_RING_2, NA_SE_WARP_RING_3, NA_SE_WARP_RING_4, NA_SE_WARP_RING_5,
     NA_SE_WARP_RING_6, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7, NA_SE_WARP_RING_7,
@@ -501,7 +506,7 @@ void Object_Load(ObjectInit* objInit, f32 xMax, f32 xMin, f32 yMax, f32 yMin) {
                 case OBJ_UNK_405:
                     D_MA_801BA1E8 = 98;
                     break;
-                case OBJ_UNK_402:
+                case OBJ_ENV_AND_ROTATE_TUNNEL:
                     D_Andross_801A7F78 = objInit->rot.z * 0.1f;
                     D_Andross_801A7F60 = -(f32) objInit->rot.x;
                     break;
@@ -551,13 +556,13 @@ void Object_LoadLevelObjects(void) {
     s32 j;
 
     if ((gCurrentLevel == LEVEL_METEO) && (gLevelPhase == 1)) {
-        gLevelObjects = SEGMENTED_TO_VIRTUAL(D_ME_602B148);
+        gLevelObjects = SEGMENTED_TO_VIRTUAL(aMeWarpZoneLevelObjects);
     } else if ((gCurrentLevel == LEVEL_SECTOR_X) && (gLevelPhase == 1)) {
-        gLevelObjects = SEGMENTED_TO_VIRTUAL(D_SX_602F18C);
+        gLevelObjects = SEGMENTED_TO_VIRTUAL(aSxWarpZoneLevelObjects);
     } else if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) && (gLevelPhase == 1)) {
-        gLevelObjects = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C0356A4);
+        gLevelObjects = SEGMENTED_TO_VIRTUAL(aVe1AndBossLevelObjects);
     } else if ((gCurrentLevel == LEVEL_VENOM_1) && (gLevelPhase == 1)) {
-        gLevelObjects = SEGMENTED_TO_VIRTUAL(D_VE1_6010088);
+        gLevelObjects = SEGMENTED_TO_VIRTUAL(aVe1BetaLevelObjects);
     } else {
         gLevelObjects = SEGMENTED_TO_VIRTUAL(gLevelObjectInits[gCurrentLevel]);
     }
@@ -1250,17 +1255,17 @@ void Object_Init(s32 index, ObjectId objId) {
             SectorY_SyShogun_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_MA_LOCOMOTIVE:
-        case OBJ_ACTOR_MA_TRAIN_CAR_1:
-        case OBJ_ACTOR_MA_TRAIN_CAR_2:
-        case OBJ_ACTOR_MA_TRAIN_CAR_3:
-        case OBJ_ACTOR_MA_TRAIN_CAR_4:
-        case OBJ_ACTOR_MA_TRAIN_CAR_5:
-        case OBJ_ACTOR_MA_TRAIN_CAR_6:
-        case OBJ_ACTOR_MA_TRAIN_CAR_7:
+        case OBJ_ACTOR_MA_TENDER:
+        case OBJ_ACTOR_MA_MISSILE_CAR:
+        case OBJ_ACTOR_MA_ROBOT:
+        case OBJ_ACTOR_MA_BOULDER_CAR:
+        case OBJ_ACTOR_MA_CONTAINER_BOX:
+        case OBJ_ACTOR_MA_CANNON_CAR:
+        case OBJ_ACTOR_MA_TANK_CAR:
             Macbeth_Train_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_207:
-            Macbeth_Actor207_Init(&gActors[index]);
+        case OBJ_ACTOR_MA_MECHBETH:
+            Macbeth_MaMechbeth_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_MA_RAILROAD_SWITCH:
             Macbeth_MaMaRailroadSwitch_Init(&gActors[index]);
@@ -1349,14 +1354,14 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_ZO_SUPPLYCRANE:
             Zoness_ZoSupplyCrane_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_255:
-            Aquas_Actor255_Init(&gActors[index]);
+        case OBJ_ACTOR_AQ_SANADA:
+            Aquas_AqSanada_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_256:
-            Aquas_Actor256_Init(&gActors[index]);
+        case OBJ_ACTOR_AQ_BACOON_MUSCLE:
+            Aquas_AqBacoonMuscle_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_257:
-            Aquas_Actor257_Init(&gActors[index]);
+        case OBJ_ACTOR_AQ_BACOON_BARNACLE:
+            Aquas_AqBacconBarnacle_Init(&gActors[index]);
             break;
         case OBJ_BOSS_AQ_BACOON:
             Aquas_AqBacoon_Init(&gBosses[index]);

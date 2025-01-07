@@ -307,16 +307,16 @@ void Play_InitVsStage(void) {
 
     switch (gVersusStage) {
         case VS_STAGE_CORNERIA:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302DE3C);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsCoLevelObjects);
             break;
         case VS_STAGE_KATINA:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E0E4);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsKaLevelObjects);
             break;
         case VS_STAGE_SECTOR_Z:
             if (gVsMatchType == VS_MATCH_TIME) {
-                gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E378);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsSzMatchLevelObjects);
             } else {
-                gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E170);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsSzLevelObjects);
             }
             break;
     }
@@ -416,7 +416,7 @@ void Play_Setup360_SY(void) {
     Scenery360* scenery360;
     s32 i;
 
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_SY_6030B14);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aSyAllRangeLevelObjects);
 
     for (i = 0, scenery360 = gScenery360; i < 200; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
@@ -2081,7 +2081,7 @@ void Player_CollisionCheck(Player* player) {
                             }
                         }
                     }
-                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
+                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TANK_CAR)) {
                     temp_v0 = Player_CheckHitboxCollision(
                         player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                         actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z, actor->fwork[29],
@@ -4554,7 +4554,7 @@ void Player_Setup(Player* playerx) {
     if ((gSavedObjectLoadIndex > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             sp2E = gObjectLoadIndex;
-            Macbeth_801AD080();
+            Macbeth_ShortTrainObjects();
             gObjectLoadIndex = sp2E;
         }
         func_enmy_80062568();
@@ -4695,7 +4695,7 @@ void Player_Setup(Player* playerx) {
             for (objInit = gLevelObjects, i = 0; i < gObjectLoadIndex; i++, objInit++) {
                 Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
-            Macbeth_801ACFBC();
+            Macbeth_LongTrainObjects();
         }
     }
 
@@ -6732,7 +6732,7 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_METEO:
-            Lib_Texture_Scroll(D_102FF08, 8, 8, 1);
+            Lib_Texture_Scroll(aMeteoWarpTex, 8, 8, 1);
             /* fallthrough */
         case LEVEL_SECTOR_X:
             if (gLevelPhase == 1) {
@@ -6937,9 +6937,7 @@ void Play_SetupZPos360(f32* zPos) {
 }
 
 void Play_Main(void) {
-    s32 pad1;
-    s32 pad2;
-    s32 pad3;
+    s32 pad[3];
     s32 i;
     f32 fovYtarget;
 

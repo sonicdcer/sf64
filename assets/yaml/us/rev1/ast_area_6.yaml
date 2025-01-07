@@ -222,8 +222,8 @@ D_A6_6022F20:
 D_A6_6023F20:
   { type: SF64:ENVIRONMENT, offset: 0x6023F20, symbol: D_A6_6023F20}
 
-D_A6_6023F64:
-  { type: SF64:OBJECT_INIT, offset: 0x6023F64, symbol: D_A6_6023F64}
+aA6LevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6023F64, symbol: aA6LevelObjects}
 
 aA6EventScript:
   { type: SF64:SCRIPT, offset: 0x6027F50, symbol: aA6EventScript}
@@ -246,8 +246,8 @@ D_A6_6028578:
 D_A6_6028760:
   { type: SF64:ENVIRONMENT, offset: 0x6028760, symbol: D_A6_6028760}
 
-D_A6_60287A4:
-  { type: SF64:OBJECT_INIT, offset: 0x60287A4, symbol: D_A6_60287A4}
+aA6Unk4LevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x60287A4, symbol: aA6Unk4LevelObjects}
 
 aA6Unk4EventScript:
   { type: SF64:SCRIPT, offset: 0x60289FC, symbol: aA6Unk4EventScript}
