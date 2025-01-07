@@ -1874,17 +1874,13 @@ void SectorZ_LoadLevelObjects(void) {
         }
     }
 
-/**
- * @bug:
- * aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[60] only
- * accounts for 11 of them. Slot 60 is invalid and overflows to gBosses[0], which
- * is immediately overwritten by the Great Fox, so only 10 of the 12 actors are spawned.
- */
-#ifdef AVOID_UB
-    for (j = 48, actor = &gActors[j], i = 0; i < 1000; i++) {
-#else
+    /**
+     * @bug:
+     * aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[60] only
+     * accounts for 11 of them. Slot 60 is invalid and overflows to gBosses[0], which
+     * is immediately overwritten by the Great Fox, so only 10 of the 12 actors are spawned.
+     */
     for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
-#endif
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
