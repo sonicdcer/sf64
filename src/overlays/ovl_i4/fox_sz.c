@@ -1876,7 +1876,7 @@ void SectorZ_LoadLevelObjects(void) {
 
 //! @bug: aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[59] only accounts for 10 of them.
 #ifdef AVOID_UB
-    for (j = 47, actor = &gActors[j], i = 0; i < 1000; i++) {
+    for (j = 48, actor = &gActors[j], i = 0; i < 1000; i++) {
 #else
     for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
 #endif
