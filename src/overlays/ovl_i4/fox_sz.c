@@ -1874,9 +1874,9 @@ void SectorZ_LoadLevelObjects(void) {
         }
     }
 
-//! @bug: aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[59] only account for 10 of them.
+//! @bug: aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[59] only accounts for 10 of them.
 #ifdef AVOID_UB
-    for (j = 48, actor = &gActors[j], i = 0; i < 1000; i++) {
+    for (j = 47, actor = &gActors[j], i = 0; i < 1000; i++) {
 #else
     for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
 #endif
@@ -1896,8 +1896,11 @@ void SectorZ_LoadLevelObjects(void) {
             actor->rot_0F4.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->itemDrop = DROP_SILVER_RING;
-
+#ifdef AVOID_UB
+            if (j++ >= ARRAY_COUNT(gActors) - 1) {
+#else
             if (j++ >= ARRAY_COUNT(gActors)) {
+#endif
                 break;
             }
             actor++;
