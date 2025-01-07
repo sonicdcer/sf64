@@ -572,7 +572,7 @@ typedef enum ObjectId {
     /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
     /* 254 */ OBJ_ACTOR_ZO_SEARCHLIGHT,
     /* 255 */ OBJ_ACTOR_AQ_SANADA,          // OBJ_ACTOR_AQ_SANADA (Snake type enemy. Named after from SFX_ID)
-    /* 256 */ OBJ_ACTOR_AQ_BACOON_SCALLOP,  // Referred as "Columns" by Peppy, these are Bacoon's adductor muscles.
+    /* 256 */ OBJ_ACTOR_AQ_BACOON_MUSCLE,  // Referred as "Columns" by Peppy, these are Bacoon's adductor muscles.
     /* 257 */ OBJ_ACTOR_AQ_BACOON_BARNACLE, // Barnacles on top of Bacoon's shell. Sanadas spawn from them.
     /* 258 */ OBJ_ACTOR_AQ_PEARL,
     /* 259 */ OBJ_ACTOR_AQ_ANGLERFISH,      // Giant fish with search light.
@@ -1232,7 +1232,7 @@ typedef Actor ZoRadarBuoy;
 typedef Actor ZoSupplyCrane;
 typedef Actor ZoSearchLight;
 typedef Actor AqSanada; // Snake type enemy, summoned by AqBacoon
-typedef Actor AqBacoonScallop;
+typedef Actor AqBacoonMuscle;
 typedef Actor AqBacconBarnacle;
 typedef Actor AqPearl;
 typedef Actor AqAnglerFish;

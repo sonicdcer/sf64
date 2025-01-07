@@ -680,8 +680,8 @@ aAqActor188Hitbox:
 aAqSanadaHitbox:
   { type: SF64:HITBOX, offset: 0x6030BFC, symbol: aAqSanadaHitbox }
 
-aAqBacoonScallopHitbox:
-  { type: SF64:HITBOX, offset: 0x6030C18, symbol: aAqBacoonScallopHitbox }
+aAqBacoonMuscleHitbox:
+  { type: SF64:HITBOX, offset: 0x6030C18, symbol: aAqBacoonMuscleHitbox }
 
 aAqBacconBarnacleHitbox:
   { type: SF64:HITBOX, offset: 0x6030C44, symbol: aAqBacconBarnacleHitbox }

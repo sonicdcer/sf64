@@ -1871,13 +1871,13 @@ void Aquas_AqSanada_Draw(AqSanada* this) {
     }
 }
 
-void Aquas_AqBacoonScallop_Init(AqBacoonScallop* this) {
+void Aquas_AqBacoonMuscle_Init(AqBacoonMuscle* this) {
     this->fwork[1] = 1.0f;
     this->obj.rot.x = 336.0f;
     this->scale = 0.5f;
 }
 
-void Aquas_AqBacoonScallop_Update(AqBacoonScallop* this) {
+void Aquas_AqBacoonMuscle_Update(AqBacoonMuscle* this) {
     s32 i;
 
     switch (this->state) {
@@ -1927,7 +1927,7 @@ void Aquas_AqBacoonScallop_Update(AqBacoonScallop* this) {
                             this->health = 10;
 
                             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                                if ((gActors[i].obj.id == OBJ_ACTOR_AQ_BACOON_SCALLOP) &&
+                                if ((gActors[i].obj.id == OBJ_ACTOR_AQ_BACOON_MUSCLE) &&
                                     (this->index != gActors[i].index)) {
                                     gActors[i].health = 10;
                                 }
@@ -2030,7 +2030,7 @@ void Aquas_AqBacoonScallop_Update(AqBacoonScallop* this) {
     }
 }
 
-void Aquas_AqBacoonScallop_Draw(AqBacoonScallop* this) {
+void Aquas_AqBacoonMuscle_Draw(AqBacoonMuscle* this) {
     f32 var_fv0;
     u8 var_t1;
     u8 i;
@@ -2556,7 +2556,7 @@ void Aquas_AqBacoon_Init(AqBacoon* this) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_AQ_BACOON_SCALLOP;
+            actor->obj.id = OBJ_ACTOR_AQ_BACOON_MUSCLE;
             actor->obj.pos.x = this->obj.pos.x + D_i3_801C0098[i].x;
             actor->obj.pos.y = this->obj.pos.y + D_i3_801C0098[i].y;
             actor->obj.pos.z = this->obj.pos.z + D_i3_801C0098[i].z;

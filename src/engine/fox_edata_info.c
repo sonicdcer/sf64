@@ -372,7 +372,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_ZO_SUPPLYCRANE */  {(void*) Zoness_ZoSupplyCrane_Draw, 1, (ObjectFunc) Zoness_ZoSupplyCrane_Update,        aZoSupplyCraneHitbox,   300.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_ZO_SEARCHLIGHT */  {(void*) Zoness_ZoSearchLight_Draw, 1, (ObjectFunc) Zoness_ZoSearchLight_Update,        aZoSearchLightHitbox,   300.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_ACTOR_AQ_SANADA */  {(void*) Aquas_AqSanada_Draw, 1, (ObjectFunc) Aquas_AqSanada_Update,        aAqSanadaHitbox,   500.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_AQ_BACOON_SCALLOP */  {(void*) Aquas_AqBacoonScallop_Draw, 1, (ObjectFunc) Aquas_AqBacoonScallop_Update,        aAqBacoonScallopHitbox, 10000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_AQ_BACOON_MUSCLE */  {(void*) Aquas_AqBacoonMuscle_Draw, 1, (ObjectFunc) Aquas_AqBacoonMuscle_Update,        aAqBacoonMuscleHitbox, 10000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_AQ_BACOON_BARNACLE */  {(void*) Aquas_AqBacconBarnacle_Draw, 1, (ObjectFunc) Aquas_AqBacconBarnacle_Update,        aAqBacconBarnacleHitbox, 10000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_AQ_PEARL */  {(void*) Aquas_AqPearl_Draw, 1, (ObjectFunc) Aquas_AqPearl_Update,       gCubeHitbox100,   200.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_AQ_ANGLERFISH */  {(void*) Aquas_AqAnglerFish_Draw, 2, (ObjectFunc) Aquas_AqAnglerFish_Update,        aAqAnglerFishHitbox, 10000.0f,  0, 0, 40, 0,   0.0f,  0 },

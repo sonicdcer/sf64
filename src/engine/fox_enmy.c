@@ -1357,8 +1357,8 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_AQ_SANADA:
             Aquas_AqSanada_Init(&gActors[index]);
             break;
-        case OBJ_ACTOR_AQ_BACOON_SCALLOP:
-            Aquas_AqBacoonScallop_Init(&gActors[index]);
+        case OBJ_ACTOR_AQ_BACOON_MUSCLE:
+            Aquas_AqBacoonMuscle_Init(&gActors[index]);
             break;
         case OBJ_ACTOR_AQ_BACOON_BARNACLE:
             Aquas_AqBacconBarnacle_Init(&gActors[index]);
