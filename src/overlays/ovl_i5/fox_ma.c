@@ -35,7 +35,7 @@ void Macbeth_8019D048(Actor*);
 void Macbeth_8019FC54(Actor*, s32*, s32*, s32, s32, f32, f32, s32*);
 void Macbeth_MaBoulder_Spawn(f32, f32, f32, f32, f32, f32, f32, s32, u8);
 void Macbeth_8019D910(Actor*, s32*, s32*, s32, f32, f32, s32*, s32*);
-bool Macbeth_MaTender_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
+bool Macbeth_MaTenderCar_OverrideLimbDraw(s32, Gfx**, Vec3f*, Vec3f*, void*);
 void Macbeth_MaBoulder_HandleDamage(Actor*);
 void Macbeth_MaBombDrop_Spawn(f32, f32, f32, f32, f32, f32);
 void Macbeth_MaSpear_Spawn(f32, f32, f32, f32, f32, f32, s16);
@@ -2350,7 +2350,7 @@ void Macbeth_Train_Draw(Actor* this) {
     Matrix_RotateX(gGfxMatrix, this->fwork[29] * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    if ((this->obj.id != OBJ_ACTOR_MA_TENDER) && (this->obj.id != OBJ_ACTOR_MA_LOCOMOTIVE)) {
+    if ((this->obj.id != OBJ_ACTOR_MA_TENDER_CAR) && (this->obj.id != OBJ_ACTOR_MA_LOCOMOTIVE)) {
         if (((gPlayer[0].trueZpos - this->obj.pos.z) > 3000.0f) && (D_i5_801BE310 != this->iwork[5])) {
             gSPDisplayList(gMasterDisp++, D_MA_6027BF0);
             gSPDisplayList(gMasterDisp++, D_MA_601BE90);
@@ -2481,9 +2481,9 @@ void Macbeth_Train_Draw(Actor* this) {
             }
             break;
 
-        case OBJ_ACTOR_MA_TENDER:
-            Animation_GetFrameData(&aMaTenderAnim, 0, frameTable);
-            Animation_DrawSkeleton(1, aMaTenderSkel, frameTable, Macbeth_MaTender_OverrideLimbDraw, NULL, this,
+        case OBJ_ACTOR_MA_TENDER_CAR:
+            Animation_GetFrameData(&aMaTenderCarAnim, 0, frameTable);
+            Animation_DrawSkeleton(1, aMaTenderCarSkel, frameTable, Macbeth_MaTenderCar_OverrideLimbDraw, NULL, this,
                                    &gIdentityMatrix);
             break;
 
@@ -5458,7 +5458,7 @@ void Macbeth_MaMechbeth_Draw(MaMechbeth* this) {
 void Macbeth_801AC42C(s32 arg0) {
 }
 
-void Macbeth_MaTender_Update(MaTender* this) {
+void Macbeth_MaTenderCar_Update(MaTenderCar* this) {
     switch (this->state) {
         case 0:
             Macbeth_TrainCarSpeed_Update(this);
@@ -5487,7 +5487,7 @@ void Macbeth_MaTender_Update(MaTender* this) {
     }
 }
 
-bool Macbeth_MaTender_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Macbeth_MaTenderCar_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
 

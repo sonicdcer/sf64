@@ -487,11 +487,11 @@ D_MA_601D188:
 D_MA_601EA28:
   {type: SF64:ANIM, offset: 0x601EA28, symbol: D_MA_601EA28}
 
-aMaTenderAnim:
-  {type: SF64:ANIM, offset: 0x601EAB0, symbol: aMaTenderAnim}
+aMaTenderCarAnim:
+  {type: SF64:ANIM, offset: 0x601EAB0, symbol: aMaTenderCarAnim}
 
-aMaTenderSkel:
-  {type: SF64:SKELETON, offset: 0x601EBBC, symbol: aMaTenderSkel}
+aMaTenderCarSkel:
+  {type: SF64:SKELETON, offset: 0x601EBBC, symbol: aMaTenderCarSkel}
 
 aMaWall2DL:
   {type: GFX, offset: 0x601F1D0, symbol: aMaWall2DL}
@@ -763,8 +763,8 @@ aMaLocomotiveHitbox:
 aMaMissileCarHitbox:
   {type: SF64:HITBOX, offset: 0x6035A14, symbol: aMaMissileCarHitbox}
 
-aMaTenderHitbox:
-  {type: SF64:HITBOX, offset: 0x6035A48, symbol: aMaTenderHitbox}
+aMaTenderCarHitbox:
+  {type: SF64:HITBOX, offset: 0x6035A48, symbol: aMaTenderCarHitbox}
 
 D_MA_6035A94:
   {type: SF64:HITBOX, offset: 0x6035A94, symbol: D_MA_6035A94}

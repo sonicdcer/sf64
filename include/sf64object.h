@@ -522,7 +522,7 @@ typedef enum ObjectId {
     /* 203 */ OBJ_ACTOR_SX_SLIPPY,
     /* 204 */ OBJ_ACTOR_SY_ROBOT,
     /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,    // Macbeth train locomotive.
-    /* 206 */ OBJ_ACTOR_MA_TENDER,        // Macbeth train tender, where Mechbeth is hidden.
+    /* 206 */ OBJ_ACTOR_MA_TENDER_CAR,        // Macbeth train tender, where Mechbeth is hidden.
     /* 207 */ OBJ_ACTOR_MA_MECHBETH,      // Macbeth train BOSS, located inside the tender.
     /* 208 */ OBJ_ACTOR_MA_MISSILE_CAR,   // Macbeth train Copperhead Missile container car.
     /* 209 */ OBJ_ACTOR_MA_ROBOT,         // Macbeth train Robot.
@@ -1182,7 +1182,7 @@ typedef Actor MeHopBot;
 typedef Actor SxSlippy;
 typedef Actor SyRobot;
 typedef Actor MaLocomotive;
-typedef Actor MaTender;
+typedef Actor MaTenderCar;
 typedef Actor MaMechbeth;
 typedef Actor MaMissileCar;
 typedef Actor MaRobot;

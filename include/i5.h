@@ -119,7 +119,7 @@ void Macbeth_MaFallingBoulder_Update(Actor*);
 void Macbeth_MaFallingBoulder_Draw(Actor*);
 void Macbeth_MaMechbeth_Update(Actor*);
 void Macbeth_MaMechbeth_Draw(Actor*);
-void Macbeth_MaTender_Update(Actor*);
+void Macbeth_MaTenderCar_Update(Actor*);
 void Macbeth_MaBombDrop_Update(Actor*);
 void Macbeth_MaBombDrop_Draw(Actor*);
 void Macbeth_MaSpear_Update(Actor*);

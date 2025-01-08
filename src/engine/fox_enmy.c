@@ -1255,7 +1255,7 @@ void Object_Init(s32 index, ObjectId objId) {
             SectorY_SyShogun_Init(&gBosses[index]);
             break;
         case OBJ_ACTOR_MA_LOCOMOTIVE:
-        case OBJ_ACTOR_MA_TENDER:
+        case OBJ_ACTOR_MA_TENDER_CAR:
         case OBJ_ACTOR_MA_MISSILE_CAR:
         case OBJ_ACTOR_MA_ROBOT:
         case OBJ_ACTOR_MA_BOULDER_CAR:
