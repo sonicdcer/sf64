@@ -952,7 +952,7 @@ void Effect_Effect383_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Effect384_Spawn(xPos, yPos, zPos, 80.0f, 4);
 }
 
-void Effect_SetupTimedSfxAtPos(TimedSfx* this, Vec3f* pos, u32 sfxId) {
+void Effect_TimedSfxAtPos_Setup(TimedSfx* this, Vec3f* pos, u32 sfxId) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_TIMED_SFX;
@@ -980,7 +980,7 @@ void Effect_SpawnTimedSfxAtPos(Vec3f* pos, s32 sfxId) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_SetupTimedSfxAtPos(&gEffects[i], pos, sfxId);
+            Effect_TimedSfxAtPos_Setup(&gEffects[i], pos, sfxId);
             break;
         }
     }

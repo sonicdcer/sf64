@@ -277,7 +277,7 @@ void Effect_Effect357_Draw(Effect* );
 void Effect_Effect383_Update(Effect* );
 void Effect_Effect383_Draw(Effect* );
 void Effect_Effect383_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1);
-void Effect_SetupTimedSfxAtPos(Effect* , Vec3f* pos, u32 sfxId);
+void Effect_TimedSfxAtPos_Setup(Effect* , Vec3f* pos, u32 sfxId);
 void Effect_SpawnTimedSfxAtPos(Vec3f* pos, s32 sfxId);
 void Effect_TimedSfx_Update(Effect*);
 bool func_effect_8007A774(Player*, Effect*, f32);

@@ -3562,8 +3562,8 @@ void ActorEvent_Update(ActorEvent* this) {
                     this->animFrame = 0;
                 }
                 if ((gGameFrameCount % 3) == 0) {
-                    Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
-                                   RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
+                    Solar_Effect392_Spawn2(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
+                                           RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                 }
             } else if (this->animFrame >= Animation_GetFrameCount(&aFirebirdAnim)) {
                 this->animFrame = 0;

@@ -6821,9 +6821,9 @@ void Play_UpdateLevel(void) {
             Audio_SetHeatAlarmParams(shields, heightParam);
 
             if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE)) {
-                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
-                               gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
-                               RAND_FLOAT(10.0f) + 20.0f); // check
+                Solar_Effect392_Spawn1(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
+                                       gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
+                                       RAND_FLOAT(10.0f) + 20.0f); // check
             }
 
             HUD_Texture_Wave(D_SO_60229A4, D_SO_6010198);
