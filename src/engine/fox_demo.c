@@ -2865,7 +2865,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case ACTOR_CS_AQ_SEAWEED:
-            Animation_GetFrameData(&aAqSeaweedAnim, this->iwork[0], this->vwork);
+            Animation_GetFrameData(&aAqSeaweedAnim1, this->iwork[0], this->vwork);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             Animation_DrawSkeleton(1, aAqSeaweedSkel, this->vwork, 0, 0, &this->index, &gIdentityMatrix);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);

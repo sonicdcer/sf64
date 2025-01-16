@@ -5280,6 +5280,7 @@ void Aquas_AqSquid_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[11]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[24]);
                 Matrix_Push(&gCalcMatrix);
+
                 switch (gGameFrameCount % 4U) {
                     case 0:
                         break;
@@ -5331,7 +5332,7 @@ void Aquas_AqSquid_Draw(AqSquid* this) {
 
 void Aquas_AqSeaweed_Update(AqSeaweed* this) {
     Vec3f frameTable[30];
-    u16 sp3E;
+    u16 limbCount;
 
     switch (this->state) {
         case 0:
@@ -5340,11 +5341,11 @@ void Aquas_AqSeaweed_Update(AqSeaweed* this) {
             /* fallthrough */
         case 1:
             this->animFrame += 2;
-            if (this->animFrame >= Animation_GetFrameCount(&aAqSeaweedAnim)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAqSeaweedAnim1)) {
                 this->animFrame = 0;
             }
 
-            sp3E = Animation_GetFrameData(&aAqSeaweedAnim, this->animFrame, frameTable);
+            limbCount = Animation_GetFrameData(&aAqSeaweedAnim1, this->animFrame, frameTable);
 
             if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 150.0f) &&
                 (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 500.0f) &&
@@ -5356,10 +5357,12 @@ void Aquas_AqSeaweed_Update(AqSeaweed* this) {
 
         case 2:
             this->animFrame += 2;
-            if (this->animFrame >= Animation_GetFrameCount(&D_AQ_601DE50)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAqSeaweedAnim2)) {
                 this->animFrame = 0;
             }
-            sp3E = Animation_GetFrameData(&D_AQ_601DE50, this->animFrame, frameTable);
+
+            limbCount = Animation_GetFrameData(&aAqSeaweedAnim2, this->animFrame, frameTable);
+
             if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) > 150.0f) ||
                 (fabsf(this->obj.pos.y - gPlayer[0].pos.y) > 500.0f) ||
                 (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) > 700.0f)) {
@@ -5368,7 +5371,7 @@ void Aquas_AqSeaweed_Update(AqSeaweed* this) {
             }
             break;
     }
-    Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, sp3E, this->fwork[0], 100.0f, 0.0f);
+    Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, limbCount, this->fwork[0], 100.0f, 0.0f);
     Math_SmoothStepToF(&this->fwork[0], 0.5f, 1.0f, 0.008f, 0.0f);
 }
 
@@ -5396,7 +5399,7 @@ void Aquas_AqBoulder_Init(AqBoulder* this) {
 
 void Aquas_AqBoulder_Update(AqBoulder* this) {
     s32 i;
-    s32 var_s2;
+    s32 j;
     Actor* boulder;
 
     switch (this->state) {
@@ -5461,8 +5464,7 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
             this->health = this->itemDrop = 0;
             Actor_Despawn(this);
             if (this->state == 0) {
-                for (i = 0, var_s2 = 0, boulder = &gActors[0]; (i < ARRAY_COUNT(gActors)) && (var_s2 < 4);
-                     i++, boulder++) {
+                for (i = 0, j = 0, boulder = &gActors[0]; (i < ARRAY_COUNT(gActors)) && (j < 4); i++, boulder++) {
                     if (boulder->obj.status == OBJ_FREE) {
                         Actor_Initialize(boulder);
                         boulder->obj.status = OBJ_INIT;
@@ -5476,7 +5478,7 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
                         boulder->state = 1;
 
                         Object_SetInfo(&boulder->info, boulder->obj.id);
-                        var_s2++;
+                        j++;
                     }
                 }
                 if (i >= ARRAY_COUNT(gActors)) {
@@ -5543,7 +5545,7 @@ void Aquas_AqCoral_Update(AqCoral* this) {
 
 void Aquas_AqCoral_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
-    Actor* this = (Actor*) thisx;
+    AqCoral* this = (AqCoral*) thisx;
 
     if (this->state != 0) {
         switch (limbIndex) {
@@ -5598,8 +5600,8 @@ s32 D_i3_801C04A0[6] = {
 };
 
 void Aquas_AqJellyfish_Init(AqJellyfish* this) {
-    s32 sp64;
-    s32 sp60;
+    s32 i;
+    s32 j;
     Vec3f sp54;
     Vec3f sp48;
     AqJellyfish* jellyfish;
@@ -5646,7 +5648,7 @@ void Aquas_AqJellyfish_Init(AqJellyfish* this) {
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
 
-        for (sp64 = 0, jellyfish = &gActors[0]; sp64 < ARRAY_COUNT(gActors); sp64++, jellyfish++) {
+        for (i = 0, jellyfish = &gActors[0]; i < ARRAY_COUNT(gActors); i++, jellyfish++) {
             if (jellyfish->obj.status == OBJ_FREE) {
                 Actor_Initialize(jellyfish);
                 jellyfish->obj.status = OBJ_INIT;
@@ -5659,7 +5661,7 @@ void Aquas_AqJellyfish_Init(AqJellyfish* this) {
                 jellyfish->iwork[13] = this->iwork[13];
                 jellyfish->iwork[18] = this->iwork[18];
                 jellyfish->iwork[19] = this->iwork[19];
-                this->iwork[0] = sp64 + 1;
+                this->iwork[0] = i + 1;
                 Object_SetInfo(&jellyfish->info, jellyfish->obj.id);
                 break;
             }
@@ -5673,7 +5675,7 @@ void Aquas_AqJellyfish_Init(AqJellyfish* this) {
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
 
-        for (sp60 = 0, jellyfish2 = &gActors[0]; sp60 < ARRAY_COUNT(gActors); sp60++, jellyfish2++) {
+        for (j = 0, jellyfish2 = &gActors[0]; j < ARRAY_COUNT(gActors); j++, jellyfish2++) {
             if (jellyfish2->obj.status == OBJ_FREE) {
                 Actor_Initialize(jellyfish2);
                 jellyfish2->obj.status = OBJ_INIT;
@@ -5687,8 +5689,8 @@ void Aquas_AqJellyfish_Init(AqJellyfish* this) {
                 jellyfish2->iwork[13] = this->iwork[13];
                 jellyfish2->iwork[18] = this->iwork[18];
                 jellyfish2->iwork[19] = this->iwork[19];
-                jellyfish->iwork[1] = sp60 + 1;
-                this->iwork[1] = sp60 + 1;
+                jellyfish->iwork[1] = j + 1;
+                this->iwork[1] = j + 1;
                 Object_SetInfo(&jellyfish2->info, jellyfish2->obj.id);
                 break;
             }
@@ -5698,6 +5700,7 @@ void Aquas_AqJellyfish_Init(AqJellyfish* this) {
         this->fwork[20] = this->obj.rot.z;
 
         this->obj.rot.x = this->obj.rot.y = this->obj.rot.z = 0.0f;
+
         D_i3_801C4450++;
         if (D_i3_801C4450 > 20) {
             D_i3_801C4450 = 0;
@@ -5747,7 +5750,7 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
             case 4:
                 i = this->iwork[19] + (this->iwork[2] * 2);
                 this->vel.y = D_i3_801C04A0[i];
-                if (((gGameFrameCount % 4) == 0)) {
+                if ((gGameFrameCount % 4) == 0) {
                     if (fabsf(this->fwork[23] - this->obj.pos.y) >= 100.0f) {
                         if (this->iwork[20] == 0) {
                             this->iwork[19]++;
@@ -5755,7 +5758,7 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
                             this->iwork[20] = 50;
                         }
                     } else {
-                        for (i = 0, wall1 = gScenery; i < ARRAY_COUNT(gScenery); i++, wall1++) {
+                        for (i = 0, wall1 = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, wall1++) {
                             if ((wall1->obj.status == OBJ_ACTIVE) && (wall1->obj.id == OBJ_SCENERY_AQ_WALL_1) &&
                                 (Object_CheckHitboxCollision(&this->obj.pos, wall1->info.hitbox, &wall1->obj, 0.0f,
                                                              0.0f, 0.0f) ||
@@ -5867,7 +5870,7 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
                 }
             }
 
-            if (((gGameFrameCount % 16) == 0)) {
+            if ((gGameFrameCount % 16) == 0) {
                 Effect_SpawnTimedSfxAtPos(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
@@ -6003,12 +6006,12 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
 }
 
 bool Aquas_AqJellyfish_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Vec3f sp64 = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp58;
-    f32 sp54 = 0.0f;
-    f32 sp50 = 0.0f;
-    f32 sp4C = 0.0f;
-    Actor* this = (Actor*) thisx;
+    Vec3f lightSrc = { 0.0f, 0.0f, 0.0f };
+    Vec3f lightDest;
+    f32 xScale = 0.0f;
+    f32 yScale = 0.0f;
+    f32 zScale = 0.0f;
+    AqJellyfish* this = (AqJellyfish*) thisx;
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_41);
 
@@ -6020,15 +6023,15 @@ bool Aquas_AqJellyfish_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
 
     switch (limbIndex) {
         case 1:
-            sp54 = this->fwork[12];
-            sp50 = this->fwork[15];
-            sp4C = this->fwork[18];
+            xScale = this->fwork[12];
+            yScale = this->fwork[15];
+            zScale = this->fwork[18];
             break;
 
         case 2:
-            sp54 = this->fwork[13];
-            sp50 = this->fwork[16];
-            sp4C = this->fwork[19];
+            xScale = this->fwork[13];
+            yScale = this->fwork[16];
+            zScale = this->fwork[19];
             break;
 
         case 3:
@@ -6047,12 +6050,12 @@ bool Aquas_AqJellyfish_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
             break;
 
         case 11:
-            sp54 = this->fwork[11];
-            sp50 = this->fwork[14];
-            sp4C = this->fwork[17];
+            xScale = this->fwork[11];
+            yScale = this->fwork[14];
+            zScale = this->fwork[17];
     }
 
-    if (sp54 > 0.0f) {
+    if (xScale > 0.0f) {
         Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
 
         Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
@@ -6060,11 +6063,11 @@ bool Aquas_AqJellyfish_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
         Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
 
         if (*dList != NULL) {
-            Matrix_MultVec3f(gCalcMatrix, &sp64, &sp58);
-            Display_SetSecondLight(&sp58);
+            Matrix_MultVec3f(gCalcMatrix, &lightSrc, &lightDest);
+            Display_SetSecondLight(&lightDest);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, sp54, sp50, sp4C, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, xScale, yScale, zScale, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, *dList);
             Matrix_Pop(&gGfxMatrix);
@@ -6245,23 +6248,23 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
 }
 
 void Aquas_AqStoneColumn_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
-    Vec3f sp2C = { 0.0f, 0.0f, 0.0f };
-    Actor* this = (Actor*) thisx;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    AqStoneColumn* this = (AqStoneColumn*) thisx;
 
     if (this->state == 3) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[4]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[4]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
                 break;
 
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[0]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[0]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[2]);
                 break;
 
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[1]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[1]);
                 Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[3]);
                 break;
         }
