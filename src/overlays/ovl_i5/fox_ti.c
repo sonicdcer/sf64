@@ -2696,10 +2696,6 @@ void Titania_8019081C(s32 limbIndex, Vec3f* rot, void* thisx) {
     }
 }
 
-#ifdef NON_MATCHING
-// float regalloc starting with the spherical angle calculation
-// https://decomp.me/scratch/9ewO1
-
 bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Vec3f spCC;
     Vec3f spC0;
@@ -2846,7 +2842,10 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                         sp70.y = (gPlayer[0].pos.y + 50.0f) - (this->obj.pos.y + sp7C.y);
                         sp70.z = (gPlayer[0].trueZpos - (this->obj.pos.z + sp7C.z)) * this->fwork[0x2E];
 
-                        // Regalloc starts here
+                        // FAKE
+                        sp5C.z++;
+                        sp5C.z--;
+                        
                         sp5C.y = Math_Atan2F(sp70.x, sp70.z) * M_RTOD;
                         sp5C.x = -Math_Atan2F(sp70.y, sqrtf(SQ(sp70.x) + SQ(sp70.z))) * M_RTOD;
 
@@ -3027,10 +3026,6 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     }
     return ret;
 }
-#else
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/overlays/ovl_i5/fox_ti/Titania_80190A08.s")
-bool Titania_80190A08(s32, Gfx**, Vec3f*, Vec3f*, void*);
-#endif
 
 void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
     TiGoras* this = (TiGoras*) thisx;
