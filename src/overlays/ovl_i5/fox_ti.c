@@ -2845,7 +2845,7 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                         // FAKE
                         sp5C.z++;
                         sp5C.z--;
-                        
+
                         sp5C.y = Math_Atan2F(sp70.x, sp70.z) * M_RTOD;
                         sp5C.x = -Math_Atan2F(sp70.y, sqrtf(SQ(sp70.x) + SQ(sp70.z))) * M_RTOD;
 
