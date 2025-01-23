@@ -954,10 +954,9 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                         return 2;
                     }
                 } else if (actor->scale < 0.0f) {
-                    if (Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj,
-                                                    actor->vwork[EVA_FORMATION_ROT].x,
-                                                    actor->vwork[EVA_FORMATION_ROT].y,
-                                                    actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z)) {
+                    if (Object_CheckHitboxCollision(
+                            pos, actor->info.hitbox, &actor->obj, actor->vwork[EVA_FORMATION_ROT].x,
+                            actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z)) {
                         actor->dmgType = DMG_BEAM;
                         actor->damage = 10;
                         actor->dmgPart = -1;

@@ -2053,8 +2053,7 @@ void Player_CollisionCheck(Player* player) {
                         temp_v0 = Player_CheckHitboxCollision(
                             player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
                             actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[EVA_FORMATION_ROT].x,
-                            actor->vwork[EVA_FORMATION_ROT].y,
-                            actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
+                            actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
                         if (temp_v0 != 0) {
                             if ((temp_v0 < 0) && (actor->eventType == EVID_SX_WARP_GATE)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);

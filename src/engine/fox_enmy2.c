@@ -1862,7 +1862,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
         case EVACT_SHOOT_AT_PLAYER: // shoot at player
             if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                 Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                        gEnemyShotSpeed);
+                                     gEnemyShotSpeed);
             }
             this->work_048 = EVACT_NONE;
             break;
@@ -1874,10 +1874,9 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 sp78.y = 0.0f;
                 sp78.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5),
-                                        this->obj.pos.y + (sp6C.y * 1.5), this->obj.pos.z + (sp6C.z * 1.5), sp6C.x,
-                                        sp6C.y, sp6C.z, this->orient.x, this->orient.y,
-                                        this->vwork[EVA_FORMATION_ROT].z + this->orient.z);
+                Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5), this->obj.pos.y + (sp6C.y * 1.5),
+                                       this->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, this->orient.x,
+                                       this->orient.y, this->vwork[EVA_FORMATION_ROT].z + this->orient.z);
                 this->timer_0C2 = 2;
                 this->work_04C--;
                 if (this->work_04C <= 0) {
@@ -1894,8 +1893,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
         case EVACT_5:
             Matrix_RotateY(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
-            Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR,
-                            MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_APPLY);
             Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
             Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
@@ -1905,16 +1903,16 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
             Effect_SpawnById2(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
-                                this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
-                                this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
-                                this->vwork[EVA_FORMATION_ROT].z + this->orient.z, sp6C.x, sp6C.y, sp6C.z, 1.0f);
+                              this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
+                              this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
+                              this->vwork[EVA_FORMATION_ROT].z + this->orient.z, sp6C.x, sp6C.y, sp6C.z, 1.0f);
             this->work_048 = EVACT_NONE;
             break;
 
         case EVACT_6:
             if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
                 Effect_ShootAtPlayer(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                        gEnemyShotSpeed);
+                                     gEnemyShotSpeed);
             }
             this->work_048 = EVACT_NONE;
             break;
@@ -1932,7 +1930,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
             gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
             Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                    gEnemyShotSpeed);
+                                 gEnemyShotSpeed);
             gPlayer[0].pos.x = sp6C.x;
             gPlayer[0].pos.y = sp6C.y;
             this->work_048 = EVACT_NONE;
@@ -1957,8 +1955,8 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             break;
 
         case EVACT_11:
-            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                this->vel.z, this->scale * 3.0f, 15);
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
+                             this->scale * 3.0f, 15);
             Actor_Despawn(this);
             Object_Kill(&this->obj, this->sfxSource);
             Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
@@ -1986,16 +1984,16 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
         case EVACT_SHOOT_PLAYER_TWICE:
             Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
-                                    this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+                                 this->obj.pos.z + 220.0f, gEnemyShotSpeed);
             Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
-                                    this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+                                 this->obj.pos.z + 220.0f, gEnemyShotSpeed);
             this->work_048 = EVACT_NONE;
             break;
 
         case EVACT_SHOOT_AT_CAMERA:
             if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
                 Effect_ShootAtCamera(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                        gEnemyShotSpeed);
+                                     gEnemyShotSpeed);
             }
             this->work_048 = EVACT_NONE;
             break;
@@ -2024,7 +2022,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                     sp6C.z = 50.0f;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp78);
                     Actor_SpawnGreatFoxLaser(CS_SHOT_ID, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, sp78.x,
-                                                sp78.y, sp78.z, sp58, sp54, 0.0f);
+                                             sp78.y, sp78.z, sp58, sp54, 0.0f);
                     break;
                 }
             }
@@ -2036,7 +2034,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             this->work_048 = EVACT_NONE;
             break;
-    }   
+    }
 }
 
 void ActorEvent_RepairWings(ActorEvent* this) {
@@ -2369,8 +2367,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
     }
 
     if (this->iwork[EVA_TRIGGER_COND] >= EVC_CLOSE_Z) {
-        if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) <=
-            ((this->iwork[EVA_TRIGGER_COND] - EVC_CLOSE_Z) * 100.0f)) {
+        if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) <= ((this->iwork[EVA_TRIGGER_COND] - EVC_CLOSE_Z) * 100.0f)) {
             ActorEvent_TriggerBranch(this);
         }
         return;
@@ -3132,8 +3129,7 @@ void ActorEvent_Update(ActorEvent* this) {
             spE8 = this->obj.pos.z;
 
             if ((this->eventType == EVID_CRUISER_GUN) || (this->eventType == EVID_SY_LASER_TURRET)) {
-                Matrix_RotateZ(gCalcMatrix, -(this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR,
-                               MTXF_NEW);
+                Matrix_RotateZ(gCalcMatrix, -(this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, -this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, -this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_APPLY);
 
@@ -3166,8 +3162,8 @@ void ActorEvent_Update(ActorEvent* this) {
                 this->obj.rot.x = 0.0f;
 
                 Math_SmoothStepToAngle(&this->obj.rot.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.001f);
-                Math_SmoothStepToAngle(&this->fwork[EVA_FWORK_15], spE4, 0.2f,
-                                       this->fwork[EVA_PURSUIT_TURN_RATE], 0.001f);
+                Math_SmoothStepToAngle(&this->fwork[EVA_FWORK_15], spE4, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE],
+                                       0.001f);
 
                 if (((this->timer_0BC % 32) == 0) && (spFC == 0)) {
                     Matrix_RotateY(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_NEW);
@@ -3199,8 +3195,7 @@ void ActorEvent_Update(ActorEvent* this) {
                                       this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
                                       this->fwork[EVA_FWORK_15], this->obj.rot.y, this->obj.rot.z,
                                       this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
-                                      this->vwork[EVA_FORMATION_ROT].z + this->orient.z, spAC.x, spAC.y, spAC.z,
-                                      1.0f);
+                                      this->vwork[EVA_FORMATION_ROT].z + this->orient.z, spAC.x, spAC.y, spAC.z, 1.0f);
                     this->fwork[EVA_FWORK_16] = -15.0f;
                 }
             } else {
@@ -3227,8 +3222,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
 
                 spE4 = Math_RadToDeg(-Math_Atan2F(spC8 - spEC, sqrtf(SQ(spCC - spF0) + SQ(spC4 - spE8))));
-                spEC = Math_SmoothStepToAngle(&this->orient.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE],
-                                              0.0001f);
+                spEC = Math_SmoothStepToAngle(&this->orient.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
                 Math_SmoothStepToAngle(&this->orient.x, spE4, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
@@ -3268,12 +3262,11 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
             }
 
-            spE4 = Math_RadToDeg(
-                -Math_Atan2F(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.y + spD8 - spEC,
-                             sqrtf(SQ(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.x + spDC - spF0) +
-                                   SQ(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.z + spD4 - spE8))));
-            spEC =
-                Math_SmoothStepToAngle(&this->orient.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
+            spE4 =
+                Math_RadToDeg(-Math_Atan2F(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.y + spD8 - spEC,
+                                           sqrtf(SQ(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.x + spDC - spF0) +
+                                                 SQ(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.z + spD4 - spE8))));
+            spEC = Math_SmoothStepToAngle(&this->orient.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
             Math_SmoothStepToAngle(&this->orient.x, spE4, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
@@ -3869,7 +3862,8 @@ void ActorEvent_SxWarpGate_Draw(ActorEvent* this) {
     frameTable[6].y += this->fwork[EVA_FWORK_15];
     frameTable[5].z += this->fwork[EVA_FWORK_16] + (s32) ((this->timer_0BE >> 2) % 2U);
     frameTable[4].z -= this->fwork[EVA_FWORK_16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_SxWarpGate_OverrideLimbDraw, NULL, this, &gIdentityMatrix);
+    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_SxWarpGate_OverrideLimbDraw, NULL, this,
+                           &gIdentityMatrix);
 }
 
 bool ActorEvent_OverrideLimbDrawUnused(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -3943,8 +3937,8 @@ void ActorEvent_Draw(ActorEvent* this) {
         case EVID_WZ_GATE:
             RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[EVA_WZ_RED],
-                            (s32) this->fwork[EVA_WZ_GREEN], (s32) this->fwork[EVA_WZ_BLUE], 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[EVA_WZ_RED], (s32) this->fwork[EVA_WZ_GREEN],
+                            (s32) this->fwork[EVA_WZ_BLUE], 255);
             gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
@@ -4090,8 +4084,8 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Animation_GetFrameData(&aCruiserGunAnim, this->animFrame, frameTable);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
-                    Animation_DrawSkeleton(1, aCruiserGunSkel, frameTable, ActorEvent_CruiserGun_OverrideLimbDraw, NULL, this,
-                                           &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, aCruiserGunSkel, frameTable, ActorEvent_CruiserGun_OverrideLimbDraw, NULL,
+                                           this, &gIdentityMatrix);
                     Math_SmoothStepToF(&this->fwork[EVA_FWORK_16], 0.0f, 0.3f, 2.0f, 0.0001f);
                     break;
 

@@ -1091,8 +1091,7 @@ void Actor_DrawOnRails(Actor* this) {
                 Object_SetMatrix(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
             } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_A6_UMBRA_STATION)) {
-                ObjSpecial_SetMatrix(&this->obj, this->vwork[EVA_FORMATION_ROT].x,
-                                     this->vwork[EVA_FORMATION_ROT].y,
+                ObjSpecial_SetMatrix(&this->obj, this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
                                      this->vwork[EVA_FORMATION_ROT].z + this->orient.z, this->info.drawType);
             } else {
                 Object_SetMatrix(&this->obj, this->info.drawType);

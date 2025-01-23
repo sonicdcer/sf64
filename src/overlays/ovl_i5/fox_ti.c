@@ -1784,7 +1784,6 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
     s32 index;
     Vec3f sp40;
     Effect* newEffect;
-    
 
     sp9C.x = gPlayer[0].pos.x - this->obj.pos.x;
     sp9C.y = gPlayer[0].pos.y - this->obj.pos.y - 30.0f;

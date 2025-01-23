@@ -1307,7 +1307,7 @@ void Cutscene_FortunaComplete(Player* player) {
 void Cutscene_LevelComplete(Player* player) {
     s32 btnHold;
     s32 btnPress;
-    
+
     gCsFrameCount++;
 
     switch (player->form) {
@@ -1367,7 +1367,7 @@ void Cutscene_LevelComplete(Player* player) {
         case FORM_LANDMASTER:
             btnPress = gInputPress->button;
             btnHold = gInputHold->button;
-            
+
             gInputPress->stick_x = gInputPress->stick_y = gInputHold->button = gInputPress->button = 0;
 
             if (gCurrentLevel == LEVEL_TITANIA) {

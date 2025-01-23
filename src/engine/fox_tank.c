@@ -1407,8 +1407,7 @@ void func_tank_800481F4(Player* player) {
                     temp_v0 = Player_CheckHitboxCollision(
                         player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
                         actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[EVA_FORMATION_ROT].x,
-                        actor->vwork[EVA_FORMATION_ROT].y,
-                        actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
+                        actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         actor->dmgType = DMG_COLLISION;

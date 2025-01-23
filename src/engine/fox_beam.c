@@ -399,12 +399,10 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                         Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
-                    if (((actor->vwork[EVA_FORMATION_ROT].z != 0.0f) ||
-                         (actor->vwork[EVA_FORMATION_ROT].x != 0.0f) || (actor->orient.z != 0.0f) ||
-                         (actor->vwork[EVA_FORMATION_ROT].y != 0.0f)) &&
+                    if (((actor->vwork[EVA_FORMATION_ROT].z != 0.0f) || (actor->vwork[EVA_FORMATION_ROT].x != 0.0f) ||
+                         (actor->orient.z != 0.0f) || (actor->vwork[EVA_FORMATION_ROT].y != 0.0f)) &&
                         (actor->eventType != EVID_A6_UMBRA_STATION)) {
-                        Matrix_RotateZ(gCalcMatrix,
-                                       -(actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z) * M_DTOR,
+                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z) * M_DTOR,
                                        MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_APPLY);

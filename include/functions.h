@@ -368,7 +368,7 @@ void Effect_Effect395_Draw(Effect*);
 void Effect_Effect391_Spawn(f32, f32, f32, f32, f32);
 void Effect_Effect391_Update(Effect*);
 void Effect_Effect391_Draw(Effect*);
-void Effect_Effect399_Setup(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7, s32 arg8);
+void Effect_Effect399_Setup(Effect* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7, s32 alpha);
 void func_effect_80083D2C(f32 xPos, f32 yPos, f32 zPos, f32 srcZ);
 void Effect_Effect399_Update(Effect*);
 void Effect_Effect399_Draw(Effect*);

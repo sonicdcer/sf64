@@ -5781,7 +5781,8 @@ void Macbeth_801AD144(PlayerShot* shot) {
 }
 
 void Macbeth_Effect357_Setup(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot,
-                             f32 yRot, f32 zRot, f32 xOrient, f32 yOrient, f32 zOrient, s16 time, s16 alpha, f32 scale2) {
+                             f32 yRot, f32 zRot, f32 xOrient, f32 yOrient, f32 zOrient, s16 time, s16 alpha,
+                             f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_357;
@@ -5809,8 +5810,8 @@ void Macbeth_Effect357_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Macbeth_Effect357_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot, zRot, xOrient, yOrient,
-                                    zOrient, time, alpha, scale2);
+            Macbeth_Effect357_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot, zRot, xOrient,
+                                    yOrient, zOrient, time, alpha, scale2);
             break;
         }
     }
