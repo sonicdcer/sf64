@@ -287,11 +287,11 @@ void Andross_ActorTeamArwing_Update(ActorTeamArwing* this) {
 
     yaw = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
 
-    Math_SmoothStepToAngle(&this->rot_0F4.x,
+    Math_SmoothStepToAngle(&this->orient.x,
                            Math_RadToDeg(Math_Atan2F(yDisplacement, sqrtf(SQ(xDisplacement) + SQ(zDisplacement)))),
                            0.1f, this->fwork[2], 0.0f);
 
-    temp_fv1 = Math_SmoothStepToAngle(&this->rot_0F4.y, yaw, 0.1f, this->fwork[2], 0.0001f) * 40.0f;
+    temp_fv1 = Math_SmoothStepToAngle(&this->orient.y, yaw, 0.1f, this->fwork[2], 0.0001f) * 40.0f;
     if (temp_fv1 < 0.0f) {
         var_fv0 = temp_fv1 * -1.0f;
     } else {
@@ -299,11 +299,11 @@ void Andross_ActorTeamArwing_Update(ActorTeamArwing* this) {
     }
     Math_SmoothStepToAngle(&this->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
 
-    this->obj.rot.y = this->rot_0F4.y;
-    this->obj.rot.x = -this->rot_0F4.x;
+    this->obj.rot.y = this->orient.y;
+    this->obj.rot.x = -this->orient.x;
 
-    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -this->orient.x * M_DTOR, MTXF_APPLY);
 
     sp48.x = 0;
     sp48.y = 0;
@@ -350,15 +350,15 @@ void Andross_AndBrainWaste_Update(AndBrainWaste* this) {
 
     this->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
     this->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
-    this->rot_0F4.z += this->fwork[0];
+    this->orient.z += this->fwork[0];
 }
 
 void Andross_AndBrainWaste_Draw(AndBrainWaste* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_61);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-    Matrix_RotateZ(gGfxMatrix, this->rot_0F4.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, this->orient.z * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, MTXF_APPLY);
-    Matrix_RotateZ(gGfxMatrix, -this->rot_0F4.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, -this->orient.z * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 1.1f, 0.9f, 1.0f, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -759,9 +759,9 @@ void Andross_Effect357_Setup(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 
     this->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale2;
     this->timer_50 = 100;
     this->obj.rot.x = RAND_FLOAT(360.0f);
-    this->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
-    this->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
-    this->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
+    this->orient.x = RAND_FLOAT_CENTERED(30.0f);
+    this->orient.y = RAND_FLOAT_CENTERED(30.0f);
+    this->orient.z = RAND_FLOAT_CENTERED(30.0f);
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -951,7 +951,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &vec, &sp64);
                 this->obj.pos.x = this->fwork[3] + sp64.x;
                 this->obj.pos.z = this->fwork[5] + sp64.z;
-                this->rot_078.y = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
+                this->orient.y = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
                 this->state = 13;
                 AUDIO_PLAY_SFX(NA_SE_VO_ANDROSS_LAUGH, this->sfxSource, 4);
                 this->timer_054 = 90;
@@ -1173,10 +1173,10 @@ void Andross_AndBrain_Update(AndBrain* this) {
 
     yaw = Math_RadToDeg(Math_Atan2F(xDisplacement, zDisplacement));
 
-    Math_SmoothStepToAngle(&this->rot_078.x,
+    Math_SmoothStepToAngle(&this->orient.x,
                            Math_RadToDeg(Math_Atan2F(yDisplacement, sqrtf(SQ(xDisplacement) + SQ(zDisplacement)))),
                            0.1f, this->fwork[2], 0.0f);
-    Math_SmoothStepToAngle(&this->rot_078.y, yaw, 0.1f, this->fwork[2], 0.0f);
+    Math_SmoothStepToAngle(&this->orient.y, yaw, 0.1f, this->fwork[2], 0.0f);
 
     if (this->swork[4] != 0) {
         Math_SmoothStepToAngle(&this->obj.rot.y, Math_RadToDeg(-gPlayer[0].camYaw), 0.3f, 5.0f, 0.0f);
@@ -1186,8 +1186,8 @@ void Andross_AndBrain_Update(AndBrain* this) {
 
     Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.2f, 1.0f, 0.00001f);
 
-    Matrix_RotateY(gCalcMatrix, this->rot_078.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -this->rot_078.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -this->orient.x * M_DTOR, MTXF_APPLY);
 
     vec.x = 0.0f;
     vec.y = 0.0f;
@@ -1205,7 +1205,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
         gRadarMarks[59].pos.x = this->obj.pos.x;
         gRadarMarks[59].pos.y = this->obj.pos.y;
         gRadarMarks[59].pos.z = this->obj.pos.z;
-        gRadarMarks[59].yRot = this->rot_078.y + 180.0f;
+        gRadarMarks[59].yRot = this->orient.y + 180.0f;
     }
 
     gActors[10].info.targetOffset = 1.0f;
@@ -1453,8 +1453,8 @@ void Andross_Effect396_Setup1(Effect* this, f32 xPos, f32 yPos, f32 zPos, s32 ar
     this->obj.pos.z = zPos;
     this->unk_4C = arg4;
     this->scale2 = RAND_FLOAT(2.5f) + 5.0f;
-    this->unk_60.x = RAND_FLOAT_CENTERED(20.0f);
-    this->unk_60.y = RAND_FLOAT_CENTERED(20.0f);
+    this->orient.x = RAND_FLOAT_CENTERED(20.0f);
+    this->orient.y = RAND_FLOAT_CENTERED(20.0f);
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -1488,8 +1488,8 @@ void Andross_Effect396_Setup2(Effect396* this, f32 xPos, f32 yPos, f32 zPos, f32
 
     this->obj.rot.x = RAND_FLOAT(360.0f);
     this->obj.rot.y = RAND_FLOAT(360.0f);
-    this->unk_60.x = RAND_FLOAT(10.0f) + 10.0f;
-    this->unk_60.y = RAND_FLOAT(10.0f) + 10.0f;
+    this->orient.x = RAND_FLOAT(10.0f) + 10.0f;
+    this->orient.y = RAND_FLOAT(10.0f) + 10.0f;
     Object_SetInfo(&this->info, this->obj.id);
     this->info.cullDistance = 100.0f;
 }
@@ -1518,9 +1518,9 @@ void Andross_Effect396_Setup3(Effect396* this, f32 xPos, f32 yPos, f32 zPos, f32
     this->vel.z = zVel;
     this->scale1 = scale;
     this->scale2 = scale * 0.1f;
-    this->unk_44 = 100;
+    this->alpha = 100;
     this->obj.rot.z = RAND_FLOAT(360.0f);
-    this->unk_60.z = RAND_FLOAT_CENTERED(20.0f);
+    this->orient.z = RAND_FLOAT_CENTERED(20.0f);
     Object_SetInfo(&this->info, this->obj.id);
     this->info.unk_14 = 1;
     this->info.cullDistance = 100.0f;
@@ -1552,8 +1552,8 @@ void Andross_Effect396_Update(Effect396* this) {
     f32 sp38;
     f32 sp34;
 
-    this->obj.rot.x += this->unk_60.x;
-    this->obj.rot.y += this->unk_60.y;
+    this->obj.rot.x += this->orient.x;
+    this->obj.rot.y += this->orient.y;
 
     switch (this->state) {
         case 0:
@@ -1598,18 +1598,18 @@ void Andross_Effect396_Update(Effect396* this) {
 
                 func_effect_8007A774(&gPlayer[0], this, 100.0f);
 
-                if (this->unk_44 != 0) {
+                if (this->alpha != 0) {
                     func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             }
-            this->unk_44 = 0;
+            this->alpha = 0;
             break;
 
         case 1:
             func_effect_8007A774(&gPlayer[0], this, 100.0f);
-            if (this->unk_44 != 0) {
+            if (this->alpha != 0) {
                 func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                 Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 Object_Kill(&this->obj, this->sfxSource);
@@ -1638,14 +1638,14 @@ void Andross_Effect396_Update(Effect396* this) {
             break;
 
         case 10:
-            this->obj.rot.z += this->unk_60.z;
+            this->obj.rot.z += this->orient.z;
 
             Math_SmoothStepToF(&this->scale2, this->scale1, 0.05f, 0.3f, 0);
             Math_SmoothStepToF(&this->vel.y, 0.0f, 0.05f, 0.5f, 0.0f);
             Math_SmoothStepToF(&this->vel.x, 0.0f, 0.05f, 0.5f, 0.0f);
 
-            this->unk_44 -= 10;
-            if (this->unk_44 < 0) {
+            this->alpha -= 10;
+            if (this->alpha < 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -1659,7 +1659,7 @@ Gfx* D_i6_801A6790[10] = {
 
 void Andross_Effect396_Draw(Effect396* this) {
     if (this->state == 10) {
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->unk_44);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
@@ -3577,7 +3577,7 @@ void Andross_AndLaserEmitter_Update(AndLaserEmitter* this) {
             this->vwork[0].y = this->obj.pos.y - 300.0f;
             this->vwork[0].z = this->obj.pos.z;
             this->health = 30;
-            this->rot_0F4.z = this->obj.rot.z;
+            this->orient.z = this->obj.rot.z;
             AUDIO_PLAY_SFX(NA_SE_OB_SPARK_BEAM, this->sfxSource, 0);
             break;
 
@@ -3603,7 +3603,7 @@ void Andross_AndLaserEmitter_Update(AndLaserEmitter* this) {
             }
             /* fallthrough */
         case 2:
-            this->obj.rot.z = this->rot_0F4.z + D_Andross_801A7F68;
+            this->obj.rot.z = this->orient.z + D_Andross_801A7F68;
             Matrix_RotateZ(gCalcMatrix, M_DTOR * D_Andross_801A7F68, MTXF_NEW);
             Matrix_MultVec3fNoTranslate(gCalcMatrix, this->vwork, &this->obj.pos);
             this->obj.pos.y += 300.0f;
@@ -3782,7 +3782,7 @@ void Andross_801939A0(s32 actorIdx) {
     actor->obj.pos.y = gPlayer[0].cam.at.y;
     actor->obj.pos.z = 0.0f;
     actor->iwork[11] = 1;
-    actor->rot_0F4.x = 90.0f;
+    actor->orient.x = 90.0f;
     actor->fwork[0] = 50.0f;
     actor->fwork[1] = 6.5f;
 
@@ -4101,7 +4101,7 @@ void Andross_80193C4C(Player* player) {
                 D_ctx_80177A48[2] = 0;
                 D_ctx_80177A48[3] = 1.0f;
                 gActors[10].obj.pos.y = 1500.0f;
-                gActors[10].rot_0F4.z = 180.0f;
+                gActors[10].orient.z = 180.0f;
                 gDrawBackdrop = 0;
                 gFogFar = 1030;
                 D_i6_801A7F40 = gLight1R;
@@ -4200,8 +4200,8 @@ void Andross_80193C4C(Player* player) {
                 gActors[10].state = 101;
                 gActors[10].fwork[0] = 0.0f;
                 gActors[10].obj.pos.y = 14500.0f;
-                gActors[10].rot_0F4.z = 70.0f;
-                gActors[10].rot_0F4.x = gActors[10].rot_0F4.y = 0.0f;
+                gActors[10].orient.z = 70.0f;
+                gActors[10].orient.x = gActors[10].orient.y = 0.0f;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 player->csTimer = 3;
@@ -4424,7 +4424,7 @@ void Andross_80195E44(ActorCutscene* this) {
 
     switch (this->state) {
         case 0:
-            this->rot_0F4.z += this->fwork[1];
+            this->orient.z += this->fwork[1];
             if (gCsFrameCount > 250) {
                 Math_SmoothStepToF(&this->fwork[1], 0.5f, 0.1f, 0.04f, 0.0f);
             } else {
@@ -4433,7 +4433,7 @@ void Andross_80195E44(ActorCutscene* this) {
             break;
 
         case 1:
-            this->rot_0F4.z += this->fwork[1];
+            this->orient.z += this->fwork[1];
             Math_SmoothStepToF(&this->fwork[1], -2.0f, 0.1f, 0.04f, 0.0f);
             if (gCsFrameCount == 55) {
                 this->state++;
@@ -4441,8 +4441,8 @@ void Andross_80195E44(ActorCutscene* this) {
             break;
 
         case 2:
-            Math_SmoothStepToF(&this->rot_0F4.x, 180.0f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&this->rot_0F4.y, 200.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.x, 180.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.y, 200.0f, 0.1f, 1.0f, 0.0f);
             this->work_046 -= 5;
             if (this->work_046 < 0) {
                 this->work_046 = 0;
@@ -4451,7 +4451,7 @@ void Andross_80195E44(ActorCutscene* this) {
             break;
 
         case 101:
-            Math_SmoothStepToF(&this->rot_0F4.z, 0.0f, 0.03f, 0.5f, 0.0f);
+            Math_SmoothStepToF(&this->orient.z, 0.0f, 0.03f, 0.5f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.x, 0.0f, 0.03f, 5.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.y, 15000.0f, 0.03f, 5.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.z, 0.0f, 0.03f, 5.0f, 0.0f);
@@ -4459,7 +4459,7 @@ void Andross_80195E44(ActorCutscene* this) {
 
         case 100:
             this->fwork[7] += 3.0f;
-            this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
+            this->orient.z = SIN_DEG(this->fwork[7]) * 1.5f;
             this->fwork[8] += 2.0f;
             sp34 = SIN_DEG(this->fwork[8]) * 0.5f;
             break;
@@ -4468,8 +4468,8 @@ void Andross_80195E44(ActorCutscene* this) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     sp44.x = 0.0f;
     sp44.y = 0.0f;
@@ -4481,9 +4481,9 @@ void Andross_80195E44(ActorCutscene* this) {
     this->vel.y = sp38.y + sp34;
     this->vel.z = sp38.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }
 
 void Andross_801961AC(void) {

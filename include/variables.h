@@ -144,7 +144,7 @@ extern f32 D_display_801615B8[];
 extern Vec3f D_edisplay_801615D0;
 
 // fox_enmy
-extern s32 D_enmy_Timer_80161670[4];
+extern s32 gTeamChaseTimers[4];
 extern s32 gLastPathChange;
 extern u8 gMissedZoSearchlight;
 

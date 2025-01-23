@@ -8,7 +8,15 @@
 #define HITBOX_SHADOW 300000.0f
 #define HITBOX_WHOOSH 400000.0f
 
-#define TEAM_FACE (14)
+#define TEAM_FACE 14
+#define TEAM_FACE_XROT 20
+#define TEAM_FACE_YROT 19
+#define TEAM_UNK_28 17
+#define TEAM_UPPER_RIGHT_FLAP_YROT 15
+#define TEAM_UPPER_LEFT_FLAP_YROT 16
+#define TEAM_LOWER_RIGHT_FLAP_YROT 26
+#define TEAM_LOWER_LEFT_FLAP_YROT 27
+#define ACTOR_ENGINE_GLOW 11
 
 typedef enum ActorCSTeamFace {
     /* 0 */ FACE_NONE,
@@ -214,19 +222,19 @@ typedef struct Effect {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
-    /* 0x44 */ s16 unk_44;
+    /* 0x44 */ s16 alpha;
     /* 0x46 */ s16 unk_46;
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ s16 unk_4A;
     /* 0x4C */ u8 unk_4C;
     /* 0x4E */ s16 state;
     /* 0x50 */ u16 timer_50;
-    /* 0x52 */ char pad52[0x2];
+    /* 0x52 */ char pad52[2];
     /* 0x54 */ Vec3f vel;
-    /* 0x60 */ Vec3f unk_60;
+    /* 0x60 */ Vec3f orient;
     /* 0x6C */ f32 scale1;
     /* 0x70 */ f32 scale2;
-    /* 0x74 */ Gfx* unk_74;
+    /* 0x74 */ Gfx* dList;
     /* 0x78 */ s16 unk_78;
     /* 0x7A */ s16 unk_7A;
     /* 0x7C */ char pad7C[4];
@@ -257,7 +265,7 @@ typedef struct Boss {
     /* 0x066 */ s16 dmgPart;
     /* 0x068 */ f32 yOffset;
     /* 0x06C */ Vec3f vel;
-    /* 0x078 */ Vec3f rot_078;
+    /* 0x078 */ Vec3f orient;
     /* 0x084 */ f32 gravity;
     /* 0x088 */ s16 swork[40];
     /* 0x0D8 */ f32 fwork[50];
@@ -306,7 +314,7 @@ typedef struct Actor {
     /* 0x0E4 */ s16 aiType;  // Actor index for AllRange, script index for Event
     /* 0x0E6 */ s16 aiIndex; // Target index for AllRange, program counter for Event
     /* 0x0E8 */ Vec3f vel;
-    /* 0x0F4 */ Vec3f rot_0F4;
+    /* 0x0F4 */ Vec3f orient;
     /* 0x100 */ f32 sfxSource[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;

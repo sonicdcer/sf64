@@ -884,10 +884,10 @@ void Background_DrawGround(void) {
     }
 
     sp1D4 = 0.0f;
-    if ((gGroundType != 10) && (gGroundType != 11)) {
+    if ((gGroundType != GROUND_10) && (gGroundType != GROUND_11)) {
         sp1D4 = -4000.0f;
     }
-    if (gGroundType == 7) {
+    if (gGroundType == GROUND_7) {
         sp1D4 = 0.0f;
         gPlayer[gPlayerNum].xPath = 0.0f;
     }

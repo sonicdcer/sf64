@@ -129,9 +129,9 @@ void func_tank_800438E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale)
     effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale;
     effect->timer_50 = RAND_INT(5.0f) + 8;
     effect->obj.rot.x = RAND_FLOAT(360.0f);
-    effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
-    effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
-    effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
+    effect->orient.x = RAND_FLOAT_CENTERED(30.0f);
+    effect->orient.y = RAND_FLOAT_CENTERED(30.0f);
+    effect->orient.z = RAND_FLOAT_CENTERED(30.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -308,7 +308,7 @@ void func_tank_800444BC(Player* player) {
     }
     sp40 = sp3C = 0.0f;
     sp38 = gGroundHeight;
-    if (gGroundType == 4) {
+    if (gGroundType == GROUND_4) {
         Ground_801B6E20(player->pos.x, player->trueZpos + player->zPath, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
@@ -1404,10 +1404,11 @@ void func_tank_800481F4(Player* player) {
         for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    temp_v0 = Player_CheckHitboxCollision(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
-                                                          actor->obj.pos.y, actor->obj.pos.z, actor->obj.rot.x,
-                                                          actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
-                                                          actor->vwork[29].y, actor->vwork[29].z + actor->rot_0F4.z);
+                    temp_v0 = Player_CheckHitboxCollision(
+                        player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
+                        actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[EVA_FORMATION_ROT].x,
+                        actor->vwork[EVA_FORMATION_ROT].y,
+                        actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         actor->dmgType = DMG_COLLISION;

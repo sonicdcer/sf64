@@ -143,7 +143,7 @@ void Meteo_MeLaserCannon2_Update(MeLaserCannon2* this) {
     if (this->timer_0BC == 0) {
         this->timer_0BC = 40;
         if (this->obj.pos.z < (gPlayer[0].trueZpos - 1000.0f)) {
-            Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 120.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 120.0f);
         }
     }
 }
@@ -166,9 +166,9 @@ void Meteo_MeLaserCannon1_Update(MeLaserCannon1* this) {
 
     if ((gGameFrameCount % 8) == 0) {
         Math_Vec3fFromAngles(&vec, this->obj.rot.x, this->obj.rot.y, 100.0f);
-        func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + (vec.x * 3.0f),
-                             this->obj.pos.y + (vec.y * 3.0f), this->obj.pos.z + (vec.z * 3.0f), this->obj.rot.x,
-                             this->obj.rot.y, this->obj.rot.z, 0.0f, 0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
+        Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + (vec.x * 3.0f), this->obj.pos.y + (vec.y * 3.0f),
+                          this->obj.pos.z + (vec.z * 3.0f), this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
+                          0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
     }
 }
 
@@ -240,7 +240,7 @@ void Meteo_80187D98(Effect369* this, f32 x, f32 y, f32 z, f32 arg4, bool rotate)
     this->obj.pos.y = y;
     this->obj.pos.z = z;
 
-    this->unk_60.z = arg4;
+    this->orient.z = arg4;
     this->unk_48 = rotate;
     this->obj.rot.x = 45.0f;
 
@@ -293,7 +293,7 @@ void Meteo_80187FF8(Effect371* this, f32 x, f32 y, f32 z) {
     this->obj.pos.y = y;
     this->obj.pos.z = z;
 
-    this->unk_44 = 128;
+    this->alpha = 128;
     this->vel.z = 50.0f;
     this->scale2 = 1.0f;
     Object_SetInfo(&this->info, this->obj.id);
@@ -367,22 +367,22 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
         this->obj.pos.z = gBosses[0].obj.pos.z;
         this->obj.rot.x = gBosses[0].obj.rot.x;
         this->obj.rot.y = gBosses[0].obj.rot.y;
-        this->obj.rot.z = gBosses[0].obj.rot.z + this->rot_078.z + 45.0f + 180.0f;
+        this->obj.rot.z = gBosses[0].obj.rot.z + this->orient.z + 45.0f + 180.0f;
     }
 
     switch (this->state) {
         case 0:
             this->timer_050 = 150;
-            this->rot_078.z += 2.5f;
+            this->orient.z += 2.5f;
             break;
 
         case 1:
-            temp = fabsf(90.0f - this->rot_078.z) * 0.1f;
+            temp = fabsf(90.0f - this->orient.z) * 0.1f;
             if (temp > 2.5f) {
                 temp = 2.5f;
             }
 
-            this->rot_078.z += temp;
+            this->orient.z += temp;
 
             if (this->timer_050 == 0) {
                 this->state = 2;
@@ -462,11 +462,11 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
             break;
     }
 
-    if (this->rot_078.z >= 360.0f) {
-        this->rot_078.z -= 360.0f;
+    if (this->orient.z >= 360.0f) {
+        this->orient.z -= 360.0f;
     }
-    if (this->rot_078.z < 0.0f) {
-        this->rot_078.z += 360.0f;
+    if (this->orient.z < 0.0f) {
+        this->orient.z += 360.0f;
     }
 }
 
@@ -548,12 +548,12 @@ void Meteo_Effect369_Setup(Effect369* this, f32 x, f32 y, f32 z, f32 xRot, f32 y
 
     this->obj.rot.x = xRot;
     this->obj.rot.y = yRot;
-    this->unk_60.z = arg6;
+    this->orient.z = arg6;
 
     this->timer_50 = 20;
     this->scale2 = arg7;
     this->state = 1;
-    this->unk_44 = 128;
+    this->alpha = 128;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -589,11 +589,11 @@ void Meteo_Effect369_Update(Effect369* this) {
                 break;
         }
 
-        this->unk_44 = 255;
+        this->alpha = 255;
         this->scale2 = 1.0f;
-        this->unk_60.z += 20.0f;
+        this->orient.z += 20.0f;
 
-        Matrix_RotateZ(gCalcMatrix, this->unk_60.z * M_DTOR, MTXF_NEW);
+        Matrix_RotateZ(gCalcMatrix, this->orient.z * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
 
         src.x = 0.0f;
@@ -607,7 +607,7 @@ void Meteo_Effect369_Update(Effect369* this) {
         this->vel.z = dest.z;
 
         Meteo_Effect369_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->obj.rot.x, this->obj.rot.y,
-                              this->unk_60.z, 1.0f);
+                              this->orient.z, 1.0f);
     } else if (this->timer_50 == 0) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -630,7 +630,7 @@ void Meteo_Effect370_Setup2(Effect370* this, f32 x, f32 y, f32 z, f32 xRot, f32 
 
     this->scale2 = scale;
     this->state = 1;
-    this->unk_44 = 128;
+    this->alpha = 128;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -671,8 +671,8 @@ void Meteo_Effect370_Update(Effect370* this) {
                                    this->obj.rot.z, 5.0f);
         }
     } else {
-        this->unk_44 -= 8;
-        if (this->unk_44 < 0) {
+        this->alpha -= 8;
+        if (this->alpha < 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -1200,7 +1200,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
 
                 if (this->fwork[2] > 0.0f) {
                     this->fwork[2] -= 2.0f;
-                    gBosses[this->work_044].rot_078.z -= 2.0f;
+                    gBosses[this->work_044].orient.z -= 2.0f;
                 }
             }
 
@@ -2156,7 +2156,7 @@ void Meteo_Effect370_Draw(Effect370* this) {
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
         gSPDisplayList(gMasterDisp++, D_ME_60263F0);
     }
 }
@@ -2172,7 +2172,7 @@ void Meteo_Effect369_Draw(Effect369* this) {
 
         Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, this->unk_44);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, this->alpha);
         gSPDisplayList(gMasterDisp++, D_102F5E0);
     }
 }
@@ -2181,7 +2181,7 @@ void Meteo_Effect371_Draw(Effect371* this) {
     Matrix_RotateX(gGfxMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
+    gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
 
     switch (this->unk_4C) {
         case 0:
@@ -2200,8 +2200,8 @@ void Meteo_LevelComplete_SetupTeam(ActorCutscene* this, s32 teamIdx) {
     this->obj.pos.y = sMeLevelCompleteTeamSetupPos[teamIdx].y + gPlayer[0].pos.y;
     this->obj.pos.z = sMeLevelCompleteTeamSetupPos[teamIdx].z + gPlayer[0].trueZpos;
 
-    this->rot_0F4.y = 0.0f;
-    this->rot_0F4.z = sMeLevelCompleteTeamSetupModel[teamIdx];
+    this->orient.y = 0.0f;
+    this->orient.z = sMeLevelCompleteTeamSetupModel[teamIdx];
 
     Object_SetInfo(&this->info, this->obj.id);
 
@@ -2497,7 +2497,7 @@ void Meteo_8018ED9C(ActorCutscene* this) {
             Math_SmoothStepToF(&this->obj.pos.x, this->vwork[0].x, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.y, this->vwork[0].y, 0.02f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.z, this->vwork[0].z, 0.02f, 50.0f, 0.0001f);
-            Math_SmoothStepToF(&this->rot_0F4.z, 0.0f, 0.03f, 0.5f, 0.0001f);
+            Math_SmoothStepToF(&this->orient.z, 0.0f, 0.03f, 0.5f, 0.0001f);
             break;
 
         case 1:
@@ -2509,15 +2509,15 @@ void Meteo_8018ED9C(ActorCutscene* this) {
         case 2:
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
-            this->rot_0F4.x += 0.1f;
+            this->orient.x += 0.1f;
             if (this->timer_0BC == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -2529,7 +2529,7 @@ void Meteo_8018ED9C(ActorCutscene* this) {
     this->vel.y = dest.y;
     this->vel.z = dest.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = +this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = +this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }

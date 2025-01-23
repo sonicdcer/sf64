@@ -94,29 +94,34 @@
 #define EV_ZMODE(zmode) (((zmode) & 3) << 7)
 #define EV_ZMODE_MASK(cmd) ((cmd) & (3 << 7))
 
-#define EV_CHANGE_AI 200
+#define EV_CHANGE_SCRIPT 200
 
 #define EVENT_SET_SPEED(speed, zmode, time) EVENT_CMD(EVOP_SET_SPEED, EV_ZMODE(zmode) | ((speed) & 0x7F), time)
+#define EVENT_UPDATE_SPEED(speed, zmode) EVENT_SET_SPEED(speed, zmode, 1)
 #define EVENT_SET_ACCEL(speedTarget, zmode, time) EVENT_CMD(EVOP_SET_ACCEL, EV_ZMODE(zmode) | ((speedTarget) & 0x7F), time)
 #define EVENT_SET_BASE_ZVEL(zvel) EVENT_CMD(EVOP_SET_BASE_ZVEL, 0, zvel)
 #define EVENT_SET_AS_LEADER() EVENT_CMD(EVOP_SET_AS_LEADER, 0 ,0 )
 #define EVENT_START_FORMATION(duration) EVENT_CMD(EVOP_START_FORMATION, 0, duration)
 #define EVENT_STOP_FORMATION() EVENT_CMD(EVOP_STOP_FORMATION, 0, 0)
 
-#define EVENT_F4_PLUS_X(rot, rotVel) EVENT_CMD(EVOP_F4_PLUS_X, (rotVel) * 10, rot)
-#define EVENT_F4_MINUS_X(rot, rotVel) EVENT_CMD(EVOP_F4_MINUS_X, (rotVel) * 10, rot)
-#define EVENT_F4_PLUS_Y(rot, rotVel) EVENT_CMD(EVOP_F4_PLUS_Y, (rotVel) * 10, rot)
-#define EVENT_F4_MINUS_Y(rot, rotVel) EVENT_CMD(EVOP_F4_MINUS_Y, (rotVel) * 10, rot)
+#define EVENT_TURN_DOWN(rot, rotVel) EVENT_CMD(EVOP_TURN_DOWN, rot, (rotVel) * 10)
+#define EVENT_TURN_UP(rot, rotVel) EVENT_CMD(EVOP_TURN_UP, rot, (rotVel) * 10)
+#define EVENT_TURN_LEFT(rot, rotVel) EVENT_CMD(EVOP_TURN_LEFT, rot, (rotVel) * 10)
+#define EVENT_TURN_RIGHT(rot, rotVel) EVENT_CMD(EVOP_TURN_RIGHT, rot, (rotVel) * 10)
+#define EVENT_UPDATE_TURN_UP(rot) EVENT_TURN_UP(rot, rot)
+#define EVENT_UPDATE_TURN_DOWN(rot) EVENT_TURN_DOWN(rot, rot)
+#define EVENT_UPDATE_TURN_LEFT(rot) EVENT_TURN_LEFT(rot, rot)
+#define EVENT_UPDATE_TURN_RIGHT(rot) EVENT_TURN_RIGHT(rot, rot)
 
-#define EVENT_ROT_PLUS_X(rot, rotVel) EVENT_CMD(EVOP_ROT_PLUS_X, (rotVel) * 10, rot)
-#define EVENT_ROT_MINUS_X(rot, rotVel) EVENT_CMD(EVOP_ROT_MINUS_X, (rotVel) * 10, rot)
-#define EVENT_ROT_PLUS_Y(rot, rotVel) EVENT_CMD(EVOP_ROT_PLUS_Y, (rotVel) * 10, rot)
-#define EVENT_ROT_MINUS_Y(rot, rotVel) EVENT_CMD(EVOP_ROT_MINUS_Y, (rotVel) * 10, rot)
-#define EVENT_ROT_PLUS_Z(rot, rotVel) EVENT_CMD(EVOP_ROT_PLUS_Z, (rotVel) * 10, rot)
-#define EVENT_ROT_MINUS_Z(rot, rotVel) EVENT_CMD(EVOP_ROT_MINUS_Z, (rotVel) * 10, rot)
+#define EVENT_PITCH_DOWN(rot, rotVel) EVENT_CMD(EVOP_PITCH_DOWN, rot, (rotVel) * 10)
+#define EVENT_PITCH_UP(rot, rotVel) EVENT_CMD(EVOP_PITCH_UP, rot, (rotVel) * 10)
+#define EVENT_YAW_LEFT(rot, rotVel) EVENT_CMD(EVOP_YAW_LEFT, rot, (rotVel) * 10)
+#define EVENT_YAW_RIGHT(rot, rotVel) EVENT_CMD(EVOP_YAW_RIGHT, rot, (rotVel) * 10)
+#define EVENT_ROLL_RIGHT(rot, rotVel) EVENT_CMD(EVOP_ROLL_RIGHT, rot, (rotVel) * 10)
+#define EVENT_ROLL_LEFT(rot, rotVel) EVENT_CMD(EVOP_ROLL_LEFT, rot, (rotVel) * 10)
 
-#define EVENT_SET_ROTATE() EVENT_CMD(EVOP_SET_ROTATE, 0, 0)
-#define EVENT_STOP_ROTATE() EVENT_CMD(EVOP_STOP_ROTATE, 0, 0)
+#define EVENT_LOCAL_ROTATION() EVENT_CMD(EVOP_LOCAL_ROTATION, 0, 0)
+#define EVENT_FREE_ROTATION() EVENT_CMD(EVOP_FREE_ROTATION, 0, 0)
 
 #define EVENT_PURSUE_PLAYER(duration, turnRate) EVENT_CMD(EVOP_PURSUE_PLAYER, turnRate, duration)
 #define EVENT_FLEE_PLAYER(duration, turnRate) EVENT_CMD(EVOP_FLEE_PLAYER, turnRate, duration)
@@ -126,7 +131,9 @@
 #define EVENT_SET_TARGET(teamId, spread) EVENT_CMD(EVOP_SET_TARGET, teamId, spread)
 #define EVENT_PURSUE_CAMERA(duration, turnRate) EVENT_CMD(EVOP_PURSUE_CAMERA, turnRate, duration)
 #define EVENT_FLEE_CAMERA(duration, turnRate) EVENT_CMD(EVOP_FLEE_CAMERA, turnRate, duration)
+
 #define EVENT_SET_WAIT(duration) EVENT_CMD(EVOP_SET_WAIT, 0, duration)
+#define EVENT_UPDATE_ACTOR() EVENT_SET_WAIT(1)
 
 #define EVENT_SET_CALL(duration, voiceParam) EVENT_CMD(EVOP_SET_CALL, voiceParam, duration)
 #define EVENT_RESTORE_TEAM(teammate) EVENT_CMD(EVOP_RESTORE_TEAM, 0, teammate)
@@ -159,6 +166,67 @@
 
 #define EVENT_STOP_SCRIPT() EVENT_CMD(EVOP_STOP_SCRIPT, 0, 0)
 
+typedef enum EventActorIwork {
+    EVA_LOOP_COUNT,
+    EVA_TARGET_INDEX,
+    EVA_TRIGGER_COND,
+    EVA_BRANCH,
+    EVA_IWORK_4,
+    EVA_Z_MODE,
+    EVA_LOCAL_ROTATION,
+    EVA_TEXLINE_ACTIVE,
+    EVA_TEXLINE_INDEX,
+    EVA_LEADER_INDEX,
+    EVA_TARGET_TYPE,
+    EVA_IWORK_11,
+    EVA_TEAM_ID,
+    EVA_FORMATION,
+    EVA_IWORK_14,
+    EVA_GROUP_ID,
+    EVA_GROUP_FLAG,
+} EventActorIwork;
+
+typedef enum EventActorFwork {
+    EVA_SPEED,
+    EVA_SPEED_TARGET,
+    EVA_TURN_ANGLE,
+    EVA_TURN_RATE,
+    EVA_X_ROT_ANGLE,
+    EVA_X_ROT_RATE,
+    EVA_X_ROT_DIRECTION,
+    EVA_Y_ROT_ANGLE,
+    EVA_Y_ROT_RATE,
+    EVA_Y_ROT_DIRECTION,
+    EVA_Z_ROT_ANGLE,
+    EVA_Z_ROT_RATE,
+    EVA_Z_ROT_DIRECTION,
+    EVA_KNOCKBACK_X,
+    EVA_KNOCKBACK_Y,
+    EVA_FWORK_15,
+    EVA_WZ_RED = 15,
+    EVA_FWORK_16,
+    EVA_WZ_GREEN = 16,
+    EVA_FWORK_17,
+    EVA_WZ_BLUE = 17,
+    EVA_FWORK_18,
+    EVA_WZ_RED_TARGET = 18,
+    EVA_FWORK_19,
+    EVA_WZ_GREEN_TARGET = 19,
+    EVA_FWORK_20,
+    EVA_WZ_BLUE_TARGET = 20,
+    EVA_FWORK_21,
+    EVA_BASE_ZVEL,
+    EVA_Z_ROT_TARGET,
+    EVA_PURSUIT_TURN_RATE,
+    EVA_INFO_UNK10,
+    EVA_FWORK_26,
+    EVA_FWORK_27,
+    EVA_FWORK_28,
+    EVA_FWORK_29,
+} EventActorFwork;
+
+#define EVA_FORMATION_OFFSET 28
+#define EVA_FORMATION_ROT 29
 
 typedef enum EventModeZ {
     EMZ_REST,
@@ -174,18 +242,18 @@ typedef enum EventOpcode {
     /*   3 */ EVOP_SET_AS_LEADER,
     /*   4 */ EVOP_START_FORMATION,
     /*   8 */ EVOP_STOP_FORMATION = 8,
-    /*   9 */ EVOP_F4_PLUS_X,
-    /*  10 */ EVOP_F4_MINUS_X,
-    /*  11 */ EVOP_F4_PLUS_Y,
-    /*  12 */ EVOP_F4_MINUS_Y,
-    /*  16 */ EVOP_ROT_PLUS_X = 16,
-    /*  17 */ EVOP_ROT_MINUS_X,
-    /*  18 */ EVOP_ROT_PLUS_Y,
-    /*  19 */ EVOP_ROT_MINUS_Y,
-    /*  20 */ EVOP_ROT_PLUS_Z,
-    /*  21 */ EVOP_ROT_MINUS_Z,
-    /*  24 */ EVOP_SET_ROTATE = 24,
-    /*  25 */ EVOP_STOP_ROTATE,
+    /*   9 */ EVOP_TURN_DOWN,
+    /*  10 */ EVOP_TURN_UP,
+    /*  11 */ EVOP_TURN_LEFT,
+    /*  12 */ EVOP_TURN_RIGHT,
+    /*  16 */ EVOP_PITCH_DOWN = 16,
+    /*  17 */ EVOP_PITCH_UP,
+    /*  18 */ EVOP_YAW_LEFT,
+    /*  19 */ EVOP_YAW_RIGHT,
+    /*  20 */ EVOP_ROLL_RIGHT,
+    /*  21 */ EVOP_ROLL_LEFT,
+    /*  24 */ EVOP_LOCAL_ROTATION = 24,
+    /*  25 */ EVOP_FREE_ROTATION,
     /*  40 */ EVOP_PURSUE_PLAYER = 40,
     /*  41 */ EVOP_FLEE_PLAYER,
     /*  42 */ EVOP_PURSUE_TARGET,
@@ -291,10 +359,10 @@ typedef enum EventCondition {
 typedef enum EventState {
     /*  0 */ EVSTATE_READY,
     /*  1 */ EVSTATE_WAIT,
-    /*  2 */ EVSTATE_F4_PLUS_X,
-    /*  3 */ EVSTATE_F4_MINUS_X,
-    /*  4 */ EVSTATE_F4_PLUS_Y,
-    /*  5 */ EVSTATE_F4_MINUS_Y,
+    /*  2 */ EVSTATE_TURN_DOWN,
+    /*  3 */ EVSTATE_TURN_UP,
+    /*  4 */ EVSTATE_TURN_LEFT,
+    /*  5 */ EVSTATE_TURN_RIGHT,
     /*  6 */ EVSTATE_PURSUE_PLAYER,
     /*  7 */ EVSTATE_FLEE_PLAYER,
     /*  8 */ EVSTATE_PURSUE_TARGET,
@@ -311,14 +379,14 @@ typedef enum EventState {
 
 typedef enum EventAction {
     /*  0 */ EVACT_NONE,
-    /*  1 */ EVACT_1,
-    /*  2 */ EVACT_2,
-    /*  3 */ EVACT_3,
-    /*  4 */ EVACT_4,
+    /*  1 */ EVACT_SHOOT_FORWARD,
+    /*  2 */ EVACT_SHOOT_AT_PLAYER,
+    /*  3 */ EVACT_TEAM_SHOOT,
+    /*  4 */ EVACT_BLUE_ENERGY,
     /*  5 */ EVACT_5,
     /*  6 */ EVACT_6,
     /*  7 */ EVACT_7,
-    /*  8 */ EVACT_8,
+    /*  8 */ EVACT_SHOOT_NEAR_PLAYER,
     /*  9 */ EVACT_9,
     /* 10 */ EVACT_10,
     /* 11 */ EVACT_11,
@@ -326,8 +394,8 @@ typedef enum EventAction {
     /* 13 */ EVACT_TI_DROP_MINE,
     /* 14 */ EVACT_ME_AS_OPEN,
     /* 15 */ EVACT_ME_AS_CLOSE,
-    /* 16 */ EVACT_16,
-    /* 17 */ EVACT_17,
+    /* 16 */ EVACT_SHOOT_PLAYER_TWICE,
+    /* 17 */ EVACT_SHOOT_AT_CAMERA,
     /* 18 */ EVACT_GFOX_COVER_FIRE,
     /* 19 */ EVACT_19,  // projectile ring used by bee enemies
 } EventAction;
@@ -441,9 +509,9 @@ typedef enum EventActorId {
     /* 105 */ EVID_SX_WARP_ENMY,
     /* 106 */ EVID_KILLER_BEE,
     /* 107 */ EVID_MA_GUILLOTINE_2, // Variant of the Macbeth Guillotine that can be shot at to be opened
-    /* 200 */ EVID_200 = 200,
+    /* 200 */ EVID_ME_MORA = 200,
     /* 300 */ EVID_300 = 300,
-    /* 4095*/ EVID_FFF = 4095,
+    /* 4095*/ EVID_UNINITIALIZED = 4095,
 } EventActorId;
 
 typedef enum EventSfx {

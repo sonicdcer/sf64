@@ -474,9 +474,9 @@ void Actor_DrawEngineAndContrails(Actor* this) {
     f32 sp54;
     s32 pad[5];
 
-    if ((this->iwork[11] != 0) && (this->obj.status == OBJ_ACTIVE)) {
+    if ((this->iwork[ACTOR_ENGINE_GLOW] != 0) && (this->obj.status == OBJ_ACTIVE)) {
         temp1 = 652.5f * 0.001f; // 0.65250003f;
-        if (this->iwork[11] >= 2) {
+        if (this->iwork[ACTOR_ENGINE_GLOW] >= 2) {
             temp1 = 1.3050001f;
         }
 
@@ -535,10 +535,10 @@ f32 D_edisplay_800CFCA0[] = {
 void Actor_DrawEngineGlow(Actor* actor, EngineGlowColor color) {
     f32 scale;
 
-    if ((actor->iwork[11] != 0) && (actor->obj.status == OBJ_ACTIVE)) {
+    if ((actor->iwork[ACTOR_ENGINE_GLOW] != 0) && (actor->obj.status == OBJ_ACTIVE)) {
         scale = 0.63f;
-        if (actor->iwork[11] >= 2) {
-            scale = D_edisplay_800CFCA0[actor->iwork[11] - 2] * 0.45f;
+        if (actor->iwork[ACTOR_ENGINE_GLOW] >= 2) {
+            scale = D_edisplay_800CFCA0[actor->iwork[ACTOR_ENGINE_GLOW] - 2] * 0.45f;
         }
         if ((gGameFrameCount % 2) != 0) {
             scale *= 1.2f;
@@ -648,7 +648,7 @@ void ActorMissileSeek_Draw(Actor* missile) {
     }
 
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
-    missile->iwork[11] = 1;
+    missile->iwork[ACTOR_ENGINE_GLOW] = 1;
     Matrix_Scale(gGfxMatrix, scale, scale, scale, MTXF_APPLY);
     Actor_DrawEngineGlow(missile, EG_GREEN);
 }
@@ -1083,7 +1083,7 @@ void Actor_DrawOnRails(Actor* this) {
                 return;
         }
 
-        if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_200)) {
+        if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_ME_MORA)) {
             MeMora_Draw(this);
         } else {
             if (this->info.unk_19 != 0) {
@@ -1091,8 +1091,9 @@ void Actor_DrawOnRails(Actor* this) {
                 Object_SetMatrix(&this->obj, this->info.drawType);
                 this->obj.pos.y -= gCameraShakeY;
             } else if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType != EVID_A6_UMBRA_STATION)) {
-                ObjSpecial_SetMatrix(&this->obj, this->vwork[29].x, this->vwork[29].y,
-                                     this->vwork[29].z + this->rot_0F4.z, this->info.drawType);
+                ObjSpecial_SetMatrix(&this->obj, this->vwork[EVA_FORMATION_ROT].x,
+                                     this->vwork[EVA_FORMATION_ROT].y,
+                                     this->vwork[EVA_FORMATION_ROT].z + this->orient.z, this->info.drawType);
             } else {
                 Object_SetMatrix(&this->obj, this->info.drawType);
             }
@@ -1294,7 +1295,7 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
     }
 
     if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER_1) || (this->obj.id == OBJ_EFFECT_369)) {
-        ObjSpecial_SetMatrix(&this->obj, this->unk_60.x, this->unk_60.y, this->unk_60.z, 0);
+        ObjSpecial_SetMatrix(&this->obj, this->orient.x, this->orient.y, this->orient.z, 0);
     } else if (this->info.unk_14 == -1) {
         this->obj.pos.y += gCameraShakeY;
         Object_SetMatrix(&this->obj, 0);
@@ -1450,7 +1451,7 @@ void Object_DrawShadow(s32 index, Object* obj) {
                 break;
         }
 
-        if ((gGroundType != 4) || (obj->id == OBJ_ACTOR_EVENT) || (obj->id == OBJ_ACTOR_CUTSCENE) ||
+        if ((gGroundType != GROUND_4) || (obj->id == OBJ_ACTOR_EVENT) || (obj->id == OBJ_ACTOR_CUTSCENE) ||
             (obj->id == OBJ_ACTOR_TEAM_BOSS)) {
             Matrix_Scale(gGfxMatrix, 1.0f, 0.0f, 1.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, obj->rot.y * M_DTOR, MTXF_APPLY);

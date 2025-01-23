@@ -79,8 +79,8 @@ void Titania_80188F30(void) {
 
 void Titania_Effect368_Update(Effect368* this) {
     if (this->timer_50 == 0) {
-        this->unk_44 -= 16;
-        if (this->unk_44 < 17) {
+        this->alpha -= 16;
+        if (this->alpha < 17) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -91,7 +91,7 @@ void Titania_Effect368_Draw(Effect368* this) {
     Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->unk_44);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
     gSPDisplayList(gMasterDisp++, D_landmaster_3007E70);
 }
 
@@ -105,7 +105,7 @@ void Titania_Effect368_Setup(Effect368* this, f32 xPos, f32 yPos, f32 zPos, f32 
     this->obj.rot.y = yRot;
     this->scale2 = scale2;
     this->timer_50 = 25;
-    this->unk_44 = 255;
+    this->alpha = 255;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -207,9 +207,9 @@ void Titania_80189380(TiDesertRover* this) {
     sp5C.y = 0.0f;
     sp5C.z = 70.0f;
 
-    func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
     sp80.y += 20.0f;
-    func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
+    Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER_1, &sp80, &sp74, &sp68, &sp5C, 1.0f);
 }
 
 Vec3f D_i5_801B752C = { -50.0f, 0.0f, -20.0f };
@@ -412,8 +412,8 @@ void Titania_TiFekuda_Update(TiFekuda* this) {
         sp40.z = 0.0f;
 
         if ((this->timer_0BC < 15) && ((this->timer_0BC % 7) == 0)) {
-            func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, (Vec3f*) &this->fwork[0], &sp40, &this->obj.rot,
-                                 &D_i5_801B755C, 1.0f);
+            Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER_1, (Vec3f*) &this->fwork[0], &sp40, &this->obj.rot, &D_i5_801B755C,
+                              1.0f);
             if (this->timer_0BC == 0) {
                 this->timer_0BC = 90;
             }
@@ -1337,7 +1337,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
     switch (this->state) {
         case 0:
             AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_JUMP, this->sfxSource, 4);
-            this->rot_0F4.y = this->obj.rot.y;
+            this->orient.y = this->obj.rot.y;
             this->obj.rot.y = 180.0f;
             this->obj.pos.y += 125.0f;
             this->gravity = 1.0f;
@@ -1360,13 +1360,13 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
             Animation_DrawSkeleton(1, aTi1DesertCrawlerSkel, this->vwork, Titania_8018C118, Titania_8018C3D8, this,
                                    &gIdentityMatrix);
             if (this->obj.pos.z <= gPlayer[0].pos.z) {
-                Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_0F4.y, 0.2f, 10.0f, 0.01f);
+                Math_SmoothStepToAngle(&this->obj.rot.y, this->orient.y, 0.2f, 10.0f, 0.01f);
             }
             if ((this->obj.pos.y + this->fwork[7] + this->fwork[26]) <= sp9C) {
                 AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_BOUND, this->sfxSource, 4);
                 this->fwork[16] = this->obj.pos.y = sp9C;
-                this->rot_0F4.x = spA0 * M_RTOD;
-                this->rot_0F4.z = sp98 * M_RTOD;
+                this->orient.x = spA0 * M_RTOD;
+                this->orient.z = sp98 * M_RTOD;
                 this->gravity = 0.0f;
                 this->vel.x = this->vel.y = this->vel.z = 0.0f;
                 this->timer_0BC = 10;
@@ -1408,11 +1408,11 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
             break;
 
         case 2:
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->rot_0F4.x, 0.5f, 5.0f, 0.01f);
-            Math_SmoothStepToAngle(&this->obj.rot.z, this->rot_0F4.z, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->orient.x, 0.5f, 5.0f, 0.01f);
+            Math_SmoothStepToAngle(&this->obj.rot.z, this->orient.z, 0.5f, 5.0f, 0.01f);
             this->obj.pos.y = this->fwork[0] = this->fwork[16];
-            this->fwork[1] = this->rot_0F4.x;
-            this->fwork[2] = this->rot_0F4.z;
+            this->fwork[1] = this->orient.x;
+            this->fwork[2] = this->orient.z;
             Animation_GetFrameData(&D_TI1_7007234, 0, spA4);
             Math_SmoothStepToVec3fArray(spA4, this->vwork, 1, 15, 0.5f, 7.0f, 0.1f);
             temp_fs0 = this->vwork[0].y;
@@ -1765,14 +1765,12 @@ void Titania_TiDelphorHead_Init(TiDelphorHead* this) {
 }
 
 void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
-    f32 spA4;
-    f32 spA0;
-    f32 sp9C;
+    Vec3f sp9C;
     Vec3f sp90;
     Vec3f sp84;
     f32 sp80;
     f32 sp7C;
-    Effect* temp_v0_3;
+    Effect* effect;
     f32 sp74;
     f32 sp70;
     f32 sp6C;
@@ -1780,18 +1778,17 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
     f32 sp64;
     f32 sp60;
     f32 sp5C;
-    Effect* temp_v0_4;
+    s32 pad58;
     f32 sp54;
     s32 i;
-    TexturedLine* temp_v0_2;
-    f32 sp48;
-    f32 sp44;
-    f32 sp40;
     s32 index;
+    Vec3f sp40;
+    Effect* newEffect;
+    
 
-    sp9C = gPlayer[0].pos.x - this->obj.pos.x;
-    spA0 = (gPlayer[0].pos.y - this->obj.pos.y) - 30.0f;
-    spA4 = gPlayer[0].trueZpos - this->obj.pos.z;
+    sp9C.x = gPlayer[0].pos.x - this->obj.pos.x;
+    sp9C.y = gPlayer[0].pos.y - this->obj.pos.y - 30.0f;
+    sp9C.z = gPlayer[0].trueZpos - this->obj.pos.z;
 
     switch (this->state) {
         case 0:
@@ -1800,14 +1797,14 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
                 this->fwork[6] = D_i5_801B7518[this->iwork[1]];
             }
 
-            if (spA4 <= 2500.0f) {
+            if (sp9C.z <= 2500.0f) {
                 this->state++;
             }
             break;
 
         case 1:
-            this->fwork[7] = Math_Atan2F(sp9C, spA4) * M_RTOD;
-            this->fwork[6] = -Math_Atan2F(spA0, sqrtf(SQ(sp9C) + SQ(spA4))) * M_RTOD;
+            this->fwork[7] = Math_Atan2F(sp9C.x, sp9C.z) * M_RTOD;
+            this->fwork[6] = -Math_Atan2F(sp9C.y, sqrtf(SQ(sp9C.x) + SQ(sp9C.z))) * M_RTOD;
 
             Math_SmoothStepToAngle(&this->obj.rot.y, this->fwork[7], 0.1f, 1.3333334f, 0.01f);
             Math_SmoothStepToAngle(&this->obj.rot.x, this->fwork[6], 0.1f, 1.3333334f, 0.01f);
@@ -1854,10 +1851,10 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
             Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp80, &sp7C, &sp80);
 
             if (this->obj.pos.y < (94.0f + sp7C)) {
-                spA4 = fabsf(spA4);
-                if (spA4 < 5000.0f) {
-                    this->iwork[7] = (s32) (spA4 / 200.0f);
-                    this->iwork[8] = (s32) ((5000.0f - spA4) / 714.0f);
+                sp9C.z = fabsf(sp9C.z);
+                if (sp9C.z < 5000.0f) {
+                    this->iwork[7] = (s32) (sp9C.z / 200.0f);
+                    this->iwork[8] = (s32) ((5000.0f - sp9C.z) / 714.0f);
                 }
                 AUDIO_PLAY_SFX(NA_SE_EN_METAL_BOUND_M, this->sfxSource, 4);
                 this->vel.y = 0.0f;
@@ -1933,15 +1930,15 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
     sp68 = (this->fwork[3] - this->fwork[0]) / 3000.0f;
     sp64 = (this->fwork[4] - this->fwork[1]) / 3000.0f;
     sp60 = (this->fwork[5] - this->fwork[2]) / 3000.0f;
-    sp40 = this->obj.pos.x + this->fwork[0];
-    sp44 = this->obj.pos.y + this->fwork[1];
-    sp48 = this->obj.pos.z + this->fwork[2];
+    sp40.x = this->obj.pos.x + this->fwork[0];
+    sp40.y = this->obj.pos.y + this->fwork[1];
+    sp40.z = this->obj.pos.z + this->fwork[2];
 
     for (i = 0; i <= 3000; i += 50) {
-        sp5C = (sp68 * i) + sp40;
-        sp54 = (sp60 * i) + sp48;
+        sp5C = (sp68 * i) + sp40.x;
+        sp54 = (sp60 * i) + sp40.z;
         Ground_801B6E20(sp5C, sp54 + gPathProgress, &sp74, &sp70, &sp6C);
-        if ((sp64 * i) + sp44 < sp70) {
+        if ((sp64 * i) + sp40.y < sp70) {
             break;
         }
     }
@@ -1977,24 +1974,24 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
                 Effect_Effect341_Spawn(sp5C, sp70 + 5.0f, sp54, 2.0f);
             }
 
-            temp_v0_3 = (Effect*) this->iwork[5];
+            effect = (Effect*) this->iwork[5];
 
-            if (temp_v0_3 == NULL) {
-                temp_v0_4 = Effect_Load(OBJ_EFFECT_TIMED_SFX);
-                if (temp_v0_4 != NULL) {
-                    temp_v0_4->obj.status = OBJ_ACTIVE;
-                    temp_v0_4->obj.pos.x = sp5C;
-                    temp_v0_4->obj.pos.y = sp70 + 5.0f;
-                    temp_v0_4->obj.pos.z = sp54;
-                    temp_v0_4->timer_50 = 2;
-                    this->iwork[5] = (uintptr_t) temp_v0_4;
-                    AUDIO_PLAY_SFX(NA_SE_EN_LASER_BEAM, temp_v0_4->sfxSource, 4);
+            if (effect == NULL) {
+                newEffect = Effect_Load(OBJ_EFFECT_TIMED_SFX);
+                if (newEffect != NULL) {
+                    newEffect->obj.status = OBJ_ACTIVE;
+                    newEffect->obj.pos.x = sp5C;
+                    newEffect->obj.pos.y = sp70 + 5.0f;
+                    newEffect->obj.pos.z = sp54;
+                    newEffect->timer_50 = 2;
+                    this->iwork[5] = (uintptr_t) newEffect;
+                    AUDIO_PLAY_SFX(NA_SE_EN_LASER_BEAM, newEffect->sfxSource, 4);
                 }
             } else {
-                temp_v0_3->obj.pos.x = sp5C;
-                temp_v0_3->obj.pos.y = sp70 + 5.0f;
-                temp_v0_3->obj.pos.z = sp54;
-                temp_v0_3->timer_50 = 2;
+                effect->obj.pos.x = sp5C;
+                effect->obj.pos.y = sp70 + 5.0f;
+                effect->obj.pos.z = sp54;
+                effect->timer_50 = 2;
             }
         } else {
             this->iwork[5] = 0;
@@ -4454,8 +4451,8 @@ void Titania_80193DF0(TiGoras* this) {
                         sp84.x = -this->fwork[28];
                         sp84.y = this->fwork[27] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
-                                             1.0f);
+                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
+                                          1.0f);
                     }
                 }
             }
@@ -4469,8 +4466,8 @@ void Titania_80193DF0(TiGoras* this) {
                         sp84.x = -this->fwork[34];
                         sp84.y = this->fwork[33] + 90.0f;
                         sp84.z = 0.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
-                                             1.0f);
+                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER_1, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
+                                          1.0f);
                     }
                 }
             }
@@ -4921,10 +4918,10 @@ void Titania_80193DF0(TiGoras* this) {
                 effect->obj.pos.y = this->obj.pos.y + 3.0f;
                 effect->obj.pos.z = this->obj.pos.z + spC8.z;
                 effect->obj.rot.y = this->fwork[49] + -44.0f;
-                effect->unk_44 = 53;
+                effect->alpha = 53;
                 effect->info.cullDistance = 400.0f;
                 effect->info.unk_14 = -1;
-                effect->unk_74 = D_TI2_7009A80;
+                effect->dList = D_TI2_7009A80;
             }
         }
 
@@ -4939,10 +4936,10 @@ void Titania_80193DF0(TiGoras* this) {
                 effect->obj.pos.y = this->obj.pos.y + 3.0f;
                 effect->obj.pos.z = this->obj.pos.z + spC8.z;
                 effect->obj.rot.y = this->fwork[49] + 44.0f;
-                effect->unk_44 = 53;
+                effect->alpha = 53;
                 effect->info.cullDistance = 400.0f;
                 effect->info.unk_14 = -1;
-                effect->unk_74 = D_TI2_7009A80;
+                effect->dList = D_TI2_7009A80;
             }
         }
     }

@@ -189,7 +189,7 @@ void Solar_8019E7F0(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
         this->obj.rot.y = 180.0f;
     }
 
-    this->unk_44 = 112;
+    this->alpha = 112;
     this->scale2 = scale2;
     this->vel.y = 5.0f;
     Object_SetInfo(&this->info, this->obj.id);
@@ -225,7 +225,7 @@ void Solar_8019E920(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32
     this->vel.y = yVel;
     this->vel.z = zVel;
     this->obj.rot.z = RAND_FLOAT(360.0f);
-    this->unk_44 = 176;
+    this->alpha = 176;
     this->scale2 = scale2;
     Object_SetInfo(&this->info, this->obj.id);
 }
@@ -326,7 +326,7 @@ void Solar_8019EF30(Actor* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVe
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
 
-    this->rot_0F4.x = RAND_FLOAT(360.0f);
+    this->orient.x = RAND_FLOAT(360.0f);
 
     this->vel.x = xVel;
     this->vel.y = yVel;
@@ -362,7 +362,7 @@ void Solar_8019F0B0(SoRock1* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
-    this->rot_0F4.x = RAND_FLOAT(360.0f);
+    this->orient.x = RAND_FLOAT(360.0f);
     this->vel.x = xVel;
     this->vel.y = yVel;
     this->vel.z = zVel;
@@ -418,11 +418,11 @@ void Solar_SoRock_Update(SoRock1* this) {
         this->scale = 2.0f;
     }
     if (this->obj.id == OBJ_ACTOR_SO_ROCK_2) {
-        this->rot_0F4.x -= 6.6f;
-        this->rot_0F4.y -= 4.0f;
+        this->orient.x -= 6.6f;
+        this->orient.y -= 4.0f;
     } else {
-        this->rot_0F4.x += 3.3f;
-        this->rot_0F4.y += 2.0f;
+        this->orient.x += 3.3f;
+        this->orient.y += 2.0f;
     }
 
     switch (this->state) {
@@ -510,8 +510,8 @@ void Solar_SoRock_Update(SoRock1* this) {
 void Solar_SoRock_Draw(SoRock1* this) {
     if (this->state != 0) {
         Matrix_Push(&gGfxMatrix);
-        Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         switch (this->obj.id) {
@@ -550,12 +550,12 @@ void Solar_8019F99C(SoProminence* this, Effect392* effect, f32 scale1) {
     effect->vel.y = this->obj.pos.y;
     effect->obj.pos.z = effect->vel.z = this->obj.pos.z;
     effect->scale1 = scale1;
-    effect->unk_60.y = this->obj.rot.y;
+    effect->orient.y = this->obj.rot.y;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
 
-    effect->unk_44 = 255 - (this->counter_04E * 8);
-    if (effect->unk_44 < 0) {
-        effect->unk_44 = 0;
+    effect->alpha = 255 - (this->counter_04E * 8);
+    if (effect->alpha < 0) {
+        effect->alpha = 0;
     }
 
     effect->scale2 = 20.0f - (this->counter_04E * 0.5f);
@@ -594,7 +594,7 @@ void Solar_8019FAA4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 
             } else {
                 Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateY(gCalcMatrix, gBosses[0].rot_078.y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, gBosses[0].orient.y * M_DTOR, MTXF_APPLY);
 
                 sp44.x = effect->obj.pos.x - this->obj.pos.x;
                 sp44.y = effect->obj.pos.y - this->obj.pos.y;
@@ -620,10 +620,10 @@ void Solar_8019FAA4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 
         effect->vel.x = RAND_FLOAT_CENTERED(30.0f);
         effect->vel.z = RAND_FLOAT_CENTERED(30.0f);
     }
-    effect->unk_60.y = this->obj.rot.y;
-    effect->unk_60.x = 90.0f;
+    effect->orient.y = this->obj.rot.y;
+    effect->orient.x = 90.0f;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
-    effect->unk_44 = 255;
+    effect->alpha = 255;
     effect->unk_48 = 1;
     effect->state = 4;
     effect->unk_4C = 5;
@@ -645,10 +645,10 @@ void Solar_8019FDE0(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 
         effect->vel.z = gPlayer[0].vel.z + 15.0f;
     }
     effect->scale2 = scale2;
-    effect->unk_60.y = this->obj.rot.y;
-    effect->unk_60.x = 0.0f;
+    effect->orient.y = this->obj.rot.y;
+    effect->orient.x = 0.0f;
     effect->obj.rot.z = RAND_FLOAT(360.0f);
-    effect->unk_44 = 255;
+    effect->alpha = 255;
     effect->unk_48 = 1;
     effect->state = state + 5;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -725,8 +725,8 @@ void Solar_Effect392_Update(Effect392* this) {
     switch (this->state) {
         case 0:
             Matrix_Translate(gCalcMatrix, this->vel.x, this->vel.y, this->vel.z, MTXF_NEW);
-            Matrix_RotateY(gCalcMatrix, this->unk_60.y * M_DTOR, MTXF_APPLY);
-            Matrix_RotateX(gCalcMatrix, this->unk_60.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
             sp3C.x = 0.0f;
             sp3C.y = 0.0f;
@@ -734,7 +734,7 @@ void Solar_Effect392_Update(Effect392* this) {
 
             Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->obj.pos);
 
-            this->unk_60.x += 5.0f;
+            this->orient.x += 5.0f;
 
             if ((gGameFrameCount % 2) == 0) {
                 this->unk_4C++;
@@ -747,7 +747,7 @@ void Solar_Effect392_Update(Effect392* this) {
                 func_effect_8007A774(&gPlayer[0], this, this->scale2 * 12.0f);
             }
 
-            if (this->unk_60.x > 190.0f) {
+            if (this->orient.x > 190.0f) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
 
@@ -863,13 +863,13 @@ void Solar_Effect392_Update(Effect392* this) {
                 this->unk_4C = 0;
             }
 
-            if (this->unk_60.x < 7.5f) {
-                this->unk_60.x += 0.25f;
+            if (this->orient.x < 7.5f) {
+                this->orient.x += 0.25f;
             }
-            this->unk_60.z += 10.0f;
+            this->orient.z += 10.0f;
 
-            this->vel.x = SIN_DEG(this->unk_60.z) * (this->unk_60.x * 10.0f);
-            this->vel.y = COS_DEG(this->unk_60.z) * (this->unk_60.x * 10.0f);
+            this->vel.x = SIN_DEG(this->orient.z) * (this->orient.x * 10.0f);
+            this->vel.y = COS_DEG(this->orient.z) * (this->orient.x * 10.0f);
             this->vel.z = gPlayer[0].vel.z + 15.0f;
 
             if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
@@ -894,10 +894,10 @@ void Solar_Effect392_Update(Effect392* this) {
                 this->unk_4C = 0;
             }
 
-            this->unk_60.z += 20.0f;
+            this->orient.z += 20.0f;
 
-            this->vel.x = SIN_DEG(this->unk_60.z) * sp50 * 50.0f;
-            this->vel.y = COS_DEG(this->unk_60.z) * sp50 * 50.0f;
+            this->vel.x = SIN_DEG(this->orient.z) * sp50 * 50.0f;
+            this->vel.y = COS_DEG(this->orient.z) * sp50 * 50.0f;
             this->vel.z = gPlayer[0].vel.z + 80.0f;
 
             if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
@@ -916,16 +916,16 @@ void Solar_Effect392_Draw(Effect392* this) {
     Graphics_SetScaleMtx(this->scale2);
     switch (this->state) {
         case 0:
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
             gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->unk_4C]);
             break;
         case 1:
         case 2:
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
             gSPDisplayList(gMasterDisp++, D_i3_801BF944[this->unk_4C]);
             break;
         case 3:
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
             gSPDisplayList(gMasterDisp++, D_SO_601C820);
             break;
         case 4:
@@ -933,7 +933,7 @@ void Solar_Effect392_Draw(Effect392* this) {
         case 6:
         case 7:
             RCP_SetupDL(&gMasterDisp, SETUPDL_53);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->unk_44);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
             gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->unk_4C]);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
@@ -1446,7 +1446,7 @@ void Solar_801A23F4(SoVulkain* this) {
                     } else {
                         this->swork[SO_SWK_1] = 2;
                         this->state = 0;
-                        this->rot_078.y = 0.0f;
+                        this->orient.y = 0.0f;
                     }
                 } else if (this->swork[SO_SWK_3] == 0) {
                     this->swork[SO_SWK_1] = 7;
@@ -1588,14 +1588,14 @@ void Solar_801A23F4(SoVulkain* this) {
             }
 
             if (this->animFrame == 80) {
-                this->rot_078.y += 15.0f;
+                this->orient.y += 15.0f;
                 this->state++;
-                if (this->rot_078.y >= 30.0f) {
-                    this->rot_078.y = 0.0f;
+                if (this->orient.y >= 30.0f) {
+                    this->orient.y = 0.0f;
                 }
             }
 
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_078.y, 1.0f, 1.5f, 1.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->orient.y, 1.0f, 1.5f, 1.0f);
 
             if (this->animFrame >= 19) {
                 this->info.hitbox[20] = 715.0f;
@@ -2333,7 +2333,7 @@ void Solar_801A4EF8(SoVulkain* this) {
                 this->obj.rot.y -= 360.0f;
                 AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_ROLL, this->sfxSource, 4);
             }
-            this->rot_078.y = this->obj.rot.y;
+            this->orient.y = this->obj.rot.y;
             break;
 
         case 1:
@@ -2374,11 +2374,11 @@ void Solar_801A4EF8(SoVulkain* this) {
                 this->fwork[SO_FWK_3] = 4800.0f;
                 this->obj.pos.z = gPlayer[0].trueZpos - this->fwork[SO_FWK_3];
                 this->swork[SO_SWK_1] = 0;
-                this->rot_078.y = this->obj.rot.y = 0.0f;
+                this->orient.y = this->obj.rot.y = 0.0f;
                 this->vel.y = 0.0f;
                 this->obj.rot.x = 0.0f;
             }
-            this->rot_078.y = this->obj.rot.y;
+            this->orient.y = this->obj.rot.y;
             break;
 
         case 2:
@@ -2396,7 +2396,7 @@ void Solar_801A4EF8(SoVulkain* this) {
 
             if (this->swork[SO_SWK_11] < 200) {
                 this->animFrame = 98;
-                this->rot_078.y += this->fwork[SO_FWK_31];
+                this->orient.y += this->fwork[SO_FWK_31];
 
                 if (this->swork[SO_SWK_11] == 170) {
                     AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, this->sfxSource, 4);
@@ -2466,14 +2466,14 @@ void Solar_801A56B8(SoVulkain* this) {
             if (((this->animFrame == 89) && (this->state == 2)) || (this->swork[SO_SWK_2] == 0)) {
                 this->animFrame = 0;
                 this->state = 0;
-                this->rot_078.y = 0.0f;
+                this->orient.y = 0.0f;
             }
             if (this->animFrame == 89) {
                 this->state++;
-                this->rot_078.y += 15.0f;
+                this->orient.y += 15.0f;
             }
 
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_078.y, 1.0f, 3.0f, 1.0f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->orient.y, 1.0f, 3.0f, 1.0f);
 
             if (this->animFrame > 18) {
                 this->info.hitbox[20] = 715.0f;
@@ -3548,11 +3548,11 @@ void Solar_801A8BE8(ActorCutscene* this) {
         case 3:
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
-            this->rot_0F4.x += 0.2f;
+            this->orient.x += 0.2f;
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -3564,9 +3564,9 @@ void Solar_801A8BE8(ActorCutscene* this) {
     this->vel.y = dest.y;
     this->vel.z = dest.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }
 
 void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {

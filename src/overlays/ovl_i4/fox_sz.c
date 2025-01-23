@@ -99,7 +99,7 @@ void SectorZ_FireSmokeEffectSetup(EffectFireSmoke* this, f32 xPos, f32 yPos, f32
 
     Object_SetInfo(&this->info, this->obj.id);
 
-    this->unk_44 = 255;
+    this->alpha = 255;
     this->unk_46 = 2;
 }
 
@@ -206,7 +206,7 @@ void SectorZ_SpawnMissile(ActorAllRange* this, s32 missileWaveIdx) {
     this->obj.pos.z = sMissileWaveInitPos[missileWaveIdx].z;
 
     this->state = 5;
-    this->rot_0F4.y = 180.0f;
+    this->orient.y = 180.0f;
 
     Object_SetInfo(&this->info, this->obj.id);
 
@@ -231,7 +231,7 @@ void SectorZ_SpawnMissileEscort(ActorAllRange* this, s32 enemyIndex) {
     this->obj.pos.z = gActors[SZ_MISSILE_CENTER].obj.pos.z + sMissileEscortOffsetPos[enemyIndex].z;
 
     this->state = 5;
-    this->rot_0F4.y = 180.0f;
+    this->orient.y = 180.0f;
 
     Object_SetInfo(&this->info, this->obj.id);
 
@@ -253,10 +253,10 @@ void SectorZ_Katt_Init(void) {
     katt->aiType = AI360_KATT;
     katt->aiIndex = AI360_ENEMY + 2;
     katt->health = 10000;
-    katt->rot_0F4.y = 180.0f;
+    katt->orient.y = 180.0f;
     katt->state = 0;
     katt->timer_0BC = 250;
-    katt->rot_0F4.x = -20.0f;
+    katt->orient.x = -20.0f;
     katt->iwork[11] = 1;
     katt->obj.rot.z = 90.0f;
 
@@ -382,7 +382,7 @@ void SectorZ_EnemyUpdate(ActorAllRange* this) {
                 actor->obj.pos.y = RAND_FLOAT(1000.0f) + 300.0f;
                 actor->obj.pos.z = dest.z;
 
-                actor->rot_0F4.y = this->counter_04E * 18.0f;
+                actor->orient.y = this->counter_04E * 18.0f;
                 actor->state = 3;
                 actor->aiType = i + AI360_ENEMY + 3;
                 actor->aiIndex = -1;
@@ -804,7 +804,7 @@ void SectorZ_TeamSetup(void) {
                 team->obj.pos.z = gPlayer[0].pos.z + sTeamSetupOffsetPos[i].z;
                 team->aiType = i;
                 team->state = 2;
-                team->rot_0F4.y = 270.0f;
+                team->orient.y = 270.0f;
                 team->health = 255;
                 team->iwork[11] = 1;
 
@@ -1089,7 +1089,7 @@ void SectorZ_CsLevelCompleteTeamInit(ActorCutscene* this, s32 index) {
     this->obj.pos.z = sCsTeamZpos[index];
 
     this->fwork[0] = gPlayer[0].baseSpeed;
-    this->rot_0F4.y = gPlayer[0].rot.y;
+    this->orient.y = gPlayer[0].rot.y;
 
     Object_SetInfo(&this->info, this->obj.id);
 
@@ -1115,13 +1115,13 @@ void SectorZ_CsLevelCompleteKattInit(void) {
     katt->obj.pos.y = gBosses[SZ_GREAT_FOX].obj.pos.y - 1000.0f;
     katt->obj.pos.z = gBosses[SZ_GREAT_FOX].obj.pos.z - 1000.0f;
 
-    katt->rot_0F4.y = 180.0f;
-    katt->rot_0F4.x = 20.0f;
+    katt->orient.y = 180.0f;
+    katt->orient.x = 20.0f;
 
     katt->obj.rot.x = -20.0f;
     katt->obj.rot.y = 180.0f;
     katt->obj.rot.y *= 2.0f;
-    katt->obj.rot.z = -katt->rot_0F4.z;
+    katt->obj.rot.z = -katt->orient.z;
 
     katt->fwork[0] = 30.0f;
     katt->animFrame = ACTOR_CS_KATT;
@@ -1240,9 +1240,9 @@ void SectorZ_LevelComplete(Player* player) {
             gFillScreenAlphaTarget = 0;
             gFillScreenAlpha = 0;
 
-            Math_SmoothStepToAngle(&greatFox->rot_078.x, 20.0f, 0.03f, greatFox->fwork[1], 0.0f);
-            Math_SmoothStepToAngle(&greatFox->rot_078.y, 180.0f, 0.03f, greatFox->fwork[2], 0.0f);
-            Math_SmoothStepToAngle(&greatFox->rot_078.z, 30.0f, 0.03f, greatFox->fwork[3], 0.0f);
+            Math_SmoothStepToAngle(&greatFox->orient.x, 20.0f, 0.03f, greatFox->fwork[1], 0.0f);
+            Math_SmoothStepToAngle(&greatFox->orient.y, 180.0f, 0.03f, greatFox->fwork[2], 0.0f);
+            Math_SmoothStepToAngle(&greatFox->orient.z, 30.0f, 0.03f, greatFox->fwork[3], 0.0f);
             Math_SmoothStepToF(&greatFox->fwork[0], 20.0f, 0.05f, 0.3f, 0.0f);
             Math_SmoothStepToF(&greatFox->fwork[1], 0.07f, 1.0f, 0.07f, 0.0f);
             Math_SmoothStepToF(&greatFox->fwork[2], 0.5f, 1.0f, 0.05f, 0.0f);
@@ -1629,7 +1629,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
         case 2:
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
-            this->rot_0F4.x += this->fwork[1];
+            this->orient.x += this->fwork[1];
             Math_SmoothStepToF(&this->fwork[1], 0.1f, 1.0f, 0.01f, 0.0f);
             break;
 
@@ -1640,18 +1640,18 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
             break;
 
         case 11:
-            Math_SmoothStepToF(&this->rot_0F4.x, 215.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.x, 215.0f, 0.1f, 7.0f, 0.0f);
             Math_SmoothStepToF(&this->fwork[0], 10.0f, 0.1f, 1.5f, 0.0f);
-            Math_SmoothStepToAngle(&this->rot_0F4.y, 140.0f, 0.1f, 1.0f, 0.0f);
-            if (this->rot_0F4.x > 180.0f) {
+            Math_SmoothStepToAngle(&this->orient.y, 140.0f, 0.1f, 1.0f, 0.0f);
+            if (this->orient.x > 180.0f) {
                 this->state = 12;
             }
             break;
 
         case 12:
-            Math_SmoothStepToAngle(&this->rot_0F4.x, 218.0f, 0.1f, 7.0f, 0.0f);
-            Math_SmoothStepToAngle(&this->rot_0F4.y, 147.0f, 0.1f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&this->rot_0F4.z, 170.0f, 0.03f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&this->orient.x, 218.0f, 0.1f, 7.0f, 0.0f);
+            Math_SmoothStepToAngle(&this->orient.y, 147.0f, 0.1f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.z, 170.0f, 0.03f, 3.0f, 0.0f);
             Math_SmoothStepToF(&this->fwork[0], 20.0f, 0.1f, 1.0f, 0.0f);
             break;
     }
@@ -1680,7 +1680,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
 
         if (gCsFrameCount > 430) {
             this->fwork[29] = 3.0f;
-            Math_SmoothStepToF(&this->rot_0F4.z, 500.0f, 0.1f, 20.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.z, 500.0f, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&this->fwork[0], 40.0f, 0.1f, 3.0f, 0.0f);
 
             if ((gCsFrameCount < 460) && ((gCsFrameCount & 3) == 0)) {
@@ -1697,8 +1697,8 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1710,16 +1710,16 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
     this->vel.y = dest.y;
     this->vel.z = dest.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }
 
 void SectorZ_SpaceJunkUpdate(SzSpaceJunk* this) {
     s32 i;
 
-    this->obj.rot.x += this->rot_0F4.x;
-    this->obj.rot.y += this->rot_0F4.y;
+    this->obj.rot.x += this->orient.x;
+    this->obj.rot.y += this->orient.y;
 
     if (this->dmgType != DMG_NONE) {
         this->timer_0C6 = 20;
@@ -1802,8 +1802,8 @@ void SectorZ_SzGreatFox_Update(SzGreatFox* this) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_078.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_078.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -1815,9 +1815,9 @@ void SectorZ_SzGreatFox_Update(SzGreatFox* this) {
     this->vel.y = dest.y;
     this->vel.z = dest.z;
 
-    this->obj.rot.x = -this->rot_078.x;
-    this->obj.rot.y = this->rot_078.y + 180.0f;
-    this->obj.rot.z = -this->rot_078.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 
     if (!gGreatFoxIntact) {
         Matrix_RotateY(gCalcMatrix, (this->obj.rot.y - 270.0f) * M_DTOR, MTXF_NEW);
@@ -1881,8 +1881,8 @@ void SectorZ_LoadLevelObjects(void) {
             actor->obj.pos.y = gLevelObjects[i].yPos;
             actor->obj.pos.z = -gLevelObjects[i].zPos1;
             actor->health = 24;
-            actor->rot_0F4.x = RAND_FLOAT_CENTERED(4.0f);
-            actor->rot_0F4.y = RAND_FLOAT_CENTERED(4.0f);
+            actor->orient.x = RAND_FLOAT_CENTERED(4.0f);
+            actor->orient.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->itemDrop = DROP_SILVER_RING;
 
@@ -1900,11 +1900,11 @@ void SectorZ_LoadLevelObjects(void) {
     greatFox->obj.pos.y = 0.0f;
     greatFox->obj.pos.z = 0.0f;
 
-    greatFox->rot_078.y = 90.0f;
+    greatFox->orient.y = 90.0f;
 
-    greatFox->obj.rot.x = -greatFox->rot_078.x;
-    greatFox->obj.rot.y = greatFox->rot_078.y + 180.0f;
-    greatFox->obj.rot.z = -greatFox->rot_078.z;
+    greatFox->obj.rot.x = -greatFox->orient.x;
+    greatFox->obj.rot.y = greatFox->orient.y + 180.0f;
+    greatFox->obj.rot.z = -greatFox->orient.z;
 
     greatFox->obj.id = OBJ_BOSS_SZ_GREAT_FOX;
     Object_SetInfo(&greatFox->info, greatFox->obj.id);
