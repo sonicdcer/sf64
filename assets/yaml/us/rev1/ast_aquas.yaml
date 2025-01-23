@@ -650,11 +650,11 @@ D_AQ_602E540:
 D_AQ_602E584:
   { type: SF64:ENVIRONMENT, offset: 0x602E584, symbol: D_AQ_602E584 }
 
-D_AQ_602E5C8:
-  { type: SF64:OBJECT_INIT, offset: 0x602E5C8, symbol: D_AQ_602E5C8 }
+aAqLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x602E5C8, symbol: aAqLevelObjects }
 
-D_AQ_60308B8:
-  { type: SF64:SCRIPT, offset: 0x60308B8, symbol: D_AQ_60308B8 }
+aAqEventScript:
+  { type: SF64:SCRIPT, offset: 0x60308B8, symbol: aAqEventScript }
 
 aBoss301Hitbox:
   { type: SF64:HITBOX, offset: 0x6030B10, symbol: aBoss301Hitbox }
@@ -677,14 +677,14 @@ D_AQ_6030BAC:
 aAqActor188Hitbox:
   { type: SF64:HITBOX, offset: 0x6030BE0, symbol: aAqActor188Hitbox }
 
-aAqActor255Hitbox:
-  { type: SF64:HITBOX, offset: 0x6030BFC, symbol: aAqActor255Hitbox }
+aAqSanadaHitbox:
+  { type: SF64:HITBOX, offset: 0x6030BFC, symbol: aAqSanadaHitbox }
 
-aAqActor256Hitbox:
-  { type: SF64:HITBOX, offset: 0x6030C18, symbol: aAqActor256Hitbox }
+aAqBacoonMuscleHitbox:
+  { type: SF64:HITBOX, offset: 0x6030C18, symbol: aAqBacoonMuscleHitbox }
 
-aAqActor257Hitbox:
-  { type: SF64:HITBOX, offset: 0x6030C44, symbol: aAqActor257Hitbox }
+aAqBacconBarnacleHitbox:
+  { type: SF64:HITBOX, offset: 0x6030C44, symbol: aAqBacconBarnacleHitbox }
 
 aAqCoralReef1Hitbox:
   { type: SF64:HITBOX, offset: 0x6030C60, symbol: aAqCoralReef1Hitbox }

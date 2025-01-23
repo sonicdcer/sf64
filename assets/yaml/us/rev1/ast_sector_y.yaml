@@ -290,14 +290,14 @@ D_SY_602D238:
 D_SY_602E4B0:
   { type: SF64:ENVIRONMENT, offset: 0x602E4B0, symbol: D_SY_602E4B0 }
 
-D_SY_602E4F4:
-  { type: SF64:OBJECT_INIT, offset: 0x602E4F4, symbol: D_SY_602E4F4 }
+aSyOnRailsLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x602E4F4, symbol: aSyOnRailsLevelObjects }
 
-D_SY_6030B14:
-  { type: SF64:OBJECT_INIT, offset: 0x6030B14, symbol: D_SY_6030B14 }
+aSyAllRangeLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6030B14, symbol: aSyAllRangeLevelObjects }
 
-D_SY_6032E18:
-  { type: SF64:SCRIPT, offset: 0x6032E18, symbol: D_SY_6032E18 }
+aSyEventScript:
+  { type: SF64:SCRIPT, offset: 0x6032E18, symbol: aSyEventScript }
 
 D_SY_6033070:
   {type: SF64:COLPOLY, count: 174, offset: 0x6033070, symbol: D_SY_6033070, mesh_symbol: D_SY_6033E08 }

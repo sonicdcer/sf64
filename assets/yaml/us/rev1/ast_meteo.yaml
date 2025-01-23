@@ -268,17 +268,17 @@ D_ME_60263F0:
 D_ME_6026478: 
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06026478, symbol: D_ME_6026478 }
 
-D_ME_6026CC4: 
-  { type: SF64:OBJECT_INIT, offset: 0x6026CC4, symbol: D_ME_6026CC4 }
+aMeLevelObjects: 
+  { type: SF64:OBJECT_INIT, offset: 0x6026CC4, symbol: aMeLevelObjects }
 
 D_ME_6026C80:
   { type: SF64:ENVIRONMENT, offset: 0x6026C80, symbol: D_ME_6026C80 }
 
-D_ME_602B148: 
-  { type: SF64:OBJECT_INIT, offset: 0x602B148, symbol: D_ME_602B148 }
+aMeWarpZoneLevelObjects: 
+  { type: SF64:OBJECT_INIT, offset: 0x602B148, symbol: aMeWarpZoneLevelObjects }
 
-D_ME_602F3AC:
-  { type: SF64:SCRIPT, offset: 0x602F3AC, symbol: D_ME_602F3AC }
+aMeEventScript:
+  { type: SF64:SCRIPT, offset: 0x602F3AC, symbol: aMeEventScript }
 
 aMeFlipBotHitbox:
   { type: SF64:HITBOX, offset: 0x602F604, symbol: aMeFlipBotHitbox }

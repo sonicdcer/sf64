@@ -115,14 +115,14 @@ aVe1Wall1DL:
 D_VE1_6007E30:
   { type: SF64:ENVIRONMENT, offset: 0x6007E30, symbol: D_VE1_6007E30 }
 
-D_VE1_6007E74:
-  { type: SF64:OBJECT_INIT, offset: 0x6007E74, symbol: D_VE1_6007E74 }
+aVe1LevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6007E74, symbol: aVe1LevelObjects }
 
-D_VE1_601B1E4:
-  { type: SF64:SCRIPT, offset: 0x601B1E4, symbol: D_VE1_601B1E4 }
+aVe1EventScript:
+  { type: SF64:SCRIPT, offset: 0x601B1E4, symbol: aVe1EventScript }
 
-D_VE1_6010088:
-  { type: SF64:OBJECT_INIT, offset: 0x6010088, symbol: D_VE1_6010088 }
+aVe1BetaLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x6010088, symbol: aVe1BetaLevelObjects }
 
 aVe1Pillar5Hitbox:
   { type: SF64:HITBOX, offset: 0x601B43C, symbol: aVe1Pillar5Hitbox }

@@ -757,8 +757,8 @@ void Effect_Effect357_Draw(Effect357* this) {
                     break;
 
                 case 7:
-                    Animation_GetFrameData(&D_MA_6027320, 0, frameJointTable);
-                    Animation_DrawSkeleton(1, D_MA_602742C, frameJointTable, func_effect_800798C4, NULL, this,
+                    Animation_GetFrameData(&aMaCannonAnim, 0, frameJointTable);
+                    Animation_DrawSkeleton(1, aMaCannonSkel, frameJointTable, func_effect_800798C4, NULL, this,
                                            &gIdentityMatrix);
                     break;
 

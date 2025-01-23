@@ -307,16 +307,16 @@ void Play_InitVsStage(void) {
 
     switch (gVersusStage) {
         case VS_STAGE_CORNERIA:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302DE3C);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsCoLevelObjects);
             break;
         case VS_STAGE_KATINA:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E0E4);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsKaLevelObjects);
             break;
         case VS_STAGE_SECTOR_Z:
             if (gVsMatchType == VS_MATCH_TIME) {
-                gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E378);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsSzMatchLevelObjects);
             } else {
-                gLevelObjects = SEGMENTED_TO_VIRTUAL(D_versus_302E170);
+                gLevelObjects = SEGMENTED_TO_VIRTUAL(aVsSzLevelObjects);
             }
             break;
     }
@@ -416,7 +416,7 @@ void Play_Setup360_SY(void) {
     Scenery360* scenery360;
     s32 i;
 
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_SY_6030B14);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aSyAllRangeLevelObjects);
 
     for (i = 0, scenery360 = gScenery360; i < 200; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
@@ -2082,7 +2082,7 @@ void Player_CollisionCheck(Player* player) {
                             }
                         }
                     }
-                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
+                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TANK_CAR)) {
                     temp_v0 = Player_CheckHitboxCollision(
                         player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                         actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z, actor->fwork[29],
@@ -2522,17 +2522,17 @@ void Play_InitLevel(void) {
 
     switch (gCurrentLevel) {
         case LEVEL_TRAINING:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_28);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TR);
             gTeamLowHealthMsgTimer = -1;
             break;
         case LEVEL_VENOM_1:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_VE);
             break;
         case LEVEL_VENOM_2:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_6);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_VE);
             break;
         case LEVEL_VENOM_ANDROSS:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_15);
+            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_AND);
             Audio_SetEnvSfxReverb(0);
             gTeamLowHealthMsgTimer = -1;
             break;
@@ -4545,7 +4545,7 @@ void Player_Setup(Player* playerx) {
     D_hud_80161720[2] = 0.0f;
 
     gDisplayedHitCount = gHitCount;
-    D_hud_80161730 = 0;
+    gShieldGaugeState = SHIELD_GAUGE_NEUTRAL;
     gMissedZoSearchlight = gSavedZoSearchlightStatus;
     gObjectLoadIndex = gSavedObjectLoadIndex;
     gGroundSurface = gSavedGroundSurface;
@@ -4555,7 +4555,7 @@ void Player_Setup(Player* playerx) {
     if ((gSavedObjectLoadIndex > 0) && (gLevelMode == LEVELMODE_ON_RAILS)) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             sp2E = gObjectLoadIndex;
-            Macbeth_801AD080();
+            Macbeth_ShortTrainObjects();
             gObjectLoadIndex = sp2E;
         }
         func_enmy_80062568();
@@ -4696,7 +4696,7 @@ void Player_Setup(Player* playerx) {
             for (objInit = gLevelObjects, i = 0; i < gObjectLoadIndex; i++, objInit++) {
                 Object_Load(objInit, 4000.0f, -4000.0f, 4000.0f, -4000.0f);
             }
-            Macbeth_801ACFBC();
+            Macbeth_LongTrainObjects();
         }
     }
 
@@ -4950,8 +4950,8 @@ void Player_UpdateTankRoll(Player* player) {
 }
 
 void Player_ArwingBoost(Player* player) {
-    f32 sp2C;
-    f32 sp28;
+    f32 boostRecoverRate;
+    f32 boostDepleteRate;
     s32 stickY;
 
     if ((player->boostMeter != 0.0f) && (gInputHold->button & gBrakeButton[player->num]) &&
@@ -4960,12 +4960,12 @@ void Player_ArwingBoost(Player* player) {
     }
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        sp28 = 3.0f;
-        sp2C = 0.5f;
+        boostDepleteRate = 3.0f;
+        boostRecoverRate = 0.5f;
 
     } else {
-        sp28 = 1.5f;
-        sp2C = 0.35f;
+        boostDepleteRate = 1.5f;
+        boostRecoverRate = 0.35f;
     }
 
     player->sfx.boost = 0;
@@ -5045,7 +5045,7 @@ void Player_ArwingBoost(Player* player) {
                 Math_SmoothStepToF(&player->arwing.upperLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
                 Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, 0.0f, 0.5f, 100.0f, 0.0f);
             }
-            player->boostMeter += sp28;
+            player->boostMeter += boostDepleteRate;
             if (player->boostMeter > 90.0f) {
                 player->boostMeter = 90.0f;
                 player->boostCooldown = true;
@@ -5064,7 +5064,7 @@ void Player_ArwingBoost(Player* player) {
             Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             if (player->boostMeter > 0.0f) {
-                player->boostMeter -= sp2C;
+                player->boostMeter -= boostRecoverRate;
                 if (player->boostMeter <= 0.0f) {
                     player->boostMeter = 0.0f;
                     player->boostCooldown = false;
@@ -5086,16 +5086,16 @@ void Player_ArwingBoost2(Player* player) {
 }
 
 void Player_ArwingBrake(Player* player) {
-    f32 sp34;
-    f32 sp30;
+    f32 brakeRecoverRate;
+    f32 brakeDepleteRate;
     s32 stickY;
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
-        sp30 = 3.0f;
-        sp34 = 0.5f;
+        brakeDepleteRate = 3.0f;
+        brakeRecoverRate = 0.5f;
     } else {
-        sp30 = 1.5f;
-        sp34 = 0.35f;
+        brakeDepleteRate = 1.5f;
+        brakeRecoverRate = 0.35f;
     }
 
     player->sfx.brake = false;
@@ -5144,7 +5144,7 @@ void Player_ArwingBrake(Player* player) {
             Math_SmoothStepToF(&player->arwing.bottomLeftFlapYrot, -90.0f, 0.2f, 100.0f, 0.0f);
         }
 
-        player->boostMeter += sp30;
+        player->boostMeter += brakeDepleteRate;
         if (player->boostMeter > 90.0f) {
             player->boostCooldown = true;
             player->boostMeter = 90.0f;
@@ -5160,7 +5160,7 @@ void Player_ArwingBrake(Player* player) {
         player->sfx.brake = true;
         Math_SmoothStepToF(&D_ctx_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
     } else if (player->boostMeter > 0.0f) {
-        player->boostMeter -= sp34;
+        player->boostMeter -= brakeRecoverRate;
         if (player->boostMeter <= 0.0f) {
             player->boostMeter = 0.0f;
             player->boostCooldown = false;
@@ -6733,7 +6733,7 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_METEO:
-            Lib_Texture_Scroll(D_102FF08, 8, 8, 1);
+            Lib_Texture_Scroll(aMeteoWarpTex, 8, 8, 1);
             /* fallthrough */
         case LEVEL_SECTOR_X:
             if (gLevelPhase == 1) {
@@ -6938,9 +6938,7 @@ void Play_SetupZPos360(f32* zPos) {
 }
 
 void Play_Main(void) {
-    s32 pad1;
-    s32 pad2;
-    s32 pad3;
+    s32 pad[3];
     s32 i;
     f32 fovYtarget;
 

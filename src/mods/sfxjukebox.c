@@ -44,7 +44,7 @@ void Jukebox_SelectWrap(u32* option, s32 range) {
     *option = (*option + range) % range;
 }
 
-Jukebox_SelectClamp(s32* option, s32 range, s32 skip) {
+void Jukebox_SelectClamp(s32* option, s32 range, s32 skip) {
     if (contHold->button & (U_CBUTTONS | D_CBUTTONS)) {
         holdTimer++;
     } else {

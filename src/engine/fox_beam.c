@@ -656,7 +656,9 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
         }
         return false;
     }
-    // return false;
+#ifdef AVOID_UB
+    return false;
+#endif
 }
 
 void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex) {
@@ -1275,7 +1277,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
             case PLAYERSHOT_BOMB:
                 if (shot->unk_5C == 0) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
-                    gSPDisplayList(gMasterDisp++, D_10231A0);
+                    gSPDisplayList(gMasterDisp++, aItemBombDL);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress,
@@ -1474,7 +1476,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     gSPDisplayList(gMasterDisp++, aOrbDL);
                 } else {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
-                    gSPDisplayList(gMasterDisp++, D_10231A0);
+                    gSPDisplayList(gMasterDisp++, aItemBombDL);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress,

@@ -284,9 +284,9 @@ void SectorZ_KattCutscene(ActorCutscene* this) {
         gPlayer[0].cam.eye.y = 2500.0f;
         gPlayer[0].cam.eye.z = 25000.0f;
 
-        gPlayer[0].cam.at.x = gActors[8].obj.pos.x;
-        gPlayer[0].cam.at.y = gActors[8].obj.pos.y;
-        gPlayer[0].cam.at.z = gActors[8].obj.pos.z;
+        gPlayer[0].cam.at.x = gActors[AI360_KATT].obj.pos.x;
+        gPlayer[0].cam.at.y = gActors[AI360_KATT].obj.pos.y;
+        gPlayer[0].cam.at.z = gActors[AI360_KATT].obj.pos.z;
 
         sKattEnabled = true;
     }
@@ -604,6 +604,12 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
             gActors[3].state = 2;
 
             for (i = 10; i < ARRAY_COUNT(gActors); i++) {
+                //! @bug: Assigning aiIndex and state to potentially non-existent actors
+#ifdef AVOID_UB
+                if (gActors[i].obj.status == OBJ_FREE) {
+                    continue;
+                }
+#endif
                 gActors[i].aiIndex = -1;
                 gActors[i].state = 3;
             }
@@ -1868,6 +1874,12 @@ void SectorZ_LoadLevelObjects(void) {
         }
     }
 
+    /**
+     * @bug:
+     * aSzLevelObjects has 12 actors, loading from gActors[50] to gActors[60] only
+     * accounts for 11 of them. Slot 60 is invalid and overflows to gBosses[0], which
+     * is immediately overwritten by the Great Fox, so only 10 of the 12 actors are spawned.
+     */
     for (j = 50, actor = &gActors[j], i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
@@ -1885,8 +1897,11 @@ void SectorZ_LoadLevelObjects(void) {
             actor->orient.y = RAND_FLOAT_CENTERED(4.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             actor->itemDrop = DROP_SILVER_RING;
-
+#ifdef AVOID_UB
+            if (j++ >= ARRAY_COUNT(gActors) - 1) {
+#else
             if (j++ >= ARRAY_COUNT(gActors)) {
+#endif
                 break;
             }
             actor++;

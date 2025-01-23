@@ -4351,7 +4351,7 @@ void Andross_80193C4C(Player* player) {
                     gNextGameState = GSTATE_ENDING;
                     D_ending_80196D00 = 0;
                     gLeveLClearStatus[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
-                    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_27);
+                    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_ENDING);
                 }
             }
             break;

@@ -229,14 +229,14 @@ D_SX_6029918:
 D_SX_602A120:
   { type: SF64:ENVIRONMENT, offset: 0x602A120, symbol: D_SX_602A120 }
 
-D_SX_602A164:
-  { type: SF64:OBJECT_INIT, count: 1026, offset: 0x602A164, symbol: D_SX_602A164 }
+aSxLevelObjects:
+  { type: SF64:OBJECT_INIT, count: 1026, offset: 0x602A164, symbol: aSxLevelObjects }
 
-D_SX_602F18C:
-  { type: SF64:OBJECT_INIT, count: 167, offset: 0x602F18C, symbol: D_SX_602F18C }
+aSxWarpZoneLevelObjects:
+  { type: SF64:OBJECT_INIT, count: 167, offset: 0x602F18C, symbol: aSxWarpZoneLevelObjects }
 
-D_SX_60320D0:
-  { type: SF64:SCRIPT, offset: 0x60320D0, symbol: D_SX_60320D0 }
+aSxEventScript:
+  { type: SF64:SCRIPT, offset: 0x60320D0, symbol: aSxEventScript }
 
 D_SX_6032328:
   { type: SF64:HITBOX, offset: 0x6032328, symbol: D_SX_6032328 }

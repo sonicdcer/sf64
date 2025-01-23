@@ -458,14 +458,14 @@ D_1016658:
 D_1016858:
   { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016858, ctype: u16, symbol: D_1016858 }
 
-D_1016870:
-  { type: GFX, offset: 0x1016870, symbol: D_1016870 }
+aItemGoldRingDL:
+  { type: GFX, offset: 0x1016870, symbol: aItemGoldRingDL }
 
-D_1016BC8:
-  { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x1016BC8, tlut: 0x1012100, symbol: D_1016BC8}
+aItemGoldRingTex:
+  { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x1016BC8, tlut: 0x1012100, symbol: aItemGoldRingTex}
 
-D_1016FC8:
-  { type: TEXTURE, format: TLUT, colors: 256, offset: 0x1016FC8, ctype: u16, symbol: D_1016FC8 }
+aItemGoldRingTLUT:
+  { type: TEXTURE, format: TLUT, colors: 256, offset: 0x1016FC8, ctype: u16, symbol: aItemGoldRingTLUT }
 
 D_10171D0:
   { type: GFX, offset: 0x10171D0, symbol: D_10171D0 }
@@ -515,35 +515,35 @@ D_10194C0:
 D_1019620:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1019620, symbol: D_1019620 }
 
-D_1019820:
-  { type: GFX, offset: 0x1019820, symbol: D_1019820 }
+aItemLaserUpgradeDL:
+  { type: GFX, offset: 0x1019820, symbol: aItemLaserUpgradeDL }
 
-D_1019CA0:
-  { type: GFX, offset: 0x1019CA0, symbol: D_1019CA0 }
+aItemSilverStarDL:
+  { type: GFX, offset: 0x1019CA0, symbol: aItemSilverStarDL }
 
-D_1019AF0:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1019AF0, symbol: D_1019AF0 }
+aItemLaserUpgradeBodyTex:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1019AF0, symbol: aItemLaserUpgradeBodyTex }
 
-D_1019BF0:
-  { type: TEXTURE, format: TLUT, colors: 88, offset: 0x1019BF0, ctype: u16, symbol: D_1019BF0 }
+aItemLaserUpgradeBodyTLUT:
+  { type: TEXTURE, format: TLUT, colors: 88, offset: 0x1019BF0, ctype: u16, symbol: aItemLaserUpgradeBodyTLUT }
 
-D_101A140:
-  { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x101A140, symbol: D_101A140 }
+aItemHexagonTex:
+  { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x101A140, symbol: aItemHexagonTex }
 
-D_101A540:
-  { type: TEXTURE, format: TLUT, colors: 24, offset: 0x101A540, ctype: u16, symbol: D_101A540 }
+aItemHexagonTLUT:
+  { type: TEXTURE, format: TLUT, colors: 24, offset: 0x101A540, ctype: u16, symbol: aItemHexagonTLUT }
 
-D_101A570:
-  { type: GFX, offset: 0x101A570, symbol: D_101A570 }
+aItemSilverRingDL:
+  { type: GFX, offset: 0x101A570, symbol: aItemSilverRingDL }
 
-D_101A8E0:
-  { type: GFX, offset: 0x101A8E0, symbol: D_101A8E0 }
+aItemLaserUpgradeLetterDL:
+  { type: GFX, offset: 0x101A8E0, symbol: aItemLaserUpgradeLetterDL }
 
-D_101A9B8:
-  { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x101A9B8, tlut: 0x101ABB8, symbol: D_101A9B8 }
+aItemLaserUpgradeLetterTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x101A9B8, tlut: 0x101ABB8, symbol: aItemLaserUpgradeLetterTex }
 
-D_101ABB8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101ABB8, ctype: u16, symbol: D_101ABB8 }
+aItemLaserUpgradeLetterTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101ABB8, ctype: u16, symbol: aItemLaserUpgradeLetterTLUT }
 
 D_101ABD0:
   { type: GFX, offset: 0x101ABD0, symbol: D_101ABD0 }
@@ -686,14 +686,14 @@ D_101C920:
 D_101CA20:
   { type: TEXTURE, format: TLUT, colors: 96, offset: 0x101CA20, ctype: u16, symbol: D_101CA20 }
 
-D_101CAE0:
-  { type: GFX, offset: 0x101CAE0, symbol: D_101CAE0 }
+aCheckpointArrowDL:
+  { type: GFX, offset: 0x101CAE0, symbol: aCheckpointArrowDL }
 
-D_101CBC0:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x101CBC0, tlut: 0x101CCC0, symbol: D_101CBC0 }
+aCheckpointArrowTex:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x101CBC0, tlut: 0x101CCC0, symbol: aCheckpointArrowTex }
 
-D_101CCC0:
-  { type: TEXTURE, format: TLUT, colors: 88, offset: 0x101CCC0, ctype: u16, symbol: D_101CCC0 }
+aCheckpointArrowTLUT:
+  { type: TEXTURE, format: TLUT, colors: 88, offset: 0x101CCC0, ctype: u16, symbol: aCheckpointArrowTLUT }
 
 aUnusedShieldDL:
   { type: GFX, offset: 0x101CD70, symbol: aUnusedShieldDL }
@@ -752,8 +752,8 @@ D_1022D60:
 D_1022D80:
   { type: TEXTURE, format: RGBA16, width: 8, height: 16, ctype: u16, offset: 0x1022D80, symbol: D_1022D80 }
 
-D_1022E80:
-  { type: GFX, offset: 0x1022E80, symbol: D_1022E80 }
+aItemBombLetterDL:
+  { type: GFX, offset: 0x1022E80, symbol: aItemBombLetterDL }
 
 D_1022F80:
   { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x1022F80, tlut: 0x1023180, symbol: D_1022F80 }
@@ -761,17 +761,17 @@ D_1022F80:
 D_1023180:
   { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1023180, ctype: u16, symbol: D_1023180 }
 
-D_10231A0:
-  { type: GFX, offset: 0x10231A0, symbol: D_10231A0 }
+aItemBombDL:
+  { type: GFX, offset: 0x10231A0, symbol: aItemBombDL }
 
 D_1023518:
   { type: TEXTURE, format: IA8, width: 4, height: 5, ctype: u8, offset: 0x1023518, symbol: D_1023518 }
 
-D_1023530:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1023530, tlut: 0x1023630, symbol: D_1023530 }
+aItemBombTex:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1023530, tlut: 0x1023630, symbol: aItemBombTex }
 
-D_1023630:
-  { type: TEXTURE, format: TLUT, colors: 104, offset: 0x1023630, ctype: u16, symbol: D_1023630 }
+aItemBombTLUT:
+  { type: TEXTURE, format: TLUT, colors: 104, offset: 0x1023630, ctype: u16, symbol: aItemBombTLUT }
 
 D_1023700:
   { type: GFX, offset: 0x1023700, symbol: D_1023700 }
@@ -785,14 +785,14 @@ D_10237E0:
 D_1023878:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1023878, symbol: D_1023878 }
 
-D_1023C80:
-  { type: GFX, offset: 0x1023C80, symbol: D_1023C80 }
+aCheckpointCenterDL:
+  { type: GFX, offset: 0x1023C80, symbol: aCheckpointCenterDL }
 
-D_1023E10:
-  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1023E10, tlut: 0x1024010, symbol: D_1023E10 }
+aCheckpointTextTex:
+  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1023E10, tlut: 0x1024010, symbol: aCheckpointTextTex }
 
-D_1024010:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1024010, ctype: u16, symbol: D_1024010 }
+aCheckpointTextTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1024010, ctype: u16, symbol: aCheckpointTextTLUT }
 
 D_1024020:
   { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1024020, tlut: 0x1024220, symbol: D_1024020 }
@@ -956,11 +956,11 @@ D_102F5E0:
 D_102F678:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102F678, symbol: D_102F678 }
 
-D_102FE80:
-  { type: GFX, offset: 0x102FE80, symbol: D_102FE80 }
+aMeteoWarpDL:
+  { type: GFX, offset: 0x102FE80, symbol: aMeteoWarpDL }
 
-D_102FF08:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x102FF08, symbol: D_102FF08 }
+aMeteoWarpTex:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x102FF08, symbol: aMeteoWarpTex }
 
 D_102FF90:
   { type: GFX, offset: 0x102FF90, symbol: D_102FF90 }
