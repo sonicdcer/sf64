@@ -166,7 +166,7 @@ void PlayerShot_Impact(PlayerShot* shot) {
     }
 }
 
-void PlayerShot_SetupEffect344(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 xRot, f32 scale, s32 unk44,
+void PlayerShot_SetupEffect344(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 xRot, f32 scale, s32 alpha,
                                s32 time) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
@@ -177,7 +177,7 @@ void PlayerShot_SetupEffect344(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     effect->obj.rot.y = yRot;
     effect->obj.rot.x = xRot;
     effect->scale2 = scale * 0.5f;
-    effect->unk_44 = unk44;
+    effect->alpha = alpha;
     effect->unk_46 = 80;
     effect->timer_50 = time;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -185,15 +185,15 @@ void PlayerShot_SetupEffect344(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
 }
 
 void PlayerShot_SpawnEffect344(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot, f32 xRot,
-                               f32 scale, s32 unk44, s32 time) {
+                               f32 scale, s32 alpha, s32 time) {
     s32 i;
 
-    if ((gGroundType != 4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface != SURFACE_WATER) &&
+    if ((gGroundType != GROUND_4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface != SURFACE_WATER) &&
         (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_BOLSE) && (gCurrentLevel != LEVEL_TRAINING) &&
         (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                PlayerShot_SetupEffect344(&gEffects[i], xPos, yPos, zPos, yRot, xRot, scale, unk44, time);
+                PlayerShot_SetupEffect344(&gEffects[i], xPos, yPos, zPos, yRot, xRot, scale, alpha, time);
                 break;
             }
         }
@@ -217,7 +217,7 @@ void PlayerShot_LaserMark1_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f
 void PlayerShot_HitGround(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale) {
     s32 i;
 
-    if ((gGroundType != 4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface <= SURFACE_GRASS) &&
+    if ((gGroundType != GROUND_4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface <= SURFACE_GRASS) &&
         (gCurrentLevel != LEVEL_TRAINING) && (gCurrentLevel != LEVEL_SOLAR) && (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
@@ -399,12 +399,13 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
                         Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
-                    if (((actor->vwork[29].z != 0.0f) || (actor->vwork[29].x != 0.0f) || (actor->rot_0F4.z != 0.0f) ||
-                         (actor->vwork[29].y != 0.0f)) &&
+                    if (((actor->vwork[EVA_FORMATION_ROT].z != 0.0f) || (actor->vwork[EVA_FORMATION_ROT].x != 0.0f) ||
+                         (actor->orient.z != 0.0f) || (actor->vwork[EVA_FORMATION_ROT].y != 0.0f)) &&
                         (actor->eventType != EVID_A6_UMBRA_STATION)) {
-                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[29].z + actor->rot_0F4.z) * M_DTOR, MTXF_APPLY);
-                        Matrix_RotateX(gCalcMatrix, -actor->vwork[29].x * M_DTOR, MTXF_APPLY);
-                        Matrix_RotateY(gCalcMatrix, -actor->vwork[29].y * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateZ(gCalcMatrix, -(actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z) * M_DTOR,
+                                       MTXF_APPLY);
+                        Matrix_RotateX(gCalcMatrix, -actor->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -actor->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_APPLY);
                     }
                     sp7C.x = shot->obj.pos.x - actor->obj.pos.x;
                     sp7C.y = shot->obj.pos.y - actor->obj.pos.y;
@@ -677,7 +678,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
         }
     } else if ((shot->sourceId >= NPC_SHOT_ID) && (gCurrentLevel == LEVEL_SECTOR_X)) {
         if ((gActors[shot->sourceId - NPC_SHOT_ID].obj.id == OBJ_ACTOR_EVENT) &&
-            (gActors[shot->sourceId - NPC_SHOT_ID].iwork[12] == TEAM_ID_BILL)) {
+            (gActors[shot->sourceId - NPC_SHOT_ID].iwork[EVA_TEAM_ID] == TEAM_ID_BILL)) {
             actor->damage = 30;
         }
     }
@@ -760,7 +761,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                 (fabsf(shot->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
                 (fabsf(shot->obj.pos.y - effect->obj.pos.y) < 100.0f)) {
                 if (effect->info.unk_19 == 2) {
-                    effect->unk_44 = 1;
+                    effect->alpha = 1;
                 } else {
                     Object_Kill(&effect->obj, effect->sfxSource);
                 }
@@ -897,7 +898,8 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
             }
         }
     }
-    if ((gGroundType == 4) && Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress)) {
+    if ((gGroundType == GROUND_4) &&
+        Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress)) {
         PlayerShot_Impact(shot);
         if (shot->obj.id != PLAYERSHOT_LOCK_SEARCH) {
             Effect_Effect359_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
@@ -1133,7 +1135,7 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
                 (shot->sourceId != NPC_SHOT_ID + AI360_KATT)) {
                 if (gActors[shot->sourceId - NPC_SHOT_ID].obj.id != OBJ_ACTOR_EVENT) {
                     var_a1 = 1;
-                } else if (gActors[shot->sourceId - NPC_SHOT_ID].iwork[12] == TEAM_ID_BILL) {
+                } else if (gActors[shot->sourceId - NPC_SHOT_ID].iwork[EVA_TEAM_ID] == TEAM_ID_BILL) {
                     var_a1 = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
@@ -1623,7 +1625,7 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
         Effect_Effect372_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
         Effect_Effect372_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
     }
-    if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
+    if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != GROUND_4)) {
         PlayerShot_Impact(shot);
         shot->obj.pos.y = gGroundHeight + 2;
         if (gCurrentLevel == LEVEL_BOLSE) {
@@ -1906,7 +1908,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) &&
             !((gCurrentLevel == LEVEL_MACBETH) && (OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) &&
               (actor->obj.id < OBJ_ACTOR_MA_RAILROAD_SWITCH)) &&
-            !((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[12] != 0)) &&
+            !((actor->obj.id == OBJ_ACTOR_EVENT) && (actor->iwork[EVA_TEAM_ID] != 0)) &&
             ((actor->scale >= 0.0f) || (actor->obj.id == OBJ_ACTOR_BO_SHIELD_REACTOR))) {
             dx = actor->obj.pos.x - shot->obj.pos.x;
             dy = actor->obj.pos.y - shot->obj.pos.y;
@@ -1986,7 +1988,7 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
                     effect->obj.pos.z += dz * 0.03f;
                     if ((effect->obj.id == OBJ_EFFECT_392) && (effect->state == 0)) {
                         effect->state = 1;
-                        effect->unk_44 = 176;
+                        effect->alpha = 176;
                         effect->unk_4C = 0;
                         effect->vel.x = effect->vel.y = effect->vel.z = 0.0f;
                         effect->scale2 = 20.0f;
@@ -2033,7 +2035,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                 break;
             }
 
-            if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != 4)) {
+            if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != GROUND_4)) {
                 PlayerShot_ExplodeBomb(shot);
                 break;
             }

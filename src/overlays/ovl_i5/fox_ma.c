@@ -1789,7 +1789,7 @@ void Macbeth_8019F164(MaCannonCar* this) {
         case 0:
             if (sp44 != 0) {
                 sp60.x -= 60.0f;
-                func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
+                Effect_SpawnById1(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
                 AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
                 this->iwork[4]++;
             } else if ((D_i5_801BE310 == this->iwork[5]) ||
@@ -1800,7 +1800,7 @@ void Macbeth_8019F164(MaCannonCar* this) {
                 if ((gPlayer[0].trueZpos - this->obj.pos.z < 5000.0f) &&
                     (gPlayer[0].trueZpos - this->obj.pos.z > 200.0f) && (this->timer_0BC == 0) && (this->health != 0)) {
                     sp60.x -= 60.0f;
-                    func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
+                    Effect_SpawnById1(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
                     AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
                     this->iwork[4]++;
                 }
@@ -1826,7 +1826,7 @@ void Macbeth_8019F164(MaCannonCar* this) {
 
         case 3:
             if ((this->timer_0BC == 0) && (this->health != 0)) {
-                func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
+                Effect_SpawnById1(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
                 AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
                 this->iwork[4]++;
             }
@@ -1852,7 +1852,7 @@ void Macbeth_8019F164(MaCannonCar* this) {
         case 6:
             if ((this->timer_0BC == 0) && (this->health != 0)) {
                 sp60.x += 60.0f;
-                func_effect_8007EE68(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
+                Effect_SpawnById1(OBJ_EFFECT_378, &sp60, &sp54, &sp48, &D_i5_801BA714, 1.0f);
                 AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
                 this->iwork[4]++;
             }
@@ -3625,15 +3625,15 @@ void Macbeth_Effect380_Update(Effect380* this) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 
-    if (this->unk_44 < 235) {
-        this->unk_44 += 20;
+    if (this->alpha < 235) {
+        this->alpha += 20;
     }
 }
 
 void Macbeth_Effect380_Draw(Effect380* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, this->unk_44);
-    gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->unk_44);
+    gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, this->alpha);
+    gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->alpha);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, D_MA_6012A60);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
@@ -4954,7 +4954,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
                     sp330.y = this->vwork[3].y;
                     sp330.z = this->vwork[3].z;
 
-                    func_effect_8007EE68(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 5.0f);
+                    Effect_SpawnById1(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 5.0f);
 
                     sp348.x = this->vwork[7].x - this->vwork[4].x;
                     sp348.y = this->vwork[7].y - this->vwork[4].y + 25.0f;
@@ -4989,7 +4989,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
                     sp330.x = this->vwork[5].x;
                     sp330.y = this->vwork[5].y;
                     sp330.z = this->vwork[5].z;
-                    func_effect_8007EE68(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 10.0f);
+                    Effect_SpawnById1(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 10.0f);
                 }
             }
 
@@ -5781,7 +5781,8 @@ void Macbeth_801AD144(PlayerShot* shot) {
 }
 
 void Macbeth_Effect357_Setup(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot,
-                             f32 yRot, f32 zRot, f32 argA, f32 argB, f32 argC, s16 argD, s16 argE, f32 scale2) {
+                             f32 yRot, f32 zRot, f32 xOrient, f32 yOrient, f32 zOrient, s16 time, s16 alpha,
+                             f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_357;
@@ -5795,22 +5796,22 @@ void Macbeth_Effect357_Setup(Effect357* this, f32 xPos, f32 yPos, f32 zPos, f32 
     this->vel.y = yVel;
     this->vel.z = zVel;
     this->scale2 = scale2;
-    this->timer_50 = argD;
-    this->unk_60.x = argA;
-    this->unk_60.y = argB;
-    this->unk_60.z = argC;
-    this->unk_44 = argE;
+    this->timer_50 = time;
+    this->orient.x = xOrient;
+    this->orient.y = yOrient;
+    this->orient.z = zOrient;
+    this->alpha = alpha;
     Object_SetInfo(&this->info, this->obj.id);
 }
 
 void Macbeth_Effect357_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot, f32 zRot,
-                              f32 arg9, f32 argA, f32 argB, s16 argC, s16 argD, f32 scale2) {
+                              f32 xOrient, f32 yOrient, f32 zOrient, s16 time, s16 alpha, f32 scale2) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Macbeth_Effect357_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot, zRot, arg9, argA,
-                                    argB, argC, argD, scale2);
+            Macbeth_Effect357_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, xRot, yRot, zRot, xOrient,
+                                    yOrient, zOrient, time, alpha, scale2);
             break;
         }
     }
@@ -6140,9 +6141,9 @@ void Macbeth_Effect379_Setup(Effect379* this, f32 xPos, f32 yPos, f32 zPos, f32 
 
     Matrix_MultVec3f(gCalcMatrix, &sp38, &sp2C);
 
-    this->unk_60.x = sp2C.x;
-    this->unk_60.y = sp2C.y;
-    this->unk_60.z = sp2C.z;
+    this->orient.x = sp2C.x;
+    this->orient.y = sp2C.y;
+    this->orient.z = sp2C.z;
 
     Object_SetInfo(&this->info, this->obj.id);
 }
@@ -6163,9 +6164,9 @@ void Macbeth_Effect379_Update(Effect* this) {
     f32 sp30;
     f32 sp2C;
 
-    this->vel.x = this->unk_60.x * this->scale1;
-    this->vel.y = this->unk_60.y * this->scale1;
-    this->vel.z = this->unk_60.z * this->scale1;
+    this->vel.x = this->orient.x * this->scale1;
+    this->vel.y = this->orient.y * this->scale1;
+    this->vel.z = this->orient.z * this->scale1;
 
     this->unk_46 += (s16) this->vel.x;
     this->unk_48 += (s16) this->vel.y;
@@ -6195,8 +6196,8 @@ void Macbeth_Effect379_Update(Effect* this) {
 
     Math_SmoothStepToF(&this->scale1, 1.0f, 1.0f, 0.1f, 0.0f);
 
-    if (this->unk_44 < 240) {
-        this->unk_44 += 15;
+    if (this->alpha < 240) {
+        this->alpha += 15;
     } else {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -6210,11 +6211,11 @@ void Macbeth_Effect379_Draw(Effect379* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
 
     if (this->scale2 >= 3.0f) {
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->unk_44);
-        gDPSetEnvColor(gMasterDisp++, 255, 0, 0, this->unk_44);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
+        gDPSetEnvColor(gMasterDisp++, 255, 0, 0, this->alpha);
     } else {
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->unk_44);
-        gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->unk_44);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
+        gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->alpha);
     }
 
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
@@ -6387,12 +6388,12 @@ void Macbeth_801AF44C(void) {
     actor->fwork[8] = RAND_FLOAT(360.0f);
     actor->fwork[9] = 30.0f;
 
-    actor->rot_0F4.y = D_i5_801BA820[4];
-    actor->rot_0F4.x = 0.0f;
-    actor->rot_0F4.z = 330.0f;
+    actor->orient.y = D_i5_801BA820[4];
+    actor->orient.x = 0.0f;
+    actor->orient.z = 330.0f;
 
     actor->obj.rot.x = -0.0f;
-    actor->obj.rot.y = actor->rot_0F4.y;
+    actor->obj.rot.y = actor->orient.y;
     actor->obj.rot.z = -330.0f;
 
     actor->fwork[0] = 0.0f;
@@ -6453,10 +6454,10 @@ void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
         effect->scale2 = RAND_FLOAT(0.8f) + 0.3f + arg3;
         effect->timer_50 = RAND_INT(5.0f) + 30;
         effect->obj.rot.x = RAND_FLOAT(360.0f);
-        effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
-        effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
-        effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
-        effect->unk_44 = i % 4U;
+        effect->orient.x = RAND_FLOAT_CENTERED(30.0f);
+        effect->orient.y = RAND_FLOAT_CENTERED(30.0f);
+        effect->orient.z = RAND_FLOAT_CENTERED(30.0f);
+        effect->alpha = i % 4U;
         Object_SetInfo(&effect->info, effect->obj.id);
     }
 }
@@ -7234,7 +7235,7 @@ void Macbeth_801B28BC(ActorCutscene* this) {
     f32 sp3C;
 
     this->fwork[7] += 3.0f;
-    this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
+    this->orient.z = SIN_DEG(this->fwork[7]) * 1.5f;
     this->fwork[8] += 2.0f;
     sp3C = SIN_DEG(this->fwork[8]) * 10.0f;
 
@@ -7488,12 +7489,12 @@ void Macbeth_801B3718(void) {
     actor->fwork[7] = RAND_FLOAT(360.0f);
     actor->fwork[8] = RAND_FLOAT(360.0f);
 
-    actor->rot_0F4.y = 180.0f;
-    actor->rot_0F4.x = 0.0f;
+    actor->orient.y = 180.0f;
+    actor->orient.x = 0.0f;
 
     actor->obj.rot.x = -0.0f;
-    actor->obj.rot.y = actor->rot_0F4.y;
-    actor->obj.rot.z = -actor->rot_0F4.z;
+    actor->obj.rot.y = actor->orient.y;
+    actor->obj.rot.z = -actor->orient.z;
 
     actor->fwork[0] = 30.0f;
     actor->animFrame = ACTOR_CS_KATT;

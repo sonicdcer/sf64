@@ -52,7 +52,7 @@ void Macbeth_ShortTrainObjects(void);
 void Ground_801B5110(f32, f32, f32);
 void Ground_801B58AC(Gfx **, f32);
 bool Ground_801B6AEC(f32, f32, f32);
-s32 Ground_801B6E20(f32, f32, f32 *, f32 *, f32 *);
+bool Ground_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void Macbeth_801AD144(PlayerShot*);
 void Titania_Effect368_Spawn(f32, f32, f32, f32, f32);
 bool Macbeth_801A3C20(f32);

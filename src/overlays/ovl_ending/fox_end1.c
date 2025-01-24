@@ -1397,9 +1397,9 @@ void Ending_8018B3E8(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 0;
     actor->state = arg1;
-    actor->rot_0F4.x = sp20[arg1].x;
-    actor->rot_0F4.y = sp20[arg1].y;
-    actor->rot_0F4.z = sp20[arg1].z;
+    actor->orient.x = sp20[arg1].x;
+    actor->orient.y = sp20[arg1].y;
+    actor->orient.z = sp20[arg1].z;
     actor->obj.pos = sp38[arg1];
 
     if (arg1 == 0) {
@@ -1426,9 +1426,9 @@ void Ending_8018B52C(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 1;
     actor->obj.pos = sp44[arg1];
-    actor->rot_0F4.x = sp20[arg1].x;
-    actor->rot_0F4.y = sp20[arg1].y;
-    actor->rot_0F4.z = sp20[arg1].z;
+    actor->orient.x = sp20[arg1].x;
+    actor->orient.y = sp20[arg1].y;
+    actor->orient.z = sp20[arg1].z;
     actor->scale = 1.0f;
 }
 
@@ -1440,9 +1440,9 @@ void Ending_8018B624(Actor* actor) {
     actor->obj.status = 2;
     actor->obj.id = 2;
     actor->obj.pos = sp24;
-    actor->rot_0F4.x = sp18.x;
-    actor->rot_0F4.y = sp18.y;
-    actor->rot_0F4.z = sp18.z;
+    actor->orient.x = sp18.x;
+    actor->orient.y = sp18.y;
+    actor->orient.z = sp18.z;
     actor->scale = 1.0f;
 }
 
@@ -1461,9 +1461,9 @@ void Ending_8018B6D8(Actor* actor, s32 arg1) {
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 3;
     actor->obj.pos = sp80[arg1];
-    actor->rot_0F4.x = sp38[arg1].x;
-    actor->rot_0F4.y = sp38[arg1].y;
-    actor->rot_0F4.z = sp38[arg1].z;
+    actor->orient.x = sp38[arg1].x;
+    actor->orient.y = sp38[arg1].y;
+    actor->orient.z = sp38[arg1].z;
     actor->obj.pos.x += 3200.0f;
     actor->obj.pos.z -= 200.0f;
     actor->scale = 1.0f;
@@ -1647,8 +1647,8 @@ bool Ending_8018BCB0(void) {
                     break;
             }
 
-            Matrix_RotateY(gCalcMatrix, (gActors[i].rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, -(gActors[i].rot_0F4.x * M_DTOR), MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, (gActors[i].orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, -(gActors[i].orient.x * M_DTOR), MTXF_APPLY);
 
             src.x = 0.0f;
             src.y = 0.0f;
@@ -1662,9 +1662,9 @@ bool Ending_8018BCB0(void) {
 
             if (0) {} // some sort of vec_set macro?
 
-            gActors[i].obj.rot.x = -gActors[i].rot_0F4.x;
-            gActors[i].obj.rot.y = gActors[i].rot_0F4.y + 180.0f;
-            gActors[i].obj.rot.z = -gActors[i].rot_0F4.z;
+            gActors[i].obj.rot.x = -gActors[i].orient.x;
+            gActors[i].obj.rot.y = gActors[i].orient.y + 180.0f;
+            gActors[i].obj.rot.z = -gActors[i].orient.z;
 
             gActors[i].obj.pos.x += gActors[i].vel.x;
             gActors[i].obj.pos.y += gActors[i].vel.y;

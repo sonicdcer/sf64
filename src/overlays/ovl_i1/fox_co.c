@@ -73,8 +73,8 @@ void Corneria_CoGranga_ShootLaser(CoGranga* this, f32 x, f32 y, f32 z) {
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
-                      this->obj.pos.z + dest.z, 100.0f);
+    Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
+                         this->obj.pos.z + dest.z, 100.0f);
 }
 
 void Corneria_Granga_SpawnItem(Boss* this, f32 x, f32 y, f32 z, ObjectId itemId) {
@@ -450,8 +450,8 @@ void Corneria_CoGranga_Attack(CoGranga* this) {
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].trueZpos += RAND_FLOAT_CENTERED(300.0f);
 
-                Effect_EnemyLaser(OBJ_EFFECT_376, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
-                                  sCoGrangaWork[GRANGA_WORK_14], 60.0f);
+                Effect_ShootAtPlayer(OBJ_EFFECT_376, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
+                                     sCoGrangaWork[GRANGA_WORK_14], 60.0f);
 
                 gPlayer[0].pos.x = savedPlayerPos.x;
                 gPlayer[0].pos.y = savedPlayerPos.y;
@@ -2098,7 +2098,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                                         effect398->obj.status = OBJ_INIT;
                                         effect398->obj.id = OBJ_EFFECT_398;
                                         effect398->timer_50 = 100;
-                                        effect398->unk_44 = 1;
+                                        effect398->alpha = 1;
                                         effect398->scale2 = 1.0f;
                                         effect398->obj.rot.z = 30.0f;
                                         effect398->obj.pos.x = sp84[3].x + this->obj.pos.x;

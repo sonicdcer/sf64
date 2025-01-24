@@ -19,7 +19,7 @@
 #include "assets/ast_versus.h"
 #include "assets/ast_zoness.h"
 
-s32 D_enmy_Timer_80161670[4];
+s32 gTeamChaseTimers[4];
 s32 gLastPathChange;
 u8 gMissedZoSearchlight;
 
@@ -31,8 +31,7 @@ ObjectInit* gLevelObjectInits[] = {
     aKaLevelObjects,        aBoLevelObjects,        aSzLevelObjects,        aVe2LevelObjects,
     aVsCoLevelObjects,
 };
-
-s32 D_enmy_800CFDF4[] = {
+s32 sItemDropIds[] = {
     /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
     /*  2 */ OBJ_ITEM_SILVER_RING,
@@ -60,8 +59,7 @@ s32 D_enmy_800CFDF4[] = {
     /* 24 */ OBJ_SCENERY_CO_STONE_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
-
-f32 D_enmy_800CFE5C[] = {
+f32 sItemDropRates[] = {
     0.0f, 1.0f, 0.5f, 0.33f, 0.25f, 1.0f,  0.5f,  0.33f, 0.25f, 1.0f, 0.5f, 0.33f, 0.25f,
     1.0f, 1.0f, 1.0f, 1.0f,  1.0f,  -1.0f, -1.0f, -1.0f, -1.0f, 0.1f, 1.0f, 1.0f,  1.0f,
 };
@@ -404,21 +402,21 @@ void ActorEvent_Load(ActorEvent* this, ObjectInit* objInit, s32 index) {
     this->obj.pos.z += -3000.0f + objInit->zPos2;
     this->obj.pos.x = objInit->xPos;
     this->obj.pos.y = objInit->yPos;
-    this->obj.rot.y = this->rot_0F4.y = objInit->rot.y;
-    this->obj.rot.x = this->rot_0F4.x = objInit->rot.x;
-    this->rot_0F4.z = objInit->rot.z;
+    this->obj.rot.y = this->orient.y = objInit->rot.y;
+    this->obj.rot.x = this->orient.x = objInit->rot.x;
+    this->orient.z = objInit->rot.z;
     this->obj.id = OBJ_ACTOR_EVENT;
     this->timer_0C2 = 10;
-    this->eventType = EVID_FFF;
+    this->eventType = EVID_UNINITIALIZED;
     this->aiType = objInit->id - ACTOR_EVENT_ID;
 
     Object_SetInfo(&this->info, this->obj.id);
 
     this->info.cullDistance = 3000.0f;
-    this->fwork[25] = 20000.0f;
-    this->iwork[1] = gPrevEventActorIndex;
-    this->iwork[10] = gActors[gPrevEventActorIndex].aiType;
-    this->fwork[22] = gArwingSpeed;
+    this->fwork[EVA_INFO_UNK10] = 20000.0f;
+    this->iwork[EVA_TARGET_INDEX] = gPrevEventActorIndex;
+    this->iwork[EVA_TARGET_TYPE] = gActors[gPrevEventActorIndex].aiType;
+    this->fwork[EVA_BASE_ZVEL] = gArwingSpeed;
 
     Matrix_RotateZ(gCalcMatrix, -gFormationInitRot.z * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -gFormationInitRot.x * M_DTOR, MTXF_APPLY);
@@ -429,7 +427,7 @@ void ActorEvent_Load(ActorEvent* this, ObjectInit* objInit, s32 index) {
     src.z = this->obj.pos.z - gFormationInitPos.z;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &this->vwork[28]);
-    this->iwork[9] = gFormationLeaderIndex;
+    this->iwork[EVA_LEADER_INDEX] = gFormationLeaderIndex;
     gPrevEventActorIndex = index;
     Actor_Update(this);
 }
@@ -633,7 +631,7 @@ void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale) {
                 gEffects[i].obj.pos.z = zPos;
                 gEffects[i].scale2 = 10.0f;
                 gEffects[i].scale1 = scale;
-                gEffects[i].unk_44 = 80;
+                gEffects[i].alpha = 80;
                 gEffects[i].state = state;
                 Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
@@ -656,7 +654,7 @@ void func_enmy_80062C38(f32 xPos, f32 yPos) {
                 gEffects[i].obj.pos.z = yPos;
                 gEffects[i].scale2 = 1.0f;
                 gEffects[i].scale1 = 1.3f;
-                gEffects[i].unk_44 = 120;
+                gEffects[i].alpha = 120;
                 Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
                 break;
             }
@@ -677,7 +675,7 @@ void func_enmy_80062D04(f32 xPos, f32 yPos) {
             gEffects[i].obj.pos.z = yPos;
             gEffects[i].scale2 = 3.0f;
             gEffects[i].scale1 = 2.0f;
-            gEffects[i].unk_44 = 120;
+            gEffects[i].alpha = 120;
             Object_SetInfo(&gEffects[i].info, gEffects[i].obj.id);
             break;
         }
@@ -956,8 +954,9 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
                         return 2;
                     }
                 } else if (actor->scale < 0.0f) {
-                    if (Object_CheckHitboxCollision(pos, actor->info.hitbox, &actor->obj, actor->vwork[29].x,
-                                                    actor->vwork[29].y, actor->vwork[29].z + actor->rot_0F4.z)) {
+                    if (Object_CheckHitboxCollision(
+                            pos, actor->info.hitbox, &actor->obj, actor->vwork[EVA_FORMATION_ROT].x,
+                            actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z)) {
                         actor->dmgType = DMG_BEAM;
                         actor->damage = 10;
                         actor->dmgPart = -1;
@@ -1207,8 +1206,8 @@ void Object_Init(s32 index, ObjectId objId) {
             break;
         case OBJ_ACTOR_ZO_DODORA:
             gZoDodoraWaypointCount = 0;
-            gActors[index].rot_0F4.x = gActors[index].obj.rot.x;
-            gActors[index].rot_0F4.y = gActors[index].obj.rot.y;
+            gActors[index].orient.x = gActors[index].obj.rot.x;
+            gActors[index].orient.y = gActors[index].obj.rot.y;
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
             gActors[index].fwork[2] = gActors[index].obj.pos.y;
             var_v0 = gZoDodoraPosRots;
@@ -1408,7 +1407,7 @@ void Scenery_UpdateTitaniaBones(Scenery* this) {
     f32 sp28;
     f32 sp24;
 
-    if ((gGroundType == 4) && (this->state == 0)) {
+    if ((gGroundType == GROUND_4) && (this->state == 0)) {
         Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp2C, &sp24, &sp28);
         this->obj.pos.y = sp24 + 3.0f;
         this->obj.rot.x = RAD_TO_DEG(sp2C);
@@ -1634,9 +1633,9 @@ void ActorMissileSeek_Update(Actor* this) {
         if (this->timer_0BE == 0) {
             this->timer_0BE = 30;
             Math_Vec3fFromAngles(&sp98, this->obj.rot.x, this->obj.rot.y, 120.0f);
-            func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
-                                 this->obj.pos.z + sp98.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
-                                 0.0f, 0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
+            Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
+                              this->obj.pos.z + sp98.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f, 0.0f,
+                              0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
         }
         var_fv0 = 330.0f;
         if (sp84 < 0.0f) {
@@ -1645,7 +1644,8 @@ void ActorMissileSeek_Update(Actor* this) {
         Math_SmoothStepToAngle(&this->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.01f);
     }
 
-    if ((gGroundType == 4) && Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress)) {
+    if ((gGroundType == GROUND_4) &&
+        Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress)) {
         func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -1693,7 +1693,7 @@ void func_enmy_800660F0(Actor* this) {
         if (item->obj.status == OBJ_FREE) {
             Item_Initialize(item);
             item->obj.status = OBJ_INIT;
-            item->obj.id = D_enmy_800CFDF4[this->itemDrop];
+            item->obj.id = sItemDropIds[this->itemDrop];
             item->obj.pos.x = this->obj.pos.x;
             item->obj.pos.y = this->obj.pos.y;
             item->obj.pos.z = this->obj.pos.z;
@@ -1758,12 +1758,11 @@ void Actor_Despawn(Actor* this) {
             }
         }
 
-        if (this->itemDrop) {
-            if (D_enmy_800CFE5C[this->itemDrop] < 0.0f) {
-                otherActor = &gActors[0];
+        if (this->itemDrop) { // can't be != 0
+            if (sItemDropRates[this->itemDrop] < 0.0f) {
                 for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                     if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != this->index) &&
-                        (otherActor->iwork[15] == this->iwork[15])) {
+                        (otherActor->iwork[EVA_GROUP_ID] == this->iwork[EVA_GROUP_ID])) {
                         return;
                     }
                 }
@@ -1777,7 +1776,7 @@ void Actor_Despawn(Actor* this) {
                 } else if (gTeamShields[TEAM_ID_FALCO] > 0) {
                     Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
                 }
-            } else if (Rand_ZeroOne() <= D_enmy_800CFE5C[this->itemDrop]) {
+            } else if (Rand_ZeroOne() <= sItemDropRates[this->itemDrop]) {
                 func_enmy_800660F0(this);
             }
         }
@@ -2162,7 +2161,7 @@ void ActorSupplies_Draw(ActorEvent* this) {
                        gAmbientB);
 }
 
-void func_enmy_80067A40(void) {
+void Player_RepairWings(void) {
     AUDIO_PLAY_SFX(NA_SE_WING_REPAIR, gPlayer[0].sfxSource, 0);
 
     if (gPlayer[0].arwing.rightWingState <= WINGSTATE_BROKEN) {
@@ -2374,7 +2373,7 @@ void ItemWingRepair_Update(ItemWingRepair* this) {
     Item_SpinPickup(this);
 
     if (this->collected) {
-        func_enmy_80067A40();
+        Player_RepairWings();
         Object_Kill(&this->obj, this->sfxSource);
     }
 
@@ -2602,12 +2601,12 @@ void Object_Dying(s32 index, ObjectId objId) {
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                 Andross_801888F4(&gActors[index]);
             } else {
-                func_enmy2_800763A4(&gActors[index]);
+                Actor_DyingCrash(&gActors[index]);
             }
             break;
 
         case OBJ_ACTOR_ME_HOPBOT:
-            func_enmy2_800763A4(&gActors[index]);
+            Actor_DyingCrash(&gActors[index]);
             break;
 
         case OBJ_ACTOR_ME_MORA:
@@ -2688,7 +2687,7 @@ void Actor_Move(Actor* this) {
                 break;
 
             case OBJ_ACTOR_EVENT:
-                if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
+                if ((this->eventType >= EVID_ME_MORA) && (this->eventType < EVID_300)) {
                     gMeMoraStatus[this->work_046] = 0;
                 } else if ((this->eventType == EVID_SX_WARP_GATE) && (this->work_046 != 2)) {
                     gRingPassCount = -1;
@@ -3131,9 +3130,9 @@ void Object_Update(void) {
 
     TexturedLine_UpdateAll();
 
-    for (i = 0; i < ARRAY_COUNT(D_enmy_Timer_80161670); i++) {
-        if (D_enmy_Timer_80161670[i] != 0) {
-            D_enmy_Timer_80161670[i]--;
+    for (i = 0; i < ARRAY_COUNT(gTeamChaseTimers); i++) {
+        if (gTeamChaseTimers[i] != 0) {
+            gTeamChaseTimers[i]--;
         }
     }
 }
