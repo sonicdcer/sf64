@@ -88,8 +88,8 @@ void func_demo_80048CC4(ActorCutscene* this, s32 index) {
     this->obj.pos.y = D_demo_800C9F60[index].y + gPlayer[0].pos.y;
     this->obj.pos.z = D_demo_800C9F60[index].z + gPlayer[0].trueZpos;
 
-    this->rot_0F4.y = 0.0f;
-    this->rot_0F4.z = D_demo_800C9F90[index];
+    this->orient.y = 0.0f;
+    this->orient.z = D_demo_800C9F90[index];
 
     Object_SetInfo(&this->info, this->obj.id);
 
@@ -98,7 +98,7 @@ void func_demo_80048CC4(ActorCutscene* this, s32 index) {
         AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
         this->animFrame = ACTOR_CS_GREAT_FOX;
     } else {
-        this->iwork[11] = 1;
+        this->iwork[ACTOR_ENGINE_GLOW] = 1;
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     }
 }
@@ -279,9 +279,9 @@ void func_demo_80049630(ActorCutscene* this) {
             Math_SmoothStepToF(&this->obj.pos.x, this->vwork[0].x, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.y, this->vwork[0].y, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.z, this->vwork[0].z, 0.05f, 50.0f, 0.0001f);
-            Math_SmoothStepToF(&this->rot_0F4.x, gPlayer[0].rot.x, 0.1f, 2.0f, 0.0001f);
-            Math_SmoothStepToF(&this->rot_0F4.y, gPlayer[0].rot.y, 0.1f, 2.0f, 0.0001f);
-            Math_SmoothStepToF(&this->rot_0F4.z, 0.0f, 0.05f, 0.2f, 0.0001f);
+            Math_SmoothStepToF(&this->orient.x, gPlayer[0].rot.x, 0.1f, 2.0f, 0.0001f);
+            Math_SmoothStepToF(&this->orient.y, gPlayer[0].rot.y, 0.1f, 2.0f, 0.0001f);
+            Math_SmoothStepToF(&this->orient.z, 0.0f, 0.05f, 0.2f, 0.0001f);
             break;
 
         case 1:
@@ -291,15 +291,15 @@ void func_demo_80049630(ActorCutscene* this) {
             this->fwork[29] = 5.0f;
 
         case 2:
-            this->iwork[11] = 2;
+            this->iwork[ACTOR_ENGINE_GLOW] = 2;
             this->fwork[0] += 2.0f;
             if (this->timer_0BC == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
     }
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -311,13 +311,13 @@ void func_demo_80049630(ActorCutscene* this) {
     this->vel.y = dest.y;
     this->vel.z = dest.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }
 
 void func_demo_8004990C(Player* player) {
-    if (gGroundType == 0) {
+    if (gGroundType == GROUND_0) {
         gPathTexScroll += 60.0f;
     }
     player->trueZpos = player->pos.z + player->camDist;
@@ -351,7 +351,7 @@ void func_demo_80049968(ActorCutscene* this, s32 index) {
     this->obj.rot.y = 180.0f;
     this->vel.z = gPlayer[0].vel.z;
     Object_SetInfo(&this->info, this->obj.id);
-    this->iwork[11] = 1;
+    this->iwork[ACTOR_ENGINE_GLOW] = 1;
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
@@ -684,7 +684,7 @@ void func_demo_8004A700(ActorCutscene* this, s32 index) {
     this->fwork[7] = RAND_FLOAT(100.0f);
     this->fwork[8] = RAND_FLOAT(100.0f);
     this->obj.rot.z = D_demo_800CA074[index];
-    this->iwork[11] = 1;
+    this->iwork[ACTOR_ENGINE_GLOW] = 1;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
@@ -846,7 +846,7 @@ void Cutscene_AllRangeMode(Player* player) {
                         actor->obj.pos.x = D_demo_800CA080[i] + player->pos.x;
                         actor->obj.pos.y = D_demo_800CA08C[i] + player->pos.y;
                         actor->obj.pos.z = player->trueZpos - 1000.0f;
-                        actor->rot_0F4.y = 180.0f;
+                        actor->orient.y = 180.0f;
                         Object_SetInfo(&actor->info, actor->obj.id);
                     }
                 }
@@ -1305,9 +1305,8 @@ void Cutscene_FortunaComplete(Player* player) {
 }
 
 void Cutscene_LevelComplete(Player* player) {
-    s32 sp24;
-    s32 sp20;
-    s32 btn;
+    s32 btnHold;
+    s32 btnPress;
 
     gCsFrameCount++;
 
@@ -1366,13 +1365,10 @@ void Cutscene_LevelComplete(Player* player) {
             break;
 
         case FORM_LANDMASTER:
-            sp20 = gInputPress->button;
-            sp24 = gInputHold->button;
-            gInputPress->button = 0;
-            btn = gInputPress->button;
-            gInputHold->button = gInputPress->button;
-            gInputPress->stick_y = btn;
-            gInputPress->stick_x = btn;
+            btnPress = gInputPress->button;
+            btnHold = gInputHold->button;
+
+            gInputPress->stick_x = gInputPress->stick_y = gInputHold->button = gInputPress->button = 0;
 
             if (gCurrentLevel == LEVEL_TITANIA) {
                 Titania_LevelComplete(player);
@@ -1383,8 +1379,8 @@ void Cutscene_LevelComplete(Player* player) {
             }
 
             func_tank_80046358(player);
-            gInputPress->button = sp20;
-            gInputHold->button = sp24;
+            gInputPress->button = btnPress;
+            gInputHold->button = btnHold;
             break;
 
         case FORM_BLUE_MARINE:
@@ -1885,22 +1881,22 @@ void func_demo_8004E4D4(ActorCutscene* this) {
     Vec3f sp54;
     Vec3f sp48;
     Vec3f sp3C;
-    Player* sp38 = &gPlayer[0];
+    Player* player = &gPlayer[0];
     f32 sp34;
 
     this->fwork[7] += 3.0f;
-    this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 1.5f;
+    this->orient.z = SIN_DEG(this->fwork[7]) * 1.5f;
     this->fwork[8] += 2.0f;
     sp34 = SIN_DEG(this->fwork[8]) * 10.0f;
 
     switch (this->state) {
         case 0:
             Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f, 10.0f, 0.0f);
-            this->obj.rot.x = -sp38->rot.x;
-            this->obj.rot.y = sp38->rot.y + 180.0f;
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
+            this->obj.rot.x = -player->rot.x;
+            this->obj.rot.y = player->rot.y + 180.0f;
             break;
 
         case 1:
@@ -1918,7 +1914,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
                     this->fwork[21] = 0.6f;
                 }
             }
-            this->iwork[11] = 2;
+            this->iwork[ACTOR_ENGINE_GLOW] = 2;
             this->fwork[9] *= 1.2f;
             if (this->timer_0BC == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
@@ -1933,7 +1929,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->fwork[29] = 5.0f;
             /* fallthrough */
         case 11:
-            this->iwork[11] = 2;
+            this->iwork[ACTOR_ENGINE_GLOW] = 2;
             this->fwork[9] += 2.0f;
             if (this->fwork[9] > 50.0f) {
                 this->fwork[9] = 50.0f;
@@ -1979,9 +1975,9 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             this->fwork[2] = sp3C.z - 100.0f;
 
             Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + sp38->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + sp38->pos.y + sp34, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + sp38->trueZpos, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
 
         case 31:
@@ -1991,7 +1987,7 @@ void func_demo_8004E4D4(ActorCutscene* this) {
             /* fallthrough */
 
         case 32:
-            this->iwork[11] = 2;
+            this->iwork[ACTOR_ENGINE_GLOW] = 2;
             Math_SmoothStepToF(&this->obj.rot.x, -20.0f, 0.1f, 0.5f, 0.0f);
             Math_SmoothStepToF(&this->fwork[9], 25.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.1f, 0.5f, 0.0f);
@@ -2076,7 +2072,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
             break;
 
         case 3:
-            this->iwork[11] = 2;
+            this->iwork[ACTOR_ENGINE_GLOW] = 2;
             if (this->timer_0BC == 0) {
                 this->state++;
                 this->timer_0BC = 30;
@@ -2127,9 +2123,9 @@ void func_demo_8004F05C(ActorCutscene* this) {
             switch (this->animFrame) {
                 case ACTOR_CS_TEAM_ARWING:
                     if (gPlayer[0].state == PLAYERSTATE_LEVEL_INTRO) {
-                        this->rot_0F4.z += this->rot_0F4.y;
-                        this->vel.x = SIN_DEG(this->rot_0F4.z) * 10.0f;
-                        this->obj.rot.z = SIN_DEG(this->rot_0F4.z) * 40.0f;
+                        this->orient.z += this->orient.y;
+                        this->vel.x = SIN_DEG(this->orient.z) * 10.0f;
+                        this->obj.rot.z = SIN_DEG(this->orient.z) * 40.0f;
                         break;
                     }
 
@@ -2146,7 +2142,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                             this->fwork[29] = 5.0f;
 
                         case 2:
-                            this->iwork[11] = 2;
+                            this->iwork[ACTOR_ENGINE_GLOW] = 2;
                             this->vel.z -= 5.0f;
                             if (this->timer_0BC == 0) {
                                 Object_Kill(&this->obj, this->sfxSource);
@@ -2162,7 +2158,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     break;
 
                 case ACTOR_CS_32:
-                    this->obj.rot.z += this->rot_0F4.z;
+                    this->obj.rot.z += this->orient.z;
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
@@ -2225,7 +2221,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     break;
 
                 case 0:
-                    this->obj.rot.z = this->rot_0F4.z;
+                    this->obj.rot.z = this->orient.z;
                     if (this->animFrame == 10) {
                         this->obj.pos.z = gPlayer[0].cam.eye.z + 12000.0f;
                     }
@@ -2279,7 +2275,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
 }
 
 void func_demo_8004F798(ActorCutscene* this) {
-    this->iwork[11] = 2;
+    this->iwork[ACTOR_ENGINE_GLOW] = 2;
 
     switch (this->state) {
         case 0:

@@ -654,9 +654,9 @@ void Zoness_80190790(ZoDodora* this) {
 
     this->fwork[0] += 4.0f;
     this->vel.y = SIN_DEG(this->fwork[0]) * 20.0f;
-    this->rot_0F4.x = -this->vel.y * 2.5f;
+    this->orient.x = -this->vel.y * 2.5f;
     this->fwork[1] += 5.0f;
-    this->rot_0F4.z = SIN_DEG(this->fwork[1]) * 30.0f;
+    this->orient.z = SIN_DEG(this->fwork[1]) * 30.0f;
 
     for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
         if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_ZO_DODORA_WP_COUNT) &&
@@ -664,7 +664,7 @@ void Zoness_80190790(ZoDodora* this) {
             angle = Math_RadToDeg(
                 Math_Atan2F(otherActor->obj.pos.x - this->obj.pos.x, otherActor->obj.pos.z - this->obj.pos.z));
 
-            Math_SmoothStepToAngle(&this->rot_0F4.y, angle, 0.2f, 3.0f, 0.0f);
+            Math_SmoothStepToAngle(&this->orient.y, angle, 0.2f, 3.0f, 0.0f);
 
             if ((fabsf(this->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
                 (fabsf(this->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
@@ -675,7 +675,7 @@ void Zoness_80190790(ZoDodora* this) {
         }
     }
 
-    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_NEW);
 
     src.x = 0.f;
     src.y = 0.f;
@@ -690,9 +690,9 @@ void Zoness_80190790(ZoDodora* this) {
     zoDodoraPosRotPtr->pos.x = this->obj.pos.x;
     zoDodoraPosRotPtr->pos.y = this->obj.pos.y;
     zoDodoraPosRotPtr->pos.z = this->obj.pos.z;
-    zoDodoraPosRotPtr->rot.x = this->rot_0F4.x;
-    zoDodoraPosRotPtr->rot.y = this->rot_0F4.y;
-    zoDodoraPosRotPtr->rot.z = this->rot_0F4.z;
+    zoDodoraPosRotPtr->rot.x = this->orient.x;
+    zoDodoraPosRotPtr->rot.y = this->orient.y;
+    zoDodoraPosRotPtr->rot.z = this->orient.z;
 }
 
 void Zoness_ZoDodora_Update(ZoDodora* this) {
@@ -1215,7 +1215,7 @@ void Zoness_ZoTroika_Update(ZoTroika* this) {
                 sp70.y = 0.0f;
                 sp70.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp88);
-                func_effect_8007EE68(OBJ_EFFECT_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
+                Effect_SpawnById1(OBJ_EFFECT_355, &sp94, &sp7C, &sp7C, &sp88, 1.0f);
                 this->fwork[2] += 40.0f;
                 this->fwork[2] = Math_ModF(this->fwork[2], 360.0f);
                 Math_SmoothStepToF(&this->fwork[3], 0.0f, 1.0f, 5.0f, 0.0001f);
@@ -1602,8 +1602,8 @@ void Zoness_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 ar
     Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, MTXF_APPLY);
     Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, arg1 + dest.x + arg6, arg2 + dest.y, arg3 + dest.z, arg4, arg5, 0.0f,
-                         obj->rot.x, obj->rot.y, obj->rot.z, dest.x + arg6, dest.y, dest.z, 1.0f);
+    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, arg1 + dest.x + arg6, arg2 + dest.y, arg3 + dest.z, arg4, arg5, 0.0f,
+                      obj->rot.x, obj->rot.y, obj->rot.z, dest.x + arg6, dest.y, dest.z, 1.0f);
 }
 
 void Zoness_Effect394_Setup(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
@@ -1624,7 +1624,7 @@ void Zoness_Effect394_Setup(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 y
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
-    this->unk_44 = 100;
+    this->alpha = 100;
     this->scale2 = 3.0f;
     this->scale1 = RAND_FLOAT_CENTERED(20.0f);
     this->unk_78 = 100;
@@ -1644,7 +1644,7 @@ void Zoness_Effect394_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
     }
 }
 
-void Zoness_Effect394_Setup2(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
+void Zoness_Effect394_Setup2(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 alpha) {
     Vec3f src;
     Vec3f dest;
 
@@ -1661,7 +1661,7 @@ void Zoness_Effect394_Setup2(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
     this->scale2 = 8.0f;
-    this->unk_44 = arg5;
+    this->alpha = alpha;
     this->scale1 = RAND_FLOAT_CENTERED(200.0f);
     this->obj.rot.z = RAND_FLOAT(360.0f);
     this->state = 1;
@@ -1670,12 +1670,12 @@ void Zoness_Effect394_Setup2(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Zoness_Effect394_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 arg5) {
+void Zoness_Effect394_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 yRot, s32 alpha) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Zoness_Effect394_Setup2(&gEffects[i], xPos, yPos, zPos, yRot, arg5);
+            Zoness_Effect394_Setup2(&gEffects[i], xPos, yPos, zPos, yRot, alpha);
             break;
         }
     }
@@ -3549,7 +3549,7 @@ void Zoness_Effect374_Setup(Effect374* this, f32 xPos, f32 yPos, f32 zPos) {
 
     this->state = 1;
     this->timer_50 = 30;
-    this->unk_44 = 192;
+    this->alpha = 192;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
     this->obj.pos.x = xPos;
@@ -4212,7 +4212,7 @@ void Zoness_ZoContainer_Update(ZoContainer* this) {
                         sp9C.x = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.y = RAND_FLOAT_CENTERED(10.0f);
                         sp9C.z = 50.0f;
-                        func_effect_8007EE68(OBJ_EFFECT_ENEMY_LASER_1, &spB4, &spA8, &spA8, &sp9C, 1.0f);
+                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER_1, &spB4, &spA8, &spA8, &sp9C, 1.0f);
                     }
                 }
                 this->itemDrop = DROP_NONE;
@@ -5107,7 +5107,7 @@ void Zoness_8019E5F0(ActorCutscene* this) {
         case 3:
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
-            this->rot_0F4.x += 0.1f;
+            this->orient.x += 0.1f;
 
             this->fwork[21] += 0.2f;
             if (this->fwork[21] > 0.6f) {
@@ -5116,8 +5116,8 @@ void Zoness_8019E5F0(ActorCutscene* this) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     src.x = 0.0f;
     src.y = 0.0f;
@@ -5129,7 +5129,7 @@ void Zoness_8019E5F0(ActorCutscene* this) {
     this->vel.y = dest.y;
     this->vel.z = dest.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }

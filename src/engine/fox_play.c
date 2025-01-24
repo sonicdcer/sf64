@@ -1680,7 +1680,7 @@ void Player_CollisionCheck(Player* player) {
     f32 sp8C;
 
     Player_UpdateHitbox(player);
-    if (gGroundType == 4) {
+    if (gGroundType == GROUND_4) {
         switch (player->form) {
             case FORM_LANDMASTER:
                 func_tank_800444BC(player);
@@ -2052,8 +2052,8 @@ void Player_CollisionCheck(Player* player) {
                     } else {
                         temp_v0 = Player_CheckHitboxCollision(
                             player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
-                            actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
-                            actor->vwork[29].y, actor->vwork[29].z + actor->rot_0F4.z);
+                            actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[EVA_FORMATION_ROT].x,
+                            actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
                         if (temp_v0 != 0) {
                             if ((temp_v0 < 0) && (actor->eventType == EVID_SX_WARP_GATE)) {
                                 actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
@@ -2286,7 +2286,7 @@ void Player_FloorCheck(Player* player) {
     player->groundPos.x = player->pos.x;
     player->groundPos.z = player->trueZpos - player->pos.y;
 
-    if (gGroundType != 4) {
+    if (gGroundType != GROUND_4) {
         if (gCamCount == 1) {
             player->groundPos.y = gGroundHeight + 3.0f;
         } else {
@@ -3459,7 +3459,7 @@ void Player_UpdatePath(Player* player) {
     gPathProgress = player->zPath;
     gPathTexScroll += player->zPathVel;
 
-    if (gGroundType == 4) {
+    if (gGroundType == GROUND_4) {
         gPathGroundScroll = player->zPathVel;
     }
 

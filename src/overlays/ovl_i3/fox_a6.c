@@ -731,10 +731,10 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             pitch_110 = Math_Atan2F(dy_118, sqrtf(SQ(dx_11C) + SQ(dz_114)));
             pitch_110 = Math_RadToDeg(-pitch_110);
 
-            Math_SmoothStepToAngle(&this->rot_078.y, yaw_10C, 1.0f, sp104, 0.00001f);
-            Math_SmoothStepToAngle(&this->rot_078.x, pitch_110, 1.0f, sp104, 0.00001f);
-            Matrix_RotateY(gCalcMatrix, this->rot_078.y * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, this->rot_078.x * M_DTOR, MTXF_APPLY);
+            Math_SmoothStepToAngle(&this->orient.y, yaw_10C, 1.0f, sp104, 0.00001f);
+            Math_SmoothStepToAngle(&this->orient.x, pitch_110, 1.0f, sp104, 0.00001f);
+            Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
             sp98.x = sp98.y = 0.0f;
             sp98.z = 30.0f;
@@ -1066,16 +1066,16 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[1], 255.0f, 1.0f, 100.0f, 0.00001f);
 
             if (this->fwork[A6_FWK_0] < 10.0f) {
-                effect->unk_60.y = 5.0f - ((10.0f - this->fwork[A6_FWK_0]) * 0.3f);
-                effect->unk_60.x = 5.0f - ((10.0f - this->fwork[A6_FWK_0]) * 0.3f);
+                effect->orient.y = 5.0f - ((10.0f - this->fwork[A6_FWK_0]) * 0.3f);
+                effect->orient.x = 5.0f - ((10.0f - this->fwork[A6_FWK_0]) * 0.3f);
             }
 
             if (this->fwork[A6_FWK_0] < 1.0f) {
-                Math_SmoothStepToF(&effect->unk_60.x, 0.0f, 0.1f, 1.0f, 0.00001f);
-                Math_SmoothStepToF(&effect->unk_60.y, 0.0f, 0.1f, 1.0f, 0.00001f);
-                Math_SmoothStepToF(&effect->unk_60.z, 0.0f, 1.0f, 2.0f, 0.00001f);
+                Math_SmoothStepToF(&effect->orient.x, 0.0f, 0.1f, 1.0f, 0.00001f);
+                Math_SmoothStepToF(&effect->orient.y, 0.0f, 0.1f, 1.0f, 0.00001f);
+                Math_SmoothStepToF(&effect->orient.z, 0.0f, 1.0f, 2.0f, 0.00001f);
 
-                if (effect->unk_60.z < 0.2f) {
+                if (effect->orient.z < 0.2f) {
                     D_i3_801C2250[A6_BSS_0] = 2;
                     this->swork[A6_SWK_37] = 1;
                     this->timer_050 = 20;
@@ -2173,7 +2173,7 @@ void Area6_8018D694(ActorCutscene* this, s32 index) {
     this->state = 1;
     this->animFrame = ACTOR_CS_COMMANDER_GLOW;
     this->iwork[11] = 1;
-    this->rot_0F4.y = 90.0f;
+    this->orient.y = 90.0f;
     this->fwork[0] = 1.5f;
     this->fwork[7] = RAND_FLOAT_SEEDED(360.0f);
     this->fwork[8] = RAND_FLOAT_SEEDED(360.0f);
@@ -2239,7 +2239,7 @@ void Area6_8018DA58(ActorCutscene* this) {
     switch (this->state) {
         case 1:
             this->fwork[7] += 2.5f;
-            this->rot_0F4.z = SIN_DEG(this->fwork[7]) * 10.0f;
+            this->orient.z = SIN_DEG(this->fwork[7]) * 10.0f;
             this->fwork[8] += 1.0f;
             this->obj.pos.y += SIN_DEG(this->fwork[8]) * 1.5f;
             this->fwork[9] += 1.0f;
@@ -2247,13 +2247,13 @@ void Area6_8018DA58(ActorCutscene* this) {
             break;
 
         case 2:
-            Math_SmoothStepToF(&this->rot_0F4.z, -180.0f, 0.1f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.z, -180.0f, 0.1f, 3.0f, 0.0f);
             break;
 
         case 3:
-            Math_SmoothStepToF(&this->rot_0F4.z, -45.0f, 0.05f, 2.0f, 0.0f);
-            Math_SmoothStepToAngle(&this->rot_0F4.y, 340.0f, 0.05f, 2.4f, 0.0f);
-            Math_SmoothStepToF(&this->rot_0F4.x, 3.0f, 0.05f, 1.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.z, -45.0f, 0.05f, 2.0f, 0.0f);
+            Math_SmoothStepToAngle(&this->orient.y, 340.0f, 0.05f, 2.4f, 0.0f);
+            Math_SmoothStepToF(&this->orient.x, 3.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&this->fwork[0], 30.0f, 0.1f, 3.0f, 0.0f);
             break;
 
@@ -2298,9 +2298,9 @@ void Area6_8018DA58(ActorCutscene* this) {
                 sp40 = 0.0f;
             }
 
-            sp38 = Math_SmoothStepToAngle(&this->rot_0F4.y, sp3C, 0.5f, 2.0f, 0.0001f) * 30.0f;
-            Math_SmoothStepToAngle(&this->rot_0F4.x, sp40, 0.5f, 2.0f, 0.0001f);
-            Math_SmoothStepToAngle(&this->rot_0F4.z, sp38, 0.1f, 5.0f, 0.0001f);
+            sp38 = Math_SmoothStepToAngle(&this->orient.y, sp3C, 0.5f, 2.0f, 0.0001f) * 30.0f;
+            Math_SmoothStepToAngle(&this->orient.x, sp40, 0.5f, 2.0f, 0.0001f);
+            Math_SmoothStepToAngle(&this->orient.z, sp38, 0.1f, 5.0f, 0.0001f);
             break;
 
         case 91:
@@ -2312,8 +2312,8 @@ void Area6_8018DA58(ActorCutscene* this) {
             break;
     }
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
 
     sp5C.x = 0.0f;
     sp5C.y = 0.0f;
@@ -2325,9 +2325,9 @@ void Area6_8018DA58(ActorCutscene* this) {
     this->vel.y = sp50.y;
     this->vel.z = sp50.z;
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y + 180.0f;
-    this->obj.rot.z = -this->rot_0F4.z;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y + 180.0f;
+    this->obj.rot.z = -this->orient.z;
 }
 
 void Area6_LevelStart(Player* player) {

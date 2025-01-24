@@ -425,12 +425,12 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
                     effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
                     effect->vel.y = RAND_FLOAT_CENTERED(3.0f) + 10.0f;
 
-                    effect->unk_44 = 100;
+                    effect->alpha = 100;
                     effect->unk_46 = -5;
-                    effect->unk_60.z = 3;
+                    effect->orient.z = 3;
 
                     if (Rand_ZeroOne() < 0.5f) {
-                        effect->unk_60.z = -effect->unk_60.z;
+                        effect->orient.z = -effect->orient.z;
                     }
 
                     if ((this->iwork[0] % 2) != 0) {
@@ -617,12 +617,11 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
                     effect394->obj.rot.z = RAND_FLOAT(360.0f);
                     effect394->vel.x = RAND_FLOAT_CENTERED(5.0f);
                     effect394->vel.y = 10.0f + RAND_FLOAT_CENTERED(3);
-                    effect394->unk_44 = 100;
+                    effect394->alpha = 100;
                     effect394->unk_46 = -5;
-                    effect394->unk_60.z = 3.0f;
-
+                    effect394->orient.z = 3.0f;
                     if (Rand_ZeroOne() < 0.5f) {
-                        effect394->unk_60.z = -effect394->unk_60.z;
+                        effect394->orient.z = -effect394->orient.z;
                     }
                     if ((this->iwork[0] % 2) != 0) {
                         effect394->vel.y = -effect394->vel.y;
@@ -1218,9 +1217,9 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                 effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
                 effect->vel.y = RAND_FLOAT_CENTERED(5.0f);
                 effect->vel.z = RAND_FLOAT_CENTERED(5.0f);
-                effect->unk_60.x = 5.0f + RAND_FLOAT_CENTERED(1.0f);
-                effect->unk_60.y = 5.0f + RAND_FLOAT_CENTERED(1.0f);
-                effect->unk_60.z = 5.0f + RAND_FLOAT_CENTERED(1.0f);
+                effect->orient.x = 5.0f + RAND_FLOAT_CENTERED(1.0f);
+                effect->orient.y = 5.0f + RAND_FLOAT_CENTERED(1.0f);
+                effect->orient.z = 5.0f + RAND_FLOAT_CENTERED(1.0f);
                 effect->unk_78 = 12;
                 effect->unk_7A = 12;
             }
@@ -1239,11 +1238,11 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
             effect->obj.rot.z = RAND_FLOAT(360.0f);
             effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
             effect->vel.y = RAND_FLOAT_CENTERED(3.f);
-            effect->unk_44 = 100;
+            effect->alpha = 100;
             effect->unk_46 = -3;
-            effect->unk_60.z = 3.0f;
+            effect->orient.z = 3.0f;
             if (Rand_ZeroOne() < 0.5f) {
-                effect->unk_60.z = -effect->unk_60.z;
+                effect->orient.z = -effect->orient.z;
             }
         }
 
@@ -1258,9 +1257,9 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
             effect->scale2 = 10.0f;
             effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
             effect->vel.y = RAND_FLOAT_CENTERED(3.f);
-            effect->unk_44 = 100;
+            effect->alpha = 100;
             effect->unk_46 = -3;
-            effect->unk_60.z = 3.0f;
+            effect->orient.z = 3.0f;
             if (Rand_ZeroOne() < 0.5f) {
                 effect->unk_48 = -effect->unk_48;
             }
@@ -2390,12 +2389,12 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                 effect->obj.rot.z = RAND_FLOAT(360.0f);
                 effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
                 effect->vel.y = RAND_FLOAT_CENTERED(3.0f);
-                effect->unk_60.z = 3.0f + RAND_FLOAT(2.0f);
-                effect->unk_44 = 100;
+                effect->orient.z = 3.0f + RAND_FLOAT(2.0f);
+                effect->alpha = 100;
                 effect->unk_46 = -5;
 
                 if (Rand_ZeroOne() < 0.5f) {
-                    effect->unk_60.z = -effect->unk_60.z;
+                    effect->orient.z = -effect->orient.z;
                 }
             }
             break;

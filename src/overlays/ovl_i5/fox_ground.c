@@ -669,7 +669,7 @@ s32 Ground_801B6B40(f32 arg0, f32 arg1, Vec3f* arg2, PlaneF* arg3) {
     return var_v1;
 }
 
-s32 Ground_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
+bool Ground_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
     s32 var_s1;
     s32 var_s6;
     s32 var_s7;
@@ -759,7 +759,7 @@ s32 Ground_801B6E20(f32 arg0, f32 arg1, f32* arg2, f32* arg3, f32* arg4) {
             *arg4 = 0.0f;
         }
     }
-    return 1;
+    return true;
 }
 
 // Unused

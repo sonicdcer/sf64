@@ -88,7 +88,7 @@ void SectorY_SyShogun_Init(SyShogun* this) {
             gScenery360[SHOGUN_SHIP].obj.pos.z = -30000.0f;
         }
 
-        this->rot_078.y = 0.0f;
+        this->orient.y = 0.0f;
         SectorY_8019AEC0(this);
     } else {
         this->fwork[34] = 2.8f;
@@ -99,13 +99,13 @@ void SectorY_SyShogun_Init(SyShogun* this) {
         this->fwork[45] = 35.0f;
 
         if (this->index == 1) {
-            this->rot_078.y = 15.0f;
+            this->orient.y = 15.0f;
         } else {
-            this->rot_078.y = 345.0f;
+            this->orient.y = 345.0f;
         }
 
-        this->vel.x = SIN_DEG(this->rot_078.y) * this->fwork[45] * 0.2f;
-        this->vel.z = COS_DEG(this->rot_078.y) * this->fwork[45] * 0.2f;
+        this->vel.x = SIN_DEG(this->orient.y) * this->fwork[45] * 0.2f;
+        this->vel.z = COS_DEG(this->orient.y) * this->fwork[45] * 0.2f;
         SectorY_80198244(this);
         this->timer_056 = 250;
     }
@@ -138,7 +138,7 @@ void SectorY_80197F84(SyShogun* this) {
     Math_SmoothStepToF(&this->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
     Math_SmoothStepToF(&this->vel.z, 0.0f, 0.1f, 0.2f, 0.1f);
     Math_SmoothStepToF(&this->vel.x, 0.0f, 0.1f, 0.2f, 0.1f);
-    Math_SmoothStepToAngle(&this->rot_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.x, 0.0f, 0.1f, 4.0f, 0.1f);
 
     if (SectorY_8019B5CC(this)) {
         Math_SmoothStepToF(&this->obj.pos.y, 1000.0f, 0.1f, 30.0f, 0.1f);
@@ -153,7 +153,7 @@ void SectorY_80197F84(SyShogun* this) {
 
     yaw = Math_RadToDeg(Math_Atan2F(this->fwork[18] - this->obj.pos.x, this->fwork[20] - this->obj.pos.z));
 
-    Math_SmoothStepToAngle(&this->rot_078.y, yaw, 0.1f, 8.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.y, yaw, 0.1f, 8.0f, 0.1f);
 
     if (this->timer_050 == 0) {
         SectorY_80198244(this);
@@ -163,7 +163,7 @@ void SectorY_80197F84(SyShogun* this) {
         if (ABS(this->vel.x) <= 1.0f && (ABS(this->vel.z) <= 1.0f) &&
             (fabsf(this->fwork[18] - this->obj.pos.x) <= 400.0f) &&
             (fabsf(this->fwork[20] - this->obj.pos.z) <= 1400.0f)) {
-            if ((Rand_ZeroOne() < 0.2f) && (this->rot_078.x == 0.0f)) {
+            if ((Rand_ZeroOne() < 0.2f) && (this->orient.x == 0.0f)) {
                 SectorY_8019AA08(this);
             }
             if (Rand_ZeroOne() < 0.2f) {
@@ -186,8 +186,8 @@ void SectorY_80198244(SyShogun* this) {
     this->swork[20] = 3;
     this->swork[21] = 1;
     this->timer_056 = (s32) (RAND_FLOAT(500.0f) + 100.0f);
-    this->fwork[11] = SIN_DEG(this->rot_078.y) * this->fwork[45];
-    this->fwork[13] = COS_DEG(this->rot_078.y) * this->fwork[45];
+    this->fwork[11] = SIN_DEG(this->orient.y) * this->fwork[45];
+    this->fwork[13] = COS_DEG(this->orient.y) * this->fwork[45];
 
     speed = ABS(this->vel.x);
 
@@ -215,8 +215,8 @@ void SectorY_801983E4(SyShogun* this) {
         SectorY_8019BC14(this);
     }
 
-    Math_SmoothStepToAngle(&this->rot_078.z, 0.0f, 0.1f, 2.0f, 0.1f);
-    Math_SmoothStepToAngle(&this->rot_078.x, 0.0f, 0.1f, 2.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.z, 0.0f, 0.1f, 2.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.x, 0.0f, 0.1f, 2.0f, 0.1f);
     Math_SmoothStepToF(&this->vel.x, this->fwork[11], 0.1f, 0.5f, 0.1f);
     Math_SmoothStepToF(&this->vel.z, this->fwork[13], 0.1f, 0.5f, 0.1f);
     Math_SmoothStepToF(&this->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
@@ -224,23 +224,23 @@ void SectorY_801983E4(SyShogun* this) {
     xSpeed = ABS(this->fwork[18] - this->obj.pos.x);
     zSpeed = ABS(this->fwork[20] - this->obj.pos.z);
 
-    if (this->rot_078.x != 0.0f) {
-        Math_SmoothStepToAngle(&this->rot_078.x, this->fwork[10], 0.1f, 6.0f, 0.1f);
-        if (this->rot_078.x < 200.0f) {
+    if (this->orient.x != 0.0f) {
+        Math_SmoothStepToAngle(&this->orient.x, this->fwork[10], 0.1f, 6.0f, 0.1f);
+        if (this->orient.x < 200.0f) {
             this->swork[21] = 1;
             this->fwork[10] = 0.0f;
-            this->rot_078.x = 0.0f;
-            this->rot_078.y -= 180.0f;
-            this->rot_078.z -= 180.0f;
-            if (this->rot_078.y < 0.0f) {
-                this->rot_078.y += 360.0f;
+            this->orient.x = 0.0f;
+            this->orient.y -= 180.0f;
+            this->orient.z -= 180.0f;
+            if (this->orient.y < 0.0f) {
+                this->orient.y += 360.0f;
             }
 
-            if (this->rot_078.z < 0.0f) {
-                this->rot_078.z += 360.0f;
+            if (this->orient.z < 0.0f) {
+                this->orient.z += 360.0f;
             }
-            this->fwork[11] = SIN_DEG(this->rot_078.y) * this->fwork[45];
-            this->fwork[13] = COS_DEG(this->rot_078.y) * this->fwork[45];
+            this->fwork[11] = SIN_DEG(this->orient.y) * this->fwork[45];
+            this->fwork[13] = COS_DEG(this->orient.y) * this->fwork[45];
             this->fwork[34] = 2.8f;
         }
     }
@@ -253,13 +253,13 @@ void SectorY_801983E4(SyShogun* this) {
             yAngle += 360.0f;
         }
 
-        yAngle = this->rot_078.y - yAngle;
+        yAngle = this->orient.y - yAngle;
         if (yAngle < 0.0f) {
             yAngle += 360.0f;
         }
 
         if ((zSpeed <= 1300.0f) && (xSpeed <= 800.0f) && (yAngle < 260.0f) && (yAngle > 100.0f) &&
-            (this->rot_078.x == 0.0f) && (this->fwork[34] <= 2.0f)) {
+            (this->orient.x == 0.0f) && (this->fwork[34] <= 2.0f)) {
             if (Rand_ZeroOne() < 0.2f) {
                 SectorY_8019AA08(this);
             }
@@ -276,7 +276,7 @@ void SectorY_801983E4(SyShogun* this) {
                 }
             }
 
-            if (((yAngle > 300.0f) || (yAngle < 60.0f)) && (this->rot_078.x == 0.0f)) {
+            if (((yAngle > 300.0f) || (yAngle < 60.0f)) && (this->orient.x == 0.0f)) {
                 if (Rand_ZeroOne() < 0.3f) {
                     if (Rand_ZeroOne() < 0.4f) {
                         SectorY_80197F18(this);
@@ -284,10 +284,10 @@ void SectorY_801983E4(SyShogun* this) {
                         SectorY_80199D64(this);
                     }
                 } else if (gPlayer[0].state != PLAYERSTATE_U_TURN) {
-                    Math_SmoothStepToAngle(&this->rot_078.x, 181.0f, 0.1f, 6.0f, 0.1f);
+                    Math_SmoothStepToAngle(&this->orient.x, 181.0f, 0.1f, 6.0f, 0.1f);
                     this->swork[21] = 3;
-                    this->fwork[11] = SIN_DEG(this->rot_078.y) * (this->fwork[45] + 10.0f);
-                    this->fwork[13] = COS_DEG(this->rot_078.y) * (this->fwork[45] + 10.0f);
+                    this->fwork[11] = SIN_DEG(this->orient.y) * (this->fwork[45] + 10.0f);
+                    this->fwork[13] = COS_DEG(this->orient.y) * (this->fwork[45] + 10.0f);
                     this->fwork[34] = 2.8f;
                 }
             }
@@ -314,7 +314,7 @@ void SectorY_801983E4(SyShogun* this) {
 }
 
 void SectorY_80198ABC(SyShogun* this) {
-    f32 yAngle = Math_RadToDeg(Math_Atan2F(-this->obj.pos.x, -300.0f - this->obj.pos.z)) - this->rot_078.y;
+    f32 yAngle = Math_RadToDeg(Math_Atan2F(-this->obj.pos.x, -300.0f - this->obj.pos.z)) - this->orient.y;
 
     if (yAngle < 0.0f) {
         yAngle += 360.0f;
@@ -375,22 +375,22 @@ void SectorY_80198CE4(SyShogun* this) {
         SectorY_8019BC14(this);
     }
 
-    Math_SmoothStepToAngle(&this->rot_078.z, this->fwork[27], 0.1f, 0.5f, 0.1f);
-    Math_SmoothStepToAngle(&this->rot_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.z, this->fwork[27], 0.1f, 0.5f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.x, 0.0f, 0.1f, 4.0f, 0.1f);
     yAngle = Math_RadToDeg(Math_Atan2F(-this->obj.pos.x, -300.0f - this->obj.pos.z));
 
     if (this->index != 0) {
-        Math_SmoothStepToAngle(&this->rot_078.y, yAngle, 0.1f, 1.0f, 0.1f);
+        Math_SmoothStepToAngle(&this->orient.y, yAngle, 0.1f, 1.0f, 0.1f);
     } else {
-        Math_SmoothStepToAngle(&this->rot_078.y, yAngle, 0.1f, 2.0f, 0.1f);
+        Math_SmoothStepToAngle(&this->orient.y, yAngle, 0.1f, 2.0f, 0.1f);
     }
 
     if (this->index == 0) {
-        this->vel.x = SIN_DEG(this->rot_078.y) * (this->fwork[45] + 20.0f);
-        this->vel.z = COS_DEG(this->rot_078.y) * (this->fwork[45] + 20.0f);
+        this->vel.x = SIN_DEG(this->orient.y) * (this->fwork[45] + 20.0f);
+        this->vel.z = COS_DEG(this->orient.y) * (this->fwork[45] + 20.0f);
     } else {
-        this->vel.x = SIN_DEG(this->rot_078.y) * this->fwork[45];
-        this->vel.z = COS_DEG(this->rot_078.y) * this->fwork[45];
+        this->vel.x = SIN_DEG(this->orient.y) * this->fwork[45];
+        this->vel.z = COS_DEG(this->orient.y) * this->fwork[45];
     }
 
     if (SectorY_8019B5CC(this)) {
@@ -401,7 +401,7 @@ void SectorY_80198CE4(SyShogun* this) {
 
     Math_SmoothStepToF(&this->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
 
-    yAngle -= this->rot_078.y;
+    yAngle -= this->orient.y;
     if (yAngle < 0.0f) {
         yAngle += 360.0f;
     }
@@ -706,8 +706,8 @@ void SectorY_80199DAC(SyShogun* this) {
     this->fwork[13] = COS_DEG(sp34) * (this->fwork[45] + 10.0f);
     this->fwork[10] = sp34;
 
-    Math_SmoothStepToAngle(&this->rot_078.z, 0.0f, 0.1f, 4.0f, 0.1f);
-    Math_SmoothStepToAngle(&this->rot_078.y, this->fwork[10], 0.1f, 6.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.z, 0.0f, 0.1f, 4.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.y, this->fwork[10], 0.1f, 6.0f, 0.1f);
     Math_SmoothStepToF(&this->obj.pos.y, this->fwork[12], 1.0f, 15.0f, 1.0f);
 
     if (((ABS(this->obj.pos.y) - this->fwork[12]) <= 1800.0f) && (ABS(this->obj.pos.x) <= 1800.0f) &&
@@ -718,7 +718,7 @@ void SectorY_80199DAC(SyShogun* this) {
 
         Math_SmoothStepToF(&this->obj.pos.x, 0.0f, 0.1f, ABS(this->fwork[11]), 0.1f);
         Math_SmoothStepToF(&this->obj.pos.z, -300.0f, 0.1f, ABS(this->fwork[13]), 0.1f);
-        Math_SmoothStepToAngle(&this->rot_078.x, 0.0f, 0.1f, 4.0f, 0.1f);
+        Math_SmoothStepToAngle(&this->orient.x, 0.0f, 0.1f, 4.0f, 0.1f);
 
         this->fwork[10] = 0.0f;
 
@@ -740,7 +740,7 @@ void SectorY_80199DAC(SyShogun* this) {
         if (yAngle < 0.0f) {
             yAngle += 360.0f;
         }
-        yAngle = this->rot_078.y - yAngle;
+        yAngle = this->orient.y - yAngle;
         if (yAngle < 0.0f) {
             yAngle += 360.0f;
         }
@@ -748,14 +748,14 @@ void SectorY_80199DAC(SyShogun* this) {
         zSpeed = ABS(this->fwork[20] - this->obj.pos.z);
         xSpeed = ABS(this->fwork[18] - this->obj.pos.x);
 
-        if (this->rot_078.x != 0.0f) {
+        if (this->orient.x != 0.0f) {
             if ((yAngle > 300.0f) || (yAngle < 60.0f)) {
-                Math_SmoothStepToAngle(&this->rot_078.x, 181.0f, 0.1f, 6.0f, 0.1f);
+                Math_SmoothStepToAngle(&this->orient.x, 181.0f, 0.1f, 6.0f, 0.1f);
             } else {
-                Math_SmoothStepToAngle(&this->rot_078.x, 0.0f, 0.1f, 6.0f, 0.1f);
+                Math_SmoothStepToAngle(&this->orient.x, 0.0f, 0.1f, 6.0f, 0.1f);
             }
         } else if ((this->swork[22] == 1) && ((yAngle > 300.0f) || (yAngle < 60.0f)) && (Rand_ZeroOne() > 0.2f)) {
-            Math_SmoothStepToAngle(&this->rot_078.x, 181.0f, 0.1f, 6.0f, 0.1f);
+            Math_SmoothStepToAngle(&this->orient.x, 181.0f, 0.1f, 6.0f, 0.1f);
             this->swork[21] = 3;
             this->fwork[34] = 2.8f;
         }
@@ -782,8 +782,8 @@ void SectorY_8019A434(SyShogun* this) {
     this->swork[20] = 7;
     this->swork[21] = 5;
     this->timer_056 = (s32) (RAND_FLOAT(130.0f) + 60.0f);
-    this->fwork[11] = SIN_DEG(this->rot_078.y) * this->fwork[45];
-    this->fwork[13] = COS_DEG(this->rot_078.y) * this->fwork[45];
+    this->fwork[11] = SIN_DEG(this->orient.y) * this->fwork[45];
+    this->fwork[13] = COS_DEG(this->orient.y) * this->fwork[45];
     this->fwork[12] = 30.0f;
     this->fwork[10] = 181.0f;
     AUDIO_PLAY_SFX(NA_SE_EN_MS_LAND, this->sfxSource, 4);
@@ -796,7 +796,7 @@ void SectorY_8019A520(SyShogun* this) {
         SectorY_8019BC14(this);
     }
 
-    Math_SmoothStepToAngle(&this->rot_078.y, 0.0f, 0.1f, 2.0f, 0.1f);
+    Math_SmoothStepToAngle(&this->orient.y, 0.0f, 0.1f, 2.0f, 0.1f);
     Math_SmoothStepToF(&this->vel.x, 0.0f, 0.1f, 0.2f, 0.1f);
     Math_SmoothStepToF(&this->vel.z, 6.0f, 0.1f, 0.2f, 0.1f);
     Math_SmoothStepToF(&this->vel.y, 0.0f, 0.1f, 0.2f, 0.1f);
@@ -839,8 +839,8 @@ void SectorY_8019A66C(SyShogun* this) {
     }
 
     if (this->timer_056 <= 60) {
-        this->fwork[11] = SIN_DEG(this->rot_078.y) * this->fwork[45];
-        this->fwork[13] = COS_DEG(this->rot_078.y) * this->fwork[45];
+        this->fwork[11] = SIN_DEG(this->orient.y) * this->fwork[45];
+        this->fwork[13] = COS_DEG(this->orient.y) * this->fwork[45];
         this->swork[21] = 1;
         Math_SmoothStepToF(&this->fwork[43], 0.0f, 0.1f, 0.1f, 0.1f);
         Math_SmoothStepToF(&this->vel.z, this->fwork[13], 0.1f, 0.5f, 0.5f);
@@ -871,7 +871,7 @@ void SectorY_8019A898(SyShogun* this) {
     }
 
     yAngle1 = Math_RadToDeg(Math_Atan2F(this->fwork[18] - this->obj.pos.x, this->fwork[20] - this->obj.pos.z));
-    yAngle2 = yAngle1 - this->rot_078.y;
+    yAngle2 = yAngle1 - this->orient.y;
     if (yAngle2 < 0.0f) {
         yAngle2 += 360.0f;
     }
@@ -880,7 +880,7 @@ void SectorY_8019A898(SyShogun* this) {
 
     if (((yAngle2 >= 30.0f) && (yAngle2 <= 330.0f)) || ((this->animFrame != 0)) && (this->animFrame != 27)) {
         this->swork[21] = 5;
-        Math_SmoothStepToAngle(&this->rot_078.y, yAngle1, 0.1f, 2.0f, 0.1f);
+        Math_SmoothStepToAngle(&this->orient.y, yAngle1, 0.1f, 2.0f, 0.1f);
         this->fwork[0] = 1.0f;
         if ((this->animFrame == 0) || (this->animFrame == 27)) {
             AUDIO_PLAY_SFX(NA_SE_EN_HEAVY_WALK, this->sfxSource, 4);
@@ -968,12 +968,12 @@ void SectorY_8019AAF0(SyShogun* this) {
         Matrix_MultVec3f(gCalcMatrix, &vec, &vel);
         this->vel.z = vel.z;
         this->vel.x = vel.x;
-        Math_SmoothStepToAngle(&this->rot_078.y, Math_RadToDeg(yAngle), 0.1f, 6.0f, 0.1f);
+        Math_SmoothStepToAngle(&this->orient.y, Math_RadToDeg(yAngle), 0.1f, 6.0f, 0.1f);
     }
 
     if (this->swork[31] != 11) {
 
-        if ((this->rot_078.z <= 90.0f) || (this->rot_078.z >= 270.0f)) {
+        if ((this->orient.z <= 90.0f) || (this->orient.z >= 270.0f)) {
             this->fwork[19] += 70.0f;
         } else {
             this->fwork[19] -= 50.0f;
@@ -1133,7 +1133,7 @@ bool SectorY_8019B5CC(SyShogun* this) {
         return false;
     }
 
-    Math_Vec3fFromAngles(&pos, this->rot_078.x, this->rot_078.y, 700.0f);
+    Math_Vec3fFromAngles(&pos, this->orient.x, this->orient.y, 700.0f);
 
     if ((fabsf(gScenery360[SHOGUN_SHIP].obj.pos.x - (this->obj.pos.x + pos.x)) < 2500.0f) &&
         (fabsf(gScenery360[SHOGUN_SHIP].obj.pos.z - (this->obj.pos.z + pos.z)) < 5000.0f) &&
@@ -1243,7 +1243,7 @@ void SectorY_8019BC14(SyShogun* this) {
 
     if ((fabsf(this->fwork[3] - this->fwork[0x14]) > 300.0f) || (fabsf(this->fwork[1] - this->fwork[0x12]) > 300.0f)) {
         sp3C = Math_RadToDeg(
-            Math_Atan2F(this->fwork[0x12] - this->fwork[1] - this->rot_078.x, this->fwork[0x14] - this->fwork[3]));
+            Math_Atan2F(this->fwork[0x12] - this->fwork[1] - this->orient.x, this->fwork[0x14] - this->fwork[3]));
         sp40 = ABS(this->fwork[0x12] - this->fwork[1]) + ABS(this->fwork[0x14] - this->fwork[3]);
         sp40 = Math_RadToDeg(-Math_Atan2F(this->fwork[0x13] - this->fwork[2], sp40));
         sp38 = Math_RadToDeg(Math_Atan2F(this->fwork[1] - this->fwork[0x15], this->fwork[3] - this->fwork[0x17]));
@@ -1271,7 +1271,7 @@ void SectorY_8019BC14(SyShogun* this) {
             gPlayer[0].pos.y = this->fwork[0x13];
             gPlayer[0].trueZpos = gPlayer[0].pos.z = this->fwork[0x14];
 
-            Effect_EnemyLaser(OBJ_EFFECT_354, this->fwork[1], this->fwork[2], this->fwork[3], 100.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_354, this->fwork[1], this->fwork[2], this->fwork[3], 100.0f);
 
             gPlayer[0].pos.x = sp4C;
             gPlayer[0].pos.y = sp48;
@@ -1519,9 +1519,9 @@ void SectorY_SyShogun_Update(SyShogun* this) {
                 break;
         }
 
-        this->obj.rot.x = this->rot_078.x;
-        this->obj.rot.y = this->rot_078.y;
-        this->obj.rot.z = this->rot_078.z;
+        this->obj.rot.x = this->orient.x;
+        this->obj.rot.y = this->orient.y;
+        this->obj.rot.z = this->orient.z;
 
         Matrix_RotateZ(gCalcMatrix, -this->vwork[29].z * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
@@ -1671,7 +1671,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
             radarMark->pos.x = this->obj.pos.x;
             radarMark->pos.y = this->obj.pos.y;
             radarMark->pos.z = this->obj.pos.z;
-            radarMark->yRot = this->rot_078.y + 180.0f;
+            radarMark->yRot = this->orient.y + 180.0f;
         } else {
             radarMark = &gRadarMarks[this->index + 4];
             radarMark->enabled = true;
@@ -1679,7 +1679,7 @@ void SectorY_SyShogun_Update(SyShogun* this) {
             radarMark->pos.x = this->obj.pos.x;
             radarMark->pos.y = this->obj.pos.y;
             radarMark->pos.z = this->obj.pos.z;
-            radarMark->yRot = this->rot_078.y + 180.0f;
+            radarMark->yRot = this->orient.y + 180.0f;
         }
 
         if (gBossFrameCount == 250) {
@@ -2050,7 +2050,7 @@ void SectorY_8019EB80(void) {
         actor->obj.pos.y = D_i6_801A69FC[i].y + gPlayer[0].pos.y + RAND_FLOAT_SEEDED(1000.0f);
         actor->obj.pos.z = D_i6_801A69FC[i].z + gPlayer[0].pos.z + RAND_FLOAT_SEEDED(1000.0f);
 
-        actor->rot_0F4.z = RAND_FLOAT_CENTERED_SEEDED(200.0f);
+        actor->orient.z = RAND_FLOAT_CENTERED_SEEDED(200.0f);
 
         actor->vwork[0].x = (D_i6_801A69FC[i].x * 0.5f) + gPlayer[0].pos.x;
         actor->vwork[0].y = D_i6_801A69FC[i].y + gPlayer[0].pos.y;
@@ -2061,7 +2061,7 @@ void SectorY_8019EB80(void) {
 
         if (i >= 3) {
             actor->animFrame = ACTOR_CS_SY_SHIP_1_SHRINK;
-            actor->rot_0F4.z = 0.0f;
+            actor->orient.z = 0.0f;
         }
         if (i >= 7) {
             actor->animFrame = ACTOR_CS_SY_SHIP_2;
@@ -2149,8 +2149,8 @@ void SectorY_LevelComplete(Player* player) {
             Math_SmoothStepToF(&player->rot.z, temp_ft1 * 20.0f, 0.1f, 1.0f, 0);
 
             for (i = 1; i < 4; i++) {
-                temp_ft1 = Math_SmoothStepToAngle(&gActors[i].rot_0F4.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
-                Math_SmoothStepToF(&gActors[i].rot_0F4.z, temp_ft1 * 20.0f, 0.1f, 1.0f, 0);
+                temp_ft1 = Math_SmoothStepToAngle(&gActors[i].orient.y, gActors[i].fwork[1], 0.1f, 3.0f, 0.0f);
+                Math_SmoothStepToF(&gActors[i].orient.z, temp_ft1 * 20.0f, 0.1f, 1.0f, 0);
             }
 
             if (gCsFrameCount >= 180) {
@@ -2420,7 +2420,7 @@ void SectorY_8019FF00(ActorCutscene* this) {
             Math_SmoothStepToF(&this->obj.pos.x, this->vwork[0].x, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.y, this->vwork[0].y, 0.02f, 2.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.z, this->vwork[0].z, 0.02f, 2.0f, 0.0001f);
-            Math_SmoothStepToF(&this->rot_0F4.z, 0.0f, 0.02f, 0.2f, 0.0001f);
+            Math_SmoothStepToF(&this->orient.z, 0.0f, 0.02f, 0.2f, 0.0001f);
             if ((this->animFrame != 0) && ((((s32) (this->index % 8U) * 10) + 1030) < gCsFrameCount)) {
                 this->state = 4;
             }
@@ -2434,22 +2434,22 @@ void SectorY_8019FF00(ActorCutscene* this) {
         case 3:
             this->iwork[11] = 2;
             this->fwork[0] += 2.0f;
-            this->rot_0F4.x += 0.1f;
+            this->orient.x += 0.1f;
             break;
 
         case 5:
-            Math_SmoothStepToF(&this->rot_0F4.x, 0.0f, 0.1f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&this->orient.x, 0.0f, 0.1f, 5.0f, 0.0f);
             x = this->obj.pos.x - gBosses[this->work_04C].obj.pos.x;
             z = this->obj.pos.z - gBosses[this->work_04C].obj.pos.z;
             Math_SmoothStepToAngle(
-                &this->rot_0F4.z,
-                Math_SmoothStepToAngle(&this->rot_0F4.y, Math_RadToDeg(Math_Atan2F(x, z)), 0.5f, 2.0f, 0.0001f) * 30.0f,
+                &this->orient.z,
+                Math_SmoothStepToAngle(&this->orient.y, Math_RadToDeg(Math_Atan2F(x, z)), 0.5f, 2.0f, 0.0001f) * 30.0f,
                 0.1f, 5.0f, 0.0001f);
             break;
 
         case 7:
-            this->rot_0F4.y = gPlayer[0].rot.y;
-            this->rot_0F4.z = gPlayer[0].rot.z;
+            this->orient.y = gPlayer[0].rot.y;
+            this->orient.z = gPlayer[0].rot.z;
             Math_SmoothStepToF(&this->obj.pos.y, 50.0f, 0.1f, 1.0f, 0.0f);
             if (gPlayer[0].rot.y == 0.0f) {
                 Math_SmoothStepToF(&this->obj.pos.x, 1300.0f, 1.0f, 2.0f, 0.0f);
@@ -2470,10 +2470,10 @@ void SectorY_8019FF00(ActorCutscene* this) {
                     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&this->obj.pos.x, -1000.0f, 1.0f, 20.0f, 0.0f);
-                Math_SmoothStepToAngle(&this->rot_0F4.z, 45.0f, 1.0f, 4.0f, 0.0f);
+                Math_SmoothStepToAngle(&this->orient.z, 45.0f, 1.0f, 4.0f, 0.0f);
             } else {
-                this->rot_0F4.y = gPlayer[0].rot.y;
-                this->rot_0F4.z = gPlayer[0].rot.z;
+                this->orient.y = gPlayer[0].rot.y;
+                this->orient.z = gPlayer[0].rot.z;
                 Math_SmoothStepToF(&this->obj.pos.x, -230.0f, 1.0f, 13.0f, 0.0f);
             }
             break;
@@ -2486,18 +2486,18 @@ void SectorY_8019FF00(ActorCutscene* this) {
                     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, this->sfxSource, 0);
                 }
                 Math_SmoothStepToF(&this->obj.pos.x, 1500.0f, 1.0f, 20.0f, 0.0f);
-                Math_SmoothStepToAngle(&this->rot_0F4.z, 315.0f, 1.0f, 2.0f, 0.0f);
+                Math_SmoothStepToAngle(&this->orient.z, 315.0f, 1.0f, 2.0f, 0.0f);
             } else {
-                this->rot_0F4.y = gPlayer[0].rot.y;
-                this->rot_0F4.z = gPlayer[0].rot.z;
+                this->orient.y = gPlayer[0].rot.y;
+                this->orient.z = gPlayer[0].rot.z;
                 Math_SmoothStepToF(&this->obj.pos.x, 150.0f, 1.0f, 13.0f, 0.0f);
             }
             break;
     }
 
     if (this->state != 6) {
-        Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-        Matrix_RotateX(gCalcMatrix, -(this->rot_0F4.x * M_DTOR), MTXF_APPLY);
+        Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+        Matrix_RotateX(gCalcMatrix, -(this->orient.x * M_DTOR), MTXF_APPLY);
         sp4C.x = 0.0f;
         sp4C.y = 0.0f;
         sp4C.z = this->fwork[0];
@@ -2505,9 +2505,9 @@ void SectorY_8019FF00(ActorCutscene* this) {
         this->vel.x = sp40.x;
         this->vel.y = sp40.y;
         this->vel.z = sp40.z;
-        this->obj.rot.x = -this->rot_0F4.x;
-        this->obj.rot.y = this->rot_0F4.y + 180.0f;
-        this->obj.rot.z = -this->rot_0F4.z;
+        this->obj.rot.x = -this->orient.x;
+        this->obj.rot.y = this->orient.y + 180.0f;
+        this->obj.rot.z = -this->orient.z;
     }
 }
 
@@ -2590,8 +2590,8 @@ void SectorY_801A06A4(ActorCutscene* this, s32 arg1) {
         this->obj.pos.z = gPlayer[0].pos.z + D_i6_801A6AEC[arg1].z;
 
         this->fwork[0] = gPlayer[0].baseSpeed;
-        this->rot_0F4.y = gPlayer[0].rot.y;
-        this->rot_0F4.z = gPlayer[0].rot.z;
+        this->orient.y = gPlayer[0].rot.y;
+        this->orient.z = gPlayer[0].rot.z;
         this->state = arg1 + 7;
         this->iwork[11] = 1;
         Object_SetInfo(&this->info, this->obj.id);
@@ -3601,7 +3601,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                 this->timer_0C4 = 4;
                 this->fwork[19] = 30.0f;
                 if (this->iwork[19] < 0) {
-                    ActorEvent_8006F254(this);
+                    ActorEvent_ShootForward(this);
                 } else {
                     sp1E4 = gPlayer[0].pos.x;
                     sp1E0 = gPlayer[0].pos.y;
@@ -3609,7 +3609,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                         gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
                         gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                     }
-                    Effect_EnemyLaser(OBJ_EFFECT_354, this->fwork[16], this->fwork[17], this->fwork[18], 100.0f);
+                    Effect_ShootAtPlayer(OBJ_EFFECT_354, this->fwork[16], this->fwork[17], this->fwork[18], 100.0f);
                     gPlayer[0].pos.x = sp1E4;
                     gPlayer[0].pos.y = sp1E0;
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
