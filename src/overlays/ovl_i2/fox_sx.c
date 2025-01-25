@@ -62,14 +62,14 @@ void SectorX_SxSlippy_ShootBoss(SxSlippy* this) {
     src.y = 0.0f;
     src.z = 100.0f;
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + 180.0f) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + 180.0f) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
     Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (dest.x * 1.5), this->obj.pos.y + (dest.y * 1.5),
-                           this->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, this->rot_0F4.x,
-                           this->rot_0F4.y + 180.0f, 0.0f);
+                           this->obj.pos.z + (dest.z * 1.5), dest.x, dest.y, dest.z, this->orient.x,
+                           this->orient.y + 180.0f, 0.0f);
 }
 
 void SectorX_SxSlippy_Update(SxSlippy* this) {
@@ -82,10 +82,10 @@ void SectorX_SxSlippy_Update(SxSlippy* this) {
             break;
 
         case 1:
-            this->rot_0F4.z += 3.0f;
-            this->obj.rot.z = SIN_DEG(this->rot_0F4.z + 90.0f) * 60.0f;
+            this->orient.z += 3.0f;
+            this->obj.rot.z = SIN_DEG(this->orient.z + 90.0f) * 60.0f;
             sp34 = fabsf(this->obj.pos.z - gBosses[0].obj.pos.z) * 0.1f;
-            Math_SmoothStepToF(&this->obj.pos.x, gBosses[0].obj.pos.x + SIN_DEG(this->rot_0F4.z) * sp34, 0.1f, 20.0f,
+            Math_SmoothStepToF(&this->obj.pos.x, gBosses[0].obj.pos.x + SIN_DEG(this->orient.z) * sp34, 0.1f, 20.0f,
                                0.0f);
             Math_SmoothStepToF(&this->obj.pos.y, gBosses[0].obj.pos.y, 0.1f, 20.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.z, gBosses[0].obj.pos.z, 1.0f, 55.0f, 0);
@@ -242,7 +242,7 @@ void SectorX_8018FBBC(Vec3f* pos) {
             (fabsf(pos->z - slippy->obj.pos.z) < 2500.0f) && (slippy->state != 1000) && (slippy->timer_0C2 == 0) &&
             (slippy->scale < 0.0f) &&
             Object_CheckHitboxCollision(pos, slippy->info.hitbox, &slippy->obj, slippy->vwork[29].x,
-                                        slippy->vwork[29].y, slippy->vwork[29].z + slippy->rot_0F4.z)) {
+                                        slippy->vwork[29].y, slippy->vwork[29].z + slippy->orient.z)) {
             Play_PlaySfxFirstPlayer(slippy->sfxSource, NA_SE_SLIPPY_HIT);
             slippy->state = 1000;
             xRot = Math_Atan2F(slippy->obj.pos.x - pos->x, slippy->obj.pos.z - pos->z);
@@ -974,7 +974,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                     } else {
                         this->state = 35;
                         this->timer_050 = 400;
-                        this->fwork[42] = this->fwork[43] = this->fwork[44] = this->rot_078.y = 0.0f;
+                        this->fwork[42] = this->fwork[43] = this->fwork[44] = this->orient.y = 0.0f;
                         this->swork[9] = RAND_INT(1.9f);
                         Radio_PlayMessage(gMsg_ID_5498, RCID_BOSS_SECTORX);
                     }
@@ -1021,8 +1021,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 5.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 0.1f, 1.0f, 0.001f, 0);
-            Math_SmoothStepToF(&this->rot_078.y, 10.0f, 1.0f, 0.1f, 0);
-            Math_SmoothStepToF(&this->obj.rot.y, 2880.0f, 0.1f, this->rot_078.y, 0.1f);
+            Math_SmoothStepToF(&this->orient.y, 10.0f, 1.0f, 0.1f, 0);
+            Math_SmoothStepToF(&this->obj.rot.y, 2880.0f, 0.1f, this->orient.y, 0.1f);
 
             if ((this->timer_050 == 0) && (this->obj.rot.y == 2880.0f)) {
                 this->obj.rot.y = 0.0f;
@@ -1112,10 +1112,10 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             if (this->swork[1] > 50) {
                 this->swork[1] = 0;
             }
-            Effect_EnemyLaser(OBJ_EFFECT_377, this->fwork[20] + this->obj.pos.x, this->fwork[21] + this->obj.pos.y,
-                              this->fwork[22] + this->obj.pos.z, 100.0f);
-            Effect_EnemyLaser(OBJ_EFFECT_377, this->fwork[23] + this->obj.pos.x, this->fwork[24] + this->obj.pos.y,
-                              this->fwork[25] + this->obj.pos.z, 100.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_377, this->fwork[20] + this->obj.pos.x, this->fwork[21] + this->obj.pos.y,
+                                 this->fwork[22] + this->obj.pos.z, 100.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_377, this->fwork[23] + this->obj.pos.x, this->fwork[24] + this->obj.pos.y,
+                                 this->fwork[25] + this->obj.pos.z, 100.0f);
         }
     } else {
         this->swork[1] = 0;

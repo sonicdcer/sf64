@@ -10,7 +10,7 @@
 void Training_Setup360(void) {
     Scenery360* scenery360;
     s32 i;
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(D_TR_6008EF8);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(aTrAllRangeLevelObjects);
 
     Rand_SetSeed(1, 29000, 9876);
 
@@ -125,11 +125,11 @@ void Training_Enemy_Update(ActorAllRange* this) {
         }
     } else if ((this->obj.pos.y < (gGroundHeight + 50.0f)) && (targetAngle2 > 180.0f)) {
         targetAngle2 = 0.0f;
-        this->rot_0F4.x = 0.0f;
+        this->orient.x = 0.0f;
     }
 
-    Math_SmoothStepToAngle(&this->rot_0F4.x, targetAngle2, 0.5f, 1.0f, 0.0001f);
-    angle = Math_SmoothStepToAngle(&this->rot_0F4.y, this->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
+    Math_SmoothStepToAngle(&this->orient.x, targetAngle2, 0.5f, 1.0f, 0.0001f);
+    angle = Math_SmoothStepToAngle(&this->orient.y, this->fwork[19], 0.5f, 1.0f, 0.0001f) * 30.0f;
 
     if (angle < 0.0f) {
         targetAngle = angle * -1.0f;
@@ -139,8 +139,8 @@ void Training_Enemy_Update(ActorAllRange* this) {
 
     Math_SmoothStepToAngle(&this->obj.rot.z, targetAngle, 0.1f, 3.0f, 0.01f);
 
-    this->obj.rot.x = -this->rot_0F4.x;
-    this->obj.rot.y = this->rot_0F4.y;
+    this->obj.rot.x = -this->orient.x;
+    this->obj.rot.y = this->orient.y;
 
     this->vel.x = this->fwork[13] + (sinRotY * (cosRotX * 35.0f));
     this->vel.y = this->fwork[14] + (-sinRotX * 35.0f);
@@ -163,7 +163,7 @@ void Training_Enemy_Update(ActorAllRange* this) {
     radarMark->pos.x = this->obj.pos.x;
     radarMark->pos.y = this->obj.pos.y;
     radarMark->pos.z = this->obj.pos.z;
-    radarMark->yRot = this->rot_0F4.y + 180.0f;
+    radarMark->yRot = this->orient.y + 180.0f;
 
     if (this->iwork[8] != 0) {
         this->iwork[8]--;
@@ -214,10 +214,10 @@ void Training_SpawnEnemies(void) {
                 enemy->obj.pos.y = 2000.0f;
                 enemy->obj.pos.z = dest.z;
 
-                enemy->rot_0F4.y = gGameFrameCount * 6.0f;
+                enemy->orient.y = gGameFrameCount * 6.0f;
                 enemy->aiType = i + AI360_ENEMY;
                 enemy->health = 24;
-                enemy->drawShadow = enemy->iwork[11] = 1;
+                enemy->drawShadow = enemy->iwork[ACTOR_ENGINE_GLOW] = 1;
                 enemy->timer_0C2 = 30;
 
                 Object_SetInfo(&enemy->info, enemy->obj.id);

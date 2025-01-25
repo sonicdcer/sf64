@@ -169,8 +169,8 @@ D_BO_600F728:
 D_BO_600FF30:
   { type: SF64:ENVIRONMENT, offset: 0x600FF30, symbol: D_BO_600FF30 }
 
-D_BO_600FF74: 
-  { type: SF64:OBJECT_INIT, offset: 0x600FF74, symbol: D_BO_600FF74 }
+aBoLevelObjects: 
+  { type: SF64:OBJECT_INIT, offset: 0x600FF74, symbol: aBoLevelObjects }
 
 D_BO_6010294:
   { type: SF64:COLPOLY, count: 262, offset: 0x6010294, symbol: D_BO_6010294, mesh_symbol: D_BO_OFFSET }

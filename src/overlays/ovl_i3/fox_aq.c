@@ -394,7 +394,12 @@ f32 Aquas_801A958C(s32 arg0, f32 arg1) {
     return var_fv1;
 }
 
-void Aquas_801A95C8(void) {
+/**
+ * Unused.
+ * Smoothly moves the player's camera to the cutscene camera.
+ * Could be part of a scrapped cutscene.
+ */
+void Aquas_CsCamera_Update(void) {
     Math_SmoothStepToF(&gPlayer[0].cam.eye.x, gCsCamEyeX, 0.1f, 50.0f, 0.0001f);
     Math_SmoothStepToF(&gPlayer[0].cam.eye.y, gCsCamEyeY, 0.1f, 50.0f, 0.0001f);
     Math_SmoothStepToF(&gPlayer[0].cam.eye.z, gCsCamEyeZ, 0.1f, 50.0f, 0.0001f);
@@ -1363,7 +1368,7 @@ void Aquas_Effect366_Setup(Effect366* this, f32 xPos, f32 yPos, f32 zPos, f32 sc
     this->unk_4A = 40;
     this->scale2 = scale2 * 0.2f;
     this->unk_46 = 50;
-    this->unk_60.y = gPlayer[0].rot.y + gPlayer[0].yRot_114;
+    this->orient.y = gPlayer[0].rot.y + gPlayer[0].yRot_114;
 
     if (this->state == 2) {
         this->unk_46 = 100;
@@ -1407,13 +1412,13 @@ void Aquas_Effect366_Update(Effect366* this) {
             if (this->unk_46 == 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            this->unk_60.x += 0.07f;
+            this->orient.x += 0.07f;
             this->scale1 += 33.0f;
 
-            this->vel.y = this->unk_60.x + (SIN_DEG(this->scale1) * 3.0f);
+            this->vel.y = this->orient.x + (SIN_DEG(this->scale1) * 3.0f);
             temp_fs0 = COS_DEG(this->scale1) * 3.0f;
-            this->vel.x = COS_DEG(this->unk_60.y) * temp_fs0;
-            this->vel.z = -SIN_DEG(this->unk_60.y) * temp_fs0;
+            this->vel.x = COS_DEG(this->orient.y) * temp_fs0;
+            this->vel.z = -SIN_DEG(this->orient.y) * temp_fs0;
             break;
 
         case 2:
@@ -1602,7 +1607,7 @@ void Aquas_BlueMarineBrake(Player* player) {
     Math_SmoothStepToF(&player->camDist, 0.0f, 0.1f, 2.0f, 0.0f);
 }
 
-void Aquas_801AD598(Actor255* this) {
+void Aquas_801AD598(AqSanada* this) {
     s32 i;
 
     D_i3_801C27C0 = &D_i3_801C27C8[50 * this->iwork[0]];
@@ -1614,19 +1619,19 @@ void Aquas_801AD598(Actor255* this) {
         D_i3_801C27C0->rot.x = this->obj.rot.x;
         D_i3_801C27C0->rot.y = this->obj.rot.y;
         D_i3_801C27C0->rot.z = this->obj.rot.z;
-        D_i3_801C27C0->rot.x = this->rot_0F4.x;
-        D_i3_801C27C0->rot.y = this->rot_0F4.y;
-        D_i3_801C27C0->rot.z = this->rot_0F4.z;
+        D_i3_801C27C0->rot.x = this->orient.x;
+        D_i3_801C27C0->rot.y = this->orient.y;
+        D_i3_801C27C0->rot.z = this->orient.z;
     }
 }
 
-void Aquas_Actor255_Init(Actor255* this) {
+void Aquas_AqSanada_Init(AqSanada* this) {
     Aquas_801AD598(this);
     this->iwork[1] = 10;
     this->scale = 1.0f;
 }
 
-void Aquas_Actor255_Update(Actor255* this) {
+void Aquas_AqSanada_Update(AqSanada* this) {
     s32 var_v0 = this->iwork[2] - 1;
     f32 sp80;
     f32 sp7C;
@@ -1659,9 +1664,9 @@ void Aquas_Actor255_Update(Actor255* this) {
     switch (this->state) {
         case 0:
             if (this->timer_0BC != 0) {
-                this->rot_0F4.x += D_i3_801C4308[10];
-                this->rot_0F4.z += 10.0f;
-                this->rot_0F4.z = Math_ModF(this->rot_0F4.z, 360.0f);
+                this->orient.x += D_i3_801C4308[10];
+                this->orient.z += 10.0f;
+                this->orient.z = Math_ModF(this->orient.z, 360.0f);
             } else {
                 this->health = 30;
                 AUDIO_PLAY_SFX(NA_SE_EN_SANADA_SWIM, this->sfxSource, 4);
@@ -1710,8 +1715,8 @@ void Aquas_Actor255_Update(Actor255* this) {
 
             sp7C = SIN_DEG(this->fwork[0]) * sp70 * this->fwork[5];
             sp74 = COS_DEG(this->fwork[1]) * sp70 * this->fwork[6];
-            sp80 = COS_DEG(this->rot_0F4.y) * sp74;
-            sp78 = -SIN_DEG(this->rot_0F4.y) * sp74;
+            sp80 = COS_DEG(this->orient.y) * sp74;
+            sp78 = -SIN_DEG(this->orient.y) * sp74;
 
             if (sp7C < 20.0f) {
                 sp7C = 20.0f;
@@ -1721,10 +1726,10 @@ void Aquas_Actor255_Update(Actor255* this) {
                 this->fwork[2] = 360.0f;
             }
 
-            Math_SmoothStepToF(&this->rot_0F4.z, this->fwork[2], 0.1f, 10.0f, 0.001f);
+            Math_SmoothStepToF(&this->orient.z, this->fwork[2], 0.1f, 10.0f, 0.001f);
 
-            if (this->rot_0F4.z >= 360.0f) {
-                this->rot_0F4.z = 0.0f;
+            if (this->orient.z >= 360.0f) {
+                this->orient.z = 0.0f;
                 this->fwork[2] = 0.0f;
             }
 
@@ -1733,14 +1738,14 @@ void Aquas_Actor255_Update(Actor255* this) {
             sp6C = Math_RadToDeg(-Math_Atan2F(gPlayer[0].pos.y - 30.0f + sp7C - this->obj.pos.y, sp70));
 
             if (gPlayer[0].trueZpos <= this->obj.pos.z) {
-                sp68 = this->rot_0F4.y;
-                sp6C = this->rot_0F4.x;
+                sp68 = this->orient.y;
+                sp6C = this->orient.x;
             }
 
-            Math_SmoothStepToAngle(&this->rot_0F4.y, sp68, 1.0f, 5.0f, 0.001f);
-            Math_SmoothStepToAngle(&this->rot_0F4.x, sp6C, 1.0f, 5.0f, 0.001f);
-            Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+            Math_SmoothStepToAngle(&this->orient.y, sp68, 1.0f, 5.0f, 0.001f);
+            Math_SmoothStepToAngle(&this->orient.x, sp6C, 1.0f, 5.0f, 0.001f);
+            Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
             sp5C.x = 0.0f;
             sp5C.y = 0.0f;
@@ -1787,9 +1792,9 @@ void Aquas_Actor255_Update(Actor255* this) {
     D_i3_801C27C0->pos.y = this->obj.pos.y;
     D_i3_801C27C0->pos.z = this->obj.pos.z;
 
-    D_i3_801C27C0->rot.x = this->rot_0F4.x;
-    D_i3_801C27C0->rot.y = this->rot_0F4.y;
-    D_i3_801C27C0->rot.z = this->rot_0F4.z;
+    D_i3_801C27C0->rot.x = this->orient.x;
+    D_i3_801C27C0->rot.y = this->orient.y;
+    D_i3_801C27C0->rot.z = this->orient.z;
 }
 
 void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 type, s32 flag, f32 scale,
@@ -1823,7 +1828,7 @@ void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
 }
 
 // Bacoon Snake
-void Aquas_Actor255_Draw(Actor255* this) {
+void Aquas_AqSanada_Draw(AqSanada* this) {
     s32 i;
     f32 xz;
     f32 yRot;
@@ -1866,13 +1871,13 @@ void Aquas_Actor255_Draw(Actor255* this) {
     }
 }
 
-void Aquas_Actor256_Init(Actor256* this) {
+void Aquas_AqBacoonMuscle_Init(AqBacoonMuscle* this) {
     this->fwork[1] = 1.0f;
     this->obj.rot.x = 336.0f;
     this->scale = 0.5f;
 }
 
-void Aquas_Actor256_Update(Actor256* this) {
+void Aquas_AqBacoonMuscle_Update(AqBacoonMuscle* this) {
     s32 i;
 
     switch (this->state) {
@@ -1922,7 +1927,8 @@ void Aquas_Actor256_Update(Actor256* this) {
                             this->health = 10;
 
                             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
-                                if ((gActors[i].obj.id == OBJ_ACTOR_256) && (this->index != gActors[i].index)) {
+                                if ((gActors[i].obj.id == OBJ_ACTOR_AQ_BACOON_MUSCLE) &&
+                                    (this->index != gActors[i].index)) {
                                     gActors[i].health = 10;
                                 }
                             }
@@ -2024,7 +2030,7 @@ void Aquas_Actor256_Update(Actor256* this) {
     }
 }
 
-void Aquas_Actor256_Draw(Actor256* this) {
+void Aquas_AqBacoonMuscle_Draw(AqBacoonMuscle* this) {
     f32 var_fv0;
     u8 var_t1;
     u8 i;
@@ -2142,7 +2148,7 @@ void Aquas_Actor256_Draw(Actor256* this) {
     gDPSetTextureLUT(gMasterDisp++, G_TT_NONE);
 }
 
-void Aquas_Actor257_Init(Actor257* this) {
+void Aquas_AqBacconBarnacle_Init(AqBacconBarnacle* this) {
     s32 temp = this->iwork[0];
 
     this->fwork[0] = this->fwork[1] = this->fwork[2] = 1.0f;
@@ -2152,7 +2158,7 @@ void Aquas_Actor257_Init(Actor257* this) {
     this->obj.rot.x = D_i3_801BFBBC[temp] + D_i3_801C4308[10];
 }
 
-void Aquas_Actor257_Update(Actor257* this) {
+void Aquas_AqBacconBarnacle_Update(AqBacconBarnacle* this) {
     s32 i;
     f32 sp70;
     f32 sp6C;
@@ -2226,7 +2232,7 @@ void Aquas_Actor257_Update(Actor257* this) {
             if ((this->timer_0BC == 0) && (fabsf(D_i3_801C4308[10]) < 5.0f) && (this->timer_0C6 == 0)) {
                 i = this->iwork[3] - 1;
                 if (i >= 0) {
-                    if (!((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_255) &&
+                    if (!((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_AQ_SANADA) &&
                           (gActors[i].iwork[0] == this->iwork[0]))) {
                         this->iwork[3] = 0;
                         this->state = 2;
@@ -2254,7 +2260,7 @@ void Aquas_Actor257_Update(Actor257* this) {
             this->iwork[1]++;
             i = this->iwork[3] - 1;
 
-            if ((i >= 0) && !((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_255) &&
+            if ((i >= 0) && !((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_AQ_SANADA) &&
                               (gActors[i].iwork[0] == this->iwork[0]))) {
                 this->iwork[3] = 0;
                 i = -1;
@@ -2266,15 +2272,15 @@ void Aquas_Actor257_Update(Actor257* this) {
                     if (sp48->obj.status == OBJ_FREE) {
                         Actor_Initialize(sp48);
                         sp48->obj.status = OBJ_INIT;
-                        sp48->obj.id = OBJ_ACTOR_255;
+                        sp48->obj.id = OBJ_ACTOR_AQ_SANADA;
                         sp48->obj.pos.x = this->obj.pos.x;
                         sp48->obj.pos.y = this->obj.pos.y;
                         sp48->obj.pos.z = this->obj.pos.z;
-                        sp48->obj.rot.x = sp48->rot_0F4.x =
+                        sp48->obj.rot.x = sp48->orient.x =
                             Math_ModF(this->obj.rot.x + 270.0f + D_i3_801BFC7C[this->iwork[0]], 360.0f);
-                        sp48->obj.rot.y = sp48->rot_0F4.y =
+                        sp48->obj.rot.y = sp48->orient.y =
                             Math_ModF(this->obj.rot.y + D_i3_801BFC88[this->iwork[0]], 360.0f);
-                        sp48->rot_0F4.z = this->obj.rot.z;
+                        sp48->orient.z = this->obj.rot.z;
                         sp48->obj.rot.z = this->obj.rot.z;
                         sp48->timer_0BC = 10;
                         Object_SetInfo(&sp48->info, sp48->obj.id);
@@ -2394,7 +2400,7 @@ void Aquas_Actor257_Update(Actor257* this) {
     }
 }
 
-void Aquas_Actor257_Draw(Actor257* this) {
+void Aquas_AqBacconBarnacle_Draw(AqBacconBarnacle* this) {
     Matrix_RotateY(gGfxMatrix, (this->obj.rot.x + this->fwork[3]) * M_DTOR, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, (this->obj.rot.y + this->fwork[4]) * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix, (this->obj.rot.z + this->fwork[5]) * M_DTOR, MTXF_APPLY);
@@ -2550,7 +2556,7 @@ void Aquas_AqBacoon_Init(AqBacoon* this) {
         if (actor->obj.status == OBJ_FREE) {
             Actor_Initialize(actor);
             actor->obj.status = OBJ_INIT;
-            actor->obj.id = OBJ_ACTOR_256;
+            actor->obj.id = OBJ_ACTOR_AQ_BACOON_MUSCLE;
             actor->obj.pos.x = this->obj.pos.x + D_i3_801C0098[i].x;
             actor->obj.pos.y = this->obj.pos.y + D_i3_801C0098[i].y;
             actor->obj.pos.z = this->obj.pos.z + D_i3_801C0098[i].z;
@@ -2632,7 +2638,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                     if (actor->obj.status == OBJ_FREE) {
                         Actor_Initialize(actor);
                         actor->obj.status = OBJ_INIT;
-                        actor->obj.id = OBJ_ACTOR_257;
+                        actor->obj.id = OBJ_ACTOR_AQ_BACOON_BARNACLE;
                         actor->iwork[0] = i2;
                         Object_SetInfo(&actor->info, actor->obj.id);
                         i2++;
@@ -4644,7 +4650,7 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
                 j = this->iwork[2 + i] - 1;
                 effect = &gEffects[j];
                 if ((effect->obj.id == OBJ_EFFECT_395) && (effect->state == 2) && (effect->timer_50 != 0)) {
-                    effect->unk_44 = 3;
+                    effect->alpha = 3;
                     this->iwork[2 + i] = 0;
                 }
             }
@@ -4785,7 +4791,7 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
                     effect->vel.y = sp84.y;
                     effect->vel.z = sp84.z;
 
-                    effect->unk_44 = 2;
+                    effect->alpha = 2;
                     effect->timer_50 = 100;
                     this->iwork[3] = 0;
                     AUDIO_PLAY_SFX(NA_SE_EN_WT_THROW, this->sfxSource, 4);
@@ -4819,7 +4825,7 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
                     effect->vel.y = sp84.y;
                     effect->vel.z = sp84.z;
 
-                    effect->unk_44 = 2;
+                    effect->alpha = 2;
                     effect->timer_50 = 100;
                     this->iwork[2] = 0;
                 } else {
@@ -5155,9 +5161,9 @@ void Aquas_AqSquid_Update(AqSquid* this) {
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spAC);
 
-                func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
-                                     this->vwork[26].y + RAND_FLOAT_CENTERED(200.0f), this->vwork[26].z, spf98, sp94,
-                                     0.0f, 0.0f, 0.0f, 0.0f, spAC.x, spAC.y, spAC.z, 1.0f);
+                Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
+                                  this->vwork[26].y + RAND_FLOAT_CENTERED(200.0f), this->vwork[26].z, spf98, sp94, 0.0f,
+                                  0.0f, 0.0f, 0.0f, spAC.x, spAC.y, spAC.z, 1.0f);
             }
             break;
 
@@ -5191,10 +5197,9 @@ void Aquas_AqSquid_Update(AqSquid* this) {
                                           this->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
                                           this->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spDC, &spD0);
-                    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + spD0.x,
-                                         this->vwork[26].y + spD0.y, this->vwork[26].z + spD0.z, this->vwork[27].x,
-                                         this->fwork[2], this->vwork[27].z, 0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z,
-                                         1.0f);
+                    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + spD0.x, this->vwork[26].y + spD0.y,
+                                      this->vwork[26].z + spD0.z, this->vwork[27].x, this->fwork[2], this->vwork[27].z,
+                                      0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z, 1.0f);
                 }
             }
             break;
@@ -6554,7 +6559,7 @@ void Aquas_801BDF14(void) {
         actor->obj.pos.x = D_i3_801C0504[i].x;
         actor->obj.pos.y = D_i3_801C0504[i].y;
         actor->obj.pos.z = D_i3_801C0504[i].z;
-        actor->rot_0F4.y = D_i3_801C075C[i];
+        actor->orient.y = D_i3_801C075C[i];
         actor->animFrame = ACTOR_CS_AQ_FISHGROUP;
         actor->iwork[0] = RAND_INT(20.0f);
         actor->iwork[2] = i;
@@ -6570,7 +6575,7 @@ void Aquas_CsAqFishGroup_Update(AqFishGroup* this) {
     if (this->timer_0BC == 0) {
         this->fwork[0] = 10.0f;
         temp = D_i3_801C0828[this->iwork[2]];
-        Math_SmoothStepToAngle(&this->rot_0F4.y, temp, 1.0f, 100.0f, 0.00001f);
+        Math_SmoothStepToAngle(&this->orient.y, temp, 1.0f, 100.0f, 0.00001f);
     }
 
     this->iwork[0]++;
@@ -6622,8 +6627,8 @@ void Aquas_801BE274(AqOyster* this, f32 yRot, f32 xRot) {
     sp40.z = 80.0f;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp58);
-    func_effect_8007F04C(OBJ_EFFECT_355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y,
-                         sp58.z, 1.0f);
+    Effect_SpawnById2(OBJ_EFFECT_355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y,
+                      sp58.z, 1.0f);
 }
 
 void Aquas_AqOyster_Update(AqOyster* this) {

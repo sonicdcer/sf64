@@ -8,7 +8,15 @@
 #define HITBOX_SHADOW 300000.0f
 #define HITBOX_WHOOSH 400000.0f
 
-#define TEAM_FACE (14)
+#define TEAM_FACE 14
+#define TEAM_FACE_XROT 20
+#define TEAM_FACE_YROT 19
+#define TEAM_UNK_28 17
+#define TEAM_UPPER_RIGHT_FLAP_YROT 15
+#define TEAM_UPPER_LEFT_FLAP_YROT 16
+#define TEAM_LOWER_RIGHT_FLAP_YROT 26
+#define TEAM_LOWER_LEFT_FLAP_YROT 27
+#define ACTOR_ENGINE_GLOW 11
 
 typedef enum ActorCSTeamFace {
     /* 0 */ FACE_NONE,
@@ -214,19 +222,19 @@ typedef struct Effect {
     /* 0x00 */ Object obj;
     /* 0x1C */ ObjectInfo info;
     /* 0x40 */ s32 index;
-    /* 0x44 */ s16 unk_44;
+    /* 0x44 */ s16 alpha;
     /* 0x46 */ s16 unk_46;
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ s16 unk_4A;
     /* 0x4C */ u8 unk_4C;
     /* 0x4E */ s16 state;
     /* 0x50 */ u16 timer_50;
-    /* 0x52 */ char pad52[0x2];
+    /* 0x52 */ char pad52[2];
     /* 0x54 */ Vec3f vel;
-    /* 0x60 */ Vec3f unk_60;
+    /* 0x60 */ Vec3f orient;
     /* 0x6C */ f32 scale1;
     /* 0x70 */ f32 scale2;
-    /* 0x74 */ Gfx* unk_74;
+    /* 0x74 */ Gfx* dList;
     /* 0x78 */ s16 unk_78;
     /* 0x7A */ s16 unk_7A;
     /* 0x7C */ char pad7C[4];
@@ -257,7 +265,7 @@ typedef struct Boss {
     /* 0x066 */ s16 dmgPart;
     /* 0x068 */ f32 yOffset;
     /* 0x06C */ Vec3f vel;
-    /* 0x078 */ Vec3f rot_078;
+    /* 0x078 */ Vec3f orient;
     /* 0x084 */ f32 gravity;
     /* 0x088 */ s16 swork[40];
     /* 0x0D8 */ f32 fwork[50];
@@ -306,7 +314,7 @@ typedef struct Actor {
     /* 0x0E4 */ s16 aiType;  // Actor index for AllRange, script index for Event
     /* 0x0E6 */ s16 aiIndex; // Target index for AllRange, program counter for Event
     /* 0x0E8 */ Vec3f vel;
-    /* 0x0F4 */ Vec3f rot_0F4;
+    /* 0x0F4 */ Vec3f orient;
     /* 0x100 */ f32 sfxSource[3];
     /* 0x10C */ f32 gravity;
     /* 0x110 */ f32 scale;
@@ -483,8 +491,8 @@ typedef enum ObjectId {
     /* 164 */ OBJ_SPRITE_FOG_SHADOW,
     /* 165 */ OBJ_SPRITE_CO_RUIN1,
     /* 166 */ OBJ_SPRITE_CO_RUIN2,
-    /* 167 */ OBJ_SPRITE_167,
-    /* 168 */ OBJ_SPRITE_168,
+    /* 167 */ OBJ_SPRITE_UNK_167, // Unimplemented.
+    /* 168 */ OBJ_SPRITE_UNK_168, // Unimplemented.
     /* 169 */ OBJ_SPRITE_TI_CACTUS,
     /* 170 */ OBJ_SPRITE_CO_SMOKE,
     /* 171 */ OBJ_SPRITE_VE1_BOSS_TRIGGER1,
@@ -521,15 +529,15 @@ typedef enum ObjectId {
     /* 202 */ OBJ_ACTOR_ME_HOPBOT,
     /* 203 */ OBJ_ACTOR_SX_SLIPPY,
     /* 204 */ OBJ_ACTOR_SY_ROBOT,
-    /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,
-    /* 206 */ OBJ_ACTOR_MA_TRAIN_CAR_1,
-    /* 207 */ OBJ_ACTOR_207,
-    /* 208 */ OBJ_ACTOR_MA_TRAIN_CAR_2,
-    /* 209 */ OBJ_ACTOR_MA_TRAIN_CAR_3,
-    /* 210 */ OBJ_ACTOR_MA_TRAIN_CAR_4,
-    /* 211 */ OBJ_ACTOR_MA_TRAIN_CAR_5,
-    /* 212 */ OBJ_ACTOR_MA_TRAIN_CAR_6,
-    /* 213 */ OBJ_ACTOR_MA_TRAIN_CAR_7,
+    /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,    // Macbeth train locomotive.
+    /* 206 */ OBJ_ACTOR_MA_TENDER_CAR,        // Macbeth train tender, where Mechbeth is hidden.
+    /* 207 */ OBJ_ACTOR_MA_MECHBETH,      // Macbeth train BOSS, located inside the tender.
+    /* 208 */ OBJ_ACTOR_MA_MISSILE_CAR,   // Macbeth train Copperhead Missile container car.
+    /* 209 */ OBJ_ACTOR_MA_ROBOT,         // Macbeth train Robot.
+    /* 210 */ OBJ_ACTOR_MA_BOULDER_CAR,   // Macbeth train container car full of boulders.
+    /* 211 */ OBJ_ACTOR_MA_CONTAINER_BOX, // Macbeth train cargo container box.
+    /* 212 */ OBJ_ACTOR_MA_CANNON_CAR,    // Macbeth train turret.
+    /* 213 */ OBJ_ACTOR_MA_TANK_CAR,      // Macbeth train tank car.
     /* 214 */ OBJ_ACTOR_MA_RAILROAD_SWITCH,
     /* 215 */ OBJ_ACTOR_MA_BOULDER,
     /* 216 */ OBJ_ACTOR_MA_HORIZONTAL_LOCK_BAR,
@@ -560,24 +568,24 @@ typedef enum ObjectId {
     /* 241 */ OBJ_ACTOR_ZO_ENERGY_BALL,     // Energy balls carried by Z-Gulls.
     /* 242 */ OBJ_ACTOR_ZO_TROIKA,
     /* 243 */ OBJ_ACTOR_ZO_SHRIMP,
-    /* 244 */ OBJ_ACTOR_ZO_OBNEMA,  // Giant Arachnid type enemy.
-    /* 245 */ OBJ_ACTOR_ZO_BALL,    // Balls shoot by Zoness boss.
+    /* 244 */ OBJ_ACTOR_ZO_OBNEMA,    // Giant Arachnid type enemy.
+    /* 245 */ OBJ_ACTOR_ZO_BALL,      // Balls shoot by Zoness boss.
     /* 246 */ OBJ_ACTOR_ZO_MINE,
-    /* 247 */ OBJ_ACTOR_ZO_BARRIER, // Barrier with opening rudders on the sides.
+    /* 247 */ OBJ_ACTOR_ZO_BARRIER,   // Barrier with opening rudders on the sides.
     /* 248 */ OBJ_ACTOR_ZO_CRANE_MAGNET,
-    /* 249 */ OBJ_ACTOR_SPIKEBALL,  // Spikeball shot by Zoness boss.
-    /* 250 */ OBJ_ACTOR_ZO_TANKER, // Cargo ship, usually carries contaners.
+    /* 249 */ OBJ_ACTOR_SPIKEBALL,    // Spikeball shot by Zoness boss.
+    /* 250 */ OBJ_ACTOR_ZO_TANKER,    // Cargo ship, usually carries contaners.
     /* 251 */ OBJ_ACTOR_ZO_CONTAINER,
     /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
     /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
     /* 254 */ OBJ_ACTOR_ZO_SEARCHLIGHT,
-    /* 255 */ OBJ_ACTOR_255, // OBJ_ACTOR_AQ_SANADA (Named after from SFX_ID)
-    /* 256 */ OBJ_ACTOR_256,
-    /* 257 */ OBJ_ACTOR_257,
+    /* 255 */ OBJ_ACTOR_AQ_SANADA,          // OBJ_ACTOR_AQ_SANADA (Snake type enemy. Named after from SFX_ID)
+    /* 256 */ OBJ_ACTOR_AQ_BACOON_MUSCLE,  // Referred as "Columns" by Peppy, these are Bacoon's adductor muscles.
+    /* 257 */ OBJ_ACTOR_AQ_BACOON_BARNACLE, // Barnacles on top of Bacoon's shell. Sanadas spawn from them.
     /* 258 */ OBJ_ACTOR_AQ_PEARL,
-    /* 259 */ OBJ_ACTOR_AQ_ANGLERFISH, // Giant fish with search light.
-    /* 260 */ OBJ_ACTOR_AQ_GAROA,      // Blue shellded enemy that throws energy balls.
-    /* 261 */ OBJ_ACTOR_AQ_SCULPIN,    // Fish-type enemy.
+    /* 259 */ OBJ_ACTOR_AQ_ANGLERFISH,      // Giant fish with search light.
+    /* 260 */ OBJ_ACTOR_AQ_GAROA,           // Blue shellded enemy that throws energy balls.
+    /* 261 */ OBJ_ACTOR_AQ_SCULPIN,         // Fish-type enemy.
     /* 262 */ OBJ_ACTOR_AQ_SPINDLYFISH,
     /* 263 */ OBJ_ACTOR_AQ_SQUID,
     /* 264 */ OBJ_ACTOR_AQ_SEAWEED,
@@ -604,7 +612,7 @@ typedef enum ObjectId {
     /* 285 */ OBJ_ACTOR_AND_LASER_EMITTER,
     /* 286 */ OBJ_ACTOR_AND_BRAIN_WASTE,
     /* 287 */ OBJ_ACTOR_AND_EXPLOSION, // Explosions that follow Fox during the Andross escape.
-    /* 288 */ OBJ_ACTOR_AND_RADIO, // Andross radio messages.
+    /* 288 */ OBJ_ACTOR_AND_RADIO,     // Andross radio messages.
     /* 289 */ OBJ_ACTOR_AND_JAMES_TRIGGER,
     /* 290 */ OBJ_ACTOR_AND_BOSS_TIMER_SET,
     /* 291 */ OBJ_ACTOR_SUPPLIES,
@@ -661,7 +669,7 @@ typedef enum ObjectId {
     /* 342 */ OBJ_EFFECT_SMOKE_1,
     /* 343 */ OBJ_EFFECT_SMOKE_2,
     /* 344 */ OBJ_EFFECT_EXPLOSION_MARK_1, // Explosion mark left on the ground after an enemy explodes.
-    /* 345 */ OBJ_EFFECT_LASER_MARK_1, // Mark left when lasers hit the ground.
+    /* 345 */ OBJ_EFFECT_LASER_MARK_1,     // Mark left when lasers hit the ground.
     /* 346 */ OBJ_EFFECT_346,
     /* 347 */ OBJ_EFFECT_347,
     /* 348 */ OBJ_EFFECT_348,
@@ -718,7 +726,7 @@ typedef enum ObjectId {
     /* 399 */ OBJ_EFFECT_399,
     /* 400 */ OBJ_ENV_SMALL_ROCKS_ENABLE,
     /* 401 */ OBJ_ENV_SMALL_ROCKS_DISABLE,
-    /* 402 */ OBJ_UNK_402,
+    /* 402 */ OBJ_ENV_AND_ROTATE_TUNNEL,
     /* 403 */ OBJ_UNK_403,
     /* 404 */ OBJ_UNK_404,
     /* 405 */ OBJ_UNK_405,
@@ -793,18 +801,18 @@ typedef enum ActorCutsceneModels {
     /*    0 */ ACTOR_CS_TEAM_ARWING,
     /*    1 */ ACTOR_CS_GREAT_FOX,
     /*   10 */ ACTOR_CS_ME_CORNERIA_BG = 10, // Planet Corneria in the background of level start CS.
-    /*   11 */ ACTOR_CS_FO_EXPLOSION, // Fortuna explosion in a mission complete ending.
+    /*   11 */ ACTOR_CS_FO_EXPLOSION,        // Fortuna explosion in a mission complete ending.
     /*   20 */ ACTOR_CS_COMMANDER = 20,
     /*   24 */ ACTOR_CS_KATT = 24,
     /*   25 */ ACTOR_CS_SZ_SPACE_JUNK,
     /*   26 */ ACTOR_CS_SZ_INVADER,
     /*   28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow.
-    /*   30 */ ACTOR_CS_30 = 30, // Related to LEVEL_BOLSE
+    /*   30 */ ACTOR_CS_30 = 30,             // Related to LEVEL_BOLSE
     /*   31 */ ACTOR_CS_31,
     /*   32 */ ACTOR_CS_32,
     /*   33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3.
     /*   34 */ ACTOR_CS_KA_ENEMY,
-    /*   35 */ ACTOR_CS_SY_SHIP_1_SHRINK, // Scale Matrix by 1/8.
+    /*   35 */ ACTOR_CS_SY_SHIP_1_SHRINK,  // Scale Matrix by 1/8.
     /*   36 */ ACTOR_CS_SY_SHIP_2,
     /*   37 */ ACTOR_CS_37,
     /*   38 */ ACTOR_CS_SY_ROBOT,
@@ -1182,14 +1190,14 @@ typedef Actor MeHopBot;
 typedef Actor SxSlippy;
 typedef Actor SyRobot;
 typedef Actor MaLocomotive;
-typedef Actor MaTrainCar1;
-typedef Actor Actor207;
-typedef Actor MaTrainCar2;
-typedef Actor MaTrainCar3;
-typedef Actor MaTrainCar4;
-typedef Actor MaTrainCar5;
-typedef Actor MaTrainCar6;
-typedef Actor MaTrainCar7;
+typedef Actor MaTenderCar;
+typedef Actor MaMechbeth;
+typedef Actor MaMissileCar;
+typedef Actor MaRobot;
+typedef Actor MaBoulderCar;
+typedef Actor MaContainerBox;
+typedef Actor MaCannonCar;
+typedef Actor MaTankCar;
 typedef Actor MaRailroadSwitch;
 typedef Actor MaBoulder;
 typedef Actor MaHorizontalLockBar;
@@ -1231,9 +1239,9 @@ typedef Actor ZoContainer;
 typedef Actor ZoRadarBuoy;
 typedef Actor ZoSupplyCrane;
 typedef Actor ZoSearchLight;
-typedef Actor Actor255;
-typedef Actor Actor256;
-typedef Actor Actor257;
+typedef Actor AqSanada; // Snake type enemy, summoned by AqBacoon
+typedef Actor AqBacoonMuscle;
+typedef Actor AqBacconBarnacle;
 typedef Actor AqPearl;
 typedef Actor AqAnglerFish;
 typedef Actor AqGaroa;

@@ -1272,7 +1272,7 @@ void Map_Setup(void) {
     s32 i;
     s32 j;
 
-    AUDIO_SET_SPEC(SFXCHAN_1, AUDIOSPEC_24);
+    AUDIO_SET_SPEC(SFXCHAN_1, AUDIOSPEC_MAP);
 
     gVIsPerFrame = 2;
     gGameFrameCount = 0;
@@ -1556,7 +1556,7 @@ void Map_Setup_GameOver(void) {
 
     D_menu_801CD9AC = 0;
 
-    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_25);
+    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_GAME_OVER);
 
     sMapSubState = 0;
     D_menu_801CD94C = 0;

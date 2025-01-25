@@ -692,17 +692,17 @@ D_versus_302DDB4:
 D_versus_302DDF8:
   { type: SF64:ENVIRONMENT, offset: 0x302DDF8, symbol: D_versus_302DDF8}
 
-D_versus_302DE3C:
-  { type: SF64:OBJECT_INIT, offset: 0x302DE3C, symbol: D_versus_302DE3C}
+aVsCoLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x302DE3C, symbol: aVsCoLevelObjects}
 
-D_versus_302E0E4:
-  { type: SF64:OBJECT_INIT, offset: 0x302E0E4, symbol: D_versus_302E0E4}
+aVsKaLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x302E0E4, symbol: aVsKaLevelObjects}
 
-D_versus_302E170:
-  { type: SF64:OBJECT_INIT, offset: 0x302E170, symbol: D_versus_302E170}
+aVsSzLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x302E170, symbol: aVsSzLevelObjects}
 
-D_versus_302E378:
-  { type: SF64:OBJECT_INIT, offset: 0x302E378, symbol: D_versus_302E378}
+aVsSzMatchLevelObjects:
+  { type: SF64:OBJECT_INIT, offset: 0x302E378, symbol: aVsSzMatchLevelObjects}
 
 aVsSpaceJunk1Hitbox:
   { type: SF64:HITBOX, offset: 0x302ED4C, symbol: aVsSpaceJunk1Hitbox}

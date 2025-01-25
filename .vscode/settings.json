@@ -151,7 +151,8 @@
     "prevent_bss_reordering3.h": "c",
     "ast_a_ti.h": "c",
     "fox_co.h": "c",
-    "ast_map.h": "c"
+    "ast_map.h": "c",
+    "ast_radio.h": "c"
   },
   "C_Cpp_Runner.msvcBatchPath": ""
 }

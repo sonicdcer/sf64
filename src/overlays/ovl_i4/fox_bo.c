@@ -152,7 +152,7 @@ void Bolse_SpawnEnemies(ActorEvent* this, s32 count) {
                 AUDIO_PLAY_SFX(NA_SE_EN_PASS, enemy->sfxSource, 4);
                 enemy->timer_0BC = 5;
                 enemy->timer_0C2 = 100;
-                enemy->rot_0F4.x = 90.0f;
+                enemy->orient.x = 90.0f;
             }
 
             enemy->state = 1;
@@ -557,8 +557,8 @@ s32 Bolse_8018CE5C(BoLaserCannon* this) {
         this->fwork[5] = Math_RadToDeg(Math_Atan2F(y, sqrtf(SQ(x) + SQ(z))));
     }
 
-    Math_SmoothStepToF(&this->rot_0F4.x, this->fwork[5], 0.1f, 4.8f, 0.1f);
-    Math_SmoothStepToF(&this->rot_0F4.y, this->fwork[6], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&this->orient.x, this->fwork[5], 0.1f, 4.8f, 0.1f);
+    Math_SmoothStepToF(&this->orient.y, this->fwork[6], 0.1f, 4.8f, 0.1f);
 
     return 0;
 }
@@ -600,17 +600,17 @@ void Bolse_8018D124(BoLaserCannon* this) {
     Vec3f src;
     Vec3f dest;
 
-    Matrix_RotateY(gCalcMatrix, (this->rot_0F4.y + this->obj.rot.y) * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, -this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, (this->orient.y + this->obj.rot.y) * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -this->orient.x * M_DTOR, MTXF_APPLY);
 
     src.y = 0.0f;
     src.x = 0.0f;
     src.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + 180.0f + dest.y,
-                         this->obj.pos.z + dest.z, -this->rot_0F4.x, this->rot_0F4.y + this->obj.rot.y, 0.0f, 0.0f,
-                         0.0f, 0.0f, dest.x, dest.y, dest.z, 1.0f);
+    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + 180.0f + dest.y,
+                      this->obj.pos.z + dest.z, -this->orient.x, this->orient.y + this->obj.rot.y, 0.0f, 0.0f, 0.0f,
+                      0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
 
 bool Bolse_8018D278(BoLaserCannon* this) {
@@ -662,8 +662,8 @@ bool Bolse_BoLaserCannon_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos
     BoLaserCannon* actor = (BoLaserCannon*) thisx;
 
     if (limbIndex == 2) {
-        rot->x -= actor->rot_0F4.x;
-        rot->y += actor->rot_0F4.y;
+        rot->x -= actor->orient.x;
+        rot->y += actor->orient.y;
     }
     return false;
 }
@@ -1048,8 +1048,8 @@ void Bolse_8018EAEC(ActorCutscene* this, s32 index) {
     this->animFrame = D_i4_8019F000[index];
     this->obj.rot.y = 180.0f;
     this->vel.z = -gPlayer[0].baseSpeed;
-    this->rot_0F4.z = D_i4_8019F00C[index];
-    this->rot_0F4.y = D_i4_8019F018[index];
+    this->orient.z = D_i4_8019F00C[index];
+    this->orient.y = D_i4_8019F018[index];
     Object_SetInfo(&this->info, this->obj.id);
     this->iwork[11] = 1;
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
@@ -1122,7 +1122,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
             actor->animFrame = ACTOR_CS_32;
             actor->vel.z = 80.0f;
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
-            actor->rot_0F4.z = RAND_FLOAT_CENTERED(1.0f);
+            actor->orient.z = RAND_FLOAT_CENTERED(1.0f);
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, actor->sfxSource, 4);
             break;
@@ -1270,7 +1270,7 @@ void Bolse_LevelStart(Player* player) {
                         actor->obj.pos.x = D_i4_8019F030[i - 1].x + player->pos.x;
                         actor->obj.pos.y = D_i4_8019F030[i - 1].y + player->pos.y;
                         actor->obj.pos.z = D_i4_8019F030[i - 1].z + player->pos.z;
-                        actor->rot_0F4.x = 352.0f;
+                        actor->orient.x = 352.0f;
                         actor->state = 1;
                         actor->timer_0BC = 1000;
                     }
@@ -1796,7 +1796,7 @@ void Bolse_Effect397_Setup2(Effect397* this, f32 x, f32 y, f32 z, f32 scale) {
     this->obj.pos.z = z;
     this->state = 1;
     this->scale1 = scale;
-    this->unk_44 = 255;
+    this->alpha = 255;
     Object_SetInfo(&this->info, this->obj.id);
     this->info.unk_14 = 1;
 }
@@ -1833,8 +1833,8 @@ void Bolse_Effect397_Update(Effect397* this) {
 
         case 1:
             Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 20.0f, 0.0f);
-            this->unk_44 -= 20;
-            if (this->unk_44 < 0) {
+            this->alpha -= 20;
+            if (this->alpha < 0) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -1852,8 +1852,8 @@ void Bolse_Effect397_Draw(Effect397* this) {
 
         case 1:
             RCP_SetupDL(&gMasterDisp, SETUPDL_67);
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_44);
-            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->unk_44);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
+            gDPSetEnvColor(gMasterDisp++, 0, 128, 255, this->alpha);
             Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aOrbDL);

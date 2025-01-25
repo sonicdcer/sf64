@@ -15,7 +15,7 @@ u8 D_800C9F04 = 0;
 u8 D_800C9F08 = 0;
 s32 D_800C9F0C = 0; // unused.
 f32 D_800C9F10 = 0.0f;
-s32 D_800C9F14 = 0;
+s32 sTankActiveBurnerCount = 0;
 s32 D_800C9F18[2] = { 0, 0 }; // unused.
 f32 D_800C9F20 = 0.0f;
 f32 D_800C9F24 = 0.0f;
@@ -129,9 +129,9 @@ void func_tank_800438E0(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale)
     effect->scale2 = (RAND_FLOAT(0.8f) + 0.3f) * scale;
     effect->timer_50 = RAND_INT(5.0f) + 8;
     effect->obj.rot.x = RAND_FLOAT(360.0f);
-    effect->unk_60.x = RAND_FLOAT_CENTERED(30.0f);
-    effect->unk_60.y = RAND_FLOAT_CENTERED(30.0f);
-    effect->unk_60.z = RAND_FLOAT_CENTERED(30.0f);
+    effect->orient.x = RAND_FLOAT_CENTERED(30.0f);
+    effect->orient.y = RAND_FLOAT_CENTERED(30.0f);
+    effect->orient.z = RAND_FLOAT_CENTERED(30.0f);
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
@@ -308,7 +308,7 @@ void func_tank_800444BC(Player* player) {
     }
     sp40 = sp3C = 0.0f;
     sp38 = gGroundHeight;
-    if (gGroundType == 4) {
+    if (gGroundType == GROUND_4) {
         Ground_801B6E20(player->pos.x, player->trueZpos + player->zPath, &sp40, &sp38, &sp3C);
     }
     if (gCurrentLevel == LEVEL_MACBETH) {
@@ -549,7 +549,7 @@ void func_tank_80045348(Player* player) {
 
     if (player->unk_19C >= 0) {
         if ((gBoostButton[player->num] & gInputHold->button) && !player->boostCooldown) {
-            D_800C9F14++;
+            sTankActiveBurnerCount++;
             sp2E = true;
             if (D_800C9F24 == 0.0f) {
                 player->unk_190 = player->unk_194 = 4.0f;
@@ -572,7 +572,7 @@ void func_tank_80045348(Player* player) {
             D_800C9F24 = 0.0f;
         }
         if ((gBrakeButton[player->num] & gInputHold->button) && !player->boostCooldown && !sp2E) {
-            D_800C9F14++;
+            sTankActiveBurnerCount++;
             baseSpeedTarget = 5.0f;
             sp40 = 100.0f;
             sp3C = 0.2f;
@@ -599,7 +599,7 @@ void func_tank_80045678(Player* player) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
     }
     if ((gInputHold->button & Z_TRIG) && !player->boostCooldown) {
-        D_800C9F14++;
+        sTankActiveBurnerCount++;
         if (D_800C9F20 == 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, player->sfxSource, 0);
         }
@@ -629,7 +629,7 @@ void func_tank_80045678(Player* player) {
         Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_SLIDE);
     }
     if ((gInputHold->button & R_TRIG) && !player->boostCooldown) {
-        D_800C9F14++;
+        sTankActiveBurnerCount++;
         if (player->unk_2C0 == 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_TANK_BURNER_HALF, player->sfxSource, 0);
         }
@@ -1115,12 +1115,12 @@ void Tank_UpdateOnRails(Player* player) {
 
     player->wingPosition = 1;
     func_tank_80045130(player);
-    D_800C9F14 = 0;
+    sTankActiveBurnerCount = 0;
     func_tank_80045678(player);
     func_tank_80045348(player);
     if (!player->boostCooldown) {
-        if (D_800C9F14 != 0) {
-            if (D_800C9F14 >= 2) {
+        if (sTankActiveBurnerCount != 0) {
+            if (sTankActiveBurnerCount >= 2) {
                 player->boostMeter += 2.0f;
             } else {
                 player->boostMeter += 1.0f;
@@ -1404,16 +1404,16 @@ void func_tank_800481F4(Player* player) {
         for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
             if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0)) {
                 if (actor->obj.id == OBJ_ACTOR_EVENT) {
-                    temp_v0 = Player_CheckHitboxCollision(player, actor->info.hitbox, &sp98, actor->obj.pos.x,
-                                                          actor->obj.pos.y, actor->obj.pos.z, actor->obj.rot.x,
-                                                          actor->obj.rot.y, actor->obj.rot.z, actor->vwork[29].x,
-                                                          actor->vwork[29].y, actor->vwork[29].z + actor->rot_0F4.z);
+                    temp_v0 = Player_CheckHitboxCollision(
+                        player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y, actor->obj.pos.z,
+                        actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, actor->vwork[EVA_FORMATION_ROT].x,
+                        actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
                     if (temp_v0 != 0) {
                         Player_ApplyDamage(player, temp_v0, actor->info.damage);
                         actor->dmgType = DMG_COLLISION;
                         actor->dmgSource = player->num + 1;
                     }
-                } else if (actor->obj.id == OBJ_ACTOR_207) {
+                } else if (actor->obj.id == OBJ_ACTOR_MA_MECHBETH) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->obj.pos.x, actor->obj.pos.y,
                                            actor->obj.pos.z, actor->obj.rot.x, actor->obj.rot.y, actor->obj.rot.z, 0.0f,
                                            0.0f, 0.0f) != 0) {
@@ -1437,7 +1437,7 @@ void func_tank_800481F4(Player* player) {
                         Player_ApplyDamage(player, 0, 5);
                         player->mercyTimer = 1;
                     }
-                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TRAIN_CAR_7)) {
+                } else if ((OBJ_ACTOR_MA_LOCOMOTIVE <= actor->obj.id) && (actor->obj.id <= OBJ_ACTOR_MA_TANK_CAR)) {
                     if (func_tank_80046E40(player, actor->info.hitbox, &sp98, actor->fwork[25] + actor->obj.pos.x,
                                            actor->fwork[8] + actor->obj.pos.y + 25.0f, actor->obj.pos.z,
                                            actor->fwork[29], actor->fwork[26], actor->obj.rot.z, 0.0f, 0.0f,

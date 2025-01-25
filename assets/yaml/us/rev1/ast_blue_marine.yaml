@@ -74,8 +74,8 @@ D_blue_marine_3004180:
 D_blue_marine_3004980:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x3004980, symbol: D_blue_marine_3004980 }
 
-D_blue_marine_3005980:
-  { type: GFX, offset: 0x3005980, symbol: D_blue_marine_3005980 }
+aBlueMarineItemBombDL:
+  { type: GFX, offset: 0x3005980, symbol: aBlueMarineItemBombDL }
 
 D_blue_marine_30062E8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x30062E8, symbol: D_blue_marine_30062E8 }

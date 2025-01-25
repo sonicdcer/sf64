@@ -52,8 +52,8 @@ void Fortuna_SpawnEnemies(ActorEvent* this) {
                         enemy->aiIndex = AI360_FALCO;
                     }
 
-                    enemy->rot_0F4.x = 3.0f;
-                    enemy->rot_0F4.y = sEnemySpawnAngle[this->counter_04E];
+                    enemy->orient.x = 3.0f;
+                    enemy->orient.y = sEnemySpawnAngle[this->counter_04E];
                     enemy->health = 24;
                     enemy->drawShadow = enemy->iwork[11] = 1;
                     enemy->itemDrop = DROP_SILVER_RING_50p;
@@ -81,9 +81,9 @@ void Fortuna_SetupStarWolfFlee(ActorAllRange* this, f32 xPos, f32 yPos, f32 zPos
     this->drawShadow = true;
     this->state = 0;
     this->timer_0BC = 10000;
-    this->rot_0F4.y = yRot;
+    this->orient.y = yRot;
     this->iwork[11] = 1;
-    this->rot_0F4.x = 0.0f;
+    this->orient.x = 0.0f;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_EN_WOLF_ENGINE, this->sfxSource, 4);
 }
@@ -399,8 +399,8 @@ void Fortuna_UpdateEvents(ActorEvent* this) {
                     greatFox->obj.status = OBJ_ACTIVE;
                     greatFox->obj.id = OBJ_ACTOR_ALLRANGE;
                     greatFox->state = 4;
-                    greatFox->rot_0F4.y = player->rot.y + player->yRot_114 + 180.0f;
-                    greatFox->rot_0F4.x = 15.0f;
+                    greatFox->orient.y = player->rot.y + player->yRot_114 + 180.0f;
+                    greatFox->orient.x = 15.0f;
                     greatFox->aiType = AI360_GREAT_FOX;
                     greatFox->fwork[1] = 90.0f;
                     greatFox->fwork[0] = 90.0f;

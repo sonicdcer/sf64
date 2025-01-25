@@ -86,7 +86,7 @@ void Obj54_8006A984(Effect365* this, f32 xPos, f32 yPos, f32 zPos) {
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
 
-    this->unk_44 = 40;
+    this->alpha = 40;
     this->scale2 = 5.0f;
     this->scale1 = RAND_FLOAT_CENTERED(2.0f);
     this->vel.y = 10.0f;
@@ -134,7 +134,8 @@ void MeteoBall_Update(MeteoBall* this) {
     f32 sp2C;
 
     if (MeteoBall_IsCloseToPlayer(this) && (this->timer_0BC == 0)) {
-        Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, gEnemyShotSpeed);
+        Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                             gEnemyShotSpeed);
         this->timer_0BC = 20;
     }
     sp2C = this->obj.pos.z + gPathProgress;
@@ -164,8 +165,8 @@ void MeHopBot_Update(MeHopBot* this) {
     }
 
     if ((gGameFrameCount % 32) == 0) {
-        Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
-                          gEnemyShotSpeed);
+        Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
+                             gEnemyShotSpeed);
     }
 
     switch (this->state) {
@@ -295,7 +296,7 @@ void MeMora_Dying(MeMora* this) {
     }
 }
 
-void Memora_DrawParts(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 partIdx,
+void MeMora_DrawParts(MeMora* this, f32 xTrans, f32 yTrans, f32 zTrans, f32 xRot, f32 yRot, f32 zRot, u8 partIdx,
                       f32 scale, bool colorFlicker) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
 
@@ -340,7 +341,7 @@ void MeMora_Draw(MeMora* this) {
 
     for (i = this->work_04A; i < ARRAY_COUNT(D_800CFF94); i++) {
         j = (D_800CFF94[i] + this->counter_04E) % 100;
-        Memora_DrawParts(this, gMeMoraXpos[this->work_046][j], gMeMoraYpos[this->work_046][j],
+        MeMora_DrawParts(this, gMeMoraXpos[this->work_046][j], gMeMoraYpos[this->work_046][j],
                          gMeMoraZpos[this->work_046][j], gMeMoraXrot[this->work_046][j], gMeMoraYrot[this->work_046][j],
                          gMeMoraZrot[this->work_046][j], gMeMoraPartIdx[i], gMeMoraScale[i], this->timer_0C6 % 2U);
     }
@@ -384,7 +385,7 @@ void func_enmy2_8006BA64(Effect375* this, f32 xPos, f32 yPos, f32 zPos) {
     this->scale2 = 0.0f;
     this->scale1 = 0.12f;
     this->obj.rot.y = RAND_FLOAT(360.0f);
-    this->unk_60.y = RAND_FLOAT_CENTERED(3.0f);
+    this->orient.y = RAND_FLOAT_CENTERED(3.0f);
     Object_SetInfo(&this->info, this->obj.id);
 }
 
@@ -450,8 +451,8 @@ void CoMoleMissile_Update(CoMoleMissile* this) {
 
         case 3:
             if (this->timer_0BC == 1) {
-                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                  gEnemyShotSpeed);
+                Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
             }
 
             if (this->vel.y < 12.0f) {
@@ -947,106 +948,106 @@ typedef struct {
 // clang-format off
 
 EventActorInfo sEventActorInfo[108] = {
-    /*  EVID_VENOM_FIGHTER_1 */ { aVenomFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_VENOM_FIGHTER_2 */ { aVenomFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_VENOM_FIGHTER_2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  EVID_ME_SLIPPY */ { aSpyEyeDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_SPY_EYE */ { aGrangaFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_GRANGA_FIGHTER_2 */ { aGrangaFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_FIREBIRD */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_CORNERIAN_FIGHTER */ { aCoCornerianFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_VENOM_TANK */ { aVenomTankDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
-    /*  EVID_TRIPOD */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  EVID_ATTACKER_1 */ { aAttacker1DL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_ATTACKER_2 */ { aAttacker2DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  EVID_ATTACKER_3 */ { aAttacker3DL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_ME_METEOR_1 */ { aMeMeteor1DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_ME_METEOR_2 */ { aMeMeteor2DL, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_COMMANDER */ { aCommanderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SPIDER */ { aSpiderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
-    /*  EVID_ZERAM_CLASS_CRUISER */ { aA6ZeramClassCruiserDL, aA6ZeramClassCruiserHitbox, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
-    /*  EVID_SX_SPY_EYE */ { aSxSpyEyeDL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SX_CANINE */ { aSxCanineDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SPACE_MINE */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_A6_NINJIN_MISSILE */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_A6_ROCKET */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_VENOM_FIGHTER_3 */ { aVenomFighter3DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SX_BASE_DEBRIS_1 */ { aSxBaseDebris1DL, aSxBaseDebris1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_BASE_WALL_1 */ { aSxBaseWall1DL, aSxBaseWall1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_BASE_DEBRIS_2 */ { aSxBaseDebris2DL, aSxBaseDebris2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_LASER */ { NULL, aSxLaserHitbox, 2.5f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_SX_WATCH_POST */ { aSxWatchPostDL, aSxWatchPostHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_SX_SPACE_MINE */ { aSxSpaceMineDL, aSxSpaceMineHitbox, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_A6_HARLOCK_FRIGATE */ { aA6HarlockFrigateDL, aA6HarlockFrigateHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 2 },
-    /*  EVID_A6_UMBRA_STATION */ { NULL, aA6UmbraStationHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 3 },
-    /*  EVID_SX_BASE_FLOOR_1 */ { aSxBaseFloor1DL, aSxBaseFloor1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_CRUISER_GUN */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_BASE_WALL_2 */ { aSxBaseWall2DL, aSxBaseWall2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_BASE_WALL_3 */ { aSxBaseWall3DL, aSxBaseWall3Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_TI_BOMBER */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SX_BORZOI_FIGHTER */ { aSxBorzoiFighterDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SX_WARP_GATE */ { NULL, aSxWarpGateHitbox, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_BASE_WALL_TILE_1 */ { aSxBaseWallTile1DL, aSxBaseWallTile1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_EVENT_HANDLER */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_1 */ { aSyShip1DL, aSyShip1Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_2 */ { aSyShip2DL, aSyShip2Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_TEAMMATE */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  EVID_SY_SHIP_3 */ { aSyShip3DL, aSyShip3Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_ME_METEOR_3 */ { aMeMeteor3DL, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_ZO_PATROL_BOAT */ { aZoPatrolBoatDL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
-    /*  EVID_ME_SECRET_MARKER_1 */ { aMeSecretMarker1DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_ROBOT_1 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SY_ROBOT_2 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SY_ROBOT_3 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SY_ROBOT_4 */ { aSyRobot4DL, aSyRobot4Hitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SARUMARINE_PERISCOPE */ { NULL, aZoSarumarinePeriscopeHitbox, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SX_BASE_WALL_4 */ { aSxBaseWall4DL, aSxBaseWall4Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_GAMMA_ON */ { aGammaOnDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_GAMMA_OFF */ { aGammaOffDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_TI_GREAT_FOX */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, EISFX_GREATFOX_ENGINE, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_3_2 */ { aSyShip3DL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_SARUZIN */ { aSySaruzinDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_ROBOT_SPRITE_SIDE */ { aSyRobotSpriteSideDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_SY_ROBOT_SPRITE_FRONT */ { aSyRobotSpriteFrontDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_ME_METEOR_4 */ { aMeMeteor4DL, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_ME_METEOR_5 */ { aMeMeteor5DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_ME_BIG_METEOR */ { aMeBigMeteorDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_ME_ROCK_GULL */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_ME_METEOR_6 */ { aMeMeteor6DL, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_ME_SECRET_MARKER_2 */ { aMeSecretMarker2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_ME_FLIP_BOT */ { NULL, aMeFlipBotHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_SY_LASER_TURRET */ { aSyLaserTurretDL, aSyLaserTurretHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_SY_SHIP_DESTROYED */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_DEBRIS */ { aSyDebrisDL, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_ITEM_WING_REPAIR */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_WINDOWS */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_4 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_4_DESTROYED */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_2_SPRITE */ { aSyShip2SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_3_SPRITE */ { aSyShip3SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_SY_SHIP_MISSILE */ { aSyShipMissileDL, aSyShipMissileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /*  EVID_SUPPLY_CRATE */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
-    /*  EVID_ZO_BIRD */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_VE1_PILLAR */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_VE1_BLOCKER */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_MA_LASER_TURRET */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
-    /*  EVID_AQ_OYSTER */ { NULL, aAqOysterEvHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
-    /*  EVID_VE1_PILLAR_5 */ { aVe1Pillar5DL, aVe1Pillar5Hitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_BILL */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  EVID_KATT */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
-    /*  EVID_VE1_TEMPLE_BG */ { aVe1TempleBgDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_AQ_STARFISH */ { NULL, aAqStarfishHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_AQ_SHELL */ { NULL, aAqShellHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_MA_RAILROAD_CART */ { aMaRailroadCartDL, aMaRailroadCartHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_MA_GUILLOTINE_1 */ { aMaGuillotine1DL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_WZ_PILLAR_1 */ { aWzPillar1DL, aWzPillar1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_WZ_PILLAR_2 */ { aWzPillar2DL, aWzPillar2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_WZ_METEOR_1 */ { aWzMeteor1DL, aWzMeteor1Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /*  EVID_WZ_METEOR_2 */ { aWzMeteor2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /*  EVID_WZ_GATE */ { aWzGateDL, aWzGateHitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
-    /*  EVID_ME_METEOR_7 */ { aMeMeteor7DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_MA_BOULDER */ { aMaBoulderDL, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
-    /*  EVID_VE1_ENEMY_GATE */ { aVe1EnemyGateDL, aVe1EnemyGateHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_VENOM_FIGHTER_1 */ { aVenomFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_VENOM_FIGHTER_2 */ { aVenomFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_VENOM_FIGHTER_2 */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /* EVID_ME_SLIPPY */ { aSpyEyeDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_SPY_EYE */ { aGrangaFighter1DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_GRANGA_FIGHTER_2 */ { aGrangaFighter2DL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_FIREBIRD */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_CORNERIAN_FIGHTER */ { aCoCornerianFighterDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_VENOM_TANK */ { aVenomTankDL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 1, 1.0f, 1 },
+    /* EVID_TRIPOD */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /* EVID_ATTACKER_1 */ { aAttacker1DL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_ATTACKER_2 */ { aAttacker2DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /* EVID_ATTACKER_3 */ { aAttacker3DL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_ME_METEOR_1 */ { aMeMeteor1DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_ME_METEOR_2 */ { aMeMeteor2DL, gCubeHitbox400, 7.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_COMMANDER */ { aCommanderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SPIDER */ { aSpiderDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ALIEN_FLY, 0, 1.0f, 1 },
+    /* EVID_ZERAM_CLASS_CRUISER */ { aA6ZeramClassCruiserDL, aA6ZeramClassCruiserHitbox, -2.0f, 2100.0f, 3000.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 5 },
+    /* EVID_SX_SPY_EYE */ { aSxSpyEyeDL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SX_CANINE */ { aSxCanineDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SPACE_MINE */ { NULL, gCubeHitbox100, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_A6_NINJIN_MISSILE */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_A6_ROCKET */ { NULL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_VENOM_FIGHTER_3 */ { aVenomFighter3DL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SX_BASE_DEBRIS_1 */ { aSxBaseDebris1DL, aSxBaseDebris1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_BASE_WALL_1 */ { aSxBaseWall1DL, aSxBaseWall1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_BASE_DEBRIS_2 */ { aSxBaseDebris2DL, aSxBaseDebris2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_LASER */ { NULL, aSxLaserHitbox, 2.5f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_SX_WATCH_POST */ { aSxWatchPostDL, aSxWatchPostHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_SX_SPACE_MINE */ { aSxSpaceMineDL, aSxSpaceMineHitbox, 1.0f, 100.0f, 3000.0f, 2, 1, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_A6_HARLOCK_FRIGATE */ { aA6HarlockFrigateDL, aA6HarlockFrigateHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_EN_SPACE_SHIP, 0, 0.0f, 2 },
+    /* EVID_A6_UMBRA_STATION */ { NULL, aA6UmbraStationHitbox, -2.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 3 },
+    /* EVID_SX_BASE_FLOOR_1 */ { aSxBaseFloor1DL, aSxBaseFloor1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_CRUISER_GUN */ { NULL, gCubeHitbox200, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_BASE_WALL_2 */ { aSxBaseWall2DL, aSxBaseWall2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_BASE_WALL_3 */ { aSxBaseWall3DL, aSxBaseWall3Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_TI_BOMBER */ { NULL, gCubeHitbox400, 2.0f, 200.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SX_BORZOI_FIGHTER */ { aSxBorzoiFighterDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SX_WARP_GATE */ { NULL, aSxWarpGateHitbox, 1.0f, 500.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_BASE_WALL_TILE_1 */ { aSxBaseWallTile1DL, aSxBaseWallTile1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_EVENT_HANDLER */ { NULL, gNoHitbox, 1.0f, 100.0f, 3001.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_1 */ { aSyShip1DL, aSyShip1Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_2 */ { aSyShip2DL, aSyShip2Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_TEAMMATE */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /* EVID_SY_SHIP_3 */ { aSyShip3DL, aSyShip3Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ME_METEOR_3 */ { aMeMeteor3DL, gCubeHitbox200, -1.0f, 300.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_ZO_PATROL_BOAT */ { aZoPatrolBoatDL, gCubeHitbox200, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_SHIP_ENGINE_S, 0, 1.0f, 1 },
+    /* EVID_ME_SECRET_MARKER_1 */ { aMeSecretMarker1DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_ROBOT_1 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SY_ROBOT_2 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SY_ROBOT_3 */ { NULL, aSyRobotHitbox, 0.3f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SY_ROBOT_4 */ { aSyRobot4DL, aSyRobot4Hitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SARUMARINE_PERISCOPE */ { NULL, aZoSarumarinePeriscopeHitbox, -1.0f, 1000.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SX_BASE_WALL_4 */ { aSxBaseWall4DL, aSxBaseWall4Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_GAMMA_ON */ { aGammaOnDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_GAMMA_OFF */ { aGammaOffDL, gCubeHitbox100, 1.5f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_TI_GREAT_FOX */ { NULL, gNoHitbox, -1.0f, 2000.0f, 3000.0f, 0, 0, EISFX_GREATFOX_ENGINE, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_3_2 */ { aSyShip3DL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_SARUZIN */ { aSySaruzinDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_ROBOT_SPRITE_SIDE */ { aSyRobotSpriteSideDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_SY_ROBOT_SPRITE_FRONT */ { aSyRobotSpriteFrontDL, gNoHitbox, 2.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_ME_METEOR_4 */ { aMeMeteor4DL, gCubeHitbox200, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_ME_METEOR_5 */ { aMeMeteor5DL, gCubeHitbox100, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_ME_BIG_METEOR */ { aMeBigMeteorDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ME_ROCK_GULL */ { NULL, gCubeHitbox200, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_ME_METEOR_6 */ { aMeMeteor6DL, gCubeHitbox200, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ME_SECRET_MARKER_2 */ { aMeSecretMarker2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_ME_FLIP_BOT */ { NULL, aMeFlipBotHitbox, 3.0f, 100.0f, 3000.0f, 2, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_SY_LASER_TURRET */ { aSyLaserTurretDL, aSyLaserTurretHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_SY_SHIP_DESTROYED */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_DEBRIS */ { aSyDebrisDL, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_ITEM_WING_REPAIR */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_WINDOWS */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_4 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_4_DESTROYED */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_2_SPRITE */ { aSyShip2SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_3_SPRITE */ { aSyShip3SpriteDL, gNoHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_SY_SHIP_MISSILE */ { aSyShipMissileDL, aSyShipMissileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
+    /* EVID_SUPPLY_CRATE */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
+    /* EVID_ZO_BIRD */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_VE1_PILLAR */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_VE1_BLOCKER */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_MA_LASER_TURRET */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
+    /* EVID_AQ_OYSTER */ { NULL, aAqOysterEvHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
+    /* EVID_VE1_PILLAR_5 */ { aVe1Pillar5DL, aVe1Pillar5Hitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_BILL */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /* EVID_KATT */ { NULL, gCubeHitbox100, 1.0f, 20000.0f, 3000.0f, 1, 0, EISFX_ARWING_ENGINE_FG, 0, 0.0f, 0 },
+    /* EVID_VE1_TEMPLE_BG */ { aVe1TempleBgDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_AQ_STARFISH */ { NULL, aAqStarfishHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_AQ_SHELL */ { NULL, aAqShellHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_MA_RAILROAD_CART */ { aMaRailroadCartDL, aMaRailroadCartHitbox, 1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_MA_GUILLOTINE_1 */ { aMaGuillotine1DL, aMaGuillotineHitbox, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_WZ_PILLAR_1 */ { aWzPillar1DL, aWzPillar1Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_WZ_PILLAR_2 */ { aWzPillar2DL, aWzPillar2Hitbox, -1.0f, 2100.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_WZ_METEOR_1 */ { aWzMeteor1DL, aWzMeteor1Hitbox, 2.5f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
+    /* EVID_WZ_METEOR_2 */ { aWzMeteor2DL, gCubeHitbox100, -1.0f, 100.0f, 8000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /* EVID_WZ_GATE */ { aWzGateDL, aWzGateHitbox, -1.0f, 1000.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 0 },
+    /* EVID_ME_METEOR_7 */ { aMeMeteor7DL, gCubeHitbox100, -1.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_MA_BOULDER */ { aMaBoulderDL, aMaBoulderHitbox, 1.0f, 100.0f, 3000.0f, 1, 1, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_VE1_ENEMY_GATE */ { aVe1EnemyGateDL, aVe1EnemyGateHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_ENEMY_GATE_DOOR_RIGHT */ { aVe1EnemyGateDoorRightDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_ENEMY_GATE_DOOR_LEFT */ { aVe1EnemyGateDoorLeftDL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_TR_BARRIER */ { aTrBarrierDL, aTrBarrierHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -1075,49 +1076,49 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
     switch (gCurrentLevel) {
         case LEVEL_VENOM_ANDROSS:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C037E3C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aAndEventScript);
             break;
         case LEVEL_CORNERIA:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aCoEventScript);
             break;
         case LEVEL_METEO:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_ME_602F3AC);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aMeEventScript);
             break;
         case LEVEL_AQUAS:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_AQ_60308B8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aAqEventScript);
             break;
         case LEVEL_TITANIA:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_TI_600631C);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aTiEventScript);
             break;
         case LEVEL_SECTOR_X:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_SX_60320D0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aSxEventScript);
             break;
         case LEVEL_UNK_4:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_A6_60289FC);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aA6Unk4EventScript);
             break;
         case LEVEL_AREA_6:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_A6_6027F50);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aA6EventScript);
             break;
         case LEVEL_SECTOR_Y:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_SY_6032E18);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aSyEventScript);
             break;
         case LEVEL_SOLAR:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_SO_6020DD0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aSoEventScript);
             break;
         case LEVEL_ZONESS:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_ZO_602AAC0);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aZoEventScript);
             break;
         case LEVEL_VENOM_1:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_VE1_601B1E4);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aVe1EventScript);
             break;
         case LEVEL_MACBETH:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_MA_60381D8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aMaEventScript);
             break;
         case LEVEL_TRAINING:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_TR_6009B34);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aTrEventScript);
             break;
         default:
-            levelScripts = SEGMENTED_TO_VIRTUAL(D_CO_603D9E8);
+            levelScripts = SEGMENTED_TO_VIRTUAL(aCoEventScript);
             break;
     }
     actorScript = SEGMENTED_TO_VIRTUAL(levelScripts[this->aiType]);
@@ -1140,11 +1141,11 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 this->timer_0C2 = 0;
             }
 
-            this->fwork[11] = 0.0f;
-            this->fwork[12] = 0.0f;
+            this->fwork[EVA_Z_ROT_RATE] = 0.0f;
+            this->fwork[EVA_Z_ROT_DIRECTION] = 0.0f;
 
             if ((this->eventType == EVID_ME_ROCK_GULL) || (this->eventType == EVID_VE1_BLOCKER)) {
-                this->fwork[15] = 0.0f;
+                this->fwork[EVA_FWORK_15] = 0.0f;
             } else if (this->eventType == EVID_ZO_BIRD) {
                 this->info.drawType = 2;
             }
@@ -1152,7 +1153,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             this->health = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
 
-            if ((this->eventType >= EVID_200) && (this->eventType < EVID_300)) {
+            if ((this->eventType >= EVID_ME_MORA) && (this->eventType < EVID_300)) {
                 this->work_046 = 100;
                 this->info.hitbox = gCubeHitbox200;
                 this->info.targetOffset = 1.0f;
@@ -1165,7 +1166,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                             gMeMoraYpos[i][j] = this->obj.pos.y;
                             gMeMoraZpos[i][j] = this->obj.pos.z;
                         }
-                        if (this->eventType == EVID_200) {
+                        if (this->eventType == EVID_ME_MORA) {
                             AUDIO_PLAY_SFX(NA_SE_EN_SPACE_SNAKE, this->sfxSource, 4);
                         }
                         break;
@@ -1179,7 +1180,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
             if ((this->eventType == EVID_ME_SLIPPY) || (this->eventType == EVID_TEAMMATE)) {
                 this->drawShadow = true;
-                this->iwork[11] = 1;
+                this->iwork[ACTOR_ENGINE_GLOW] = 1;
             }
 
             if (this->eventType == EVID_VE1_BLOCKER) {
@@ -1203,7 +1204,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 this->animFrame = Animation_GetFrameCount(&aVe2AndrossGateAnim) - 1;
             }
 
-            if (this->eventType < EVID_200) {
+            if (this->eventType < EVID_ME_MORA) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(sEventActorInfo[this->eventType].hitbox);
                 this->scale = sEventActorInfo[this->eventType].scale;
                 this->info.unk_16 = sEventActorInfo[this->eventType].info_unk_16;
@@ -1217,7 +1218,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
 
                 this->info.cullDistance = sEventActorInfo[this->eventType].cullDistance;
-                this->fwork[25] = sEventActorInfo[this->eventType].unk_10;
+                this->fwork[EVA_INFO_UNK10] = sEventActorInfo[this->eventType].unk_10;
 
                 switch (sEventActorInfo[this->eventType].sfx) {
                     case EISFX_EN_ENGINE_01:
@@ -1251,9 +1252,9 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                 }
 
                 if (this->info.unk_16 == 0) {
-                    this->obj.rot.z = this->fwork[23] = this->rot_0F4.z;
+                    this->obj.rot.z = this->fwork[EVA_Z_ROT_TARGET] = this->orient.z;
                     if (this->eventType != EVID_A6_UMBRA_STATION) {
-                        this->rot_0F4.z = 0.0f;
+                        this->orient.z = 0.0f;
                     }
                 }
             }
@@ -1261,10 +1262,10 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_SET_TEAM_ID):
-            this->iwork[12] = actorScript[this->aiIndex + 1];
+            this->iwork[EVA_TEAM_ID] = actorScript[this->aiIndex + 1];
 
-            if (this->iwork[12] <= TEAM_ID_PEPPY) {
-                gTeamEventActorIndex[this->iwork[12]] = this->index;
+            if (this->iwork[EVA_TEAM_ID] <= TEAM_ID_PEPPY) {
+                gTeamEventActorIndex[this->iwork[EVA_TEAM_ID]] = this->index;
             }
 
             this->aiIndex += 2;
@@ -1272,8 +1273,8 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_ADD_TO_GROUP):
-            this->iwork[15] = actorScript[this->aiIndex + 1];
-            this->iwork[16] = actorScript[this->aiIndex] & 0x1FF;
+            this->iwork[EVA_GROUP_ID] = actorScript[this->aiIndex + 1];
+            this->iwork[EVA_GROUP_FLAG] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
@@ -1293,7 +1294,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
         case EV_OPC(EVOP_SET_ACTION):
             if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_OPEN) {
                 this->state = EVSTATE_ME_AS_OPEN;
-                this->fwork[11] = 0.0f;
+                this->fwork[EVA_Z_ROT_RATE] = 0.0f;
                 this->aiIndex += 2;
                 break;
             }
@@ -1307,7 +1308,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
             this->work_048 = actorScript[this->aiIndex + 1];
 
-            if (this->work_048 == EVACT_3) {
+            if (this->work_048 == EVACT_TEAM_SHOOT) {
                 this->work_04C = 4;
             }
 
@@ -1341,7 +1342,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_SET_SURFACE):
-            if ((gGroundSurface == SURFACE_WATER) && (actorScript[this->aiIndex + 1] != 2)) {
+            if ((gGroundSurface == SURFACE_WATER) && (actorScript[this->aiIndex + 1] != SURFACE_WATER)) {
                 Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_SPLASH_LEVEL_S);
             }
             gGroundSurface = actorScript[this->aiIndex + 1];
@@ -1383,7 +1384,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_DAMAGE_TEAM):
-            if (this->iwork[12] == actorScript[this->aiIndex + 1]) {
+            if (this->iwork[EVA_TEAM_ID] == actorScript[this->aiIndex + 1]) {
                 this->dmgType = DMG_BEAM;
                 this->damage = actorScript[this->aiIndex] & 0x1FF;
                 this->dmgSource = DMG_SRC_100;
@@ -1395,7 +1396,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_MAKE_TEXLINE):
-            this->iwork[7] = 1;
+            this->iwork[EVA_TEXLINE_ACTIVE] = true;
             for (i = 0; i < ARRAY_COUNT(gTexturedLines); i++) {
                 if (gTexturedLines[i].mode == 0) {
                     gTexturedLines[i].mode = 1;
@@ -1407,7 +1408,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
                     gTexturedLines[i].prim.g = sEventTexLineColors[actorScript[this->aiIndex + 1]].g;
                     gTexturedLines[i].prim.b = sEventTexLineColors[actorScript[this->aiIndex + 1]].b;
                     gTexturedLines[i].prim.a = sEventTexLineColors[actorScript[this->aiIndex + 1]].a;
-                    this->iwork[8] = i;
+                    this->iwork[EVA_TEXLINE_INDEX] = i;
                     break;
                 }
             }
@@ -1416,7 +1417,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_STOP_TEXLINE):
-            this->iwork[7] = 0;
+            this->iwork[EVA_TEXLINE_ACTIVE] = false;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
@@ -1424,35 +1425,35 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
         case EV_OPC(EVOP_PURSUE_PLAYER):
             this->state = EVSTATE_PURSUE_PLAYER;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_FLEE_PLAYER):
             this->state = EVSTATE_FLEE_PLAYER;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_PURSUE_TARGET):
             this->state = EVSTATE_PURSUE_TARGET;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_FLEE_TARGET):
             this->state = EVSTATE_FLEE_TARGET;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_SET_TARGET):
             this->state = EVSTATE_WAIT;
-            this->iwork[1] = gTeamEventActorIndex[actorScript[this->aiIndex] & 0x1FF];
-            this->fwork[17] = actorScript[this->aiIndex + 1];
+            this->iwork[EVA_TARGET_INDEX] = gTeamEventActorIndex[actorScript[this->aiIndex] & 0x1FF];
+            this->fwork[EVA_FWORK_17] = actorScript[this->aiIndex + 1];
             this->timer_0BC = 0;
             this->aiIndex += 2;
             break;
@@ -1460,42 +1461,42 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
         case EV_OPC(EVOP_CHASE_TARGET):
             this->state = EVSTATE_CHASE_TARGET;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_PURSUE_CAMERA):
             this->state = EVSTATE_PURSUE_CAMERA;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_FLEE_CAMERA):
             this->state = EVSTATE_FLEE_CAMERA;
             this->timer_0BC = actorScript[this->aiIndex + 1];
-            this->fwork[24] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_PURSUIT_TURN_RATE] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_SET_TRIGGER):
-            this->iwork[2] = actorScript[this->aiIndex + 1];
-            this->iwork[3] = actorScript[this->aiIndex] & 0x1FF;
+            this->iwork[EVA_TRIGGER_COND] = actorScript[this->aiIndex + 1];
+            this->iwork[EVA_BRANCH] = actorScript[this->aiIndex] & 0x1FF;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
         case EV_OPC(EVOP_LOOP):
-            if (actorScript[this->aiIndex + 1] < this->iwork[0]) {
+            if (actorScript[this->aiIndex + 1] < this->iwork[EVA_LOOP_COUNT]) {
                 this->aiIndex += 2;
-                this->iwork[0] = 0;
-            } else if ((actorScript[this->aiIndex] & 0x1FF) < 200) {
+                this->iwork[EVA_LOOP_COUNT] = 0;
+            } else if ((actorScript[this->aiIndex] & 0x1FF) < EV_CHANGE_SCRIPT) {
                 this->aiIndex = (actorScript[this->aiIndex] & 0x1FF) * 2;
-                this->iwork[0]++;
+                this->iwork[EVA_LOOP_COUNT]++;
             } else {
-                this->aiType = (actorScript[this->aiIndex] & 0x1FF) - 200;
+                this->aiType = (actorScript[this->aiIndex] & 0x1FF) - EV_CHANGE_SCRIPT;
                 this->aiIndex = 0;
-                this->iwork[0] = 0;
+                this->iwork[EVA_LOOP_COUNT] = 0;
             }
             ActorEvent_ProcessScript(this);
             break;
@@ -1507,23 +1508,23 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_SET_SPEED):
-            this->fwork[0] = actorScript[this->aiIndex] & 0x7F;
-            this->fwork[1] = this->fwork[0];
-            this->iwork[5] = EV_ZMODE_MASK(actorScript[this->aiIndex]);
+            this->fwork[EVA_SPEED] = actorScript[this->aiIndex] & 0x7F;
+            this->fwork[EVA_SPEED_TARGET] = this->fwork[EVA_SPEED];
+            this->iwork[EVA_Z_MODE] = EV_ZMODE_MASK(actorScript[this->aiIndex]);
             this->timer_0BC = actorScript[this->aiIndex + 1];
             this->state = EVSTATE_WAIT;
             this->aiIndex += 2;
             break;
 
         case EV_OPC(EVOP_SET_BASE_ZVEL):
-            this->fwork[22] = actorScript[this->aiIndex + 1] & 0xFF;
+            this->fwork[EVA_BASE_ZVEL] = actorScript[this->aiIndex + 1] & 0xFF;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
         case EV_OPC(EVOP_SET_ACCEL):
-            this->fwork[1] = actorScript[this->aiIndex] & 0x7F;
-            this->iwork[5] = EV_ZMODE_MASK(actorScript[this->aiIndex]);
+            this->fwork[EVA_SPEED_TARGET] = actorScript[this->aiIndex] & 0x7F;
+            this->iwork[EVA_Z_MODE] = EV_ZMODE_MASK(actorScript[this->aiIndex]);
             this->timer_0BC = actorScript[this->aiIndex + 1];
             this->state = EVSTATE_WAIT;
             this->aiIndex += 2;
@@ -1531,101 +1532,101 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_START_FORMATION):
             this->timer_0C0 = actorScript[this->aiIndex + 1];
-            this->iwork[13] = 1;
+            this->iwork[EVA_FORMATION] = true;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
         case EV_OPC(EVOP_STOP_FORMATION):
-            this->iwork[13] = 0;
+            this->iwork[EVA_FORMATION] = false;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_F4_PLUS_X):
-            this->state = EVSTATE_F4_PLUS_X;
-            this->fwork[2] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[3] = actorScript[this->aiIndex + 1] * 0.1f;
+        case EV_OPC(EVOP_TURN_DOWN):
+            this->state = EVSTATE_TURN_DOWN;
+            this->fwork[EVA_TURN_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_TURN_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
             this->aiIndex += 2;
             break;
 
-        case EV_OPC(EVOP_F4_MINUS_X):
-            this->state = EVSTATE_F4_MINUS_X;
-            this->fwork[2] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[3] = actorScript[this->aiIndex + 1] * 0.1f;
+        case EV_OPC(EVOP_TURN_UP):
+            this->state = EVSTATE_TURN_UP;
+            this->fwork[EVA_TURN_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_TURN_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
             this->aiIndex += 2;
             break;
 
-        case EV_OPC(EVOP_F4_PLUS_Y):
-            this->state = EVSTATE_F4_PLUS_Y;
-            this->fwork[2] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[3] = actorScript[this->aiIndex + 1] * 0.1f;
+        case EV_OPC(EVOP_TURN_LEFT):
+            this->state = EVSTATE_TURN_LEFT;
+            this->fwork[EVA_TURN_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_TURN_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
             this->aiIndex += 2;
             break;
 
-        case EV_OPC(EVOP_F4_MINUS_Y):
-            this->state = EVSTATE_F4_MINUS_Y;
-            this->fwork[2] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[3] = actorScript[this->aiIndex + 1] * 0.1f;
+        case EV_OPC(EVOP_TURN_RIGHT):
+            this->state = EVSTATE_TURN_RIGHT;
+            this->fwork[EVA_TURN_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_TURN_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
             this->aiIndex += 2;
             break;
 
-        case EV_OPC(EVOP_ROT_PLUS_X):
-            this->fwork[4] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[5] = actorScript[this->aiIndex + 1] * 0.1f;
-            this->fwork[6] = 1.0f;
-            this->aiIndex += 2;
-            ActorEvent_ProcessScript(this);
-            break;
-
-        case EV_OPC(EVOP_ROT_MINUS_X):
-            this->fwork[4] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[5] = actorScript[this->aiIndex + 1] * 0.1f;
-            this->fwork[6] = -1.0f;
+        case EV_OPC(EVOP_PITCH_DOWN):
+            this->fwork[EVA_X_ROT_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_X_ROT_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
+            this->fwork[EVA_X_ROT_DIRECTION] = 1.0f;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_ROT_PLUS_Y):
-            this->fwork[7] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[8] = actorScript[this->aiIndex + 1] * 0.1f;
-            this->fwork[9] = 1.0f;
+        case EV_OPC(EVOP_PITCH_UP):
+            this->fwork[EVA_X_ROT_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_X_ROT_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
+            this->fwork[EVA_X_ROT_DIRECTION] = -1.0f;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_ROT_MINUS_Y):
-            this->fwork[7] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[8] = actorScript[this->aiIndex + 1] * 0.1f;
-            this->fwork[9] = -1.0f;
+        case EV_OPC(EVOP_YAW_LEFT):
+            this->fwork[EVA_Y_ROT_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_Y_ROT_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
+            this->fwork[EVA_Y_ROT_DIRECTION] = 1.0f;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_ROT_PLUS_Z):
-            this->fwork[10] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[11] = actorScript[this->aiIndex + 1] * 0.1f;
-            this->fwork[12] = 1.0f;
+        case EV_OPC(EVOP_YAW_RIGHT):
+            this->fwork[EVA_Y_ROT_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_Y_ROT_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
+            this->fwork[EVA_Y_ROT_DIRECTION] = -1.0f;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_ROT_MINUS_Z):
-            this->fwork[10] = actorScript[this->aiIndex] & 0x1FF;
-            this->fwork[11] = actorScript[this->aiIndex + 1] * 0.1f;
-            this->fwork[12] = -1.0f;
+        case EV_OPC(EVOP_ROLL_RIGHT):
+            this->fwork[EVA_Z_ROT_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_Z_ROT_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
+            this->fwork[EVA_Z_ROT_DIRECTION] = 1.0f;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_SET_ROTATE):
-            this->iwork[6] = 1;
+        case EV_OPC(EVOP_ROLL_LEFT):
+            this->fwork[EVA_Z_ROT_ANGLE] = actorScript[this->aiIndex] & 0x1FF;
+            this->fwork[EVA_Z_ROT_RATE] = actorScript[this->aiIndex + 1] * 0.1f;
+            this->fwork[EVA_Z_ROT_DIRECTION] = -1.0f;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
 
-        case EV_OPC(EVOP_STOP_ROTATE):
-            this->iwork[6] = 0;
+        case EV_OPC(EVOP_LOCAL_ROTATION):
+            this->iwork[EVA_LOCAL_ROTATION] = true;
+            this->aiIndex += 2;
+            ActorEvent_ProcessScript(this);
+            break;
+
+        case EV_OPC(EVOP_FREE_ROTATION):
+            this->iwork[EVA_LOCAL_ROTATION] = false;
             this->aiIndex += 2;
             ActorEvent_ProcessScript(this);
             break;
@@ -1633,10 +1634,10 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 }
 
 void ActorEvent_UpdateTexLines(ActorEvent* this) {
-    if ((this->iwork[7] != 0) && (gTexturedLines[this->iwork[8]].mode != 0)) {
-        gTexturedLines[this->iwork[8]].posBB.x = this->obj.pos.x;
-        gTexturedLines[this->iwork[8]].posBB.y = this->obj.pos.y;
-        gTexturedLines[this->iwork[8]].posBB.z = this->obj.pos.z;
+    if ((this->iwork[EVA_TEXLINE_ACTIVE] != 0) && (gTexturedLines[this->iwork[EVA_TEXLINE_INDEX]].mode != 0)) {
+        gTexturedLines[this->iwork[EVA_TEXLINE_INDEX]].posBB.x = this->obj.pos.x;
+        gTexturedLines[this->iwork[EVA_TEXLINE_INDEX]].posBB.y = this->obj.pos.y;
+        gTexturedLines[this->iwork[EVA_TEXLINE_INDEX]].posBB.z = this->obj.pos.z;
     }
 }
 
@@ -1725,7 +1726,7 @@ void Actor_SetupPlayerShot(PlayerShotId objId, PlayerShot* shot, s32 actorId, f3
             AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, shot->sfxSource, 4);
         }
     } else if ((actorId < ARRAY_COUNT(gActors)) && (gActors[actorId].obj.id == OBJ_ACTOR_EVENT) &&
-               (gActors[actorId].iwork[12] >= TEAM_ID_FALCO)) {
+               (gActors[actorId].iwork[EVA_TEAM_ID] >= TEAM_ID_FALCO)) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_SHOT_F, shot->sfxSource, 4);
     } else if (actorId + NPC_SHOT_ID == CS_SHOT_ID + NPC_SHOT_ID) {
         shot->sourceId = CS_SHOT_ID;
@@ -1771,7 +1772,7 @@ void ActorEvent_SetupEffect347(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     effect->obj.pos.z = zPos;
 
     effect->scale1 = scale1;
-    effect->unk_44 = 100;
+    effect->alpha = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
     Effect_SpawnTimedSfxAtPos(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
@@ -1797,7 +1798,7 @@ void ActorEvent_SetupEffect394(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     effect->obj.pos.z = zPos;
 
     effect->scale1 = scale1;
-    effect->unk_44 = 100;
+    effect->alpha = 100;
     effect->unk_78 = 102;
     effect->unk_7A = 18;
     Object_SetInfo(&effect->info, effect->obj.id);
@@ -1816,24 +1817,25 @@ void ActorEvent_SpawnEffect394(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     }
 }
 
-void ActorEvent_8006F254(ActorEvent* this) {
+void ActorEvent_ShootForward(ActorEvent* this) {
     Vec3f sp54;
     Vec3f sp48;
 
-    Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
     sp54.x = 0.0f;
     sp54.y = 0.0f;
     sp54.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y,
-                         this->obj.pos.z + sp48.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, this->vwork[29].x,
-                         this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp48.x, sp48.y, sp48.z, 1.0f);
+    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y,
+                      this->obj.pos.z + sp48.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
+                      this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
+                      this->vwork[EVA_FORMATION_ROT].z + this->orient.z, sp48.x, sp48.y, sp48.z, 1.0f);
 }
 
 void ActorEvent_ProcessActions(ActorEvent* this) {
@@ -1842,209 +1844,209 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
     Vec3f sp6C;
     Sprite* sprite;
 
-    if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) && (this->eventType != EVID_SARUMARINE_PERISCOPE) &&
-        (this->eventType != EVID_ANDROSS_GATE) && (this->eventType != EVID_ANDROSS_GATE_2) &&
-        (this->eventType != EVID_SY_ROBOT_1) && (this->eventType != EVID_SY_ROBOT_2) &&
-        (this->eventType != EVID_SY_ROBOT_3)) {
-        switch (this->work_048) {
-            case EVACT_NONE:
-                break;
+    if ((gPlayer[0].state != PLAYERSTATE_ACTIVE) || (this->eventType == EVID_SARUMARINE_PERISCOPE) ||
+        (this->eventType == EVID_ANDROSS_GATE) || (this->eventType == EVID_ANDROSS_GATE_2) ||
+        (this->eventType == EVID_SY_ROBOT_1) || (this->eventType == EVID_SY_ROBOT_2) ||
+        (this->eventType == EVID_SY_ROBOT_3)) {
+        return;
+    }
+    switch (this->work_048) {
+        case EVACT_NONE:
+            break;
 
-            case EVACT_1: // shoot forward
-                ActorEvent_8006F254(this);
-                this->work_048 = EVACT_NONE;
-                break;
+        case EVACT_SHOOT_FORWARD: // shoot forward
+            ActorEvent_ShootForward(this);
+            this->work_048 = EVACT_NONE;
+            break;
 
-            case EVACT_2: // shoot at player
-                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                    Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                      gEnemyShotSpeed);
-                }
-                this->work_048 = EVACT_NONE;
-                break;
+        case EVACT_SHOOT_AT_PLAYER: // shoot at player
+            if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
+                Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
+            }
+            this->work_048 = EVACT_NONE;
+            break;
 
-            case EVACT_3: // ally shoots forward
-                if (this->timer_0BE == 0) {
-                    this->timer_0BE = 6;
-                    sp78.x = 0.0f;
-                    sp78.y = 0.0f;
-                    sp78.z = 100.0f;
-                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                    Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5),
-                                           this->obj.pos.y + (sp6C.y * 1.5), this->obj.pos.z + (sp6C.z * 1.5), sp6C.x,
-                                           sp6C.y, sp6C.z, this->rot_0F4.x, this->rot_0F4.y,
-                                           this->vwork[29].z + this->rot_0F4.z);
-                    this->timer_0C2 = 2;
-                    this->work_04C--;
-                    if (this->work_04C <= 0) {
-                        this->work_048 = EVACT_NONE;
-                    }
-                }
-                break;
-
-            case EVACT_4: // shoot blue energy balls
-                ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
-                this->work_048 = EVACT_NONE;
-                break;
-
-            case EVACT_5:
-                Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
-                Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
-                Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
-                Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
-
+        case EVACT_TEAM_SHOOT: // ally shoots forward
+            if (this->timer_0BE == 0) {
+                this->timer_0BE = 6;
                 sp78.x = 0.0f;
                 sp78.y = 0.0f;
-                sp78.z = gEnemyShotSpeed;
-
+                sp78.z = 100.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-                func_effect_8007F04C(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
-                                     this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
-                                     this->vwork[29].x, this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, sp6C.x,
-                                     sp6C.y, sp6C.z, 1.0f);
-                this->work_048 = EVACT_NONE;
-                break;
-
-            case EVACT_6:
-                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                    Effect_EnemyLaser(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                      gEnemyShotSpeed);
-                }
-                this->work_048 = EVACT_NONE;
-                break;
-
-            case EVACT_7:
-                if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                    Effect_EnemyLaser(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
-                }
-                this->work_048 = EVACT_NONE;
-                break;
-
-            case EVACT_8:
-                sp6C.x = gPlayer[0].pos.x;
-                sp6C.y = gPlayer[0].pos.y;
-                gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
-                gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
-                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                  gEnemyShotSpeed);
-                gPlayer[0].pos.x = sp6C.x;
-                gPlayer[0].pos.y = sp6C.y;
-                this->work_048 = EVACT_NONE;
-                break;
-
-            case EVACT_9:
-                if (gCurrentLevel == LEVEL_AQUAS) {
-                    ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
-                } else {
-                    ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
-                }
-                Object_Kill(&this->obj, this->sfxSource);
-                break;
-
-            case EVACT_10:
-                if (gCurrentLevel == LEVEL_AQUAS) {
-                    ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
-                } else {
-                    ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
-                }
-                Object_Kill(&this->obj, this->sfxSource);
-                break;
-
-            case EVACT_11:
-                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, this->scale * 3.0f, 15);
-                Actor_Despawn(this);
-                Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
-                break;
-
-            case EVACT_DESPAWN:
-                Actor_Despawn(this);
-                Object_Kill(&this->obj, this->sfxSource);
-                break;
-
-            case EVACT_TI_DROP_MINE:
-                if (this->timer_0BE > 25) {
-                    Math_SmoothStepToF(&this->fwork[15], 90.0f, 0.2f, 8.0f, 0.01f);
-                }
-                if (this->timer_0BE < 25) {
-                    Math_SmoothStepToF(&this->fwork[15], 0.0f, 0.2f, 8.0f, 0.01f);
-                }
-                if (this->timer_0BE == 30) {
-                    ActorEvent_SpawnTIMine(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
-                }
-                if (this->timer_0BE == 0) {
+                Actor_SpawnPlayerLaser(this->index, this->obj.pos.x + (sp6C.x * 1.5), this->obj.pos.y + (sp6C.y * 1.5),
+                                       this->obj.pos.z + (sp6C.z * 1.5), sp6C.x, sp6C.y, sp6C.z, this->orient.x,
+                                       this->orient.y, this->vwork[EVA_FORMATION_ROT].z + this->orient.z);
+                this->timer_0C2 = 2;
+                this->work_04C--;
+                if (this->work_04C <= 0) {
                     this->work_048 = EVACT_NONE;
                 }
-                break;
+            }
+            break;
 
-            case EVACT_16:
-                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
-                                  this->obj.pos.z + 220.0f, gEnemyShotSpeed);
-                Effect_EnemyLaser(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
-                                  this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+        case EVACT_BLUE_ENERGY: // shoot blue energy balls
+            ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_5:
+            Matrix_RotateY(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_APPLY);
+            Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
+            Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
+
+            sp78.x = 0.0f;
+            sp78.y = 0.0f;
+            sp78.z = gEnemyShotSpeed;
+
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+            Effect_SpawnById2(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
+                              this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
+                              this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
+                              this->vwork[EVA_FORMATION_ROT].z + this->orient.z, sp6C.x, sp6C.y, sp6C.z, 1.0f);
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_6:
+            if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
+                Effect_ShootAtPlayer(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
+            }
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_7:
+            if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
+                Effect_ShootAtPlayer(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
+            }
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_SHOOT_NEAR_PLAYER:
+            sp6C.x = gPlayer[0].pos.x;
+            sp6C.y = gPlayer[0].pos.y;
+            gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
+            gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                 gEnemyShotSpeed);
+            gPlayer[0].pos.x = sp6C.x;
+            gPlayer[0].pos.y = sp6C.y;
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_9:
+            if (gCurrentLevel == LEVEL_AQUAS) {
+                ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
+            } else {
+                ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+            }
+            Object_Kill(&this->obj, this->sfxSource);
+            break;
+
+        case EVACT_10:
+            if (gCurrentLevel == LEVEL_AQUAS) {
+                ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+            } else {
+                ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+            }
+            Object_Kill(&this->obj, this->sfxSource);
+            break;
+
+        case EVACT_11:
+            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
+                             this->scale * 3.0f, 15);
+            Actor_Despawn(this);
+            Object_Kill(&this->obj, this->sfxSource);
+            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+            break;
+
+        case EVACT_DESPAWN:
+            Actor_Despawn(this);
+            Object_Kill(&this->obj, this->sfxSource);
+            break;
+
+        case EVACT_TI_DROP_MINE:
+            if (this->timer_0BE > 25) {
+                Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 90.0f, 0.2f, 8.0f, 0.01f);
+            }
+            if (this->timer_0BE < 25) {
+                Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 0.0f, 0.2f, 8.0f, 0.01f);
+            }
+            if (this->timer_0BE == 30) {
+                ActorEvent_SpawnTIMine(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
+            }
+            if (this->timer_0BE == 0) {
                 this->work_048 = EVACT_NONE;
-                break;
+            }
+            break;
 
-            case EVACT_17:
-                if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
-                    func_effect_8007F20C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
-                                         gEnemyShotSpeed);
+        case EVACT_SHOOT_PLAYER_TWICE:
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
+                                 this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
+                                 this->obj.pos.z + 220.0f, gEnemyShotSpeed);
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_SHOOT_AT_CAMERA:
+            if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
+                Effect_ShootAtCamera(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                                     gEnemyShotSpeed);
+            }
+            this->work_048 = EVACT_NONE;
+            break;
+
+        case EVACT_GFOX_COVER_FIRE:
+            for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+                if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_GFOX_TARGET)) {
+                    f32 sp64;
+                    f32 sp60;
+                    f32 sp5C;
+                    f32 sp58;
+                    f32 sp54;
+
+                    sprite->obj.status = OBJ_FREE;
+                    sp64 = sprite->obj.pos.x - this->obj.pos.x;
+                    sp60 = sprite->obj.pos.y - this->obj.pos.y;
+                    sp5C = sprite->obj.pos.z - this->obj.pos.z;
+                    sp54 = Math_Atan2F(sp64, sp5C);
+                    sp54 = Math_RadToDeg(sp54);
+                    sp58 = -Math_Atan2F(sp60, sqrtf(SQ(sp64) + SQ(sp5C)));
+                    sp58 = Math_RadToDeg(sp58);
+                    Matrix_RotateY(gCalcMatrix, M_DTOR * sp54, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, M_DTOR * sp58, MTXF_APPLY);
+                    sp6C.x = 0.0f;
+                    sp6C.y = 0.0f;
+                    sp6C.z = 50.0f;
+                    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp78);
+                    Actor_SpawnGreatFoxLaser(CS_SHOT_ID, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, sp78.x,
+                                             sp78.y, sp78.z, sp58, sp54, 0.0f);
+                    break;
                 }
-                this->work_048 = EVACT_NONE;
-                break;
+            }
 
-            case EVACT_GFOX_COVER_FIRE:
-                for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
-                    if ((sprite->obj.status == OBJ_ACTIVE) && (sprite->obj.id == OBJ_SPRITE_GFOX_TARGET)) {
-                        f32 sp64;
-                        f32 sp60;
-                        f32 sp5C;
-                        f32 sp58;
-                        f32 sp54;
+            this->work_048 = EVACT_NONE;
+            break;
 
-                        sprite->obj.status = OBJ_FREE;
-                        sp64 = sprite->obj.pos.x - this->obj.pos.x;
-                        sp60 = sprite->obj.pos.y - this->obj.pos.y;
-                        sp5C = sprite->obj.pos.z - this->obj.pos.z;
-                        sp54 = Math_Atan2F(sp64, sp5C);
-                        sp54 = Math_RadToDeg(sp54);
-                        sp58 = -Math_Atan2F(sp60, sqrtf(SQ(sp64) + SQ(sp5C)));
-                        sp58 = Math_RadToDeg(sp58);
-                        Matrix_RotateY(gCalcMatrix, M_DTOR * sp54, MTXF_NEW);
-                        Matrix_RotateX(gCalcMatrix, M_DTOR * sp58, MTXF_APPLY);
-                        sp6C.x = 0.0f;
-                        sp6C.y = 0.0f;
-                        sp6C.z = 50.0f;
-                        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp6C, &sp78);
-                        Actor_SpawnGreatFoxLaser(CS_SHOT_ID, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, sp78.x,
-                                                 sp78.y, sp78.z, sp58, sp54, 0.0f);
-                        break;
-                    }
-                }
-
-                this->work_048 = EVACT_NONE;
-                break;
-
-            case EVACT_19: // projectile ring used by bee enemies
-                func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
-                this->work_048 = EVACT_NONE;
-                break;
-        }
+        case EVACT_19: // projectile ring used by bee enemies
+            func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+            this->work_048 = EVACT_NONE;
+            break;
     }
 }
 
-void ActorEvent_8006FE28(ActorEvent* this) {
+void ActorEvent_RepairWings(ActorEvent* this) {
     if ((fabsf(this->obj.pos.x - gPlayer[0].pos.x) < 100.0f) && (fabsf(this->obj.pos.y - gPlayer[0].pos.y) < 100.0f) &&
         (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 50.0f)) {
-        func_enmy_80067A40();
+        Player_RepairWings();
         Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_OB_WING);
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void ActorEvent_8006FEEC(ActorEvent* this) {
+void ActorEvent_DamageBird(ActorEvent* this) {
     s32 i;
 
     if ((this->dmgType != DMG_NONE) && (this->health != 0)) {
@@ -2068,16 +2070,16 @@ void ActorEvent_8006FEEC(ActorEvent* this) {
     }
 }
 
-bool ActorEvent_800700A4(ActorEvent* this) {
-    if ((this->state != EVSTATE_TEAM_RETREAT) && (this->iwork[12] >= TEAM_ID_FALCO) &&
-        (this->iwork[12] <= TEAM_ID_PEPPY) && (gTeamShields[this->iwork[12]] <= 0)) {
+bool ActorEvent_RetreatTeammate(ActorEvent* this) {
+    if ((this->state != EVSTATE_TEAM_RETREAT) && (this->iwork[EVA_TEAM_ID] >= TEAM_ID_FALCO) &&
+        (this->iwork[EVA_TEAM_ID] <= TEAM_ID_PEPPY) && (gTeamShields[this->iwork[EVA_TEAM_ID]] <= 0)) {
         this->state = EVSTATE_TEAM_RETREAT;
-        this->iwork[2] = 0;
-        this->fwork[10] = 360.0f;
-        this->fwork[11] = 20.0f;
-        gTeamShields[this->iwork[12]] = 1;
+        this->iwork[EVA_TRIGGER_COND] = 0;
+        this->fwork[EVA_Z_ROT_ANGLE] = 360.0f;
+        this->fwork[EVA_Z_ROT_RATE] = 20.0f;
+        gTeamShields[this->iwork[EVA_TEAM_ID]] = 1;
 
-        switch (this->iwork[12]) {
+        switch (this->iwork[EVA_TEAM_ID]) {
             case TEAM_ID_FALCO:
                 Radio_PlayMessage(gMsg_ID_20220, RCID_FALCO);
                 break;
@@ -2088,8 +2090,8 @@ bool ActorEvent_800700A4(ActorEvent* this) {
                 Radio_PlayMessage(gMsg_ID_20221, RCID_PEPPY);
                 break;
         }
-        gTeamShields[this->iwork[12]] = -1;
-        gTeamDamage[this->iwork[12]] = 0;
+        gTeamShields[this->iwork[EVA_TEAM_ID]] = -1;
+        gTeamDamage[this->iwork[EVA_TEAM_ID]] = 0;
         this->timer_0C2 = 5000;
         this->dmgType = DMG_NONE;
         return true;
@@ -2097,12 +2099,12 @@ bool ActorEvent_800700A4(ActorEvent* this) {
     return false;
 }
 
-void ActorEvent_800701E0(ActorEvent* this) {
+void ActorEvent_ApplyDamage(ActorEvent* this) {
     Vec3f sp3C;
     f32 chance;
     f32 temp_fv1;
 
-    if (ActorEvent_800700A4(this)) {
+    if (ActorEvent_RetreatTeammate(this)) {
         return;
     }
     if ((this->dmgType != DMG_NONE) && (this->eventType == EVID_ME_FLIP_BOT) && (this->dmgPart == 0)) {
@@ -2115,12 +2117,12 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
     if ((this->dmgType != DMG_NONE) &&
         (((this->eventType == EVID_ME_ROCK_GULL) && (this->dmgPart == 2)) || (this->eventType != EVID_ME_ROCK_GULL))) {
-        if (this->iwork[12] >= TEAM_ID_KATT) {
+        if (this->iwork[EVA_TEAM_ID] >= TEAM_ID_KATT) {
             this->damage = 0;
         }
 
-        if ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] <= TEAM_ID_PEPPY)) {
-            gTeamShields[this->iwork[12]] -= this->damage;
+        if ((this->iwork[EVA_TEAM_ID] >= TEAM_ID_FALCO) && (this->iwork[EVA_TEAM_ID] <= TEAM_ID_PEPPY)) {
+            gTeamShields[this->iwork[EVA_TEAM_ID]] -= this->damage;
         } else if ((this->eventType == EVID_AQ_OYSTER) && ((this->damage == 30) || (this->damage == 31))) {
             this->health = 0;
         } else {
@@ -2149,7 +2151,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
                     chance = 0.3f;
                 }
 
-                if (((Rand_ZeroOne() < chance) || (this->iwork[12] != 0)) && (this->info.unk_14 == 0) &&
+                if (((Rand_ZeroOne() < chance) || (this->iwork[EVA_TEAM_ID] != 0)) && (this->info.unk_14 == 0) &&
                     (this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_2) &&
                     (this->eventType != EVID_ME_METEOR_4) && (this->damage <= 30) &&
                     (this->eventType != EVID_ME_METEOR_5) && (this->eventType != EVID_ME_ROCK_GULL) &&
@@ -2170,10 +2172,10 @@ void ActorEvent_800701E0(ActorEvent* this) {
                         this->work_04C = 1;
                         if (this->obj.pos.x < this->hitPos.x) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
-                            this->fwork[17] = 777.0f;
+                            this->fwork[EVA_FWORK_17] = 777.0f;
                         } else {
                             Play_SpawnDebris(0, this->obj.pos.x - 20.0f, this->obj.pos.y, this->obj.pos.z);
-                            this->fwork[18] = 777.0f;
+                            this->fwork[EVA_FWORK_18] = 777.0f;
                         }
                     }
                     this->timer_0BC = 300;
@@ -2249,14 +2251,14 @@ void ActorEvent_800701E0(ActorEvent* this) {
 
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_TURRET)) &&
                 (this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_VENOM_FIGHTER_3)) {
-                this->fwork[13] = 20.0f;
+                this->fwork[EVA_KNOCKBACK_X] = 20.0f;
                 if (this->obj.pos.x < this->hitPos.x) {
-                    this->fwork[13] *= -1.0f;
+                    this->fwork[EVA_KNOCKBACK_X] *= -1.0f;
                 }
             }
 
             if (this->dmgSource == TEAM_ID_FOX + 1) {
-                switch (this->iwork[12]) {
+                switch (this->iwork[EVA_TEAM_ID]) {
                     case TEAM_ID_FALCO:
                         if (this->dmgType == DMG_COLLISION) {
                             ActorEvent_SetMessage(gMsg_ID_20210, RCID_FALCO);
@@ -2293,7 +2295,7 @@ void ActorEvent_800701E0(ActorEvent* this) {
             this->dmgType = DMG_NONE;
         }
     }
-    if ((this->iwork[12] == 0) && (this->iwork[13] == 0) && (this->info.unk_16 != 2) &&
+    if ((this->iwork[EVA_TEAM_ID] == 0) && !this->iwork[EVA_FORMATION] && (this->info.unk_16 != 2) &&
         (gLevelType == LEVELTYPE_SPACE)) {
         sp3C.x = this->vel.x;
         sp3C.y = this->vel.y;
@@ -2338,16 +2340,16 @@ void ActorEvent_80070BA8(ActorEvent* this) {
 }
 
 void ActorEvent_TriggerBranch(ActorEvent* this) {
-    if (this->iwork[3] < EV_CHANGE_AI) {
-        this->aiIndex = this->iwork[3] * 2;
-        this->iwork[0] = 0;
-        this->iwork[2] = 0;
+    if (this->iwork[EVA_BRANCH] < EV_CHANGE_SCRIPT) {
+        this->aiIndex = this->iwork[EVA_BRANCH] * 2;
+        this->iwork[EVA_LOOP_COUNT] = 0;
+        this->iwork[EVA_TRIGGER_COND] = 0;
         ActorEvent_ProcessScript(this);
     } else {
-        this->aiType = this->iwork[3] - EV_CHANGE_AI;
+        this->aiType = this->iwork[EVA_BRANCH] - EV_CHANGE_SCRIPT;
         this->aiIndex = 0;
-        this->iwork[0] = 0;
-        this->iwork[2] = 0;
+        this->iwork[EVA_LOOP_COUNT] = 0;
+        this->iwork[EVA_TRIGGER_COND] = 0;
         ActorEvent_ProcessScript(this);
     }
 }
@@ -2364,20 +2366,21 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         }
     }
 
-    if (this->iwork[2] >= EVC_CLOSE_Z) {
-        if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) <= ((this->iwork[2] - EVC_CLOSE_Z) * 100.0f)) {
+    if (this->iwork[EVA_TRIGGER_COND] >= EVC_CLOSE_Z) {
+        if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) <= ((this->iwork[EVA_TRIGGER_COND] - EVC_CLOSE_Z) * 100.0f)) {
             ActorEvent_TriggerBranch(this);
         }
         return;
     }
 
-    switch (this->iwork[2]) {
+    switch (this->iwork[EVA_TRIGGER_COND]) {
         case EVC_NONE:
             break;
 
         case EVC_NO_TARGET:
-            if ((gActors[this->iwork[1]].obj.status != OBJ_ACTIVE) || (gActors[this->iwork[1]].health <= 0) ||
-                (this->iwork[10] != gActors[this->iwork[1]].aiType)) {
+            if ((gActors[this->iwork[EVA_TARGET_INDEX]].obj.status != OBJ_ACTIVE) ||
+                (gActors[this->iwork[EVA_TARGET_INDEX]].health <= 0) ||
+                (this->iwork[EVA_TARGET_TYPE] != gActors[this->iwork[EVA_TARGET_INDEX]].aiType)) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
@@ -2629,8 +2632,8 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_NO_LEADER:
-            if ((gActors[this->iwork[9]].obj.status != OBJ_ACTIVE) ||
-                ((gActors[this->iwork[9]].scale < 0.0f) && (this->health <= 0))) {
+            if ((gActors[this->iwork[EVA_LEADER_INDEX]].obj.status != OBJ_ACTIVE) ||
+                ((gActors[this->iwork[EVA_LEADER_INDEX]].scale < 0.0f) && (this->health <= 0))) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
@@ -2638,7 +2641,8 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         case EVC_NO_FOLLOWER:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT) &&
-                    (gActors[i].iwork[13] != 0) && (i != this->index) && (this->index == gActors[i].iwork[9])) {
+                    gActors[i].iwork[EVA_FORMATION] && (i != this->index) &&
+                    (this->index == gActors[i].iwork[EVA_LEADER_INDEX])) {
                     return;
                 }
             }
@@ -2648,7 +2652,8 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         case EVC_HAS_FOLLOWER:
             for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                 if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_EVENT) &&
-                    (gActors[i].iwork[13] != 0) && (i != this->index) && (this->index == gActors[i].iwork[9])) {
+                    gActors[i].iwork[EVA_FORMATION] && (i != this->index) &&
+                    (this->index == gActors[i].iwork[EVA_LEADER_INDEX])) {
                     ActorEvent_TriggerBranch(this);
                     break;
                 }
@@ -2686,7 +2691,8 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
         case EVC_ATTACK_GROUP_CLEARED:
             for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if (((otherActor->obj.status == OBJ_DYING) || (otherActor->obj.status == OBJ_FREE)) &&
-                    (otherActor->iwork[15] == this->iwork[15]) && (otherActor->iwork[16] != 0)) {
+                    (otherActor->iwork[EVA_GROUP_ID] == this->iwork[EVA_GROUP_ID]) &&
+                    (otherActor->iwork[EVA_GROUP_FLAG] != 0)) {
                     ActorEvent_TriggerBranch(this);
                 }
             }
@@ -2787,13 +2793,13 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             break;
 
         case EVC_NOT_CHASED:
-            if (D_enmy_Timer_80161670[this->iwork[12]] == 0) {
+            if (gTeamChaseTimers[this->iwork[EVA_TEAM_ID]] == 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
 
         case EVC_CHASED:
-            if (D_enmy_Timer_80161670[this->iwork[12]] != 0) {
+            if (gTeamChaseTimers[this->iwork[EVA_TEAM_ID]] != 0) {
                 ActorEvent_TriggerBranch(this);
             }
             break;
@@ -2865,7 +2871,7 @@ Vec3f D_800D1194[21] = {
     { 453.0f, 420.0f, 67.0f },
 };
 
-void ActorEvent_80071DC0(ActorEvent* this) {
+void ActorEvent_SlowDestruct(ActorEvent* this) {
     s32 rInd;
     Vec3f sp38;
 
@@ -2912,7 +2918,7 @@ void ActorEvent_80071DC0(ActorEvent* this) {
     }
 }
 
-void ActorEvent_800720E8(ActorEvent* this) {
+void ActorEvent_DamageWarpGate(ActorEvent* this) {
     switch (this->work_046) {
         case 0:
             if (this->dmgType != DMG_NONE) {
@@ -2926,7 +2932,7 @@ void ActorEvent_800720E8(ActorEvent* this) {
                 }
 
                 this->health -= this->damage;
-                this->fwork[16] += 0.2f;
+                this->fwork[EVA_FWORK_16] += 0.2f;
                 this->timer_0BC = 5;
 
                 if (this->timer_0BE < 20) {
@@ -2946,9 +2952,9 @@ void ActorEvent_800720E8(ActorEvent* this) {
 
         case 1:
         case 2:
-            Math_SmoothStepToF(&this->fwork[16], 130.0f, 0.2f, 8.0f, 0.001f);
-            if (this->fwork[16] > 45.0f) {
-                Math_SmoothStepToF(&this->fwork[15], 90.0f, 0.2f, 10.0f, 0.001f);
+            Math_SmoothStepToF(&this->fwork[EVA_FWORK_16], 130.0f, 0.2f, 8.0f, 0.001f);
+            if (this->fwork[EVA_FWORK_16] > 45.0f) {
+                Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 90.0f, 0.2f, 10.0f, 0.001f);
             }
             break;
     }
@@ -2970,7 +2976,7 @@ void ActorEvent_SetupEffect365(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
-    effect->unk_44 = 250;
+    effect->alpha = 250;
     effect->scale2 = 2.0f;
     effect->scale1 = RAND_FLOAT_CENTERED(200.0f);
     effect->obj.rot.z = RAND_FLOAT(360.0f);
@@ -2990,36 +2996,36 @@ void ActorEvent_SpawnEffect365(f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
 }
 
 // turn for the purpose of shooting?
-void ActorEvent_80072474(ActorEvent* this) {
+void ActorEvent_UpdatePeriscope(ActorEvent* this) {
     f32 var_fv1;
 
     if (this->work_048 != EVACT_NONE) {
         switch (this->work_048) {
-            case EVACT_1:
-                this->fwork[16] = 45.0f;
+            case EVACT_SHOOT_FORWARD:
+                this->fwork[EVA_FWORK_16] = 45.0f;
                 break;
-            case EVACT_2:
-                this->fwork[16] = 0.0f;
+            case EVACT_SHOOT_AT_PLAYER:
+                this->fwork[EVA_FWORK_16] = 0.0f;
                 break;
-            case EVACT_3:
-                this->iwork[15] = 1;
+            case EVACT_TEAM_SHOOT:
+                this->iwork[EVA_GROUP_ID] = 1;
                 break;
-            case EVACT_4:
-                this->iwork[15] = 0;
+            case EVACT_BLUE_ENERGY:
+                this->iwork[EVA_GROUP_ID] = 0;
                 break;
         }
         this->work_048 = EVACT_NONE;
     }
 
-    if (this->iwork[15] != 0) {
+    if (this->iwork[EVA_GROUP_ID] != 0) {
         var_fv1 = Math_RadToDeg(Math_Atan2F(gPlayer[0].pos.x - this->obj.pos.x, gPlayer[0].trueZpos - this->obj.pos.z));
-    } else if (this->iwork[6] != 0) {
-        var_fv1 = this->rot_0F4.y;
+    } else if (this->iwork[EVA_LOCAL_ROTATION] != 0) {
+        var_fv1 = this->orient.y;
     } else {
         var_fv1 = 0.0f;
     }
     Math_SmoothStepToAngle(&this->obj.rot.y, var_fv1, 0.2f, 3.0f, 0.0f);
-    Math_SmoothStepToAngle(&this->fwork[15], this->fwork[16], 0.5f, 8.0f, 0.0f);
+    Math_SmoothStepToAngle(&this->fwork[EVA_FWORK_15], this->fwork[EVA_FWORK_16], 0.5f, 8.0f, 0.0f);
 }
 
 Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
@@ -3050,8 +3056,8 @@ void ActorEvent_Update(ActorEvent* this) {
     }
 
     if (this->state == EVSTATE_1000) {
-        this->obj.rot.y += this->fwork[15];
-        this->obj.rot.x += this->fwork[16];
+        this->obj.rot.y += this->fwork[EVA_FWORK_15];
+        this->obj.rot.x += this->fwork[EVA_FWORK_16];
         if ((gGameFrameCount % 16) == 0) {
             Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                    this->vel.z, 0.3f, 10);
@@ -3061,13 +3067,13 @@ void ActorEvent_Update(ActorEvent* this) {
     if (((this->eventType == EVID_ZERAM_CLASS_CRUISER) || (this->eventType == EVID_A6_HARLOCK_FRIGATE) ||
          (this->eventType == EVID_A6_UMBRA_STATION)) &&
         (this->health <= 0)) {
-        ActorEvent_80071DC0(this);
+        ActorEvent_SlowDestruct(this);
         return;
     }
     if (this->eventType == EVID_300) {
         gPlayer[0].dmgType = this->index;
         this->timer_0C2 = 100;
-    } else if (this->eventType >= EVID_200) {
+    } else if (this->eventType >= EVID_ME_MORA) {
         this->counter_04E++;
 
         if (this->counter_04E >= 100) {
@@ -3123,9 +3129,9 @@ void ActorEvent_Update(ActorEvent* this) {
             spE8 = this->obj.pos.z;
 
             if ((this->eventType == EVID_CRUISER_GUN) || (this->eventType == EVID_SY_LASER_TURRET)) {
-                Matrix_RotateZ(gCalcMatrix, -(this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_NEW);
-                Matrix_RotateX(gCalcMatrix, -this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                Matrix_RotateY(gCalcMatrix, -this->vwork[29].y * M_DTOR, MTXF_APPLY);
+                Matrix_RotateZ(gCalcMatrix, -(this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, -this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
+                Matrix_RotateY(gCalcMatrix, -this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_APPLY);
 
                 if ((this->state == EVSTATE_PURSUE_CAMERA) || (this->state == EVSTATE_FLEE_CAMERA)) {
                     spB8.x = gPlayer[0].cam.eye.x - spF0;
@@ -3155,13 +3161,15 @@ void ActorEvent_Update(ActorEvent* this) {
 
                 this->obj.rot.x = 0.0f;
 
-                Math_SmoothStepToAngle(&this->obj.rot.y, spE0, 0.2f, this->fwork[24], 0.001f);
-                Math_SmoothStepToAngle(&this->fwork[15], spE4, 0.2f, this->fwork[24], 0.001f);
+                Math_SmoothStepToAngle(&this->obj.rot.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.001f);
+                Math_SmoothStepToAngle(&this->fwork[EVA_FWORK_15], spE4, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE],
+                                       0.001f);
 
                 if (((this->timer_0BC % 32) == 0) && (spFC == 0)) {
-                    Matrix_RotateY(gCalcMatrix, this->vwork[29].y * M_DTOR, MTXF_NEW);
-                    Matrix_RotateX(gCalcMatrix, this->vwork[29].x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_NEW);
+                    Matrix_RotateX(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR,
+                                   MTXF_APPLY);
 
                     spB8.x = 0.0f;
                     spB8.y = 25.0f;
@@ -3169,7 +3177,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spA0);
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateX(gCalcMatrix, this->fwork[15] * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gCalcMatrix, this->fwork[EVA_FWORK_15] * M_DTOR, MTXF_APPLY);
 
                     spB8.x = 0.0f;
                     spB8.y = 0.0f;
@@ -3183,12 +3191,12 @@ void ActorEvent_Update(ActorEvent* this) {
                         var_fv0 = 0.0f;
                     }
 
-                    func_effect_8007F04C(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + spAC.x + spA0.x,
-                                         this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
-                                         this->fwork[15], this->obj.rot.y, this->obj.rot.z, this->vwork[29].x,
-                                         this->vwork[29].y, this->vwork[29].z + this->rot_0F4.z, spAC.x, spAC.y, spAC.z,
-                                         1.0f);
-                    this->fwork[16] = -15.0f;
+                    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + spAC.x + spA0.x,
+                                      this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
+                                      this->fwork[EVA_FWORK_15], this->obj.rot.y, this->obj.rot.z,
+                                      this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
+                                      this->vwork[EVA_FORMATION_ROT].z + this->orient.z, spAC.x, spAC.y, spAC.z, 1.0f);
+                    this->fwork[EVA_FWORK_16] = -15.0f;
                 }
             } else {
                 if ((this->state == EVSTATE_PURSUE_CAMERA) || (this->state == EVSTATE_FLEE_CAMERA)) {
@@ -3201,8 +3209,8 @@ void ActorEvent_Update(ActorEvent* this) {
                     spC4 = gPlayer[0].pos.z;
                 }
 
-                Math_SmoothStepToAngle(&this->vwork[29].z, 0.0f, 0.1f, 5.0f, 0.0001f);
-                Math_SmoothStepToAngle(&this->rot_0F4.z, 0.0f, 0.1f, 5.0f, 0.0001f);
+                Math_SmoothStepToAngle(&this->vwork[EVA_FORMATION_ROT].z, 0.0f, 0.1f, 5.0f, 0.0001f);
+                Math_SmoothStepToAngle(&this->orient.z, 0.0f, 0.1f, 5.0f, 0.0001f);
 
                 spE0 = Math_RadToDeg(Math_Atan2F(spCC - spF0, spC4 - spE8));
 
@@ -3214,16 +3222,16 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
 
                 spE4 = Math_RadToDeg(-Math_Atan2F(spC8 - spEC, sqrtf(SQ(spCC - spF0) + SQ(spC4 - spE8))));
-                spEC = Math_SmoothStepToAngle(&this->rot_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
+                spEC = Math_SmoothStepToAngle(&this->orient.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
-                Math_SmoothStepToAngle(&this->rot_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
+                Math_SmoothStepToAngle(&this->orient.x, spE4, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
-                if (this->iwork[6] != 0) {
+                if (this->iwork[EVA_LOCAL_ROTATION] != 0) {
                     var_fv0 = 330.0f;
                     if (spEC < 0.0f) {
                         var_fv0 = 30.0f;
                     }
-                    Math_SmoothStepToAngle(&this->fwork[23], var_fv0, 0.1f, 5.0f, 0.01f);
+                    Math_SmoothStepToAngle(&this->fwork[EVA_Z_ROT_TARGET], var_fv0, 0.1f, 5.0f, 0.01f);
                 }
             }
 
@@ -3233,11 +3241,11 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_CHASE_TARGET:
-            spDC = SIN_DEG((this->index * 45) + gGameFrameCount) * this->fwork[17];
-            spD8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * this->fwork[17];
-            index = this->iwork[1];
-            index = gActors[index].iwork[12];
-            D_enmy_Timer_80161670[index] = 5;
+            spDC = SIN_DEG((this->index * 45) + gGameFrameCount) * this->fwork[EVA_FWORK_17];
+            spD8 = COS_DEG((this->index * 45) + (gGameFrameCount * 2)) * this->fwork[EVA_FWORK_17];
+            index = this->iwork[EVA_TARGET_INDEX];
+            index = gActors[index].iwork[EVA_TEAM_ID];
+            gTeamChaseTimers[index] = 5;
         /* fallthrough */
         case EVSTATE_PURSUE_TARGET:
         case EVSTATE_FLEE_TARGET:
@@ -3245,8 +3253,8 @@ void ActorEvent_Update(ActorEvent* this) {
             spEC = this->obj.pos.y;
             spE8 = this->obj.pos.z;
 
-            spE0 = Math_RadToDeg(Math_Atan2F(gActors[this->iwork[1]].obj.pos.x + spDC - spF0,
-                                             gActors[this->iwork[1]].obj.pos.z + spD4 - spE8));
+            spE0 = Math_RadToDeg(Math_Atan2F(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.x + spDC - spF0,
+                                             gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.z + spD4 - spE8));
             if (this->state == EVSTATE_FLEE_PLAYER) { // bug? should be EVSTATE_FLEE_TARGET?
                 spE0 += 180.0f;
                 if (spE0 > 360.0f) {
@@ -3254,20 +3262,21 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
             }
 
-            spE4 = Math_RadToDeg(-Math_Atan2F(gActors[this->iwork[1]].obj.pos.y + spD8 - spEC,
-                                              sqrtf(SQ(gActors[this->iwork[1]].obj.pos.x + spDC - spF0) +
-                                                    SQ(gActors[this->iwork[1]].obj.pos.z + spD4 - spE8))));
-            spEC = Math_SmoothStepToAngle(&this->rot_0F4.y, spE0, 0.2f, this->fwork[24], 0.0001f);
+            spE4 =
+                Math_RadToDeg(-Math_Atan2F(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.y + spD8 - spEC,
+                                           sqrtf(SQ(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.x + spDC - spF0) +
+                                                 SQ(gActors[this->iwork[EVA_TARGET_INDEX]].obj.pos.z + spD4 - spE8))));
+            spEC = Math_SmoothStepToAngle(&this->orient.y, spE0, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
-            Math_SmoothStepToAngle(&this->rot_0F4.x, spE4, 0.2f, this->fwork[24], 0.0001f);
+            Math_SmoothStepToAngle(&this->orient.x, spE4, 0.2f, this->fwork[EVA_PURSUIT_TURN_RATE], 0.0001f);
 
-            if (this->iwork[6] != 0) {
+            if (this->iwork[EVA_LOCAL_ROTATION] != 0) {
                 var_fv0 = 310.0f;
                 if (spEC < 0.0f) {
                     var_fv0 = 50.0f;
                 }
 
-                Math_SmoothStepToAngle(&this->fwork[23], var_fv0, 0.1f, 5.0f, 0.01f);
+                Math_SmoothStepToAngle(&this->fwork[EVA_Z_ROT_TARGET], var_fv0, 0.1f, 5.0f, 0.01f);
             }
 
             if (this->timer_0BC == 0) {
@@ -3275,34 +3284,34 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVSTATE_F4_PLUS_X:
-            this->rot_0F4.x += this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
-            if (this->fwork[2] <= 0.0f) {
+        case EVSTATE_TURN_DOWN:
+            this->orient.x += this->fwork[EVA_TURN_RATE];
+            this->fwork[EVA_TURN_ANGLE] -= this->fwork[EVA_TURN_RATE];
+            if (this->fwork[EVA_TURN_ANGLE] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
-        case EVSTATE_F4_MINUS_X:
-            this->rot_0F4.x -= this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
-            if (this->fwork[2] <= 0.0f) {
+        case EVSTATE_TURN_UP:
+            this->orient.x -= this->fwork[EVA_TURN_RATE];
+            this->fwork[EVA_TURN_ANGLE] -= this->fwork[EVA_TURN_RATE];
+            if (this->fwork[EVA_TURN_ANGLE] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
-        case EVSTATE_F4_PLUS_Y:
-            this->rot_0F4.y += this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
-            if (this->fwork[2] <= 0.0f) {
+        case EVSTATE_TURN_LEFT:
+            this->orient.y += this->fwork[EVA_TURN_RATE];
+            this->fwork[EVA_TURN_ANGLE] -= this->fwork[EVA_TURN_RATE];
+            if (this->fwork[EVA_TURN_ANGLE] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
-        case EVSTATE_F4_MINUS_Y:
-            this->rot_0F4.y -= this->fwork[3];
-            this->fwork[2] -= this->fwork[3];
-            if (this->fwork[2] <= 0.0f) {
+        case EVSTATE_TURN_RIGHT:
+            this->orient.y -= this->fwork[EVA_TURN_RATE];
+            this->fwork[EVA_TURN_ANGLE] -= this->fwork[EVA_TURN_RATE];
+            if (this->fwork[EVA_TURN_ANGLE] <= 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
@@ -3317,7 +3326,7 @@ void ActorEvent_Update(ActorEvent* this) {
                 var_s0++;
             }
 
-            if (Math_SmoothStepToF(&this->fwork[15], 40.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
+            if (Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 40.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                 var_s0++;
             }
 
@@ -3328,69 +3337,69 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVSTATE_ME_AS_CLOSE:
-            if (Math_SmoothStepToF(&this->fwork[15], 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
+            if (Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
             break;
 
         case EVSTATE_TEAM_RETREAT:
-            Math_SmoothStepToAngle(&this->rot_0F4.x, 270.0f, 0.1f, 2.0f, 0.0f);
-            gTeamShields[this->iwork[12]] = -1;
-            gTeamDamage[this->iwork[12]] = 0;
+            Math_SmoothStepToAngle(&this->orient.x, 270.0f, 0.1f, 2.0f, 0.0f);
+            gTeamShields[this->iwork[EVA_TEAM_ID]] = -1;
+            gTeamDamage[this->iwork[EVA_TEAM_ID]] = 0;
             break;
 
         case EVSTATE_SCRIPT_END:
             break;
     }
 
-    if (this->iwork[13] != 0) {
-        if (gActors[this->iwork[9]].obj.status != OBJ_ACTIVE) {
-            this->iwork[13] = 0;
+    if (this->iwork[EVA_FORMATION] != 0) {
+        if (gActors[this->iwork[EVA_LEADER_INDEX]].obj.status != OBJ_ACTIVE) {
+            this->iwork[EVA_FORMATION] = false;
         } else {
-            Matrix_RotateY(gCalcMatrix, gActors[this->iwork[9]].obj.rot.y * M_DTOR, MTXF_NEW);
-            Matrix_RotateX(gCalcMatrix, gActors[this->iwork[9]].obj.rot.x * M_DTOR, MTXF_APPLY);
-            Matrix_RotateZ(gCalcMatrix, gActors[this->iwork[9]].obj.rot.z * M_DTOR, MTXF_APPLY);
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &this->vwork[28], &spAC);
-            this->obj.pos.x = gActors[this->iwork[9]].obj.pos.x + spAC.x;
-            this->obj.pos.y = gActors[this->iwork[9]].obj.pos.y + spAC.y;
-            this->obj.pos.z = gActors[this->iwork[9]].obj.pos.z + spAC.z;
-            this->vwork[29].x = gActors[this->iwork[9]].obj.rot.x;
-            this->vwork[29].y = gActors[this->iwork[9]].obj.rot.y;
-            this->vwork[29].z = gActors[this->iwork[9]].obj.rot.z;
+            Matrix_RotateY(gCalcMatrix, gActors[this->iwork[EVA_LEADER_INDEX]].obj.rot.y * M_DTOR, MTXF_NEW);
+            Matrix_RotateX(gCalcMatrix, gActors[this->iwork[EVA_LEADER_INDEX]].obj.rot.x * M_DTOR, MTXF_APPLY);
+            Matrix_RotateZ(gCalcMatrix, gActors[this->iwork[EVA_LEADER_INDEX]].obj.rot.z * M_DTOR, MTXF_APPLY);
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &this->vwork[EVA_FORMATION_OFFSET], &spAC);
+            this->obj.pos.x = gActors[this->iwork[EVA_LEADER_INDEX]].obj.pos.x + spAC.x;
+            this->obj.pos.y = gActors[this->iwork[EVA_LEADER_INDEX]].obj.pos.y + spAC.y;
+            this->obj.pos.z = gActors[this->iwork[EVA_LEADER_INDEX]].obj.pos.z + spAC.z;
+            this->vwork[EVA_FORMATION_ROT].x = gActors[this->iwork[EVA_LEADER_INDEX]].obj.rot.x;
+            this->vwork[EVA_FORMATION_ROT].y = gActors[this->iwork[EVA_LEADER_INDEX]].obj.rot.y;
+            this->vwork[EVA_FORMATION_ROT].z = gActors[this->iwork[EVA_LEADER_INDEX]].obj.rot.z;
             if (this->timer_0C0 == 0) {
-                this->iwork[13] = 0;
+                this->iwork[EVA_FORMATION] = false;
             }
         }
     }
 
-    Math_SmoothStepToF(&this->fwork[0], this->fwork[1], 0.1f, 5.0f, 0.0001f);
+    Math_SmoothStepToF(&this->fwork[EVA_SPEED], this->fwork[EVA_SPEED_TARGET], 0.1f, 5.0f, 0.0001f);
 
-    if (this->rot_0F4.x >= 360.0f) {
-        this->rot_0F4.x -= 360.0f;
+    if (this->orient.x >= 360.0f) {
+        this->orient.x -= 360.0f;
     }
-    if (this->rot_0F4.x < 0.0f) {
-        this->rot_0F4.x += 360.0f;
+    if (this->orient.x < 0.0f) {
+        this->orient.x += 360.0f;
     }
-    if (this->rot_0F4.y >= 360.0f) {
-        this->rot_0F4.y -= 360.0f;
+    if (this->orient.y >= 360.0f) {
+        this->orient.y -= 360.0f;
     }
-    if (this->rot_0F4.y < 0.0f) {
-        this->rot_0F4.y += 360.0f;
+    if (this->orient.y < 0.0f) {
+        this->orient.y += 360.0f;
     }
 
-    if (this->iwork[6] != 0) {
-        if ((gLevelMode == LEVELMODE_TURRET) && (this->eventType == EVID_200)) {
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->rot_0F4.x, 0.1f, 10.0f, 0.00001f);
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_0F4.y, 0.1f, 10.0f, 0.00001f);
+    if (this->iwork[EVA_LOCAL_ROTATION] != 0) {
+        if ((gLevelMode == LEVELMODE_TURRET) && (this->eventType == EVID_ME_MORA)) {
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->orient.x, 0.1f, 10.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->orient.y, 0.1f, 10.0f, 0.00001f);
         } else {
-            Math_SmoothStepToAngle(&this->obj.rot.x, this->rot_0F4.x, 0.2f, 100.0f, 0.00001f);
-            Math_SmoothStepToAngle(&this->obj.rot.y, this->rot_0F4.y, 0.2f, 100.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.x, this->orient.x, 0.2f, 100.0f, 0.00001f);
+            Math_SmoothStepToAngle(&this->obj.rot.y, this->orient.y, 0.2f, 100.0f, 0.00001f);
         }
     }
 
-    if (this->fwork[4] > 0.0f) {
-        this->fwork[4] -= this->fwork[5];
-        this->obj.rot.x += this->fwork[5] * this->fwork[6];
+    if (this->fwork[EVA_X_ROT_ANGLE] > 0.0f) {
+        this->fwork[EVA_X_ROT_ANGLE] -= this->fwork[EVA_X_ROT_RATE];
+        this->obj.rot.x += this->fwork[EVA_X_ROT_RATE] * this->fwork[EVA_X_ROT_DIRECTION];
         if (this->obj.rot.x >= 360.0f) {
             this->obj.rot.x -= 360.0f;
         }
@@ -3399,9 +3408,9 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
 
-    if (this->fwork[7] > 0.0f) {
-        this->fwork[7] -= this->fwork[8];
-        this->obj.rot.y += this->fwork[8] * this->fwork[9];
+    if (this->fwork[EVA_Y_ROT_ANGLE] > 0.0f) {
+        this->fwork[EVA_Y_ROT_ANGLE] -= this->fwork[EVA_Y_ROT_RATE];
+        this->obj.rot.y += this->fwork[EVA_Y_ROT_RATE] * this->fwork[EVA_Y_ROT_DIRECTION];
         if (this->obj.rot.y >= 360.0f) {
             this->obj.rot.y = this->obj.rot.y - 360.0f;
         }
@@ -3410,54 +3419,54 @@ void ActorEvent_Update(ActorEvent* this) {
         }
     }
 
-    if (this->fwork[10] > 0.0f) {
+    if (this->fwork[EVA_Z_ROT_ANGLE] > 0.0f) {
         if ((this->eventType == EVID_ME_METEOR_1) || (this->eventType == EVID_ME_METEOR_2) ||
             (this->eventType == EVID_ME_METEOR_4) || (this->eventType == EVID_ME_METEOR_5) ||
             (this->eventType == EVID_ME_BIG_METEOR) || (this->eventType == EVID_ME_ROCK_GULL) ||
             (this->eventType == EVID_ME_METEOR_6) || (this->eventType == EVID_ME_SECRET_MARKER_2) ||
             (this->eventType == EVID_WZ_METEOR_1) || (this->eventType == EVID_WZ_METEOR_2) ||
             (this->eventType == EVID_ME_METEOR_7)) {
-            this->obj.rot.y -= this->fwork[11] * this->fwork[12];
-            this->obj.rot.x += this->fwork[11] * this->fwork[12];
+            this->obj.rot.y -= this->fwork[EVA_Z_ROT_RATE] * this->fwork[EVA_Z_ROT_DIRECTION];
+            this->obj.rot.x += this->fwork[EVA_Z_ROT_RATE] * this->fwork[EVA_Z_ROT_DIRECTION];
         } else {
-            this->fwork[10] -= this->fwork[11];
-            this->fwork[23] += this->fwork[11] * this->fwork[12];
+            this->fwork[EVA_Z_ROT_ANGLE] -= this->fwork[EVA_Z_ROT_RATE];
+            this->fwork[EVA_Z_ROT_TARGET] += this->fwork[EVA_Z_ROT_RATE] * this->fwork[EVA_Z_ROT_DIRECTION];
         }
     }
 
-    if (this->fwork[23] >= 360.0f) {
-        this->fwork[23] -= 360.0f;
+    if (this->fwork[EVA_Z_ROT_TARGET] >= 360.0f) {
+        this->fwork[EVA_Z_ROT_TARGET] -= 360.0f;
     }
-    if (this->fwork[23] < 0.0f) {
-        this->fwork[23] += 360.0f;
+    if (this->fwork[EVA_Z_ROT_TARGET] < 0.0f) {
+        this->fwork[EVA_Z_ROT_TARGET] += 360.0f;
     }
 
-    Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[23], 0.2f, 100.0f, 0.0001f);
-    Matrix_RotateZ(gCalcMatrix, (this->vwork[29].z + this->rot_0F4.z) * M_DTOR, MTXF_NEW);
-    Matrix_RotateY(gCalcMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
+    Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[EVA_Z_ROT_TARGET], 0.2f, 100.0f, 0.0001f);
+    Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
 
     spB8.x = 0.0f;
     spB8.y = 0.0f;
-    spB8.z = this->fwork[0];
+    spB8.z = this->fwork[EVA_SPEED];
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spB8, &spAC);
 
-    this->vel.x = this->fwork[13] + spAC.x;
-    this->vel.y = this->fwork[14] + spAC.y;
+    this->vel.x = this->fwork[EVA_KNOCKBACK_X] + spAC.x;
+    this->vel.y = this->fwork[EVA_KNOCKBACK_Y] + spAC.y;
     this->vel.z = spAC.z;
 
-    this->fwork[13] -= this->fwork[13] * 0.1f;
-    this->fwork[14] -= this->fwork[14] * 0.1f;
+    this->fwork[EVA_KNOCKBACK_X] -= this->fwork[EVA_KNOCKBACK_X] * 0.1f;
+    this->fwork[EVA_KNOCKBACK_Y] -= this->fwork[EVA_KNOCKBACK_Y] * 0.1f;
 
-    if (this->iwork[5] == EV_ZMODE(EMZ_RELATIVE)) {
-        this->vel.z -= this->fwork[22];
+    if (this->iwork[EVA_Z_MODE] == EV_ZMODE(EMZ_RELATIVE)) {
+        this->vel.z -= this->fwork[EVA_BASE_ZVEL];
         if ((gCurrentLevel == LEVEL_SECTOR_Y) && (gPathVelZ < 0.0f)) {
             this->vel.z -= gPathVelZ;
         }
     }
 
-    if (this->iwork[5] == EV_ZMODE(EMZ_PLAYER)) {
+    if (this->iwork[EVA_Z_MODE] == EV_ZMODE(EMZ_PLAYER)) {
         this->vel.z -= gPathVelZ;
     }
 
@@ -3470,7 +3479,7 @@ void ActorEvent_Update(ActorEvent* this) {
     ActorEvent_UpdateTexLines(this);
 
     if (this->eventType == EVID_SX_WARP_GATE) {
-        ActorEvent_800720E8(this);
+        ActorEvent_DamageWarpGate(this);
     } else {
         if (this->scale <= -1.999f) {
             ActorEvent_80070BA8(this);
@@ -3485,16 +3494,16 @@ void ActorEvent_Update(ActorEvent* this) {
                 }
             }
 
-            if ((this->eventType < EVID_200) && (this->eventType != EVID_SUPPLY_CRATE) && (this->scale >= 0.5f)) {
+            if ((this->eventType < EVID_ME_MORA) && (this->eventType != EVID_SUPPLY_CRATE) && (this->scale >= 0.5f)) {
                 switch (this->eventType) {
                     case EVID_ITEM_WING_REPAIR:
-                        ActorEvent_8006FE28(this);
+                        ActorEvent_RepairWings(this);
                         break;
                     case EVID_ZO_BIRD:
-                        ActorEvent_8006FEEC(this);
+                        ActorEvent_DamageBird(this);
                         break;
                     default:
-                        ActorEvent_800701E0(this);
+                        ActorEvent_ApplyDamage(this);
                         break;
                 }
             }
@@ -3507,13 +3516,13 @@ void ActorEvent_Update(ActorEvent* this) {
         case EVID_WZ_METEOR_2:
         case EVID_WZ_GATE:
             if ((gGameFrameCount % 8) == 0) {
-                this->fwork[18] = RAND_FLOAT(255.0f);
-                this->fwork[19] = RAND_FLOAT(255.0f);
-                this->fwork[20] = RAND_FLOAT(255.0f);
+                this->fwork[EVA_WZ_RED_TARGET] = RAND_FLOAT(255.0f);
+                this->fwork[EVA_WZ_GREEN_TARGET] = RAND_FLOAT(255.0f);
+                this->fwork[EVA_WZ_BLUE_TARGET] = RAND_FLOAT(255.0f);
             }
-            Math_SmoothStepToF(&this->fwork[15], this->fwork[18], 1.0f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->fwork[16], this->fwork[19], 1.0f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->fwork[17], this->fwork[20], 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[EVA_WZ_RED], this->fwork[EVA_WZ_RED_TARGET], 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[EVA_WZ_GREEN], this->fwork[EVA_WZ_GREEN_TARGET], 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->fwork[EVA_WZ_BLUE], this->fwork[EVA_WZ_BLUE_TARGET], 1.0f, 10.0f, 0.0f);
             break;
 
         case EVID_ZO_PATROL_BOAT:
@@ -3530,15 +3539,15 @@ void ActorEvent_Update(ActorEvent* this) {
 
                 Math_SmoothStepToAngle(&this->obj.rot.x, spF0, 0.1f, 1.0f, 0.0f);
 
-                if ((this->state == EVSTATE_F4_PLUS_Y) || (this->state == EVSTATE_F4_MINUS_Y)) {
-                    var_fv0 = this->fwork[3] * 20.0f;
-                    if (this->state == EVSTATE_F4_PLUS_Y) {
+                if ((this->state == EVSTATE_TURN_LEFT) || (this->state == EVSTATE_TURN_RIGHT)) {
+                    var_fv0 = this->fwork[EVA_TURN_RATE] * 20.0f;
+                    if (this->state == EVSTATE_TURN_LEFT) {
                         var_fv0 *= -1.0f;
                     }
                     Math_SmoothStepToAngle(&this->obj.rot.z, var_fv0, 0.1f, 3.0f, 0.0f);
                 }
             }
-            this->obj.rot.y = this->rot_0F4.y;
+            this->obj.rot.y = this->orient.y;
             break;
 
         case EVID_A6_UMBRA_STATION:
@@ -3575,7 +3584,7 @@ void ActorEvent_Update(ActorEvent* this) {
             if (this->animFrame >= Animation_GetFrameCount(&aTripodAnim)) {
                 this->animFrame = 0;
             }
-            if (this->iwork[6] == 0) {
+            if (this->iwork[EVA_LOCAL_ROTATION] == 0) {
                 this->obj.rot.y = 0.0f;
             }
             break;
@@ -3587,7 +3596,7 @@ void ActorEvent_Update(ActorEvent* this) {
             break;
 
         case EVID_SARUMARINE_PERISCOPE:
-            ActorEvent_80072474(this);
+            ActorEvent_UpdatePeriscope(this);
             break;
 
         case EVID_SUPPLY_CRATE:
@@ -3615,7 +3624,7 @@ void ActorEvent_Update(ActorEvent* this) {
                     break;
 
                 case 0:
-                    Matrix_RotateZ(gCalcMatrix, this->rot_0F4.z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateZ(gCalcMatrix, this->orient.z * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                     if ((this->obj.pos.y + sp90.y) > -30.0f) {
@@ -3634,16 +3643,16 @@ void ActorEvent_Update(ActorEvent* this) {
                                 sp84.x = RAND_FLOAT(25.0f) + 30.0f;
                                 sp84.y = RAND_FLOAT(25.0f) + 20.0f;
                                 sp84.z = 0.0f;
-                                effect->unk_44 = 10;
+                                effect->alpha = 10;
                                 effect->scale2 = 1.0f;
                                 Matrix_RotateY(gCalcMatrix, (RAND_FLOAT(180.0f) + 180.0f) * M_DTOR, MTXF_NEW);
                                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp84, &sp78);
                                 effect->vel.x = sp78.x;
                                 effect->vel.y = sp78.y;
                                 effect->vel.z = sp78.z;
-                                effect->unk_60.x = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
-                                effect->unk_60.y = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
-                                effect->unk_60.z = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
+                                effect->orient.x = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
+                                effect->orient.y = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
+                                effect->orient.z = RAND_FLOAT_CENTERED(1.0f) + 5.0f;
                             }
                         }
                         this->work_046++;
@@ -3651,10 +3660,10 @@ void ActorEvent_Update(ActorEvent* this) {
                     break;
             }
 
-            if ((fabsf(this->fwork[0]) > 10.0f) && ((gGameFrameCount % 2) == 0)) {
+            if ((fabsf(this->fwork[EVA_SPEED]) > 10.0f) && ((gGameFrameCount % 2) == 0)) {
                 effect = Effect_Load(OBJ_EFFECT_394);
                 if (effect != NULL) {
-                    Matrix_RotateZ(gCalcMatrix, this->rot_0F4.z * M_DTOR, MTXF_NEW);
+                    Matrix_RotateZ(gCalcMatrix, this->orient.z * M_DTOR, MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1290, &sp90);
 
                     effect->unk_78 = effect->unk_7A = 11;
@@ -3669,12 +3678,12 @@ void ActorEvent_Update(ActorEvent* this) {
                     effect->obj.rot.z = RAND_FLOAT(360.0f);
                     effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
                     effect->vel.y = RAND_FLOAT_CENTERED(3.0f) + 30.0f;
-                    effect->unk_44 = 100;
+                    effect->alpha = 100;
                     effect->unk_46 = -8;
-                    effect->unk_60.z = 3;
+                    effect->orient.z = 3;
 
                     if (Rand_ZeroOne() < 0.5f) {
-                        effect->unk_60.z = -effect->unk_60.z;
+                        effect->orient.z = -effect->orient.z;
                     }
 
                     if ((gGameFrameCount & 2) != 0) {
@@ -3694,12 +3703,12 @@ void ActorEvent_Update(ActorEvent* this) {
                         effect->obj.rot.z = RAND_FLOAT(360.0f);
                         effect->vel.x = RAND_FLOAT_CENTERED(5.0f);
                         effect->vel.y = RAND_FLOAT_CENTERED(3.0f) + 10.0f;
-                        effect->unk_44 = 100;
+                        effect->alpha = 100;
                         effect->unk_46 = -8;
-                        effect->unk_60.z = 3;
+                        effect->orient.z = 3;
 
                         if (Rand_ZeroOne() < 0.5f) {
-                            effect->unk_60.z = -effect->unk_60.z;
+                            effect->orient.z = -effect->orient.z;
                         }
 
                         if ((gGameFrameCount & 4) != 0) {
@@ -3711,23 +3720,23 @@ void ActorEvent_Update(ActorEvent* this) {
         } break;
 
         case EVID_VE1_BLOCKER:
-            Math_SmoothStepToF(&this->fwork[15], 1.0f, 0.1f, 0.1f, 0.001f);
+            Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 1.0f, 0.1f, 0.1f, 0.001f);
 
-            if (this->fwork[15] > 0.5f) {
+            if (this->fwork[EVA_FWORK_15] > 0.5f) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_VE1_601B4C4);
             }
 
             if (this->work_046 == 0) {
-                this->fwork[16] += 4.0f;
-                if (this->fwork[16] >= 100.0f) {
+                this->fwork[EVA_FWORK_16] += 4.0f;
+                if (this->fwork[EVA_FWORK_16] >= 100.0f) {
                     this->work_046 = 1;
-                    this->fwork[16] = 100.0f;
+                    this->fwork[EVA_FWORK_16] = 100.0f;
                 }
             } else {
-                this->fwork[16] -= 4.0f;
-                if (this->fwork[16] <= 0.0f) {
+                this->fwork[EVA_FWORK_16] -= 4.0f;
+                if (this->fwork[EVA_FWORK_16] <= 0.0f) {
                     this->work_046 = 0;
-                    this->fwork[16] = 0.0f;
+                    this->fwork[EVA_FWORK_16] = 0.0f;
                 }
             }
             break;
@@ -3796,36 +3805,36 @@ void ActorEvent_Update(ActorEvent* this) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
         D_ctx_80178028[this->index + 1] = this->obj.pos.z;
-        D_ctx_80178130[this->index + 1] = Math_ModF(this->rot_0F4.y, 360.0f) + 180.0f;
+        D_ctx_80178130[this->index + 1] = Math_ModF(this->orient.y, 360.0f) + 180.0f;
         D_ctx_80178238[this->index + 1] = 1;
     }
 }
 
 UNK_TYPE D_800D129C[140] = { 0 }; // unused
 
-bool ActorEvent_OverrideLimbDraw1(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool ActorEvent_CruiserGun_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
 
     if (limbIndex == 1) {
-        pos->x += this->fwork[16];
+        pos->x += this->fwork[EVA_FWORK_16];
     }
     if (limbIndex == 2) {
-        rot->z -= this->fwork[15];
+        rot->z -= this->fwork[EVA_FWORK_15];
     }
     return false;
 }
 
-bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool ActorEvent_SxWarpGate_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Actor* this = thisx;
-    s32 var_s1;
+    s32 healthFraction;
 
     if (limbIndex == 5) {
-        var_s1 = (s32) (this->health * (255.0f / 400.0f));
-        if (var_s1 > 255) {
-            var_s1 = 255;
+        healthFraction = (s32) (this->health * (255.0f / 400.0f));
+        if (healthFraction > 255) {
+            healthFraction = 255;
         }
-        if (var_s1 < 0) {
-            var_s1 = 1.0f / 70.925f;
+        if (healthFraction < 0) {
+            healthFraction = 1.0f / 70.925f;
         }
 
         Matrix_Translate(gCalcMatrix, pos->x, pos->y, pos->z, MTXF_APPLY);
@@ -3837,7 +3846,7 @@ bool ActorEvent_OverrideLimbDraw2(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f*
 
         if (*dList != NULL) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_34);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, var_s1, var_s1, 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, healthFraction, healthFraction, 255);
             gSPDisplayList(gMasterDisp++, *dList);
             RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
         }
@@ -3850,13 +3859,14 @@ void ActorEvent_SxWarpGate_Draw(ActorEvent* this) {
     Vec3f frameTable[10];
 
     Animation_GetFrameData(&D_SX_6013820, 0, frameTable);
-    frameTable[6].y += this->fwork[15];
-    frameTable[5].z += this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    frameTable[4].z -= this->fwork[16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_OverrideLimbDraw2, NULL, this, &gIdentityMatrix);
+    frameTable[6].y += this->fwork[EVA_FWORK_15];
+    frameTable[5].z += this->fwork[EVA_FWORK_16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    frameTable[4].z -= this->fwork[EVA_FWORK_16] + (s32) ((this->timer_0BE >> 2) % 2U);
+    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_SxWarpGate_OverrideLimbDraw, NULL, this,
+                           &gIdentityMatrix);
 }
 
-bool ActorEvent_OverrideLimbDraw3(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool ActorEvent_OverrideLimbDrawUnused(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     gSPClearGeometryMode(gMasterDisp++, G_TEXTURE_GEN);
     if ((limbIndex == 3) || (limbIndex == 5)) {
         gSPTexture(gMasterDisp++, 5000, 5000, 0, G_TX_RENDERTILE, G_ON);
@@ -3927,14 +3937,14 @@ void ActorEvent_Draw(ActorEvent* this) {
         case EVID_WZ_GATE:
             RCP_SetupDL(&gMasterDisp, SETUPDL_34);
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[15], (s32) this->fwork[16],
-                            (s32) this->fwork[17], 255);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, (s32) this->fwork[EVA_WZ_RED], (s32) this->fwork[EVA_WZ_GREEN],
+                            (s32) this->fwork[EVA_WZ_BLUE], 255);
             gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
             break;
 
         default:
-            if ((this->eventType < EVID_200) && (sEventActorInfo[this->eventType].dList != NULL)) {
+            if ((this->eventType < EVID_ME_MORA) && (sEventActorInfo[this->eventType].dList != NULL)) {
                 gSPDisplayList(gMasterDisp++, sEventActorInfo[this->eventType].dList);
             }
 
@@ -3944,24 +3954,28 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_VENOM_FIGHTER_1:
-                    this->iwork[11] = 1;
+                    this->iwork[ACTOR_ENGINE_GLOW] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
                 case EVID_ME_SLIPPY:
-                    this->fwork[15] -= this->fwork[15] * 0.1f;
-                    this->fwork[26] -= this->fwork[26] * 0.1f;
-                    this->fwork[16] -= this->fwork[16] * 0.1f;
-                    this->fwork[27] -= this->fwork[27] * 0.1f;
+                    this->fwork[TEAM_UPPER_RIGHT_FLAP_YROT] -= this->fwork[TEAM_UPPER_RIGHT_FLAP_YROT] * 0.1f;
+                    this->fwork[TEAM_LOWER_RIGHT_FLAP_YROT] -= this->fwork[TEAM_LOWER_RIGHT_FLAP_YROT] * 0.1f;
+                    this->fwork[TEAM_UPPER_LEFT_FLAP_YROT] -= this->fwork[TEAM_UPPER_LEFT_FLAP_YROT] * 0.1f;
+                    this->fwork[TEAM_LOWER_LEFT_FLAP_YROT] -= this->fwork[TEAM_LOWER_LEFT_FLAP_YROT] * 0.1f;
 
                     if (this->obj.rot.z > 0.0f) {
-                        this->fwork[15] += (this->obj.rot.z * 0.7f - this->fwork[15]) * 0.2f;
-                        this->fwork[26] += (-this->obj.rot.z * 0.7f - this->fwork[26]) * 0.2f;
+                        this->fwork[TEAM_UPPER_RIGHT_FLAP_YROT] +=
+                            (this->obj.rot.z * 0.7f - this->fwork[TEAM_UPPER_RIGHT_FLAP_YROT]) * 0.2f;
+                        this->fwork[TEAM_LOWER_RIGHT_FLAP_YROT] +=
+                            (-this->obj.rot.z * 0.7f - this->fwork[TEAM_LOWER_RIGHT_FLAP_YROT]) * 0.2f;
                     }
 
                     if (this->obj.rot.z < 0.0f) {
-                        this->fwork[16] += (-this->obj.rot.z * 0.7f - this->fwork[16]) * 0.2f;
-                        this->fwork[27] += (this->obj.rot.z * 0.7f - this->fwork[27]) * 0.2f;
+                        this->fwork[TEAM_UPPER_LEFT_FLAP_YROT] +=
+                            (-this->obj.rot.z * 0.7f - this->fwork[TEAM_UPPER_LEFT_FLAP_YROT]) * 0.2f;
+                        this->fwork[TEAM_LOWER_LEFT_FLAP_YROT] +=
+                            (this->obj.rot.z * 0.7f - this->fwork[TEAM_LOWER_LEFT_FLAP_YROT]) * 0.2f;
                     }
                     ActorTeamArwing_Draw(this);
                     break;
@@ -3976,7 +3990,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_GRANGA_FIGHTER_2:
-                    this->iwork[11] = 1;
+                    this->iwork[ACTOR_ENGINE_GLOW] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
@@ -3993,7 +4007,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_CORNERIAN_FIGHTER:
-                    this->iwork[11] = 1;
+                    this->iwork[ACTOR_ENGINE_GLOW] = 1;
                     Actor_DrawEngineAndContrails(this);
                     break;
 
@@ -4004,8 +4018,8 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_SX_SPY_EYE:
-                    if (this->fwork[0] > 0.1f) {
-                        this->iwork[11] = 1;
+                    if (this->fwork[EVA_SPEED] > 0.1f) {
+                        this->iwork[ACTOR_ENGINE_GLOW] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
                         Actor_DrawEngineGlow(this, EG_GREEN);
@@ -4013,8 +4027,8 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_SX_CANINE:
-                    if (this->fwork[0] > 0.1f) {
-                        this->iwork[11] = 1;
+                    if (this->fwork[EVA_SPEED] > 0.1f) {
+                        this->iwork[ACTOR_ENGINE_GLOW] = 1;
                         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
                         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
                         Actor_DrawEngineGlow(this, EG_GREEN);
@@ -4031,7 +4045,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPDisplayList(gMasterDisp++, aA6NinjinMissileDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
-                    this->iwork[11] = 1;
+                    this->iwork[ACTOR_ENGINE_GLOW] = 1;
                     Actor_DrawEngineGlow(this, EG_GREEN);
                     break;
 
@@ -4040,7 +4054,7 @@ void ActorEvent_Draw(ActorEvent* this) {
                     gSPDisplayList(gMasterDisp++, aA6RocketDL);
                     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -30.0f, MTXF_APPLY);
-                    this->iwork[11] = 1;
+                    this->iwork[ACTOR_ENGINE_GLOW] = 1;
                     Actor_DrawEngineGlow(this, EG_GREEN);
                     break;
 
@@ -4070,14 +4084,14 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Animation_GetFrameData(&aCruiserGunAnim, this->animFrame, frameTable);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
-                    Animation_DrawSkeleton(1, aCruiserGunSkel, frameTable, ActorEvent_OverrideLimbDraw1, NULL, this,
-                                           &gIdentityMatrix);
-                    Math_SmoothStepToF(&this->fwork[16], 0.0f, 0.3f, 2.0f, 0.0001f);
+                    Animation_DrawSkeleton(1, aCruiserGunSkel, frameTable, ActorEvent_CruiserGun_OverrideLimbDraw, NULL,
+                                           this, &gIdentityMatrix);
+                    Math_SmoothStepToF(&this->fwork[EVA_FWORK_16], 0.0f, 0.3f, 2.0f, 0.0001f);
                     break;
 
                 case EVID_TI_BOMBER:
                     Animation_GetFrameData(&aTiBomberAnim, this->animFrame, frameTable);
-                    frameTable[2].z += this->fwork[15];
+                    frameTable[2].z += this->fwork[EVA_FWORK_15];
                     Animation_DrawSkeleton(1, aTiBomberSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
@@ -4093,7 +4107,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_SARUMARINE_PERISCOPE:
                     Animation_GetFrameData(&aZoSarumarinePeriscopeAnim, this->animFrame, frameTable);
-                    frameTable[2].z -= this->fwork[15];
+                    frameTable[2].z -= this->fwork[EVA_FWORK_15];
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                     Matrix_Scale(gGfxMatrix, 2.6f, 2.6f, 2.6f, MTXF_APPLY);
                     Animation_DrawSkeleton(1, aZoSarumarinePeriscopeSkel, frameTable, NULL, NULL, this,
@@ -4103,15 +4117,15 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_ME_ROCK_GULL:
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_RotateX(gGfxMatrix, this->rot_0F4.x * M_DTOR, MTXF_APPLY);
-                    Matrix_RotateY(gGfxMatrix, this->rot_0F4.y * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateX(gGfxMatrix, this->orient.x * M_DTOR, MTXF_APPLY);
+                    Matrix_RotateY(gGfxMatrix, this->orient.y * M_DTOR, MTXF_APPLY);
                     Matrix_Push(&gGfxMatrix);
-                    Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[15], 0.0f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, this->fwork[EVA_FWORK_15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, aMeRockGull1DL);
                     Matrix_Pop(&gGfxMatrix);
                     gSPDisplayList(gMasterDisp++, aMeRockGull2DL);
-                    Matrix_Translate(gGfxMatrix, 0.0f, -this->fwork[15], 0.0f, MTXF_APPLY);
+                    Matrix_Translate(gGfxMatrix, 0.0f, -this->fwork[EVA_FWORK_15], 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gSPDisplayList(gMasterDisp++, aMeRockGull3DL);
                     Matrix_Pop(&gGfxMatrix);
@@ -4129,7 +4143,7 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_ZO_BIRD:
                     savedState = this->state;
-                    this->state = 2;
+                    this->state = EVSTATE_TURN_DOWN;
                     Zoness_ZoBird_Draw(this);
                     this->state = savedState;
                     break;
@@ -4141,10 +4155,12 @@ void ActorEvent_Draw(ActorEvent* this) {
                     break;
 
                 case EVID_VE1_BLOCKER:
-                    if (this->fwork[15] > 0.001f) {
-                        Matrix_Scale(gGfxMatrix, this->fwork[15], this->fwork[15], this->fwork[15], MTXF_APPLY);
+                    if (this->fwork[EVA_FWORK_15] > 0.001f) {
+                        Matrix_Scale(gGfxMatrix, this->fwork[EVA_FWORK_15], this->fwork[EVA_FWORK_15],
+                                     this->fwork[EVA_FWORK_15], MTXF_APPLY);
                         Matrix_SetGfxMtx(&gMasterDisp);
-                        Texture_BlendRGBA16(this->fwork[16], 16 * 11, D_VE1_9003890, D_VE1_9003DF0, D_VE1_9003330);
+                        Texture_BlendRGBA16(this->fwork[EVA_FWORK_16], 16 * 11, D_VE1_9003890, D_VE1_9003DF0,
+                                            D_VE1_9003330);
                         gSPDisplayList(gMasterDisp++, aVe1BlockerDL);
                     }
                     break;
@@ -4199,25 +4215,26 @@ void ActorEvent_Draw(ActorEvent* this) {
                     Animation_DrawSkeleton(1, aKillerBeeSkel, frameTable, NULL, NULL, this, &gIdentityMatrix);
                     break;
 
-                case EVID_FFF:
+                case EVID_UNINITIALIZED:
                     this->timer_0C2 = 10;
                     break;
             }
 
-            if ((gReflectY > 0) && ((this->iwork[12] >= TEAM_ID_FALCO) && (this->iwork[12] < TEAM_ID_MAX))) {
+            if ((gReflectY > 0) &&
+                ((this->iwork[EVA_TEAM_ID] >= TEAM_ID_FALCO) && (this->iwork[EVA_TEAM_ID] < TEAM_ID_MAX))) {
                 Vec3f src = { 0.0f, 0.0f, 0.0f };
 
-                if ((this->iwork[12] == TEAM_ID_KATT) || (this->iwork[12] == TEAM_ID_BILL)) {
-                    Matrix_MultVec3f(gGfxMatrix, &src, &gTeamArrowsViewPos[this->iwork[12] + 4]);
+                if ((this->iwork[EVA_TEAM_ID] == TEAM_ID_KATT) || (this->iwork[EVA_TEAM_ID] == TEAM_ID_BILL)) {
+                    Matrix_MultVec3f(gGfxMatrix, &src, &gTeamArrowsViewPos[this->iwork[EVA_TEAM_ID] + 4]);
                 } else {
-                    Matrix_MultVec3f(gGfxMatrix, &src, &gTeamArrowsViewPos[this->iwork[12]]);
+                    Matrix_MultVec3f(gGfxMatrix, &src, &gTeamArrowsViewPos[this->iwork[EVA_TEAM_ID]]);
                 }
             }
             break;
     }
 }
 
-void func_enmy2_800763A4(Actor* this) {
+void Actor_DyingCrash(Actor* this) {
     s32 i;
     s32 sp60;
     s32 triangleIndex;
@@ -4296,7 +4313,7 @@ void func_enmy2_800763A4(Actor* this) {
             return;
         }
 
-        if (gGroundType == 4) {
+        if (gGroundType == GROUND_4) {
             if (Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y - 10.0f, this->obj.pos.z + gPathProgress) != 0) {
                 func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 20.0f, this->obj.pos.z, this->scale * 6.0f);
                 Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
@@ -4341,13 +4358,13 @@ void func_enmy2_800763A4(Actor* this) {
                     }
 
                     if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_ME_SLIPPY)) {
-                        if (this->fwork[17] < 360.0f) {
+                        if (this->fwork[EVA_FWORK_17] < 360.0f) {
                             Play_SpawnDebris(1, this->obj.pos.x + 20.0f, this->obj.pos.y, this->obj.pos.z);
-                            this->fwork[17] = 777.0f;
+                            this->fwork[EVA_FWORK_17] = 777.0f;
                         }
-                        if (this->fwork[18] < 360.0f) {
+                        if (this->fwork[EVA_FWORK_18] < 360.0f) {
                             Play_SpawnDebris(0, this->obj.pos.x - 20.0f, this->obj.pos.y, this->obj.pos.z);
-                            this->fwork[18] = 777.0f;
+                            this->fwork[EVA_FWORK_18] = 777.0f;
                         }
                     }
                 } else {
@@ -4451,7 +4468,7 @@ void func_enmy2_800763A4(Actor* this) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         D_ctx_80177F20[this->index + 1] = this->obj.pos.x;
         D_ctx_80178028[this->index + 1] = this->obj.pos.z;
-        D_ctx_80178130[this->index + 1] = this->rot_0F4.y + 180.0f;
+        D_ctx_80178130[this->index + 1] = this->orient.y + 180.0f;
     }
 
     if (this->obj.id == OBJ_ACTOR_ALLRANGE) {
@@ -4464,7 +4481,7 @@ void ActorEvent_Dying(ActorEvent* this) {
         (this->eventType == EVID_SY_ROBOT_3)) {
         SectorY_SyRobot_Update(this);
     } else {
-        func_enmy2_800763A4(this);
+        Actor_DyingCrash(this);
     }
 }
 
