@@ -181,7 +181,7 @@ void AudioSynth_InverseDiscreteCosineTransform(f32* buffer0, f32* buffer1, s32 l
 }
 
 // https://decomp.me/scratch/8eyVg
-#ifdef NON_MATCHING
+#ifndef NON_MATCHING
 void AudioSynth_HartleyTransform(f32* arg0, s32 arg1, f32* arg2) {
     s32 length;
     s32 spD0;
@@ -387,7 +387,7 @@ void AudioSynth_HartleyTransform(f32* arg0, s32 arg1, f32* arg2) {
 #endif
 
 // https://decomp.me/scratch/TZQNS
-#ifdef NON_MATCHING
+#ifndef NON_MATCHING
 void func_80009124(s16** arg0) {
     s16* var_a1;
     s32 temp_a0;
