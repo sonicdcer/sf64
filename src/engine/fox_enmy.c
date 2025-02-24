@@ -60,8 +60,32 @@ s32 sItemDropIds[] = {
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
 f32 sItemDropRates[] = {
-    0.0f, 1.0f, 0.5f, 0.33f, 0.25f, 1.0f,  0.5f,  0.33f, 0.25f, 1.0f, 0.5f, 0.33f, 0.25f,
-    1.0f, 1.0f, 1.0f, 1.0f,  1.0f,  -1.0f, -1.0f, -1.0f, -1.0f, 0.1f, 1.0f, 1.0f,  1.0f,
+    /* OBJ_SCENERY_CO_STONE_ARCH */ 0.0f,
+    /* OBJ_ITEM_SILVER_RING */ 1.0f,
+    /* OBJ_ITEM_SILVER_RING */ 0.5f,
+    /* OBJ_ITEM_SILVER_RING */ 0.33f,
+    /* OBJ_ITEM_SILVER_RING */ 0.25f,
+    /* OBJ_ITEM_BOMB */ 1.0f,
+    /* OBJ_ITEM_BOMB */ 0.5f,
+    /* OBJ_ITEM_BOMB */ 0.33f,
+    /* OBJ_ITEM_BOMB */ 0.25f,
+    /* OBJ_ITEM_LASERS */ 1.0f,
+    /* OBJ_ITEM_LASERS */ 0.5f,
+    /* OBJ_ITEM_LASERS */ 0.33f,
+    /* OBJ_ITEM_LASERS */ 0.25f,
+    /* OBJ_ITEM_1UP */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ -1.0f,
+    /* OBJ_ITEM_LASERS */ -1.0f,
+    /* OBJ_ITEM_BOMB */ -1.0f,
+    /* OBJ_ITEM_SILVER_RING */ -1.0f,
+    /* OBJ_ITEM_SILVER_RING */ 0.1f,
+    /* OBJ_ITEM_WING_REPAIR */ 1.0f,
+    /* OBJ_SCENERY_CO_STONE */ 1.0f,
+    /* OBJ_ITEM_SILVER_STAR */ 1.0f,
 };
 
 Vec3f D_enmy_800CFEC4[] = {
@@ -1758,7 +1782,7 @@ void Actor_Despawn(Actor* this) {
             }
         }
 
-        if (this->itemDrop) { // can't be != 0
+        if (this->itemDrop) {
             if (sItemDropRates[this->itemDrop] < 0.0f) {
                 for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                     if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != this->index) &&
