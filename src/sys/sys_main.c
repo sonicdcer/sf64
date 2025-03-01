@@ -6,7 +6,11 @@ s32 sGammaMode = 1;
 SPTask* gCurrentTask;
 SPTask* sAudioTasks[1];
 SPTask* sGfxTasks[2];
+#ifdef AVOID_UB
+SPTask* sNewAudioTasks[2];
+#else
 SPTask* sNewAudioTasks[1];
+#endif
 SPTask* sNewGfxTasks[2];
 u32 gSegments[16];          // 800E1FD0
 OSMesgQueue gPiMgrCmdQueue; // 800E2010
