@@ -1,5 +1,6 @@
 #include "sys.h"
 #include "sf64audio_external.h"
+#include "mods.h"
 
 s32 sGammaMode = 1;
 
@@ -490,8 +491,15 @@ void Idle_ThreadEntry(void* arg0) {
 void bootproc(void) {
     RdRam_CheckIPL3();
     osInitialize();
+#if MODS_ISVIEWER == 1
+    ISViewer_Init();
+#endif
     Main_Initialize();
     osCreateThread(&sIdleThread, THREAD_ID_IDLE, &Idle_ThreadEntry, NULL, sIdleThreadStack + sizeof(sIdleThreadStack),
                    255);
     osStartThread(&sIdleThread);
 }
+
+#if MODS_ISVIEWER == 1
+#include "../mods/isviewer.c"
+#endif
