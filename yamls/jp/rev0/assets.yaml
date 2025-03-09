@@ -423,7 +423,7 @@
     start: 0xD2C240
     vram: 0x08000000
     subsegments:
-      - [0xD2C240, bin, ast_ending_award_back/ast_ending_award_back]
+      - [0xD2C240, .data, ast_ending_award_back/ast_ending_award_back]
 
   - name: ast_ending_expert
     exclusive_ram_id: segment_08
