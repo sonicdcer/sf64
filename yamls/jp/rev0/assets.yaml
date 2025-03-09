@@ -405,7 +405,7 @@
     start: 0xCEB3C0
     vram: 0x07000000
     subsegments:
-      - [0xCEB3C0, bin, ast_ending/ast_ending]
+      - [0xCEB3C0, .data, ast_ending/ast_ending]
 
   - name: ast_ending_award_front
     exclusive_ram_id: segment_08
