@@ -441,4 +441,4 @@
     start: 0xD9FDD0
     vram: 0x06000000
     subsegments:
-      - [0xD9FDD0, bin, ast_training/ast_training]
+      - [0xD9FDD0, .data, ast_training/ast_training]
