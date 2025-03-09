@@ -8,118 +8,118 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_END_7000000: { type: GFX, offset: 0x7000000, symbol: D_END_7000000}
+aEndAndrossFaceDL: { type: GFX, offset: 0x7000000, symbol: aEndAndrossFaceDL}
 
-D_END_7000118: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7000118, symbol: D_END_7000118}
+aEndAndrossFaceLeftTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7000118, symbol: aEndAndrossFaceLeftTex}
 
-D_END_7001118: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7001118, symbol: D_END_7001118}
+aEndAndrossFaceRightTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7001118, symbol: aEndAndrossFaceRightTex}
 
-D_END_7002120: { type: GFX, offset: 0x7002120, symbol: D_END_7002120}
+aEndVenomDL: { type: GFX, offset: 0x7002120, symbol: aEndVenomDL}
 
-D_END_7002238: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7002238, symbol: D_END_7002238}
+aEndVenomLeftTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7002238, symbol: aEndVenomLeftTex}
 
-D_END_7003238: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7003238, symbol: D_END_7003238}
+aEndVenomRightTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7003238, symbol: aEndVenomRightTex}
 
-D_END_7004240: { type: GFX, offset: 0x7004240, symbol: D_END_7004240}
+aEndCorneriaDL: { type: GFX, offset: 0x7004240, symbol: aEndCorneriaDL}
 
-D_END_7004620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7004620, symbol: D_END_7004620}
+aEndCorneriaTex1: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7004620, symbol: aEndCorneriaTex1}
 
-D_END_7005620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7005620, symbol: D_END_7005620}
+aEndCorneriaTex2: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7005620, symbol: aEndCorneriaTex2}
 
-D_END_7006620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7006620, symbol: D_END_7006620}
+aEndCorneriaTex3: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7006620, symbol: aEndCorneriaTex3}
 
-D_END_7007620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7007620, symbol: D_END_7007620}
+aEndCorneriaTex4: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7007620, symbol: aEndCorneriaTex4}
 
-D_END_7008620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7008620, symbol: D_END_7008620}
+aEndCorneriaTex5: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7008620, symbol: aEndCorneriaTex5}
 
-D_END_7009620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7009620, symbol: D_END_7009620}
+aEndCorneriaTex6: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x7009620, symbol: aEndCorneriaTex6}
 
-D_END_700A620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700A620, symbol: D_END_700A620}
+aEndCorneriaTex7: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700A620, symbol: aEndCorneriaTex7}
 
-D_END_700B620: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700B620, symbol: D_END_700B620}
+aEndCorneriaTex8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700B620, symbol: aEndCorneriaTex8}
 
-D_END_700C620: { type: GFX, offset: 0x700C620, symbol: D_END_700C620}
+aEndShipSkywritingDL: { type: GFX, offset: 0x700C620, symbol: aEndShipSkywritingDL}
 
-D_END_700C6A8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x700C6A8, symbol: D_END_700C6A8}
+aEndShipSkywritingTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x700C6A8, symbol: aEndShipSkywritingTex}
 
-D_END_700C8B0: { type: GFX, offset: 0x700C8B0, symbol: D_END_700C8B0}
+aEndCorneriaBackdropDL: { type: GFX, offset: 0x700C8B0, symbol: aEndCorneriaBackdropDL}
 
-D_END_700C940: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700C940, symbol: D_END_700C940}
+aEndCorneriaBackdropTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700C940, symbol: aEndCorneriaBackdropTex}
 
-D_END_700D940: { type: GFX, offset: 0x700D940, symbol: D_END_700D940}
+aEndNebulaeDL: { type: GFX, offset: 0x700D940, symbol: aEndNebulaeDL, comment: unused}
 
-D_END_700D9D8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x700D9D8, symbol: D_END_700D9D8}
+aEndNebulaeTex: {type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x700D9D8, symbol: aEndNebulaeTex }
 
-D_END_700E9E0: { type: GFX, offset: 0x700E9E0, symbol: D_END_700E9E0}
+aEndFloorDL: { type: GFX, offset: 0x700E9E0, symbol: aEndFloorDL}
 
-D_END_700EA38: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x700EA38, symbol: D_END_700EA38}
+aEndFloorTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x700EA38, symbol: aEndFloorTex}
 
-D_END_700F240: { type: GFX, offset: 0x700F240, symbol: D_END_700F240}
+aEndBuilding1DL: { type: GFX, offset: 0x700F240, symbol: aEndBuilding1DL}
 
-D_END_700F320: { type: GFX, offset: 0x700F320, symbol: D_END_700F320}
+aEndBuilding2DL: { type: GFX, offset: 0x700F320, symbol: aEndBuilding2DL}
 
-D_END_7010070: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7010070, symbol: D_END_7010070}
+aEndBuildingTex2: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7010070, symbol: aEndBuildingTex2}
 
-D_END_70100F0: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x70100F0, symbol: D_END_70100F0}
+aEndBuildingTex3: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x70100F0, symbol: aEndBuildingTex3}
 
-D_END_7010170: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x7010170, symbol: D_END_7010170}
+aEndBuildingTex1: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x7010170, symbol: aEndBuildingTex1}
 
-D_END_7010970: { type: GFX, offset: 0x7010970, symbol: D_END_7010970}
+aEndOrbDL: { type: GFX, offset: 0x7010970, symbol: aEndOrbDL}
 
-D_END_7010A08: {type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 32, offset: 0x7010A08, symbol: D_END_7010A08}
+aEndOrbTex: {type: TEXTURE, ctype: u8, format: IA8, width: 32, height: 32, offset: 0x7010A08, symbol: aEndOrbTex}
 
-D_END_7010E10: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x7010E10, symbol: D_END_7010E10, tlut: 0x7010EE0}
+aEndIncomingMsgTex1: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x7010E10, symbol: aEndIncomingMsgTex1, tlut: 0x7010EE0}
 
-D_END_7010EE0: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x7010EE0, symbol: D_END_7010EE0}
+aEndIncomingMsgTex1TLUT: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x7010EE0, symbol: aEndIncomingMsgTex1TLUT}
 
-D_END_7010F00: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x7010F00, symbol: D_END_7010F00, tlut: 0x7010FD0}
+aEndIncomingMsgTex2: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x7010F00, symbol: aEndIncomingMsgTex2, tlut: 0x7010FD0}
 
-D_END_7010FD0: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x7010FD0, symbol: D_END_7010FD0}
+aEndIncomingMsgTex2TLUT: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x7010FD0, symbol: aEndIncomingMsgTex2TLUT}
 
-D_END_7010FF0: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x7010FF0, symbol: D_END_7010FF0, tlut: 0x70110C0}
+aEndIncomingMsgTex3: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x7010FF0, symbol: aEndIncomingMsgTex3, tlut: 0x70110C0}
 
-D_END_70110C0: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x70110C0, symbol: D_END_70110C0}
+aEndIncomingMsgTex3TLUT: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x70110C0, symbol: aEndIncomingMsgTex3TLUT}
 
-D_END_70110E0: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x70110E0, symbol: D_END_70110E0, tlut: 0x70111B0}
+aEndIncomingMsgTex4: {type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 26, offset: 0x70110E0, symbol: aEndIncomingMsgTex4, tlut: 0x70111B0}
 
-D_END_70111B0: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x70111B0, symbol: D_END_70111B0}
+aEndIncomingMsgTex4TLUT: {type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x70111B0, symbol: aEndIncomingMsgTex4TLUT}
 
-D_END_70111D0: { type: GFX, offset: 0x70111D0, symbol: D_END_70111D0}
+aEndAwardBackLowResDL: { type: GFX, offset: 0x70111D0, symbol: aEndAwardBackLowResDL}
 
-D_END_70113B8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x70113B8, symbol: D_END_70113B8}
+aEndAwardBackLowResRightTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x70113B8, symbol: aEndAwardBackLowResRightTex}
 
-D_END_70123B8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x70123B8, symbol: D_END_70123B8}
+aEndAwardBackLowResTopTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x70123B8, symbol: aEndAwardBackLowResTopTex}
 
-D_END_70133B8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x70133B8, symbol: D_END_70133B8}
+aEndAwardBackLowResLeftTex: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x70133B8, symbol: aEndAwardBackLowResLeftTex}
 
-D_END_70143C0: { type: GFX, offset: 0x70143C0, symbol: D_END_70143C0}
+aEndAwardFrontLowResDL: { type: GFX, offset: 0x70143C0, symbol: aEndAwardFrontLowResDL}
 
-D_END_7014540: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7014540, symbol: D_END_7014540}
+aEndAwardFrontLowResTex1: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7014540, symbol: aEndAwardFrontLowResTex1}
 
-D_END_7015540: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7015540, symbol: D_END_7015540}
+aEndAwardFrontLowResTex2: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7015540, symbol: aEndAwardFrontLowResTex2}
 
-D_END_7016540: { type: GFX, offset: 0x7016540, symbol: D_END_7016540}
+aEndBackdrop2DL: { type: GFX, offset: 0x7016540, symbol: aEndBackdrop2DL}
 
-D_END_7016658: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7016658, symbol: D_END_7016658}
+aEndBackdrop2Tex1: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7016658, symbol: aEndBackdrop2Tex1}
 
-D_END_7017658: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7017658, symbol: D_END_7017658}
+aEndBackdrop2Tex2: {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x7017658, symbol: aEndBackdrop2Tex2}
 
-D_END_7018708: { type: SF64:ANIM, offset: 0x7018708, symbol: D_END_7018708}
+aEndGralPepperSpeakAnim: { type: SF64:ANIM, offset: 0x7018708, symbol: aEndGralPepperSpeakAnim}
 
-D_END_70187B4: { type: SF64:SKELETON, offset: 0x70187B4, symbol: D_END_70187B4}
+aEndGralPepperSkel: { type: SF64:SKELETON, offset: 0x70187B4, symbol: aEndGralPepperSkel}
 
-D_END_7019C90: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019C90, symbol: D_END_7019C90}
+aEndGralPepperSkelTex1: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019C90, symbol: aEndGralPepperSkelTex1}
 
-D_END_7019D10: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019D10, symbol: D_END_7019D10}
+aEndGralPepperSkelTex2: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019D10, symbol: aEndGralPepperSkelTex2}
 
-D_END_7019D90: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019D90, symbol: D_END_7019D90}
+aEndGralPepperSkelTex3: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019D90, symbol: aEndGralPepperSkelTex3}
 
-D_END_7019E10: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019E10, symbol: D_END_7019E10}
+aEndGralPepperSkelTex4: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019E10, symbol: aEndGralPepperSkelTex4}
 
-D_END_7019E90: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019E90, symbol: D_END_7019E90}
+aEndGralPepperSkelTex5: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019E90, symbol: aEndGralPepperSkelTex5}
 
-D_END_7019F10: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019F10, symbol: D_END_7019F10}
+aEndGralPepperSkelTex6: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019F10, symbol: aEndGralPepperSkelTex6}
 
-D_END_7019F90: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019F90, symbol: D_END_7019F90}
+aEndGralPepperSkelTex7: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x7019F90, symbol: aEndGralPepperSkelTex7}
 
-D_END_701A010: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x701A010, symbol: D_END_701A010}
+aEndGralPepperSkelTex8: {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x701A010, symbol: aEndGralPepperSkelTex8}

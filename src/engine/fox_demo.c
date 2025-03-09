@@ -2897,7 +2897,7 @@ void Cutscene_DrawGreatFox(void) {
     if (gGameState == GSTATE_TITLE) {
         dList = aTitleArwingEngineGlowDL;
     } else if (gGameState == GSTATE_ENDING) {
-        dList = D_END_7010970;
+        dList = aEndOrbDL;
     } else {
         dList = aOrbDL;
     }
