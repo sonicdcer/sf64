@@ -396,7 +396,7 @@
     start: 0xCE8EC0
     vram: 0x0F000000
     subsegments:
-      - [0xCE8EC0, bin, ast_logo/ast_logo]
+      - [0xCE8EC0, .data, ast_logo/ast_logo]
 
   - name: ast_ending
     exclusive_ram_id: segment_07
