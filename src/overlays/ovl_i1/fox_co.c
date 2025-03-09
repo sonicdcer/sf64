@@ -1836,11 +1836,11 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
         this->vel.z = this->fwork[18];
 
-        if (this->state > 0) {
+        if (this->state > CARRIER_STATE_0) {
             this->fwork[3] = (gPlayer[0].cam.eye.z - gPathProgress) - 2500.0f;
         }
 
-        if (this->state != 7) {
+        if (this->state != CARRIER_STATE_7) {
             Math_SmoothStepToF(&this->fwork[4], this->fwork[5], 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&this->obj.pos.z, this->fwork[3], 0.1f, this->fwork[4], 0.00001f);
         }
@@ -1850,7 +1850,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
         Math_SmoothStepToAngle(&this->fwork[1], this->fwork[10], 0.2f, 5.0f, 0.00001f);
         Math_SmoothStepToAngle(&this->fwork[2], this->fwork[11], 0.2f, 5.0f, 0.00001f);
 
-        if (this->state < 6) {
+        if (this->state < CARRIER_STATE_6) {
             Math_SmoothStepToAngle(&this->obj.rot.y, this->fwork[13], 0.03f, this->fwork[8], 0.00001f);
             Math_SmoothStepToF(&this->fwork[8], this->fwork[12], 0.1f, 0.02f, 0.001f);
             Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[14], 0.03f, this->fwork[15], 0.00001f);
@@ -1890,7 +1890,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                                  gBosses[CARRIER].obj.pos.z + sp84[10].z, 5.0f);
         }
 
-        if (((this->state == 1) || (this->state == 2)) && ((gGameFrameCount % 8) == 0)) {
+        if (((this->state == CARRIER_STATE_1) || (this->state == CARRIER_STATE_2)) && ((gGameFrameCount % 8) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[0], &sp84[6]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199914[1], &sp84[7]);
             Matrix_MultVec3f(gCalcMatrix, &D_i1_8019992C, &sp84[8]);
@@ -1924,7 +1924,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
                 if (this->timer_050 == 0) {
                     this->obj.pos.y = 900.0f;
-                    this->state = 1;
+                    this->state = CARRIER_STATE_1;
                     this->fwork[13] = 180.0f;
                     this->fwork[12] = 1.5f;
                     this->fwork[6] = 800.0f;
@@ -1937,7 +1937,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
             case CARRIER_STATE_1:
                 if (this->timer_050 == 0) {
-                    this->state = 2;
+                    this->state = CARRIER_STATE_2;
                     this->fwork[8] = 0.0f;
                     this->fwork[13] = 359.9f;
                     this->timer_050 = 250;
@@ -1946,7 +1946,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
             case CARRIER_STATE_2:
                 if (this->timer_050 == 0) {
-                    this->state = 3;
+                    this->state = CARRIER_STATE_3;
                     this->swork[0] = 4;
                     this->timer_050 = 75;
                     this->timer_054 = 0;
@@ -1976,7 +1976,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                 this->fwork[13] = 340.0f;
 
                 if ((this->timer_050 == 0) || (gBosses[CARRIER_LEFT].state != 0)) {
-                    this->state = 3;
+                    this->state = CARRIER_STATE_3;
                     this->swork[0] = 5;
                     this->timer_050 = 20;
                     this->fwork[8] = 0.0f;
@@ -2020,7 +2020,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
                 if ((this->timer_050 == 0) ||
                     ((gBosses[CARRIER_BOTTOM].state != 0) && (gBosses[CARRIER_UPPER].state != 0))) {
-                    this->state = 3;
+                    this->state = CARRIER_STATE_3;
                     this->swork[0] = 4;
                     this->timer_050 = 70;
                     this->swork[1] = 0;
@@ -2053,7 +2053,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
                 if ((this->obj.rot.y == 0.0f) || (this->timer_058 == 0)) {
                     this->timer_058 = 0;
-                    this->state = 7;
+                    this->state = CARRIER_STATE_7;
                     this->obj.rot.z = 0.0f;
                     this->obj.rot.y = 0.0f;
                 }
@@ -2133,7 +2133,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                     Radio_PlayMessage(gMsg_ID_2294, RCID_BOSS_CORNERIA2);
                     this->health = 1;
                     this->timer_056 = 150;
-                    this->state = 8;
+                    this->state = CARRIER_STATE_8;
                     this->fwork[19] = 15.0f;
                 } else {
                     Math_SmoothStepToF(&this->fwork[8], 3.0f, 0.1f, 0.5f, 0.001f);
@@ -2213,7 +2213,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                         }
                     }
                 } else {
-                    this->state = 9;
+                    this->state = CARRIER_STATE_9;
                 }
                 break;
 
@@ -2239,7 +2239,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                     this->gravity = 0.0f;
                     this->fwork[17] = 20.0f;
                     Corneria_CoCarrier_WaterSplash(this);
-                    this->state = 10;
+                    this->state = CARRIER_EXPLODE;
                 }
                 break;
 
@@ -2277,11 +2277,11 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
         this->fwork[16] = 4.0f;
 
-        if ((this->swork[10] == 0) && (this->state < 6)) {
+        if ((this->swork[10] == 0) && (this->state < CARRIER_STATE_6)) {
             this->fwork[17] = 1.8f;
             AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO6, this->sfxSource, 4);
             this->timer_058 = 71;
-            this->state = 6;
+            this->state = CARRIER_STATE_6;
             this->fwork[12] = 0.0f;
             this->fwork[8] = 0.0f;
             this->fwork[14] = 0.0f;
