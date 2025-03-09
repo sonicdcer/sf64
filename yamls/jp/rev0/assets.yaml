@@ -432,7 +432,7 @@
     start: 0xD55CD0
     vram: 0x08000000
     subsegments:
-      - [0xD55CD0, bin, ast_ending_expert/ast_ending_expert]
+      - [0xD55CD0, .data, ast_ending_expert/ast_ending_expert]
 
   - name: ast_training
     exclusive_ram_id: segment_06
