@@ -1689,7 +1689,7 @@ void HUD_PauseScreen_Update(void) {
                 }
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
-                    Lib_TextureRect_IA8(&gMasterDisp, D_TR_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aTrQuitTrainingEnTex, 96, 12, x1, y1, 1.0f, 1.0f);
                 } else {
                     if (gLifeCount[gPlayerNum]) {
                         Lib_TextureRect_IA8(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);
