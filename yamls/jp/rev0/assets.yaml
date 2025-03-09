@@ -414,7 +414,7 @@
     start: 0xD071C0
     vram: 0x08000000
     subsegments:
-      - [0xD071C0, bin, ast_ending_award_front/ast_ending_award_front]
+      - [0xD071C0, .data, ast_ending_award_front/ast_ending_award_front]
 
   - name: ast_ending_award_back
     exclusive_ram_id: segment_08
