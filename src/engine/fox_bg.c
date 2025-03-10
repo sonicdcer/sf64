@@ -416,7 +416,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_RotateZ(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * 1.5f)) * M_DTOR,
                                            MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
+                            gSPDisplayList(gMasterDisp++, aAndBackdropDL);
                             Matrix_Pop(&gGfxMatrix);
 
                             if (gDrawBackdrop != 5) {
@@ -425,7 +425,7 @@ void Background_DrawBackdrop(void) {
                                 Matrix_RotateZ(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * -1.3f)) * M_DTOR,
                                                MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
+                                gSPDisplayList(gMasterDisp++, aAndBackdropDL);
                                 Matrix_Pop(&gGfxMatrix);
                             }
                         }

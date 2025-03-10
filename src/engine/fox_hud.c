@@ -551,15 +551,15 @@ s32 HUD_GetLevelIndex(void) {
 }
 
 LevelTitleCard sLevelTitleCard[] = {
-    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },  { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
-    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },  { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
-    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },  { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
-    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },  { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
-    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },  { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
-    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },  { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
-    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },  { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
-    { aLargeText_7, 16, 15, aVe1TitleCardTex, 128, 28 }, { aLargeText_7, 16, 15, aVe2TitleCardTex, 128, 28 },
-    { aLargeText_7, 16, 15, aAndTitleCardTex, 128, 28 }, { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
+    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },    { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
+    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },    { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
+    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },    { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
+    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },    { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
+    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },    { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
+    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },    { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
+    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },    { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
+    { aLargeText_7, 16, 15, aVe1TitleCardTex, 128, 28 },   { aLargeText_7, 16, 15, aVe2TitleCardTex, 128, 28 },
+    { aLargeText_7, 16, 15, aAndTitleCardEnTex, 128, 28 }, { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
 };
 
 void HUD_VenomTitleCard_Draw(void) {

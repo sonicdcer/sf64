@@ -3791,7 +3791,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
         case EVID_ANDROSS_GATE:
         case EVID_ANDROSS_GATE_2:
-            Andross_80187530(this);
+            Andross_EvAndrossGate_Update(this);
             break;
 
         case EVID_KILLER_BEE:

@@ -13,7 +13,7 @@ f32 D_i6_801A7F64;
 f32 D_i6_801A7F6C;
 f32 D_i6_801A7F74;
 f32 D_i6_801A7F7C;
-Vec3f D_i6_801A7F80[100];
+Vec3f sAndrossJointTable[100];
 f32 D_i6_801A8430;
 
 f32 D_Andross_801A7F58;
@@ -22,14 +22,15 @@ f32 D_Andross_801A7F68;
 f32 D_Andross_801A7F70;
 f32 D_Andross_801A7F78;
 
-f32* D_i6_801A6760[12] = {
-    D_ANDROSS_C037FCC, D_ANDROSS_C0380C0, D_ANDROSS_C0381B4, D_ANDROSS_C0382A8, D_ANDROSS_C03839C, D_ANDROSS_C038490,
-    D_ANDROSS_C038584, D_ANDROSS_C038678, D_ANDROSS_C03876C, D_ANDROSS_C038860, D_ANDROSS_C038954, D_ANDROSS_C038954,
+f32* sAndrossGateHitbox[12] = {
+    aAndrossGateFrame1Hitbox, aAndrossGateFrame2Hitbox,  aAndrossGateFrame3Hitbox,  aAndrossGateFrame4Hitbox,
+    aAndrossGateFrame5Hitbox, aAndrossGateFrame6Hitbox,  aAndrossGateFrame7Hitbox,  aAndrossGateFrame8Hitbox,
+    aAndrossGateFrame9Hitbox, aAndrossGateFrame10Hitbox, aAndrossGateFrame11Hitbox, aAndrossGateFrame11Hitbox,
 };
 
-void Andross_80193710(void);
+void Andross_LoadLevelObjects(void);
 
-void Andross_80187530(ActorEvent* this) {
+void Andross_EvAndrossGate_Update(ActorEvent* this) {
     s32 index;
 
     switch (this->work_048) {
@@ -55,7 +56,7 @@ void Andross_80187530(ActorEvent* this) {
     }
 
     index = this->animFrame / 18.0f;
-    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_i6_801A6760[index]);
+    this->info.hitbox = SEGMENTED_TO_VIRTUAL(sAndrossGateHitbox[index]);
     this->obj.rot.z = D_Andross_801A7F68;
 }
 
@@ -74,21 +75,21 @@ void Andross_Gate_Draw(ActorEvent* this) {
                            &gIdentityMatrix);
 }
 
-void Andross_801876FC(void) {
-    s32 temp_ft3;
-    s32* var_s0;
-    s32* var_s3;
+void Andross_Backdrop_RotEffect(void) {
+    s32 rotOffset;
+    u32* backdropTex1;
+    u32* backdropTex2;
     s32 i;
     s32 j;
 
-    var_s0 = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C039290);
-    var_s3 = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C03A290);
+    backdropTex1 = SEGMENTED_TO_VIRTUAL(&aAndBackdrop1Tex1);
+    backdropTex2 = SEGMENTED_TO_VIRTUAL(&aAndBackdrop1Tex2);
 
     for (i = 0; i < 32 * 32; i += 32) {
-        temp_ft3 = 4.0f * __sinf((s32) (((i / 32) + (gGameFrameCount / 2)) % 32U) * (2 * M_PI / 32));
+        rotOffset = 4.0f * __sinf((s32) (((i / 32) + (gGameFrameCount / 2)) % 32U) * (2 * M_PI / 32));
 
         for (j = 0; j < 32; j++) {
-            var_s0[i + ((temp_ft3 + j) % 32U)] = var_s3[i + j];
+            backdropTex1[i + ((rotOffset + j) % 32U)] = backdropTex2[i + j];
         }
     }
 }
@@ -99,7 +100,7 @@ void Andross_801878A8() {
     Scenery360* scenery360;
     s32 i;
 
-    gLevelObjects = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C0356CC);
+    gLevelObjects = SEGMENTED_TO_VIRTUAL(&aVe2AndLevelObjects);
 
     for (scenery360 = gScenery360, i = 0; i < 1000; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
@@ -117,7 +118,7 @@ void Andross_801878A8() {
             scenery360->obj.rot.y = gLevelObjects[i].rot.y;
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
             if (scenery360->obj.id == OBJ_SCENERY_AND_PASSAGE) {
-                scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
+                scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&aAndPassageHitbox2);
             }
             scenery360++;
         }
@@ -160,7 +161,7 @@ void Andross_801878A8() {
     }
 }
 
-void Andross_80187C5C(void) {
+void Andross_LoadEscapePath(void) {
     Actor* actor;
     Item* item;
     Scenery360* scenery360;
@@ -168,14 +169,14 @@ void Andross_80187C5C(void) {
 
     switch (RAND_INT(2.9f)) {
         case 0:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C036310);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(&aAndEscapePath1);
             break;
         case 1:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C036B6C);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(&aAndEscapePath2);
             break;
         default:
         case 2:
-            gLevelObjects = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C03733C);
+            gLevelObjects = SEGMENTED_TO_VIRTUAL(&aAndEscapePath3);
             break;
     }
 
@@ -198,7 +199,7 @@ void Andross_80187C5C(void) {
             }
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
             if (scenery360->obj.id == OBJ_SCENERY_AND_PASSAGE) {
-                scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_ANDROSS_C038CCC);
+                scenery360->info.hitbox = SEGMENTED_TO_VIRTUAL(&aAndPassageHitbox2);
             }
             scenery360++;
         }
@@ -693,7 +694,7 @@ void Andross_AndJamesTrigger_Update(AndJamesTrigger* this) {
             gScenery360[i].obj.status = OBJ_FREE;
         }
 
-        Andross_80193710();
+        Andross_LoadLevelObjects();
         D_ctx_8017782C = true;
         Play_InitEnvironment();
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
@@ -1033,8 +1034,8 @@ void Andross_AndBrain_Update(AndBrain* this) {
             }
             break;
 
-        case 21:
-            Andross_801876FC();
+        case 21: // Escape phase
+            Andross_Backdrop_RotEffect();
             gCsFrameCount++;
             gCameraShake = 10;
             if (gCsFrameCount < 200) {
@@ -1089,7 +1090,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
                     D_ctx_80177A48[5] = -1200.0f;
 
                     Andross_80188468();
-                    Andross_80187C5C();
+                    Andross_LoadEscapePath();
                     gPlayer[0].unk_014 = 1.0f;
                     Camera_Update360(gPlayer, true);
                     Audio_StartPlayerNoise(0);
@@ -1926,7 +1927,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
     initialstate = this->state;
 
-    Andross_801876FC();
+    Andross_Backdrop_RotEffect();
 
     gAmbientR = 10;
     gAmbientG = 0;
@@ -2083,20 +2084,20 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             if (this->timer_052 == 0) {
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C002B08)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aAndLaughAnim)) {
                     this->animFrame = 0;
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C002B08, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndLaughAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             } else {
                 if (this->timer_052 < 16) {
                     this->animFrame++;
-                    if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C033D98)) {
-                        this->animFrame = Animation_GetFrameCount(&D_ANDROSS_C033D98) - 1;
+                    if (this->animFrame >= Animation_GetFrameCount(&aAndCloseUpAnim)) {
+                        this->animFrame = Animation_GetFrameCount(&aAndCloseUpAnim) - 1;
                     }
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C033D98, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndCloseUpAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
                 if (this->timer_052 == 1) {
                     this->animFrame = 0;
                 }
@@ -2128,11 +2129,11 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 0.7f, 1.0f, 0.005f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C033780)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndFallbackAnim)) {
                 Andross_8018D9C0(this);
             }
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C033780, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndFallbackAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             break;
 
         case 3:
@@ -2185,11 +2186,11 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C029F74)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aAndLeftHandPunchAttackAnim)) {
                     Andross_8018D9C0(this);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C029F74, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndLeftHandPunchAttackAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
 
@@ -2227,11 +2228,11 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C02E494)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aAndLeftOpenHandAttackAnim)) {
                     Andross_8018D9C0(this);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C02E494, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndLeftOpenHandAttackAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
 
@@ -2274,12 +2275,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 }
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C030244)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aAndRightOpenHandAttackAnim)) {
                     Andross_8018D9C0(this);
                 }
 
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C030244, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndRightOpenHandAttackAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
         case 6:
@@ -2330,11 +2331,11 @@ void Andross_AndAndross_Update(AndAndross* this) {
                     }
                 }
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C02EDA0)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aAndHandCrushAnim)) {
                     Andross_8018D9C0(this);
                 }
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C02EDA0, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndHandCrushAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
 
@@ -2380,15 +2381,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C018BC4)) {
-                    this->animFrame = Animation_GetFrameCount(&D_ANDROSS_C018BC4) - 1;
+                if (this->animFrame >= Animation_GetFrameCount(&aAndLightningAttackAnim)) {
+                    this->animFrame = Animation_GetFrameCount(&aAndLightningAttackAnim) - 1;
                     if (this->timer_050 == 0) {
                         Andross_8018D9C0(this);
                     }
                 }
 
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C018BC4, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndLightningAttackAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
 
@@ -2415,15 +2416,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C025C00)) {
-                    this->animFrame = Animation_GetFrameCount(&D_ANDROSS_C025C00) - 1;
+                if (this->animFrame >= Animation_GetFrameCount(&aAndLeftEyeHurtAnim)) {
+                    this->animFrame = Animation_GetFrameCount(&aAndLeftEyeHurtAnim) - 1;
                     if (this->timer_050 == 0) {
                         Andross_8018D9C0(this);
                     }
                 }
 
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C025C00, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndLeftEyeHurtAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
         case 13:
@@ -2449,15 +2450,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C006F08)) {
-                    this->animFrame = Animation_GetFrameCount(&D_ANDROSS_C006F08) - 1;
+                if (this->animFrame >= Animation_GetFrameCount(&aAndRightEyeHurtAnim)) {
+                    this->animFrame = Animation_GetFrameCount(&aAndRightEyeHurtAnim) - 1;
                     if (this->timer_050 == 0) {
                         Andross_8018D9C0(this);
                     }
                 }
 
-                limbCount = Animation_GetFrameData(&D_ANDROSS_C006F08, this->animFrame, spD0);
-                Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                limbCount = Animation_GetFrameData(&aAndRightEyeHurtAnim, this->animFrame, spD0);
+                Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             }
             break;
 
@@ -2479,15 +2480,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.01f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C002654)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndEyeHurtAnim)) {
                 this->animFrame = 0;
                 if (this->timer_050 == 0) {
                     Andross_8018D9C0(this);
                 }
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C002654, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndEyeHurtAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             break;
 
         case 15:
@@ -2530,8 +2531,8 @@ void Andross_AndAndross_Update(AndAndross* this) {
             }
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00DE48)) {
-                this->animFrame = Animation_GetFrameCount(&D_ANDROSS_C00DE48) - 1;
+            if (this->animFrame >= Animation_GetFrameCount(&aAndChewAnim)) {
+                this->animFrame = Animation_GetFrameCount(&aAndChewAnim) - 1;
                 if (this->timer_050 == 0) {
                     this->state = 16;
                     this->animFrame = 0;
@@ -2540,8 +2541,8 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 }
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C00DE48, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndChewAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             if ((this->animFrame == 45) && (this->swork[8] == 2)) {
                 this->state = 18;
@@ -2575,14 +2576,14 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             if (this->timer_050 == 0) {
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C023B54)) {
-                    this->animFrame = Animation_GetFrameCount(&D_ANDROSS_C023B54) - 1;
+                if (this->animFrame >= Animation_GetFrameCount(&aAndSpitAnim)) {
+                    this->animFrame = Animation_GetFrameCount(&aAndSpitAnim) - 1;
                     Andross_8018D9C0(this);
                 }
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C023B54, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndSpitAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             if (this->animFrame == 10) {
                 AUDIO_PLAY_SFX(NA_SE_EN_ANDROSS_VOMIT, this->sfxSource, 4);
@@ -2710,7 +2711,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
             }
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C0240D0)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndSuctionAnim)) {
                 this->animFrame = 0;
                 if (this->timer_050 == 0) {
                     this->state = 15;
@@ -2719,8 +2720,8 @@ void Andross_AndAndross_Update(AndAndross* this) {
                 }
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C0240D0, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndSuctionAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             break;
 
         case 18:
@@ -2743,8 +2744,9 @@ void Andross_AndAndross_Update(AndAndross* this) {
             switch (this->work_044) {
                 case 0:
                     if (this->timer_050 != 0) {
-                        limbCount = Animation_GetFrameData(&D_ANDROSS_C00DE48, 45, spD0);
-                        Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                        limbCount = Animation_GetFrameData(&aAndChewAnim, 45, spD0);
+                        Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f,
+                                                    0.0f);
                     } else {
                         this->work_044 = 1;
                         this->timer_050 = 30;
@@ -2757,8 +2759,9 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
                 case 1:
                     if (this->timer_050 != 0) {
-                        limbCount = Animation_GetFrameData(&D_ANDROSS_C017430, 0, spD0);
-                        Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                        limbCount = Animation_GetFrameData(&aAndBombExplodeAnim, 0, spD0);
+                        Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f,
+                                                    0.0f);
                     } else {
                         this->work_044 = 2;
                         this->timer_050 = 70;
@@ -2776,12 +2779,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
                     }
 
                     this->animFrame++;
-                    if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00E598)) {
+                    if (this->animFrame >= Animation_GetFrameCount(&aAndSmokeExhaustAnim)) {
                         this->animFrame = 0;
                     }
 
-                    limbCount = Animation_GetFrameData(&D_ANDROSS_C00E598, this->animFrame, spD0);
-                    Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+                    limbCount = Animation_GetFrameData(&aAndSmokeExhaustAnim, this->animFrame, spD0);
+                    Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
                     break;
             }
             break;
@@ -2800,12 +2803,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndDyingAnim)) {
                 Andross_8018D9C0(this);
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndDyingAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
             break;
 
         case 30:
@@ -2826,12 +2829,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndDyingAnim)) {
                 this->animFrame = 0;
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndDyingAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             if ((gGameFrameCount % 2) == 0) {
                 Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
@@ -2900,12 +2903,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00208C)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndLungeAnim)) {
                 this->animFrame = 0;
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C00208C, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndLungeAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
                                    this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
@@ -2920,12 +2923,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C00208C)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndLungeAnim)) {
                 this->animFrame = 0;
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C00208C, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndLungeAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
                                    this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
@@ -2983,12 +2986,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToF(&this->fwork[9], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_ANDROSS_C017050)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAndDyingAnim)) {
                 this->animFrame = 0;
             }
 
-            limbCount = Animation_GetFrameData(&D_ANDROSS_C017050, this->animFrame, spD0);
-            Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
+            limbCount = Animation_GetFrameData(&aAndDyingAnim, this->animFrame, spD0);
+            Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             if ((gGameFrameCount % 2) == 0) {
                 Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
@@ -3138,7 +3141,7 @@ f32 D_i6_801A67EC = 0.0f;
 f32 D_i6_801A67F0 = 0.0f;
 Vec3f D_i6_801A67F4 = { 0.0f, 0.0f, 0.0f };
 
-bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
+bool Andross_AndAndross_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* data) {
     Vec3f sp94;
     Vec3f sp88;
     f32 scale;
@@ -3403,7 +3406,7 @@ bool Andross_801917F0(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
     return true;
 }
 
-void Andross_801924B4(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Andross_AndAndross_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f sp94 = { 0.0f, 0.0f, 0.0f };
     Vec3f sp88 = { 33.0f, 0.0f, 0.0f };
     Vec3f sp7C = { 20.0f, 0.0f, 0.0f };
@@ -3498,8 +3501,8 @@ void Andross_AndAndross_Draw(AndAndross* this) {
         }
 
         Matrix_Scale(gCalcMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
-        Animation_DrawSkeleton(2, D_ANDROSS_C01CC3C, D_i6_801A7F80, Andross_801917F0, Andross_801924B4, this,
-                               gCalcMatrix);
+        Animation_DrawSkeleton(2, aAndAndrossSkel, sAndrossJointTable, Andross_AndAndross_OverrideLimbDraw,
+                               Andross_AndAndross_PostLimbDraw, this, gCalcMatrix);
         Matrix_Pop(&gGfxMatrix);
         Matrix_Push(&gGfxMatrix);
 
@@ -3652,7 +3655,7 @@ void Andross_AndDoor_Update(AndDoor* this) {
         case 0:
             if (fabsf(this->obj.pos.z - gPlayer[0].trueZpos) < 1800.0f) {
                 this->state = 1;
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C038AC4);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aAndDoorHitbox2);
             }
             break;
 
@@ -3708,7 +3711,7 @@ void Andross_AndPassage_Draw(AndPassage* this) {
     Animation_DrawSkeleton(1, aVe2AndrossGateSkel, frameTable, Andross_801935B4, NULL, NULL, &gIdentityMatrix);
 }
 
-void Andross_AndPassage_Setup(AndPassage* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
+void Andross_AndPassage_Setup(AndPassage* this, f32 xPos, f32 yPos, f32 zPos, s32 sceneryActorId) {
     Scenery_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_SCENERY_AND_PASSAGE;
@@ -3717,11 +3720,11 @@ void Andross_AndPassage_Setup(AndPassage* this, f32 xPos, f32 yPos, f32 zPos, s3
     this->obj.pos.z = zPos;
     this->effectVel.z = -40.0f;
     Object_SetInfo(&this->info, this->obj.id);
-    this->timer_4C = (arg4 * 50) + 100;
+    this->timer_4C = (sceneryActorId * 50) + 100;
     this->info.cullDistance = 100000.0f;
 }
 
-void Andross_80193710(void) {
+void Andross_LoadLevelObjects(void) {
     Actor* actor;
     Scenery360* scenery360;
     Boss* boss;
@@ -3772,7 +3775,8 @@ void Andross_80193710(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-void Andross_801939A0(s32 actorIdx) {
+// actorIdx 1 for James, 10 for Fox.
+void Andross_ArwingEscape_Setup(s32 actorIdx) {
     Actor* actor = &gActors[actorIdx];
 
     Actor_Initialize(actor);
@@ -3800,23 +3804,23 @@ void Andross_801939A0(s32 actorIdx) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, actor->sfxSource, 0);
 }
 
-Vec3f D_i6_801A6878[4] = {
+Vec3f sAndTeamSetupPos[4] = {
     { 1500.0f, 15000.0f, 0.0f },
     { 0.0f, 15000.0f, -600.0f },
     { -400.0f, 14950.0f, 0.0f },
     { 500.0f, 14930.0f, -300.0f },
 };
 
-void Andross_80193AE4(s32 actorIndex) {
+void Andross_Team_Setup(s32 actorIndex) {
     Actor* actor = &gActors[actorIndex];
 
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    actor->obj.pos.x = D_i6_801A6878[actorIndex].x;
-    actor->obj.pos.y = D_i6_801A6878[actorIndex].y;
-    actor->obj.pos.z = D_i6_801A6878[actorIndex].z;
+    actor->obj.pos.x = sAndTeamSetupPos[actorIndex].x;
+    actor->obj.pos.y = sAndTeamSetupPos[actorIndex].y;
+    actor->obj.pos.z = sAndTeamSetupPos[actorIndex].z;
 
     Object_SetInfo(&actor->info, actor->obj.id);
 
@@ -3838,14 +3842,14 @@ void Andross_80193AE4(s32 actorIndex) {
 //! this to nop is harmless, as the overlay will be unloaded next frame.
 extern s32 D_ending_80196D00;
 
-f32 D_i6_801A7F40;
-f32 D_i6_801A7F44;
-f32 D_i6_801A7F48;
-f32 D_i6_801A7F4C;
-f32 D_i6_801A7F50;
-f32 D_i6_801A7F54;
+f32 sAndLightR;
+f32 sAndLightG;
+f32 sAndLightB;
+f32 sAndAmbientR;
+f32 sAndAmbientG;
+f32 sAndAmbientB;
 
-void Andross_80193C4C(Player* player) {
+void Andross_LevelComplete(Player* player) {
     s32 i;
     s32 sp90;
     f32 sp8C;
@@ -3862,7 +3866,7 @@ void Andross_80193C4C(Player* player) {
         player->arwing.bottomLeftFlapYrot = 0.0f;
 
     switch (player->csState) {
-        case 0:
+        case 0: // Andross Robot kill cutscene setup
             gCsFrameCount = 0;
             player->arwing.drawFace = true;
             D_ctx_80177A48[0] = 0.0f;
@@ -3873,7 +3877,7 @@ void Andross_80193C4C(Player* player) {
             player->csTimer = 50;
             player->vel.z = -40.0f;
             /* fallthrough */
-        case 1:
+        case 1: // Andross Robot exploding, Arwing does a U-turn
             Math_SmoothStepToF(&player->zRotBank, 0.0f, 0.1f, 15.0f, 0.0f);
             Math_SmoothStepToF(&boss->vel.z, -40.0f, 1.0f, 1.0f, 0.0f);
             Math_SmoothStepToF(&player->rot.y, 0.0f, 0.1f, 10.0f, 0.0f);
@@ -3926,7 +3930,7 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
             break;
 
-        case 2:
+        case 2: // Arwing accelerates through tunnel
             player->unk_190 = D_ctx_80177A48[8];
             sp90 = 0;
             sp68.x = RAND_FLOAT_CENTERED(150.0f);
@@ -4045,7 +4049,7 @@ void Andross_80193C4C(Player* player) {
                         gScenery360[i].obj.status = OBJ_FREE;
                     }
 
-                    Andross_80193710();
+                    Andross_LoadLevelObjects();
                     D_ctx_8017782C = true;
                     Play_InitEnvironment();
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
@@ -4057,7 +4061,7 @@ void Andross_80193C4C(Player* player) {
             }
             break;
 
-        case 3:
+        case 3: // Coming out of the tunnel, side camera
             if (player->csTimer == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 0;
@@ -4067,10 +4071,10 @@ void Andross_80193C4C(Player* player) {
             }
 
             if ((gCsFrameCount == 20) && (gVenomHardClear != 0)) {
-                Andross_801939A0(1);
+                Andross_ArwingEscape_Setup(1);
             }
             if (gCsFrameCount == 40) {
-                Andross_801939A0(10);
+                Andross_ArwingEscape_Setup(10);
                 AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, boss->sfxSource, 4);
                 gCameraShake = 30;
                 gSceneSetup = 1;
@@ -4104,12 +4108,12 @@ void Andross_80193C4C(Player* player) {
                 gActors[10].orient.z = 180.0f;
                 gDrawBackdrop = 0;
                 gFogFar = 1030;
-                D_i6_801A7F40 = gLight1R;
-                D_i6_801A7F44 = gLight1G;
-                D_i6_801A7F48 = gLight1B;
-                D_i6_801A7F4C = gAmbientR;
-                D_i6_801A7F50 = gAmbientG;
-                D_i6_801A7F54 = gAmbientB;
+                sAndLightR = gLight1R;
+                sAndLightG = gLight1G;
+                sAndLightB = gLight1B;
+                sAndAmbientR = gAmbientR;
+                sAndAmbientG = gAmbientG;
+                sAndAmbientB = gAmbientB;
                 gEnvLightyRot = -50.0f;
                 gMissionStatus = MISSION_ACCOMPLISHED;
                 for (i = 0; i < 200; i++) {
@@ -4118,27 +4122,27 @@ void Andross_80193C4C(Player* player) {
             }
             break;
 
-        case 4:
+        case 4: // Coming out of the tunnel, above camera
             player->camRoll += D_ctx_80177A48[3];
 
             if (gCsFrameCount > 190) {
                 Math_SmoothStepToF(&D_ctx_80177A48[3], 0.3f, 0.05f, 0.02f, 0.0f);
             }
             if (gCsFrameCount > 205) {
-                Math_SmoothStepToF(&D_i6_801A7F40, 130.0f, 1.0f, 10.0f, 0.0f);
-                Math_SmoothStepToF(&D_i6_801A7F44, 160.0f, 1.0f, 10.0f, 0.0f);
-                Math_SmoothStepToF(&D_i6_801A7F48, 80.0f, 1.0f, 10.0f, 0.0f);
-                Math_SmoothStepToF(&D_i6_801A7F4C, 10.0f, 1.0f, 5.0f, 0.0f);
-                Math_SmoothStepToF(&D_i6_801A7F50, 10.0f, 1.0f, 5.0f, 0.0f);
-                Math_SmoothStepToF(&D_i6_801A7F54, 10.0f, 1.0f, 5.0f, 0.0f);
+                Math_SmoothStepToF(&sAndLightR, 130.0f, 1.0f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&sAndLightG, 160.0f, 1.0f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&sAndLightB, 80.0f, 1.0f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&sAndAmbientR, 10.0f, 1.0f, 5.0f, 0.0f);
+                Math_SmoothStepToF(&sAndAmbientG, 10.0f, 1.0f, 5.0f, 0.0f);
+                Math_SmoothStepToF(&sAndAmbientB, 10.0f, 1.0f, 5.0f, 0.0f);
             }
-            gLight1R = D_i6_801A7F40;
-            gLight1G = D_i6_801A7F44;
-            gLight1B = D_i6_801A7F48;
+            gLight1R = sAndLightR;
+            gLight1G = sAndLightG;
+            gLight1B = sAndLightB;
 
-            gAmbientR = D_i6_801A7F4C;
-            gAmbientG = D_i6_801A7F50;
-            gAmbientB = D_i6_801A7F54;
+            gAmbientR = sAndAmbientR;
+            gAmbientG = sAndAmbientG;
+            gAmbientB = sAndAmbientB;
 
             Math_SmoothStepToF(&D_ctx_80177A48[1], -5000.0f, 0.05f, 15.0f, 0.0f);
 
@@ -4155,6 +4159,7 @@ void Andross_80193C4C(Player* player) {
                                         boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f),
                                         60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 15.5f);
             }
+
             sp80 = RAND_FLOAT(40.0f);
             for (i = 0; i < 36; i += 4) {
                 sp8C = __sinf((i * 10.0f * M_DTOR) + sp80) * D_ctx_80177A48[2];
@@ -4165,15 +4170,15 @@ void Andross_80193C4C(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[2], 10000.0f, 0.05f, 20.0f, 0.0f);
 
             if (gCsFrameCount == 220) {
-                Andross_80193AE4(0);
+                Andross_Team_Setup(0);
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                    Andross_80193AE4(1);
+                    Andross_Team_Setup(1);
                 }
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                    Andross_80193AE4(2);
+                    Andross_Team_Setup(2);
                 }
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                    Andross_80193AE4(3);
+                    Andross_Team_Setup(3);
                 }
             }
 
@@ -4212,7 +4217,7 @@ void Andross_80193C4C(Player* player) {
             }
             break;
 
-        case 5:
+        case 5: // Fox reunites with his teammates and the great fox
             if (player->csTimer == 1) {
                 gFillScreenAlpha = gFillScreenAlphaTarget = 0;
             }
@@ -4257,7 +4262,6 @@ void Andross_80193C4C(Player* player) {
                                 D_ctx_80177A48[3] = -25.0f;
                                 break;
                             default:
-                                // D_ctx_80177A48[2] = 0.0f;
                                 break;
                         }
                     }
@@ -4356,7 +4360,7 @@ void Andross_80193C4C(Player* player) {
             }
             break;
 
-        case 100:
+        case 100: // Entering tunnel
             gPlayerGlareAlphas[0] -= 4;
             if (gPlayerGlareAlphas[0] > 255) {
                 gPlayerGlareAlphas[0] = 0;
@@ -4415,7 +4419,7 @@ void Andross_80193C4C(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
-void Andross_80195E44(ActorCutscene* this) {
+void Andross_ArwingEscape_Update(ActorCutscene* this) {
     Vec3f sp44;
     Vec3f sp38;
     f32 sp34;
@@ -4446,6 +4450,7 @@ void Andross_80195E44(ActorCutscene* this) {
             this->work_046 -= 5;
             if (this->work_046 < 0) {
                 this->work_046 = 0;
+                // Kill James's Arwing actor
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -4486,7 +4491,9 @@ void Andross_80195E44(ActorCutscene* this) {
     this->obj.rot.z = -this->orient.z;
 }
 
-void Andross_801961AC(void) {
+// In case the player dies, the AndBrain actor needs to be reinitialized,
+// since it is what's controlling the escape phase of the level.
+void Andross_EscapePhase_Setup(void) {
     Boss* boss = &gBosses[0];
 
     Boss_Initialize(boss);
