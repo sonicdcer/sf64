@@ -34,11 +34,11 @@ aAndEyeHurtAnim:
 aAndLaughAnim:
   {type: SF64:ANIM, offset: 0xC002B08, symbol: aAndLaughAnim}
 
-D_ANDROSS_C002B20:
-  {type: GFX, offset: 0xC002B20, symbol: D_ANDROSS_C002B20}
+aAndRobotUpperMouthDL:
+  {type: GFX, offset: 0xC002B20, symbol: aAndRobotUpperMouthDL}
 
-D_ANDROSS_C002F00:
-  {type: GFX, offset: 0xC002F00, symbol: D_ANDROSS_C002F00}
+aAndRobotLowerMouthDL:
+  {type: GFX, offset: 0xC002F00, symbol: aAndRobotLowerMouthDL}
 
 D_ANDROSS_C0031D0:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0031D0, symbol: D_ANDROSS_C0031D0}
@@ -49,14 +49,14 @@ D_ANDROSS_C0039D0:
 D_ANDROSS_C0041D0:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0041D0, symbol: D_ANDROSS_C0041D0}
 
-D_ANDROSS_C0043D0:
-  {type: GFX, offset: 0xC0043D0, symbol: D_ANDROSS_C0043D0}
+aAndRobotLeftEyeDL:
+  {type: GFX, offset: 0xC0043D0, symbol: aAndRobotLeftEyeDL}
 
 D_ANDROSS_C004658:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC004658, symbol: D_ANDROSS_C004658}
 
-D_ANDROSS_C004860:
-  {type: GFX, offset: 0xC004860, symbol: D_ANDROSS_C004860}
+aAndRobotBodyDL:
+  {type: GFX, offset: 0xC004860, symbol: aAndRobotBodyDL}
 
 aAndRightEyeHurtAnim:
   {type: SF64:ANIM, offset: 0xC006F08, symbol: aAndRightEyeHurtAnim}
@@ -103,8 +103,8 @@ D_ANDROSS_C013F38:
 D_ANDROSS_C014738:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0xC014738, symbol: D_ANDROSS_C014738}
 
-D_ANDROSS_C015740:
-  {type: GFX, offset: 0xC015740, symbol: D_ANDROSS_C015740}
+aAndRobotRightEyeDL:
+  {type: GFX, offset: 0xC015740, symbol: aAndRobotRightEyeDL}
 
 D_ANDROSS_C016100:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC016100, symbol: D_ANDROSS_C016100}
@@ -136,13 +136,13 @@ aAndAndrossSkel:
 D_ANDROSS_C020128:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC020128, symbol: D_ANDROSS_C020128}
 
-D_ANDROSS_C022520:
-  {type: GFX, offset: 0xC022520, symbol: D_ANDROSS_C022520}
+aAndHandWeakPointDL:
+  {type: GFX, offset: 0xC022520, symbol: aAndHandWeakPointDL}
 
-D_ANDROSS_C022A10: # used in D_ANDROSS_C022520
+D_ANDROSS_C022A10: # used in aAndHandWeakPointDL
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0xC022A10, symbol: D_ANDROSS_C022A10}
 
-D_ANDROSS_C022A90: # used in D_ANDROSS_C022520
+D_ANDROSS_C022A90: # used in aAndHandWeakPointDL
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC022A90, symbol: D_ANDROSS_C022A90}
 
 aAndEjectAnim:
