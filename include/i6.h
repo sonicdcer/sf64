@@ -9,7 +9,7 @@
 
 extern f32 D_Andross_801A7F58;
 extern f32 D_Andross_801A7F60;
-extern f32 D_Andross_801A7F68;
+extern f32 gAndrossPassageZRot;
 extern f32 D_Andross_801A7F70;
 extern f32 D_Andross_801A7F78;
 
@@ -24,11 +24,11 @@ void SectorY_801A0AC0(Player*);
 
 void Andross_Gate_Draw(Actor*);
 void OvlI6_CallFunction(u32 mode, void* ptr);
-void Andross_801878A8(void);
-void Andross_801888F4(Actor *);
+void Andross_Ve2LoadLevelObjects(void);
+void Andross_AndBrainEye_Dying(Actor *);
 void Andross_80189214(void);
 void Andross_8018BDD8(void);
-void Andross_8018C390(Player*);
+void Andross_AbsorbArwing(Player*);
 void Andross_AndAndross_Init(Boss *);
 void Andross_EscapePhase_Setup(void);
 void Venom2_UpdateEvents(Actor*);
@@ -40,8 +40,8 @@ void Turret_Update(Player*);
 void Turret_UpdateCamera(Player*);
 void Turret_Draw(Player *);
 
-void Andross_ActorTeamArwing_Update(Actor*);
-void Andross_ActorTeamArwing_Draw(Actor*);
+void Andross_James_Update(Actor*);
+void Andross_James_Draw(Actor*);
 void Andross_AndBrainWaste_Update(Actor*);
 void Andross_AndBrainWaste_Draw(Actor*);
 void Andross_AndBossTimer_Update(Actor*);
@@ -50,8 +50,8 @@ void Andross_AndJamesTrigger_Update(Actor*);
 void Andross_AndExplosion_Update(Actor*);
 void Andross_AndBrain_Update(Boss*);
 void Andross_AndBrain_Draw(Boss*);
-void Andross_Effect396_Update(Effect*);
-void Andross_Effect396_Draw(Effect*);
+void Andross_AndSuction_Update(Effect*);
+void Andross_AndSuction_Draw(Effect*);
 void Andross_AndAndross_Update(Boss*);
 void Andross_AndAndross_Draw(Boss*);
 void Andross_AndLaserEmitter_Update(Actor*);

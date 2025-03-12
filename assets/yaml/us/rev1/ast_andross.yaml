@@ -25,8 +25,8 @@ D_ANDROSS_C001880:
 D_ANDROSS_C0019E8:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0019E8, symbol: D_ANDROSS_C0019E8}
 
-aAndLungeAnim:
-  {type: SF64:ANIM, offset: 0xC00208C, symbol: aAndLungeAnim}
+aAndRobotIdleAnim:
+  {type: SF64:ANIM, offset: 0xC00208C, symbol: aAndRobotIdleAnim}
 
 aAndEyeHurtAnim:
   {type: SF64:ANIM, offset: 0xC002654, symbol: aAndEyeHurtAnim, comment: This anim plays when one of Andross's eyes are hurt but no corresponding side hand exists}
@@ -145,8 +145,8 @@ D_ANDROSS_C022A10: # used in D_ANDROSS_C022520
 D_ANDROSS_C022A90: # used in D_ANDROSS_C022520
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC022A90, symbol: D_ANDROSS_C022A90}
 
-aAndSpitAnim:
-  {type: SF64:ANIM, offset: 0xC023B54, symbol: aAndSpitAnim}
+aAndEjectAnim:
+  {type: SF64:ANIM, offset: 0xC023B54, symbol: aAndEjectAnim}
 
 aAndSuctionAnim:
   {type: SF64:ANIM, offset: 0xC0240D0, symbol: aAndSuctionAnim}
@@ -157,8 +157,8 @@ aAndLeftEyeHurtAnim:
 aAndLeftHandPunchAttackAnim:
   {type: SF64:ANIM, offset: 0xC029F74, symbol: aAndLeftHandPunchAttackAnim}
 
-aAndLeftOpenHandAttackAnim:
-  {type: SF64:ANIM, offset: 0xC02E494, symbol: aAndLeftOpenHandAttackAnim}
+aAndLeftHandPalmAttackAnim:
+  {type: SF64:ANIM, offset: 0xC02E494, symbol: aAndLeftHandPalmAttackAnim}
 
 aAndHandCrushAnim:
   {type: SF64:ANIM, offset: 0xC02EDA0, symbol: aAndHandCrushAnim}
@@ -166,11 +166,11 @@ aAndHandCrushAnim:
 aAndRiseUpAnim:
   {type: SF64:ANIM, offset: 0xC02F634, symbol: aAndRiseUpAnim, comment: Unused }
 
-aAndRightOpenHandAttackAnim:
-  {type: SF64:ANIM, offset: 0xC030244, symbol: aAndRightOpenHandAttackAnim}
+aAndRightHandPalmAttackAnim:
+  {type: SF64:ANIM, offset: 0xC030244, symbol: aAndRightHandPalmAttackAnim}
 
-aAndFallbackAnim:
-  {type: SF64:ANIM, offset: 0xC033780, symbol: aAndFallbackAnim}
+aAndIdleAnim:
+  {type: SF64:ANIM, offset: 0xC033780, symbol: aAndIdleAnim}
 
 aAndCloseUpAnim:
   {type: SF64:ANIM, offset: 0xC033D98, symbol: aAndCloseUpAnim}

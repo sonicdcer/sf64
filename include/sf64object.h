@@ -523,7 +523,7 @@ typedef enum ObjectId {
     /* 196 */ OBJ_ACTOR_CO_MOLE_MISSILE,
     /* 197 */ OBJ_ACTOR_ALLRANGE,
     /* 198 */ OBJ_ACTOR_TEAM_BOSS,
-    /* 199 */ OBJ_ACTOR_TEAM_ARWING,
+    /* 199 */ OBJ_ACTOR_JAMES,
     /* 200 */ OBJ_ACTOR_EVENT,
     /* 201 */ OBJ_ACTOR_ME_METEO_BALL,
     /* 202 */ OBJ_ACTOR_ME_HOPBOT,
@@ -720,7 +720,7 @@ typedef enum ObjectId {
     /* 393 */ OBJ_EFFECT_393,
     /* 394 */ OBJ_EFFECT_394,
     /* 395 */ OBJ_EFFECT_395,
-    /* 396 */ OBJ_EFFECT_396,
+    /* 396 */ OBJ_EFFECT_AND_SUCTION,
     /* 397 */ OBJ_EFFECT_397,
     /* 398 */ OBJ_EFFECT_398,
     /* 399 */ OBJ_EFFECT_399,
@@ -1380,7 +1380,7 @@ typedef Effect Effect392;
 typedef Effect Effect393;
 typedef Effect Effect394;
 typedef Effect Effect395;
-typedef Effect Effect396;
+typedef Effect AndSuction;
 typedef Effect Effect397;
 typedef Effect Effect398;
 typedef Effect Effect399;

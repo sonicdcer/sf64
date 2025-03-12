@@ -2562,7 +2562,7 @@ void Play_InitLevel(void) {
         case LEVEL_VENOM_ANDROSS:
             gDrawGround = false;
             gDrawBackdrop = 6;
-            D_Andross_801A7F58 = D_Andross_801A7F60 = D_Andross_801A7F68 = D_Andross_801A7F70 = D_Andross_801A7F78 =
+            D_Andross_801A7F58 = D_Andross_801A7F60 = gAndrossPassageZRot = D_Andross_801A7F70 = D_Andross_801A7F78 =
                 0.0f;
             break;
 
@@ -2863,7 +2863,7 @@ void Play_Init(void) {
             case LEVEL_VENOM_ANDROSS:
                 if (gLevelPhase == 1) {
                     if (gAllRangeCheckpoint == 0) {
-                        Andross_801878A8();
+                        Andross_Ve2LoadLevelObjects();
                     } else {
                         Andross_EscapePhase_Setup();
                     }
@@ -5916,7 +5916,7 @@ void Player_Update(Player* player) {
             break;
 
         case PLAYERSTATE_ANDROSS_MOUTH:
-            Andross_8018C390(player);
+            Andross_AbsorbArwing(player);
             Player_UpdateShields(player);
             break;
 

@@ -2623,7 +2623,7 @@ void Object_Dying(s32 index, ObjectId objId) {
 
         case OBJ_ACTOR_ALLRANGE:
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                Andross_801888F4(&gActors[index]);
+                Andross_AndBrainEye_Dying(&gActors[index]);
             } else {
                 Actor_DyingCrash(&gActors[index]);
             }
