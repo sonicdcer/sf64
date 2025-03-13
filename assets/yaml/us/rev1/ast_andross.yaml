@@ -19,11 +19,11 @@ aAndTitleCardJpTex:
 aAndTitleCardEnTex:
   {type: TEXTURE, ctype: u8, format: IA8, width: 128, height: 28, offset: 0xC000A80, symbol: aAndTitleCardEnTex}
 
-D_ANDROSS_C001880:
-  {type: GFX, offset: 0xC001880, symbol: D_ANDROSS_C001880}
+aAndSuctionJunkDL:
+  {type: GFX, offset: 0xC001880, symbol: aAndSuctionJunkDL}
 
-D_ANDROSS_C0019E8:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0019E8, symbol: D_ANDROSS_C0019E8}
+aAndSuctionJunkTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0019E8, symbol: aAndSuctionJunkTex}
 
 aAndRobotIdleAnim:
   {type: SF64:ANIM, offset: 0xC00208C, symbol: aAndRobotIdleAnim}
@@ -40,20 +40,20 @@ aAndRobotUpperMouthDL:
 aAndRobotLowerMouthDL:
   {type: GFX, offset: 0xC002F00, symbol: aAndRobotLowerMouthDL}
 
-D_ANDROSS_C0031D0:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0031D0, symbol: D_ANDROSS_C0031D0}
+aAndRobotCircuitBoardTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0031D0, symbol: aAndRobotCircuitBoardTex1}
 
-D_ANDROSS_C0039D0:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0039D0, symbol: D_ANDROSS_C0039D0}
+aAndRobotCircuitBoardTex2:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0039D0, symbol: aAndRobotCircuitBoardTex2}
 
-D_ANDROSS_C0041D0:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0041D0, symbol: D_ANDROSS_C0041D0}
+aAndRobotLowerMouthTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0041D0, symbol: aAndRobotLowerMouthTex}
 
 aAndRobotLeftEyeDL:
   {type: GFX, offset: 0xC0043D0, symbol: aAndRobotLeftEyeDL}
 
-D_ANDROSS_C004658:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC004658, symbol: D_ANDROSS_C004658}
+aAndRobotLeftEyeTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC004658, symbol: aAndRobotLeftEyeTex}
 
 aAndRobotBodyDL:
   {type: GFX, offset: 0xC004860, symbol: aAndRobotBodyDL}
@@ -61,11 +61,11 @@ aAndRobotBodyDL:
 aAndRightEyeHurtAnim:
   {type: SF64:ANIM, offset: 0xC006F08, symbol: aAndRightEyeHurtAnim}
 
-D_ANDROSS_C007FC0:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC007FC0, symbol: D_ANDROSS_C007FC0}
+aAndAndrossHairBearTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC007FC0, symbol: aAndAndrossHairBearTex}
 
-D_ANDROSS_C0087C0:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0087C0, symbol: D_ANDROSS_C0087C0}
+aAndAndrossSkinTex4:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0087C0, symbol: aAndAndrossSkinTex4}
 
 aAndChewAnim:
   {type: SF64:ANIM, offset: 0xC00DE48, symbol: aAndChewAnim}
@@ -73,41 +73,41 @@ aAndChewAnim:
 aAndSmokeExhaustAnim:
   {type: SF64:ANIM, offset: 0xC00E598, symbol: aAndSmokeExhaustAnim}
 
-D_ANDROSS_C00F108:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0xC00F108, symbol: D_ANDROSS_C00F108}
+aAndAndrossTongueTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0xC00F108, symbol: aAndAndrossTongueTex}
 
-D_ANDROSS_C010108:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0xC010108, symbol: D_ANDROSS_C010108}
+aAndAndrossBlackSquareTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0xC010108, symbol: aAndAndrossBlackSquareTex}
 
-D_ANDROSS_C010188:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC010188, symbol: D_ANDROSS_C010188}
+aAndAndrossToothTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC010188, symbol: aAndAndrossToothTex}
 
-D_ANDROSS_C010988:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0xC010988, symbol: D_ANDROSS_C010988}
+aAndAndrossTeethTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0xC010988, symbol: aAndAndrossTeethTex}
 
-D_ANDROSS_C011988:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC011988, symbol: D_ANDROSS_C011988}
+aAndAndrossSkinTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC011988, symbol: aAndAndrossSkinTex1}
 
-D_ANDROSS_C012188:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC012188, symbol: D_ANDROSS_C012188}
+aAndAndrossSkinTex5:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC012188, symbol: aAndAndrossSkinTex5}
 
-D_ANDROSS_C012988:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC012988, symbol: D_ANDROSS_C012988}
+aAndAndrossEarTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC012988, symbol: aAndAndrossEarTex}
 
-D_ANDROSS_C013738:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC013738, symbol: D_ANDROSS_C013738}
+aAndAndrossSkinTex2:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC013738, symbol: aAndAndrossSkinTex2}
 
-D_ANDROSS_C013F38:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC013F38, symbol: D_ANDROSS_C013F38}
+aAndAndrossSkinTex3:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC013F38, symbol: aAndAndrossSkinTex3}
 
-D_ANDROSS_C014738:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0xC014738, symbol: D_ANDROSS_C014738}
+aAndAndrossInfraOrbitalTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0xC014738, symbol: aAndAndrossInfraOrbitalTex}
 
 aAndRobotRightEyeDL:
   {type: GFX, offset: 0xC015740, symbol: aAndRobotRightEyeDL}
 
-D_ANDROSS_C016100:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC016100, symbol: D_ANDROSS_C016100}
+aAndAndrossEyeTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC016100, symbol: aAndAndrossEyeTex}
 
 aAndDyingAnim:
   {type: SF64:ANIM, offset: 0xC017050, symbol: aAndDyingAnim}
@@ -115,14 +115,14 @@ aAndDyingAnim:
 aAndBombExplodeAnim:
   {type: SF64:ANIM, offset: 0xC017430, symbol: aAndBombExplodeAnim, comment: When a bomb explodes inside of him}
 
-D_ANDROSS_C017440:
-  {type: GFX, offset: 0xC017440, symbol: D_ANDROSS_C017440}
+aAndLightningAttackDL:
+  {type: GFX, offset: 0xC017440, symbol: aAndLightningAttackDL}
 
-D_ANDROSS_C017598:
-  {type: VTX, count: 34, offset: 0xC017598, symbol: D_ANDROSS_C017598}
+aAndLightningAttackVtx:
+  {type: VTX, count: 34, offset: 0xC017598, symbol: aAndLightningAttackVtx}
 
-D_ANDROSS_C0177B8:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0177B8, symbol: D_ANDROSS_C0177B8}
+aAndLightningAttackTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC0177B8, symbol: aAndLightningAttackTex}
 
 aAndLightningAttackAnim:
   {type: SF64:ANIM, offset: 0xC018BC4, symbol: aAndLightningAttackAnim}
@@ -133,17 +133,17 @@ aAndCloseUpOpenLeftHandAttackAnim:
 aAndAndrossSkel:
   {type: SF64:SKELETON, offset: 0xC01CC3C, symbol: aAndAndrossSkel}
 
-D_ANDROSS_C020128:
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC020128, symbol: D_ANDROSS_C020128}
+aAndAndrossSkelTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC020128, symbol: aAndAndrossSkelTex1}
 
 aAndHandWeakPointDL:
   {type: GFX, offset: 0xC022520, symbol: aAndHandWeakPointDL}
 
-D_ANDROSS_C022A10: # used in aAndHandWeakPointDL
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0xC022A10, symbol: D_ANDROSS_C022A10}
+aAndHandWeakPointTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0xC022A10, symbol: aAndHandWeakPointTex1}
 
-D_ANDROSS_C022A90: # used in aAndHandWeakPointDL
-  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC022A90, symbol: D_ANDROSS_C022A90}
+aAndHandWeakPointTex2:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC022A90, symbol: aAndHandWeakPointTex2}
 
 aAndEjectAnim:
   {type: SF64:ANIM, offset: 0xC023B54, symbol: aAndEjectAnim}
@@ -256,8 +256,8 @@ aAndAndrossHitbox:
 aAndBrainHitbox:
   {type: SF64:HITBOX, offset: 0xC038F24, symbol: aAndBrainHitbox}
 
-D_ANDROSS_C038FE8:
-  {type: VTX, count: 34, offset: 0xC038FE8, symbol: D_ANDROSS_C038FE8}
+aAndLightningAttackVtx2:
+  {type: VTX, count: 34, offset: 0xC038FE8, symbol: aAndLightningAttackVtx2}
 
 aAndBackdropDL:
   {type: GFX, offset: 0xC039208, symbol: aAndBackdropDL}

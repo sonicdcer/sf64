@@ -1384,8 +1384,8 @@ void Andross_8018BDD8(void) {
     Vtx* sp74;
     Vtx* sp70;
 
-    sp74 = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C038FE8);
-    sp70 = SEGMENTED_TO_VIRTUAL(D_ANDROSS_C017598);
+    sp74 = SEGMENTED_TO_VIRTUAL(aAndLightningAttackVtx2);
+    sp70 = SEGMENTED_TO_VIRTUAL(aAndLightningAttackVtx);
 
     for (i = 0; i < 17; i++) {
         if (i == 0 || i == 16) {
@@ -1680,9 +1680,9 @@ void Andross_AndSuction_Update(AndSuction* this) {
     }
 }
 
-Gfx* D_i6_801A6790[10] = {
-    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880,
-    D_ANDROSS_C001880, D_ANDROSS_C001880, D_ANDROSS_C001880, aAwLeftWingDL,     aAwRightWingDL,
+Gfx* sAndSuctionDLs[10] = {
+    aAndSuctionJunkDL, aAndSuctionJunkDL, aAndSuctionJunkDL, aAndSuctionJunkDL, aAndSuctionJunkDL,
+    aAndSuctionJunkDL, aAndSuctionJunkDL, aAndSuctionJunkDL, aAwLeftWingDL,     aAwRightWingDL,
 };
 
 void Andross_AndSuction_Draw(AndSuction* this) {
@@ -1697,7 +1697,7 @@ void Andross_AndSuction_Draw(AndSuction* this) {
             Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
-        gSPDisplayList(gMasterDisp++, D_i6_801A6790[this->unk_4C]);
+        gSPDisplayList(gMasterDisp++, sAndSuctionDLs[this->unk_4C]);
         RCP_SetupDL(&gMasterDisp, SETUPDL_64);
     }
 }
@@ -1947,12 +1947,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
     f32 yaw;
     f32 pitch;
     s16 limbCount;
-    s32 state;
+    AndAndrossState state;
     s32 pad;
 
     gBossFrameCount++;
 
-    state = this->state;
+    state = (AndAndrossState) this->state;
 
     Andross_Backdrop_RotEffect();
 
@@ -3574,7 +3574,7 @@ void Andross_AndAndross_Draw(AndAndross* this) {
             Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 200.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
+            gSPDisplayList(gMasterDisp++, aAndLightningAttackDL);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_RotateZ(gGfxMatrix, 120.0f * M_DTOR, MTXF_APPLY);
@@ -3582,7 +3582,7 @@ void Andross_AndAndross_Draw(AndAndross* this) {
             Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 200.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
+            gSPDisplayList(gMasterDisp++, aAndLightningAttackDL);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_RotateZ(gGfxMatrix, 240.0f * M_DTOR, MTXF_APPLY);
@@ -3590,7 +3590,7 @@ void Andross_AndAndross_Draw(AndAndross* this) {
             Matrix_Scale(gGfxMatrix, 0.3f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 200.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
+            gSPDisplayList(gMasterDisp++, aAndLightningAttackDL);
             Matrix_Pop(&gGfxMatrix);
         }
         Lights_SetOneLight(&gMasterDisp, gLight1x, gLight1y, gLight1z, gLight1R, gLight1G, gLight1B, gAmbientR,

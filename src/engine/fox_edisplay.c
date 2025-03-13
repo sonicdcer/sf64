@@ -1958,7 +1958,7 @@ void TexturedLine_Draw(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 25.0f * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_ANDROSS_C017440);
+                    gSPDisplayList(gMasterDisp++, aAndLightningAttackDL);
                 }
             } else {
                 Matrix_SetGfxMtx(&gMasterDisp);

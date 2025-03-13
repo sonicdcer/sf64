@@ -387,7 +387,7 @@
     vram: 0x0C000000
     start: 0xCAEA30
     subsegments:
-      - [0xCAEA30, bin, ast_andross/ast_andross]
+      - [0xCAEA30, .data, ast_andross/ast_andross]
 
   - name: ast_logo
     exclusive_ram_id: segment_0F
