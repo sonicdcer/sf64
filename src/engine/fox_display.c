@@ -368,7 +368,7 @@ void Display_LandmasterMuzzleFlash(Player* player) {
 }
 
 void Display_LandmasterThrusters(Player* player) {
-    f32 sp2C;
+    f32 thrusterScale;
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &D_display_80161418[player->num]);
@@ -382,14 +382,14 @@ void Display_LandmasterThrusters(Player* player) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     }
 
-    sp2C = player->unk_16C;
-    if (sp2C > 0.2f) {
+    thrusterScale = player->unk_16C;
+    if (thrusterScale > 0.2f) {
         if (!gVersusMode) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         if ((gGameFrameCount % 2) != 0) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         Matrix_Push(&gGfxMatrix);
@@ -399,26 +399,26 @@ void Display_LandmasterThrusters(Player* player) {
             Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         }
 
-        Matrix_Scale(gGfxMatrix, sp2C, sp2C, sp2C, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, thrusterScale, thrusterScale, thrusterScale, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (!gVersusMode) {
-            gSPDisplayList(gMasterDisp++, D_landmaster_30066B0);
+            gSPDisplayList(gMasterDisp++, aLandmasterThrusterDL);
         } else {
-            gSPDisplayList(gMasterDisp++, D_versus_301B6E0);
+            gSPDisplayList(gMasterDisp++, aVsLandmasterThrusterDL);
         }
         Matrix_Pop(&gGfxMatrix);
     }
 
-    sp2C = player->unk_170;
-    if (sp2C > 0.2f) {
+    thrusterScale = player->unk_170;
+    if (thrusterScale > 0.2f) {
         if (!gVersusMode) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         if ((gGameFrameCount % 2) != 0) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         Matrix_Push(&gGfxMatrix);
@@ -428,14 +428,14 @@ void Display_LandmasterThrusters(Player* player) {
             Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         }
 
-        Matrix_Scale(gGfxMatrix, sp2C, sp2C, sp2C, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, thrusterScale, thrusterScale, thrusterScale, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (!gVersusMode) {
-            gSPDisplayList(gMasterDisp++, D_landmaster_30066B0);
+            gSPDisplayList(gMasterDisp++, aLandmasterThrusterDL);
         } else {
-            gSPDisplayList(gMasterDisp++, D_versus_301B6E0);
+            gSPDisplayList(gMasterDisp++, aVsLandmasterThrusterDL);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -795,7 +795,7 @@ void Display_PlayerShadow_Draw(Player* player) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_65);
             }
             if (!gVersusMode) {
-                gSPDisplayList(gMasterDisp++, D_landmaster_3008100);
+                gSPDisplayList(gMasterDisp++, aLandmasterShadowDL);
             } else {
                 gSPDisplayList(gMasterDisp++, D_versus_301E570);
             }

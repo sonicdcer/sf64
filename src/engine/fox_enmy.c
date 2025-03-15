@@ -1119,7 +1119,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_ZO_BARRIER:
             Zoness_ZoBarrier_Init(&gActors[index]);
             break;
-        case OBJ_EFFECT_368:
+        case OBJ_EFFECT_TANK_TRACKS:
             if (gCurrentLevel == LEVEL_TITANIA) {
                 Ground_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + gPathProgress, &xRot, &sp4C,
                                 &zRot);

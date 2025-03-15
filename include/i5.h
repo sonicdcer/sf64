@@ -54,13 +54,13 @@ void Ground_801B58AC(Gfx **, f32);
 bool Ground_801B6AEC(f32, f32, f32);
 bool Ground_801B6E20(f32, f32, f32 *, f32 *, f32 *);
 void Macbeth_801AD144(PlayerShot*);
-void Titania_Effect368_Spawn(f32, f32, f32, f32, f32);
+void Titania_TankTracks_Spawn(f32, f32, f32, f32, f32);
 bool Macbeth_801A3C20(f32);
 bool Macbeth_801A3300(Player*, f32, f32);
 bool Macbeth_801A3790(Player*, f32, f32);
 
-void Titania_Effect368_Update(Effect*);
-void Titania_Effect368_Draw(Effect*);
+void Titania_TankTracks_Update(Effect*);
+void Titania_TankTracks_Draw(Effect*);
 void Titania_TiTerrain_Update(Actor*);
 void Titania_TiDesertRover_Update(Actor*);
 void Titania_TiDesertRover_Draw(Actor*);

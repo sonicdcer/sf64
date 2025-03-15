@@ -1385,7 +1385,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
                     gDPSetEnvColor(gMasterDisp++, 0, 255, 0, 0);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_landmaster_3006940);
+                    gSPDisplayList(gMasterDisp++, aLandmasterShotDL);
                 }
                 break;
             case PLAYERSHOT_ON_FOOT:
