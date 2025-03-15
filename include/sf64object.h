@@ -690,13 +690,13 @@ typedef enum ObjectId {
     /* 363 */ OBJ_EFFECT_363,
     /* 364 */ OBJ_EFFECT_364,
     /* 365 */ OBJ_EFFECT_365,
-    /* 366 */ OBJ_EFFECT_BUBBLE, // ast_blue_marine
+    /* 366 */ OBJ_EFFECT_BUBBLE,
     /* 367 */ OBJ_EFFECT_367, // ast_bg_planet
-    /* 368 */ OBJ_EFFECT_TANK_TRACKS, // TI: ast_landmaster
+    /* 368 */ OBJ_EFFECT_TANK_TRACKS,
     /* 369 */ OBJ_EFFECT_369, // ME: ast_common
     /* 370 */ OBJ_EFFECT_370, // ME: ast_meteo
     /* 371 */ OBJ_EFFECT_371, // ME: ast_meteo
-    /* 372 */ OBJ_EFFECT_BEAM_WATER_SPLASH, // ast_arwing
+    /* 372 */ OBJ_EFFECT_BEAM_WATER_SPLASH,
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
     /* 374 */ OBJ_EFFECT_374, // ast_enmy_planet
     /* 375 */ OBJ_EFFECT_375,
