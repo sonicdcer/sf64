@@ -53,7 +53,7 @@
     start: 0x8A9520
     vram: 0x03000000
     subsegments:
-      - [0x8A9520, bin, ast_landmaster/ast_landmaster]
+      - [0x8A9520, .data, ast_landmaster/ast_landmaster]
 
   - name: ast_blue_marine
     exclusive_ram_id: segment_03
