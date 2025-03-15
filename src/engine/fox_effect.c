@@ -389,12 +389,12 @@ void Effect_Clouds_Draw(EffectClouds* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
 }
 
-void Effect_Effect366_Draw(Effect366* this) {
+void Effect_Bubble_Draw(Bubble* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     gDPSetEnvColor(gMasterDisp++, 101, 138, 153, 255);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3000660);
+    gSPDisplayList(gMasterDisp++, aBlueMarineBubbleDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -3334,7 +3334,7 @@ void func_effect_800815DC(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (((gEffects[i].obj.id == OBJ_EFFECT_366) ||
+        if (((gEffects[i].obj.id == OBJ_EFFECT_BUBBLE) ||
              ((gEffects[i].obj.id == OBJ_EFFECT_395) && (gEffects[i].state == 1)) ||
              (gEffects[i].obj.id == OBJ_EFFECT_364) || (gEffects[i].obj.id == OBJ_EFFECT_346)) &&
             gEffects[i].obj.status == OBJ_ACTIVE) {

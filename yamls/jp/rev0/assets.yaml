@@ -62,7 +62,7 @@
     start: 0x8B1AB0
     vram: 0x03000000
     subsegments:
-      - [0x8B1AB0, bin, ast_blue_marine/ast_blue_marine]
+      - [0x8B1AB0, .data, ast_blue_marine/ast_blue_marine]
 
   - name: ast_versus
     exclusive_ram_id: segment_03

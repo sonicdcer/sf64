@@ -648,8 +648,7 @@ void Aquas_801A9ED0(Player* player) {
     Aquas_801A9DE4(player);
 }
 
-// Blue Marine Reticle
-void Aquas_801AA20C(void) {
+void Aquas_BlueMarineReticle_Draw(void) {
     s32 i;
     f32 x;
     f32 y;
@@ -659,7 +658,7 @@ void Aquas_801AA20C(void) {
         Math_SmoothStepToF(&D_i3_801C41B8[5], 3.0f, 1.0f, 4.0f, 0.0001f);
         RCP_SetupDL(&gMasterDisp, SETUPDL_61);
 
-        if (D_i3_801C4190[3] == 0) {
+        if (D_i3_801C4190[3] == 0) { // Normal
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
             x = -10.0f;
             y = 10.0f;
@@ -677,16 +676,16 @@ void Aquas_801AA20C(void) {
                 Matrix_Translate(gGfxMatrix, x, y, 0.0f, MTXF_APPLY);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_blue_marine_3000470);
+                gSPDisplayList(gMasterDisp++, aBlueMarineReticleDL);
                 Matrix_Pop(&gGfxMatrix);
             }
-        } else {
+        } else { // Target
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
             Matrix_Translate(gGfxMatrix, D_i3_801C41B8[0], D_i3_801C41B8[1], D_i3_801C41B8[2] + gPlayer[0].zPath,
                              MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C41B8[5], D_i3_801C41B8[5], D_i3_801C41B8[5], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_blue_marine_3000130);
+            gSPDisplayList(gMasterDisp++, aBlueMarineReticleTargetDL);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -1065,15 +1064,15 @@ void Aquas_BlueMarineMove(Player* player) {
 
         if (player->boostSpeed > 1.0f) {
             player->unk_178 -= 30.0f;
-            Aquas_Effect366_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp80.x,
-                                  player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp80.y,
-                                  player->trueZpos + RAND_FLOAT_CENTERED(10.0f) + (sp80.z * -1.0f), 0.4f, 1);
+            Aquas_Bubble_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp80.x,
+                               player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp80.y,
+                               player->trueZpos + RAND_FLOAT_CENTERED(10.0f) + (sp80.z * -1.0f), 0.4f, 1);
         } else {
             player->unk_178 -= 10.0f;
             if ((gGameFrameCount % 8) == 0) {
-                Aquas_Effect366_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp80.x,
-                                      player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp80.y,
-                                      player->trueZpos + RAND_FLOAT_CENTERED(20.0f) + sp80.z, 0.4f, 0);
+                Aquas_Bubble_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp80.x,
+                                   player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp80.y,
+                                   player->trueZpos + RAND_FLOAT_CENTERED(20.0f) + sp80.z, 0.4f, 0);
             }
         }
     }
@@ -1356,10 +1355,10 @@ void Aquas_BlueMarineShoot(Player* player) {
     }
 }
 
-void Aquas_Effect366_Setup(Effect366* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Aquas_Bubble_Setup(Bubble* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_366;
+    this->obj.id = OBJ_EFFECT_BUBBLE;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -1376,19 +1375,19 @@ void Aquas_Effect366_Setup(Effect366* this, f32 xPos, f32 yPos, f32 zPos, f32 sc
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Aquas_Effect366_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
+void Aquas_Bubble_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
     s32 i;
 
     for (i = 0; i < 95; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Aquas_Effect366_Setup(&gEffects[i], xPos, yPos, zPos, scale2, unk4E);
+            Aquas_Bubble_Setup(&gEffects[i], xPos, yPos, zPos, scale2, unk4E);
             break;
         }
     }
 }
 
-void Aquas_Effect366_Update(Effect366* this) {
-    f32 temp_fs0;
+void Aquas_Bubble_Update(Bubble* this) {
+    f32 waveAmplitude;
 
     if (this->unk_46 != 0) {
         this->unk_46--;
@@ -1403,9 +1402,9 @@ void Aquas_Effect366_Update(Effect366* this) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             this->scale1 += 33.0f;
-            temp_fs0 = COS_DEG(this->scale1) * 1.5f;
-            this->vel.x = __cosf(gPlayer[0].camYaw) * temp_fs0;
-            this->vel.z = __sinf(gPlayer[0].camYaw) * temp_fs0;
+            waveAmplitude = COS_DEG(this->scale1) * 1.5f;
+            this->vel.x = __cosf(gPlayer[0].camYaw) * waveAmplitude;
+            this->vel.z = __sinf(gPlayer[0].camYaw) * waveAmplitude;
             break;
 
         case 1:
@@ -1414,11 +1413,10 @@ void Aquas_Effect366_Update(Effect366* this) {
             }
             this->orient.x += 0.07f;
             this->scale1 += 33.0f;
-
             this->vel.y = this->orient.x + (SIN_DEG(this->scale1) * 3.0f);
-            temp_fs0 = COS_DEG(this->scale1) * 3.0f;
-            this->vel.x = COS_DEG(this->orient.y) * temp_fs0;
-            this->vel.z = -SIN_DEG(this->orient.y) * temp_fs0;
+            waveAmplitude = COS_DEG(this->scale1) * 3.0f;
+            this->vel.x = COS_DEG(this->orient.y) * waveAmplitude;
+            this->vel.z = -SIN_DEG(this->orient.y) * waveAmplitude;
             break;
 
         case 2:
@@ -1429,9 +1427,9 @@ void Aquas_Effect366_Update(Effect366* this) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             this->scale1 += 55.0f;
-            temp_fs0 = COS_DEG(this->scale1) * 2.5f;
-            this->vel.x = __cosf(gPlayer[0].camYaw) * temp_fs0;
-            this->vel.z = __sinf(gPlayer[0].camYaw) * temp_fs0;
+            waveAmplitude = COS_DEG(this->scale1) * 2.5f;
+            this->vel.x = __cosf(gPlayer[0].camYaw) * waveAmplitude;
+            this->vel.z = __sinf(gPlayer[0].camYaw) * waveAmplitude;
             break;
     }
 }
@@ -1440,30 +1438,30 @@ void Aquas_BlueMarine_Draw(Player* player) {
     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -40.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3000C70);
+    gSPDisplayList(gMasterDisp++, aBlueMarineBodyDL);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, -4.5f, 1.2f, MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix, player->unk_178 * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3006DE0);
+    gSPDisplayList(gMasterDisp++, aBlueMarinePropellerDL);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 0.0f, 2.0f, 40.0f, MTXF_APPLY);
     Matrix_RotateY(gGfxMatrix, -player->unk_180 * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3006C70);
+    gSPDisplayList(gMasterDisp++, aBlueMarineBackRudderDL);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, -19.0f, -3.6f, 1.2f, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3000AF0);
+    gSPDisplayList(gMasterDisp++, aBlueMarineLeftRudderDL);
     Matrix_Pop(&gGfxMatrix);
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, 19.0f, -3.6f, 1.2f, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, player->unk_17C * M_DTOR, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3006AF0);
+    gSPDisplayList(gMasterDisp++, aBlueMarineRightRudderDL);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -1485,9 +1483,9 @@ void Aquas_BlueMarineBoost(Player* player) {
         sp54.z = 70.0f;
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-        Aquas_Effect366_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp48.x,
-                              player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp48.y,
-                              player->trueZpos + RAND_FLOAT_CENTERED(10.0f) + (sp48.z * -1.0f), 0.4f, 1);
+        Aquas_Bubble_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f) + sp48.x,
+                           player->pos.y + RAND_FLOAT_CENTERED(10.0f) + sp48.y,
+                           player->trueZpos + RAND_FLOAT_CENTERED(10.0f) + (sp48.z * -1.0f), 0.4f, 1);
         Math_SmoothStepToF(&player->camDist, -130.0f, 0.1f, 10.0f, 0.00001f);
 
         player->zRotBarrelRoll -= player->meteoWarpSpinSpeed;
@@ -2014,10 +2012,9 @@ void Aquas_AqBacoonMuscle_Update(AqBacoonMuscle* this) {
                     if (D_i3_801C42A0[23] == 0) {
                         D_i3_801C4308[79] = -180.0f;
                         for (i = 0; i < 60; i++) {
-                            Aquas_Effect366_Spawn(gBosses[0].obj.pos.x + RAND_FLOAT_CENTERED(1800.0f),
-                                                  gBosses[0].obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(1000.0f),
-                                                  gBosses[0].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f), 7.0f,
-                                                  2);
+                            Aquas_Bubble_Spawn(gBosses[0].obj.pos.x + RAND_FLOAT_CENTERED(1800.0f),
+                                               gBosses[0].obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(1000.0f),
+                                               gBosses[0].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f), 7.0f, 2);
                         }
                         gBosses[0].timer_052 = 0;
                         gBosses[0].timer_056 = 60;
@@ -2332,8 +2329,8 @@ void Aquas_AqBacconBarnacle_Update(AqBacconBarnacle* this) {
                 Math_SmoothStepToAngle(&this->obj.rot.x, 80.0f, 0.1f, 1.0f, 0.001f);
 
                 if (((gGameFrameCount % 2) == 0)) {
-                    Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(300.0f),
-                                          this->obj.pos.y + RAND_FLOAT_CENTERED(200.0f), this->obj.pos.z, 4.0f, 2);
+                    Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(300.0f),
+                                       this->obj.pos.y + RAND_FLOAT_CENTERED(200.0f), this->obj.pos.z, 4.0f, 2);
                 }
 
                 if (this->timer_0C6 == 0) {
@@ -2376,8 +2373,8 @@ void Aquas_AqBacconBarnacle_Update(AqBacconBarnacle* this) {
                     if (this->fwork[0] <= 0.2f) {
                         for (i = 0; i < 5; i++) {
                             Effect_Effect362_Spawn(this->obj.pos.x, gGroundHeight + 50.0f, this->obj.pos.z, 20.0f);
-                            Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(300.0f),
-                                                  gGroundHeight + (i * 20.0f), this->obj.pos.z, 5.0f, 2);
+                            Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(300.0f),
+                                               gGroundHeight + (i * 20.0f), this->obj.pos.z, 5.0f, 2);
                         }
 
                         if (gBosses[0].state < 13) {
@@ -2494,9 +2491,8 @@ void Aquas_AqPearl_Update(AqPearl* this) {
     }
 
     if (((gGameFrameCount % 16) == 0)) {
-        Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f),
-                              this->obj.pos.y + RAND_FLOAT_CENTERED(10.0f),
-                              this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.0f, 1);
+        Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), this->obj.pos.y + RAND_FLOAT_CENTERED(10.0f),
+                           this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.0f, 1);
     }
     Aquas_801A96DC(this);
 }
@@ -2672,9 +2668,9 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
             Aquas_801B0FCC(this);
             if (!(this->timer_056 & 1)) {
                 for (i3 = 0; i3 < 30; i3++) {
-                    Aquas_Effect366_Spawn(gBosses[0].obj.pos.x + RAND_FLOAT_CENTERED(1800.0f),
-                                          gBosses[0].obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
-                                          gBosses[0].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f), 7.0f, 2);
+                    Aquas_Bubble_Spawn(gBosses[0].obj.pos.x + RAND_FLOAT_CENTERED(1800.0f),
+                                       gBosses[0].obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
+                                       gBosses[0].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f), 7.0f, 2);
                 }
             }
             if (this->timer_056 == 0) {
@@ -2896,9 +2892,9 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
         case 18:
             if (this->timer_056 != 0) {
                 for (i3 = 0; i3 < 30; i3++) {
-                    Aquas_Effect366_Spawn(gBosses[0].obj.pos.x + RAND_FLOAT_CENTERED(1800.0f),
-                                          gBosses[0].obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
-                                          gBosses[0].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f), 7.0f, 2);
+                    Aquas_Bubble_Spawn(gBosses[0].obj.pos.x + RAND_FLOAT_CENTERED(1800.0f),
+                                       gBosses[0].obj.pos.y + RAND_FLOAT_CENTERED(500.0f),
+                                       gBosses[0].obj.pos.z + 700.0f + RAND_FLOAT_CENTERED(1000.0f), 7.0f, 2);
                 }
             }
             break;
@@ -3908,9 +3904,9 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
             }
 
             if ((gGameFrameCount % 8) == 0) {
-                Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                                      this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
-                                      this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 1);
+                Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
+                                   this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
+                                   this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 1);
             }
             break;
 
@@ -3947,9 +3943,9 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
             Math_SmoothStepToAngle(&this->obj.rot.y, this->fwork[2], 1.0f, 5.0f, 0);
 
             if ((gGameFrameCount % 4) == 0) {
-                Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                                      this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
-                                      this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 1);
+                Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
+                                   this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
+                                   this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 1);
             }
             break;
 
@@ -4717,9 +4713,9 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
                 }
             }
             if ((gGameFrameCount % 4) == 0) {
-                Aquas_Effect366_Spawn(this->vwork[7].x + RAND_FLOAT_CENTERED(120.0f),
-                                      this->vwork[7].y + RAND_FLOAT_CENTERED(50.0f),
-                                      this->vwork[7].z + 100.0f + RAND_FLOAT_CENTERED(100.0f), 1.0f, 0);
+                Aquas_Bubble_Spawn(this->vwork[7].x + RAND_FLOAT_CENTERED(120.0f),
+                                   this->vwork[7].y + RAND_FLOAT_CENTERED(50.0f),
+                                   this->vwork[7].z + 100.0f + RAND_FLOAT_CENTERED(100.0f), 1.0f, 0);
             }
             break;
 
@@ -4734,9 +4730,9 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
                 }
 
                 for (i = 0; i < 10; i++) {
-                    Aquas_Effect366_Spawn(this->vwork[7].x + RAND_FLOAT_CENTERED(120.0f),
-                                          this->vwork[7].y + RAND_FLOAT_CENTERED(50.0f),
-                                          this->vwork[7].z + 100.0f + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
+                    Aquas_Bubble_Spawn(this->vwork[7].x + RAND_FLOAT_CENTERED(120.0f),
+                                       this->vwork[7].y + RAND_FLOAT_CENTERED(50.0f),
+                                       this->vwork[7].z + 100.0f + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                 }
                 this->state = 3;
             }
@@ -4871,9 +4867,9 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
 
             Math_SmoothStepToAngle(&this->obj.rot.x, 30.0f, 0.1f, 10.0f, 0);
             if (((gGameFrameCount % 2) == 0)) {
-                Aquas_Effect366_Spawn(this->vwork[7].x + RAND_FLOAT_CENTERED(120.0f),
-                                      this->vwork[7].y + RAND_FLOAT_CENTERED(50.0f),
-                                      this->vwork[7].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
+                Aquas_Bubble_Spawn(this->vwork[7].x + RAND_FLOAT_CENTERED(120.0f),
+                                   this->vwork[7].y + RAND_FLOAT_CENTERED(50.0f),
+                                   this->vwork[7].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
             }
             break;
 
@@ -5181,9 +5177,9 @@ void Aquas_AqSquid_Update(AqSquid* this) {
             Math_SmoothStepToF(&this->fwork[8], 0.0f, 0.1f, 10.0f, 0.0001f);
 
             if (this->animFrame >= 40) {
-                Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(70.0f),
-                                      this->obj.pos.y - 50.0f + RAND_FLOAT_CENTERED(50.0f),
-                                      this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 0);
+                Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(70.0f),
+                                   this->obj.pos.y - 50.0f + RAND_FLOAT_CENTERED(50.0f),
+                                   this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 1.0f, 0);
             }
 
             if (this->animFrame >= 37) {
@@ -5193,9 +5189,9 @@ void Aquas_AqSquid_Update(AqSquid* this) {
                     Matrix_RotateY(gCalcMatrix, this->fwork[2] * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->vwork[27].x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gCalcMatrix, this->vwork[27].z * M_DTOR, MTXF_APPLY);
-                    Aquas_Effect366_Spawn(this->vwork[11].x + RAND_FLOAT_CENTERED(120.0f),
-                                          this->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
-                                          this->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
+                    Aquas_Bubble_Spawn(this->vwork[11].x + RAND_FLOAT_CENTERED(120.0f),
+                                       this->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
+                                       this->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spDC, &spD0);
                     Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + spD0.x, this->vwork[26].y + spD0.y,
                                       this->vwork[26].z + spD0.z, this->vwork[27].x, this->fwork[2], this->vwork[27].z,
@@ -5406,9 +5402,9 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
             if (this->iwork[1] == 0) {
                 this->obj.rot.z += this->fwork[2];
                 if (((gGameFrameCount % 2) == 0)) {
-                    Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(120.0f),
-                                          this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f),
-                                          this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
+                    Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(120.0f),
+                                       this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f),
+                                       this->obj.pos.z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                 }
 
                 this->fwork[1] += 10.0f;
@@ -5431,9 +5427,9 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
             if (this->iwork[1] == 0) {
                 this->obj.rot.z += this->fwork[2];
                 if (((gGameFrameCount % 4) == 0)) {
-                    Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(70.0f),
-                                          this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f),
-                                          this->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), 1.0f, 0);
+                    Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(70.0f),
+                                       this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f),
+                                       this->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), 1.0f, 0);
                 }
 
                 Math_SmoothStepToF(&this->vel.y, -7.0f, 0.1f, 1.0f, 0.0001f);
@@ -6200,9 +6196,9 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
             func_effect_8007D0E0(this->vwork[4].x, this->vwork[4].y, this->vwork[4].z, 10.0f);
 
             for (j = 0; j < 20; j++) {
-                Aquas_Effect366_Spawn(this->vwork[4].x + RAND_FLOAT_CENTERED(100.0f),
-                                      this->vwork[4].y + RAND_FLOAT_CENTERED(200.0f),
-                                      this->vwork[4].z + 100.0f + RAND_FLOAT_CENTERED(200.0f), 6.0f, 2);
+                Aquas_Bubble_Spawn(this->vwork[4].x + RAND_FLOAT_CENTERED(100.0f),
+                                   this->vwork[4].y + RAND_FLOAT_CENTERED(200.0f),
+                                   this->vwork[4].z + 100.0f + RAND_FLOAT_CENTERED(200.0f), 6.0f, 2);
             }
 
             func_effect_800815DC();
@@ -6227,9 +6223,9 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
             Math_SmoothStepToAngle(&this->obj.rot.y, this->fwork[0], 0.1f, 10.0f, 0.0001f);
             Math_SmoothStepToAngle(&this->obj.rot.x, 90.0f, 0.1f, 1.0f, 0.0001f);
             if (((gGameFrameCount % 2) == 0) && (this->iwork[2] == 0)) {
-                Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
-                                      this->obj.pos.y + RAND_RANGE(-45.0f, 105.0f),
-                                      this->obj.pos.z + RAND_FLOAT_CENTERED(200.0f), 6.0f, 2);
+                Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
+                                   this->obj.pos.y + RAND_RANGE(-45.0f, 105.0f),
+                                   this->obj.pos.z + RAND_FLOAT_CENTERED(200.0f), 6.0f, 2);
             }
 
             if ((this->obj.pos.y < (gGroundHeight + 30.0f)) && (this->iwork[2] == 0)) {
@@ -6665,9 +6661,9 @@ void Aquas_AqOyster_Update(AqOyster* this) {
             this->animFrame++;
             if (this->animFrame == 10) {
                 for (i = 0; i < 10; i++) {
-                    Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
-                                          this->obj.pos.y + 50.0f + RAND_FLOAT_CENTERED(70.0f),
-                                          this->obj.pos.z + 100.0f, 3.0f, 2);
+                    Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
+                                       this->obj.pos.y + 50.0f + RAND_FLOAT_CENTERED(70.0f), this->obj.pos.z + 100.0f,
+                                       3.0f, 2);
                 }
             }
 
@@ -6711,9 +6707,9 @@ void Aquas_AqOyster_Update(AqOyster* this) {
                     Actor_Despawn(this);
 
                     for (i = 0; i < 10; i++) {
-                        Aquas_Effect366_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
-                                              this->obj.pos.y + 50.0f + RAND_FLOAT_CENTERED(70.0f),
-                                              this->obj.pos.z + 100.0f, 3.0f, 2);
+                        Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f),
+                                           this->obj.pos.y + 50.0f + RAND_FLOAT_CENTERED(70.0f),
+                                           this->obj.pos.z + 100.0f, 3.0f, 2);
                     }
 
                     for (i = 0; i < 3; i++) {

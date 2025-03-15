@@ -88,13 +88,13 @@ void Solar_801A8BE8(ActorCutscene*);
 void Solar_LevelComplete(Player* player);
 
 void Aquas_InitLevel(void);
-void Aquas_801AA20C(void);
+void Aquas_BlueMarineReticle_Draw(void);
 void Aquas_UpdateCamera(Player*);
 void Aquas_BlueMarineMove(Player*);
 void Aquas_801ABA40(PlayerShot*);
 void Aquas_BlueMarineShoot(Player*);
-void Aquas_Effect366_Spawn(f32, f32, f32, f32, s32);
-void Aquas_Effect366_Update(Effect*);
+void Aquas_Bubble_Spawn(f32, f32, f32, f32, s32);
+void Aquas_Bubble_Update(Effect*);
 void Aquas_BlueMarine_Draw(Player*);
 void Aquas_BlueMarineBoost(Player*);
 void Aquas_BlueMarineBrake(Player*);

@@ -1663,12 +1663,12 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
             Effect_Effect364_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             Effect_Effect364_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
             Effect_Effect364_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 3.0f);
-            Aquas_Effect366_Spawn(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x,
-                                  RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
-            Aquas_Effect366_Spawn(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x,
-                                  RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
-            Aquas_Effect366_Spawn(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x,
-                                  RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            Aquas_Bubble_Spawn(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x,
+                               RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            Aquas_Bubble_Spawn(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x,
+                               RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
+            Aquas_Bubble_Spawn(RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.x,
+                               RAND_FLOAT_CENTERED(10.0f) + shot->obj.pos.y, shot->obj.pos.z, 0.8f, 0);
         }
     }
     if (shot->timer == 0) {

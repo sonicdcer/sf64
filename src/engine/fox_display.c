@@ -1866,7 +1866,7 @@ void Display_Update(void) {
     }
 
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
-        Aquas_801AA20C();
+        Aquas_BlueMarineReticle_Draw();
     }
 
     if (((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) &&

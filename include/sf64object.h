@@ -690,7 +690,7 @@ typedef enum ObjectId {
     /* 363 */ OBJ_EFFECT_363,
     /* 364 */ OBJ_EFFECT_364,
     /* 365 */ OBJ_EFFECT_365,
-    /* 366 */ OBJ_EFFECT_366, // ast_blue_marine
+    /* 366 */ OBJ_EFFECT_BUBBLE, // ast_blue_marine
     /* 367 */ OBJ_EFFECT_367, // ast_bg_planet
     /* 368 */ OBJ_EFFECT_368, // TI: ast_landmaster
     /* 369 */ OBJ_EFFECT_369, // ME: ast_common
@@ -1350,7 +1350,7 @@ typedef Effect Effect362;
 typedef Effect Effect363;
 typedef Effect Effect364;
 typedef Effect Effect365;
-typedef Effect Effect366;
+typedef Effect Bubble;
 typedef Effect Effect367;
 typedef Effect Effect368;
 typedef Effect Effect369;

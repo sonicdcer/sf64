@@ -482,7 +482,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_363  */  {(void*) Aquas_Effect363_Draw, 1, (ObjectFunc) Aquas_Effect363_Update,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_364  */  {(void*) Effect_Effect364_Draw, 1, (ObjectFunc) Effect_Effect364_Update,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_365  */  {(void*) Effect_Effect365_Draw, 1, (ObjectFunc) Effect_Effect365_Update,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_366  */  {(void*) Effect_Effect366_Draw, 1, (ObjectFunc) Aquas_Effect366_Update,             NULL,   100.0f,  1, 2,  0, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_BUBBLE  */  {(void*) Effect_Bubble_Draw, 1, (ObjectFunc) Aquas_Bubble_Update,             NULL,   100.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_367  */  {(void*) Effect_Effect367_Draw, 1, (ObjectFunc) Effect_Effect367_Update,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_368  */  {(void*) Titania_Effect368_Draw, 1, (ObjectFunc) Titania_Effect368_Update,             NULL,  -200.0f, -1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_369  */  {(void*) Meteo_Effect369_Draw, 1, (ObjectFunc) Meteo_Effect369_Update,             NULL,   100.0f,  0, 1, 40, 0,   0.0f,  0 },

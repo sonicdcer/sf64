@@ -3764,9 +3764,9 @@ void ActorEvent_Update(ActorEvent* this) {
                         this->animFrame = 49;
                     }
                     if ((gGameFrameCount % 2) != 0) {
-                        Aquas_Effect366_Spawn(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
-                                              RAND_FLOAT(50.0f) + this->obj.pos.y,
-                                              RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
+                        Aquas_Bubble_Spawn(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
+                                           RAND_FLOAT(50.0f) + this->obj.pos.y,
+                                           RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
                     }
                 }
                 this->timer_0C2 = 10000;

@@ -254,7 +254,7 @@ void Effect_Effect389_Draw(Effect* );
 void Effect_Effect347_Draw(Effect* );
 void Effect_Effect351_Draw(Effect* );
 void Effect_Clouds_Draw(Effect* );
-void Effect_Effect366_Draw(Effect* );
+void Effect_Bubble_Draw(Effect* );
 void Effect_Effect367_Draw(Effect* );
 void Effect_Effect344_Draw(Effect* );
 void Effect_Effect345_Draw(Effect* );
