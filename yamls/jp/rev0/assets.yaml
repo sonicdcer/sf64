@@ -44,7 +44,7 @@
     start: 0x88F730
     vram: 0x03000000
     subsegments:
-      - [0x88F730, bin, ast_arwing/ast_arwing]
+      - [0x88F730, .data, ast_arwing/ast_arwing]
 
   - name: ast_landmaster
     exclusive_ram_id: segment_03

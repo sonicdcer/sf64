@@ -266,12 +266,12 @@ void Player_WaterEffects(Player* player) {
         if (player->pos.y < (gGroundHeight + 100.0f)) {
             if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
                 if (sPlayWingSplashSfx) {}
-                Effect_Effect372_Spawn1(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
-                                        player->rot.y + player->yRot_114 + 20.0f);
+                Effect_BeamWaterSplash_Spawn1(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
+                                              player->rot.y + player->yRot_114 + 20.0f);
             }
             if ((sp30.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
-                Effect_Effect372_Spawn1(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
-                                        player->rot.y + player->yRot_114 - 20.0f);
+                Effect_BeamWaterSplash_Spawn1(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
+                                              player->rot.y + player->yRot_114 - 20.0f);
             }
         }
 
@@ -4785,14 +4785,14 @@ void Player_Setup(Player* playerx) {
 
     if ((player->form == FORM_ARWING) && !gVersusMode) {
         switch (player->wingPosition) {
-            case 0:
-                Animation_GetFrameData(&D_arwing_3015AF4, 0, player->jointTable);
+            case 0: // Wings half open, for LEVELTYPE_PLANET
+                Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, player->jointTable);
                 break;
-            case 1:
-                Animation_GetFrameData(&D_arwing_3015C28, 0, player->jointTable);
+            case 1: // Wings closed, for LEVELTYPE_SPACE
+                Animation_GetFrameData(&aAwWingsClosedAnim, 0, player->jointTable);
                 break;
-            case 2:
-                Animation_GetFrameData(&D_arwing_30163C4, 0, player->jointTable);
+            case 2: // Wings opened, for LEVELMODE_ALL_RANGE
+                Animation_GetFrameData(&aAwWingsOpenAnim, 0, player->jointTable);
                 break;
         }
     }
@@ -5756,13 +5756,13 @@ void Player_Update(Player* player) {
     if ((player->state > PLAYERSTATE_INIT) && (player->form == FORM_ARWING) && !gVersusMode) {
         switch (player->wingPosition) {
             case 0:
-                sp1C4 = Animation_GetFrameData(&D_arwing_3015AF4, 0, sp58);
+                sp1C4 = Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, sp58);
                 break;
             case 1:
-                sp1C4 = Animation_GetFrameData(&D_arwing_3015C28, 0, sp58);
+                sp1C4 = Animation_GetFrameData(&aAwWingsClosedAnim, 0, sp58);
                 break;
             case 2:
-                sp1C4 = Animation_GetFrameData(&D_arwing_30163C4, 0, sp58);
+                sp1C4 = Animation_GetFrameData(&aAwWingsOpenAnim, 0, sp58);
                 break;
         }
         Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, 0.1f, 1.3f, 0.0f);

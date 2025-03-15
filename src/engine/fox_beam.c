@@ -67,8 +67,8 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
                                        shot->unk_48 * 3.0f, 5);
                 Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                        shot->unk_48 * 3.0f, 10);
-                Effect_Effect372_Spawn2(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                        shot->unk_48 * 0.5f);
+                Effect_BeamWaterSplash_Spawn2(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
+                                              shot->unk_48 * 0.5f);
                 Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 func_enmy_80062B60(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
@@ -1622,8 +1622,10 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
     Vec3f sp38;
 
     if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < (gGroundHeight + 50.0f)) && (index == 0)) {
-        Effect_Effect372_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
-        Effect_Effect372_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y - 20.0f);
+        Effect_BeamWaterSplash_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f,
+                                      shot->obj.rot.y + 20.0f);
+        Effect_BeamWaterSplash_Spawn1(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f,
+                                      shot->obj.rot.y - 20.0f);
     }
     if ((shot->obj.pos.y < gGroundHeight) && (gGroundType != GROUND_4)) {
         PlayerShot_Impact(shot);
@@ -2121,8 +2123,8 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
                                    shot->unk_48 * 3.0f, 0);
             Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                    shot->unk_48 * 3.0f, 5);
-            Effect_Effect372_Spawn2(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                    shot->unk_48 * 0.5f);
+            Effect_BeamWaterSplash_Spawn2(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
+                                          shot->unk_48 * 0.5f);
             Effect_SpawnTimedSfxAtPos(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         PlayerShot_Impact(shot);

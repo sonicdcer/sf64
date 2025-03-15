@@ -1702,7 +1702,7 @@ void Corneria_CoCarrier_WaterSplash(CoCarrier* this) {
     Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 0);
     Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 5);
     Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 5.0f, 100.0f, 10);
-    Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 1.0f, 10.0f);
+    Effect_BeamWaterSplash_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 1.0f, 10.0f);
 }
 
 Vec3f D_i1_801998CC = { 442.0f, 5.0f, 360.0f };
@@ -2915,26 +2915,26 @@ void Corneria_LevelStart(Player* player) {
 
     // Cloud reflexions on Arwing windshields
     if (sp2C >= 0.0f) {
-        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
-        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
+        Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 2);
+        Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 2);
     } else {
-        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
-        Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
+        Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 3);
+        Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 3);
     }
 
     for (i = 0; (i < 40) && (D_ctx_80177A48[6] >= 0.2f); i++, D_ctx_80177A48[6] -= 0.2f) {
         if (sp44 >= 0) {
-            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 2);
+            Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 2);
         } else {
-            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 3);
+            Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 3);
         }
     }
 
     for (i = 0; (i < 40) && (D_ctx_80177A48[7] >= 0.3f); i++, D_ctx_80177A48[7] -= 0.3f) {
         if (sp40 >= 0) {
-            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 0);
+            Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 0);
         } else {
-            Lib_Texture_Scroll(aWindshieldClouldReflextionTex, 64, 32, 1);
+            Lib_Texture_Scroll(aAwCockpitGlassClouldReflextionTex, 64, 32, 1);
         }
     }
 

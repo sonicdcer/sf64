@@ -1019,7 +1019,7 @@ EventActorInfo sEventActorInfo[108] = {
     /* EVID_SY_LASER_TURRET */ { aSyLaserTurretDL, aSyLaserTurretHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /* EVID_SY_SHIP_DESTROYED */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_SY_DEBRIS */ { aSyDebrisDL, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /* EVID_ITEM_WING_REPAIR */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
+    /* EVID_ITEM_WING_REPAIR */ { aAwItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
     /* EVID_SY_SHIP_WINDOWS */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_SY_SHIP_4 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_SY_SHIP_4_DESTROYED */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -4377,7 +4377,7 @@ void Actor_DyingCrash(Actor* this) {
                                                    10);
                             Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
                                                    20);
-                            Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
+                            Effect_BeamWaterSplash_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
                         } else {
                             PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
                                                       this->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);

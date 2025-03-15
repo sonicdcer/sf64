@@ -118,8 +118,8 @@ Gfx sRadioDamageDL[] = {
 
 // Used in the status screen, and when losing a life
 void HUD_LivesCount1_Draw(f32 xPos, f32 yPos, s32 lifeCount) {
-    u8* sLifeIconTex[] = { aArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
-    u16* sLifeIconTLUT[] = { aArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
+    u8* sLifeIconTex[] = { aAwArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
+    u16* sLifeIconTLUT[] = { aAwArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
     Player* player;
     s32 lifeIconIdx;
     s32 maxLives;
@@ -921,8 +921,8 @@ void HUD_DrawLevelClearScreen(void) {
 
 // Used in gameplay hud
 void HUD_LivesCount2_Draw(f32 x, f32 y, s32 number) {
-    u8* sLivesCounterTexs[] = { aArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
-    u16* sLivesCounterTLUTs[] = { aArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
+    u8* sLivesCounterTexs[] = { aAwArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
+    u16* sLivesCounterTLUTs[] = { aAwArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;

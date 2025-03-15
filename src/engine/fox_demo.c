@@ -1835,7 +1835,7 @@ void Cutscene_ArwingDownOnRails(Player* player) {
 
     if ((gGroundSurface == SURFACE_WATER) && (player->pos.y <= player->pathFloor)) {
         Effect_Effect367_Spawn(player->pos.x, gGroundHeight + 2.0f, player->trueZpos, 3.0f, 20.0f, 0);
-        Effect_Effect372_Spawn2(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
+        Effect_BeamWaterSplash_Spawn2(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
     }
 }
 

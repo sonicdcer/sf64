@@ -205,10 +205,10 @@ void Effect_FireSmoke_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f
     }
 }
 
-void Effect_Effect372_Draw(Effect372* this) {
+void Effect_BeamWaterSplash_Draw(BeamWaterSplash* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
-    gSPDisplayList(gMasterDisp++, D_arwing_3016B30);
+    gSPDisplayList(gMasterDisp++, aAwBeamWaterSplashDL);
 }
 
 void Effect_Effect382_Draw(Effect382* this) {
@@ -1067,7 +1067,7 @@ void Effect_Effect359_Draw(Effect359* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect372_Update(Effect372* this) {
+void Effect_BeamWaterSplash_Update(BeamWaterSplash* this) {
     if (this->state == 0) {
         Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 10.0f, 0.0f);
         this->alpha -= 20;
@@ -1083,10 +1083,11 @@ void Effect_Effect372_Update(Effect372* this) {
     }
 }
 
-void Effect_Effect372_Setup1(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_BeamWaterSplash_Setup1(BeamWaterSplash* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1,
+                                   f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_372;
+    this->obj.id = OBJ_EFFECT_BEAM_WATER_SPLASH;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = gGroundHeight;
@@ -1101,21 +1102,22 @@ void Effect_Effect372_Setup1(Effect372* this, f32 xPos, f32 unused_posY, f32 zPo
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect372_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_BeamWaterSplash_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect372_Setup1(&gEffects[i], xPos, yPos, zPos, scale2, scale1, yRot);
+            Effect_BeamWaterSplash_Setup1(&gEffects[i], xPos, yPos, zPos, scale2, scale1, yRot);
             break;
         }
     }
 }
 
-void Effect_Effect372_Setup2(Effect372* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_BeamWaterSplash_Setup2(BeamWaterSplash* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1,
+                                   f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_372;
+    this->obj.id = OBJ_EFFECT_BEAM_WATER_SPLASH;
     this->state = 1;
 
     this->obj.pos.x = xPos;
@@ -1129,7 +1131,7 @@ void Effect_Effect372_Setup2(Effect372* this, f32 xPos, f32 unused_posY, f32 zPo
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect372_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) {
+void Effect_BeamWaterSplash_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale1) {
     f32 cosf;
     f32 sinf;
     f32 yRot;
@@ -1141,7 +1143,7 @@ void Effect_Effect372_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale
             if (gEffects[j].obj.status == OBJ_FREE) {
                 sinf = SIN_DEG(yRot) * scale1 * 20.0f;
                 cosf = COS_DEG(yRot) * scale1 * 20.0f;
-                Effect_Effect372_Setup2(&gEffects[j], xPos + sinf, yPos, zPos + cosf, scale2, scale1, yRot);
+                Effect_BeamWaterSplash_Setup2(&gEffects[j], xPos + sinf, yPos, zPos + cosf, scale2, scale1, yRot);
                 break;
             }
         }

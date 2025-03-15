@@ -696,7 +696,7 @@ typedef enum ObjectId {
     /* 369 */ OBJ_EFFECT_369, // ME: ast_common
     /* 370 */ OBJ_EFFECT_370, // ME: ast_meteo
     /* 371 */ OBJ_EFFECT_371, // ME: ast_meteo
-    /* 372 */ OBJ_EFFECT_372, // ast_arwing
+    /* 372 */ OBJ_EFFECT_BEAM_WATER_SPLASH, // ast_arwing
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
     /* 374 */ OBJ_EFFECT_374, // ast_enmy_planet
     /* 375 */ OBJ_EFFECT_375,
@@ -1356,7 +1356,7 @@ typedef Effect TankTracks;
 typedef Effect Effect369;
 typedef Effect Effect370;
 typedef Effect Effect371;
-typedef Effect Effect372;
+typedef Effect BeamWaterSplash;
 typedef Effect TimedSfx;
 typedef Effect Effect374;
 typedef Effect Effect375;

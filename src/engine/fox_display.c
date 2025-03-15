@@ -570,15 +570,15 @@ void Display_ArwingWings(ArwingInfo* arwing) {
     }
 
     if (gGameState == GSTATE_PLAY) {
-        Animation_DrawSkeleton(1, D_arwing_3016610, gPlayer[0].jointTable, Display_ArwingWingsOverrideLimbDraw, NULL,
+        Animation_DrawSkeleton(1, aAwArwingSkel, gPlayer[0].jointTable, Display_ArwingWingsOverrideLimbDraw, NULL,
                                arwing, &gIdentityMatrix);
     } else {
         if (gGameState == GSTATE_MENU) {
-            Animation_GetFrameData(&D_arwing_3015AF4, 0, frameTable);
+            Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, frameTable);
         } else {
-            Animation_GetFrameData(&D_arwing_3015C28, 0, frameTable);
+            Animation_GetFrameData(&aAwWingsClosedAnim, 0, frameTable);
         }
-        Animation_DrawSkeleton(1, D_arwing_3016610, frameTable, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
+        Animation_DrawSkeleton(1, aAwArwingSkel, frameTable, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
                                &gIdentityMatrix);
     }
 
@@ -619,15 +619,17 @@ void Display_ArwingWings(ArwingInfo* arwing) {
         (gCurrentLevel == LEVEL_CORNERIA)) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 120);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_arwing_30194E0);
+        gSPDisplayList(gMasterDisp++, aAwCockpitGlassDL);
+
+        // Cloud reflexions in Corneria level intro cutscene.
         RCP_SetupDL_46();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
-        gSPDisplayList(gMasterDisp++, D_arwing_30183D0);
+        gSPDisplayList(gMasterDisp++, aAwCockpitGlassCsDL);
     } else {
         RCP_SetupDL_46();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 140);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_arwing_30194E0);
+        gSPDisplayList(gMasterDisp++, aAwCockpitGlassDL);
     }
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -647,7 +649,7 @@ void Display_CockpitGlass(void) {
     RCP_SetupDL_64_2();
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 120);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_arwing_30194E0);
+    gSPDisplayList(gMasterDisp++, aAwCockpitGlassDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Pop(&gGfxMatrix);
 }
