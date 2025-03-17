@@ -120,7 +120,11 @@ extern u8 gSerialThreadStack[0x1000]; // 800E0FB0
 extern SPTask* gCurrentTask;
 extern SPTask* sAudioTasks[1];
 extern SPTask* sGfxTasks[2];
+#ifdef AVOID_UB
+extern SPTask* sNewAudioTasks[2];
+#else
 extern SPTask* sNewAudioTasks[1];
+#endif
 extern SPTask* sNewGfxTasks[2];
 extern u32 gSegments[16]; // 800E1FD0
 extern OSMesgQueue gPiMgrCmdQueue; // 800E2010

@@ -59,7 +59,7 @@
 /**
  * Spawner:
  * Spawn Scenery, Actors, Bosses, Sprites, Items, Effects and even Event Actors.
- * 
+ *
  * Controls:
  * D-Pad left and right to set the object Id.
  * C-Right to change between spawn modes.
@@ -70,6 +70,12 @@
  * WARNING: Spawning an object that's not loaded in memory will likely result in a crash.
  */
 #define MODS_SPAWNER 0
+
+/**
+ * IS Viewer:
+ * Allows to use osSyncPrintf to print debug messages to the console on emulators that support it.
+ */
+#define MODS_ISVIEWER 0
 
 /* ************************* */
 
@@ -87,6 +93,10 @@ void RamMod_Update(void);
 
 #if MODS_SPAWNER == 1
 void Spawner(void);
+#endif
+
+#if MODS_ISVIEWER == 1
+void ISViewer_Init(void);
 #endif
 
 #endif
