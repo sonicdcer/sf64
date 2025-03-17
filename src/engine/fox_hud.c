@@ -3730,7 +3730,7 @@ void FoBase_BurnEffects(FoBase* this, s32 timer) {
 
         if ((gGameFrameCount % 8) == 0) {
             Effect_Effect386_Spawn1(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
-                             this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
+                                    this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
     }
 }
@@ -4477,7 +4477,7 @@ void ActorTeamBoss_DmgEffect(ActorTeamBoss* this) {
 
         if ((gGameFrameCount & mask) == 0) {
             Effect_FireSmoke2_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
-                                 this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.2f);
+                                     this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.2f);
         }
 
         if (!(gGameFrameCount & (mask >> 2)) && (Rand_ZeroOne() < 0.5f)) {

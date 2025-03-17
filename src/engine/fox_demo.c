@@ -1668,7 +1668,7 @@ void Cutscene_ArwingDown360(Player* player) {
         }
     } else if (((gGameFrameCount % 4) == 0)) {
         Effect_FireSmoke2_Spawn3(RAND_FLOAT_CENTERED(10.0f) + player->pos.x, RAND_FLOAT_CENTERED(10.0f) + player->pos.y,
-                             RAND_FLOAT_CENTERED(10.0f) + player->trueZpos, 2.2f);
+                                 RAND_FLOAT_CENTERED(10.0f) + player->trueZpos, 2.2f);
     }
 
     if ((player->pos.y < player->pathFloor) && (player->csState == 0)) {
@@ -1718,7 +1718,8 @@ void Cutscene_ArwingDown360(Player* player) {
             }
         }
         Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y, player->trueZpos, 5.0f);
-        Effect_Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z, 5.0f, 20);
+        Effect_Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z,
+                                5.0f, 20);
         Cutscene_KillPlayer(player);
     }
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
@@ -1812,9 +1813,9 @@ void Cutscene_ArwingDownOnRails(Player* player) {
             Effect_Effect349_Spawn(player->pos.x, player->pos.z);
         }
         Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y - (2.0f * player->vel.y),
-                             player->trueZpos - (2.0f * player->vel.z), 6.0f);
-        Effect_Effect386_Spawn1(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z), 0.0f,
-                         0.0f, 0.0f, 3.0f, 20);
+                                 player->trueZpos - (2.0f * player->vel.z), 6.0f);
+        Effect_Effect386_Spawn1(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z),
+                                0.0f, 0.0f, 0.0f, 3.0f, 20);
         if (gLevelType == LEVELTYPE_PLANET) {
             for (i = 0; i < 2; i++) {
                 Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);

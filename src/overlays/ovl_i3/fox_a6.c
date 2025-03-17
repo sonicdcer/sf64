@@ -537,7 +537,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
                     for (i = 0; i < 3; i++) {
                         Effect_FireSmoke1_Spawn4(spC8[i].x + this->obj.pos.x, spC8[i].y + this->obj.pos.y,
-                                             spC8[i].z + this->obj.pos.z, 10.0f);
+                                                 spC8[i].z + this->obj.pos.z, 10.0f);
                     }
 
                     this->timer_052 = 170;
@@ -678,7 +678,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     var_s0 = RAND_FLOAT_CENTERED(100.0f);
                 }
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x + var_s0 + spC8[i].x, this->obj.pos.y + var_s0 + spC8[i].y,
-                                     this->obj.pos.z + spC8[i].z, 10.0f);
+                                         this->obj.pos.z + spC8[i].z, 10.0f);
             }
         }
 
@@ -1721,8 +1721,8 @@ void Area6_8018B9BC(A6Gorgon* this) {
                     this->swork[A6_SWK_0 + j] = 0;
 
                     Matrix_MultVec3f(gCalcMatrix, &this->vwork[A6_VWK_1 + i], &dest);
-                    Effect_FireSmoke1_Spawn4(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                         10.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
+                                             this->obj.pos.z + dest.z, 10.0f);
 
                     sfxPos.x = this->obj.pos.x + dest.x;
                     sfxPos.y = this->obj.pos.y + dest.y;
@@ -1939,8 +1939,8 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
 
                     Matrix_MultVec3f(gCalcMatrix, &this->vwork[A6_VWK_1] + i, &spC4);
 
-                    Effect_FireSmoke1_Spawn4(this->obj.pos.x + spC4.x, this->obj.pos.y + spC4.y, this->obj.pos.z + spC4.z,
-                                         20.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x + spC4.x, this->obj.pos.y + spC4.y,
+                                             this->obj.pos.z + spC4.z, 20.0f);
 
                     spB8.x = this->obj.pos.x + spC4.x;
                     spB8.y = this->obj.pos.y + spC4.y;

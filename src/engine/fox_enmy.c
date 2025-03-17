@@ -1872,7 +1872,8 @@ void func_enmy_8006684C(CoSkibot* this) {
         this->obj.rot.x += 11.0f;
         this->obj.rot.y += 7.0f;
         if (this->vel.y < -3.0f) {
-            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f,
+                                    5);
             this->timer_0BE = 3;
         }
     }
@@ -1887,7 +1888,8 @@ void CoRadar_Update(CoRadar* this) {
         this->obj.rot.y += 5.0f;
         if (this->dmgType != DMG_NONE) {
             Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 8.0f);
-            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
+                                    5);
             this->timer_0BC = 4;
             Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
@@ -1936,7 +1938,7 @@ void func_enmy_80066C00(CoBuilding9* this) {
         src.z = zf;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
         Effect_FireSmoke1_Spawn4(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                             RAND_FLOAT(1.0f) + 2.0f);
+                                 RAND_FLOAT(1.0f) + 2.0f);
     }
 }
 
@@ -2355,7 +2357,7 @@ void ItemSupplyRing_Update(Item* this) {
                 src.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 Effect_Sparkle_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                       3.5f);
+                                     3.5f);
             }
             break;
     }
@@ -2620,12 +2622,14 @@ void Object_Dying(s32 index, ObjectId objId) {
 
         case OBJ_ACTOR_ME_METEOR_1:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
-            Effect_FireSmoke1_Spawn3(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
+            Effect_FireSmoke1_Spawn3(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z,
+                                     20.0f);
             break;
 
         case OBJ_ACTOR_ME_METEOR_2:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
-            Effect_FireSmoke1_Spawn3(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
+            Effect_FireSmoke1_Spawn3(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z,
+                                     10.0f);
             Actor_Despawn(&gActors[index]);
             break;
 

@@ -1108,7 +1108,7 @@ void Aquas_801ABA40(PlayerShot* shot) {
     if (shot->obj.pos.y < gGroundHeight) {
         shot->obj.pos.y = gGroundHeight + 2.0f;
         PlayerShot_Effect344_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 90.0f,
-                                  2.0f, 0, 0);
+                                   2.0f, 0, 0);
         Effect_FireSmoke1_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
         PlayerShot_Impact(shot);
@@ -2825,8 +2825,8 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                                        this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), this->vel.x,
                                        this->vel.y, this->vel.z, 0.5f, 10);
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
-                                     this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(400.0f),
-                                     this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), 10.0f);
+                                         this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(400.0f),
+                                         this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), 10.0f);
             }
 
             if (i3 && i3) {} //! FAKE
@@ -3789,42 +3789,42 @@ void Aquas_AqSculpin_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, this->vwork);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[8]);
                 break;
 
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
 
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[10]);
                 break;
 
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
                 break;
 
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[12]);
                 break;
 
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[13]);
                 break;
 
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[14]);
                 break;
 
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
                 break;
         }
     }
@@ -4070,32 +4070,32 @@ void Aquas_AqAnglerFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
 
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[10]);
                 break;
 
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
                 break;
 
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[12]);
                 break;
 
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[13]);
                 break;
 
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[14]);
                 break;
 
             case 7:
@@ -4110,17 +4110,17 @@ void Aquas_AqAnglerFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
                 break;
 
             case 9:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[16]);
                 break;
 
             case 16:
                 Matrix_MultVec3f(gCalcMatrix, &sp3C, &this->vwork[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[17]);
                 break;
         }
     }
@@ -4507,77 +4507,77 @@ void Aquas_AqSpindlyFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
                 break;
 
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[16]);
                 break;
 
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[17]);
                 break;
 
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[18]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[18]);
                 break;
 
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[19]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[19]);
                 break;
 
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[20]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[20]);
                 break;
 
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[21]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[21]);
                 break;
 
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[22]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[22]);
                 break;
 
             case 9:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[23]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[23]);
                 break;
 
             case 10:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[9]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[24]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[24]);
                 break;
 
             case 11:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[10]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[25]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[25]);
                 break;
 
             case 12:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[11]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[26]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[26]);
                 break;
 
             case 13:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[12]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[27]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[27]);
                 break;
 
             case 22:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[13]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[28]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[28]);
                 break;
 
             case 23:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[14]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[29]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[29]);
                 break;
         }
     }
@@ -4949,79 +4949,79 @@ void Aquas_AqGaroa_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         case 1:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[10]);
             } else {
                 Matrix_MultVec3f(gCalcMatrix, &sp40, &this->vwork[20]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[23]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[23]);
             }
             break;
 
         case 2:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
             }
             break;
 
         case 3:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[12]);
             }
             break;
 
         case 4:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[13]);
             } else {
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[21]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[24]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[24]);
             }
             break;
 
         case 5:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[14]);
             }
             break;
 
         case 6:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
             }
             break;
 
         case 9:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[16]);
             }
             break;
 
         case 10:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[17]);
             }
             break;
 
         case 11:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[18]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[18]);
             }
             break;
 
         case 12:
             if (this->health == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp4C, &this->vwork[9]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[19]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[19]);
             } else {
                 Matrix_MultVec3f(gCalcMatrix, &sp28, &this->vwork[22]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[25]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[25]);
             }
             break;
     }
@@ -5232,52 +5232,52 @@ void Aquas_AqSquid_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[13]);
                 break;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[14]);
                 break;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
                 break;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[16]);
                 break;
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[17]);
                 break;
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[18]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[18]);
                 break;
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[19]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[19]);
                 break;
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[20]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[20]);
                 break;
             case 9:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[21]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[21]);
                 break;
             case 10:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[9]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[22]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[22]);
                 break;
             case 11:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[10]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[23]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[23]);
                 break;
 
             case 12:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[11]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[24]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[24]);
                 Matrix_Push(&gCalcMatrix);
                 switch (gGameFrameCount % 4U) {
                     case 0:
@@ -5294,13 +5294,13 @@ void Aquas_AqSquid_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 }
 
                 Matrix_MultVec3f(gCalcMatrix, &sp28, &this->vwork[26]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[27]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[27]);
                 Matrix_Pop(&gCalcMatrix);
                 break;
 
             case 21:
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &this->vwork[12]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[25]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[25]);
                 break;
         }
     }
@@ -5548,23 +5548,23 @@ void Aquas_AqCoral_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
                 break;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[6]);
                 break;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[7]);
                 break;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[8]);
                 break;
             case 9:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
         }
     }
@@ -6251,17 +6251,17 @@ void Aquas_AqStoneColumn_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
                 break;
 
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[2]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[2]);
                 break;
 
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[3]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[3]);
                 break;
         }
     }

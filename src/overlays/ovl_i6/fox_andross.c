@@ -405,8 +405,8 @@ void Andross_801888F4(ActorAllRange* this) {
         Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
     }
     if ((this->timer_0BC == 0) || (this->dmgType != DMG_NONE)) {
-        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 7.0f,
-                         20);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                this->vel.z, 7.0f, 20);
         Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f, 5);
 
         for (i = 0; i < 6; i++) {
@@ -728,7 +728,8 @@ void Andross_AndExplosion_Update(AndExplosion* this) {
         this->vel.z = vel.z * 0.2f;
         for (i = 0; i < 1; i++) {
             Effect_FireSmoke1_SpawnMoving(this->obj.pos.x + displacement.x, this->obj.pos.y + displacement.y,
-                                    this->obj.pos.z + displacement.z, vel.x, vel.y, vel.z, RAND_FLOAT(2.5f) + 15.5f);
+                                          this->obj.pos.z + displacement.z, vel.x, vel.y, vel.z,
+                                          RAND_FLOAT(2.5f) + 15.5f);
         }
     }
 
@@ -985,12 +986,12 @@ void Andross_AndBrain_Update(AndBrain* this) {
 
             Matrix_MultVec3f(gCalcMatrix, &vec, &sp64);
 
-            Effect_FireSmoke1_SpawnMoving(this->obj.pos.x + sp64.x, this->obj.pos.y + sp64.y, this->obj.pos.z + sp64.z, 0.0f,
-                                    0.0f, 0.0f, RAND_FLOAT(5.0f) + 7.0f);
+            Effect_FireSmoke1_SpawnMoving(this->obj.pos.x + sp64.x, this->obj.pos.y + sp64.y, this->obj.pos.z + sp64.z,
+                                          0.0f, 0.0f, 0.0f, RAND_FLOAT(5.0f) + 7.0f);
             if ((gGameFrameCount % 2) == 0) {
                 Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(600.0f) + this->obj.pos.x,
-                                       RAND_FLOAT(100.0f) + (this->obj.pos.y + 100.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       0.0f, RAND_FLOAT(0.3f) + 0.5f, 0);
+                                         RAND_FLOAT(100.0f) + (this->obj.pos.y + 100.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         0.0f, RAND_FLOAT(0.3f) + 0.5f, 0);
             }
 
             vec.x = 0.0f;
@@ -1159,8 +1160,8 @@ void Andross_AndBrain_Update(AndBrain* this) {
                 if ((gGameFrameCount & frameCountMask) == 0) {
                     for (i = 0; i < sp98; i++) {
                         Effect_FireSmoke1_SpawnMoving(gPlayer[0].cam.eye.x + sp64.x, gPlayer[0].cam.eye.y + sp64.y,
-                                                gPlayer[0].cam.eye.z + sp64.z, sp58.x, sp58.y, sp58.z,
-                                                RAND_FLOAT(2.5f) + 2.5f);
+                                                      gPlayer[0].cam.eye.z + sp64.z, sp58.x, sp58.y, sp58.z,
+                                                      RAND_FLOAT(2.5f) + 2.5f);
                     }
                 }
             }
@@ -1804,8 +1805,8 @@ void Andross_8018D2B0(AndAndross* this) {
 
                         if (this->swork[4] < 0) {
                             this->info.hitbox[16] = 0.0f;
-                            Effect_Effect386_Spawn1(this->vwork[0].x, this->vwork[0].y, this->vwork[0].z, 0.0f, 0.0f, 0.0f,
-                                             20.0f, 15);
+                            Effect_Effect386_Spawn1(this->vwork[0].x, this->vwork[0].y, this->vwork[0].z, 0.0f, 0.0f,
+                                                    0.0f, 20.0f, 15);
 
                             for (i = 0; i < 30; i++) {
                                 Effect_Effect357_Spawn50(this->vwork[0].x + RAND_FLOAT_CENTERED(500.0f),
@@ -1826,8 +1827,8 @@ void Andross_8018D2B0(AndAndross* this) {
 
                         if (this->swork[5] < 0) {
                             this->info.hitbox[22] = 0.0f;
-                            Effect_Effect386_Spawn1(this->vwork[1].x, this->vwork[1].y, this->vwork[1].z, 0.0f, 0.0f, 0.0f,
-                                             20.0f, 15);
+                            Effect_Effect386_Spawn1(this->vwork[1].x, this->vwork[1].y, this->vwork[1].z, 0.0f, 0.0f,
+                                                    0.0f, 20.0f, 15);
 
                             for (i = 0; i < 30; i++) {
                                 Effect_Effect357_Spawn50(this->vwork[1].x + RAND_FLOAT_CENTERED(500.0f),
@@ -2835,13 +2836,13 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                       this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
             if (gCsFrameCount > 50) {
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                     this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
-                                     RAND_FLOAT(3.0f) + 3.0f);
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
+                                         RAND_FLOAT(3.0f) + 3.0f);
             }
 
             gCsFrameCount++;
@@ -2908,8 +2909,8 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
-                                   this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                   gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                     gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
             break;
 
         case 10:
@@ -2928,8 +2929,8 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToVec3fArray(spD0, D_i6_801A7F80, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
-                                   this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                   gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                     gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
             if (this->timer_050 == 0) {
                 this->state = 9;
                 this->timer_050 = 130;
@@ -2957,12 +2958,12 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                       this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
             Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                 this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
-                                 RAND_FLOAT(5.0f) + 5.0f);
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
+                                     RAND_FLOAT(5.0f) + 5.0f);
             break;
 
         case 32:
@@ -2992,14 +2993,14 @@ void Andross_AndAndross_Update(AndAndross* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                       this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
 
             if (gCsFrameCount > 50) {
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                     this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
-                                     RAND_FLOAT(3.0f) + 3.0f);
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
+                                         RAND_FLOAT(3.0f) + 3.0f);
             }
 
             gCsFrameCount++;
@@ -3975,8 +3976,8 @@ void Andross_80193C4C(Player* player) {
 
             for (i = 0; i < sp90; i++) {
                 Effect_FireSmoke1_SpawnMoving(player->pos.x + sp68.x, player->pos.y + sp68.y,
-                                        player->pos.z - (D_ctx_80177A48[3] + D_ctx_80177A48[4]), 0.0f, 0.0f, 50.0f,
-                                        RAND_FLOAT(2.5f) + 2.5f);
+                                              player->pos.z - (D_ctx_80177A48[3] + D_ctx_80177A48[4]), 0.0f, 0.0f,
+                                              50.0f, RAND_FLOAT(2.5f) + 2.5f);
             }
 
             Math_SmoothStepToF(&player->cam.eye.x, D_ctx_80177A48[1] + player->pos.x, 0.1f, 15.0f, 0.0f);
@@ -4078,9 +4079,10 @@ void Andross_80193C4C(Player* player) {
             }
             if (gCsFrameCount > 40) {
                 for (i = 0; i < 3; i++) {
-                    Effect_FireSmoke1_SpawnMoving(boss->obj.pos.x + RAND_FLOAT_CENTERED(150.0f), boss->obj.pos.y + 500.0f,
-                                            boss->obj.pos.z + RAND_FLOAT_CENTERED(150.0f), RAND_FLOAT_CENTERED(10.0f),
-                                            60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 5.5f);
+                    Effect_FireSmoke1_SpawnMoving(
+                        boss->obj.pos.x + RAND_FLOAT_CENTERED(150.0f), boss->obj.pos.y + 500.0f,
+                        boss->obj.pos.z + RAND_FLOAT_CENTERED(150.0f), RAND_FLOAT_CENTERED(10.0f), 60.0f,
+                        RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 5.5f);
                 }
                 Math_SmoothStepToF(&gCsCamAtY, gActors[10].obj.pos.y, 1.0f, D_ctx_80177A48[1], 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 1000.0f, 1.0f, 5.0f, 0.0f);
@@ -4152,8 +4154,8 @@ void Andross_80193C4C(Player* player) {
 
             if (((gGameFrameCount % 4) == 0) && (gCsFrameCount < 215)) {
                 Effect_FireSmoke1_SpawnMoving(boss->obj.pos.x + RAND_FLOAT_CENTERED(350.0f), boss->obj.pos.y + 500.0f,
-                                        boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f),
-                                        60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 15.5f);
+                                              boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f),
+                                              60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 15.5f);
             }
             sp80 = RAND_FLOAT(40.0f);
             for (i = 0; i < 36; i += 4) {

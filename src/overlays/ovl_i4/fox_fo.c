@@ -525,32 +525,32 @@ void Fortuna_FoRadar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &vec, actor->vwork);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[6]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[6]);
                 break;
 
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[7]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[7]);
                 break;
 
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[8]);
                 break;
 
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[9]);
                 break;
 
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[10]);
                 break;
 
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[11]);
                 break;
         }
     }

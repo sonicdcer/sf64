@@ -724,7 +724,8 @@ bool Bolse_8018D584(BoShieldReactor* this) {
         if (1) {}
         this->state = 1;
 
-        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f,
+                                15);
 
         for (i = 0; i < 10; i++) {
             if (!(Rand_ZeroOne() >= 0.5f)) {
@@ -826,8 +827,9 @@ s32 Bolse_8018DE8C(BoBase* this) {
     }
 
     if (!(gGameFrameCount % 5)) {
-        Effect_Effect386_Spawn1(D_i4_8019EEF8[index].x + this->obj.pos.x, D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
-                         D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
+        Effect_Effect386_Spawn1(D_i4_8019EEF8[index].x + this->obj.pos.x,
+                                D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
+                                D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
     }
 
     return 0;
@@ -879,14 +881,14 @@ s32 Bolse_8018E05C(BoBase* this, s32 index) {
 
             for (i = 0; i < 5; i++) {
                 Effect_ElectricArc_Spawn(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
-                                       gPlayer[0].pos.y + RAND_FLOAT(10.0f),
-                                       gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
-                                       gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z,
-                                       RAND_FLOAT(0.1f) + 0.1f, gPlayer[0].num + 11);
+                                         gPlayer[0].pos.y + RAND_FLOAT(10.0f),
+                                         gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
+                                         gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z,
+                                         RAND_FLOAT(0.1f) + 0.1f, gPlayer[0].num + 11);
             }
 
             Effect_Effect386_Spawn1(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
-                             gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                                    gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
         }
         ret = true;
     }
@@ -1485,17 +1487,18 @@ void Bolse_LevelComplete(Player* player) {
             if (gCsFrameCount < 92) {
                 if ((gGameFrameCount % 2U) == 0) {
                     Effect_ElectricArc_Spawn(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                           actor50->obj.pos.y + 100.0f,
-                                           actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
-                                           RAND_FLOAT(0.4f) + 0.4f, 0.0f);
+                                             actor50->obj.pos.y + 100.0f,
+                                             actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
+                                             RAND_FLOAT(0.4f) + 0.4f, 0.0f);
                 }
                 if ((gGameFrameCount % 2U) == 0) {
                     //! FAKE:
                     do {
                     } while (0);
 
-                    Effect_Effect386_Spawn1(RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
-                                     RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f);
+                    Effect_Effect386_Spawn1(
+                        RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
+                        RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f);
                 }
             }
 
@@ -1954,7 +1957,7 @@ void Bolse_BoBaseCore_Update(BoBaseCore* this) {
                 this->swork[i + 24]--;
                 if ((gGameFrameCount % 2) == 0) {
                     Effect_FireSmoke1_SpawnMoving(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
-                                            this->vwork[i].x * 0.2f, 0.0f, this->vwork[i].z * 0.2f, 5.0f);
+                                                  this->vwork[i].x * 0.2f, 0.0f, this->vwork[i].z * 0.2f, 5.0f);
                 }
             }
 

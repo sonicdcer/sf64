@@ -271,7 +271,7 @@ typedef enum EventCondition {
     /* 43 */ EVC_HAS_FOLLOWER,
     /* 44 */ EVC_TOOK_DAMAGE,
     /* 45 */ EVC_PASSED_ALL_RINGS,
-    /* 46 */ EVC_ATTACK_GROUP_CLEARED,
+    /* 46 */ EVC_GROUP_CAPTAIN_DOWN,
     /* 47 */ EVC_PRESS_CRIGHT,
     /* 48 */ EVC_WING_BROKEN,
     /* 49 */ EVC_ME_CLEAR,

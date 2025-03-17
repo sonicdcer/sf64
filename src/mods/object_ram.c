@@ -638,7 +638,7 @@ void ObjectRam_Update(void) {
         gTexturedLines[99].posBB.y = object->pos.y;
         gTexturedLines[99].posBB.z = object->pos.z;
 
-        if(gPlayState == PLAY_PAUSE) {
+        if (gPlayState == PLAY_PAUSE) {
             TexturedLine_Update(&gTexturedLines[99]);
         }
     }

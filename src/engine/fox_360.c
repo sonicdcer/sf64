@@ -2149,7 +2149,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                 spA8.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spA8, &sp9C);
                 Effect_Sparkle_Spawn(this->obj.pos.x + sp9C.x, this->obj.pos.y + sp9C.y, this->obj.pos.z + sp9C.z,
-                                       3.1f);
+                                     3.1f);
             }
         }
     }
@@ -2281,7 +2281,8 @@ void ActorAllRange_Update(ActorAllRange* this) {
                     this->timer_0BE = 2;
                     this->obj.status = OBJ_DYING;
                     this->itemDrop = DROP_NONE;
-                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 15);
+                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f,
+                                            15);
                     Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 } else {
                     this->dmgType = DMG_BEAM;

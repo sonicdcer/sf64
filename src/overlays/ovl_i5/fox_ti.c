@@ -762,7 +762,7 @@ void Titania_8018B1B4(s32 limbIndex, Vec3f* rot, void* thisx) {
     for (i = 0; i < 10; i++, var_a2++) {
         if (limbIndex == D_i5_801B75D0[i]) {
             Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_a2->pos);
-            Matrix_GetYRPAngles(gCalcMatrix, &var_a2->rot);
+            Matrix_GetYPRAngles(gCalcMatrix, &var_a2->rot);
             break;
         }
     }
@@ -1169,7 +1169,7 @@ void Titania_8018C3D8(s32 limbIndex, Vec3f* rot, void* thisx) {
     for (i = 0; i < 9U; i++, var_s0++) {
         if ((limbIndex == D_i5_801B7630[i][0]) && (var_s0->unk_18 & 2)) {
             Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_s0->unk_00.pos);
-            Matrix_GetYRPAngles(gCalcMatrix, &var_s0->unk_00.rot);
+            Matrix_GetYPRAngles(gCalcMatrix, &var_s0->unk_00.rot);
             var_s0->unk_18 &= ~2;
             break;
         }
@@ -1351,7 +1351,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
             break;
 
         case 1:
-            Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPlayer->zPath , &spA0, &sp9C, &sp98);
+            Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPlayer->zPath, &spA0, &sp9C, &sp98);
             this->fwork[0] = sp9C;
             this->fwork[1] = spA0;
             this->fwork[2] = sp98;
@@ -1566,17 +1566,17 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[12], &sp158);
-                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
-                                     1.5f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
+                                         this->obj.pos.z + sp158.z, 1.5f);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[9], &sp158);
-                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
-                                     1.5f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
+                                         this->obj.pos.z + sp158.z, 1.5f);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[3], &sp158);
-                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
-                                     1.5f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
+                                         this->obj.pos.z + sp158.z, 1.5f);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[6], &sp158);
-                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
-                                     1.5f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
+                                         this->obj.pos.z + sp158.z, 1.5f);
             }
 
             if (this->animFrame < (Animation_GetFrameCount(&D_TI1_7006F74) - 1)) {
@@ -1603,7 +1603,8 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
-                    Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->fwork[27] + this->obj.pos.y, this->obj.pos.z, 15.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->fwork[27] + this->obj.pos.y, this->obj.pos.z,
+                                             15.0f);
                     var_s1 = D_i5_801BD738[this->iwork[0]];
                     for (i = 0; i < 9U; i++, var_s1++) {
                         actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
@@ -2555,7 +2556,7 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* thisx) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, MTXF_APPLY);
-        Matrix_GetYRPAngles(gGfxMatrix, &sp64);
+        Matrix_GetYPRAngles(gGfxMatrix, &sp64);
         Matrix_RotateZ(gGfxMatrix, -sp64.z * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gGfxMatrix, -sp64.x * M_DTOR, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, -sp64.y * M_DTOR, MTXF_APPLY);
@@ -2775,7 +2776,7 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                 }
 
                 if (sp88 != 0) {
-                    Matrix_GetYRPAngles(gCalcMatrix, &spCC);
+                    Matrix_GetYPRAngles(gCalcMatrix, &spCC);
                 }
 
                 sp9C = 0.0f;
@@ -2830,7 +2831,7 @@ bool Titania_80190A08(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
                     Matrix_RotateZ(gCalcMatrix, rot->z * M_DTOR, MTXF_APPLY);
                     Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
-                    Matrix_GetYRPAngles(gCalcMatrix, &sp8C);
+                    Matrix_GetYPRAngles(gCalcMatrix, &sp8C);
                     Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &sp7C);
 
                     if ((limbIndex == 71) && (this->fwork[0x2E] != 0.0f)) {
@@ -3041,7 +3042,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
     for (i = 0; i < ARRAY_COUNTU(D_i5_801B7770); i++, var_s0++) {
         if ((var_s0->unk_26 & 1) && (limbIndex == D_i5_801B7770[i][0])) {
             Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_s0->unk_00.pos);
-            Matrix_GetYRPAngles(gCalcMatrix, &var_s0->unk_00.rot);
+            Matrix_GetYPRAngles(gCalcMatrix, &var_s0->unk_00.rot);
             var_s0->unk_26 &= ~1;
             break;
         }
@@ -3100,11 +3101,11 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
             Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D00, (Vec3f*) &D_i5_801BBEF4[71]);
             break;
         case 71:
-            Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[20]);
+            Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[20]);
             break;
         case 61:
             Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D3C, (Vec3f*) &this->fwork[0x17]);
-            Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[0x1A]);
+            Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[0x1A]);
             break;
 
         case 55:
@@ -3116,7 +3117,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, MTXF_APPLY);
-                Matrix_GetYRPAngles(gGfxMatrix, &sp78);
+                Matrix_GetYPRAngles(gGfxMatrix, &sp78);
                 Matrix_RotateZ(gGfxMatrix, -sp78.z * M_DTOR, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, -sp78.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gGfxMatrix, -sp78.y * M_DTOR, MTXF_APPLY);
@@ -3132,7 +3133,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
                 break;
             }
             Matrix_MultVec3f(gCalcMatrix, &D_i5_801B8D3C, (Vec3f*) &this->fwork[29]);
-            Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[32]);
+            Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[32]);
             break;
 
         case 34:
@@ -4445,8 +4446,7 @@ void Titania_80193DF0(TiGoras* this) {
                         sp84.x = -this->fwork[28];
                         sp84.y = this->fwork[27] + 90.0f;
                         sp84.z = 0.0f;
-                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
-                                          1.0f);
+                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
                     }
                 }
             }
@@ -4460,8 +4460,7 @@ void Titania_80193DF0(TiGoras* this) {
                         sp84.x = -this->fwork[34];
                         sp84.y = this->fwork[33] + 90.0f;
                         sp84.z = 0.0f;
-                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48,
-                                          1.0f);
+                        Effect_SpawnById1(OBJ_EFFECT_ENEMY_LASER, &sp90, &sp84, &D_tank_800C9F2C, &D_i5_801B8D48, 1.0f);
                     }
                 }
             }

@@ -1698,7 +1698,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
                 src.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                 Effect_Sparkle_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                       3.1f);
+                                     3.1f);
             }
         }
     }
@@ -1831,7 +1831,7 @@ void SectorZ_SzGreatFox_Update(SzGreatFox* this) {
         Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sFireSmokeOffsetPos[RAND_INT(11.99f)], &dest);
         Effect_ElectricArc_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->vel.x, this->vel.y, this->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
+                                 this->vel.x, this->vel.y, this->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
 
         if (((gGameFrameCount % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {
             SectorZ_FireSmokeEffectSpawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,

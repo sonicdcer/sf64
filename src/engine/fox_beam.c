@@ -68,7 +68,7 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
                 Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                        shot->unk_48 * 3.0f, 10);
                 Effect_WaterSpray_SpawnCircle(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                        shot->unk_48 * 0.5f);
+                                              shot->unk_48 * 0.5f);
                 Effect_TimedSfx_Spawn(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
             } else {
                 Effect_Effect348_Spawn(shot->obj.pos.x, shot->obj.pos.z, 0, shot->unk_48 * 3.0f);
@@ -167,7 +167,7 @@ void PlayerShot_Impact(PlayerShot* shot) {
 }
 
 void PlayerShot_Effect344_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 xRot, f32 scale, s32 alpha,
-                               s32 time) {
+                                s32 time) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_EXPLOSION_MARK_1;
@@ -185,7 +185,7 @@ void PlayerShot_Effect344_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f3
 }
 
 void PlayerShot_Effect344_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot, f32 xRot,
-                               f32 scale, s32 alpha, s32 time) {
+                                f32 scale, s32 alpha, s32 time) {
     s32 i;
 
     if ((gGroundType != GROUND_4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface != SURFACE_WATER) &&
@@ -320,8 +320,8 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                                 shot->obj.pos.z = hitbox->z.size + (obj->pos.z + hitbox->z.offset) - 5.0f;
                             }
                             PlayerShot_Effect344_Spawn((hitbox->x.offset + obj->pos.x) - (hitbox->x.size + 2.0f),
-                                                      shot->obj.pos.y, shot->obj.pos.z, obj->pos.x, obj->pos.z,
-                                                      obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1, 20);
+                                                       shot->obj.pos.y, shot->obj.pos.z, obj->pos.x, obj->pos.z,
+                                                       obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1, 20);
                             return i + 1;
                         }
                         if (hitbox->x.size < shot->obj.pos.x - (obj->pos.x + hitbox->x.offset)) {
@@ -329,16 +329,16 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                                 shot->obj.pos.z = hitbox->z.size + (obj->pos.z + hitbox->z.offset) - 5.0f;
                             }
                             PlayerShot_Effect344_Spawn(hitbox->x.size + (hitbox->x.offset + obj->pos.x) + 2.0f,
-                                                      shot->obj.pos.y, shot->obj.pos.z, obj->pos.x, obj->pos.z,
-                                                      obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1, 20);
+                                                       shot->obj.pos.y, shot->obj.pos.z, obj->pos.x, obj->pos.z,
+                                                       obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1, 20);
                             return i + 1;
                         }
                         if (((hitbox->y.size + (obj->pos.y + hitbox->y.offset)) - 10.0f) <= shot->obj.pos.y) {
                             shot->obj.pos.y = ((hitbox->y.size + (obj->pos.y + hitbox->y.offset)) - 10.0f);
                         }
                         PlayerShot_Effect344_Spawn(shot->obj.pos.x, shot->obj.pos.y,
-                                                  hitbox->z.size + (obj->pos.z + hitbox->z.offset) + 20.0f, obj->pos.x,
-                                                  obj->pos.z, 0.0f, 0.0f, 0.0f, 2.0f, 1, 20);
+                                                   hitbox->z.size + (obj->pos.z + hitbox->z.offset) + 20.0f, obj->pos.x,
+                                                   obj->pos.z, 0.0f, 0.0f, 0.0f, 2.0f, 1, 20);
                         return i + 1;
                     }
                     if (obj->id < OBJ_SCENERY_MAX) {
@@ -2122,7 +2122,7 @@ void PlayerShot_UpdateLockOnShot(PlayerShot* shot) {
             Effect_Effect367_Spawn(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->unk_48 * 0.1f,
                                    shot->unk_48 * 3.0f, 5);
             Effect_WaterSpray_SpawnCircle(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, shot->unk_48 * 0.05f,
-                                    shot->unk_48 * 0.5f);
+                                          shot->unk_48 * 0.5f);
             Effect_TimedSfx_Spawn(&shot->obj.pos, NA_SE_OB_WATER_BOUND_M);
         }
         PlayerShot_Impact(shot);

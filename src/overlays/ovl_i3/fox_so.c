@@ -208,7 +208,7 @@ void Solar_SoFlare_Spawn3(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 }
 
 void Solar_SoFlare_Setup(EffectSoFlare* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                    s32 state) {
+                         s32 state) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_SO_FLARE;
@@ -437,7 +437,7 @@ void Solar_SoRock_Update(SoRock1* this) {
             this->obj.pos.y = sp8C;
             for (i = 0; i < 4; i++) {
                 Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
-                               RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
+                                    RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
             }
             this->timer_0C2 = 5;
             AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, this->sfxSource, 0);
@@ -451,14 +451,14 @@ void Solar_SoRock_Update(SoRock1* this) {
                 Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
                 for (i = 0; i < 4; i++) {
                     Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
-                                   RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
+                                        RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
                 }
             }
 
             if (this->timer_0BC == 0) {
                 this->timer_0BC = 5;
-                Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, this->scale * 6.5f,
-                               2);
+                Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                    this->scale * 6.5f, 2);
             }
 
             if ((this->dmgType != DMG_NONE) || ((this->obj.id == OBJ_ACTOR_SO_ROCK_3) && (this->vel.y < 0.0f))) {
@@ -488,7 +488,7 @@ void Solar_SoRock_Update(SoRock1* this) {
                 }
                 for (i = 0; i < 7; i++) {
                     Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
-                                   RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * this->scale, 1);
+                                        RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * this->scale, 1);
                 }
                 Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
@@ -776,7 +776,7 @@ void Solar_SoFlare_Update(EffectSoFlare* this) {
                 }
 
                 Solar_SoFlare_Spawn(this->obj.pos.x + sp58, this->obj.pos.y + sp54, this->obj.pos.z, sp58 * 0.25f,
-                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                                    RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
@@ -853,7 +853,7 @@ void Solar_SoFlare_Update(EffectSoFlare* this) {
                     sp58 = -100.0f;
                 }
                 Solar_SoFlare_Spawn(this->obj.pos.x + sp58, this->obj.pos.y + -50.0f, this->obj.pos.z, sp58 * 0.25f,
-                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                                    RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
@@ -1111,7 +1111,7 @@ void Solar_LevelStart(Player* player) {
 
             if ((gGameFrameCount % 8) == 0) {
                 Solar_SoFlare_Spawn3(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
-                               RAND_FLOAT(2000.0f) - 6000.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
+                                     RAND_FLOAT(2000.0f) - 6000.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
             }
 
             if (gCsFrameCount == 380) {
@@ -1186,7 +1186,7 @@ void Solar_LevelStart(Player* player) {
 
             if ((gGameFrameCount % 4) == 0) {
                 Solar_SoFlare_Spawn3(RAND_FLOAT_CENTERED(6000.0f), -400.0f - ((player->cam.eye.y - 1380.0f) * 0.3f),
-                               RAND_FLOAT_CENTERED(2000.0f) + 500.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
+                                     RAND_FLOAT_CENTERED(2000.0f) + 500.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
             }
 
             if (gCsFrameCount == 615) {
@@ -2896,7 +2896,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
             this->fwork[SO_FWK_4] = sp28.x;
             this->fwork[SO_FWK_5] = sp28.y;
             this->fwork[SO_FWK_6] = sp28.z;
-            Matrix_GetYRPAngles(gCalcMatrix, &sp28);
+            Matrix_GetYPRAngles(gCalcMatrix, &sp28);
             this->fwork[SO_FWK_1] = sp28.x;
             this->fwork[SO_FWK_2] = sp28.y;
             break;
@@ -2920,7 +2920,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_28] = sp28.x;
                 this->fwork[SO_FWK_29] = sp28.y;
                 this->fwork[SO_FWK_30] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_41]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_41]);
             }
             break;
 
@@ -2936,7 +2936,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_22] = sp28.x;
                 this->fwork[SO_FWK_23] = sp28.y;
                 this->fwork[SO_FWK_24] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_47]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_47]);
             }
             break;
 
@@ -2946,7 +2946,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_10] = sp28.x;
                 this->fwork[SO_FWK_11] = sp28.y;
                 this->fwork[SO_FWK_12] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_35]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_35]);
             } else {
                 if (gBosses[0].swork[SO_SWK_0] != 7) {
                     Matrix_MultVec3f(gCalcMatrix, &sp64, &sp28);
@@ -2971,7 +2971,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_13] = sp28.x;
                 this->fwork[SO_FWK_14] = sp28.y;
                 this->fwork[SO_FWK_15] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_38]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_38]);
             }
             if (this->swork[SO_SWK_3] < 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
@@ -2993,7 +2993,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_19] = sp28.x;
                 this->fwork[SO_FWK_20] = sp28.y;
                 this->fwork[SO_FWK_21] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_44]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_44]);
             }
             break;
 
@@ -3003,7 +3003,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_7] = sp28.x;
                 this->fwork[SO_FWK_8] = sp28.y;
                 this->fwork[SO_FWK_9] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_32]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_32]);
             } else {
                 if (gBosses[0].swork[SO_SWK_0] != 7) {
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp28);

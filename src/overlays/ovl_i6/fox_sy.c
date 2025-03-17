@@ -569,7 +569,7 @@ void SectorY_80199438(SyShogun* this) {
                 this->swork[36]++;
 
                 Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 8.0f, 10);
+                                        this->vel.z, 8.0f, 10);
                 Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
 
                 for (i = 10; i < 24; i++) {
@@ -2795,8 +2795,8 @@ void SectorY_801A0AC0(Player* player) {
                                        gActors[8].obj.pos.z + sp98.z, gActors[8].vel.x, gActors[8].vel.y,
                                        gActors[8].vel.z, 0.8f, 5);
                 Effect_FireSmoke1_Spawn3(gActors[8].obj.pos.x - 2000.0f + RAND_FLOAT_CENTERED(500.0f),
-                                     gActors[8].obj.pos.y - 500.0f + RAND_FLOAT_CENTERED(1000.0f),
-                                     gActors[8].obj.pos.z + RAND_FLOAT_CENTERED(3000.0f), 8);
+                                         gActors[8].obj.pos.y - 500.0f + RAND_FLOAT_CENTERED(1000.0f),
+                                         gActors[8].obj.pos.z + RAND_FLOAT_CENTERED(3000.0f), 8);
             }
             if ((gGameFrameCount & 20) != 0) {
                 for (i = 12; i < ARRAY_COUNT(gActors); i++) {
@@ -2861,7 +2861,7 @@ void SectorY_801A0AC0(Player* player) {
 
                 case 145:
                     Effect_Effect386_Spawn1(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z,
-                                     gActors[11].vel.x, gActors[11].vel.y, gActors[11].vel.z, 8, 10);
+                                            gActors[11].vel.x, gActors[11].vel.y, gActors[11].vel.z, 8, 10);
                     Effect_Effect384_Spawn(gActors[11].obj.pos.x, gActors[11].obj.pos.y, gActors[11].obj.pos.z, 8, 5);
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, gActors[11].sfxSource, 4);
                     break;
@@ -3609,7 +3609,8 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                         gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
                         gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                     }
-                    Effect_ShootAtPlayer(OBJ_EFFECT_SYROBOT_LASER, this->fwork[16], this->fwork[17], this->fwork[18], 100.0f);
+                    Effect_ShootAtPlayer(OBJ_EFFECT_SYROBOT_LASER, this->fwork[16], this->fwork[17], this->fwork[18],
+                                         100.0f);
                     gPlayer[0].pos.x = sp1E4;
                     gPlayer[0].pos.y = sp1E0;
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
@@ -3666,12 +3667,12 @@ void SectorY_SyRobot_Update(SyRobot* this) {
 
             if ((this->timer_0BE % 4U) == 0) {
                 Effect_FireSmoke1_Spawn3(RAND_FLOAT_CENTERED(150.0f) + this->obj.pos.x,
-                                     RAND_FLOAT_CENTERED(150.0f) + this->obj.pos.y, this->obj.pos.z + 30.0f, 4.0f);
+                                         RAND_FLOAT_CENTERED(150.0f) + this->obj.pos.y, this->obj.pos.z + 30.0f, 4.0f);
             }
 
             if (this->timer_0BE == 5U) {
                 Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 8.0f, 10);
+                                        this->vel.z, 8.0f, 10);
                 Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 5);
                 AUDIO_PLAY_SFX(NA_SE_EN_MS_EXPLOSION_S, this->sfxSource, 4);
             }

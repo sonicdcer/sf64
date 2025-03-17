@@ -623,8 +623,8 @@ void Katina_Hatch_Destroy(KaSaucerer* this, s32 hatchIdx) {
     Vec3f pos;
 
     Effect_FireSmoke1_Spawn3(this->obj.pos.x + (this->vwork[hatchIdx + 1].x * 1.3f),
-                         this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f),
-                         this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f), 15.0f);
+                             this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f),
+                             this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f), 15.0f);
     this->swork[hatchIdx + 5] = 60;
 
     for (i = 0; i < 20; i++) {
@@ -748,9 +748,9 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
             for (i = 0; i < 4; i++) {
                 if ((this->swork[10 + i] <= 0) && (Rand_ZeroOne() < 0.2f)) {
                     Effect_Effect386_Spawn1((this->vwork[1 + i].x * 1.3f) + this->obj.pos.x,
-                                     (this->vwork[1 + i].y * 1.3f) + this->obj.pos.y,
-                                     (this->vwork[1 + i].z * 1.3f) + this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 7.0f, 5);
+                                            (this->vwork[1 + i].y * 1.3f) + this->obj.pos.y,
+                                            (this->vwork[1 + i].z * 1.3f) + this->obj.pos.z, this->vel.x, this->vel.y,
+                                            this->vel.z, 7.0f, 5);
                 }
             }
         }

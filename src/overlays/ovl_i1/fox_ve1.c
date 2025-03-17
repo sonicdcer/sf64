@@ -1056,7 +1056,7 @@ void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
             }
             if (var_s7->flag & 0x20) {
                 Matrix_MultVec3f(gCalcMatrix, &D_tank_800C9F2C, &var_s7->unk_0C[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &var_s7->unk_30[0]);
+                Matrix_GetYPRAngles(gCalcMatrix, &var_s7->unk_30[0]);
                 var_s7->flag &= ~0x20;
                 var_s7->flag |= 0x40;
             }

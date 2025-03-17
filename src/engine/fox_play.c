@@ -187,23 +187,23 @@ void Player_DamageEffects(Player* player) {
         if (player->arwing.rightWingState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (gRightWingDebrisTimer[player->num] != 0)) {
                 Effect_FireSmoke2_Spawn3(RAND_FLOAT_CENTERED(10.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
-                                     player->hit1.z, 1.0f);
+                                         player->hit1.z, 1.0f);
             }
             if (((gGameFrameCount % 2U) == 0) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
                 Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(5.0f) + player->hit1.x, RAND_FLOAT(5.0f) + player->hit1.y,
-                                       player->hit1.z, player->vel.x, player->vel.y, player->vel.z,
-                                       RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
+                                         player->hit1.z, player->vel.x, player->vel.y, player->vel.z,
+                                         RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
             }
         }
         if (player->arwing.leftWingState <= WINGSTATE_BROKEN) {
             if (((gGameFrameCount % 2U) == 0) && (gLeftWingDebrisTimer[player->num] != 0)) {
                 Effect_FireSmoke2_Spawn3(RAND_FLOAT_CENTERED(10.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
-                                     player->hit2.z, 1.0f);
+                                         player->hit2.z, 1.0f);
             }
             if (((gGameFrameCount % 2U) == 0) && (Rand_ZeroOne() < 0.5f) && !gVersusMode) {
                 Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(5.0f) + player->hit2.x, RAND_FLOAT(5.0f) + player->hit2.y,
-                                       player->hit2.z, player->vel.x, player->vel.y, player->vel.z,
-                                       RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
+                                         player->hit2.z, player->vel.x, player->vel.y, player->vel.z,
+                                         RAND_FLOAT(0.02f) + 0.02f, player->num + 1);
             }
         }
     }
@@ -228,14 +228,14 @@ void Player_DamageEffects(Player* player) {
 
             if ((gGameFrameCount & var_v1) == 0) {
                 Effect_FireSmoke2_Spawn3(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
-                                     player->pos.y + sp40 + RAND_FLOAT(10.0f),
-                                     player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 2.2f);
+                                         player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                                         player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
             if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 Effect_ElectricArc_Spawn(player->pos.x + RAND_FLOAT_CENTERED(30.0f),
-                                       player->pos.y + sp40 + RAND_FLOAT(10.0f),
-                                       player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
-                                       player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
+                                         player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                                         player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
+                                         player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
                 if (player->dmgEffectTimer == 0) {
                     player->dmgEffectTimer = 2;
                 }
@@ -1974,8 +1974,9 @@ void Player_CollisionCheck(Player* player) {
                         player->mercyTimer = 5;
                         player->knockback.y = 30.0f;
                         boss->dmgType = DMG_BEAM;
-                        Effect_Effect386_Spawn1(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT(10.0f),
-                                         player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
+                        Effect_Effect386_Spawn1(
+                            player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT(10.0f),
+                            player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
                         for (j = 0; j < 10; j++) {
                             Effect_ElectricArc_Spawn(
                                 player->pos.x + RAND_FLOAT_CENTERED(30.0f), player->pos.y + RAND_FLOAT(10.0f),
@@ -6822,8 +6823,8 @@ void Play_UpdateLevel(void) {
 
             if (((gGameFrameCount % 8) == 0) && (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE)) {
                 Solar_SoFlare_Spawn3(RAND_FLOAT_CENTERED(6000.0f), -80.0f,
-                               gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
-                               RAND_FLOAT(10.0f) + 20.0f); // check
+                                     gPlayer[0].trueZpos + (RAND_FLOAT(2000.0f) + -6000.0f),
+                                     RAND_FLOAT(10.0f) + 20.0f); // check
             }
 
             HUD_Texture_Wave(D_SO_60229A4, D_SO_6010198);

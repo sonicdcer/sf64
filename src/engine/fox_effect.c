@@ -171,7 +171,7 @@ Effect* Effect_Load(ObjectId objId) {
 }
 
 void Effect_FireSmoke1_SetupMoving(EffectFireSmoke* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
-                             f32 scale2) {
+                                   f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FIRE_SMOKE_1;
@@ -758,8 +758,8 @@ void Effect_Effect357_Draw(Effect357* this) {
 
                 case 7:
                     Animation_GetFrameData(&aMaCannonAnim, 0, frameJointTable);
-                    Animation_DrawSkeleton(1, aMaCannonSkel, frameJointTable, Effect_Effect357_OverrideLimbDraw, NULL, this,
-                                           &gIdentityMatrix);
+                    Animation_DrawSkeleton(1, aMaCannonSkel, frameJointTable, Effect_Effect357_OverrideLimbDraw, NULL,
+                                           this, &gIdentityMatrix);
                     break;
 
                 case 8:
@@ -1083,7 +1083,8 @@ void Effect_WaterSpray_Update(EffectWaterSpray* this) {
     }
 }
 
-void Effect_WaterSpray_Setup(EffectWaterSpray* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_WaterSpray_Setup(EffectWaterSpray* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1,
+                             f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_WATER_SPRAY;
@@ -1112,7 +1113,8 @@ void Effect_WaterSpray_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32 scale
     }
 }
 
-void Effect_WaterSpray_SetupCircle(EffectWaterSpray* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1, f32 yRot) {
+void Effect_WaterSpray_SetupCircle(EffectWaterSpray* this, f32 xPos, f32 unused_posY, f32 zPos, f32 scale2, f32 scale1,
+                                   f32 yRot) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_WATER_SPRAY;
@@ -1532,8 +1534,8 @@ void Effect_Effect360_361_362_Draw(Effect* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
 }
 
-void Effect_Effect_Effect386_Setup(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                            s32 timer50) {
+void Effect_Effect_Effect386_Setup(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                                   f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_386;
@@ -1622,15 +1624,15 @@ void Effect_Effect386_Update(Effect386* this) {
         randY = RAND_FLOAT_CENTERED(40.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
         Effect_FireSmoke1_Spawn4(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z,
-                             this->scale2 * randOther);
+                                 this->scale2 * randOther);
         if (this->timer_50 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void Effect_ElectricArc_Setup(EffectElectricArc* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                            s32 arg8) {
+void Effect_ElectricArc_Setup(EffectElectricArc* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                              f32 scale2, s32 arg8) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_ELECTRIC_ARC;
@@ -1674,7 +1676,7 @@ void Effect_Effect390_Update(Effect390* this) {
         randY = RAND_FLOAT_CENTERED(40.0f) * this->scale2;
         randOther = RAND_FLOAT(1.0f) + 1.0f;
         Effect_ElectricArc_Spawn(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z, this->vel.x,
-                               this->vel.y, this->vel.z, this->scale2 * randOther, 0);
+                                 this->vel.y, this->vel.z, this->scale2 * randOther, 0);
         if (this->timer_50 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
@@ -2221,10 +2223,11 @@ void Effect_FlamePillar_Update(Effect374* this) {
                 this->scale1 = 2.5f;
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 7.0f);
-                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                        4.0f, 5);
                 if ((this->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundSurface != SURFACE_WATER)) {
                     PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
-                                              0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                                               0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
                 }
             }
@@ -2288,7 +2291,7 @@ void Effect_Effect344_Update(Effect344* this) {
 
     if (((this->alpha == 1) || (this->alpha == 3)) && ((s32) (this->timer_50 % 4U) == 1) && (Rand_ZeroOne() < 0.5f)) {
         Effect_FireSmoke2_Spawn3(this->obj.pos.x, this->obj.pos.y + (this->scale2 * 5.0f), this->obj.pos.z + 3.0f,
-                             (RAND_FLOAT(0.7f) + 1.0f) * (this->scale2 * 1.2f));
+                                 (RAND_FLOAT(0.7f) + 1.0f) * (this->scale2 * 1.2f));
     }
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
@@ -3527,9 +3530,9 @@ void Effect_Effect395_Update(Effect395* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
-                                       RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
-                                       RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y,
-                                       this->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
+                                         RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
+                                         RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y,
+                                         this->vel.z, RAND_FLOAT(0.05f) + 0.05f, 0);
             }
 
             if (Object_CheckCollision(this->index, &this->obj.pos, &velocity, 1) != 0) {
@@ -4098,7 +4101,7 @@ void Effect_Effect391_Draw(Effect391* this) {
 }
 
 void Effect_OrbRing_Setup(EffectOrbRing* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 arg7,
-                            s32 alpha) {
+                          s32 alpha) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_ORB_RING;

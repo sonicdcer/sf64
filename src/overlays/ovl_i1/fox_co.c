@@ -365,25 +365,27 @@ void Corneria_CoGranga_HandleDamage(CoGranga* this) {
 
         if ((this->swork[GRANGA_RIGHT_ARM_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
             Effect_Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_03], sCoGrangaWork[GRANGA_WORK_04],
-                             sCoGrangaWork[GRANGA_WORK_05], (sCoGrangaWork[GRANGA_WORK_03] - this->obj.pos.x) * 0.1f,
-                             0.0f, (sCoGrangaWork[GRANGA_WORK_05] - this->obj.pos.z) * 0.1f, 1.5f, 5);
+                                    sCoGrangaWork[GRANGA_WORK_05],
+                                    (sCoGrangaWork[GRANGA_WORK_03] - this->obj.pos.x) * 0.1f, 0.0f,
+                                    (sCoGrangaWork[GRANGA_WORK_05] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((this->swork[GRANGA_LEFT_ARM_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
             Effect_Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_09], sCoGrangaWork[GRANGA_WORK_10],
-                             sCoGrangaWork[GRANGA_WORK_11], (sCoGrangaWork[GRANGA_WORK_09] - this->obj.pos.x) * 0.1f,
-                             0.0f, (sCoGrangaWork[GRANGA_WORK_11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
+                                    sCoGrangaWork[GRANGA_WORK_11],
+                                    (sCoGrangaWork[GRANGA_WORK_09] - this->obj.pos.x) * 0.1f, 0.0f,
+                                    (sCoGrangaWork[GRANGA_WORK_11] - this->obj.pos.z) * 0.1f, 1.5f, 5);
         }
         if ((this->swork[GRANGA_GUN_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
             Effect_Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
-                             sCoGrangaWork[GRANGA_WORK_14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
+                                    sCoGrangaWork[GRANGA_WORK_14], 0.0f, 20.0f, 0.0f, 2.0f, 5);
         }
         if ((this->swork[GRANGA_RIGHT_LEG_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
             Effect_Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_56], sCoGrangaWork[GRANGA_WORK_57],
-                             sCoGrangaWork[GRANGA_WORK_58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+                                    sCoGrangaWork[GRANGA_WORK_58], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
         if ((this->swork[GRANGA_LEFT_LEG_DMG_IND] == DMG_DESTROYED) && ((gGameFrameCount % 4) == 0)) {
             Effect_Effect386_Spawn1(sCoGrangaWork[GRANGA_WORK_59], sCoGrangaWork[GRANGA_WORK_60],
-                             sCoGrangaWork[GRANGA_WORK_61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
+                                    sCoGrangaWork[GRANGA_WORK_61], 0.0f, 10.0f, 0.0f, 2.0f, 5);
         }
     }
 }
@@ -988,7 +990,7 @@ void Corneria_CoGranga_Update(CoGranga* this) {
                 if (this->timer_050 == 12) {
                     Object_Kill(&gEffects[0].obj, gEffects[0].sfxSource);
                     Effect_FireSmoke1_Spawn4(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
-                                         sCoGrangaWork[GRANGA_WORK_64], 25.0f);
+                                             sCoGrangaWork[GRANGA_WORK_64], 25.0f);
                 }
                 if (this->timer_050 == 10) {
                     for (sp218 = 0; sp218 < 50; sp218++) {
@@ -1000,7 +1002,7 @@ void Corneria_CoGranga_Update(CoGranga* this) {
                     Effect_Effect383_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
                                            sCoGrangaWork[GRANGA_WORK_64], 40.0f);
                     Effect_FireSmoke1_Spawn4(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
-                                         sCoGrangaWork[GRANGA_WORK_64], 30.0f);
+                                             sCoGrangaWork[GRANGA_WORK_64], 30.0f);
                     Effect_Effect348_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[64], 0, 120.0f);
 
                     gCameraShake = 25;
@@ -1181,7 +1183,7 @@ void Corneria_CoGranga_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* data) {
         sCoGrangaWork[limbIndex + 22] = sp74.y;
         sCoGrangaWork[limbIndex + 28] = sp74.z;
 
-        Matrix_GetYRPAngles(gCalcMatrix, &sp74);
+        Matrix_GetYPRAngles(gCalcMatrix, &sp74);
 
         sCoGrangaWork[limbIndex + 34] = sp74.x;
         sCoGrangaWork[limbIndex + 40] = sp74.y;
@@ -1310,8 +1312,8 @@ void Corneria_Garuda_HandleDamage(Actor* this) {
 
     if ((this->health < 11) && ((gGameFrameCount % 4) == 0)) {
         Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                             this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
-                             this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
+                                 this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
         Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
                                this->vel.z, 0.1f, 10);
     }
@@ -1518,8 +1520,8 @@ void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
         case 100:
             if ((this->timer_0BC % 4) == 0) {
                 Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                                     this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
-                                     this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
+                                         this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
+                                         this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
                 Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x,
                                        this->vel.y, this->vel.z, 0.1f, 10);
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
@@ -1547,16 +1549,16 @@ void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
             }
 
             if (this->timer_0BC == 8) {
-                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z + 50.0f, 0.0f, 0.0f, 0.0f,
-                                 5.0f, 30);
+                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z + 50.0f, 0.0f, 0.0f,
+                                        0.0f, 5.0f, 30);
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
             }
             break;
 
         case 101:
             if ((this->timer_0BE != 0) && ((gGameFrameCount % 2) == 0)) {
-                Effect_FireSmoke1_SpawnMoving(this->obj.pos.x, this->obj.pos.y + 150.0f, this->obj.pos.z, 0.0f, 10.0f, 0.0f,
-                                        3.0f);
+                Effect_FireSmoke1_SpawnMoving(this->obj.pos.x, this->obj.pos.y + 150.0f, this->obj.pos.z, 0.0f, 10.0f,
+                                              0.0f, 3.0f);
             }
             break;
     }
@@ -1808,7 +1810,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                 if ((gGameFrameCount % 16U) == (j % 16U)) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[j], &sp84[k]);
                     Effect_FireSmoke1_Spawn4(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
-                                         sp84[k].z + this->obj.pos.z, this->fwork[17]);
+                                             sp84[k].z + this->obj.pos.z, this->fwork[17]);
                     Effect_Effect390_Spawn(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
                                            sp84[k].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f, 7);
                 }
@@ -1864,7 +1866,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
         if ((gBosses[CARRIER_LEFT].state != 0) && ((gGameFrameCount % 16) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199908, &sp84[5]);
             Effect_FireSmoke1_Spawn4(gBosses[CARRIER].obj.pos.x + sp84[5].x, gBosses[CARRIER].obj.pos.y + sp84[5].y,
-                                 gBosses[CARRIER].obj.pos.z + sp84[5].z, 5.0f);
+                                     gBosses[CARRIER].obj.pos.z + sp84[5].z, 5.0f);
         }
 
         if (gBosses[CARRIER_UPPER].state != 0) {
@@ -1873,13 +1875,13 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                 if ((gGameFrameCount % 8) == 0) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_80199950, &sp84[11]);
                     Effect_FireSmoke1_Spawn4(gBosses[CARRIER].obj.pos.x + sp84[11].x,
-                                         gBosses[CARRIER].obj.pos.y + sp84[11].y,
-                                         gBosses[CARRIER].obj.pos.z + sp84[11].z, 7.0f);
+                                             gBosses[CARRIER].obj.pos.y + sp84[11].y,
+                                             gBosses[CARRIER].obj.pos.z + sp84[11].z, 7.0f);
                 }
             } else if ((gGameFrameCount % 16) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199938, &sp84[9]);
                 Effect_FireSmoke1_Spawn4(gBosses[CARRIER].obj.pos.x + sp84[9].x, gBosses[CARRIER].obj.pos.y + sp84[9].y,
-                                     gBosses[CARRIER].obj.pos.z + sp84[9].z, 5.0f);
+                                         gBosses[CARRIER].obj.pos.z + sp84[9].z, 5.0f);
             }
         }
 
@@ -1887,7 +1889,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
             ((gGameFrameCount % 16) == 0)) {
             Matrix_MultVec3f(gCalcMatrix, &D_i1_80199944, &sp84[10]);
             Effect_FireSmoke1_Spawn4(gBosses[CARRIER].obj.pos.x + sp84[10].x, gBosses[CARRIER].obj.pos.y + sp84[10].y,
-                                 gBosses[CARRIER].obj.pos.z + sp84[10].z, 5.0f);
+                                     gBosses[CARRIER].obj.pos.z + sp84[10].z, 5.0f);
         }
 
         if (((this->state == 1) || (this->state == 2)) && ((gGameFrameCount % 8) == 0)) {

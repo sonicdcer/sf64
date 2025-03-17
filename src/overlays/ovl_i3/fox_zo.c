@@ -530,47 +530,47 @@ void Zoness_ZoBird_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 0:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
                 break;
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[12]);
                 break;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[13]);
                 break;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[14]);
                 break;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
                 break;
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[16]);
                 break;
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[17]);
                 break;
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[18]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[18]);
                 break;
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[19]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[19]);
                 break;
             case 9:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[9]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[20]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[20]);
                 break;
             case 10:
                 Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[10]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[21]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[21]);
                 break;
         }
     }
@@ -787,15 +787,15 @@ void Zoness_ZoFish_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 0:
                 Matrix_MultVec3f(gCalcMatrix, &sp2C, this->vwork);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[3]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[3]);
                 return;
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[4]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[4]);
                 return;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
                 break;
         }
     }
@@ -1069,9 +1069,9 @@ void Zoness_ZoEnergyBall_Update(ZoEnergyBall* this) {
 
     if ((gGameFrameCount % 2) == 0) {
         Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
-                               RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
-                               RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
-                               RAND_FLOAT(0.05f) + 0.05f, 0);
+                                 RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.y,
+                                 RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
+                                 RAND_FLOAT(0.05f) + 0.05f, 0);
     }
 }
 
@@ -1092,27 +1092,27 @@ void Zoness_ZoTroika_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[6]);
                 break;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[7]);
                 break;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[8]);
                 break;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[10]);
                 break;
             case 9:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
                 break;
         }
     }
@@ -1267,23 +1267,23 @@ void Zoness_ZoShrimp_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, this->vwork);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
                 return;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[6]);
                 return;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[7]);
                 return;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[8]);
                 return;
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
         }
     }
@@ -1384,39 +1384,39 @@ void Zoness_ZoObnema_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 return;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[10]);
                 return;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
                 return;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[12]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[12]);
                 return;
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[13]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[13]);
                 return;
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[14]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[14]);
                 return;
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[6]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[15]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[15]);
                 return;
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[7]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[16]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[16]);
                 return;
             case 13:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[8]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[17]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[17]);
                 break;
         }
     }
@@ -2575,7 +2575,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             Effect_Effect390_Spawn(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], this->vel.x,
                                    this->vel.y, this->vel.z, 0.2f, 10);
             Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_55_X] + RAND_FLOAT_CENTERED(200.0f),
-                                 sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
+                                     sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
 
             if (this->timer_050 == 30) {
                 Radio_PlayMessage(gMsg_ID_6079, RCID_BOSS_ZONESS);
@@ -2834,8 +2834,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         D_ctx_801779A8[0] = 20;
         if ((gGameFrameCount % 2) == 0) {
             Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
-                                 sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
-                                 sZoFwork[ZO_BSF_52_Z] + RAND_FLOAT_CENTERED(100.0f), 5.0f);
+                                     sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
+                                     sZoFwork[ZO_BSF_52_Z] + RAND_FLOAT_CENTERED(100.0f), 5.0f);
         }
 
         if (this->swork[ZO_SWK_14] != 0) {
@@ -3390,7 +3390,7 @@ void Zoness_80198F3C(ZoSarumarine* this, s32 arg1, s32 arg2) {
             sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
     }
     Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
-                         sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
+                             sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
     if ((gGameFrameCount % 2) == 0) {
         Effect_Effect390_Spawn(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2],
                                this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
@@ -4192,8 +4192,8 @@ void Zoness_ZoContainer_Update(ZoContainer* this) {
             }
             for (i = 0; i < 3; i++) {
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(50.0f),
-                                     this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
-                                     this->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f) + 20.0f,
+                                         this->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), 10.0f + 2 * i);
             }
             this->obj.pos.y += 100.0f;
 
@@ -4232,27 +4232,27 @@ void Zoness_ZoContainer_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[6]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[6]);
                 break;
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[7]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[7]);
                 break;
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[8]);
                 break;
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
             case 5:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[10]);
                 break;
             case 6:
                 Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[11]);
                 break;
         }
     }
