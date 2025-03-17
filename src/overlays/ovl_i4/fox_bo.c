@@ -608,7 +608,7 @@ void Bolse_8018D124(BoLaserCannon* this) {
     src.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + dest.x, this->obj.pos.y + 180.0f + dest.y,
+    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x + dest.x, this->obj.pos.y + 180.0f + dest.y,
                       this->obj.pos.z + dest.z, -this->orient.x, this->orient.y + this->obj.rot.y, 0.0f, 0.0f, 0.0f,
                       0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
@@ -623,7 +623,7 @@ bool Bolse_8018D278(BoLaserCannon* this) {
     this->dmgType = DMG_NONE;
     this->obj.pos.y += 150.0f;
 
-    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
+    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 15);
 
     for (i = 0; i < 3; i++) {
         if (Rand_ZeroOne() >= 0.5f) {
@@ -631,7 +631,7 @@ bool Bolse_8018D278(BoLaserCannon* this) {
         }
     }
 
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     this->itemDrop = DROP_SILVER_RING;
 
@@ -724,7 +724,7 @@ bool Bolse_8018D584(BoShieldReactor* this) {
         if (1) {}
         this->state = 1;
 
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 15);
 
         for (i = 0; i < 10; i++) {
             if (!(Rand_ZeroOne() >= 0.5f)) {
@@ -737,7 +737,7 @@ bool Bolse_8018D584(BoShieldReactor* this) {
         Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_OB_SPARK_BEAM);
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 0);
     } else {
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
     return true;
@@ -826,7 +826,7 @@ s32 Bolse_8018DE8C(BoBase* this) {
     }
 
     if (!(gGameFrameCount % 5)) {
-        Effect386_Spawn1(D_i4_8019EEF8[index].x + this->obj.pos.x, D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
+        Effect_Effect386_Spawn1(D_i4_8019EEF8[index].x + this->obj.pos.x, D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
                          D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
     }
 
@@ -869,7 +869,7 @@ s32 Bolse_8018E05C(BoBase* this, s32 index) {
 
     if ((fabsf(dest.x) < 100.0f) && (fabsf(dest.y) < 200.0f)) {
         if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer[0].hitTimer == 0)) {
-            Player_ApplyDamage(gPlayer, 0, 40);
+            Player_ApplyDamage(&gPlayer[0], 0, 40);
 
             if (dest.y > 0.0f) {
                 gPlayer[0].knockback.y = 20.0f;
@@ -878,14 +878,14 @@ s32 Bolse_8018E05C(BoBase* this, s32 index) {
             }
 
             for (i = 0; i < 5; i++) {
-                Effect_Effect389_Spawn(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
+                Effect_ElectricArc_Spawn(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(30.0f),
                                        gPlayer[0].pos.y + RAND_FLOAT(10.0f),
                                        gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(30.0f), gPlayer[0].vel.x,
                                        gPlayer[0].vel.y + gPlayer[0].knockback.y, gPlayer[0].vel.z,
                                        RAND_FLOAT(0.1f) + 0.1f, gPlayer[0].num + 11);
             }
 
-            Effect386_Spawn1(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
+            Effect_Effect386_Spawn1(gPlayer[0].pos.x + RAND_FLOAT_CENTERED(10.0f), gPlayer[0].pos.y + RAND_FLOAT(10.0f),
                              gPlayer[0].trueZpos + RAND_FLOAT_CENTERED(10.0f), 0.0f, 15.0f, 0.0f, 2.0f, 5);
         }
         ret = true;
@@ -1484,7 +1484,7 @@ void Bolse_LevelComplete(Player* player) {
 
             if (gCsFrameCount < 92) {
                 if ((gGameFrameCount % 2U) == 0) {
-                    Effect_Effect389_Spawn(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                    Effect_ElectricArc_Spawn(actor50->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
                                            actor50->obj.pos.y + 100.0f,
                                            actor50->obj.pos.z + RAND_FLOAT_CENTERED(1000.0f), 0.0f, 0.0f, 0.0f,
                                            RAND_FLOAT(0.4f) + 0.4f, 0.0f);
@@ -1494,7 +1494,7 @@ void Bolse_LevelComplete(Player* player) {
                     do {
                     } while (0);
 
-                    Effect386_Spawn1(RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
+                    Effect_Effect386_Spawn1(RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.x, actor50->obj.pos.y + 100.0f,
                                      RAND_FLOAT_CENTERED(1000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f, 5.0f);
                 }
             }
@@ -1680,12 +1680,12 @@ void Bolse_LevelComplete(Player* player) {
     if (actor50->work_046 != 0) {
         Math_SmoothStepToF(&actor50->fwork[20], 3.0f, 0.03f, 0.01f, 0);
         if ((gGameFrameCount % 2U) == 0) {
-            Effect_Effect389_Spawn(
+            Effect_ElectricArc_Spawn(
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(0.8f) + 0.8f, 0);
         }
         if ((gGameFrameCount % 2U) == 0) {
-            Effect386_Spawn1(
+            Effect_Effect386_Spawn1(
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.x, RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.y,
                 RAND_FLOAT_CENTERED(5000.0f) + actor50->obj.pos.z, 0.0f, 0.0f, 0.0f, RAND_FLOAT(10.0f) + 20.0f, 5);
         }
@@ -1816,7 +1816,7 @@ void Bolse_Effect397_Update(Effect397* this) {
     switch (this->state) {
         case 0:
             if (gPlayer[0].barrelRollAlpha == 0) {
-                func_effect_8007A774(gPlayer, this, 150.0f);
+                Effect_CheckPlayerCollision(&gPlayer[0], this, 150.0f);
             }
 
             Math_SmoothStepToF(&this->scale2, 30.0f, 1.0f, 10.0f, 0.0f);
@@ -1953,7 +1953,7 @@ void Bolse_BoBaseCore_Update(BoBaseCore* this) {
             if (this->swork[i + 24] != 0) {
                 this->swork[i + 24]--;
                 if ((gGameFrameCount % 2) == 0) {
-                    Effect_FireSmoke_Spawn2(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
+                    Effect_FireSmoke1_SpawnMoving(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
                                             this->vwork[i].x * 0.2f, 0.0f, this->vwork[i].z * 0.2f, 5.0f);
                 }
             }

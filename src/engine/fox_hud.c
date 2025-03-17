@@ -3729,7 +3729,7 @@ void FoBase_BurnEffects(FoBase* this, s32 timer) {
         }
 
         if ((gGameFrameCount % 8) == 0) {
-            Effect386_Spawn1(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
+            Effect_Effect386_Spawn1(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
                              this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 7.0f * temp, 10);
         }
     }
@@ -4380,7 +4380,7 @@ bool ActorTeamBoss_HandleDamage(ActorTeamBoss* this) {
 
     AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
 
-    func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
+    Effect_FireSmoke2_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
 
     Matrix_RotateY(gCalcMatrix, this->orient.y * M_DTOR, MTXF_NEW);
 
@@ -4476,7 +4476,7 @@ void ActorTeamBoss_DmgEffect(ActorTeamBoss* this) {
         }
 
         if ((gGameFrameCount & mask) == 0) {
-            func_effect_8007D10C(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
+            Effect_FireSmoke2_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
                                  this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.2f);
         }
 
@@ -4860,7 +4860,7 @@ void Aquas_CsIntroGreatFox_Init(void) {
 void Aquas_Effect363_Spawn(f32 x, f32 y, f32 z, f32 arg3) {
     s32 i;
     Effect* effect = &gEffects[ARRAY_COUNT(gEffects) - 1];
-    Player* player = gPlayer;
+    Player* player = &gPlayer[0];
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (effect->obj.status == OBJ_FREE) {

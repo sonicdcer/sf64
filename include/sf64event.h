@@ -322,14 +322,14 @@ typedef enum EventAction {
     /*  1 */ EVACT_SHOOT_FORWARD,
     /*  2 */ EVACT_SHOOT_AT_PLAYER,
     /*  3 */ EVACT_TEAM_SHOOT,
-    /*  4 */ EVACT_BLUE_ENERGY,
-    /*  5 */ EVACT_5,
-    /*  6 */ EVACT_6,
-    /*  7 */ EVACT_7,
+    /*  4 */ EVACT_FLAME_PILLAR,
+    /*  5 */ EVACT_BLUE_ORB_FORWARD,
+    /*  6 */ EVACT_BLUE_ORB_AT_PLAYER,
+    /*  7 */ EVACT_ME_FIREBALL_AT_PLAYER,
     /*  8 */ EVACT_SHOOT_NEAR_PLAYER,
-    /*  9 */ EVACT_9,
-    /* 10 */ EVACT_10,
-    /* 11 */ EVACT_11,
+    /*  9 */ EVACT_EXPLODE_LARGE,
+    /* 10 */ EVACT_EXPLODE_SMALL,
+    /* 11 */ EVACT_EXPLODE_FIRE,
     /* 12 */ EVACT_DESPAWN,
     /* 13 */ EVACT_TI_DROP_MINE,
     /* 14 */ EVACT_ME_AS_OPEN,
@@ -337,7 +337,7 @@ typedef enum EventAction {
     /* 16 */ EVACT_SHOOT_PLAYER_TWICE,
     /* 17 */ EVACT_SHOOT_AT_CAMERA,
     /* 18 */ EVACT_GFOX_COVER_FIRE,
-    /* 19 */ EVACT_19,  // projectile ring used by bee enemies
+    /* 19 */ EVACT_ORB_RING,  // projectile ring used by bee enemies
 } EventAction;
 
 typedef enum EventActorId {

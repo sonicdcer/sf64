@@ -31,9 +31,11 @@ typedef void (*AudioCustomUpdateFunction)(void);
 
 #define IS_SEQUENCE_CHANNEL_VALID(ptr) ((u32) (ptr) != (u32) &gSeqChannelNone)
 #define SEQ_NUM_CHANNELS 16
+#define MAX_SEQ_REQUESTS 5
 #define SEQ_IO_VAL_NONE -1
 
-#define MAX_CHANNELS_PER_BANK 3
+#define MAX_SFX_PER_BANK 20
+#define MAX_ACTIVE_SFX 8
 
 #define MUTE_BEHAVIOR_3 (1 << 3)           // prevent further noteSubEus from playing
 #define MUTE_BEHAVIOR_4 (1 << 4)           // stop something in seqLayer scripts
@@ -974,7 +976,7 @@ typedef struct {
     /* 0x040 */ u8 setupCmdTimer;  // only execute setup commands when the timer is at 0.
     /* 0x041 */ u8 setupCmdNum;    // number of setup commands requested once the player is disabled
     /* 0x042 */ u8 setupFadeTimer;
-    /* 0x044 */ ChannelModulation channelMod[16];
+    /* 0x044 */ ChannelModulation channelMod[SEQ_NUM_CHANNELS];
     /* 0x244 */ u16 freqModChannelFlags;
     /* 0x246 */ u16 volChannelFlags;
     /* 0x248 */ u16 seqId;            // active seqId currently playing. Resets when sequence stops

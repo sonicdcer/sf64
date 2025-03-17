@@ -45,14 +45,14 @@ void SectorZ_MissileExplode(ActorAllRange* this, bool shotDown) {
     gScreenFlashTimer = 8;
 
     Object_Kill(&this->obj, this->sfxSource);
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_MS_EXPLOSION_S);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_MS_EXPLOSION_S);
 
     for (i = 0; i < 20; i++) {
         Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
         func_effect_80079618(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
     }
 
-    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f, 5);
 
     if (shotDown) {
@@ -551,7 +551,7 @@ void SectorZ_UpdateEvents(ActorAllRange* this) {
 
             gCsFrameCount++;
             if (gCsFrameCount == 3) {
-                Effect_Effect393_Spawn(katt->obj.pos.x, katt->obj.pos.y, katt->obj.pos.z, 30.0f);
+                Effect_Sparkle_Spawn(katt->obj.pos.x, katt->obj.pos.y, katt->obj.pos.z, 30.0f);
             }
             player->cam.eye.x += katt->vel.x * 0.23f;
             player->cam.eye.y += katt->vel.y * 0.23f;
@@ -1697,7 +1697,7 @@ void SectorZ_LevelCompleteCsUpdate(ActorCutscene* this) {
                 src.y = 70.0f;
                 src.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                Effect_Sparkle_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
                                        3.1f);
             }
         }
@@ -1734,7 +1734,7 @@ void SectorZ_SpaceJunkUpdate(SzSpaceJunk* this) {
         AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
 
         if (this->health <= 0) {
-            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
             Actor_Despawn(this);
             BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2);
 
@@ -1746,7 +1746,7 @@ void SectorZ_SpaceJunkUpdate(SzSpaceJunk* this) {
             }
 
             Object_Kill(&this->obj, this->sfxSource);
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
@@ -1795,7 +1795,7 @@ void SectorZ_SzGreatFox_Update(SzGreatFox* this) {
             Effect_Effect357_Spawn50(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
             func_effect_80079618(x + RAND_FLOAT_CENTERED(300.0f), y + RAND_FLOAT_CENTERED(100.0f), z, 2.0f);
         }
-        Effect386_Spawn1(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
+        Effect_Effect386_Spawn1(x, y, z, 0.0f, 0.0f, 0.0f, 20.0f, 30);
     }
 
     if (this->timer_052 != 0) {
@@ -1830,7 +1830,7 @@ void SectorZ_SzGreatFox_Update(SzGreatFox* this) {
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &sFireSmokeOffsetPos[RAND_INT(11.99f)], &dest);
-        Effect_Effect389_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+        Effect_ElectricArc_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
                                this->vel.x, this->vel.y, this->vel.z, RAND_FLOAT(0.1f) + 0.15f, 0);
 
         if (((gGameFrameCount % 7) == 0) && (Rand_ZeroOne() < 0.5f)) {

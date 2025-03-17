@@ -1080,9 +1080,9 @@ void Aquas_BlueMarineMove(Player* player) {
 }
 
 void Aquas_BlueMarineDown(Player* player) {
-    func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
+    Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
     Effect_Effect384_Spawn(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 5);
-    Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
+    Effect_Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
     Cutscene_KillPlayer(player);
 }
 
@@ -1107,13 +1107,13 @@ void Aquas_801ABA40(PlayerShot* shot) {
 
     if (shot->obj.pos.y < gGroundHeight) {
         shot->obj.pos.y = gGroundHeight + 2.0f;
-        PlayerShot_SpawnEffect344(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 90.0f,
+        PlayerShot_Effect344_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 90.0f,
                                   2.0f, 0, 0);
-        Effect_FireSmoke_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
+        Effect_FireSmoke1_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
         PlayerShot_Impact(shot);
     } else if (((shot->timer == 0) || (D_i3_801C4454 == 0)) && (shot->unk_5C != 0)) {
-        Effect_FireSmoke_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
+        Effect_FireSmoke1_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
         D_i3_801C41B8[21] = D_i3_801C41B8[22] = D_i3_801C41B8[23] = 0.0f;
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
         PlayerShot_Impact(shot);
@@ -1121,7 +1121,7 @@ void Aquas_801ABA40(PlayerShot* shot) {
         Math_SmoothStepToF(&shot->unk_48, 50.0f, 0.2f, 10.0f, 0.00001f);
         shot->obj.rot.z += shot->unk_48;
         if ((gGameFrameCount % 2) == 0) {
-            PlayerShot_SpawnEffect351(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z);
+            PlayerShot_SpawnTorpedoTrail(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z);
         }
 
         PlayerShot_CollisionCheck(shot);
@@ -1781,7 +1781,7 @@ void Aquas_AqSanada_Update(AqSanada* this) {
                     Object_Kill(&this->obj, this->sfxSource);
                 }
                 this->timer_0BC = 4;
-                func_effect_8007D0E0(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, 3.0f);
+                Effect_FireSmoke1_Spawn4(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, 3.0f);
                 AUDIO_PLAY_SFX(NA_SE_EN_SEA_EXPLOSION_S, this->sfxSource, 4);
             }
             break;
@@ -2488,8 +2488,8 @@ void Aquas_AqPearl_Update(AqPearl* this) {
             }
             Object_Kill(&this->obj, this->sfxSource);
             func_effect_800815DC();
-            func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, 5.0f);
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_SEA_EXPLOSION_S);
+            Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, 5.0f);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_SEA_EXPLOSION_S);
             break;
     }
 
@@ -2824,7 +2824,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                                        this->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
                                        this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), this->vel.x,
                                        this->vel.y, this->vel.z, 0.5f, 10);
-                func_effect_8007D0E0(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
                                      this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(400.0f),
                                      this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), 10.0f);
             }
@@ -2944,7 +2944,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                     this->swork[AQ_SWK_0] = 4;
                     gCameraShake = 50;
                     AUDIO_PLAY_SFX(NA_SE_WATER_PRESSURE, this->sfxSource, 0);
-                    func_enmy_80062B60(this->obj.pos.x, this->obj.pos.z + 800.0f, 0, 100.0f);
+                    Effect_Effect348_Spawn(this->obj.pos.x, this->obj.pos.z + 800.0f, 0, 100.0f);
                     var_fs3 = 80.0f;
 
                     for (i2 = 0; i2 < 3; i2++, var_fs3 += 10.0f) {
@@ -3016,7 +3016,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                                 spD4.x = D_i3_801C4308[73];
                                 spD4.y = D_i3_801C4308[74];
                                 spD4.z = D_i3_801C4308[75]; // 74?
-                                Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
+                                Effect_TimedSfx_Spawn(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
                                 this->swork[AQ_SWK_10] = 250.0f + RAND_FLOAT(50.0f);
                             }
                         }
@@ -3036,7 +3036,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                                 spD4.x = D_i3_801C4308[76];
                                 spD4.y = D_i3_801C4308[77]; // 76?
                                 spD4.z = D_i3_801C4308[78];
-                                Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
+                                Effect_TimedSfx_Spawn(&spD4, NA_SE_EN_WT_DISAPPEAR_L);
                                 this->swork[AQ_SWK_11] = 250.0f + RAND_FLOAT(50.0f);
                             }
                         }
@@ -3290,7 +3290,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                         spD4.y = D_i3_801C4308[74 + 3 * i7];
                         spD4.z = D_i3_801C4308[75 + 3 * i7];
 
-                        Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_P_BALL_SHOT);
+                        Effect_TimedSfx_Spawn(&spD4, NA_SE_EN_P_BALL_SHOT);
 
                         i2 = 0;
                         for (i3 = 0; (i2 <= i) && (i3 < ARRAY_COUNT(gActors)); i3++) {
@@ -3433,7 +3433,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                 spD4.x = D_i3_801C4308[73 + 3 * i3];
                 spD4.y = D_i3_801C4308[74 + 3 * i3];
                 spD4.z = D_i3_801C4308[75 + 3 * i3];
-                Effect_SpawnTimedSfxAtPos(&spD4, NA_SE_EN_P_GUN_APPEAR);
+                Effect_TimedSfx_Spawn(&spD4, NA_SE_EN_P_GUN_APPEAR);
             }
 
             if ((fabsf(D_i3_801C4308[10]) <= 3.0f) || (this->swork[AQ_SWK_10 + i3] == 0)) {
@@ -3856,7 +3856,7 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
         }
         this->health = 0;
         this->state = 7;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (this->state) {
@@ -3963,7 +3963,7 @@ void Aquas_AqSculpin_Update(AqSculpin* this) {
             Actor_Despawn(this);
             func_effect_800815DC();
             Object_Kill(&this->obj, this->sfxSource);
-            func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+            Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
             break;
     }
 
@@ -4181,9 +4181,9 @@ void Aquas_AqAnglerFish_Update(AqAnglerFish* this) {
         }
 
         func_effect_800815DC();
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, 10.0f);
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, 10.0f);
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, 10.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, 10.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, 10.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, 10.0f);
 
         for (i = 0; i < 5; i++) {
             func_effect_80081A8C(this->obj.pos.x + RAND_FLOAT(i * 15.0f), this->obj.pos.y + RAND_FLOAT(i * 3.0f),
@@ -4198,7 +4198,7 @@ void Aquas_AqAnglerFish_Update(AqAnglerFish* this) {
         Actor_Despawn(this);
         Object_Kill(&this->obj, this->sfxSource);
         AUDIO_PLAY_SFX(NA_SE_OB_MINI_BOMB, this->sfxSource, 4);
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     this->fwork[5] = (this->obj.pos.y * 0.01f) + 2.5f;
@@ -4380,10 +4380,10 @@ void Aquas_AqSpindlyFish_Update(AqSpindlyFish* this) {
             Aquas_SpawnDebris(&this->vwork[i], &this->vwork[15 + i], RAND_FLOAT_CENTERED(20.0f), RAND_FLOAT(5.0f),
                               RAND_FLOAT_CENTERED(10.0f), 51, this->scale, 200, i);
             func_effect_800815DC();
-            func_effect_8007D0E0(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z + 100.0f, 6.0f);
+            Effect_FireSmoke1_Spawn4(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z + 100.0f, 6.0f);
         }
         Object_Kill(&this->obj, this->sfxSource);
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (this->state) {
@@ -4657,11 +4657,11 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
         }
 
         func_effect_800815DC();
-        func_effect_8007D0E0(this->vwork[7].x, this->vwork[7].y, this->vwork[7].z, 5.0f);
+        Effect_FireSmoke1_Spawn4(this->vwork[7].x, this->vwork[7].y, this->vwork[7].z, 5.0f);
         this->itemDrop = DROP_SILVER_RING_25p;
         Actor_Despawn(this);
         Object_Kill(&this->obj, this->sfxSource);
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     if (this->state != 6) {
@@ -5075,8 +5075,8 @@ void Aquas_AqSquid_Update(AqSquid* this) {
         Object_Kill(&this->obj, this->sfxSource);
 
         func_effect_800815DC();
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_AQ_ZAKO_DOWN);
     }
 
     switch (this->state) {
@@ -5161,7 +5161,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
 
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &spC4, &spAC);
 
-                Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
+                Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->vwork[26].x + RAND_FLOAT_CENTERED(200.0f),
                                   this->vwork[26].y + RAND_FLOAT_CENTERED(200.0f), this->vwork[26].z, spf98, sp94, 0.0f,
                                   0.0f, 0.0f, 0.0f, spAC.x, spAC.y, spAC.z, 1.0f);
             }
@@ -5197,7 +5197,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
                                           this->vwork[11].y + RAND_FLOAT_CENTERED(50.0f),
                                           this->vwork[11].z + RAND_FLOAT_CENTERED(100.0f), 2.0f, 0);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &spDC, &spD0);
-                    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->vwork[26].x + spD0.x, this->vwork[26].y + spD0.y,
+                    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->vwork[26].x + spD0.x, this->vwork[26].y + spD0.y,
                                       this->vwork[26].z + spD0.z, this->vwork[27].x, this->fwork[2], this->vwork[27].z,
                                       0.0f, 0.0f, 0.0f, spD0.x, spD0.y, spD0.z, 1.0f);
                 }
@@ -5491,7 +5491,7 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
             Effect_Effect362_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 130.0f, this->scale * 30.0f);
             Effect_Effect362_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 130.0f, this->scale * 30.0f);
             Object_Kill(&this->obj, this->sfxSource);
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         }
     }
 }
@@ -5797,7 +5797,7 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
             }
 
             if (((gGameFrameCount % 8) == 0)) {
-                Effect_SpawnTimedSfxAtPos(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
+                Effect_TimedSfx_Spawn(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
             Aquas_801A92EC(this, sp70->obj.pos.x, sp70->obj.pos.y, sp70->obj.pos.z, this->iwork[13], i);
@@ -5831,7 +5831,7 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
                 }
             }
             if (((gGameFrameCount % 4) == 0)) {
-                Effect_SpawnTimedSfxAtPos(&sp6C->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
+                Effect_TimedSfx_Spawn(&sp6C->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
             Aquas_801A92EC(this, sp6C->obj.pos.x, sp6C->obj.pos.y, sp6C->obj.pos.z, this->iwork[13] + 1, i);
@@ -5867,7 +5867,7 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
             }
 
             if (((gGameFrameCount % 16) == 0)) {
-                Effect_SpawnTimedSfxAtPos(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
+                Effect_TimedSfx_Spawn(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
             Aquas_801A92EC(this, sp70->obj.pos.x, sp70->obj.pos.y, sp70->obj.pos.z, this->iwork[13] + 2, i);
@@ -6194,7 +6194,7 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
             }
 
             func_effect_800815DC();
-            func_effect_8007D0E0(this->vwork[4].x, this->vwork[4].y, this->vwork[4].z, 10.0f);
+            Effect_FireSmoke1_Spawn4(this->vwork[4].x, this->vwork[4].y, this->vwork[4].z, 10.0f);
 
             for (j = 0; j < 20; j++) {
                 Aquas_Effect366_Spawn(this->vwork[4].x + RAND_FLOAT_CENTERED(100.0f),
@@ -6203,7 +6203,7 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
             }
 
             func_effect_800815DC();
-            func_effect_8007D0E0(this->vwork[4].x, this->vwork[4].y, this->vwork[4].z + 150.0f, 10.0f);
+            Effect_FireSmoke1_Spawn4(this->vwork[4].x, this->vwork[4].y, this->vwork[4].z + 150.0f, 10.0f);
             this->timer_0BC = 4;
             this->state = 4;
             break;
@@ -6216,7 +6216,7 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
                 this->itemDrop = D_i3_801C04C4[this->iwork[1]];
                 Actor_Despawn(this);
                 Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_AQ_PILLAR_BROKE);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_AQ_PILLAR_BROKE);
             }
             break;
 
@@ -6232,7 +6232,7 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
             if ((this->obj.pos.y < (gGroundHeight + 30.0f)) && (this->iwork[2] == 0)) {
                 this->iwork[2] = 1;
                 this->vel.x = this->vel.y = this->vel.z = this->gravity = 0.0f;
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_AQ_ROCK_BOUND);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_AQ_ROCK_BOUND);
                 for (j = 0; j < 6; j++) {
                     Effect_Effect364_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                            this->obj.pos.y + RAND_RANGE(-9.0f, 21.0f),
@@ -6627,7 +6627,7 @@ void Aquas_801BE274(AqOyster* this, f32 yRot, f32 xRot) {
     sp40.z = 80.0f;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp40, &sp58);
-    Effect_SpawnById2(OBJ_EFFECT_355, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y,
+    Effect_SpawnById2(OBJ_EFFECT_BLUE_ORB, sp64.x, sp64.y, sp64.z, xRot, yRot, 0.0f, 0.0f, 0.0f, 0.0f, sp58.x, sp58.y,
                       sp58.z, 1.0f);
 }
 
@@ -6718,7 +6718,7 @@ void Aquas_AqOyster_Update(AqOyster* this) {
                                              this->obj.pos.z + RAND_FLOAT(5.0f), 1.0f + RAND_FLOAT(0.5f), 7);
                     }
                     func_effect_800815DC();
-                    Effect_FireSmoke_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 51.0f, 10.0f);
+                    Effect_FireSmoke1_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 51.0f, 10.0f);
                 }
             }
 

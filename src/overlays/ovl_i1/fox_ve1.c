@@ -341,7 +341,7 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if ((this->state == 1) || (this->state == 2) || (this->state == 3)) {
@@ -504,7 +504,7 @@ void Venom1_Ve1Pillar2_3_Init(Actor* this) {
 void Venom1_Pillar2_3_Update(Actor* this) {
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 
     if (this->iwork[1] > 0) {
@@ -657,7 +657,7 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
     }
     this->iwork[0]++;
 }
@@ -1365,7 +1365,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
 
                     is3 = D_i1_8019AD80[is4][2];
                     if (is3 > 0) {
-                        func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, is3);
+                        Effect_FireSmoke1_Spawn3(spF8.x, spF8.y, spF8.z, is3);
                     }
 
                     for (is1 = 0; is1 < D_i1_8019AD80[is4][0]; is1++) {
@@ -1584,7 +1584,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
             spF8.x += (this->obj.pos.x + sGoleMechLimbInfo[spF4].unk_0C[1].x) + RAND_FLOAT_CENTERED(60.0f);
             spF8.y += (this->obj.pos.y + sGoleMechLimbInfo[spF4].unk_0C[1].y) + RAND_FLOAT_CENTERED(60.0f);
             spF8.z += this->obj.pos.z + sGoleMechLimbInfo[spF4].unk_0C[1].z;
-            func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, sGoleMechLimbInfo[spF4].unk_60);
+            Effect_FireSmoke1_Spawn3(spF8.x, spF8.y, spF8.z, sGoleMechLimbInfo[spF4].unk_60);
             sGoleMechLimbInfo[spF4].flag &= ~0x1000;
         }
     }
@@ -1945,7 +1945,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                     spF8.x = this->obj.pos.x + this->fwork[3];
                     spF8.y = this->obj.pos.y + this->fwork[4];
                     spF8.z = this->obj.pos.z + this->fwork[5];
-                    func_effect_8007D2C8(spF8.x, spF8.y, spF8.z, 5.0f);
+                    Effect_FireSmoke1_Spawn3(spF8.x, spF8.y, spF8.z, 5.0f);
                     this->timer_050 = 3;
                 }
             }
@@ -2034,7 +2034,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                     spF8.x = this->obj.pos.x + this->fwork[3];
                     spF8.y = this->obj.pos.y + this->fwork[4];
                     spF8.z = this->obj.pos.z + this->fwork[5];
-                    Effect386_Spawn1(spF8.x, spF8.y, spF8.z, 0, 0, 0, 25.0f, 5);
+                    Effect_Effect386_Spawn1(spF8.x, spF8.y, spF8.z, 0, 0, 0, 25.0f, 5);
                     gFillScreenRed = (gFillScreenGreen = (gFillScreenBlue = 255));
                     gFillScreenAlpha = (gFillScreenAlphaTarget = 255);
                     break;
