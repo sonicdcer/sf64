@@ -546,7 +546,7 @@ void Solar_SoRock_Draw(SoRock1* this) {
     }
 }
 
-void Solar_Effect392_Setup3(SoProminence* this, Effect392* effect, f32 scale1) {
+void Solar_Effect392_Setup3(SoProminence* this, EffectSoFlare* effect, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_SO_FLARE;
@@ -569,7 +569,8 @@ void Solar_Effect392_Setup3(SoProminence* this, Effect392* effect, f32 scale1) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_Effect392_Setup4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_Effect392_Setup4(SoVulkain* this, EffectSoFlare* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel,
+                            f32 hVelMod) {
     Vec3f sp44;
     Vec3f sp38;
     Vec3f sp2C = D_i3_801BF920;
@@ -636,7 +637,8 @@ void Solar_Effect392_Setup4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yP
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_Effect392_Setup5(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Solar_Effect392_Setup5(SoVulkain* this, EffectSoFlare* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2,
+                            s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
     effect->obj.id = OBJ_EFFECT_SO_FLARE;
@@ -781,8 +783,8 @@ void Solar_SoFlare_Update(EffectSoFlare* this) {
                     sp58 = -100.0f;
                 }
 
-                Solar_Effect392_Spawn2(this->obj.pos.x + sp58, this->obj.pos.y + sp54, this->obj.pos.z, sp58 * 0.25f,
-                                       RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                Solar_SoFlare_Spawn(this->obj.pos.x + sp58, this->obj.pos.y + sp54, this->obj.pos.z, sp58 * 0.25f,
+                                    RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
@@ -858,8 +860,8 @@ void Solar_SoFlare_Update(EffectSoFlare* this) {
                 } else {
                     sp58 = -100.0f;
                 }
-                Solar_Effect392_Spawn2(this->obj.pos.x + sp58, this->obj.pos.y + -50.0f, this->obj.pos.z, sp58 * 0.25f,
-                                       RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                Solar_SoFlare_Spawn(this->obj.pos.x + sp58, this->obj.pos.y + -50.0f, this->obj.pos.z, sp58 * 0.25f,
+                                    RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 

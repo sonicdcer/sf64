@@ -6249,17 +6249,17 @@ void Aquas_AqStoneColumn_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     if (this->state == 3) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[4]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[4]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
                 break;
 
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[0]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[0]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[2]);
                 break;
 
             case 5:
-                Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[1]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[1]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[3]);
                 break;
         }
