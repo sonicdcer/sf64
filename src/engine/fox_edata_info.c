@@ -470,7 +470,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_TORPEDO_TRAIL  */  {(void*) Effect_TorpedoTrail_Draw, 1, (ObjectFunc) Effect_TorpedoTrail_Update,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_CLOUDS  */  {(void*) Effect_Clouds_Draw, 1, (ObjectFunc) Effect_Clouds_Update,             NULL,  -200.0f,  1, 2,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_ENEMY_LASER  */  {(void*) Effect_EnemyLaser_Draw, 1, (ObjectFunc) Effect_EnemyShot_Update,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_SYROBOT_LASER  */  {(void*) SectorY_RobotLaser_Draw, 1, (ObjectFunc) Effect_EnemyShot_Update,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_SYROBOT_LASER  */  {(void*) SectorY_SyRobotLaser_Draw, 1, (ObjectFunc) Effect_EnemyShot_Update,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_BLUE_ORB  */  {(void*) Effect_BlueOrb_Draw, 1, (ObjectFunc) Effect_BlueOrb_Update,             NULL,   100.0f,  1, 0, 20, 1,   0.0f,  0 },
   /* OBJ_EFFECT_ME_FIREBALL  */  {(void*) Effect_MeFireball_Draw, 1, (ObjectFunc) Effect_MeFireball_Update,             NULL,   100.0f,  1, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_357  */  {(void*) Effect_Effect357_Draw, 1, (ObjectFunc) Effect_Effect357_Update,             NULL,   100.0f,  0, 1,  0, 0,   0.0f,  0 },

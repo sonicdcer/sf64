@@ -155,7 +155,7 @@ typedef struct ObjectInfo {
         ObjectFunc draw;
         Gfx* dList;
     };
-    /* 0x00 */ u8 drawType;
+    /* 0x04 */ u8 drawType;
     /* 0x08 */ ObjectFunc action; // argument must have object type.
     /* 0x0C */ f32* hitbox;
     /* 0x10 */ f32 cullDistance;  // z coordinate of something
@@ -530,7 +530,7 @@ typedef enum ObjectId {
     /* 203 */ OBJ_ACTOR_SX_SLIPPY,
     /* 204 */ OBJ_ACTOR_SY_ROBOT,
     /* 205 */ OBJ_ACTOR_MA_LOCOMOTIVE,    // Macbeth train locomotive.
-    /* 206 */ OBJ_ACTOR_MA_TENDER_CAR,        // Macbeth train tender, where Mechbeth is hidden.
+    /* 206 */ OBJ_ACTOR_MA_TENDER_CAR,    // Macbeth train tender, where Mechbeth is hidden.
     /* 207 */ OBJ_ACTOR_MA_MECHBETH,      // Macbeth train BOSS, located inside the tender.
     /* 208 */ OBJ_ACTOR_MA_MISSILE_CAR,   // Macbeth train Copperhead Missile container car.
     /* 209 */ OBJ_ACTOR_MA_ROBOT,         // Macbeth train Robot.
@@ -579,7 +579,7 @@ typedef enum ObjectId {
     /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
     /* 253 */ OBJ_ACTOR_ZO_SUPPLYCRANE,
     /* 254 */ OBJ_ACTOR_ZO_SEARCHLIGHT,
-    /* 255 */ OBJ_ACTOR_AQ_SANADA,          // OBJ_ACTOR_AQ_SANADA (Snake type enemy. Named after from SFX_ID)
+    /* 255 */ OBJ_ACTOR_AQ_SANADA,          // OBJ_ACTOR_AQ_SANADA (Snake type enemy. Named after SFX_ID)
     /* 256 */ OBJ_ACTOR_AQ_BACOON_MUSCLE,  // Referred as "Columns" by Peppy, these are Bacoon's adductor muscles.
     /* 257 */ OBJ_ACTOR_AQ_BACOON_BARNACLE, // Barnacles on top of Bacoon's shell. Sanadas spawn from them.
     /* 258 */ OBJ_ACTOR_AQ_PEARL,
@@ -623,9 +623,9 @@ typedef enum ObjectId {
     /* 296 */ OBJ_BOSS_CO_CARRIER_BOTTOM,
     /* 297 */ OBJ_BOSS_ME_CRUSHER,
     /* 298 */ OBJ_BOSS_ME_CRUSHER_SHIELD,
-    /* 299 */ OBJ_BOSS_UNK_299,
-    /* 300 */ OBJ_BOSS_UNK_300,
-    /* 301 */ OBJ_BOSS_AQ_UNK_301,
+    /* 299 */ OBJ_BOSS_UNK_299, // Unimplemented
+    /* 300 */ OBJ_BOSS_UNK_300, // Unimplemented
+    /* 301 */ OBJ_BOSS_AQ_UNK_301, // Unimplemented Aquas Boss
     /* 302 */ OBJ_BOSS_A6_GORGON,
     /* 303 */ OBJ_BOSS_SX_SPYBORG,
     /* 304 */ OBJ_BOSS_SX_SPYBORG_LEFT_ARM,
@@ -642,7 +642,7 @@ typedef enum ObjectId {
     /* 315 */ OBJ_BOSS_SO_VULKAIN,
     /* 316 */ OBJ_BOSS_KA_SAUCERER,
     /* 317 */ OBJ_BOSS_KA_FLBASE, // Katina FrontLine Base
-    /* 318 */ OBJ_BOSS_AQ_BACOON,
+    /* 318 */ OBJ_BOSS_AQ_BACOON, // Aquas Level Boss
     /* 319 */ OBJ_BOSS_VE1_GOLEMECH,
     /* 320 */ OBJ_BOSS_AND_ANDROSS,
     /* 321 */ OBJ_BOSS_AND_BRAIN,
@@ -1358,7 +1358,7 @@ typedef Effect Effect370;
 typedef Effect Effect371;
 typedef Effect EffectWaterSpray;
 typedef Effect EffectTimedSfx;
-typedef Effect Effect374;
+typedef Effect EffectFlamePillar;
 typedef Effect Effect375;
 typedef Effect Effect376;
 typedef Effect EffectSpyborgOrb;

@@ -2204,7 +2204,7 @@ void Effect_Effect375_Draw(Effect375* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_FlamePillar_Update(Effect374* this) {
+void Effect_FlamePillar_Update(EffectFlamePillar* this) {
     Vec3f sp54 = { 0.0f, -10.0f, 0.0f };
 
     switch (this->state) {
@@ -2256,7 +2256,7 @@ void Effect_FlamePillar_Update(Effect374* this) {
     }
 }
 
-void Effect_FlamePillar_Draw(Effect374* this) {
+void Effect_FlamePillar_Draw(EffectFlamePillar* this) {
     switch (this->state) {
         case 0:
             Graphics_SetScaleMtx(this->scale2);
@@ -3613,7 +3613,7 @@ void Effect_Effect395_Update(Effect395* this) {
                 Object_Kill(&this->obj, this->sfxSource);
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             } else if (fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 1000.0f) {
-                ActorEvent_SpawnPinkExplosion(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+                ActorEvent_PinkExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             sp84 = 50.0f;

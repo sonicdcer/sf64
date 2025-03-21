@@ -94,7 +94,7 @@ void Aquas_BlueMarineMove(Player*);
 void Aquas_801ABA40(PlayerShot*);
 void Aquas_BlueMarineShoot(Player*);
 void Aquas_Bubble_Spawn(f32, f32, f32, f32, s32);
-void Aquas_Bubble_Update(Effect*);
+void Aquas_Bubble_Update(EffectBubble*);
 void Aquas_BlueMarine_Draw(Player*);
 void Aquas_BlueMarineBoost(Player*);
 void Aquas_BlueMarineBrake(Player*);

@@ -1784,7 +1784,7 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
     s32 i;
     s32 index;
     Vec3f sp40;
-    Effect* newEffect;
+    EffectTimedSfx* newEffect;
 
     sp9C.x = gPlayer[0].pos.x - this->obj.pos.x;
     sp9C.y = gPlayer[0].pos.y - this->obj.pos.y - 30.0f;
@@ -3149,7 +3149,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
 
 void Titania_80192118(TiGoras* this) {
     Vec3f sp54;
-    Effect* effect;
+    Effect394* effect;
     f32 temp_ft2;
     f32 temp_ft4;
     f32 temp_fa1;
@@ -3788,7 +3788,7 @@ void Titania_80193DF0(TiGoras* this) {
     Vec3f spD4;
     Vec3f spC8;
     Actor* actor;
-    Effect* effect;
+    Effect394* effect;
     s32 var_v1;
     s32 spB8;
     s32 i;

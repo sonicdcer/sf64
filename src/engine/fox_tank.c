@@ -162,9 +162,11 @@ void func_tank_80043B18(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -player->zRotBank * M_DTOR, MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, 0.0f, -30.0f, 0, MTXF_APPLY);
+
     sp48.y = 0.0f;
     sp48.z = -20.0f;
     sp38 = player->yRot_114;
+
     if (player->rollState != 0) {
 
         sp48.x = 0.0f;
@@ -178,11 +180,11 @@ void func_tank_80043B18(Player* player) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
         } else {
-            if (((gGameFrameCount % 2) == 0)) {
+            if ((gGameFrameCount % 2) == 0) {
                 Titania_TankTracks_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
                                          player->rot.y + sp38, 1.3f);
             }
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4) == 0) {
                 Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
                                        player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
             }
@@ -197,7 +199,7 @@ void func_tank_80043B18(Player* player) {
                     func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
                 }
             } else {
-                if (((gGameFrameCount % 2) == 0)) {
+                if ((gGameFrameCount % 2) == 0) {
                     Titania_TankTracks_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
                                              player->rot.y + sp38, 1.0f);
                 }
@@ -215,7 +217,7 @@ void func_tank_80043B18(Player* player) {
                     func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
                 }
             } else {
-                if (((gGameFrameCount % 2) == 0)) {
+                if ((gGameFrameCount % 2) == 0) {
                     Titania_TankTracks_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
                                              player->rot.y + sp38, 1.0f);
                 }
@@ -284,7 +286,7 @@ void func_tank_800443DC(Player* player) {
     Scenery* scenery;
     s32 i;
 
-    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+    for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
             func_tank_800441C8(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
@@ -914,7 +916,7 @@ void func_tank_80046704(Player* player) {
         D_800C9F00--;
     }
     if (1) {}
-    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+    for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
             if ((scenery->obj.id == OBJ_SCENERY_MA_TERRAIN_BUMP) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_1) ||
                 (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_2) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_3) ||

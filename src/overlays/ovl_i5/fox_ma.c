@@ -6431,11 +6431,11 @@ void Macbeth_801AF628(ActorCutscene* this, s32 index) {
 }
 
 void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
-    Effect* effect = NULL;
+    Effect357* effect = NULL;
     Effect* effectPtr;
     s32 i;
 
-    for (effectPtr = &gEffects[0], i = 0; i < 99; i++, effectPtr++) {
+    for (effectPtr = &gEffects[0], i = 0; i < ARRAY_COUNT(gEffects) - 1; i++, effectPtr++) {
         if (effectPtr->obj.status == OBJ_FREE) {
             effect = effectPtr;
             break;

@@ -1471,7 +1471,7 @@ void Andross_AbsorbArwing(Player* player) {
     Player_DamageEffects(player);
 }
 
-void Andross_AndSuction_Setup(Effect* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
+void Andross_AndSuction_Setup(EffectAndSuction* this, f32 xPos, f32 yPos, f32 zPos, s32 arg4) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_AND_SUCTION;
@@ -2669,7 +2669,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
             }
             if (this->timer_050 > 0) {
                 playerShot = gPlayerShots;
-                effect = gEffects;
+                effect = &gEffects[0];
                 for (i = 0; i < ARRAY_COUNT(gPlayerShots); i++, playerShot++) {
                     Math_SmoothStepToF(&playerShot->obj.pos.x, this->obj.pos.x, 0.5f, this->fwork[16], 0);
                     Math_SmoothStepToF(&playerShot->obj.pos.y, this->obj.pos.y - 100.0f, 0.5f, this->fwork[16], 0);
