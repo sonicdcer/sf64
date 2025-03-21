@@ -44,7 +44,7 @@
     start: 0x88F730
     vram: 0x03000000
     subsegments:
-      - [0x88F730, bin, ast_arwing/ast_arwing]
+      - [0x88F730, .data, ast_arwing/ast_arwing]
 
   - name: ast_landmaster
     exclusive_ram_id: segment_03
@@ -53,7 +53,7 @@
     start: 0x8A9520
     vram: 0x03000000
     subsegments:
-      - [0x8A9520, bin, ast_landmaster/ast_landmaster]
+      - [0x8A9520, .data, ast_landmaster/ast_landmaster]
 
   - name: ast_blue_marine
     exclusive_ram_id: segment_03
@@ -62,7 +62,7 @@
     start: 0x8B1AB0
     vram: 0x03000000
     subsegments:
-      - [0x8B1AB0, bin, ast_blue_marine/ast_blue_marine]
+      - [0x8B1AB0, .data, ast_blue_marine/ast_blue_marine]
 
   - name: ast_versus
     exclusive_ram_id: segment_03
@@ -378,7 +378,7 @@
     vram: 0x09000000
     start: 0xCA2860
     subsegments:
-      - [0xCA2860, bin, ast_font_3d/ast_font_3d]
+      - [0xCA2860, .data, ast_font_3d/ast_font_3d]
 
   - name: ast_andross
     exclusive_ram_id: segment_0C
@@ -387,7 +387,7 @@
     vram: 0x0C000000
     start: 0xCAEA30
     subsegments:
-      - [0xCAEA30, bin, ast_andross/ast_andross]
+      - [0xCAEA30, .data, ast_andross/ast_andross]
 
   - name: ast_logo
     exclusive_ram_id: segment_0F
@@ -396,7 +396,7 @@
     start: 0xCE8EC0
     vram: 0x0F000000
     subsegments:
-      - [0xCE8EC0, bin, ast_logo/ast_logo]
+      - [0xCE8EC0, .data, ast_logo/ast_logo]
 
   - name: ast_ending
     exclusive_ram_id: segment_07
@@ -405,7 +405,7 @@
     start: 0xCEB3C0
     vram: 0x07000000
     subsegments:
-      - [0xCEB3C0, bin, ast_ending/ast_ending]
+      - [0xCEB3C0, .data, ast_ending/ast_ending]
 
   - name: ast_ending_award_front
     exclusive_ram_id: segment_08
@@ -414,7 +414,7 @@
     start: 0xD071C0
     vram: 0x08000000
     subsegments:
-      - [0xD071C0, bin, ast_ending_award_front/ast_ending_award_front]
+      - [0xD071C0, .data, ast_ending_award_front/ast_ending_award_front]
 
   - name: ast_ending_award_back
     exclusive_ram_id: segment_08
@@ -423,7 +423,7 @@
     start: 0xD2C240
     vram: 0x08000000
     subsegments:
-      - [0xD2C240, bin, ast_ending_award_back/ast_ending_award_back]
+      - [0xD2C240, .data, ast_ending_award_back/ast_ending_award_back]
 
   - name: ast_ending_expert
     exclusive_ram_id: segment_08
@@ -432,7 +432,7 @@
     start: 0xD55CD0
     vram: 0x08000000
     subsegments:
-      - [0xD55CD0, bin, ast_ending_expert/ast_ending_expert]
+      - [0xD55CD0, .data, ast_ending_expert/ast_ending_expert]
 
   - name: ast_training
     exclusive_ram_id: segment_06
@@ -441,4 +441,4 @@
     start: 0xD9FDD0
     vram: 0x06000000
     subsegments:
-      - [0xD9FDD0, bin, ast_training/ast_training]
+      - [0xD9FDD0, .data, ast_training/ast_training]

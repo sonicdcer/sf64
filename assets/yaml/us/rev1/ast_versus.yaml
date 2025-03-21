@@ -308,8 +308,8 @@ D_versus_301B438:
 D_versus_301B640:
   { type: GFX, offset: 0x301B640, symbol: D_versus_301B640}
 
-D_versus_301B6E0:
-  { type: GFX, offset: 0x301B6E0, symbol: D_versus_301B6E0}
+aVsLandmasterThrusterDL:
+  { type: GFX, offset: 0x301B6E0, symbol: aVsLandmasterThrusterDL}
 
 D_versus_301B768:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x301B768, symbol: D_versus_301B768 }

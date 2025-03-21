@@ -162,9 +162,11 @@ void func_tank_80043B18(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_APPLY);
     Matrix_RotateZ(gCalcMatrix, -player->zRotBank * M_DTOR, MTXF_APPLY);
     Matrix_Translate(gCalcMatrix, 0.0f, -30.0f, 0, MTXF_APPLY);
+
     sp48.y = 0.0f;
     sp48.z = -20.0f;
     sp38 = player->yRot_114;
+
     if (player->rollState != 0) {
 
         sp48.x = 0.0f;
@@ -178,11 +180,11 @@ void func_tank_80043B18(Player* player) {
         if (gCurrentLevel == LEVEL_MACBETH) {
             func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
         } else {
-            if (((gGameFrameCount % 2) == 0)) {
-                Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                        player->rot.y + sp38, 1.3f);
+            if ((gGameFrameCount % 2) == 0) {
+                Titania_TankTracks_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                         player->rot.y + sp38, 1.3f);
             }
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4) == 0) {
                 Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
                                        player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
             }
@@ -197,9 +199,9 @@ void func_tank_80043B18(Player* player) {
                     func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
                 }
             } else {
-                if (((gGameFrameCount % 2) == 0)) {
-                    Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                            player->rot.y + sp38, 1.0f);
+                if ((gGameFrameCount % 2) == 0) {
+                    Titania_TankTracks_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                             player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
@@ -215,9 +217,9 @@ void func_tank_80043B18(Player* player) {
                     func_tank_80043AA0(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z, 0.2f);
                 }
             } else {
-                if (((gGameFrameCount % 2) == 0)) {
-                    Titania_Effect368_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
-                                            player->rot.y + sp38, 1.0f);
+                if ((gGameFrameCount % 2) == 0) {
+                    Titania_TankTracks_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y, player->trueZpos + sp3C.z,
+                                             player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
                     Effect_Effect359_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
@@ -284,7 +286,7 @@ void func_tank_800443DC(Player* player) {
     Scenery* scenery;
     s32 i;
 
-    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+    for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && (scenery->obj.id == OBJ_SCENERY_TI_BRIDGE) &&
             ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
             func_tank_800441C8(player, scenery->info.hitbox, scenery->obj.pos.x, scenery->obj.pos.y, scenery->obj.pos.z,
@@ -387,41 +389,50 @@ void func_tank_80044868(Player* player) {
     if (stickTilt > 0.0f) {
         stickTilt = 0.0f;
     }
+
     if (player->unk_17C < stickTilt) {
         player->unk_17C += 3.0f;
     }
+
     if (stickTilt < player->unk_17C) {
         player->unk_17C -= 3.0f;
     }
+
     if (player->unk_180 < 0.0f) {
         player->unk_180 += 3.0f;
     }
     if (player->unk_180 > 0.0f) {
         player->unk_180 -= 3.0f;
     }
+
     gPlayerTurnRate = 3.0f;
     gPlayerTurnStickMod = 0.66f;
+
     stickTilt = gInputPress->stick_x;
     if (stickTilt == 0.0f) {
         Math_SmoothStepToF(&player->rot.y, -stickTilt * gPlayerTurnStickMod, 0.1f, gPlayerTurnRate * 0.5f, 0.1f);
     } else {
         Math_SmoothStepToF(&player->rot.y, -stickTilt * gPlayerTurnStickMod, 0.1f, gPlayerTurnRate, 0.1f);
     }
+
     player->rot_104.y = player->rot.y;
     sp2C = player->baseSpeed;
 
     if ((gCurrentLevel == LEVEL_MACBETH) && (sp2C < 3.0f)) {
         sp2C = 3.0f;
     }
+
     if (player->unk_16C > 0.2f) {
         Math_SmoothStepToF(&player->unk_184, player->baseSpeed * 0.5f, 1.0f, 1.0f, 0.0f);
     }
+
     if (player->unk_170 > 0.2f) {
         Math_SmoothStepToF(&player->unk_184, -player->baseSpeed * 0.5f, 1.0f, 1.0f, 0.0f);
     }
     if (!(player->unk_170 > 0.2f) && !(player->unk_16C > 0.2f) && player->grounded) {
         Math_SmoothStepToF(&player->unk_184, 0.0f, 1.0f, 0.75f, 0.0f);
     }
+
     if (player->rollState != 0) {
         if (player->rollRate < 0) {
             player->unk_184 = 15.0f;
@@ -430,6 +441,7 @@ void func_tank_80044868(Player* player) {
             player->unk_184 = -15.0f;
         }
     }
+
     player->vel.z = -(COS_DEG(player->rot_104.y) * COS_DEG(player->rot_104.x) * sp2C);
     if ((player->vel.x < 20.0f) && (player->rot_104.z < -30.0f)) {
         Math_SmoothStepToF(&player->vel.x, -player->rot_104.z * 0.5f, 0.2f, 3.0f, 0.0f);
@@ -440,28 +452,37 @@ void func_tank_80044868(Player* player) {
     } else {
         Math_SmoothStepToF(&player->vel.x, player->unk_184 - (SIN_DEG(player->rot_104.y) * sp2C), 0.5f, 5.0f, 0.0f);
     }
+
     player->vel.z += fabsf((player->unk_184 * 0.4f * player->baseSpeed) / 15.0f);
+
     if (player->unk_000 == 0) {
         player->vel.z += SIN_DEG(player->rot.x) * player->boostSpeed;
     }
+
     if (D_800C9F00 != 0) {
         player->vel.z = 2.0f * D_800C9F00;
     }
+
     player->pos.x += player->vel.x;
+
     if ((player->xPath + (player->pathWidth - 100.0f)) < player->pos.x) {
         player->flags_228 = PFLAG_228_0;
     }
+
     if (player->pos.x < (player->xPath - (player->pathWidth - 100.0f))) {
         player->flags_228 = PFLAG_228_1;
     }
+
     if (player->pathWidth + player->xPath < player->pos.x) {
         player->pos.x = player->pathWidth + player->xPath;
         player->vel.x = 0.0f;
     }
+
     if (player->pos.x < player->xPath - player->pathWidth) {
         player->pos.x = player->xPath - player->pathWidth;
         player->vel.x = 0.0f;
     }
+
     player->pos.y += player->vel.y;
     player->vel.y -= player->gravity;
 
@@ -471,11 +492,14 @@ void func_tank_80044868(Player* player) {
     if (player->vel.y > 20.0f) {
         player->vel.y = 20.0f;
     }
+
     player->pos.z += player->vel.z;
+
     if (player->grounded) {
         player->pathHeight = 0.0f;
         player->rockPhase += player->baseSpeed * 5.0f;
         player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
+
         if (D_800C9F04 == 0) {
             if (player->baseSpeed != 0.0f) {
                 func_tank_80043B18(player);
@@ -485,21 +509,23 @@ void func_tank_80044868(Player* player) {
             }
         }
     }
+
     if (player->baseSpeed > 0.0f) {
-        Lib_Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
+        Lib_Texture_Scroll(aLandmasterModelTex6, 32, 32, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
-            func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
+            func_tank_80043280(aLandmasterModelTex4, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
         if ((gCurrentLevel == LEVEL_MACBETH) && (player->state == PLAYERSTATE_LEVEL_COMPLETE)) {
-            func_tank_80043280(D_landmaster_3005EA8, D_Tex_800DACB8, gGameFrameCount * -55.0f);
+            func_tank_80043280(aLandmasterModelTex4, D_Tex_800DACB8, gGameFrameCount * -55.0f);
         }
     }
     if (player->baseSpeed > 10.0f) {
-        Lib_Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
+        Lib_Texture_Scroll(aLandmasterModelTex6, 32, 32, 0);
         if ((gCurrentLevel == LEVEL_TITANIA) && !gBossActive) {
-            func_tank_80043280(D_landmaster_3005EA8, D_TI_6009BB8, gGameFrameCount * -55.0f);
+            func_tank_80043280(aLandmasterModelTex4, D_TI_6009BB8, gGameFrameCount * -55.0f);
         }
     }
+
     Player_DamageEffects(player);
 }
 
@@ -890,7 +916,7 @@ void func_tank_80046704(Player* player) {
         D_800C9F00--;
     }
     if (1) {}
-    for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+    for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
         if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 2000.0f) < scenery->obj.pos.z)) {
             if ((scenery->obj.id == OBJ_SCENERY_MA_TERRAIN_BUMP) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_1) ||
                 (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_2) || (scenery->obj.id == OBJ_SCENERY_MA_FLOOR_3) ||

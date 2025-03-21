@@ -1,0 +1,266 @@
+:config:
+  segments:
+    - [0x0C, 0xCAEA30]
+  header:
+    code:
+      - '#include "assets/ast_andross.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+      - '#include "sf64level.h"'
+      - '#include "sf64event.h"'
+      - '#include "sf64player.h"'
+      - '#include "sf64audio_external.h"'
+      - '#include "sf64mesg.h"'
+
+aAndSuctionJunkDL:
+  {type: GFX, offset: 0xC000000, symbol: aAndSuctionJunkDL}
+
+aAndSuctionJunkTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xC000168, symbol: aAndSuctionJunkTex}
+
+aAndRobotIdleAnim:
+  {type: SF64:ANIM, offset: 0xC00080C, symbol: aAndRobotIdleAnim}
+ 
+aAndEyeHurtAnim:
+  {type: SF64:ANIM, offset: 0xC000DD4, symbol: aAndEyeHurtAnim, comment: This anim plays when one of Andross's eyes are hurt but no corresponding side hand exists}
+
+aAndLaughAnim:
+  {type: SF64:ANIM, offset: 0xC001D08, symbol: aAndLaughAnim}
+
+aAndTitleCardJpTex:
+ {type: TEXTURE, ctype: u8, format: IA8, width: 96, height: 28, offset: 0xC000DE0, symbol: aAndTitleCardJpTex}
+
+aAndRobotUpperMouthDL:
+  {type: GFX, offset: 0xC001D20, symbol: aAndRobotUpperMouthDL}
+
+aAndRobotLowerMouthDL:
+  {type: GFX, offset: 0xC002100, symbol: aAndRobotLowerMouthDL}
+
+aAndRobotCircuitBoardTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C0023D0, symbol: aAndRobotCircuitBoardTex1}
+
+aAndRobotCircuitBoardTex2:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C002BD0, symbol: aAndRobotCircuitBoardTex2}
+
+aAndRobotLowerMouthTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0C0033D0, symbol: aAndRobotLowerMouthTex}
+
+aAndRobotLeftEyeDL:
+  {type: GFX, offset: 0xC0035D0, symbol: aAndRobotLeftEyeDL}
+
+aAndRobotLeftEyeTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0C003858, symbol: aAndRobotLeftEyeTex}
+
+aAndRobotBodyDL:
+  {type: GFX, offset: 0xC003A60, symbol: aAndRobotBodyDL}
+
+aAndRightEyeHurtAnim:
+  {type: SF64:ANIM, offset: 0xC006108, symbol: aAndRightEyeHurtAnim}
+
+aAndAndrossHairBearTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0071C0, symbol: aAndAndrossHairBearTex}
+
+aAndAndrossSkinTex4:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0xC0079C0, symbol: aAndAndrossSkinTex4}
+
+aAndChewAnim:
+  {type: SF64:ANIM, offset: 0xC00D048, symbol: aAndChewAnim}
+
+aAndSmokeExhaustAnim:
+  {type: SF64:ANIM, offset: 0xC00D798, symbol: aAndSmokeExhaustAnim}
+# 
+aAndAndrossTongueTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0C00E308, symbol: aAndAndrossTongueTex}
+
+aAndAndrossBlackSquareTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0C00F308, symbol: aAndAndrossBlackSquareTex}
+
+aAndAndrossToothTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C00F388, symbol: aAndAndrossToothTex}
+
+aAndAndrossTeethTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0C00FB88, symbol: aAndAndrossTeethTex}
+
+aAndAndrossSkinTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C010B88, symbol: aAndAndrossSkinTex1}
+
+aAndAndrossSkinTex5:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C011388, symbol: aAndAndrossSkinTex5}
+
+aAndAndrossEarTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C011B88, symbol: aAndAndrossEarTex}
+
+aAndAndrossSkinTex2:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C012938, symbol: aAndAndrossSkinTex2}
+
+aAndAndrossSkinTex3:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C013138, symbol: aAndAndrossSkinTex3}
+
+aAndAndrossInfraOrbitalTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0C013938, symbol: aAndAndrossInfraOrbitalTex}
+
+aAndRobotRightEyeDL:
+  {type: GFX, offset: 0xC014940, symbol: aAndRobotRightEyeDL}
+
+aAndAndrossEyeTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C015300, symbol: aAndAndrossEyeTex}
+
+aAndDyingAnim:
+  {type: SF64:ANIM, offset: 0xC016250, symbol: aAndDyingAnim}
+ 
+aAndBombExplodeAnim:
+  {type: SF64:ANIM, offset: 0xC016630, symbol: aAndBombExplodeAnim, comment: When a bomb explodes inside of him}
+ 
+aAndLightningAttackDL:
+  {type: GFX, offset: 0xC016640, symbol: aAndLightningAttackDL}
+
+aAndLightningAttackVtx:
+  {type: VTX, count: 34, offset: 0xC016798, symbol: aAndLightningAttackVtx}
+
+aAndLightningAttackTex:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0C0169B8, symbol: aAndLightningAttackTex}
+
+aAndLightningAttackAnim:
+  {type: SF64:ANIM, offset: 0xC017DC4, symbol: aAndLightningAttackAnim}
+
+aAndCloseUpOpenLeftHandAttackAnim:
+  {type: SF64:ANIM, offset: 0xC01B690, symbol: aAndCloseUpOpenLeftHandAttackAnim, comment: Unused}
+
+aAndAndrossSkel:
+  {type: SF64:SKELETON, offset: 0xC01BE3C, symbol: aAndAndrossSkel}
+
+aAndAndrossSkelTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C01F328, symbol: aAndAndrossSkelTex1}
+
+aAndHandWeakPointDL:
+  {type: GFX, offset: 0xC021720, symbol: aAndHandWeakPointDL}
+
+aAndHandWeakPointTex1:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0C021C10, symbol: aAndHandWeakPointTex1}
+
+aAndHandWeakPointTex2:
+  {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0C021C90, symbol: aAndHandWeakPointTex2}
+
+aAndEjectAnim:
+  {type: SF64:ANIM, offset: 0xC022D54, symbol: aAndEjectAnim}
+
+aAndSuctionAnim:
+  {type: SF64:ANIM, offset: 0xC0232D0, symbol: aAndSuctionAnim}
+
+aAndLeftEyeHurtAnim:
+  {type: SF64:ANIM, offset: 0xC024E00, symbol: aAndLeftEyeHurtAnim}
+
+aAndLeftHandPunchAttackAnim:
+  {type: SF64:ANIM, offset: 0xC029174, symbol: aAndLeftHandPunchAttackAnim}
+
+aAndLeftHandPalmAttackAnim:
+  {type: SF64:ANIM, offset: 0xC02D694, symbol: aAndLeftHandPalmAttackAnim}
+
+aAndHandCrushAnim:
+  {type: SF64:ANIM, offset: 0xC02DFA0, symbol: aAndHandCrushAnim}
+
+aAndRiseUpAnim:
+  {type: SF64:ANIM, offset: 0xC02E834, symbol: aAndRiseUpAnim, comment: Unused }
+
+aAndRightHandPalmAttackAnim:
+  {type: SF64:ANIM, offset: 0xC02F444, symbol: aAndRightHandPalmAttackAnim}
+
+aAndIdleAnim:
+  {type: SF64:ANIM, offset: 0xC032980, symbol: aAndIdleAnim}
+
+aAndCloseUpAnim:
+  {type: SF64:ANIM, offset: 0xC032F98, symbol: aAndCloseUpAnim}
+
+aAndEnvSettings:
+  {type: SF64:ENVIRONMENT, offset: 0xC034310, symbol: aAndEnvSettings}
+
+aVe1AndLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0xC034354, symbol: aVe1AndLevelObjects}
+
+aVe1AndBossLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0xC0348A4, symbol: aVe1AndBossLevelObjects}
+
+aVe2AndLevelObjects:
+  {type: SF64:OBJECT_INIT, offset: 0xC0348CC, symbol: aVe2AndLevelObjects}
+
+aAndEscapePath1:
+  {type: SF64:OBJECT_INIT, offset: 0xC035510, symbol: aAndEscapePath1}
+
+aAndEscapePath2:
+  {type: SF64:OBJECT_INIT, offset: 0xC035D6C, symbol: aAndEscapePath2}
+
+aAndEscapePath3:
+  {type: SF64:OBJECT_INIT, offset: 0xC03653C, symbol: aAndEscapePath3}
+
+aAndEventScript:
+  {type: SF64:SCRIPT, offset: 0xC03703C, symbol: aAndEventScript}
+
+aAndrossGateFrame1Hitbox:
+  {type: SF64:HITBOX, offset: 0xC0371CC, symbol: aAndrossGateFrame1Hitbox}
+
+aAndrossGateFrame2Hitbox:
+  {type: SF64:HITBOX, offset: 0xC0372C0, symbol: aAndrossGateFrame2Hitbox}
+
+aAndrossGateFrame3Hitbox:
+  {type: SF64:HITBOX, offset: 0xC0373B4, symbol: aAndrossGateFrame3Hitbox}
+
+aAndrossGateFrame4Hitbox:
+  {type: SF64:HITBOX, offset: 0xC0374A8, symbol: aAndrossGateFrame4Hitbox}
+
+aAndrossGateFrame5Hitbox:
+  {type: SF64:HITBOX, offset: 0xC03759C, symbol: aAndrossGateFrame5Hitbox}
+
+aAndrossGateFrame6Hitbox:
+  {type: SF64:HITBOX, offset: 0xC037690, symbol: aAndrossGateFrame6Hitbox}
+
+aAndrossGateFrame7Hitbox:
+  {type: SF64:HITBOX, offset: 0xC037784, symbol: aAndrossGateFrame7Hitbox}
+
+aAndrossGateFrame8Hitbox:
+  {type: SF64:HITBOX, offset: 0xC037878, symbol: aAndrossGateFrame8Hitbox}
+
+aAndrossGateFrame9Hitbox:
+  {type: SF64:HITBOX, offset: 0xC03796C, symbol: aAndrossGateFrame9Hitbox}
+
+aAndrossGateFrame10Hitbox:
+  {type: SF64:HITBOX, offset: 0xC037A60, symbol: aAndrossGateFrame10Hitbox}
+
+aAndrossGateFrame11Hitbox:
+  {type: SF64:HITBOX, offset: 0xC037B54, symbol: aAndrossGateFrame11Hitbox}
+
+aAndDoorHitbox:
+  {type: SF64:HITBOX, offset: 0xC037C48, symbol: aAndDoorHitbox}
+
+aAndDoorHitbox2:
+  {type: SF64:HITBOX, offset: 0xC037CC4, symbol: aAndDoorHitbox2, comment: copy of aAndDoorHitbox}
+
+aAndPathHitbox:
+  {type: SF64:HITBOX, offset: 0xC037D40, symbol: aAndPathHitbox}
+
+aAndPathIntersectionHitbox:
+  {type: SF64:HITBOX, offset: 0xC037DA4, symbol: aAndPathIntersectionHitbox}
+
+aAndPassageHitbox:
+  {type: SF64:HITBOX, offset: 0xC037DD8, symbol: aAndPassageHitbox}
+
+aAndPassageHitbox2:
+  {type: SF64:HITBOX, offset: 0xC037ECC, symbol: aAndPassageHitbox2}
+
+aAndAndrossHitbox:
+  {type: SF64:HITBOX, offset: 0xC037FC0, symbol: aAndAndrossHitbox}
+
+aAndBrainHitbox:
+  {type: SF64:HITBOX, offset: 0xC038124, symbol: aAndBrainHitbox}
+
+aAndLightningAttackVtx2:
+  {type: VTX, count: 34, offset: 0xC0381E8, symbol: aAndLightningAttackVtx2}
+
+aAndBackdropDL:
+  {type: GFX, offset: 0xC038408, symbol: aAndBackdropDL}
+
+aAndBackdrop1Tex1:
+  {type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0xC038490, symbol: aAndBackdrop1Tex1}
+
+aAndBackdrop1Tex2:
+  {type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0xC039490, symbol: aAndBackdrop1Tex2}

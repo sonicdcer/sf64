@@ -77,7 +77,7 @@ void Titania_80188F30(void) {
     D_MA_801BA1E8 = 99;
 }
 
-void Titania_Effect368_Update(Effect368* this) {
+void Titania_TankTracks_Update(EffectTankTracks* this) {
     if (this->timer_50 == 0) {
         this->alpha -= 16;
         if (this->alpha < 17) {
@@ -86,19 +86,19 @@ void Titania_Effect368_Update(Effect368* this) {
     }
 }
 
-void Titania_Effect368_Draw(Effect368* this) {
+void Titania_TankTracks_Draw(EffectTankTracks* this) {
     Matrix_Scale(gGfxMatrix, this->scale2 * 0.5f, this->scale2, this->scale2, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
-    gSPDisplayList(gMasterDisp++, D_landmaster_3007E70);
+    gSPDisplayList(gMasterDisp++, aLandmasterTankTracksDL);
 }
 
-void Titania_Effect368_Setup(Effect368* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
+void Titania_TankTracks_Setup(EffectTankTracks* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_368;
+    this->obj.id = OBJ_EFFECT_TANK_TRACKS;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -109,12 +109,12 @@ void Titania_Effect368_Setup(Effect368* this, f32 xPos, f32 yPos, f32 zPos, f32 
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Titania_Effect368_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
+void Titania_TankTracks_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
     s32 i;
 
     for (i = 50; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Titania_Effect368_Setup(&gEffects[i], xPos, yPos, zPos, yRot, scale2);
+            Titania_TankTracks_Setup(&gEffects[i], xPos, yPos, zPos, yRot, scale2);
             break;
         }
     }
@@ -283,11 +283,11 @@ void Titania_TiDesertRover_Update(TiDesertRover* this) {
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B752C, &sp48);
-        Titania_Effect368_Spawn(this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
-                                this->obj.pos.y, 1.3f);
+        Titania_TankTracks_Spawn(this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
+                                 this->obj.pos.y, 1.3f);
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B7538, &sp48);
-        Titania_Effect368_Spawn(this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
-                                this->obj.pos.y, 1.3f);
+        Titania_TankTracks_Spawn(this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y, this->obj.pos.z + sp48.z,
+                                 this->obj.pos.y, 1.3f);
     }
 
     Math_SmoothStepToF(&this->fwork[6], this->fwork[7], 0.1f, 2.0f, 0.00001f);
@@ -1784,7 +1784,7 @@ void Titania_TiDelphorHead_Update(TiDelphorHead* this) {
     s32 i;
     s32 index;
     Vec3f sp40;
-    Effect* newEffect;
+    EffectTimedSfx* newEffect;
 
     sp9C.x = gPlayer[0].pos.x - this->obj.pos.x;
     sp9C.y = gPlayer[0].pos.y - this->obj.pos.y - 30.0f;
@@ -3149,7 +3149,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
 
 void Titania_80192118(TiGoras* this) {
     Vec3f sp54;
-    Effect* effect;
+    Effect394* effect;
     f32 temp_ft2;
     f32 temp_ft4;
     f32 temp_fa1;
@@ -3788,7 +3788,7 @@ void Titania_80193DF0(TiGoras* this) {
     Vec3f spD4;
     Vec3f spC8;
     Actor* actor;
-    Effect* effect;
+    Effect394* effect;
     s32 var_v1;
     s32 spB8;
     s32 i;

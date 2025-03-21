@@ -35,8 +35,8 @@ void SectorZ_LoadLevelObjects(void);
 
 void Fortuna_FoRadar_Update(Actor*);
 void Fortuna_FoRadar_Draw(Actor*);
-void Bolse_Effect397_Update(Effect*);
-void Bolse_Effect397_Draw(Effect*);
+void Bolse_Effect397_Update(Effect397*);
+void Bolse_Effect397_Draw(Effect397*);
 void Bolse_BoBaseCore_Update(Boss*);
 void Bolse_BoBaseCore_Draw(Boss*);
 void Katina_LaserEnergyParticlesUpdate(Effect*);

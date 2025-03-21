@@ -57,7 +57,7 @@ void SectorY_80197B30(ActorCutscene* this, s32 timer) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
-void SectorY_RobotLaser_Draw(EffectSyRobotLaser* this) {
+void SectorY_SyRobotLaser_Draw(EffectSyRobotLaser* this) {
     RCP_SetupDL_21();
     gSPDisplayList(gMasterDisp++, D_SY_6014A40);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);

@@ -337,7 +337,7 @@ void Venom1_Ve1Pillar1_Update(Ve1Pillar1* this) {
     Vec3f src;
     Vec3f dest;
     f32 temp_fv1_2;
-    Effect* effect;
+    Effect394* effect;
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
@@ -559,7 +559,7 @@ void Venom1_Ve1Pillar4_Update(Ve1Pillar4* this) {
     Vec3f sp50;
     Vec3f sp44;
     f32 sp40;
-    Effect* effect394;
+    Effect394* effect394;
     s32 i;
     f32 var_ft4;
 
@@ -1130,7 +1130,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
     GoleMechAnimInfo* animation;
     Vec3f sp118[27];
     Actor* actor;
-    Effect* effect;
+    Effect394* effect;
     Vec3f sp104;
     Vec3f spF8;
     s32 spF4;

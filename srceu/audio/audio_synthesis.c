@@ -449,7 +449,7 @@ Acmd* func_8000A2CC(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
 
     j = aiBufLen * 2;
     aSetBuffer(aList++, 0, 0, 0x450, j);
-    aInterleave(aList++, 0, 0x990, 0xB10, 0);
+    aInterleave(aList++, 0x990, 0xB10);
     aSaveBuffer(aList++, 0x450, OS_K0_TO_PHYSICAL(aiBuf), j * 2);
 
     return aList;

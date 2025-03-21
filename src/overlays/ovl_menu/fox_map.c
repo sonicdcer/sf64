@@ -78,7 +78,7 @@ f32 sPrologueTextXpos;
 f32 sPrologueTextYpos;
 f32 sPrologueNextTexAlpha;
 f32 sPrologueCurrentTexAlpha;
-f32 D_menu_801CD9EC;
+f32 sPrologueTextScrollSpeed;
 s32 sPrologueTexIdx;
 f32 sMapCamEyeX;     // x
 f32 sMapCamEyeY;     // y
@@ -2087,7 +2087,7 @@ void Map_Prologue_Update(void) {
             sPrologueTextYpos = 230.0f;
             sPrologueCurrentTexAlpha = 0;
             sPrologueNextTexAlpha = 0;
-            D_menu_801CD9EC = 0.29f;
+            sPrologueTextScrollSpeed = 0.29f;
             gStarCount = 800;
             sMapTimer3 = 5;
             sMapSubState++;
@@ -2100,7 +2100,7 @@ void Map_Prologue_Update(void) {
                 }
 
                 if (sPrologueTextYpos > -355.0f) {
-                    sPrologueTextYpos -= D_menu_801CD9EC;
+                    sPrologueTextYpos -= sPrologueTextScrollSpeed;
                 }
 
                 if ((sPrologueTextYpos < 200.0f) && (sPrologueCurrentTexAlpha != 255)) {

@@ -20,6 +20,7 @@ ctx.c.m2c
 assets/yaml/us/ast_test.yaml
 /audio_data
 src/assets/*
+srcjp/assets/*
 include/assets/*
 /build
 tools/mio0

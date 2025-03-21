@@ -260,8 +260,8 @@ void Animation_DrawSkeleton(s32 mode, Limb** skeletonSegment, Vec3f* jointTable,
     }
 }
 
-s16 Animation_GetFrameData(Animation* animationSegmemt, s32 frame, Vec3f* frameTable) {
-    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegmemt);
+s16 Animation_GetFrameData(Animation* animationSegment, s32 frame, Vec3f* frameTable) {
+    Animation* animation = SEGMENTED_TO_VIRTUAL(animationSegment);
     u16 limbCount = animation->limbCount;
     JointKey* key = SEGMENTED_TO_VIRTUAL(animation->jointKey);
     u16* frameData = SEGMENTED_TO_VIRTUAL(animation->frameData);

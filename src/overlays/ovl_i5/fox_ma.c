@@ -5646,7 +5646,7 @@ void Macbeth_LevelStart(Player* player) {
     player->rockPhase += player->vel.z * 5.0f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
 
-    Lib_Texture_Scroll(D_landmaster_3002E80, 32, 32, 0);
+    Lib_Texture_Scroll(aLandmasterModelTex6, 32, 32, 0);
 
     if ((gCsFrameCount > 150) && ((-player->trueZpos - player->zPath) > 200.0f)) {
         if (D_i5_801BA768 < 11.5f) {
@@ -6431,11 +6431,11 @@ void Macbeth_801AF628(ActorCutscene* this, s32 index) {
 }
 
 void Macbeth_Effect357_Spawn2(f32 xPos, f32 yPos, f32 zPos, f32 arg3) {
-    Effect* effect = NULL;
+    Effect357* effect = NULL;
     Effect* effectPtr;
     s32 i;
 
-    for (effectPtr = &gEffects[0], i = 0; i < 99; i++, effectPtr++) {
+    for (effectPtr = &gEffects[0], i = 0; i < ARRAY_COUNT(gEffects) - 1; i++, effectPtr++) {
         if (effectPtr->obj.status == OBJ_FREE) {
             effect = effectPtr;
             break;

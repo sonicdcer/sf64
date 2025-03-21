@@ -25,8 +25,8 @@ aAqSquidSkel:
 aAqShellDL:
   { type: GFX, offset: 0x6000E10, symbol: aAqShellDL }
 
-D_AQ_6001130:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001130, symbol: D_AQ_6001130 }
+aAqShellTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001130, symbol: aAqShellTex }
 
 aAqAnglerFishAnim:
   { type: SF64:ANIM, offset: 0x6002628, symbol: aAqAnglerFishAnim }
@@ -380,8 +380,8 @@ D_AQ_601C110:
 D_AQ_601D110:
   { type: GFX, offset: 0x601D110, symbol: D_AQ_601D110 }
 
-D_AQ_601DE50:
-  { type: SF64:ANIM, offset: 0x601DE50, symbol: D_AQ_601DE50 }
+aAqSeaweedAnim2:
+  { type: SF64:ANIM, offset: 0x601DE50, symbol: aAqSeaweedAnim2 }
 
 aAqCoralReef2DL:
   { type: GFX, offset: 0x601DE60, symbol: aAqCoralReef2DL }
@@ -410,8 +410,8 @@ D_AQ_601F830:
 D_AQ_601FD70:
   { type: GFX, offset: 0x601FD70, symbol: D_AQ_601FD70 }
 
-aAqSeaweedAnim:
-  { type: SF64:ANIM, offset: 0x6020A40, symbol: aAqSeaweedAnim }
+aAqSeaweedAnim1:
+  { type: SF64:ANIM, offset: 0x6020A40, symbol: aAqSeaweedAnim1 }
 
 aAqSeaweedSkel:
   { type: SF64:SKELETON, offset: 0x6020C6C, symbol: aAqSeaweedSkel }

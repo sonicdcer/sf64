@@ -388,10 +388,10 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = D_GREAT_FOX_E010E60;
             break;
         case RCID_TR:
-            radioPortraitTex = D_TR_6000900;
+            radioPortraitTex = aTrYaruDePonFace1Tex;
             break;
         case RCID_TR + 1:
-            radioPortraitTex = D_TR_6001820;
+            radioPortraitTex = aTrYaruDePonFace2Tex;
             break;
         case RCID_STATIC + 1:
             mirror = true;

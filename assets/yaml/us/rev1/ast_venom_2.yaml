@@ -96,11 +96,11 @@ D_VE2_600A680:
 D_VE2_600B708:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x600B708, ctype: u16, symbol: D_VE2_600B708 }
 
-D_VE2_600C038:
-  { type: SF64:ANIM, offset: 0x600C038, symbol: D_VE2_600C038 }
+aVe2AndBrainThrobAnim:
+  { type: SF64:ANIM, offset: 0x600C038, symbol: aVe2AndBrainThrobAnim }
 
-D_VE2_600C0A4:
-  { type: SF64:SKELETON, offset: 0x600C0A4, symbol: D_VE2_600C0A4 }
+aVe2AndBrainSkel:
+  { type: SF64:SKELETON, offset: 0x600C0A4, symbol: aVe2AndBrainSkel }
 
 D_VE2_600C200:
   { type: SF64:ANIM, offset: 0x600C200, symbol: D_VE2_600C200 }

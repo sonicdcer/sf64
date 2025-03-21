@@ -208,7 +208,7 @@ void Effect_FireSmoke1_SpawnMoving(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
 void Effect_WaterSpray_Draw(EffectWaterSpray* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
-    gSPDisplayList(gMasterDisp++, D_arwing_3016B30);
+    gSPDisplayList(gMasterDisp++, aAwBeamWaterSplashDL);
 }
 
 void Effect_Effect382_Draw(Effect382* this) {
@@ -389,12 +389,12 @@ void Effect_Clouds_Draw(EffectClouds* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
 }
 
-void Effect_Effect366_Draw(Effect366* this) {
+void Effect_Bubble_Draw(EffectBubble* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     gDPSetEnvColor(gMasterDisp++, 101, 138, 153, 255);
-    gSPDisplayList(gMasterDisp++, D_blue_marine_3000660);
+    gSPDisplayList(gMasterDisp++, aBlueMarineBubbleDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -952,7 +952,7 @@ void Effect_Effect383_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Effect384_Spawn(xPos, yPos, zPos, 80.0f, 4);
 }
 
-void Effect_TimedSfx_Setup(TimedSfx* this, Vec3f* pos, u32 sfxId) {
+void Effect_TimedSfx_Setup(EffectTimedSfx* this, Vec3f* pos, u32 sfxId) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_TIMED_SFX;
@@ -986,7 +986,7 @@ void Effect_TimedSfx_Spawn(Vec3f* pos, s32 sfxId) {
     }
 }
 
-void Effect_TimedSfx_Update(TimedSfx* this) {
+void Effect_TimedSfx_Update(EffectTimedSfx* this) {
     if (this->timer_50 == 0) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -2204,7 +2204,7 @@ void Effect_Effect375_Draw(Effect375* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_FlamePillar_Update(Effect374* this) {
+void Effect_FlamePillar_Update(EffectFlamePillar* this) {
     Vec3f sp54 = { 0.0f, -10.0f, 0.0f };
 
     switch (this->state) {
@@ -2256,7 +2256,7 @@ void Effect_FlamePillar_Update(Effect374* this) {
     }
 }
 
-void Effect_FlamePillar_Draw(Effect374* this) {
+void Effect_FlamePillar_Draw(EffectFlamePillar* this) {
     switch (this->state) {
         case 0:
             Graphics_SetScaleMtx(this->scale2);
@@ -3337,7 +3337,7 @@ void func_effect_800815DC(void) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-        if (((gEffects[i].obj.id == OBJ_EFFECT_366) ||
+        if (((gEffects[i].obj.id == OBJ_EFFECT_BUBBLE) ||
              ((gEffects[i].obj.id == OBJ_EFFECT_395) && (gEffects[i].state == 1)) ||
              (gEffects[i].obj.id == OBJ_EFFECT_364) || (gEffects[i].obj.id == OBJ_EFFECT_SMALL_ROCK)) &&
             gEffects[i].obj.status == OBJ_ACTIVE) {
@@ -3613,7 +3613,7 @@ void Effect_Effect395_Update(Effect395* this) {
                 Object_Kill(&this->obj, this->sfxSource);
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             } else if (fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 1000.0f) {
-                ActorEvent_SpawnPinkExplosion(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+                ActorEvent_PinkExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             sp84 = 50.0f;
