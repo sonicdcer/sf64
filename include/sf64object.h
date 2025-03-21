@@ -670,21 +670,21 @@ typedef enum ObjectId {
     /* 343 */ OBJ_EFFECT_SMOKE_2,
     /* 344 */ OBJ_EFFECT_EXPLOSION_MARK_1, // Explosion mark left on the ground after an enemy explodes.
     /* 345 */ OBJ_EFFECT_LASER_MARK_1,     // Mark left when lasers hit the ground.
-    /* 346 */ OBJ_EFFECT_346,
-    /* 347 */ OBJ_EFFECT_347,
-    /* 348 */ OBJ_EFFECT_348,
-    /* 349 */ OBJ_EFFECT_349,
-    /* 350 */ OBJ_EFFECT_350,
-    /* 351 */ OBJ_EFFECT_351,
+    /* 346 */ OBJ_EFFECT_SMALL_ROCK, // small rocks in ME and AQ
+    /* 347 */ OBJ_EFFECT_PINK_EXPLOSION, // pink explosion circles
+    /* 348 */ OBJ_EFFECT_348, // ground effect spawner
+    /* 349 */ OBJ_EFFECT_349, // smoke spawner for crashes
+    /* 350 */ OBJ_EFFECT_350, // unused, acts similarly to 349
+    /* 351 */ OBJ_EFFECT_TORPEDO_TRAIL,
     /* 352 */ OBJ_EFFECT_CLOUDS,
-    /* 353 */ OBJ_EFFECT_ENEMY_LASER_1,
-    /* 354 */ OBJ_EFFECT_354,
-    /* 355 */ OBJ_EFFECT_355,
-    /* 356 */ OBJ_EFFECT_356,
-    /* 357 */ OBJ_EFFECT_357,
+    /* 353 */ OBJ_EFFECT_ENEMY_LASER,
+    /* 354 */ OBJ_EFFECT_SYROBOT_LASER,
+    /* 355 */ OBJ_EFFECT_BLUE_ORB,
+    /* 356 */ OBJ_EFFECT_ME_FIREBALL,
+    /* 357 */ OBJ_EFFECT_357, // debris
     /* 358 */ OBJ_EFFECT_KA_ENERGY_PARTICLES,
-    /* 359 */ OBJ_EFFECT_359,
-    /* 360 */ OBJ_EFFECT_360,
+    /* 359 */ OBJ_EFFECT_359, // titania tank tread marks
+    /* 360 */ OBJ_EFFECT_360, // these seem to be various dust and splashes
     /* 361 */ OBJ_EFFECT_361,
     /* 362 */ OBJ_EFFECT_362,
     /* 363 */ OBJ_EFFECT_363,
@@ -696,38 +696,38 @@ typedef enum ObjectId {
     /* 369 */ OBJ_EFFECT_369, // ME: ast_common
     /* 370 */ OBJ_EFFECT_370, // ME: ast_meteo
     /* 371 */ OBJ_EFFECT_371, // ME: ast_meteo
-    /* 372 */ OBJ_EFFECT_372, // ast_arwing
+    /* 372 */ OBJ_EFFECT_WATER_SPRAY, // water spray, ast_arwing
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
-    /* 374 */ OBJ_EFFECT_374, // ast_enmy_planet
-    /* 375 */ OBJ_EFFECT_375,
+    /* 374 */ OBJ_EFFECT_FLAME_PILLAR, // explosion pillar, ast_enmy_planet
+    /* 375 */ OBJ_EFFECT_375, // Co mole missle burrowing effect?
     /* 376 */ OBJ_EFFECT_376, // Plasma shot by Granga
-    /* 377 */ OBJ_EFFECT_377, // Spyborg blue shot
+    /* 377 */ OBJ_EFFECT_SPYBORG_ORB, // Spyborg blue shot
     /* 378 */ OBJ_EFFECT_378, // Ball projectiles shot by train car turret in Macbeth
-    /* 379 */ OBJ_EFFECT_379,
-    /* 380 */ OBJ_EFFECT_380, // Some kind of shot (Macbeth boss)
-    /* 381 */ OBJ_EFFECT_381,
-    /* 382 */ OBJ_EFFECT_382,
+    /* 379 */ OBJ_EFFECT_379, // small orbs in Ma boss wing projectile charge
+    /* 380 */ OBJ_EFFECT_380, // Some kind of shot (Macbeth boss), probably wing projectile
+    /* 381 */ OBJ_EFFECT_381, // small splash
+    /* 382 */ OBJ_EFFECT_382, // larger splash?
     /* 383 */ OBJ_EFFECT_383, // Big boss explosion
     /* 384 */ OBJ_EFFECT_384, // small explosion
     /* 385 */ OBJ_EFFECT_385, // small explosion
     /* 386 */ OBJ_EFFECT_386, // some type of explosion
-    /* 387 */ OBJ_EFFECT_387,
-    /* 388 */ OBJ_EFFECT_388,
-    /* 389 */ OBJ_EFFECT_389,
-    /* 390 */ OBJ_EFFECT_390,
-    /* 391 */ OBJ_EFFECT_391,
-    /* 392 */ OBJ_EFFECT_392,
-    /* 393 */ OBJ_EFFECT_393,
-    /* 394 */ OBJ_EFFECT_394,
-    /* 395 */ OBJ_EFFECT_395,
-    /* 396 */ OBJ_EFFECT_396,
-    /* 397 */ OBJ_EFFECT_397,
-    /* 398 */ OBJ_EFFECT_398,
-    /* 399 */ OBJ_EFFECT_399,
+    /* 387 */ OBJ_EFFECT_387, // ground impact marking
+    /* 388 */ OBJ_EFFECT_388, // all functions dummied out
+    /* 389 */ OBJ_EFFECT_ELECTRIC_ARC, // lightning effect from damage
+    /* 390 */ OBJ_EFFECT_390, // no model, makes ElectricArcs
+    /* 391 */ OBJ_EFFECT_391, // splash effect in Zoness?
+    /* 392 */ OBJ_EFFECT_SO_FLARE, // Solar flare effects
+    /* 393 */ OBJ_EFFECT_SPARKLE, // sparkle
+    /* 394 */ OBJ_EFFECT_394, // various explosion effects. specifically damaging ones?
+    /* 395 */ OBJ_EFFECT_395, // multipurpose effect. laser-related?
+    /* 396 */ OBJ_EFFECT_396, // Effects in andross fight
+    /* 397 */ OBJ_EFFECT_397, // Lasers shot by bolse core?
+    /* 398 */ OBJ_EFFECT_398, // orange projectiles from carrier and sarumarine
+    /* 399 */ OBJ_EFFECT_ORB_RING,
     /* 400 */ OBJ_ENV_SMALL_ROCKS_ENABLE,
     /* 401 */ OBJ_ENV_SMALL_ROCKS_DISABLE,
     /* 402 */ OBJ_ENV_AND_ROTATE_TUNNEL,
-    /* 403 */ OBJ_UNK_403,
+    /* 403 */ OBJ_UNK_403, // these seem to change camera settings for the landmaster in Titania
     /* 404 */ OBJ_UNK_404,
     /* 405 */ OBJ_UNK_405,
     /* 406 */ OBJ_ID_MAX,
@@ -1330,17 +1330,17 @@ typedef Effect Effect342;
 typedef Effect Effect343;
 typedef Effect Effect344;
 typedef Effect Effect345;
-typedef Effect Effect346;
-typedef Effect Effect347;
+typedef Effect EffectSmallRock;
+typedef Effect EffectPinkExplosion;
 typedef Effect Effect348;
 typedef Effect Effect349;
 typedef Effect Effect350;
-typedef Effect Effect351;
+typedef Effect EffectTorpedoTrail;
 typedef Effect EffectClouds;
-typedef Effect Effect353;
-typedef Effect Effect354;
-typedef Effect Effect355;
-typedef Effect Effect356;
+typedef Effect EffectEnemyLaser;
+typedef Effect EffectSyRobotLaser;
+typedef Effect EffectBlueOrb;
+typedef Effect EffectMeFireball;
 typedef Effect Effect357;
 typedef Effect Effect358;
 typedef Effect Effect359;
@@ -1356,12 +1356,12 @@ typedef Effect Effect368;
 typedef Effect Effect369;
 typedef Effect Effect370;
 typedef Effect Effect371;
-typedef Effect Effect372;
+typedef Effect EffectWaterSpray;
 typedef Effect TimedSfx;
 typedef Effect Effect374;
 typedef Effect Effect375;
 typedef Effect Effect376;
-typedef Effect Effect377;
+typedef Effect EffectSpyborgOrb;
 typedef Effect Effect378;
 typedef Effect Effect379;
 typedef Effect Effect380;
@@ -1373,16 +1373,16 @@ typedef Effect Effect385;
 typedef Effect Effect386;
 typedef Effect Effect387;
 typedef Effect Effect388;
-typedef Effect Effect389;
+typedef Effect EffectElectricArc;
 typedef Effect Effect390;
 typedef Effect Effect391;
-typedef Effect Effect392;
-typedef Effect Effect393;
+typedef Effect EffectSoFlare;
+typedef Effect EffectSparkle;
 typedef Effect Effect394;
 typedef Effect Effect395;
 typedef Effect Effect396;
 typedef Effect Effect397;
 typedef Effect Effect398;
-typedef Effect Effect399;
+typedef Effect EffectOrbRing;
 
 #endif

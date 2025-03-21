@@ -47,7 +47,7 @@ Vec3f D_i2_80195610[] = {
 void Meteo_ReflectDamage(Actor* this) {
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_ROCK_REFLECT);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_ROCK_REFLECT);
     }
 }
 
@@ -93,12 +93,12 @@ void Meteo_MeMeteor2_Update(MeMeteor2* this) {
     }
 
     if ((this->timer_0BC % 4U) == 1) {
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
     }
 
     if (this->dmgType != DMG_NONE) {
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
         Object_Kill(&this->obj, this->sfxSource);
     }
 
@@ -108,7 +108,7 @@ void Meteo_MeMeteor2_Update(MeMeteor2* this) {
         vec.z = this->vel.z;
         if ((Object_CheckCollision(this->index, &this->obj.pos, &vec, 0) != 0) ||
             (this->obj.pos.y < (gGroundHeight + 20.0f))) {
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
             this->obj.status = OBJ_DYING;
         }
     }
@@ -134,16 +134,16 @@ void Meteo_MeLaserCannon2_Update(MeLaserCannon2* this) {
 
     if (this->dmgType != DMG_NONE) {
         Actor_Despawn(this);
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 5.0f);
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 5.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 3.0f, 10);
     }
 
     if (this->timer_0BC == 0) {
         this->timer_0BC = 40;
         if (this->obj.pos.z < (gPlayer[0].trueZpos - 1000.0f)) {
-            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 120.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 120.0f);
         }
     }
 }
@@ -157,16 +157,16 @@ void Meteo_MeLaserCannon1_Update(MeLaserCannon1* this) {
 
     if (this->dmgType != DMG_NONE) {
         Actor_Despawn(this);
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
-        func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
-        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z, 0.0f,
-                         0.0f, 0.0f, 4.0f, 10);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                                0.0f, 0.0f, 0.0f, 4.0f, 10);
     }
 
     if ((gGameFrameCount % 8) == 0) {
         Math_Vec3fFromAngles(&vec, this->obj.rot.x, this->obj.rot.y, 100.0f);
-        Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + (vec.x * 3.0f), this->obj.pos.y + (vec.y * 3.0f),
+        Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x + (vec.x * 3.0f), this->obj.pos.y + (vec.y * 3.0f),
                           this->obj.pos.z + (vec.z * 3.0f), this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f,
                           0.0f, 0.0f, vec.x, vec.y, vec.z, 1.0f);
     }
@@ -188,15 +188,15 @@ void Meteo_80187B08(MeLaserCannon1* this) {
     }
 
     if ((this->timer_0BC % 4) == 0) {
-        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
     }
 
     if ((this->dmgType != DMG_NONE) || (this->timer_0BC == 0)) {
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
-        func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
-        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z, 0.0f,
-                         0.0f, 0.0f, 4.0f, 10);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                                0.0f, 0.0f, 0.0f, 4.0f, 10);
     }
 }
 
@@ -442,9 +442,9 @@ void Meteo_MeCrusherShield_Update(MeCrusherShield* this) {
 
         case 4:
             if (this->timer_050 == 0) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 30.0f);
-                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f, 20.0f,
-                                 30);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 30.0f);
+                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 500.0f, 0.0f, 0.0f, 0.0f,
+                                        20.0f, 30);
                 this->state = 5;
 
                 this->info.cullDistance = 1000.0f;
@@ -612,7 +612,7 @@ void Meteo_Effect369_Update(Effect369* this) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 
-    func_effect_8007A774(gPlayer, this, 90.0f);
+    Effect_CheckPlayerCollision(&gPlayer[0], this, 90.0f);
 }
 
 void Meteo_Effect370_Setup2(Effect370* this, f32 x, f32 y, f32 z, f32 xRot, f32 yRot, f32 zRot, f32 scale) {
@@ -676,7 +676,7 @@ void Meteo_Effect370_Update(Effect370* this) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
-    func_effect_8007A774(gPlayer, this, 60.0f);
+    Effect_CheckPlayerCollision(&gPlayer[0], this, 60.0f);
 }
 
 void Meteo_Effect371_Update(Effect371* this) {
@@ -718,30 +718,31 @@ void Meteo_Effect371_Update(Effect371* this) {
         }
     }
 
-    func_effect_8007A774(gPlayer, this, 100.0f);
+    Effect_CheckPlayerCollision(&gPlayer[0], this, 100.0f);
 }
 
 void Meteo_801892F0(MeCrusher* this, s32 dmgPart) {
     Vec3f dest;
     Vec3f src;
 
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 
     if (dmgPart == 7) {
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f,
-                         20);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
+                                7.0f, 20);
     }
 
     if (dmgPart == 5) {
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f, 7.0f,
-                         20);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 15.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y - 330.0f, this->obj.pos.z + 1020.0f, 0.0f, 0.0f, 0.0f,
+                                7.0f, 20);
     }
 
     if (dmgPart == 4) {
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 20.0f);
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 25);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 20.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f,
+                                25);
     }
 
     if (dmgPart < 4) {
@@ -756,9 +757,9 @@ void Meteo_801892F0(MeCrusher* this, s32 dmgPart) {
 
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-        func_effect_8007D2C8(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 10.0f);
-        Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 0.0f, 0.0f, 0.0f,
-                         5.0f, 15);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 10.0f);
+        Effect_Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 0.0f,
+                                0.0f, 0.0f, 5.0f, 15);
     }
 }
 
@@ -1431,8 +1432,8 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                                        this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
             }
             if (((gGameFrameCount % 4) == 0)) {
-                Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                 this->vel.x, this->vel.y, this->vel.z, 10.0f, 10);
+                Effect_Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                        this->vel.x, this->vel.y, this->vel.z, 10.0f, 10);
             }
 
             this->vel.y = -5.0f;
@@ -1440,7 +1441,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
             this->obj.rot.z -= 0.1f;
 
             if (this->timer_050 == 0) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             if (this->timer_050 == 20) {
@@ -1850,10 +1851,10 @@ void Meteo_8018CAD8(void) {
     Object_SetInfo(&actorCs->info, actorCs->obj.id);
 }
 
-void Meteo_Effect346_Setup(Effect346* this, Actor* actor) {
+void Meteo_SmallRock_Setup(EffectSmallRock* this, Actor* actor) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_EFFECT_346;
+    this->obj.id = OBJ_EFFECT_SMALL_ROCK;
 
     this->timer_50 = RAND_INT(20.0f) + 20.0f;
     this->scale2 = RAND_FLOAT(0.5f) + 0.5f;
@@ -1870,16 +1871,16 @@ void Meteo_Effect346_Setup(Effect346* this, Actor* actor) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_Effect346_Spawn(ActorEvent* this) {
+void Meteo_SmallRock_Spawn(ActorEvent* this) {
     s32 i;
     s32 j;
 
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
     for (i = 0; i < 25; i++) {
         for (j = 0; j < ARRAY_COUNT(gEffects); j++) {
             if (gEffects[j].obj.status == OBJ_FREE) {
-                Meteo_Effect346_Setup(&gEffects[j], this);
+                Meteo_SmallRock_Setup(&gEffects[j], this);
                 break;
             }
         }
@@ -2026,9 +2027,9 @@ void Meteo_LevelStart(Player* player) {
             }
 
             if (gCsFrameCount == 340) {
-                func_effect_8007D2C8(gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z, 10.0f);
+                Effect_FireSmoke1_Spawn3(gActors[8].obj.pos.x, gActors[8].obj.pos.y, gActors[8].obj.pos.z, 10.0f);
                 gActors[8].obj.status = OBJ_FREE;
-                Meteo_Effect346_Spawn(&gActors[8]);
+                Meteo_SmallRock_Spawn(&gActors[8]);
             }
 
             if (player->csEventTimer != 0) {
@@ -2053,11 +2054,11 @@ void Meteo_LevelStart(Player* player) {
                                              sp68, sp64, 0.0f);
                 }
                 if (player->csEventTimer == 1) {
-                    func_effect_8007D2C8(gActors[player->meTargetIndex].obj.pos.x,
-                                         gActors[player->meTargetIndex].obj.pos.y,
-                                         gActors[player->meTargetIndex].obj.pos.z, 10.0f);
+                    Effect_FireSmoke1_Spawn3(gActors[player->meTargetIndex].obj.pos.x,
+                                             gActors[player->meTargetIndex].obj.pos.y,
+                                             gActors[player->meTargetIndex].obj.pos.z, 10.0f);
                     gActors[player->meTargetIndex].obj.status = OBJ_FREE;
-                    Meteo_Effect346_Spawn(&gActors[player->meTargetIndex]);
+                    Meteo_SmallRock_Spawn(&gActors[player->meTargetIndex]);
                     Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
                 }
             }

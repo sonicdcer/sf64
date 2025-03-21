@@ -680,7 +680,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
     f32 temp2;
 
     switch (objId) {
-        case OBJ_EFFECT_374:
+        case OBJ_EFFECT_FLAME_PILLAR:
             if (gEffects[index].state == 0) {
                 Matrix_Scale(gGfxMatrix, 1.2f, 0.0f, 1.2f, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -985,7 +985,7 @@ void Boss_SetMatrix(Object* obj, s32 drawType) {
     }
 }
 
-// Used for EVID_A6_UMBRA_STATION, OBJ_EFFECT_ENEMY_LASER_1 and OBJ_EFFECT_369
+// Used for EVID_A6_UMBRA_STATION, OBJ_EFFECT_ENEMY_LASER and OBJ_EFFECT_369
 void ObjSpecial_SetMatrix(Object* obj, f32 xRot, f32 yRot, f32 zRot, s32 drawType) {
     if (drawType == 2) {
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, gPathProgress, MTXF_APPLY);
@@ -1293,7 +1293,7 @@ void Effect_DrawOnRails(Effect* this, s32 arg1) {
         return;
     }
 
-    if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER_1) || (this->obj.id == OBJ_EFFECT_369)) {
+    if ((this->obj.id == OBJ_EFFECT_ENEMY_LASER) || (this->obj.id == OBJ_EFFECT_369)) {
         ObjSpecial_SetMatrix(&this->obj, this->orient.x, this->orient.y, this->orient.z, 0);
     } else if (this->info.unk_14 == -1) {
         this->obj.pos.y += gCameraShakeY;
@@ -1852,7 +1852,7 @@ void Effect_DrawAll(s32 arg0) {
                 Effect_DrawOnRails(effect, arg0);
                 Matrix_Pop(&gGfxMatrix);
                 Object_UpdateSfxSource(effect->sfxSource);
-                if (effect->obj.id == OBJ_EFFECT_374) {
+                if (effect->obj.id == OBJ_EFFECT_FLAME_PILLAR) {
                     Matrix_Push(&gGfxMatrix);
                     Object_DrawShadow(i, &effect->obj);
                     Matrix_Pop(&gGfxMatrix);

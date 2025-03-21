@@ -173,10 +173,10 @@ s32 D_i3_801C2740[10];
 f32 D_i3_801C2768[14];
 s32 D_i3_801C27A0[8]; // unused? part of previous?
 
-void Solar_8019E7F0(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Solar_SoFlare_Setup3(EffectSoFlare* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_EFFECT_392;
+    this->obj.id = OBJ_EFFECT_SO_FLARE;
     this->state = 3;
 
     this->obj.pos.x = xPos;
@@ -196,22 +196,22 @@ void Solar_8019E7F0(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     this->info.unk_14 = 0;
 }
 
-void Solar_8019E8B8(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Solar_SoFlare_Spawn3(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Solar_8019E7F0(&gEffects[i], xPos, yPos, zPos, scale2);
+            Solar_SoFlare_Setup3(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
 }
 
-void Solar_8019E920(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                    s32 state) {
+void Solar_SoFlare_Setup(EffectSoFlare* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
+                         s32 state) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_EFFECT_392;
+    this->obj.id = OBJ_EFFECT_SO_FLARE;
 
     this->state = state;
     if (state == 2) {
@@ -230,12 +230,12 @@ void Solar_8019E920(Effect392* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Solar_8019E9F4(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 unk4E) {
+void Solar_SoFlare_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 state) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 34; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Solar_8019E920(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, unk4E);
+            Solar_SoFlare_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, state);
             break;
         }
     }
@@ -436,8 +436,8 @@ void Solar_SoRock_Update(SoRock1* this) {
             Play_CheckDynaFloorCollision(&sp8C, &sp88, this->obj.pos.x, this->obj.pos.y - 100.0f, this->obj.pos.z);
             this->obj.pos.y = sp8C;
             for (i = 0; i < 4; i++) {
-                Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
-                               RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
+                Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
+                                    RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
             }
             this->timer_0C2 = 5;
             AUDIO_PLAY_SFX(NA_SE_OB_SOROCK_APPEAR, this->sfxSource, 0);
@@ -448,21 +448,21 @@ void Solar_SoRock_Update(SoRock1* this) {
 
             if (Play_CheckDynaFloorCollision(&sp8C, &sp88, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
                 Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_SOROCK_DISAPPEAR);
                 for (i = 0; i < 4; i++) {
-                    Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
-                                   RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
+                    Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, D_i3_801BF8E0[i],
+                                        RAND_FLOAT(10.0f) + 10.0f, 0.0f, this->scale * 5.0f, 1);
                 }
             }
 
             if (this->timer_0BC == 0) {
                 this->timer_0BC = 5;
-                Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, this->scale * 6.5f,
-                               2);
+                Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                    this->scale * 6.5f, 2);
             }
 
             if ((this->dmgType != DMG_NONE) || ((this->obj.id == OBJ_ACTOR_SO_ROCK_3) && (this->vel.y < 0.0f))) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                 Object_Kill(&this->obj, this->sfxSource);
 
                 if (this->obj.id == OBJ_ACTOR_SO_ROCK_3) {
@@ -487,10 +487,10 @@ void Solar_SoRock_Update(SoRock1* this) {
                     Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.3f);
                 }
                 for (i = 0; i < 7; i++) {
-                    Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
-                                   RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * this->scale, 1);
+                    Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, RAND_FLOAT_CENTERED(30.0f),
+                                        RAND_FLOAT_CENTERED(30.0f), 0.0f, (RAND_FLOAT(2.0f) + 2.0f) * this->scale, 1);
                 }
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
     }
@@ -540,10 +540,10 @@ void Solar_SoRock_Draw(SoRock1* this) {
     }
 }
 
-void Solar_8019F99C(SoProminence* this, Effect392* effect, f32 scale1) {
+void Solar_8019F99C(SoProminence* this, EffectSoFlare* effect, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_392;
+    effect->obj.id = OBJ_EFFECT_SO_FLARE;
 
     effect->obj.pos.x = effect->vel.x = this->obj.pos.x;
     effect->obj.pos.y = -2000.0f;
@@ -563,14 +563,14 @@ void Solar_8019F99C(SoProminence* this, Effect392* effect, f32 scale1) {
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_8019FAA4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
+void Solar_8019FAA4(SoVulkain* this, EffectSoFlare* effect, f32 xPos, f32 yPos, f32 zPos, f32 yVel, f32 hVelMod) {
     Vec3f sp44;
     Vec3f sp38;
     Vec3f sp2C = D_i3_801BF920;
 
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_392;
+    effect->obj.id = OBJ_EFFECT_SO_FLARE;
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
     effect->obj.pos.z = zPos;
@@ -630,10 +630,10 @@ void Solar_8019FAA4(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 
     Object_SetInfo(&effect->info, effect->obj.id);
 }
 
-void Solar_8019FDE0(SoVulkain* this, Effect392* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Solar_8019FDE0(SoVulkain* this, EffectSoFlare* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_ACTIVE;
-    effect->obj.id = OBJ_EFFECT_392;
+    effect->obj.id = OBJ_EFFECT_SO_FLARE;
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -713,7 +713,7 @@ void Solar_SoProminence_Update(SoProminence* this) {
     }
 }
 
-void Solar_Effect392_Update(Effect392* this) {
+void Solar_SoFlare_Update(EffectSoFlare* this) {
     f32 sp5C;
     f32 sp58;
     f32 sp54;
@@ -744,7 +744,7 @@ void Solar_Effect392_Update(Effect392* this) {
             }
 
             if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 12.0f);
+                Effect_CheckPlayerCollision(&gPlayer[0], this, this->scale2 * 12.0f);
             }
 
             if (this->orient.x > 190.0f) {
@@ -775,8 +775,8 @@ void Solar_Effect392_Update(Effect392* this) {
                     sp58 = -100.0f;
                 }
 
-                Solar_8019E9F4(this->obj.pos.x + sp58, this->obj.pos.y + sp54, this->obj.pos.z, sp58 * 0.25f,
-                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                Solar_SoFlare_Spawn(this->obj.pos.x + sp58, this->obj.pos.y + sp54, this->obj.pos.z, sp58 * 0.25f,
+                                    RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
@@ -823,7 +823,7 @@ void Solar_Effect392_Update(Effect392* this) {
             }
 
             if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 12.0f);
+                Effect_CheckPlayerCollision(&gPlayer[0], this, this->scale2 * 12.0f);
             }
 
             if (this->obj.pos.y < -20.0f) {
@@ -852,8 +852,8 @@ void Solar_Effect392_Update(Effect392* this) {
                 } else {
                     sp58 = -100.0f;
                 }
-                Solar_8019E9F4(this->obj.pos.x + sp58, this->obj.pos.y + -50.0f, this->obj.pos.z, sp58 * 0.25f,
-                               RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
+                Solar_SoFlare_Spawn(this->obj.pos.x + sp58, this->obj.pos.y + -50.0f, this->obj.pos.z, sp58 * 0.25f,
+                                    RAND_FLOAT(10.0f) + 20.0f, sp58 * 0.25f, 20.0f, 1);
             }
             break;
 
@@ -873,7 +873,7 @@ void Solar_Effect392_Update(Effect392* this) {
             this->vel.z = gPlayer[0].vel.z + 15.0f;
 
             if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 18.0f);
+                Effect_CheckPlayerCollision(&gPlayer[0], this, this->scale2 * 18.0f);
                 if ((this->unk_4C == 0) && ((this->scale2 >= 9.8f) || (this->scale2 <= 4.4f))) {
                     AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, this->sfxSource, 4);
                 }
@@ -901,7 +901,7 @@ void Solar_Effect392_Update(Effect392* this) {
             this->vel.z = gPlayer[0].vel.z + 80.0f;
 
             if (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE) {
-                func_effect_8007A774(&gPlayer[0], this, this->scale2 * 18.0f);
+                Effect_CheckPlayerCollision(&gPlayer[0], this, this->scale2 * 18.0f);
                 if ((this->unk_4C == 0) && ((this->scale2 >= 9.8f) || (this->scale2 <= 4.4f))) {
                     AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_BREATH, this->sfxSource, 4);
                 }
@@ -912,7 +912,7 @@ void Solar_Effect392_Update(Effect392* this) {
     }
 }
 
-void Solar_Effect392_Draw(Effect392* this) {
+void Solar_SoFlare_Draw(EffectSoFlare* this) {
     Graphics_SetScaleMtx(this->scale2);
     switch (this->state) {
         case 0:
@@ -1110,8 +1110,8 @@ void Solar_LevelStart(Player* player) {
             }
 
             if ((gGameFrameCount % 8) == 0) {
-                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
-                               RAND_FLOAT(2000.0f) - 6000.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
+                Solar_SoFlare_Spawn3(RAND_FLOAT_CENTERED(6000.0f), RAND_FLOAT_CENTERED(5.0f) - 90.0f,
+                                     RAND_FLOAT(2000.0f) - 6000.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
             }
 
             if (gCsFrameCount == 380) {
@@ -1185,8 +1185,8 @@ void Solar_LevelStart(Player* player) {
             gPathTexScroll += 60.0f;
 
             if ((gGameFrameCount % 4) == 0) {
-                Solar_8019E8B8(RAND_FLOAT_CENTERED(6000.0f), -400.0f - ((player->cam.eye.y - 1380.0f) * 0.3f),
-                               RAND_FLOAT_CENTERED(2000.0f) + 500.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
+                Solar_SoFlare_Spawn3(RAND_FLOAT_CENTERED(6000.0f), -400.0f - ((player->cam.eye.y - 1380.0f) * 0.3f),
+                                     RAND_FLOAT_CENTERED(2000.0f) + 500.0f + gPathProgress, RAND_FLOAT(20.0f) + 20.0f);
             }
 
             if (gCsFrameCount == 615) {
@@ -1327,8 +1327,8 @@ void Solar_801A1E14(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
 }
 
 void Solar_801A1EB0(SoVulkain* this, f32 xPos, f32 xOffset, f32 yPos, f32 zPos) {
-    Solar_8019E9F4(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
-    Solar_8019E9F4(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
+    Solar_SoFlare_Spawn(xPos + xOffset, yPos, zPos, 20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
+    Solar_SoFlare_Spawn(xPos - xOffset, yPos, zPos, -20.0f, RAND_FLOAT(10.0f) + 20.0f, 0.0f, 20.0f, 1);
 }
 
 void Solar_801A1F80(SoVulkain* this) {
@@ -2896,7 +2896,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
             this->fwork[SO_FWK_4] = sp28.x;
             this->fwork[SO_FWK_5] = sp28.y;
             this->fwork[SO_FWK_6] = sp28.z;
-            Matrix_GetYRPAngles(gCalcMatrix, &sp28);
+            Matrix_GetYPRAngles(gCalcMatrix, &sp28);
             this->fwork[SO_FWK_1] = sp28.x;
             this->fwork[SO_FWK_2] = sp28.y;
             break;
@@ -2920,7 +2920,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_28] = sp28.x;
                 this->fwork[SO_FWK_29] = sp28.y;
                 this->fwork[SO_FWK_30] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_41]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_41]);
             }
             break;
 
@@ -2936,7 +2936,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_22] = sp28.x;
                 this->fwork[SO_FWK_23] = sp28.y;
                 this->fwork[SO_FWK_24] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_47]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_47]);
             }
             break;
 
@@ -2946,7 +2946,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_10] = sp28.x;
                 this->fwork[SO_FWK_11] = sp28.y;
                 this->fwork[SO_FWK_12] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_35]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_35]);
             } else {
                 if (gBosses[0].swork[SO_SWK_0] != 7) {
                     Matrix_MultVec3f(gCalcMatrix, &sp64, &sp28);
@@ -2971,7 +2971,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_13] = sp28.x;
                 this->fwork[SO_FWK_14] = sp28.y;
                 this->fwork[SO_FWK_15] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_38]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_38]);
             }
             if (this->swork[SO_SWK_3] < 0) {
                 Matrix_MultVec3f(gCalcMatrix, &sp34, &sp28);
@@ -2993,7 +2993,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_19] = sp28.x;
                 this->fwork[SO_FWK_20] = sp28.y;
                 this->fwork[SO_FWK_21] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_44]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_44]);
             }
             break;
 
@@ -3003,7 +3003,7 @@ void Solar_SoVulkain_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
                 this->fwork[SO_FWK_7] = sp28.x;
                 this->fwork[SO_FWK_8] = sp28.y;
                 this->fwork[SO_FWK_9] = sp28.z;
-                Matrix_GetYRPAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_32]);
+                Matrix_GetYPRAngles(gCalcMatrix, (Vec3f*) &this->fwork[SO_FWK_32]);
             } else {
                 if (gBosses[0].swork[SO_SWK_0] != 7) {
                     Matrix_MultVec3f(gCalcMatrix, &sp58, &sp28);
@@ -3574,7 +3574,7 @@ void Solar_801A8DB8(Vec3f* pos, u32 sfxId, f32 zVel) {
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_SetupTimedSfxAtPos(&gEffects[i], pos, sfxId);
+            Effect_TimedSfx_Setup(&gEffects[i], pos, sfxId);
             gEffects[i].vel.z = zVel;
             break;
         }

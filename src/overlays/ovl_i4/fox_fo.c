@@ -499,7 +499,7 @@ void Fortuna_FoRadar_Update(FoRadar* this) {
                                   RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(50.0f), 35);
         Fortuna_ActorDebris_Spawn(&this->vwork[3], &this->vwork[9], RAND_FLOAT_CENTERED(50.0f),
                                   RAND_FLOAT(10.0f) + 10.0f, RAND_FLOAT_CENTERED(50.0f), 35);
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 5.0f, 10);
         this->itemDrop = DROP_SILVER_RING;
         this->obj.pos.y += 230.0f;
         Actor_Despawn(this);
@@ -525,32 +525,32 @@ void Fortuna_FoRadar_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
         switch (limbIndex) {
             case 1:
                 Matrix_MultVec3f(gCalcMatrix, &vec, actor->vwork);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[6]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[6]);
                 break;
 
             case 2:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[1]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[7]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[7]);
                 break;
 
             case 3:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[2]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[8]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[8]);
                 break;
 
             case 4:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[3]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[9]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[9]);
                 break;
 
             case 7:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[4]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[10]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[10]);
                 break;
 
             case 8:
                 Matrix_MultVec3f(gCalcMatrix, &vec, &actor->vwork[5]);
-                Matrix_GetYRPAngles(gCalcMatrix, &actor->vwork[11]);
+                Matrix_GetYPRAngles(gCalcMatrix, &actor->vwork[11]);
                 break;
         }
     }

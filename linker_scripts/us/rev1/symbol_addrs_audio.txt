@@ -9,11 +9,11 @@ gSeqFontTableInit = 0x800C3CB0;
 // data
 sSamplesPerWavePeriod = 0x800C57E8; // size:4
 
-sChannelsPerBank = 0x800C5CE0; //type:u8 size:0x1C
-sUsedChannelsPerBank = 0x800C5CFC; //type:u8 size:0x1C
+sMaxActiveSfx = 0x800C5CE0; //type:u8 size:0x1C
+sMaxSfxRequests = 0x800C5CFC; //type:u8 size:0x1C
 sSfxRequestWriteIndex = 0x800C5D18;
 sSfxRequestReadIndex = 0x800C5D1C;
-sSfxChannelLayout = 0x800C5D20;
+sSfxLayout = 0x800C5D20;
 sChannelMuteFlags = 0x800C5D24;
 gDefaultSfxSource = 0x800C5D28;
 gDefaultMod = 0x800C5D34;

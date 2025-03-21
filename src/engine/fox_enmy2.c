@@ -134,7 +134,7 @@ void MeteoBall_Update(MeteoBall* this) {
     f32 sp2C;
 
     if (MeteoBall_IsCloseToPlayer(this) && (this->timer_0BC == 0)) {
-        Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+        Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                              gEnemyShotSpeed);
         this->timer_0BC = 20;
     }
@@ -165,7 +165,7 @@ void MeHopBot_Update(MeHopBot* this) {
     }
 
     if ((gGameFrameCount % 32) == 0) {
-        Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
+        Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z,
                              gEnemyShotSpeed);
     }
 
@@ -219,18 +219,18 @@ void MeHopBot_Update(MeHopBot* this) {
     if (this->dmgType != DMG_NONE) {
         this->health -= 10;
         if ((this->health <= 0) || (this->dmgType >= DMG_EXPLOSION)) {
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 10.0f);
-            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, this->vel.x, this->vel.y,
-                             this->vel.z, 8.0f, 30);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 10.0f);
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, this->vel.x,
+                                    this->vel.y, this->vel.z, 8.0f, 30);
             Object_Kill(&this->obj, this->sfxSource);
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             gHitCount += this->info.bonus;
             D_ctx_80177850 = 15;
         } else {
             this->dmgType = DMG_NONE;
             this->timer_0C6 = 20;
             AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
-            Effect_Effect341_Spawn(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 5.0f);
+            Effect_FireSmoke3_Spawn(this->obj.pos.x, this->obj.pos.y + 180.0f, this->obj.pos.z, 5.0f);
         }
     }
 }
@@ -277,11 +277,11 @@ void MeMora_Dying(MeMora* this) {
     if ((this->timer_0BC == 0) && ((gGameFrameCount % 4) == 0)) {
         index = (D_800CFF94[this->work_04A] + this->counter_04E) % 100;
         if (this->work_04A == 0) {
-            func_effect_8007D2C8(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
-                                 gMeMoraZpos[this->work_046][index], 7.0f);
+            Effect_FireSmoke1_Spawn3(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
+                                     gMeMoraZpos[this->work_046][index], 7.0f);
         } else {
-            func_effect_8007D2C8(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
-                                 gMeMoraZpos[this->work_046][index], 4.0f);
+            Effect_FireSmoke1_Spawn3(gMeMoraXpos[this->work_046][index], gMeMoraYpos[this->work_046][index],
+                                     gMeMoraZpos[this->work_046][index], 4.0f);
         }
 
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
@@ -373,7 +373,7 @@ void CoIBeam_Update(CoIBeam* this) {
     }
 }
 
-void func_enmy2_8006BA64(Effect375* this, f32 xPos, f32 yPos, f32 zPos) {
+void Effect_Effect375_Setup(Effect375* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_375;
@@ -389,12 +389,12 @@ void func_enmy2_8006BA64(Effect375* this, f32 xPos, f32 yPos, f32 zPos) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_enmy2_8006BB1C(f32 xPos, f32 yPos, f32 zPos) {
+void Effect_Effect375_Spawn(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            func_enmy2_8006BA64(&gEffects[i], xPos, yPos, zPos);
+            Effect_Effect375_Setup(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -451,7 +451,7 @@ void CoMoleMissile_Update(CoMoleMissile* this) {
 
         case 3:
             if (this->timer_0BC == 1) {
-                Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                      gEnemyShotSpeed);
             }
 
@@ -478,7 +478,7 @@ void CoMoleMissile_Update(CoMoleMissile* this) {
     }
 
     if ((this->obj.pos.y <= (gGroundHeight + 10.0f)) && ((gGameFrameCount % 8) == 0)) {
-        func_enmy2_8006BB1C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
+        Effect_Effect375_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z);
     }
 
     if ((gGameFrameCount % 8) == 0) {
@@ -487,7 +487,7 @@ void CoMoleMissile_Update(CoMoleMissile* this) {
     }
 
     if ((this->dmgType != DMG_NONE) && (this->animFrame != 0)) {
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, this->vel.y, 0.0f, 3.0f, 5);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, this->vel.y, 0.0f, 3.0f, 5);
         Object_Kill(&this->obj, this->sfxSource);
         this->itemDrop = DROP_SILVER_RING;
         Actor_Despawn(this);
@@ -560,7 +560,7 @@ void ActorDebris_Update(ActorDebris* this) {
             this->obj.rot.z += this->fwork[2];
 
             if (((this->work_04A % 2U) == 1) && ((this->timer_0BC & 3) == 0)) {
-                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
             }
 
             if ((this->fwork[5] + this->obj.pos.y) < 0.0f) {
@@ -651,12 +651,12 @@ void ActorDebris_Update(ActorDebris* this) {
             this->obj.rot.z += this->fwork[2];
 
             if ((this->iwork[0] == 1) && ((gGameFrameCount % 8) == 0)) {
-                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
             }
 
             if (this->iwork[2] == 1) {
                 if ((this->iwork[1] == 1) && ((this->work_048 == 8) || (this->work_048 == 9))) {
-                    func_effect_8007D2C8(this->obj.pos.x, sp48 + 20.0f, this->obj.pos.z, 8.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x, sp48 + 20.0f, this->obj.pos.z, 8.0f);
                 }
                 Object_Kill(&this->obj, this->sfxSource);
             }
@@ -673,7 +673,7 @@ void ActorDebris_Update(ActorDebris* this) {
                 (this->timer_0BE == 0)) {
                 Effect_Effect364_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -684,7 +684,7 @@ void ActorDebris_Update(ActorDebris* this) {
                 (this->timer_0BE == 0)) {
                 Effect_Effect364_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -705,7 +705,7 @@ void ActorDebris_Update(ActorDebris* this) {
                 (this->timer_0BE == 0)) {
                 Effect_Effect364_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 50.0f, this->scale * 10.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
@@ -716,13 +716,13 @@ void ActorDebris_Update(ActorDebris* this) {
                 Effect_Effect364_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 Effect_Effect364_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 70.0f, this->scale * 20.0f);
                 Object_Kill(&this->obj, this->sfxSource);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
             break;
 
         case 50:
             if ((this->iwork[0] == 2) && (this->timer_0BC == 0)) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
                 this->timer_0BC = 4;
             }
             this->obj.rot.x += this->fwork[0];
@@ -786,17 +786,17 @@ void ActorDebris_Update(ActorDebris* this) {
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                      (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                     (this->timer_0BE == 0)) {
-                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Object_Kill(&this->obj, this->sfxSource);
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
             } else if (((this->state >= 41) && (this->state < 45)) || (this->state == 59)) {
                 if (((this->timer_0BC == 0) ||
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0)) &&
                     (this->timer_0BE == 0)) {
-                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f * this->scale);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f * this->scale);
                     Object_Kill(&this->obj, this->sfxSource);
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
                 if (Play_CheckDynaFloorCollision(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
                     Effect_Effect381_Spawn(this->obj.pos.x, sp44, this->obj.pos.z, 2.0f);
@@ -804,25 +804,25 @@ void ActorDebris_Update(ActorDebris* this) {
                 }
             } else if (this->state >= 10) {
                 if ((this->timer_0BC & 3) == 0) {
-                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale);
                 }
                 if (((this->timer_0BC == 0) ||
                      (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                      (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                     (this->timer_0BE == 0)) {
-                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, this->scale * 1.5f, 4);
+                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                            this->vel.z, this->scale * 1.5f, 4);
                     Object_Kill(&this->obj, this->sfxSource);
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
             } else {
                 if ((this->state == 3) && ((this->timer_0BC % 8) == 0)) {
-                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
                 }
                 if ((Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                     (this->obj.pos.y < (gGroundHeight + 10.0f))) {
                     if (gLevelType == LEVELTYPE_SPACE) {
-                        func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
+                        Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 2.0f);
                         Object_Kill(&this->obj, this->sfxSource);
                         return;
                     }
@@ -1641,10 +1641,10 @@ void ActorEvent_UpdateTexLines(ActorEvent* this) {
     }
 }
 
-void ActorEvent_SetupEffect374(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
+void ActorEvent_FlamePillar_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_374;
+    effect->obj.id = OBJ_EFFECT_FLAME_PILLAR;
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -1655,12 +1655,12 @@ void ActorEvent_SetupEffect374(Effect* effect, f32 xPos, f32 yPos, f32 zPos) {
     AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, effect->sfxSource, 4);
 }
 
-void ActorEvent_SpawnEffect374(f32 xPos, f32 yPos, f32 zPos) {
+void ActorEvent_FlamePillar_Spawn(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     for (i = 50; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_SetupEffect374(&gEffects[i], xPos, yPos, zPos);
+            ActorEvent_FlamePillar_Setup(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -1762,10 +1762,10 @@ void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     }
 }
 
-void ActorEvent_SetupEffect347(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_SetupPinkExplosion(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
-    effect->obj.id = OBJ_EFFECT_347;
+    effect->obj.id = OBJ_EFFECT_PINK_EXPLOSION;
 
     effect->obj.pos.x = xPos;
     effect->obj.pos.y = yPos;
@@ -1774,15 +1774,15 @@ void ActorEvent_SetupEffect347(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     effect->scale1 = scale1;
     effect->alpha = 100;
     Object_SetInfo(&effect->info, effect->obj.id);
-    Effect_SpawnTimedSfxAtPos(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
+    Effect_TimedSfx_Spawn(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
-void ActorEvent_SpawnEffect347(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_SpawnPinkExplosion(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_SetupEffect347(&gEffects[i], xPos, yPos, zPos, scale1);
+            ActorEvent_SetupPinkExplosion(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -1803,7 +1803,7 @@ void ActorEvent_SetupEffect394(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     effect->unk_7A = 18;
     Object_SetInfo(&effect->info, effect->obj.id);
     effect->info.damage = 40;
-    Effect_SpawnTimedSfxAtPos(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
+    Effect_TimedSfx_Spawn(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
 void ActorEvent_SpawnEffect394(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
@@ -1832,7 +1832,7 @@ void ActorEvent_ShootForward(ActorEvent* this) {
     sp54.z = gEnemyShotSpeed;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
-    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y,
+    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x + sp48.x, this->obj.pos.y + sp48.y,
                       this->obj.pos.z + sp48.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
                       this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
                       this->vwork[EVA_FORMATION_ROT].z + this->orient.z, sp48.x, sp48.y, sp48.z, 1.0f);
@@ -1861,7 +1861,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
         case EVACT_SHOOT_AT_PLAYER: // shoot at player
             if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                      gEnemyShotSpeed);
             }
             this->work_048 = EVACT_NONE;
@@ -1885,12 +1885,12 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             }
             break;
 
-        case EVACT_BLUE_ENERGY: // shoot blue energy balls
-            ActorEvent_SpawnEffect374(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
+        case EVACT_FLAME_PILLAR: // shoot blue energy balls
+            ActorEvent_FlamePillar_Spawn(this->obj.pos.x, this->obj.pos.y - 20.0f, this->obj.pos.z);
             this->work_048 = EVACT_NONE;
             break;
 
-        case EVACT_5:
+        case EVACT_BLUE_ORB_FORWARD:
             Matrix_RotateY(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, this->vwork[EVA_FORMATION_ROT].x * M_DTOR, MTXF_APPLY);
             Matrix_RotateZ(gCalcMatrix, (this->vwork[EVA_FORMATION_ROT].z + this->orient.z) * M_DTOR, MTXF_APPLY);
@@ -1902,24 +1902,24 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             sp78.z = gEnemyShotSpeed;
 
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
-            Effect_SpawnById2(OBJ_EFFECT_355, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
+            Effect_SpawnById2(OBJ_EFFECT_BLUE_ORB, this->obj.pos.x + sp6C.x, this->obj.pos.y + sp6C.y,
                               this->obj.pos.z + sp6C.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z,
                               this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
                               this->vwork[EVA_FORMATION_ROT].z + this->orient.z, sp6C.x, sp6C.y, sp6C.z, 1.0f);
             this->work_048 = EVACT_NONE;
             break;
 
-        case EVACT_6:
+        case EVACT_BLUE_ORB_AT_PLAYER:
             if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                Effect_ShootAtPlayer(OBJ_EFFECT_355, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                Effect_ShootAtPlayer(OBJ_EFFECT_BLUE_ORB, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                      gEnemyShotSpeed);
             }
             this->work_048 = EVACT_NONE;
             break;
 
-        case EVACT_7:
+        case EVACT_ME_FIREBALL_AT_PLAYER:
             if (this->obj.pos.z < (gPlayer[0].trueZpos - 600.0f)) {
-                Effect_ShootAtPlayer(OBJ_EFFECT_356, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
+                Effect_ShootAtPlayer(OBJ_EFFECT_ME_FIREBALL, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f);
             }
             this->work_048 = EVACT_NONE;
             break;
@@ -1929,37 +1929,37 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             sp6C.y = gPlayer[0].pos.y;
             gPlayer[0].pos.x += RAND_FLOAT_CENTERED(300.0f);
             gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
-            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                  gEnemyShotSpeed);
             gPlayer[0].pos.x = sp6C.x;
             gPlayer[0].pos.y = sp6C.y;
             this->work_048 = EVACT_NONE;
             break;
 
-        case EVACT_9:
+        case EVACT_EXPLODE_LARGE:
             if (gCurrentLevel == LEVEL_AQUAS) {
                 ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
             } else {
-                ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                ActorEvent_SpawnPinkExplosion(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             }
             Object_Kill(&this->obj, this->sfxSource);
             break;
 
-        case EVACT_10:
+        case EVACT_EXPLODE_SMALL:
             if (gCurrentLevel == LEVEL_AQUAS) {
                 ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
             } else {
-                ActorEvent_SpawnEffect347(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+                ActorEvent_SpawnPinkExplosion(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
             }
             Object_Kill(&this->obj, this->sfxSource);
             break;
 
-        case EVACT_11:
-            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
-                             this->scale * 3.0f, 15);
+        case EVACT_EXPLODE_FIRE:
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                    this->vel.z, this->scale * 3.0f, 15);
             Actor_Despawn(this);
             Object_Kill(&this->obj, this->sfxSource);
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             break;
 
         case EVACT_DESPAWN:
@@ -1983,16 +1983,16 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             break;
 
         case EVACT_SHOOT_PLAYER_TWICE:
-            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x + 190.0f, this->obj.pos.y + 90.0f,
                                  this->obj.pos.z + 220.0f, gEnemyShotSpeed);
-            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
+            Effect_ShootAtPlayer(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x - 190.0f, this->obj.pos.y + 90.0f,
                                  this->obj.pos.z + 220.0f, gEnemyShotSpeed);
             this->work_048 = EVACT_NONE;
             break;
 
         case EVACT_SHOOT_AT_CAMERA:
             if (this->obj.pos.z < (gPlayer[0].cam.eye.z - 600.0f)) {
-                Effect_ShootAtCamera(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
+                Effect_ShootAtCamera(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                      gEnemyShotSpeed);
             }
             this->work_048 = EVACT_NONE;
@@ -2030,7 +2030,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
             this->work_048 = EVACT_NONE;
             break;
 
-        case EVACT_19: // projectile ring used by bee enemies
+        case EVACT_ORB_RING: // projectile ring used by bee enemies
             func_effect_80083D2C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             this->work_048 = EVACT_NONE;
             break;
@@ -2062,8 +2062,8 @@ void ActorEvent_DamageBird(ActorEvent* this) {
             this->itemDrop = DROP_NONE;
             Actor_Despawn(this);
             Object_Kill(&this->obj, this->sfxSource);
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_BIRD_DOWN);
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_BIRD_DOWN);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 4.0f);
         } else {
             AUDIO_PLAY_SFX(NA_SE_EN_BIRD_DAMAGE, this->sfxSource, 4);
         }
@@ -2156,7 +2156,7 @@ void ActorEvent_ApplyDamage(ActorEvent* this) {
                     (this->eventType != EVID_ME_METEOR_4) && (this->damage <= 30) &&
                     (this->eventType != EVID_ME_METEOR_5) && (this->eventType != EVID_ME_ROCK_GULL) &&
                     (this->eventType != EVID_SY_SHIP_WINDOWS) && (this->eventType != EVID_SY_LASER_TURRET)) {
-                    func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 4.0f);
                     this->dmgType = DMG_NONE;
                 }
 
@@ -2203,14 +2203,14 @@ void ActorEvent_ApplyDamage(ActorEvent* this) {
                             break;
 
                         case EVID_ME_METEOR_4:
-                            Meteo_Effect346_Spawn(this);
+                            Meteo_SmallRock_Spawn(this);
                             break;
 
                         case EVID_SX_LASER:
                             this->obj.pos.y -= this->vel.y;
                             this->obj.status = OBJ_ACTIVE;
-                            func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
-                                                 this->obj.pos.z - this->vel.z, this->scale * 5.0f);
+                            Effect_FireSmoke1_Spawn4(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                                     this->obj.pos.z - this->vel.z, this->scale * 5.0f);
                             this->dmgType = DMG_NONE;
                             this->timer_0C2 = 10000;
                             this->info.targetOffset = 0.0f;
@@ -2246,7 +2246,7 @@ void ActorEvent_ApplyDamage(ActorEvent* this) {
 
             if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_4) &&
                 (this->eventType != EVID_AQ_OYSTER)) {
-                func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
+                Effect_FireSmoke2_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->scale * 1.5f);
             }
 
             if (((gLevelMode == LEVELMODE_ALL_RANGE) || (gLevelMode == LEVELMODE_TURRET)) &&
@@ -2312,7 +2312,7 @@ void ActorEvent_ApplyDamage(ActorEvent* this) {
             }
 
             if (this->eventType == EVID_ME_METEOR_4) {
-                Meteo_Effect346_Spawn(this);
+                Meteo_SmallRock_Spawn(this);
             }
         }
     }
@@ -2688,7 +2688,7 @@ void ActorEvent_ProcessTriggers(ActorEvent* this) {
             ActorEvent_TriggerBranch(this);
             break;
 
-        case EVC_ATTACK_GROUP_CLEARED:
+        case EVC_GROUP_CAPTAIN_DOWN:
             for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                 if (((otherActor->obj.status == OBJ_DYING) || (otherActor->obj.status == OBJ_FREE)) &&
                     (otherActor->iwork[EVA_GROUP_ID] == this->iwork[EVA_GROUP_ID]) &&
@@ -2900,8 +2900,8 @@ void ActorEvent_SlowDestruct(ActorEvent* this) {
     }
 
     if (((gGameFrameCount % 8) == 0)) {
-        Effect386_Spawn1(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z, this->vel.x,
-                         this->vel.y, this->vel.z, 10.0f, 9);
+        Effect_Effect386_Spawn1(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z,
+                                this->vel.x, this->vel.y, this->vel.z, 10.0f, 9);
     }
 
     if (((gGameFrameCount % 16) == 0)) {
@@ -3010,7 +3010,7 @@ void ActorEvent_UpdatePeriscope(ActorEvent* this) {
             case EVACT_TEAM_SHOOT:
                 this->iwork[EVA_GROUP_ID] = 1;
                 break;
-            case EVACT_BLUE_ENERGY:
+            case EVACT_FLAME_PILLAR:
                 this->iwork[EVA_GROUP_ID] = 0;
                 break;
         }
@@ -3097,7 +3097,7 @@ void ActorEvent_Update(ActorEvent* this) {
             if (this->health <= 0) {
                 this->timer_0C6 = 200;
                 this->obj.status = OBJ_DYING;
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
                 this->obj.status = OBJ_DYING;
                 this->timer_0BC = 20;
                 this->obj.id = OBJ_ACTOR_ME_MORA;
@@ -3191,7 +3191,7 @@ void ActorEvent_Update(ActorEvent* this) {
                         var_fv0 = 0.0f;
                     }
 
-                    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + spAC.x + spA0.x,
+                    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x + spAC.x + spA0.x,
                                       this->obj.pos.y + spAC.y + spA0.y + var_fv0, this->obj.pos.z + spAC.z + spA0.z,
                                       this->fwork[EVA_FWORK_15], this->obj.rot.y, this->obj.rot.z,
                                       this->vwork[EVA_FORMATION_ROT].x, this->vwork[EVA_FORMATION_ROT].y,
@@ -3571,8 +3571,8 @@ void ActorEvent_Update(ActorEvent* this) {
                     this->animFrame = 0;
                 }
                 if ((gGameFrameCount % 3) == 0) {
-                    Solar_8019E9F4(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
-                                   RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
+                    Solar_SoFlare_Spawn(this->obj.pos.x, this->obj.pos.y - 20, this->obj.pos.z - 180.0f, 0.0f,
+                                        RAND_FLOAT(20.0f) * -1.0f, 0.0f, 4.0f, 2);
                 }
             } else if (this->animFrame >= Animation_GetFrameCount(&aFirebirdAnim)) {
                 this->animFrame = 0;
@@ -4061,10 +4061,10 @@ void ActorEvent_Draw(ActorEvent* this) {
                 case EVID_SX_LASER:
                     if (this->timer_0C2 != 0) {
                         if (((this->timer_0C2 & 3) == 0) && (gPlayState != PLAY_PAUSE)) {
-                            func_effect_8007D0E0(RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.x,
-                                                 RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.y,
-                                                 RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.z,
-                                                 RAND_FLOAT(1.5f) + 2.5f);
+                            Effect_FireSmoke1_Spawn4(RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.x,
+                                                     RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.y,
+                                                     RAND_FLOAT_CENTERED(200.0f) + this->obj.pos.z,
+                                                     RAND_FLOAT(1.5f) + 2.5f);
                         }
                         RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -4245,8 +4245,8 @@ void Actor_DyingCrash(Actor* this) {
     if (this->eventType == EVID_SX_LASER) {
         this->obj.pos.y -= this->vel.y;
         this->obj.status = OBJ_ACTIVE;
-        func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
-                             this->scale * 5.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
+                                 this->scale * 5.0f);
         this->timer_0C2 = 10000;
         return;
     }
@@ -4305,22 +4305,22 @@ void Actor_DyingCrash(Actor* this) {
 
         if (gUseDynaFloor && Play_CheckDynaFloorCollision(&floorHeight, &triangleIndex, this->obj.pos.x,
                                                           this->obj.pos.y, this->obj.pos.z)) {
-            Effect386_Spawn1(this->obj.pos.x, floorHeight + 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                             this->scale * 3.0f, 5);
+            Effect_Effect386_Spawn1(this->obj.pos.x, floorHeight + 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                    this->scale * 3.0f, 5);
             Effect_Effect381_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z, 2.0f);
             this->timer_0BE = 2;
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             return;
         }
 
         if (gGroundType == GROUND_4) {
             if (Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y - 10.0f, this->obj.pos.z + gPathProgress) != 0) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 20.0f, this->obj.pos.z, this->scale * 6.0f);
-                Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f, this->obj.pos.z - this->vel.z,
-                                 0.0f, 0.0f, 0.0f, this->scale * 4.0f, 20);
-                func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y + 20.0f, this->obj.pos.z, this->scale * 6.0f);
+                Effect_Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                        this->obj.pos.z - this->vel.z, 0.0f, 0.0f, 0.0f, this->scale * 4.0f, 20);
+                Effect_Effect349_Spawn(this->obj.pos.x, this->obj.pos.z);
                 this->timer_0BE = 2;
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 return;
             }
         } else {
@@ -4336,7 +4336,7 @@ void Actor_DyingCrash(Actor* this) {
                     ((this->vel.z < -20.0f) || (this->vel.z > 0.0f))) {
                     if (gCurrentLevel == LEVEL_FORTUNA) {
                         func_enmy2_8006BF7C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z);
-                        func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
+                        Effect_Effect349_Spawn(this->obj.pos.x, this->obj.pos.z);
                     }
 
                     this->obj.pos.y -= this->vel.y;
@@ -4344,17 +4344,17 @@ void Actor_DyingCrash(Actor* this) {
                     this->work_04C = 3;
 
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y,
-                                             this->obj.pos.z - this->vel.z, this->scale * 3.0f);
+                        Effect_FireSmoke1_Spawn3(this->obj.pos.x - this->vel.x, this->obj.pos.y,
+                                                 this->obj.pos.z - this->vel.z, this->scale * 3.0f);
                     }
 
-                    func_effect_8007D2C8(this->obj.pos.x - this->vel.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
-                                         this->scale * 3.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x - this->vel.x, this->obj.pos.y,
+                                             this->obj.pos.z - this->vel.z, this->scale * 3.0f);
 
                     if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
-                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+                        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
 
                     if ((this->obj.id == OBJ_ACTOR_EVENT) && (this->eventType == EVID_ME_SLIPPY)) {
@@ -4377,27 +4377,27 @@ void Actor_DyingCrash(Actor* this) {
                                                    10);
                             Effect_Effect367_Spawn(this->obj.pos.x, gGroundHeight + 2.0f, this->obj.pos.z, 3.0f, 20.0f,
                                                    20);
-                            Effect_Effect372_Spawn2(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
+                            Effect_WaterSpray_SpawnCircle(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
                         } else {
-                            PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
-                                                      this->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
+                            PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
+                                                       this->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
                         }
                         Effect_Effect390_Spawn(this->obj.pos.x, 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                                this->scale * 0.05f, 30);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
                             Effect_Effect387_Spawn(this->obj.pos.x, gGroundHeight + 30.0f, this->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {
-                                func_enmy_80062C38(this->obj.pos.x, this->obj.pos.z);
+                                Effect_Effect349_Spawn(this->obj.pos.x, this->obj.pos.z);
                             }
                         }
                     }
 
                     this->obj.pos.y -= this->vel.y;
-                    func_effect_8007D0E0(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
-                                         this->obj.pos.z - this->vel.z, this->scale * 5.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                             this->obj.pos.z - this->vel.z, this->scale * 5.0f);
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, this->vel.x, 10.0f,
-                                         this->vel.z, this->scale * 3.0f, 20);
+                        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, this->vel.x,
+                                                10.0f, this->vel.z, this->scale * 3.0f, 20);
                         if (sp60 == 999) {
                             Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z,
                                                    this->scale * 3.0f, 70);
@@ -4412,17 +4412,17 @@ void Actor_DyingCrash(Actor* this) {
                             }
                         }
                     } else {
-                        Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
-                                         (this->obj.pos.z - this->vel.z) + 48.0f, 0.0f, 0.0f, 0.0f, this->scale * 3.0f,
-                                         5);
+                        Effect_Effect386_Spawn1(this->obj.pos.x - this->vel.x, this->obj.pos.y + 30.0f,
+                                                (this->obj.pos.z - this->vel.z) + 48.0f, 0.0f, 0.0f, 0.0f,
+                                                this->scale * 3.0f, 5);
                     }
 
                     this->timer_0BE = 2;
 
                     if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
-                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+                        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     }
                 }
             }
@@ -4440,27 +4440,27 @@ void Actor_DyingCrash(Actor* this) {
                     }
                 }
 
-                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                 this->vel.z, 5.0f, 15);
-                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
+                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                        this->vel.z, 5.0f, 15);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z, 8.0f);
             } else {
                 if ((this->eventType != EVID_ME_METEOR_1) && (this->eventType != EVID_ME_METEOR_4)) {
-                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
-                                         this->scale * 5.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z - this->vel.z,
+                                             this->scale * 5.0f);
                 }
 
                 if (this->eventType == EVID_TI_BOMBER) {
-                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 5.0f, 15);
+                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                            this->vel.z, 5.0f, 15);
                 }
             }
 
             this->timer_0BE = 2;
 
             if ((this->obj.id == OBJ_ACTOR_ALLRANGE) && (this->aiType < AI360_KATT)) {
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             } else {
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             }
         }
     }

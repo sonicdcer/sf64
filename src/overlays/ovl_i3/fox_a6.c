@@ -375,7 +375,7 @@ void Area6_ActorMissileSeekPlayer_Setup(ActorMissileSeekPlayer* this, f32 xPos, 
     this->eventType = unk0B4;
     this->fwork[5] = fwork6;
     Object_SetInfo(&this->info, this->obj.id);
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_BARREL_SHOT);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_BARREL_SHOT);
 }
 
 void Area6_ActorMissileSeekPlayer_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 fwork6, f32 xRot, f32 yRot, s32 timer0BC,
@@ -536,8 +536,8 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i3_801BECF8, &spC8[2]);
 
                     for (i = 0; i < 3; i++) {
-                        func_effect_8007D0E0(spC8[i].x + this->obj.pos.x, spC8[i].y + this->obj.pos.y,
-                                             spC8[i].z + this->obj.pos.z, 10.0f);
+                        Effect_FireSmoke1_Spawn4(spC8[i].x + this->obj.pos.x, spC8[i].y + this->obj.pos.y,
+                                                 spC8[i].z + this->obj.pos.z, 10.0f);
                     }
 
                     this->timer_052 = 170;
@@ -677,8 +677,8 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                 if (i == 3) {
                     var_s0 = RAND_FLOAT_CENTERED(100.0f);
                 }
-                func_effect_8007D0E0(this->obj.pos.x + var_s0 + spC8[i].x, this->obj.pos.y + var_s0 + spC8[i].y,
-                                     this->obj.pos.z + spC8[i].z, 10.0f);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x + var_s0 + spC8[i].x, this->obj.pos.y + var_s0 + spC8[i].y,
+                                         this->obj.pos.z + spC8[i].z, 10.0f);
             }
         }
 
@@ -1308,21 +1308,21 @@ void Area6_8018A2C4(A6Gorgon* this) {
                     effectPos.x = D_i3_801BF334[0];
                     effectPos.y = D_i3_801BF3C4[0];
                     effectPos.z = this->obj.pos.z;
-                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_OB_DAMAGE_M);
+                    Effect_TimedSfx_Spawn(&effectPos, NA_SE_OB_DAMAGE_M);
                 }
 
                 if (i == 1) {
                     effectPos.x = D_i3_801BF364[0];
                     effectPos.y = D_i3_801BF3F4[0];
                     effectPos.z = this->obj.pos.z;
-                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_OB_DAMAGE_M);
+                    Effect_TimedSfx_Spawn(&effectPos, NA_SE_OB_DAMAGE_M);
                 }
 
                 if (i == 2) {
                     effectPos.x = D_i3_801BF394[0];
                     effectPos.y = D_i3_801BF424[0];
                     effectPos.z = this->obj.pos.z;
-                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_OB_DAMAGE_M);
+                    Effect_TimedSfx_Spawn(&effectPos, NA_SE_OB_DAMAGE_M);
                 }
 
                 if (this->swork[A6_SWK_33 + i] < 0) {
@@ -1580,21 +1580,21 @@ void Area6_8018A464(A6Gorgon* this, s32 arg1) {
                     effectPos.x = D_i3_801BF334[0];
                     effectPos.y = D_i3_801BF3C4[0];
                     effectPos.z = this->obj.pos.z;
-                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_EN_ARM_SWING);
+                    Effect_TimedSfx_Spawn(&effectPos, NA_SE_EN_ARM_SWING);
                 }
 
                 if (arg1 == 1) {
                     effectPos.x = D_i3_801BF364[0];
                     effectPos.y = D_i3_801BF3F4[0];
                     effectPos.z = this->obj.pos.z;
-                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_EN_ARM_SWING);
+                    Effect_TimedSfx_Spawn(&effectPos, NA_SE_EN_ARM_SWING);
                 }
 
                 if (arg1 == 2) {
                     effectPos.x = D_i3_801BF394[0];
                     effectPos.y = D_i3_801BF424[0];
                     effectPos.z = this->obj.pos.z;
-                    Effect_SpawnTimedSfxAtPos(&effectPos, NA_SE_EN_ARM_SWING);
+                    Effect_TimedSfx_Spawn(&effectPos, NA_SE_EN_ARM_SWING);
                 }
                 this->swork[A6_SWK_18 + arg1] = 2;
             }
@@ -1721,14 +1721,14 @@ void Area6_8018B9BC(A6Gorgon* this) {
                     this->swork[A6_SWK_0 + j] = 0;
 
                     Matrix_MultVec3f(gCalcMatrix, &this->vwork[A6_VWK_1 + i], &dest);
-                    func_effect_8007D0E0(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                         10.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y,
+                                             this->obj.pos.z + dest.z, 10.0f);
 
                     sfxPos.x = this->obj.pos.x + dest.x;
                     sfxPos.y = this->obj.pos.y + dest.y;
                     sfxPos.z = this->obj.pos.z + dest.z;
 
-                    Effect_SpawnTimedSfxAtPos(&sfxPos, NA_SE_EN_EXPLOSION_M);
+                    Effect_TimedSfx_Spawn(&sfxPos, NA_SE_EN_EXPLOSION_M);
                     Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
                                            this->vel.y, this->vel.z, 0.2f, 50);
                 }
@@ -1939,8 +1939,8 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
 
                     Matrix_MultVec3f(gCalcMatrix, &this->vwork[A6_VWK_1] + i, &spC4);
 
-                    func_effect_8007D0E0(this->obj.pos.x + spC4.x, this->obj.pos.y + spC4.y, this->obj.pos.z + spC4.z,
-                                         20.0f);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x + spC4.x, this->obj.pos.y + spC4.y,
+                                             this->obj.pos.z + spC4.z, 20.0f);
 
                     spB8.x = this->obj.pos.x + spC4.x;
                     spB8.y = this->obj.pos.y + spC4.y;
@@ -1949,7 +1949,7 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
                     if ((!this) && (!this)) {} // fake
 
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
-                        Effect_SpawnTimedSfxAtPos(&spB8, NA_SE_EN_EXPLOSION_M);
+                        Effect_TimedSfx_Spawn(&spB8, NA_SE_EN_EXPLOSION_M);
                     }
 
                     D_i3_801C2250[A6_BSS_26]++;
@@ -2125,8 +2125,8 @@ void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
 void Area6_8018D4E0(Actor* this) {
     s32 i;
 
-    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
-    func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 7.0f);
+    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 20);
+    Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 7.0f);
     Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f, 5);
 
     Object_Kill(&this->obj, this->sfxSource);
@@ -2134,7 +2134,7 @@ void Area6_8018D4E0(Actor* this) {
     for (i = 0; i < 15; i++) {
         Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
     }
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
 void Area6_8018D5C8(void) {
