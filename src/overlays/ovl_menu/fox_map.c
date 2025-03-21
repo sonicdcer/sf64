@@ -1272,7 +1272,7 @@ void Map_Setup(void) {
     s32 i;
     s32 j;
 
-    AUDIO_SET_SPEC(SFXCHAN_1, AUDIOSPEC_MAP);
+    AUDIO_SET_SPEC(SFX_LAYOUT_MAP, AUDIOSPEC_MAP);
 
     gVIsPerFrame = 2;
     gGameFrameCount = 0;
@@ -1556,7 +1556,7 @@ void Map_Setup_GameOver(void) {
 
     D_menu_801CD9AC = 0;
 
-    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_GAME_OVER);
+    AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_GAME_OVER);
 
     sMapSubState = 0;
     D_menu_801CD94C = 0;
@@ -4018,59 +4018,59 @@ void Map_LevelStart_Update(void) {
 void Map_LevelStart_AudioSpecSetup(LevelId level) {
     switch (level) {
         case LEVEL_CORNERIA:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_CO);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_CO);
             break;
 
         case LEVEL_METEO:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_ME);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_ME);
             break;
 
         case LEVEL_TITANIA:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TI);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_TI);
             break;
 
         case LEVEL_AQUAS:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_AQ);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_AQ);
             break;
 
         case LEVEL_BOLSE:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_BO);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_BO);
             break;
 
         case LEVEL_KATINA:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_KA);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_KA);
             break;
 
         case LEVEL_AREA_6:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_A6);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_A6);
             break;
 
         case LEVEL_SECTOR_Z:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_SZ);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_SZ);
             break;
 
         case LEVEL_FORTUNA:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_FO);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_FO);
             break;
 
         case LEVEL_SECTOR_X:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_SX);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_SX);
             break;
 
         case LEVEL_MACBETH:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_MA);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_MA);
             break;
 
         case LEVEL_ZONESS:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_ZO);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_ZO);
             break;
 
         case LEVEL_SECTOR_Y:
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_SY);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_SY);
             break;
 
         case LEVEL_SOLAR:
-            AUDIO_SET_SPEC(SFXCHAN_2, AUDIOSPEC_SO);
+            AUDIO_SET_SPEC(SFX_LAYOUT_SO, AUDIOSPEC_SO);
 
         default:
             break;

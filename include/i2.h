@@ -16,7 +16,7 @@ void SectorX_LevelComplete(Player*);
 void OvlI2_CallFunction(s32, void*);
 void Meteo_80187B08(Actor *);
 void Meteo_MeCrusher_Init(Boss *);
-void Meteo_Effect346_Spawn(Actor *);
+void Meteo_SmallRock_Spawn(Actor *);
 
 void Meteo_MeMeteor1_Update(MeMeteor1*);
 void Meteo_MeMeteor2_Update(MeMeteor2*);

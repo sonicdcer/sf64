@@ -1060,7 +1060,7 @@ void Ending_801924EC(u32 arg0) {
             Camera_SetStarfieldPos(D_ending_801985D0.x, D_ending_801985D0.y, D_ending_801985D0.z, D_ending_801985E0.x,
                                    D_ending_801985E0.y, D_ending_801985E0.z);
 
-            Matrix_GetYRPAngles(gGfxMatrix, &D_ending_801985F0);
+            Matrix_GetYPRAngles(gGfxMatrix, &D_ending_801985F0);
             break;
         }
     }

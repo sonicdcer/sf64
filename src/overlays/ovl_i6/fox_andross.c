@@ -366,7 +366,7 @@ void Andross_AndBrainWaste_Update(AndBrainWaste* this) {
     Math_SmoothStepToF(&this->vel.z, 0.0f, 0.2f, 0.5f, 0.0f);
 
     if (this->dmgType != DMG_NONE) {
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
         Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 5);
     } else if (this->timer_0BC == 0) {
@@ -427,18 +427,18 @@ void Andross_AndBrainEye_Dying(ActorAllRange* this) {
 
     this->obj.rot.z -= 8.0f;
     if ((this->timer_0BC % 2U) == 1) {
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
     }
     if ((this->timer_0BC == 0) || (this->dmgType != DMG_NONE)) {
-        Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 7.0f,
-                         20);
+        Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                this->vel.z, 7.0f, 20);
         Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f, 5);
 
         for (i = 0; i < 6; i++) {
             Effect_Effect357_Spawn50(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.0f);
         }
 
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
         Object_Kill(&this->obj, this->sfxSource);
         BonusText_Display(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5);
         gHitCount += 6;
@@ -752,8 +752,9 @@ void Andross_AndExplosion_Update(AndExplosion* this) {
         this->vel.y = vel.y * 0.2f;
         this->vel.z = vel.z * 0.2f;
         for (i = 0; i < 1; i++) {
-            Effect_FireSmoke_Spawn2(this->obj.pos.x + displacement.x, this->obj.pos.y + displacement.y,
-                                    this->obj.pos.z + displacement.z, vel.x, vel.y, vel.z, RAND_FLOAT(2.5f) + 15.5f);
+            Effect_FireSmoke1_SpawnMoving(this->obj.pos.x + displacement.x, this->obj.pos.y + displacement.y,
+                                          this->obj.pos.z + displacement.z, vel.x, vel.y, vel.z,
+                                          RAND_FLOAT(2.5f) + 15.5f);
         }
     }
 
@@ -1010,12 +1011,12 @@ void Andross_AndBrain_Update(AndBrain* this) {
 
             Matrix_MultVec3f(gCalcMatrix, &vec, &sp64);
 
-            Effect_FireSmoke_Spawn2(this->obj.pos.x + sp64.x, this->obj.pos.y + sp64.y, this->obj.pos.z + sp64.z, 0.0f,
-                                    0.0f, 0.0f, RAND_FLOAT(5.0f) + 7.0f);
+            Effect_FireSmoke1_SpawnMoving(this->obj.pos.x + sp64.x, this->obj.pos.y + sp64.y, this->obj.pos.z + sp64.z,
+                                          0.0f, 0.0f, 0.0f, RAND_FLOAT(5.0f) + 7.0f);
             if ((gGameFrameCount % 2) == 0) {
-                Effect_Effect389_Spawn(RAND_FLOAT_CENTERED(600.0f) + this->obj.pos.x,
-                                       RAND_FLOAT(100.0f) + (this->obj.pos.y + 100.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       0.0f, RAND_FLOAT(0.3f) + 0.5f, 0);
+                Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(600.0f) + this->obj.pos.x,
+                                         RAND_FLOAT(100.0f) + (this->obj.pos.y + 100.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         0.0f, RAND_FLOAT(0.3f) + 0.5f, 0);
             }
 
             vec.x = 0.0f;
@@ -1116,7 +1117,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
                     Andross_James_Setup();
                     Andross_LoadEscapePath();
                     gPlayer[0].unk_014 = 1.0f;
-                    Camera_Update360(gPlayer, true);
+                    Camera_Update360(&gPlayer[0], true);
                     Audio_StartPlayerNoise(0);
                     AUDIO_PLAY_BGM(gBossBgms[gCurrentLevel]);
                     AUDIO_PLAY_SFX(NA_SE_OB_ROUTE_EXPLOSION1, gDefaultSfxSource, 0);
@@ -1183,9 +1184,9 @@ void Andross_AndBrain_Update(AndBrain* this) {
                 sp98 = 1;
                 if ((gGameFrameCount & frameCountMask) == 0) {
                     for (i = 0; i < sp98; i++) {
-                        Effect_FireSmoke_Spawn2(gPlayer[0].cam.eye.x + sp64.x, gPlayer[0].cam.eye.y + sp64.y,
-                                                gPlayer[0].cam.eye.z + sp64.z, sp58.x, sp58.y, sp58.z,
-                                                RAND_FLOAT(2.5f) + 2.5f);
+                        Effect_FireSmoke1_SpawnMoving(gPlayer[0].cam.eye.x + sp64.x, gPlayer[0].cam.eye.y + sp64.y,
+                                                      gPlayer[0].cam.eye.z + sp64.z, sp58.x, sp58.y, sp58.z,
+                                                      RAND_FLOAT(2.5f) + 2.5f);
                     }
                 }
             }
@@ -1624,11 +1625,11 @@ void Andross_AndSuction_Update(AndSuction* this) {
                 Math_SmoothStepToF(&this->vel.y, 0.0f, 0.05f, 1.0f, 0);
                 Math_SmoothStepToF(&this->vel.z, 70.0f, 0.05f, 2.0f, 0);
 
-                func_effect_8007A774(&gPlayer[0], this, 100.0f);
+                Effect_CheckPlayerCollision(&gPlayer[0], this, 100.0f);
 
                 if (this->alpha != 0) {
-                    func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             }
@@ -1636,10 +1637,10 @@ void Andross_AndSuction_Update(AndSuction* this) {
             break;
 
         case 1:
-            func_effect_8007A774(&gPlayer[0], this, 100.0f);
+            Effect_CheckPlayerCollision(&gPlayer[0], this, 100.0f);
             if (this->alpha != 0) {
-                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 Object_Kill(&this->obj, this->sfxSource);
                 if (Rand_ZeroOne() < 0.1f) {
                     item = &gItems[0];
@@ -1832,8 +1833,8 @@ void Andross_AndAndross_HandleDamage(AndAndross* this) {
 
                         if (this->swork[4] < 0) {
                             this->info.hitbox[16] = 0.0f;
-                            Effect386_Spawn1(this->vwork[0].x, this->vwork[0].y, this->vwork[0].z, 0.0f, 0.0f, 0.0f,
-                                             20.0f, 15);
+                            Effect_Effect386_Spawn1(this->vwork[0].x, this->vwork[0].y, this->vwork[0].z, 0.0f, 0.0f,
+                                                    0.0f, 20.0f, 15);
 
                             for (i = 0; i < 30; i++) {
                                 Effect_Effect357_Spawn50(this->vwork[0].x + RAND_FLOAT_CENTERED(500.0f),
@@ -1841,9 +1842,9 @@ void Andross_AndAndross_HandleDamage(AndAndross* this) {
                                                          this->vwork[0].z, RAND_FLOAT(1.0f) + 1.0f);
                             }
                             Effect_Effect384_Spawn(this->vwork[0].x, this->vwork[0].y, this->vwork[0].z, 20.0f, 5);
-                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_EN_EXPLOSION_M);
+                            Effect_TimedSfx_Spawn(&sp68, NA_SE_EN_EXPLOSION_M);
                         } else {
-                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_OB_DAMAGE_M);
+                            Effect_TimedSfx_Spawn(&sp68, NA_SE_OB_DAMAGE_M);
                         }
                     } else {
                         sp68.x = this->vwork[1].x;
@@ -1854,8 +1855,8 @@ void Andross_AndAndross_HandleDamage(AndAndross* this) {
 
                         if (this->swork[5] < 0) {
                             this->info.hitbox[22] = 0.0f;
-                            Effect386_Spawn1(this->vwork[1].x, this->vwork[1].y, this->vwork[1].z, 0.0f, 0.0f, 0.0f,
-                                             20.0f, 15);
+                            Effect_Effect386_Spawn1(this->vwork[1].x, this->vwork[1].y, this->vwork[1].z, 0.0f, 0.0f,
+                                                    0.0f, 20.0f, 15);
 
                             for (i = 0; i < 30; i++) {
                                 Effect_Effect357_Spawn50(this->vwork[1].x + RAND_FLOAT_CENTERED(500.0f),
@@ -1863,9 +1864,9 @@ void Andross_AndAndross_HandleDamage(AndAndross* this) {
                                                          this->vwork[1].z, RAND_FLOAT(1.0f) + 1.0f);
                             }
                             Effect_Effect384_Spawn(this->vwork[1].x, this->vwork[1].y, this->vwork[1].z, 20.0f, 5);
-                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_EN_EXPLOSION_M);
+                            Effect_TimedSfx_Spawn(&sp68, NA_SE_EN_EXPLOSION_M);
                         } else {
-                            Effect_SpawnTimedSfxAtPos(&sp68, NA_SE_OB_DAMAGE_M);
+                            Effect_TimedSfx_Spawn(&sp68, NA_SE_OB_DAMAGE_M);
                         }
                     }
                 }
@@ -1922,7 +1923,7 @@ void Andross_AndAndross_NextAction(AndAndross* this) {
 void Andross_AndAndross_Explode(AndAndross* this, Vec3f* arg1) {
     s32 i;
 
-    Effect386_Spawn1(arg1->x, arg1->y, arg1->z, 0.0f, 0.0f, 0.0f, 10.0f, 10);
+    Effect_Effect386_Spawn1(arg1->x, arg1->y, arg1->z, 0.0f, 0.0f, 0.0f, 10.0f, 10);
     for (i = 0; i < 7; i++) {
         Effect_Effect357_Spawn50(RAND_FLOAT_CENTERED(200.0f) + arg1->x, RAND_FLOAT_CENTERED(200.0f) + arg1->y, arg1->z,
                                  RAND_FLOAT(0.5f) + 1.0f);
@@ -2870,14 +2871,14 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             if ((gGameFrameCount % 2) == 0) {
-                Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                       this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
+                Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
             if (gCsFrameCount > 50) {
-                func_effect_8007D0E0(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                     this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
-                                     RAND_FLOAT(3.0f) + 3.0f);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
+                                         RAND_FLOAT(3.0f) + 3.0f);
             }
 
             gCsFrameCount++;
@@ -2943,9 +2944,9 @@ void Andross_AndAndross_Update(AndAndross* this) {
             limbCount = Animation_GetFrameData(&aAndRobotIdleAnim, this->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
-            Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
-                                   this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                   gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
+            Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                     gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
             break;
 
         case ANDROSS_ROBOT_LUNGE:
@@ -2963,9 +2964,9 @@ void Andross_AndAndross_Update(AndAndross* this) {
             limbCount = Animation_GetFrameData(&aAndRobotIdleAnim, this->animFrame, spD0);
             Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
-            Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
-                                   this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                   gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
+            Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(700.0f),
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(700.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                     gPlayer[0].vel.z, RAND_FLOAT(0.15f) + 0.15f, 0);
             if (this->timer_050 == 0) {
                 this->state = ANDROSS_ROBOT_IDLE;
                 this->timer_050 = 130;
@@ -2992,13 +2993,13 @@ void Andross_AndAndross_Update(AndAndross* this) {
             this->fwork[3] = 0.0f;
 
             if ((gGameFrameCount % 2) == 0) {
-                Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                       this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
+                Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
-            func_effect_8007D0E0(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                 this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
-                                 RAND_FLOAT(5.0f) + 5.0f);
+            Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                     this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
+                                     RAND_FLOAT(5.0f) + 5.0f);
             break;
 
         case ANDROSS_DYING:
@@ -3027,15 +3028,15 @@ void Andross_AndAndross_Update(AndAndross* this) {
             Math_SmoothStepToVec3fArray(spD0, sAndrossJointTable, 1, limbCount, this->fwork[9], 100.0f, 0.0f);
 
             if ((gGameFrameCount % 2) == 0) {
-                Effect_Effect389_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                       this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
-                                       this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
+                Effect_ElectricArc_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z, 0.0f, 0.0f,
+                                         this->vel.z, RAND_FLOAT(0.2f) + 0.2f, 0);
             }
 
             if (gCsFrameCount > 50) {
-                func_effect_8007D0E0(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
-                                     this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
-                                     RAND_FLOAT(3.0f) + 3.0f);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
+                                         this->obj.pos.y + RAND_FLOAT_CENTERED(1000.0f), this->obj.pos.z,
+                                         RAND_FLOAT(3.0f) + 3.0f);
             }
 
             gCsFrameCount++;
@@ -3088,7 +3089,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
                     Andross_AndAndross_Explode(this, &this->vwork[17]);
                     break;
                 case 173:
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
                     Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 100.0f, 4);
                     break;
 
@@ -3650,13 +3651,13 @@ void Andross_AndLaserEmitter_Update(AndLaserEmitter* this) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
-            func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+            Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             for (i = 0; i < 7; i++) {
                 func_effect_80079618(RAND_FLOAT_CENTERED(10.0f) + this->obj.pos.x,
                                      RAND_FLOAT_CENTERED(10.0f) + this->obj.pos.y, this->obj.pos.z,
                                      RAND_FLOAT(0.5f) + 0.5f);
             }
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -3933,7 +3934,7 @@ void Andross_LevelComplete(Player* player) {
             switch (gCsFrameCount) {
                 case 80:
                     Effect_Effect383_Spawn(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
-                    Effect_SpawnTimedSfxAtPos(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
+                    Effect_TimedSfx_Spawn(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     /* fallthrough */
                 case 85:
                 case 90:
@@ -4012,9 +4013,9 @@ void Andross_LevelComplete(Player* player) {
             }
 
             for (i = 0; i < sp90; i++) {
-                Effect_FireSmoke_Spawn2(player->pos.x + sp68.x, player->pos.y + sp68.y,
-                                        player->pos.z - (D_ctx_80177A48[3] + D_ctx_80177A48[4]), 0.0f, 0.0f, 50.0f,
-                                        RAND_FLOAT(2.5f) + 2.5f);
+                Effect_FireSmoke1_SpawnMoving(player->pos.x + sp68.x, player->pos.y + sp68.y,
+                                              player->pos.z - (D_ctx_80177A48[3] + D_ctx_80177A48[4]), 0.0f, 0.0f,
+                                              50.0f, RAND_FLOAT(2.5f) + 2.5f);
             }
 
             Math_SmoothStepToF(&player->cam.eye.x, D_ctx_80177A48[1] + player->pos.x, 0.1f, 15.0f, 0.0f);
@@ -4116,9 +4117,10 @@ void Andross_LevelComplete(Player* player) {
             }
             if (gCsFrameCount > 40) {
                 for (i = 0; i < 3; i++) {
-                    Effect_FireSmoke_Spawn2(boss->obj.pos.x + RAND_FLOAT_CENTERED(150.0f), boss->obj.pos.y + 500.0f,
-                                            boss->obj.pos.z + RAND_FLOAT_CENTERED(150.0f), RAND_FLOAT_CENTERED(10.0f),
-                                            60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 5.5f);
+                    Effect_FireSmoke1_SpawnMoving(
+                        boss->obj.pos.x + RAND_FLOAT_CENTERED(150.0f), boss->obj.pos.y + 500.0f,
+                        boss->obj.pos.z + RAND_FLOAT_CENTERED(150.0f), RAND_FLOAT_CENTERED(10.0f), 60.0f,
+                        RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 5.5f);
                 }
                 Math_SmoothStepToF(&gCsCamAtY, gActors[10].obj.pos.y, 1.0f, D_ctx_80177A48[1], 0.0f);
                 Math_SmoothStepToF(&D_ctx_80177A48[1], 1000.0f, 1.0f, 5.0f, 0.0f);
@@ -4189,16 +4191,16 @@ void Andross_LevelComplete(Player* player) {
             gCsCamAtZ = gActors[10].obj.pos.z;
 
             if (((gGameFrameCount % 4) == 0) && (gCsFrameCount < 215)) {
-                Effect_FireSmoke_Spawn2(boss->obj.pos.x + RAND_FLOAT_CENTERED(350.0f), boss->obj.pos.y + 500.0f,
-                                        boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f),
-                                        60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 15.5f);
+                Effect_FireSmoke1_SpawnMoving(boss->obj.pos.x + RAND_FLOAT_CENTERED(350.0f), boss->obj.pos.y + 500.0f,
+                                              boss->obj.pos.z + RAND_FLOAT_CENTERED(350.0f), RAND_FLOAT_CENTERED(10.0f),
+                                              60.0f, RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(5.5f) + 15.5f);
             }
 
             sp80 = RAND_FLOAT(40.0f);
             for (i = 0; i < 36; i += 4) {
                 sp8C = __sinf((i * 10.0f * M_DTOR) + sp80) * D_ctx_80177A48[2];
                 sp84 = __cosf((i * 10.0f * M_DTOR) + sp80) * D_ctx_80177A48[2];
-                Effect_FireSmoke_Spawn2(sp8C, 300.0f, sp84, 0.0f, 0.0f, 0.0f, RAND_FLOAT(5.5f) + 15.5f);
+                Effect_FireSmoke1_SpawnMoving(sp8C, 300.0f, sp84, 0.0f, 0.0f, 0.0f, RAND_FLOAT(5.5f) + 15.5f);
             }
 
             Math_SmoothStepToF(&D_ctx_80177A48[2], 10000.0f, 0.05f, 20.0f, 0.0f);
@@ -4389,7 +4391,7 @@ void Andross_LevelComplete(Player* player) {
                     gNextGameState = GSTATE_ENDING;
                     D_ending_80196D00 = 0;
                     gLeveLClearStatus[LEVEL_VENOM_ANDROSS] = Play_CheckMedalStatus(200) + 1;
-                    AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_ENDING);
+                    AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_ENDING);
                 }
             }
             break;

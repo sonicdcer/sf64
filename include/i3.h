@@ -73,14 +73,14 @@ void Zoness_ZoBarrier_Draw(Actor* this);
 void Zoness_LevelStart(Player* player);
 void Zoness_LevelComplete(Player* player);
 
-void Solar_Effect392_Spawn1(f32, f32, f32, f32);
-void Solar_Effect392_Spawn2(f32, f32, f32, f32, f32, f32, f32, s32);
+void Solar_SoFlare_Spawn3(f32, f32, f32, f32);
+void Solar_SoFlare_Spawn(f32, f32, f32, f32, f32, f32, f32, s32);
 void Solar_SoWave_Update(SoWave*);
 void Solar_SoRock_Update(Actor*);
 void Solar_SoRock_Draw(Actor*);
 void Solar_SoProminence_Update(SoProminence*);
-void Solar_Effect392_Update(Effect392*);
-void Solar_Effect392_Draw(Effect392*);
+void Solar_SoFlare_Update(EffectSoFlare*);
+void Solar_SoFlare_Draw(EffectSoFlare*);
 void Solar_LevelStart(Player* player);
 void Solar_SoVulkain_Update(SoVulkain*);
 void Solar_SoVulkain_Draw(SoVulkain*);

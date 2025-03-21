@@ -1899,7 +1899,7 @@ void Display_Update(void) {
     }
 
     if ((gLevelMode == LEVELMODE_TURRET) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
-        Turret_Draw(gPlayer);
+        Turret_Draw(&gPlayer[0]);
     }
 
     Background_DrawLensFlare();

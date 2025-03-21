@@ -62,7 +62,7 @@ void Andross_AndPassage_Update(Scenery*);
 void Andross_AndPassage_Draw(Scenery*);
 void Venom2_Ve2Base_Update(Boss*);
 void Venom2_Ve2Base_Draw(Boss*);
-void SectorY_Effect354_Draw(Effect*);
+void SectorY_RobotLaser_Draw(Effect*);
 void SectorY_Scenery156_Draw(Scenery*);
 void SectorY_SyShogun_Update(Boss*);
 void SectorY_SyShogun_Draw(Boss*);

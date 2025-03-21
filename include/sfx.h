@@ -43,7 +43,7 @@ void Audio_KillAllSfx(void);
 #define SFX_FLAG_22 (1 << 22)  // make volume ignore distance
 #define SFX_FLAG_23 (1 << 23)  // make noisy
 
-#define SFX_FLAG_27 (1 << 27)  // allow duplicate requests
+#define SFX_FLAG_27 (1 << 27)  // stops SFX when not requested
 
 #define SFX_BANK_SHIFT 28
 #define SFX_STATE_SHIFT 24
@@ -72,9 +72,10 @@ typedef enum SfxBankId {
     SFX_BANK_2,
     SFX_BANK_3,
     SFX_BANK_SYSTEM,
+    SFX_BANK_MAX,
 } SfxBankId;
 
-#define NA_SE_NONE                  0x00000000
+#define NA_SE_NONE                  0x00000000 // 
 
 #define NA_SE_TURRET_SHOT           0x09000000 // Invented name. Appears in unused turret mode.
 #define NA_SE_ARWING_SHOT           0x09400000

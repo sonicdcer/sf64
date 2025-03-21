@@ -566,7 +566,7 @@ void Option_Main(void) {
         case OPTION_WAIT:
             if (gNextGameStateTimer == 0) {
                 gOptionMenuStatus = OPTION_SETUP;
-                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TITLE);
+                AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_TITLE);
             }
             break;
 
@@ -818,7 +818,7 @@ void Option_Training_Update(void) {
         gSavedPathProgress = 0.0f;
         D_ctx_8017782C = true;
         gControllerLock = 3;
-        AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TR);
+        AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_TR);
     } else {
         gFillScreenAlpha += 32;
         if (gFillScreenAlpha > 255) {

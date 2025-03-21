@@ -51,10 +51,10 @@ typedef enum OptionSoundMode {
 } OptionSoundMode;
 
 typedef enum {
-    /* 0 */ SFXCHAN_0,
-    /* 1 */ SFXCHAN_1,
-    /* 2 */ SFXCHAN_2,
-    /* 3 */ SFXCHAN_3
+    /* 0 */ SFX_LAYOUT_DEFAULT,
+    /* 1 */ SFX_LAYOUT_MAP,
+    /* 2 */ SFX_LAYOUT_SO,
+    /* 3 */ SFX_LAYOUT_VS
 } SfxChannelLayout;
 
 typedef enum {

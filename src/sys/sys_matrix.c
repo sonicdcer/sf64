@@ -438,7 +438,7 @@ void Matrix_MultVec3fNoTranslate(Matrix* mtx, Vec3f* src, Vec3f* dest) {
 
 // Expresses the rotational part of the transform mtx as Tait-Bryan angles, in the yaw-pitch-roll (intrinsic YXZ)
 // convention used in worldspace calculations
-void Matrix_GetYRPAngles(Matrix* mtx, Vec3f* rot) {
+void Matrix_GetYPRAngles(Matrix* mtx, Vec3f* rot) {
     Matrix invYP;
     Vec3f origin = { 0.0f, 0.0f, 0.0f };
     Vec3f originP;

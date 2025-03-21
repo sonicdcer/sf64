@@ -708,8 +708,8 @@ void Macbeth_8019A87C(Actor* this) {
 void Macbeth_8019A8C8(Actor* this, s16 arg1) {
     s32 i;
 
-    Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 290.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                     22.0f, 5);
+    Effect_Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 290.0f, this->obj.pos.z, 0.0f, 0.0f,
+                            0.0f, 22.0f, 5);
 
     for (i = 0; i < 10; i++) {
         Macbeth_Effect357_Spawn1(
@@ -738,8 +738,8 @@ void Macbeth_8019A8C8(Actor* this, s16 arg1) {
 void Macbeth_8019AF34(Actor* this) {
     s32 i;
 
-    Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 290.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                     22.0f, 5);
+    Effect_Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 290.0f, this->obj.pos.z, 0.0f, 0.0f,
+                            0.0f, 22.0f, 5);
 
     for (i = 0; i < 10; i++) {
         Macbeth_Effect357_Spawn1(
@@ -770,21 +770,21 @@ void Macbeth_8019B580(Actor* this, s32* arg1) {
         return;
     }
     if ((gGameFrameCount % 32U) == 0) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 10.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 10.0f);
     } else if ((gGameFrameCount % 32U) == 8) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
     } else if ((gGameFrameCount % 32U) == 16) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             (this->obj.pos.z + 320.0f) + RAND_FLOAT(50.0f), 10.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 (this->obj.pos.z + 320.0f) + RAND_FLOAT(50.0f), 10.0f);
     } else if ((gGameFrameCount % 32U) == 24) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
     }
     if ((u16) (gGameFrameCount % 4U) == 0) { // fake?
         Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
@@ -794,21 +794,21 @@ void Macbeth_8019B580(Actor* this, s32* arg1) {
 
 void Macbeth_8019B8B0(Actor* this) {
     if ((gGameFrameCount % 4U) == 0) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 20.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 this->obj.pos.z - 420.0f + RAND_FLOAT(50.0f), 20.0f);
     } else if ((gGameFrameCount % 4U) == 1) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
     } else if ((gGameFrameCount % 4U) == 2) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             RAND_FLOAT(50.0f) + (this->obj.pos.z + 420.0f), 20.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 RAND_FLOAT(50.0f) + (this->obj.pos.z + 420.0f), 20.0f);
     } else if ((gGameFrameCount % 4U) == 3) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                             this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
-                             RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                                 this->obj.pos.y + 280.0f + RAND_FLOAT_CENTERED(100.0f),
+                                 RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
     }
     if ((gGameFrameCount % 4U) == 0) {
         Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
@@ -818,17 +818,17 @@ void Macbeth_8019B8B0(Actor* this) {
 
 void Macbeth_8019BBEC(Actor* this) {
     if ((this->timer_0BC % 16U) == 0) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
-                             RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
-                             RAND_FLOAT(50.0f) + (this->obj.pos.z - 400.0f), 3.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[21],
+                                 RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
+                                 RAND_FLOAT(50.0f) + (this->obj.pos.z - 400.0f), 3.0f);
     } else if ((this->timer_0BC % 16U) == 4) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
-                             RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
-                             RAND_FLOAT(50.0f) + this->obj.pos.z, 3.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[25],
+                                 RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
+                                 RAND_FLOAT(50.0f) + this->obj.pos.z, 3.0f);
     } else if ((this->timer_0BC % 16U) == 8) {
-        func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
-                             RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
-                             RAND_FLOAT(50.0f) + (this->obj.pos.z + 450.0f), 3.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(200.0f) + this->fwork[23],
+                                 RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
+                                 RAND_FLOAT(50.0f) + (this->obj.pos.z + 450.0f), 3.0f);
     } else if ((this->timer_0BC % 16U) == 12) {
         Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 100.0f, this->obj.pos.z,
                                this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
@@ -838,10 +838,10 @@ void Macbeth_8019BBEC(Actor* this) {
 void Macbeth_8019BE50(Actor* this) {
     s16 i;
 
-    Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 90.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                     10.0f, 5);
-    Effect386_Spawn1(this->obj.pos.x + this->fwork[23], this->obj.pos.y + 90.0f, this->obj.pos.z + 420.0f + 300.0f,
-                     0.0f, 0.0f, 0.0f, 10.0f, 5);
+    Effect_Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 90.0f, this->obj.pos.z, 0.0f, 0.0f,
+                            0.0f, 10.0f, 5);
+    Effect_Effect386_Spawn1(this->obj.pos.x + this->fwork[23], this->obj.pos.y + 90.0f,
+                            this->obj.pos.z + 420.0f + 300.0f, 0.0f, 0.0f, 0.0f, 10.0f, 5);
 
     for (i = 0; i < 10; i++) {
         Macbeth_Effect357_Spawn1(
@@ -864,7 +864,7 @@ void Macbeth_8019BE50(Actor* this) {
                                  RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT_CENTERED(30.0f),
                                  (s32) (RAND_FLOAT(50.0f) + 70.0f), 0, RAND_FLOAT(0.8f) + 0.3f);
     }
-    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
+    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
     gHitCount++;
 }
 
@@ -1322,8 +1322,8 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
             break;
 
         case 1:
-            Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f, 0.0f, 0.0f,
-                             10.0f, 5);
+            Effect_Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f,
+                                    0.0f, 0.0f, 10.0f, 5);
 
             for (i = 0; i < 10; i++) {
                 Macbeth_Effect357_Spawn1(
@@ -1364,8 +1364,8 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
             break;
 
         case 3:
-            Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f, 0.0f, 0.0f,
-                             10.0f, 5);
+            Effect_Effect386_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 250.0f, this->obj.pos.z + arg5, 0.0f,
+                                    0.0f, 0.0f, 10.0f, 5);
             if ((this->obj.id != OBJ_ACTOR_MA_ROBOT) || (arg3 != 2)) {
                 for (i = 0; i < 15; i++) {
                     Macbeth_Effect357_Spawn1(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f,
@@ -1913,10 +1913,10 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
         case 1:
             Macbeth_8019A8C8(this, 6);
             if (this->obj.id == OBJ_ACTOR_MA_CANNON_CAR) {
-                Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 360.0f, this->obj.pos.z, 0.0f,
-                                 0.0f, 0.0f, 20.0f, 20);
-                Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 660.0f, this->obj.pos.z, 0.0f,
-                                 0.0f, 0.0f, 20.0f, 20);
+                Effect_Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 360.0f, this->obj.pos.z,
+                                        0.0f, 0.0f, 0.0f, 20.0f, 20);
+                Effect_Effect386_Spawn1(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 660.0f, this->obj.pos.z,
+                                        0.0f, 0.0f, 0.0f, 20.0f, 20);
             }
             *arg7 = 2;
             this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_MA_60359AC);
@@ -2793,14 +2793,14 @@ void Macbeth_MaTrainStopBlock_Update(MaTrainStopBlock* this) {
             break;
 
         case 1:
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 15;
 
             for (i = 0; i < 6; i++) {
-                func_effect_8007D2C8(this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
-                                     this->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
+                                         this->obj.pos.z + D_i5_801BE6A0[i].z, 18.0f);
                 Macbeth_Effect357_Spawn1(
                     this->obj.pos.x + D_i5_801BE6A0[i].x, this->obj.pos.y + D_i5_801BE6A0[i].y,
                     this->obj.pos.z + D_i5_801BE6A0[i].z, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(30.0f) + 30.0f,
@@ -2820,27 +2820,27 @@ void Macbeth_MaTrainStopBlock_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* this
     switch (limbIndex) {
         case 1:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[0]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[6]);
+            Matrix_GetYPRAngles(gCalcMatrix, &D_i5_801BE6A0[6]);
             break;
         case 2:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[1]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[7]);
+            Matrix_GetYPRAngles(gCalcMatrix, &D_i5_801BE6A0[7]);
             break;
         case 3:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[2]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[8]);
+            Matrix_GetYPRAngles(gCalcMatrix, &D_i5_801BE6A0[8]);
             break;
         case 4:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[3]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[9]);
+            Matrix_GetYPRAngles(gCalcMatrix, &D_i5_801BE6A0[9]);
             break;
         case 5:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[4]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[10]);
+            Matrix_GetYPRAngles(gCalcMatrix, &D_i5_801BE6A0[10]);
             break;
         case 11:
             Matrix_MultVec3f(gCalcMatrix, &src, &D_i5_801BE6A0[5]);
-            Matrix_GetYRPAngles(gCalcMatrix, &D_i5_801BE6A0[11]);
+            Matrix_GetYPRAngles(gCalcMatrix, &D_i5_801BE6A0[11]);
             break;
 
         default:
@@ -3292,7 +3292,7 @@ void Macbeth_MaBoulder_Update(MaBoulder* this) {
             break;
 
         case 2:
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
             Object_Kill(&this->obj, this->sfxSource);
             break;
     }
@@ -3304,7 +3304,7 @@ void Macbeth_MaBoulder_HandleDamage(MaBoulder* this) {
         this->timer_0C6 = 15;
         this->health -= this->damage;
         if (this->health <= 0) {
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
             gHitCount++;
             this->state = 2;
         }
@@ -3609,7 +3609,7 @@ void Macbeth_Effect380_Update(Effect380* this) {
     if ((fabsf(gPlayer[0].trueZpos - this->obj.pos.z) < 100.0f) &&
         (fabsf(gPlayer[0].pos.x - this->obj.pos.x) < 100.0f) && (fabsf(gPlayer[0].pos.y - this->obj.pos.y) < 30.0f) &&
         (gPlayer[0].mercyTimer == 0)) {
-        Player_ApplyDamage(gPlayer, 0, this->info.damage);
+        Player_ApplyDamage(&gPlayer[0], 0, this->info.damage);
         gPlayer[0].knockback.x = 20.0f;
         if (this->vel.x < 0.0f) {
             gPlayer[0].knockback.x *= -1.0f;
@@ -3722,8 +3722,8 @@ void Macbeth_MaBarrier_Update(MaBarrier* this) {
 
                 if (this->health <= 0) {
                     AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 0);
-                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                     14.0f, 5);
+                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, 0.0f, 0.0f,
+                                            0.0f, 14.0f, 5);
                     for (i = 0; i < 20; i++) {
                         Macbeth_Effect357_Spawn1(
                             RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, this->obj.pos.y + 100.0f,
@@ -4529,7 +4529,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
                     AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
                     Radio_PlayMessage(gMsg_ID_17450, RCID_BOSS_MACBETH);
-                    func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                     Macbeth_Effect357_Spawn1(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z,
                                              RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, -2.0f,
                                              RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT(360.0f),
@@ -4614,7 +4614,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
             this->obj.rot.z += 10.0f;
 
             if ((gGameFrameCount % 8) == 0) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
                 Effect_Effect387_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f, 8);
             }
 
@@ -5049,7 +5049,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
             }
 
             if ((gGameFrameCount % 16) == 0) {
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 10.0f);
             }
 
             D_i5_801BE368[9] = gPlayer[0].pos.x;
@@ -5083,7 +5083,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
                 if (1) {}
                 gHitCount += 51;
                 D_ctx_80177850 = 15;
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f);
                 Macbeth_Effect357_Spawn1(this->vwork[2].x, this->vwork[2].y, this->vwork[2].z,
                                          RAND_FLOAT_CENTERED(10.0f), RAND_FLOAT(7.0f) + 7.0f, 2.0f, RAND_FLOAT(360.0f),
                                          RAND_FLOAT(360.0f), RAND_FLOAT(360.0f), RAND_FLOAT_CENTERED(10.0f),
@@ -5121,7 +5121,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
 
             if (D_i5_801BE320[9] <= 0) {
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f, 5.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f, 5.0f);
                 for (i = 0; i < 2; i++) {
                     Macbeth_Effect357_Spawn1(
                         this->obj.pos.x, this->obj.pos.y + 80.0f, this->obj.pos.z + 50.0f, RAND_FLOAT_CENTERED(10.0f),
@@ -5151,7 +5151,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
 
             if (D_i5_801BE320[10] <= 0) {
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
-                func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, 6.0f);
+                Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y - 30.0f, this->obj.pos.z, 6.0f);
 
                 for (i = 0; i < 10; i++) {
                     Macbeth_Effect357_Spawn1(
@@ -5419,15 +5419,15 @@ void Macbeth_MaMechbeth_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     switch (limbIndex) {
         case 14:
             Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[0]);
-            Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[1]);
+            Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[1]);
             break;
         case 4:
             Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[2]);
-            Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[3]);
+            Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[3]);
             break;
         case 7:
             Matrix_MultVec3f(gCalcMatrix, &sp2C, &this->vwork[4]);
-            Matrix_GetYRPAngles(gCalcMatrix, &this->vwork[5]);
+            Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
             break;
     }
 }
@@ -5848,13 +5848,14 @@ void Macbeth_MaBombDrop_Update(MaBombDrop* this) {
 
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
 
-                func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 7.0f);
+                Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 7.0f);
 
-                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                        4.0f, 5);
 
                 if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
-                    PlayerShot_SpawnEffect344(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
-                                              0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                    PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
+                                               0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                 }
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 10;
@@ -6018,15 +6019,15 @@ void Macbeth_MaSpear_Update(MaSpear* this) {
                 this->health -= this->damage;
 
                 if (this->health <= 0) {
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
-                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y - 200.0f,
-                                         this->obj.pos.z, 8.0f);
-                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y, this->obj.pos.z,
-                                         8.0f);
-                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y + 200.0f,
-                                         this->obj.pos.z, 7.0f);
-                    func_effect_8007D2C8(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y + 400.0f,
-                                         this->obj.pos.z, 7.0f);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y - 200.0f,
+                                             this->obj.pos.z, 8.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y,
+                                             this->obj.pos.z, 8.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y + 200.0f,
+                                             this->obj.pos.z, 7.0f);
+                    Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(20.0f), this->obj.pos.y + 400.0f,
+                                             this->obj.pos.z, 7.0f);
                     Object_Kill(&this->obj, this->sfxSource);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
@@ -6278,8 +6279,8 @@ void Macbeth_MaShockBox_Update(MaShockBox* this) {
         this->health -= this->damage;
         this->timer_0C6 = 15;
         if (this->health <= 0) {
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EXPLOSION_S);
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EXPLOSION_S);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -6777,8 +6778,8 @@ void Macbeth_LevelComplete2(Player* player) {
             Math_SmoothStepToF(&D_ctx_80177A48[5], 240.0f, 1.0f, 2.0f, 0.0f);
 
             if ((gGameFrameCount % 2) == 0) {
-                Effect_FireSmoke_Spawn2(11000.0f, 200.0f, -139000.0f, D_ctx_80177A48[4], 4.0f, D_ctx_80177A48[5],
-                                        20.0f);
+                Effect_FireSmoke1_SpawnMoving(11000.0f, 200.0f, -139000.0f, D_ctx_80177A48[4], 4.0f, D_ctx_80177A48[5],
+                                              20.0f);
             }
 
             if (gCsFrameCount == 710) {
@@ -6802,29 +6803,34 @@ void Macbeth_LevelComplete2(Player* player) {
 
                 gActors[58].scale = 0.8f;
 
-                func_effect_8007D0E0(gActors[D_i5_801BE314].obj.pos.x + 500.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.y + 500.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.z + 3000.0f + RAND_FLOAT_CENTERED(700.0f), 30.0f);
+                Effect_FireSmoke1_Spawn4(gActors[D_i5_801BE314].obj.pos.x + 500.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.y + 500.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.z + 3000.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         30.0f);
             }
             if ((gCsFrameCount > 710) && ((gGameFrameCount % 8) == 0)) {
-                func_effect_8007D0E0(gActors[D_i5_801BE314].obj.pos.x + 500.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.y + 500.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.z + 3000.0f + RAND_FLOAT_CENTERED(700.0f), 30.0f);
+                Effect_FireSmoke1_Spawn4(gActors[D_i5_801BE314].obj.pos.x + 500.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.y + 500.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.z + 3000.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         30.0f);
             }
             if ((gCsFrameCount > 725) && ((gGameFrameCount % 8) == 0)) {
-                func_effect_8007D0E0(gActors[D_i5_801BE314].obj.pos.x - 1500.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.y + 1000.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.z + 1700.0f + RAND_FLOAT_CENTERED(700.0f), 30.0f);
+                Effect_FireSmoke1_Spawn4(gActors[D_i5_801BE314].obj.pos.x - 1500.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.y + 1000.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.z + 1700.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         30.0f);
             }
             if ((gCsFrameCount > 740) && ((gGameFrameCount % 8) == 0)) {
-                func_effect_8007D0E0(gActors[D_i5_801BE314].obj.pos.x - 3500.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.y + 600.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.z + 1200.0f + RAND_FLOAT_CENTERED(700.0f), 30.0f);
+                Effect_FireSmoke1_Spawn4(gActors[D_i5_801BE314].obj.pos.x - 3500.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.y + 600.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.z + 1200.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         30.0f);
             }
             if ((gCsFrameCount > 755) && ((gGameFrameCount % 8) == 0)) {
-                func_effect_8007D0E0(gActors[D_i5_801BE314].obj.pos.x - 3000.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(700.0f),
-                                     gActors[D_i5_801BE314].obj.pos.z + 1300.0f + RAND_FLOAT_CENTERED(700.0f), 30.0f);
+                Effect_FireSmoke1_Spawn4(gActors[D_i5_801BE314].obj.pos.x - 3000.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         gActors[D_i5_801BE314].obj.pos.z + 1300.0f + RAND_FLOAT_CENTERED(700.0f),
+                                         30.0f);
             }
             if (gCsFrameCount == 800) {
                 Effect_Effect383_Spawn(gActors[D_i5_801BE314].obj.pos.x - 3000.0f,
@@ -6967,8 +6973,8 @@ void Macbeth_LevelComplete2(Player* player) {
 
         case 7:
             if ((gGameFrameCount % 4) == 0) {
-                func_effect_8007D0E0(player->pos.x - 1750.0f + RAND_FLOAT_CENTERED(700.0f), 10.0f,
-                                     player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(700.0f), 5.0f);
+                Effect_FireSmoke1_Spawn4(player->pos.x - 1750.0f + RAND_FLOAT_CENTERED(700.0f), 10.0f,
+                                         player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(700.0f), 5.0f);
                 Effect_Effect343_Spawn(player->pos.x - 1800.0f + RAND_FLOAT_CENTERED(40.0f), -100.0f,
                                        player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(40.0f), 9.0f);
             }
@@ -7308,8 +7314,8 @@ void Macbeth_801B28BC(ActorCutscene* this) {
                 sp5C.y = 70.0f;
                 sp5C.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp44);
-                Effect_Effect393_Spawn(this->obj.pos.x + sp44.x, this->obj.pos.y + sp44.y, this->obj.pos.z + sp44.z,
-                                       3.1f);
+                Effect_Sparkle_Spawn(this->obj.pos.x + sp44.x, this->obj.pos.y + sp44.y, this->obj.pos.z + sp44.z,
+                                     3.1f);
             }
             break;
 
@@ -7354,8 +7360,8 @@ void Macbeth_801B28BC(ActorCutscene* this) {
                 sp5C.y = 70.0f;
                 sp5C.z = -70.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp5C, &sp44);
-                Effect_Effect393_Spawn(this->obj.pos.x + sp44.x, this->obj.pos.y + sp44.y, this->obj.pos.z + sp44.z,
-                                       3.1f);
+                Effect_Sparkle_Spawn(this->obj.pos.x + sp44.x, this->obj.pos.y + sp44.y, this->obj.pos.z + sp44.z,
+                                     3.1f);
             }
             break;
 

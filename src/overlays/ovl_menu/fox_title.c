@@ -197,11 +197,11 @@ void Title_Setup(void) {
     Title_GetRankTotalHits();
 
     if ((gMainController == -1) || gGoToTitle) {
-        AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TITLE);
+        AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_TITLE);
         sCutsceneState = TITLE_SCREEN;
         gGoToTitle = false;
     } else {
-        AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_OPENING);
+        AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_OPENING);
         sCutsceneState = TITLE_GREAT_FOX_TRAVELING;
     }
     gControllerLock = 30;
@@ -389,7 +389,7 @@ void Title_Ranking_Update(void) {
                 gRadioState = 0;
                 sSceneState = 0;
                 gDrawMode = DRAW_NONE;
-                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_OPENING);
+                AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_OPENING);
                 sCutsceneState = TITLE_GREAT_FOX_TRAVELING;
             }
 
@@ -2111,7 +2111,7 @@ void Title_CsTakeOffSpace_Update(void) {
             sSceneState = 0;
             gDrawMode = DRAW_NONE;
             sCutsceneState = TITLE_SCREEN;
-            AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TITLE);
+            AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_TITLE);
             break;
     }
 
@@ -3235,7 +3235,7 @@ void Title_NextState_TitleScreen(void) {
             if (sWipeHeight < 120) {
                 sWipeHeight += 18;
             } else {
-                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_TITLE);
+                AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_TITLE);
                 gStarCount = 0;
                 gRadioState = 0;
                 sSceneState = 0;

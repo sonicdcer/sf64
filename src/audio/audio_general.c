@@ -37,41 +37,41 @@ static const char devstr20[] = "START HANDLE : %d (old:%d)\n";
 static const char devstr21[] = "All Sound Fade Out time:%d\n";
 
 SfxRequest sSfxRequests[256];
-SfxBankEntry sSfxBanks[5][20];
-u8 sSfxBankListEnd[5];
-u8 sSfxBankFreeListStart[5];
-u8 sSfxBankUnused[5];
-ActiveSfx sActiveSfx[5][8];
+SfxBankEntry sSfxBanks[SFX_BANK_MAX][MAX_SFX_PER_BANK];
+u8 sSfxBankListEnd[SFX_BANK_MAX];
+u8 sSfxBankFreeListStart[SFX_BANK_MAX];
+u8 sSfxBankUnused[SFX_BANK_MAX];
+ActiveSfx sActiveSfx[SFX_BANK_MAX][MAX_ACTIVE_SFX];
 u8 sCurSfxPlayerChannelIndex;
-u8 sSfxBankMuted[5];
-Modulation sSfxVolumeMods[5];
+u8 sSfxBankMuted[SFX_BANK_MAX];
+Modulation sSfxVolumeMods[SFX_BANK_MAX];
 f32 sAudioAnalyzerData[256];
 f32 sAnalyzerBuffer1[256];
 f32 sAnalyzerBuffer2[384];
 f32 sNewFreqAmplitudes[32];
 u8 sFreqAnalyzerBars[32];
-SeqRequest sSeqRequests[SEQ_PLAYER_MAX][5];
+SeqRequest sSeqRequests[SEQ_PLAYER_MAX][MAX_SEQ_REQUESTS];
 u8 sNumSeqRequests[SEQ_PLAYER_MAX];
 s32 sAudioSeqCmds[256];
 ActiveSequence sActiveSequences[SEQ_PLAYER_MAX];
 u16 sDelayedSeqCmdFlags;
 DelayedSeqCmd sDelayedSeqCmds[16];
-SfxChannelState sSfxChannelState[16];
+SfxChannelState sSfxChannelState[SEQ_NUM_CHANNELS];
 PlayerNoiseModulation sPlayerNoise[4];
 f32 sBombFreqMod[4];
 u8 sBombType[4];
 u8 sBombState[4];
 s32 sBombStartFrame[4];
 
-u8 sChannelsPerBank[5][5] = {
+u8 sMaxActiveSfx[][SFX_BANK_MAX] = {
     { 3, 2, 2, 2, 2 }, { 3, 1, 2, 2, 2 }, { 3, 2, 2, 2, 3 }, { 6, 0, 2, 0, 4 }, { 0, 0, 0, 0, 0 },
 };
-u8 sUsedChannelsPerBank[5][5] = {
+u8 sMaxSfxRequests[][SFX_BANK_MAX] = {
     { 3, 2, 1, 2, 3 }, { 3, 2, 1, 1, 2 }, { 3, 2, 1, 1, 3 }, { 2, 0, 1, 0, 1 }, { 0, 0, 0, 0, 0 },
 };
 u8 sSfxRequestWriteIndex = 0;
 u8 sSfxRequestReadIndex = 0;
-u8 sSfxChannelLayout = SFXCHAN_0;
+u8 sSfxLayout = SFX_LAYOUT_DEFAULT;
 u16 sChannelMuteFlags = 0;
 f32 gDefaultSfxSource[3] = { 0.0f, 0.0f, 0.0f };
 f32 gDefaultMod = 1.0f;
@@ -126,51 +126,51 @@ u32 sEventSfx[] = {
     NA_SE_OB_PLATE_ROLL,
 };
 SoundTestTrack sSoundTestTracks[] = {
-    /*  0 */ { NA_BGM_OPENING, AUDIOSPEC_OPENING | (SFXCHAN_0 << 8), -1 },
-    /*  1 */ { NA_BGM_TITLE, AUDIOSPEC_TITLE | (SFXCHAN_0 << 8), -1 },
-    /*  2 */ { NA_BGM_SELECT, AUDIOSPEC_TITLE | (SFXCHAN_0 << 8), -1 },
-    /*  3 */ { NA_BGM_MAP, AUDIOSPEC_MAP | (SFXCHAN_1 << 8), -1 },
-    /*  4 */ { NA_BGM_START_DEMO, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
-    /*  5 */ { NA_BGM_START_DEMO_S, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
-    /*  6 */ { NA_BGM_START_DEMO_M, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
-    /*  7 */ { NA_BGM_ME_START_DEMO, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
-    /*  8 */ { NA_BGM_FO_START_DEMO, AUDIOSPEC_FO | (SFXCHAN_0 << 8), -1 },
-    /*  9 */ { NA_BGM_STAGE_CO, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
-    /* 10 */ { NA_BGM_STAGE_ME, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
-    /* 11 */ { NA_BGM_STAGE_TI, AUDIOSPEC_TI | (SFXCHAN_0 << 8), -1 },
-    /* 12 */ { NA_BGM_STAGE_SX, AUDIOSPEC_SX | (SFXCHAN_0 << 8), -1 },
-    /* 13 */ { NA_BGM_STAGE_ZO, AUDIOSPEC_ZO | (SFXCHAN_0 << 8), -1 },
-    /* 14 */ { NA_BGM_STAGE_A6, AUDIOSPEC_A6 | (SFXCHAN_0 << 8), -1 },
-    /* 15 */ { NA_BGM_STAGE_VE1, AUDIOSPEC_VE | (SFXCHAN_0 << 8), -1 },
-    /* 16 */ { NA_BGM_STAGE_SY, AUDIOSPEC_SY | (SFXCHAN_0 << 8), -1 },
-    /* 17 */ { NA_BGM_STAGE_FO, AUDIOSPEC_FO | (SFXCHAN_0 << 8), -1 },
-    /* 18 */ { NA_BGM_STAGE_BO, AUDIOSPEC_BO | (SFXCHAN_0 << 8), -1 },
-    /* 19 */ { NA_BGM_STAGE_KA, AUDIOSPEC_KA | (SFXCHAN_0 << 8), -1 },
-    /* 20 */ { NA_BGM_STAGE_AQ, AUDIOSPEC_AQ | (SFXCHAN_0 << 8), -1 },
-    /* 21 */ { NA_BGM_STAGE_WZ, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
-    /* 22 */ { NA_BGM_KATT, AUDIOSPEC_SZ | (SFXCHAN_0 << 8), -1 },
-    /* 23 */ { NA_BGM_BILL, AUDIOSPEC_KA | (SFXCHAN_0 << 8), -1 },
-    /* 24 */ { NA_BGM_BOSS_CO, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
-    /* 25 */ { NA_BGM_BOSS_ME, AUDIOSPEC_ME | (SFXCHAN_0 << 8), 0 },
-    /* 26 */ { NA_BGM_BOSS_ME, AUDIOSPEC_ME | (SFXCHAN_0 << 8), -1 },
-    /* 27 */ { NA_BGM_REAL_BOSS, AUDIOSPEC_SY | (SFXCHAN_0 << 8), -1 },
-    /* 28 */ { NA_BGM_BOSS_BO, AUDIOSPEC_BO | (SFXCHAN_0 << 8), -1 },
-    /* 29 */ { NA_BGM_STARWOLF, AUDIOSPEC_VE | (SFXCHAN_0 << 8), -1 },
-    /* 30 */ { NA_BGM_COURSE_CLEAR, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
-    /* 31 */ { NA_BGM_COURSE_FAILURE, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
-    /* 32 */ { NA_BGM_PLAYER_DOWN, AUDIOSPEC_CO | (SFXCHAN_0 << 8), -1 },
-    /* 33 */ { NA_BGM_GAME_OVER, AUDIOSPEC_GAME_OVER | (SFXCHAN_0 << 8), -1 },
-    /* 34 */ { NA_BGM_TRAINING, AUDIOSPEC_TR | (SFXCHAN_0 << 8), -1 },
-    /* 35 */ { NA_BGM_BATTLE, AUDIOSPEC_VS | (SFXCHAN_3 << 8), -1 },
-    /* 36 */ { NA_BGM_BATTLE_LAST, AUDIOSPEC_VS_LAST | (SFXCHAN_3 << 8), -1 },
-    /* 37 */ { NA_BGM_VS_SELECT, AUDIOSPEC_TITLE | (SFXCHAN_0 << 8), -1 },
-    /* 38 */ { NA_BGM_DASH_INTO_BASE, AUDIOSPEC_VE | (SFXCHAN_0 << 8), 0 },
-    /* 39 */ { NA_BGM_STAGE_ANDROSS, AUDIOSPEC_TITLE | (SFXCHAN_0 << 8), -1 },
-    /* 40 */ { NA_BGM_BOSS_ANDROSS, AUDIOSPEC_VE | (SFXCHAN_0 << 8), 0 },
-    /* 41 */ { NA_BGM_BOSS_ANDROSS, AUDIOSPEC_VE | (SFXCHAN_0 << 8), -1 },
-    /* 42 */ { NA_BGM_ANDROSS_BRAIN, AUDIOSPEC_VE | (SFXCHAN_0 << 8), -1 },
-    /* 43 */ { NA_BGM_ALL_CLEAR, AUDIOSPEC_VE | (SFXCHAN_0 << 8), -1 },
-    /* 44 */ { NA_BGM_STAFF_ROLL, AUDIOSPEC_ENDING | (SFXCHAN_0 << 8), -1 },
+    /*  0 */ { NA_BGM_OPENING, AUDIOSPEC_OPENING | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  1 */ { NA_BGM_TITLE, AUDIOSPEC_TITLE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  2 */ { NA_BGM_SELECT, AUDIOSPEC_TITLE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  3 */ { NA_BGM_MAP, AUDIOSPEC_MAP | (SFX_LAYOUT_MAP << 8), -1 },
+    /*  4 */ { NA_BGM_START_DEMO, AUDIOSPEC_CO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  5 */ { NA_BGM_START_DEMO_S, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  6 */ { NA_BGM_START_DEMO_M, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  7 */ { NA_BGM_ME_START_DEMO, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  8 */ { NA_BGM_FO_START_DEMO, AUDIOSPEC_FO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /*  9 */ { NA_BGM_STAGE_CO, AUDIOSPEC_CO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 10 */ { NA_BGM_STAGE_ME, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 11 */ { NA_BGM_STAGE_TI, AUDIOSPEC_TI | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 12 */ { NA_BGM_STAGE_SX, AUDIOSPEC_SX | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 13 */ { NA_BGM_STAGE_ZO, AUDIOSPEC_ZO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 14 */ { NA_BGM_STAGE_A6, AUDIOSPEC_A6 | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 15 */ { NA_BGM_STAGE_VE1, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 16 */ { NA_BGM_STAGE_SY, AUDIOSPEC_SY | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 17 */ { NA_BGM_STAGE_FO, AUDIOSPEC_FO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 18 */ { NA_BGM_STAGE_BO, AUDIOSPEC_BO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 19 */ { NA_BGM_STAGE_KA, AUDIOSPEC_KA | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 20 */ { NA_BGM_STAGE_AQ, AUDIOSPEC_AQ | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 21 */ { NA_BGM_STAGE_WZ, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 22 */ { NA_BGM_KATT, AUDIOSPEC_SZ | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 23 */ { NA_BGM_BILL, AUDIOSPEC_KA | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 24 */ { NA_BGM_BOSS_CO, AUDIOSPEC_CO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 25 */ { NA_BGM_BOSS_ME, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), 0 },
+    /* 26 */ { NA_BGM_BOSS_ME, AUDIOSPEC_ME | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 27 */ { NA_BGM_REAL_BOSS, AUDIOSPEC_SY | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 28 */ { NA_BGM_BOSS_BO, AUDIOSPEC_BO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 29 */ { NA_BGM_STARWOLF, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 30 */ { NA_BGM_COURSE_CLEAR, AUDIOSPEC_CO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 31 */ { NA_BGM_COURSE_FAILURE, AUDIOSPEC_CO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 32 */ { NA_BGM_PLAYER_DOWN, AUDIOSPEC_CO | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 33 */ { NA_BGM_GAME_OVER, AUDIOSPEC_GAME_OVER | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 34 */ { NA_BGM_TRAINING, AUDIOSPEC_TR | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 35 */ { NA_BGM_BATTLE, AUDIOSPEC_VS | (SFX_LAYOUT_VS << 8), -1 },
+    /* 36 */ { NA_BGM_BATTLE_LAST, AUDIOSPEC_VS_LAST | (SFX_LAYOUT_VS << 8), -1 },
+    /* 37 */ { NA_BGM_VS_SELECT, AUDIOSPEC_TITLE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 38 */ { NA_BGM_DASH_INTO_BASE, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), 0 },
+    /* 39 */ { NA_BGM_STAGE_ANDROSS, AUDIOSPEC_TITLE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 40 */ { NA_BGM_BOSS_ANDROSS, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), 0 },
+    /* 41 */ { NA_BGM_BOSS_ANDROSS, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 42 */ { NA_BGM_ANDROSS_BRAIN, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 43 */ { NA_BGM_ALL_CLEAR, AUDIOSPEC_VE | (SFX_LAYOUT_DEFAULT << 8), -1 },
+    /* 44 */ { NA_BGM_STAFF_ROLL, AUDIOSPEC_ENDING | (SFX_LAYOUT_DEFAULT << 8), -1 },
 };
 
 PlaylistCmd sPlaylists[][100] = {
@@ -452,7 +452,7 @@ s8 Audio_GetSfxReverb(u8 bankId, u8 entryIndex, u8 channelId) {
 }
 
 s8 Audio_GetSfxPan(f32 xPos, f32 zPos, u8 mode) {
-    if (sSfxChannelLayout != SFXCHAN_3) {
+    if (sSfxLayout != SFX_LAYOUT_VS) {
         f32 absx = ABSF(xPos);
         f32 absz = ABSF(zPos);
         f32 pan;
@@ -494,7 +494,7 @@ f32 Audio_GetSfxFreqMod(u8 bankId, u8 entryIndex) {
             freqMod += 0.2f * (distance / 33000.0f);
         }
     }
-    if ((sSfxChannelLayout != SFXCHAN_0) && (sSfxBanks[bankId][entryIndex].token & 2)) {
+    if ((sSfxLayout != SFX_LAYOUT_DEFAULT) && (sSfxBanks[bankId][entryIndex].token & 2)) {
         freqMod *= 1.1f;
     }
     return freqMod;
@@ -525,12 +525,12 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
             reverb = Audio_GetSfxReverb(bankId, entryIndex, channelId);
             freqMod = Audio_GetSfxFreqMod(bankId, entryIndex) * *entry->freqMod;
             if (!((bankId == SFX_BANK_PLAYER) && ((-200.0f < *entry->zPos) && (*entry->zPos < 200.0f)) &&
-                  (sSfxChannelLayout != SFXCHAN_3))) {
+                  (sSfxLayout != SFX_LAYOUT_VS))) {
                 pan = Audio_GetSfxPan(*entry->xPos, *entry->zPos, entry->token);
             }
             break;
         case SFX_BANK_SYSTEM:
-            if (sSfxChannelLayout == SFXCHAN_3) {
+            if (sSfxLayout == SFX_LAYOUT_VS) {
                 if (entry->token != 4) {
                     pan = (entry->token & 1) * 127;
                 }
@@ -628,7 +628,7 @@ void Audio_ResetSfxChannelState(void) {
 
     sEnvReverb = 0;
     sAudioSpecReverb = sAudioSpecReverbAdd[sAudioSpecId];
-    for (i = 0; i < 16; i++) {
+    for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
         sSfxChannelState[i].volMod = 1.0f;
         sSfxChannelState[i].freqMod = 1.0f;
         sSfxChannelState[i].reverb = 0;
@@ -649,7 +649,7 @@ void Audio_StartSequence(u8 seqPlayId, u8 seqId, u8 seqArgs, u16 fadeInTime) {
         sActiveSequences[seqPlayId].tempo.timer = 0;
         sActiveSequences[seqPlayId].tempoOriginal = 0;
         sActiveSequences[seqPlayId].tempoCmd = 0;
-        for (i = 0; i < 16; i++) {
+        for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
             sActiveSequences[seqPlayId].channelMod[i].volume.value = 1.0f;
             sActiveSequences[seqPlayId].channelMod[i].volume.timer = 0;
             sActiveSequences[seqPlayId].channelMod[i].freq.value = 1.0f;
@@ -735,7 +735,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
                 }
             }
             if ((found != sNumSeqRequests[seqPlayId]) || (found == 0)) {
-                if (sNumSeqRequests[seqPlayId] < 5) {
+                if (sNumSeqRequests[seqPlayId] < MAX_SEQ_REQUESTS) {
                     sNumSeqRequests[seqPlayId]++;
                 }
                 for (i = sNumSeqRequests[seqPlayId] - 1; i != found; i--) {
@@ -797,7 +797,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             if (duration == 0) {
                 duration++;
             }
-            for (i = 0; i < 16; i++) {
+            for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
                 sActiveSequences[seqPlayId].channelMod[i].freq.target = val / 1000.0f;
                 sActiveSequences[seqPlayId].channelMod[i].freq.step =
                     (sActiveSequences[seqPlayId].channelMod[i].freq.value -
@@ -849,7 +849,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             channelDisableMask = seqCmd & 0xFFFF;
 
             flag = 1;
-            for (i = 0; i < 16; i++) {
+            for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
                 AUDIOCMD_CHANNEL_SET_MUTE(seqPlayId, (u32) i, (channelDisableMask & flag) ? 1 : 0);
                 flag <<= 1;
             }
@@ -884,7 +884,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             break;
         case SEQCMD_OP_RESET_AUDIO_HEAP:
             specId = seqCmd & 0xFF;
-            sSfxChannelLayout = (seqCmd & 0xFF00) >> 8;
+            sSfxLayout = (seqCmd & 0xFF00) >> 8;
             oldSpecId = sAudioSpecId;
             sAudioSpecId = specId;
 
@@ -1078,7 +1078,7 @@ void Audio_UpdateActiveSequences(void) {
             AUDIOCMD_SEQPLAYER_SET_TEMPO((u32) seqPlayId, (s32) sActiveSequences[seqPlayId].tempo.value);
         }
         if (sActiveSequences[seqPlayId].volChannelFlags != 0) {
-            for (channelId = 0; channelId < 16; channelId++) {
+            for (channelId = 0; channelId < SEQ_NUM_CHANNELS; channelId++) {
                 if (sActiveSequences[seqPlayId].channelMod[channelId].volume.timer != 0) {
                     sActiveSequences[seqPlayId].channelMod[channelId].volume.timer--;
                     if (sActiveSequences[seqPlayId].channelMod[channelId].volume.timer) {
@@ -1095,7 +1095,7 @@ void Audio_UpdateActiveSequences(void) {
             }
         }
         if (sActiveSequences[seqPlayId].freqModChannelFlags != 0) {
-            for (channelId = 0; channelId < 16; channelId++) {
+            for (channelId = 0; channelId < SEQ_NUM_CHANNELS; channelId++) {
                 if (sActiveSequences[seqPlayId].channelMod[channelId].freq.timer != 0) {
                     sActiveSequences[seqPlayId].channelMod[channelId].freq.timer--;
                     if (sActiveSequences[seqPlayId].channelMod[channelId].freq.timer != 0) {
@@ -1194,7 +1194,7 @@ u8 Audio_HandleReset(void) {
         if (sAudioResetStatus == AUDIORESET_WAIT) {
             if (AudioThread_ResetComplete() == true) {
                 sAudioResetStatus = AUDIORESET_READY;
-                AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxChannelLayout);
+                AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxLayout);
                 Audio_RestartSeqPlayers();
             }
         } else if (sAudioResetStatus == AUDIORESET_BLOCK) {
@@ -1202,7 +1202,7 @@ u8 Audio_HandleReset(void) {
                 ;
             }
             sAudioResetStatus = AUDIORESET_READY;
-            AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxChannelLayout);
+            AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxLayout);
             Audio_RestartSeqPlayers();
         }
     }
@@ -1212,7 +1212,7 @@ u8 Audio_HandleReset(void) {
 void Audio_ResetActiveSequences(void) {
     u8 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < SEQ_PLAYER_MAX; i++) {
         sNumSeqRequests[i] = 0;
         sActiveSequences[i].seqId = SEQ_ID_NONE;
         sActiveSequences[i].prevSeqId = SEQ_ID_NONE;
@@ -1231,7 +1231,7 @@ void Audio_ResetActiveSequences(void) {
 void Audio_ResetActiveSequencesAndVolume(void) {
     u8 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < SEQ_PLAYER_MAX; i++) {
         sActiveSequences[i].mainVolume.mod = 1.0f;
         sActiveSequences[i].mainVolume.timer = 0;
         sActiveSequences[i].mainVolume.fadeActive = false;
@@ -1245,7 +1245,7 @@ void Audio_ResetActiveSequencesAndVolume(void) {
 void Audio_SetSfxBanksMute(u16 muteFlags) {
     u8 i;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < SFX_BANK_MAX; i++) {
         sSfxBankMuted[i] = (muteFlags & 1) ? true : false;
         muteFlags = muteFlags >> 1;
     }
@@ -1259,7 +1259,7 @@ void Audio_ClearBGMMute(u8 channelIndex) {
 }
 
 void Audio_PlaySfx(u32 sfxId, f32* sfxSource, u8 token, f32* freqMod, f32* volMod, s8* reverbAdd) {
-    if (sSfxBankMuted[SFX_BANK_ALT(sfxId)] == 0) {
+    if (!sSfxBankMuted[SFX_BANK_ALT(sfxId)]) {
         SfxRequest* request = &sSfxRequests[sSfxRequestWriteIndex];
 
         request->sfxId = sfxId;
@@ -1336,7 +1336,7 @@ void Audio_ProcessSfxRequest(void) {
     while ((next != 0xFF) && (next != 0)) {
         if (&request->source[0] == sSfxBanks[bankId][next].xPos) {
             if (request->sfxId == sSfxBanks[bankId][next].sfxId) {
-                count = sUsedChannelsPerBank[sSfxChannelLayout][bankId];
+                count = sMaxSfxRequests[sSfxLayout][bankId];
             } else {
                 if (count == 0) {
                     evict = next;
@@ -1346,7 +1346,7 @@ void Audio_ProcessSfxRequest(void) {
                     sfxId = sSfxBanks[bankId][next].sfxId;
                 }
                 count++;
-                if (count == sUsedChannelsPerBank[sSfxChannelLayout][bankId]) {
+                if (count == sMaxSfxRequests[sSfxLayout][bankId]) {
                     if ((request->sfxId & SFX_IMPORT_MASK) >= (sfxId & SFX_IMPORT_MASK)) {
                         next = evict;
                     } else {
@@ -1354,7 +1354,7 @@ void Audio_ProcessSfxRequest(void) {
                     }
                 }
             }
-            if (count == sUsedChannelsPerBank[sSfxChannelLayout][bankId]) {
+            if (count == sMaxSfxRequests[sSfxLayout][bankId]) {
                 if ((request->sfxId & SFX_FLAG_27) || (request->sfxId & SFX_FLAG_18) || (next == evict)) {
                     if ((sSfxBanks[bankId][next].sfxId & SFX_FLAG_19) && (sSfxBanks[bankId][next].state != 1)) {
                         Audio_ClearBGMMute(sSfxBanks[bankId][next].channelIndex);
@@ -1429,14 +1429,14 @@ void Audio_ChooseActiveSfx(u8 bankId) {
     ActiveSfx* activeSfx;
     f32 maxRangeSq;
     f32 yScaled;
-    ActiveSfx chosenSfx[8];
+    ActiveSfx chosenSfx[MAX_ACTIVE_SFX];
     u8 chosenEntryIndex;
     u8 j;
     u8 entryIndex;
     u8 needNewSfx;
     s32 importance;
 
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < MAX_ACTIVE_SFX; i++) {
         chosenSfx[i].priority = INT32_MAX;
         chosenSfx[i].entryIndex = 0xFF;
     }
@@ -1474,17 +1474,17 @@ void Audio_ChooseActiveSfx(u8 bankId) {
             }
             if (entry->distance > maxRangeSq) {
                 if (entry->state == 4) {
-                    AUDIOCMD_CHANNEL_SET_IO(2, entry->channelIndex, 0, 0);
+                    AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, entry->channelIndex, 0, 0);
                     if (entry->sfxId & SFX_FLAG_27) {
                         Audio_RemoveSfxBankEntry(bankId, entryIndex);
                         entryIndex = k;
                     }
                 }
             } else {
-                numChannels = sChannelsPerBank[sSfxChannelLayout][bankId];
+                numChannels = sMaxActiveSfx[sSfxLayout][bankId];
                 for (i = 0; i < numChannels; i++) {
                     if (chosenSfx[i].priority >= entry->priority) {
-                        if (numChosenSfx < sChannelsPerBank[sSfxChannelLayout][bankId]) {
+                        if (numChosenSfx < sMaxActiveSfx[sSfxLayout][bankId]) {
                             numChosenSfx++;
                         }
                         for (j = numChannels - 1; j > i; j--) {
@@ -1509,7 +1509,7 @@ void Audio_ChooseActiveSfx(u8 bankId) {
             sSfxBanks[bankId][chosenSfx[i].entryIndex].state = 3;
         }
     }
-    numChannels = sChannelsPerBank[sSfxChannelLayout][bankId];
+    numChannels = sMaxActiveSfx[sSfxLayout][bankId];
     for (i = 0; i < numChannels; i++) {
         activeSfx = &sActiveSfx[bankId][i];
         needNewSfx = 0;
@@ -1563,7 +1563,7 @@ void Audio_ChooseActiveSfx(u8 bankId) {
 void Audio_PlayActiveSfx(u8 bankId) {
     u8 i;
 
-    for (i = 0; i < sChannelsPerBank[sSfxChannelLayout][bankId]; i++) {
+    for (i = 0; i < sMaxActiveSfx[sSfxLayout][bankId]; i++) {
         u8 entryIndex = sActiveSfx[bankId][i].entryIndex;
 
         if (entryIndex != 0xFF) {
@@ -1602,7 +1602,7 @@ void Audio_KillSfxByBank(u8 bankId) {
     while (next != 0xFF) {
         entry = &sSfxBanks[bankId][next];
         if (entry->state >= 3) {
-            AUDIOCMD_CHANNEL_SET_IO(2, entry->channelIndex, 0, 0);
+            AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, entry->channelIndex, 0, 0);
         }
         if (entry->state != 0) {
             Audio_RemoveSfxBankEntry(bankId, next);
@@ -1647,7 +1647,7 @@ void Audio_KillSfxBySource(f32* sfxSource) {
     u8 i;
     SfxBankEntry cmp;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < SFX_BANK_MAX; i++) {
         Audio_StopSfxByBankAndSource(i, sfxSource);
     }
     cmp.xPos = sfxSource;
@@ -1782,7 +1782,7 @@ void Audio_ResetSfx(void) {
     sSfxRequestWriteIndex = 0;
     sSfxRequestReadIndex = 0;
     sChannelMuteFlags = 0;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < SFX_BANK_MAX; i++) {
         sSfxBankListEnd[i] = 0;
         sSfxBankFreeListStart[i] = 1;
         sSfxBankUnused[i] = 0;
@@ -1790,15 +1790,15 @@ void Audio_ResetSfx(void) {
         sSfxVolumeMods[i].value = 1.0f;
         sSfxVolumeMods[i].timer = 0;
     }
-    for (i = 0; i < 5; i++) {
-        for (j = 0; j < 8; j++) {
+    for (i = 0; i < SFX_BANK_MAX; i++) {
+        for (j = 0; j < MAX_ACTIVE_SFX; j++) {
             sActiveSfx[i][j].entryIndex = 0xFF;
         }
     }
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < SFX_BANK_MAX; i++) {
         sSfxBanks[i][0].prev = 0xFF;
         sSfxBanks[i][0].next = 0xFF;
-        for (j = 1; j < 19; j++) {
+        for (j = 1; j < MAX_SFX_PER_BANK - 1; j++) {
             sSfxBanks[i][j].prev = j - 1;
             sSfxBanks[i][j].next = j + 1;
         }
@@ -2112,7 +2112,11 @@ void Audio_UpdatePlayerFreqMod(void) {
 void Audio_UpdatePlayerReverb(void) {
     u8 playerId;
 
+#ifdef AVOID_UB
+    for (playerId = 0; playerId < gCamCount; playerId++) {
+#else
     for (playerId = 0; playerId < 4; playerId++) {
+#endif
         if ((sPlayerNoise[playerId].form == FORM_ARWING) && (gPlayer[playerId].sfx.levelType == LEVELTYPE_PLANET)) {
             if (gPlayer[playerId].pos.y < 150.0f) {
                 sPlayerNoise[playerId].reverbAdd = (150.0f - gPlayer[playerId].pos.y) * 0.53f;
@@ -2566,7 +2570,7 @@ void Audio_PlayDeathSequence(void) {
         SEQCMD_SETUP_RESTORE_SEQPLAYER_VOLUME(SEQ_PLAYER_FANFARE, SEQ_PLAYER_BGM, 30);
         SEQCMD_PLAY_SEQUENCE(SEQ_PLAYER_FANFARE, 0, 0, NA_BGM_PLAYER_DOWN);
     } else {
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < SFX_BANK_MAX; i++) {
             Audio_KillSfxByBank(i);
         }
         AUDIOCMD_GLOBAL_UNMUTE(true);
@@ -2607,7 +2611,7 @@ void Audio_RestoreVolumeSettings(u8 audioType) {
             Audio_SetSequenceFade(SEQ_PLAYER_FANFARE, 0, volume, 1);
             break;
         case AUDIO_TYPE_SFX:
-            for (i = 0; i < 15; i++) {
+            for (i = 0; i < SEQ_NUM_CHANNELS - 1; i++) {
                 AUDIOCMD_CHANNEL_SET_VOL(SEQ_PLAYER_SFX, (u32) i, volume / 127.0f);
             }
             break;
@@ -2682,7 +2686,7 @@ void Audio_FadeOutAll(u8 fadeoutTime) {
 void Audio_KillAllSfx(void) {
     u8 i;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < SFX_BANK_MAX; i++) {
         Audio_KillSfxByBank(i);
     }
 }

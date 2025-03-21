@@ -98,7 +98,7 @@ u8 Load_SceneSetup(u8 sceneId, u8 sceneSetup) {
         case SCENE_TITLE:
             changeScene = Load_SceneFiles(&sOvlmenu_Title[sceneSetup]);
             if (changeScene == true) {
-                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_OPENING);
+                AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_OPENING);
             }
             break;
         case SCENE_MENU:
@@ -173,13 +173,13 @@ u8 Load_SceneSetup(u8 sceneId, u8 sceneSetup) {
         case SCENE_VERSUS:
             changeScene = Load_SceneFiles(&sOvli2_Versus[sceneSetup]);
             if (changeScene == true) {
-                AUDIO_SET_SPEC_ALT(SFXCHAN_3, AUDIOSPEC_VS);
+                AUDIO_SET_SPEC_ALT(SFX_LAYOUT_VS, AUDIOSPEC_VS);
             }
             break;
         case SCENE_LOGO:
             changeScene = Load_SceneFiles(&sNoOvl_Logo[sceneSetup]); // Logo does not load an overlay file
             if (changeScene == true) {
-                AUDIO_SET_SPEC(SFXCHAN_0, AUDIOSPEC_MA);
+                AUDIO_SET_SPEC(SFX_LAYOUT_DEFAULT, AUDIOSPEC_MA);
             }
             break;
         case SCENE_CREDITS:

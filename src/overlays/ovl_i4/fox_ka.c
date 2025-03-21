@@ -489,13 +489,13 @@ void Katina_LevelStart(Player* player) {
             break;
 
         case 45:
-            func_effect_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 10.0f);
+            Effect_FireSmoke1_Spawn3(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 10.0f);
 
             for (j = 0; j < 10; j++) {
                 Effect_Effect357_Spawn50(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 1.0f);
             }
 
-            Effect_SpawnTimedSfxAtPos(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
+            Effect_TimedSfx_Spawn(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
             break;
 
         case 47:
@@ -622,9 +622,9 @@ void Katina_Hatch_Destroy(KaSaucerer* this, s32 hatchIdx) {
     s32 i;
     Vec3f pos;
 
-    func_effect_8007D2C8(this->obj.pos.x + (this->vwork[hatchIdx + 1].x * 1.3f),
-                         this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f),
-                         this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f), 15.0f);
+    Effect_FireSmoke1_Spawn3(this->obj.pos.x + (this->vwork[hatchIdx + 1].x * 1.3f),
+                             this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f),
+                             this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f), 15.0f);
     this->swork[hatchIdx + 5] = 60;
 
     for (i = 0; i < 20; i++) {
@@ -638,7 +638,7 @@ void Katina_Hatch_Destroy(KaSaucerer* this, s32 hatchIdx) {
     pos.y = this->obj.pos.y + (this->vwork[hatchIdx + 1].y * 1.3f);
     pos.z = this->obj.pos.z + (this->vwork[hatchIdx + 1].z * 1.3f);
 
-    Effect_SpawnTimedSfxAtPos(&pos, NA_SE_EN_EXPLOSION_M);
+    Effect_TimedSfx_Spawn(&pos, NA_SE_EN_EXPLOSION_M);
 
     this->swork[BOSS_HATCH_DESTROY_COUNT]++;
 
@@ -676,7 +676,7 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
                     sfxSource.y = (this->vwork[1 + this->dmgPart].y * 1.3f) + this->obj.pos.y;
                     sfxSource.z = (this->vwork[1 + this->dmgPart].z * 1.3f) + this->obj.pos.z;
 
-                    Effect_SpawnTimedSfxAtPos(&sfxSource, NA_SE_OB_DAMAGE_M);
+                    Effect_TimedSfx_Spawn(&sfxSource, NA_SE_OB_DAMAGE_M);
 
                     if (this->swork[10 + this->dmgPart] <= 0) {
                         this->swork[10 + this->dmgPart] = 0;
@@ -694,14 +694,14 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
                     this->swork[BOSS_CORE_HP] -= this->damage;
 
                     if (this->swork[BOSS_CORE_HP] < 100) {
-                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
+                        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_KNOCK_DOWN);
                     } else {
-                        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_DAMAGE_M);
+                        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_DAMAGE_M);
                     }
 
                     if (this->swork[BOSS_CORE_HP] <= 0) {
                         // OBJ_EFFECT_FIRE_SMOKE_1
-                        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y - 1000.0f, this->obj.pos.z, 15.0f);
+                        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y - 1000.0f, this->obj.pos.z, 15.0f);
 
                         y = 0.0f;
 
@@ -747,10 +747,10 @@ void Katina_BossHandleDamage(KaSaucerer* this) {
         if ((gGameFrameCount % 16) == 0) {
             for (i = 0; i < 4; i++) {
                 if ((this->swork[10 + i] <= 0) && (Rand_ZeroOne() < 0.2f)) {
-                    Effect386_Spawn1((this->vwork[1 + i].x * 1.3f) + this->obj.pos.x,
-                                     (this->vwork[1 + i].y * 1.3f) + this->obj.pos.y,
-                                     (this->vwork[1 + i].z * 1.3f) + this->obj.pos.z, this->vel.x, this->vel.y,
-                                     this->vel.z, 7.0f, 5);
+                    Effect_Effect386_Spawn1((this->vwork[1 + i].x * 1.3f) + this->obj.pos.x,
+                                            (this->vwork[1 + i].y * 1.3f) + this->obj.pos.y,
+                                            (this->vwork[1 + i].z * 1.3f) + this->obj.pos.z, this->vel.x, this->vel.y,
+                                            this->vel.z, 7.0f, 5);
                 }
             }
         }

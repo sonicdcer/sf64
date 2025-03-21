@@ -306,10 +306,10 @@ void Item_Load(Item* this, ObjectInit* objInit) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect346_Setup(Effect346* this, f32 xPos, f32 yPos, f32 zPos) {
+void Effect_SmallRock_Setup(EffectSmallRock* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_346;
+    this->obj.id = OBJ_EFFECT_SMALL_ROCK;
     this->timer_50 = 50;
     this->scale2 = 0.2f;
 
@@ -345,7 +345,7 @@ void func_enmy_80061A4C(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 500.0f;
             }
-            Effect_Effect346_Setup(&gEffects[i], x, y, z);
+            Effect_SmallRock_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -369,7 +369,7 @@ void func_enmy_80061B68(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 1000.0f;
             }
-            Effect_Effect346_Setup(&gEffects[i], x, y, z);
+            Effect_SmallRock_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -390,7 +390,7 @@ void func_enmy_80061CD0(void) {
             if (gPathVelZ < 0.0f) {
                 z = -gPathProgress + 1000.0f;
             }
-            Effect_Effect346_Setup(&gEffects[i], x, y, z);
+            Effect_SmallRock_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
@@ -641,7 +641,7 @@ void Object_LoadLevelObjects(void) {
     }
 }
 
-void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale) {
+void Effect_Effect348_Spawn(f32 xPos, f32 zPos, s32 state, f32 scale) {
     s32 i;
 
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -664,7 +664,7 @@ void func_enmy_80062B60(f32 xPos, f32 zPos, s32 state, f32 scale) {
     }
 }
 
-void func_enmy_80062C38(f32 xPos, f32 yPos) {
+void Effect_Effect349_Spawn(f32 xPos, f32 yPos) {
     s32 i;
 
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -686,7 +686,8 @@ void func_enmy_80062C38(f32 xPos, f32 yPos) {
     }
 }
 
-void func_enmy_80062D04(f32 xPos, f32 yPos) {
+// unused
+void Effect_Effect350_Spawn(f32 xPos, f32 yPos) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
@@ -1102,7 +1103,7 @@ void Object_Init(s32 index, ObjectId objId) {
 
     switch (objId) {
         case OBJ_SPRITE_CO_SMOKE:
-            Effect_SpawnTimedSfxAtPos(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
+            Effect_TimedSfx_Spawn(&gSprites[index].obj.pos, NA_SE_OB_SMOKE);
             break;
         case OBJ_ACTOR_TI_GREAT_FOX:
             AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[index].sfxSource, 0);
@@ -1475,7 +1476,7 @@ void func_enmy_800654E4(Object* obj) {
     f32 temp_fs1;
     s32 i;
 
-    func_effect_8007D2C8(obj->pos.x, obj->pos.y, obj->pos.z, 12.0f);
+    Effect_FireSmoke1_Spawn3(obj->pos.x, obj->pos.y, obj->pos.z, 12.0f);
 
     for (i = 0; i < 4; i++) {
         func_enmy_8006546C(obj->pos.x, obj->pos.y, obj->pos.z, RAND_FLOAT_CENTERED(40.0f), RAND_FLOAT_CENTERED(40.0f),
@@ -1638,8 +1639,8 @@ void ActorMissileSeek_Update(Actor* this) {
             gActors[spC4].dmgType = DMG_BEAM;
             gActors[spC4].damage = 20;
             gActors[spC4].dmgSource = DMG_SRC_2;
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
@@ -1657,7 +1658,7 @@ void ActorMissileSeek_Update(Actor* this) {
         if (this->timer_0BE == 0) {
             this->timer_0BE = 30;
             Math_Vec3fFromAngles(&sp98, this->obj.rot.x, this->obj.rot.y, 120.0f);
-            Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER_1, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
+            Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, this->obj.pos.x + sp98.x, this->obj.pos.y + sp98.y,
                               this->obj.pos.z + sp98.z, this->obj.rot.x, this->obj.rot.y, this->obj.rot.z, 0.0f, 0.0f,
                               0.0f, sp98.x, sp98.y, sp98.z, 1.0f);
         }
@@ -1670,7 +1671,7 @@ void ActorMissileSeek_Update(Actor* this) {
 
     if ((gGroundType == GROUND_4) &&
         Ground_801B6AEC(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + gPathProgress)) {
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
         Object_Kill(&this->obj, this->sfxSource);
     }
 
@@ -1680,7 +1681,7 @@ void ActorMissileSeek_Update(Actor* this) {
 
     if ((Object_CheckCollision(this->index, &this->obj.pos, &sp8C, 1) != 0) || (this->dmgType != DMG_NONE) ||
         (this->obj.pos.y < (gGroundHeight + 10.0f)) || (gPlayer[0].state == PLAYERSTATE_LEVEL_COMPLETE)) {
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f);
         Object_Kill(&this->obj, this->sfxSource);
         if (this->dmgType != DMG_NONE) {
             this->itemDrop = DROP_SILVER_RING_50p;
@@ -1696,7 +1697,7 @@ void ActorMissileSeek_Update(Actor* this) {
             }
             Actor_Despawn(this);
         }
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
     }
 
     if (gLevelMode == LEVELMODE_ON_RAILS) {
@@ -1870,7 +1871,7 @@ void CoSkibot_Update(CoSkibot* this) {
         }
         this->vel.z = -15.0f;
         this->gravity = 0.5f;
-        func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 13.0f);
+        Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 13.0f);
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
     }
 }
@@ -1895,7 +1896,8 @@ void func_enmy_8006684C(CoSkibot* this) {
         this->obj.rot.x += 11.0f;
         this->obj.rot.y += 7.0f;
         if (this->vel.y < -3.0f) {
-            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f, 5);
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 7.0f,
+                                    5);
             this->timer_0BE = 3;
         }
     }
@@ -1909,10 +1911,11 @@ void CoRadar_Update(CoRadar* this) {
     } else {
         this->obj.rot.y += 5.0f;
         if (this->dmgType != DMG_NONE) {
-            func_effect_8007D0E0(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 8.0f);
-            Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f, 5);
+            Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 8.0f);
+            Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 130.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 4.0f,
+                                    5);
             this->timer_0BC = 4;
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         }
     }
 }
@@ -1937,7 +1940,7 @@ void func_enmy_80066A8C(CoBuilding9* this) {
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
         src.y = yf;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        func_effect_8007D0E0(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 4.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 4.0f);
     }
 }
 
@@ -1958,8 +1961,8 @@ void func_enmy_80066C00(CoBuilding9* this) {
     for (zf = -180.0f; zf <= 0.0f; zf += 30.0f) {
         src.z = zf;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        func_effect_8007D0E0(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                             RAND_FLOAT(1.0f) + 2.0f);
+        Effect_FireSmoke1_Spawn4(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                 RAND_FLOAT(1.0f) + 2.0f);
     }
 }
 
@@ -2075,7 +2078,7 @@ void Item_SpinPickup(Item* this) {
         src.y = RAND_FLOAT_CENTERED(120.0f);
         src.z = 0.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
+        Effect_Sparkle_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z, 3.0f);
     }
     this->obj.rot.y += this->unk_50;
     this->obj.rot.y = Math_ModF(this->obj.rot.y, 360.0f);
@@ -2131,8 +2134,8 @@ void ActorSupplies_Update(ActorSupplies* this) {
         this->dmgType = DMG_NONE;
         this->health -= this->damage;
         if (this->health <= 0) {
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
-            func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+            Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
 
             if (((player[0].arwing.rightWingState <= WINGSTATE_BROKEN) ||
                  (player[0].arwing.leftWingState <= WINGSTATE_BROKEN)) &&
@@ -2377,8 +2380,8 @@ void ItemSupplyRing_Update(Item* this) {
                 src.y = this->width * 100.0f;
                 src.z = 0.0f;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                Effect_Effect393_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                       3.5f);
+                Effect_Sparkle_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                     3.5f);
             }
             break;
     }
@@ -2602,14 +2605,14 @@ void Sprite_UpdateDoodad(Sprite* this) {
         M_PI;
     if (this->destroy) {
         this->obj.status = OBJ_FREE;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_EXPLOSION_S);
         switch (this->obj.id) {
             case OBJ_SPRITE_CO_POLE:
-                func_effect_8007D074(this->obj.pos.x, this->obj.pos.y + 160.0f, this->obj.pos.z, 4.0f);
+                Effect_FireSmoke2_Spawn2(this->obj.pos.x, this->obj.pos.y + 160.0f, this->obj.pos.z, 4.0f);
                 break;
             default:
             case OBJ_SPRITE_TI_CACTUS:
-                func_effect_8007D074(this->obj.pos.x, this->obj.pos.y + 96.0f, this->obj.pos.z, 5.0f);
+                Effect_FireSmoke2_Spawn2(this->obj.pos.x, this->obj.pos.y + 96.0f, this->obj.pos.z, 5.0f);
                 break;
         }
     }
@@ -2643,12 +2646,14 @@ void Object_Dying(s32 index, ObjectId objId) {
 
         case OBJ_ACTOR_ME_METEOR_1:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
-            func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 20.0f);
+            Effect_FireSmoke1_Spawn3(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z,
+                                     20.0f);
             break;
 
         case OBJ_ACTOR_ME_METEOR_2:
             Object_Kill(&gActors[index].obj, gActors[index].sfxSource);
-            func_effect_8007D2C8(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z, 10.0f);
+            Effect_FireSmoke1_Spawn3(gActors[index].obj.pos.x, gActors[index].obj.pos.y, gActors[index].obj.pos.z,
+                                     10.0f);
             Actor_Despawn(&gActors[index]);
             break;
 

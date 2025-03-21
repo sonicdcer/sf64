@@ -188,7 +188,7 @@ s8 Audio_GetSfxReverb(u8 bankId, u8 entryIndex, u8 channelId) {
 }
 
 s8 Audio_GetSfxPan(f32 xPos, f32 zPos, u8 mode) {
-    if (sSfxChannelLayout != SFXCHAN_3) {
+    if (sSfxChannelLayout != SFX_BANK_3) {
         f32 absx = ABSF(xPos);
         f32 absz = ABSF(zPos);
         f32 pan;
@@ -262,7 +262,7 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
             reverb = Audio_GetSfxReverb(bankId, entryIndex, channelId);
             freqMod = Audio_GetSfxFreqMod(bankId, entryIndex) * *entry->freqMod;
             if (!((bankId == SFX_BANK_PLAYER) && ((-200.0f < *entry->zPos) && (*entry->zPos < 200.0f)) &&
-                  (sSfxChannelLayout != SFXCHAN_3))) {
+                  (sSfxChannelLayout != SFX_BANK_3))) {
                 pan = Audio_GetSfxPan(*entry->xPos, *entry->zPos, entry->token);
             }
             break;
@@ -272,7 +272,7 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
                 AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, channelId, 1, gVoiceLanguage);
             }
 #endif
-            if (sSfxChannelLayout == SFXCHAN_3) {
+            if (sSfxChannelLayout == SFX_BANK_3) {
                 if (entry->token != 4) {
                     pan = (entry->token & 1) * 127;
                 }

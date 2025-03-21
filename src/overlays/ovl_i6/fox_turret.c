@@ -25,7 +25,7 @@ void Turret_SetupShot(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset
     sp4C.x = sp4C.y = 0.0f;
     sp4C.z = speed;
     Matrix_MultVec3f(gCalcMatrix, &sp4C, &sp40);
-    Matrix_GetYRPAngles(gCalcMatrix, &sp4C);
+    Matrix_GetYPRAngles(gCalcMatrix, &sp4C);
     shot->obj.status = SHOT_ACTIVE;
 
     shot->vel.x = sp40.x;

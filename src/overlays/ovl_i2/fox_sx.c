@@ -107,7 +107,7 @@ void SectorX_SxSlippy_Update(SxSlippy* this) {
                 this->vel.z = 30.0f;
 
                 Radio_PlayMessage(gMsg_ID_4111, RCID_SLIPPY);
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
 
                 gBosses[0].swork[6] = 0;
                 gTeamShields[TEAM_ID_SLIPPY] = -2;
@@ -133,7 +133,7 @@ void SectorX_SxSlippy_Update(SxSlippy* this) {
             this->obj.rot.y += 5.0f;
 
             if ((gGameFrameCount % 8) == 0) {
-                func_effect_8007D10C(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
+                Effect_FireSmoke2_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 1.5f);
             }
 
             Math_SmoothStepToF(&this->fwork[0], 0.5f, 1.0f, 0.01f, 0);
@@ -290,7 +290,7 @@ void SectorX_SxSpyborgLeftArm_Update(SxSpyborgLeftArm* this) {
 
     if (this->dmgType == DMG_BEAM) {
         this->dmgType = DMG_NONE;
-        Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+        Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
     }
 }
 
@@ -421,8 +421,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                                        this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
 
                 if (this->swork[3] <= 0) {
-                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                     10.0f, 50);
+                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f,
+                                            0.0f, 10.0f, 50);
 
                     Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
                                            this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
@@ -430,7 +430,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                         Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z);
                     }
 
-                    Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
+                    Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_L);
                     this->state = 7;
                     this->timer_050 = 80;
                     this->swork[0] = 0;
@@ -450,10 +450,10 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                     gScreenFlashTimer = 5;
                 }
             } else {
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
             }
         } else {
-            Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+            Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
         }
 
         if (this->swork[0] == 2) {
@@ -472,8 +472,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
 
                     Radio_PlayMessage(gMsg_ID_5499, RCID_BOSS_SECTORX);
 
-                    Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                     10.0f, 50);
+                    Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f,
+                                            0.0f, 10.0f, 50);
 
                     Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
                                            this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
@@ -498,7 +498,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                 Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
                                        this->vel.z, 0.2f, 10);
             } else {
-                Effect_SpawnTimedSfxAtPos(&this->obj.pos, NA_SE_EN_REFLECT);
+                Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
             }
         }
     }
@@ -1056,9 +1056,9 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
 
             if ((this->timer_050 & 3) == 0) {
-                func_effect_8007D2C8(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x,
-                                     RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.y, this->obj.pos.z + 100.0f,
-                                     RAND_FLOAT(5.0f) + 5.0f);
+                Effect_FireSmoke1_Spawn3(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x,
+                                         RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.y, this->obj.pos.z + 100.0f,
+                                         RAND_FLOAT(5.0f) + 5.0f);
             }
 
             if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
@@ -1077,7 +1077,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
 
             if (this->timer_050 == 230) {
                 gShowBossHealth = false;
-                Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 30.0f, 40);
+                Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 30.0f, 40);
                 Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             }
 
@@ -1112,10 +1112,10 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             if (this->swork[1] > 50) {
                 this->swork[1] = 0;
             }
-            Effect_ShootAtPlayer(OBJ_EFFECT_377, this->fwork[20] + this->obj.pos.x, this->fwork[21] + this->obj.pos.y,
-                                 this->fwork[22] + this->obj.pos.z, 100.0f);
-            Effect_ShootAtPlayer(OBJ_EFFECT_377, this->fwork[23] + this->obj.pos.x, this->fwork[24] + this->obj.pos.y,
-                                 this->fwork[25] + this->obj.pos.z, 100.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_SPYBORG_ORB, this->fwork[20] + this->obj.pos.x,
+                                 this->fwork[21] + this->obj.pos.y, this->fwork[22] + this->obj.pos.z, 100.0f);
+            Effect_ShootAtPlayer(OBJ_EFFECT_SPYBORG_ORB, this->fwork[23] + this->obj.pos.x,
+                                 this->fwork[24] + this->obj.pos.y, this->fwork[25] + this->obj.pos.z, 100.0f);
         }
     } else {
         this->swork[1] = 0;
@@ -1534,15 +1534,15 @@ void SectorX_LevelStart(Player* player) {
 
             if (gCsFrameCount == 143) {
                 Object_Kill(&gPlayerShots[0].obj, gPlayerShots[0].sfxSource);
-                Effect386_Spawn1(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                 3.0f, 40);
-                func_effect_8007D2C8(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 6.0f);
+                Effect_Effect386_Spawn1(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.0f, 0.0f,
+                                        0.0f, 3.0f, 40);
+                Effect_FireSmoke1_Spawn3(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 6.0f);
                 Effect_Effect384_Spawn(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 5.0f, 5);
                 Object_Kill(&gActors[5].obj, gActors[5].sfxSource);
                 for (i = 0; i < 20; i++) {
                     func_effect_80079618(gActors[5].obj.pos.x, gActors[5].obj.pos.y, gActors[5].obj.pos.z, 0.5f);
                 }
-                Effect_SpawnTimedSfxAtPos(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
+                Effect_TimedSfx_Spawn(&gActors[5].obj.pos, NA_SE_EN_EXPLOSION_M);
                 player->csState++;
                 D_ctx_80177A48[0] = 0.1f;
             }

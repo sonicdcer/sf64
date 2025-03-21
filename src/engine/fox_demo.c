@@ -355,10 +355,10 @@ void func_demo_80049968(ActorCutscene* this, s32 index) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
-void func_demo_80049A9C(Effect346* this, f32 x, f32 y, f32 z) {
+void func_demo_80049A9C(EffectSmallRock* this, f32 x, f32 y, f32 z) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_346;
+    this->obj.id = OBJ_EFFECT_SMALL_ROCK;
     this->timer_50 = 100;
     this->scale2 = 0.2f;
     this->obj.pos.x = x;
@@ -1227,7 +1227,7 @@ void Cutscene_CoComplete2(Player* player) {
                 player->csState = 5;
                 player->baseSpeed = 0.0f;
                 player->csTimer = 10;
-                Effect_Effect393_Spawn(player->pos.x, player->pos.y, player->trueZpos, 30.0f);
+                Effect_Sparkle_Spawn(player->pos.x, player->pos.y, player->trueZpos, 30.0f);
             }
             gCsCamAtX = player->pos.x;
             gCsCamAtY = player->pos.y - D_ctx_80177A48[6];
@@ -1626,12 +1626,12 @@ void Cutscene_KillPlayer(Player* player) {
 
 void Cutscene_LandmasterDown(Player* player) {
     player->pos.y += 30.0f;
-    func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
+    Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y, player->trueZpos, 6.0f);
     if (gCamCount == 1) {
-        Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
+        Effect_Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 80);
         Effect_Effect387_Spawn(player->pos.x, player->pos.y, player->trueZpos, 3.0f, 800);
     } else {
-        Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 10);
+        Effect_Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, 0.0f, 0.0f, 0.0f, 3.0f, 10);
     }
     Cutscene_KillPlayer(player);
 }
@@ -1667,8 +1667,8 @@ void Cutscene_ArwingDown360(Player* player) {
                                  player->trueZpos, 2.2f);
         }
     } else if (((gGameFrameCount % 4) == 0)) {
-        func_effect_8007D10C(RAND_FLOAT_CENTERED(10.0f) + player->pos.x, RAND_FLOAT_CENTERED(10.0f) + player->pos.y,
-                             RAND_FLOAT_CENTERED(10.0f) + player->trueZpos, 2.2f);
+        Effect_FireSmoke2_Spawn3(RAND_FLOAT_CENTERED(10.0f) + player->pos.x, RAND_FLOAT_CENTERED(10.0f) + player->pos.y,
+                                 RAND_FLOAT_CENTERED(10.0f) + player->trueZpos, 2.2f);
     }
 
     if ((player->pos.y < player->pathFloor) && (player->csState == 0)) {
@@ -1681,20 +1681,20 @@ void Cutscene_ArwingDown360(Player* player) {
         Play_PlaySfxNoPlayer(player->sfxSource, NA_SE_EXPLOSION_S);
 
         if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_FORTUNA)) {
-            func_enmy_80062C38(player->pos.x, player->pos.z);
+            Effect_Effect349_Spawn(player->pos.x, player->pos.z);
         } else {
-            func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 3.0f);
+            Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y, player->trueZpos, 3.0f);
         }
 
         if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
             player->arwing.rightWingState = WINGSTATE_BROKEN;
-            func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
+            Effect_FireSmoke1_Spawn4(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
         if (player->arwing.leftWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
             player->arwing.leftWingState = WINGSTATE_BROKEN;
-            func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
+            Effect_FireSmoke1_Spawn4(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) ||
                 (player->pos.y < gWaterLevel) || (player->csEventTimer == 0)) &&
@@ -1705,7 +1705,7 @@ void Cutscene_ArwingDown360(Player* player) {
                                        80);
             }
             if (player->pos.y < player->pathFloor) {
-                func_enmy_80062C38(player->pos.x, player->pos.z);
+                Effect_Effect349_Spawn(player->pos.x, player->pos.z);
             }
         }
         if (gLevelType == LEVELTYPE_PLANET) {
@@ -1717,8 +1717,9 @@ void Cutscene_ArwingDown360(Player* player) {
                 Play_SpawnDebris(3, player->pos.x, player->pos.y, player->trueZpos);
             }
         }
-        func_effect_8007D0E0(player->pos.x, player->pos.y, player->trueZpos, 5.0f);
-        Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z, 5.0f, 20);
+        Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y, player->trueZpos, 5.0f);
+        Effect_Effect386_Spawn1(player->pos.x, player->pos.y, player->trueZpos, player->vel.x, 0.0f, player->vel.z,
+                                5.0f, 20);
         Cutscene_KillPlayer(player);
     }
     Math_SmoothStepToF(&player->camRoll, 0.0f, 0.05f, 5.0f, 0.00001f);
@@ -1790,31 +1791,31 @@ void Cutscene_ArwingDownOnRails(Player* player) {
         player->csState = 1;
         Play_PlaySfxNoPlayer(player->sfxSource, NA_SE_EXPLOSION_S);
         if (gCurrentLevel == LEVEL_CORNERIA) {
-            func_enmy_80062C38(player->pos.x, player->pos.z);
+            Effect_Effect349_Spawn(player->pos.x, player->pos.z);
         }
 
         if (player->arwing.rightWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(1, player->hit1.x, player->hit1.y, player->hit1.z);
             player->arwing.rightWingState = WINGSTATE_NONE;
-            func_effect_8007D0E0(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
+            Effect_FireSmoke1_Spawn4(player->hit1.x, player->hit1.y, player->hit1.z, 2.0f);
         }
 
         if (player->arwing.leftWingState == WINGSTATE_INTACT) {
             Play_SpawnDebris(0, player->hit2.x, player->hit2.y, player->hit2.z);
             player->arwing.leftWingState = WINGSTATE_NONE;
-            func_effect_8007D0E0(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
+            Effect_FireSmoke1_Spawn4(player->hit2.x, player->hit2.y, player->hit2.z, 2.0f);
         }
     } else if (((player->radioDamageTimer > 0) || (player->pos.y < player->pathFloor) || (player->csEventTimer == 0)) &&
                (player->csTimer == 0)) {
         if (player->pos.y < player->pathFloor) {
             Effect_Effect387_Spawn(player->pos.x, gGroundHeight + 20.0f, player->trueZpos - (2.0f * player->vel.z),
                                    3.0f, 800);
-            func_enmy_80062C38(player->pos.x, player->pos.z);
+            Effect_Effect349_Spawn(player->pos.x, player->pos.z);
         }
-        func_effect_8007D0E0(player->pos.x, player->pos.y - (2.0f * player->vel.y),
-                             player->trueZpos - (2.0f * player->vel.z), 6.0f);
-        Effect386_Spawn1(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z), 0.0f,
-                         0.0f, 0.0f, 3.0f, 20);
+        Effect_FireSmoke1_Spawn4(player->pos.x, player->pos.y - (2.0f * player->vel.y),
+                                 player->trueZpos - (2.0f * player->vel.z), 6.0f);
+        Effect_Effect386_Spawn1(player->pos.x, player->pos.y - player->vel.y, player->trueZpos - (2.0f * player->vel.z),
+                                0.0f, 0.0f, 0.0f, 3.0f, 20);
         if (gLevelType == LEVELTYPE_PLANET) {
             for (i = 0; i < 2; i++) {
                 Play_SpawnDebris(2, player->pos.x, player->pos.y, player->trueZpos);
@@ -1835,7 +1836,7 @@ void Cutscene_ArwingDownOnRails(Player* player) {
 
     if ((gGroundSurface == SURFACE_WATER) && (player->pos.y <= player->pathFloor)) {
         Effect_Effect367_Spawn(player->pos.x, gGroundHeight + 2.0f, player->trueZpos, 3.0f, 20.0f, 0);
-        Effect_BeamWaterSplash_Spawn2(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
+        Effect_WaterSpray_SpawnCircle(player->pos.x, gGroundHeight, player->trueZpos, 0.1f, 2.0f);
     }
 }
 
@@ -2100,7 +2101,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
             this->vel.z = dest.z;
 
             if (this->timer_0BC == 0) {
-                Effect_Effect393_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
+                Effect_Sparkle_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -2184,7 +2185,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                         if (this->obj.pos.x >= -3500.0f) {
                             if (this->obj.pos.z <= 3000.0f) {
                                 if ((fabsf(this->obj.pos.y) <= 400.0f) && (gCsFrameCount <= 300)) {
-                                    func_effect_8007D2C8(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
+                                    Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f);
                                 }
                             }
                         }
