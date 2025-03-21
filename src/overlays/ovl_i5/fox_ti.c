@@ -77,7 +77,7 @@ void Titania_80188F30(void) {
     D_MA_801BA1E8 = 99;
 }
 
-void Titania_TankTracks_Update(TankTracks* this) {
+void Titania_TankTracks_Update(EffectTankTracks* this) {
     if (this->timer_50 == 0) {
         this->alpha -= 16;
         if (this->alpha < 17) {
@@ -86,7 +86,7 @@ void Titania_TankTracks_Update(TankTracks* this) {
     }
 }
 
-void Titania_TankTracks_Draw(TankTracks* this) {
+void Titania_TankTracks_Draw(EffectTankTracks* this) {
     Matrix_Scale(gGfxMatrix, this->scale2 * 0.5f, this->scale2, this->scale2, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -95,7 +95,7 @@ void Titania_TankTracks_Draw(TankTracks* this) {
     gSPDisplayList(gMasterDisp++, aLandmasterTankTracksDL);
 }
 
-void Titania_TankTracks_Setup(TankTracks* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
+void Titania_TankTracks_Setup(EffectTankTracks* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_TANK_TRACKS;

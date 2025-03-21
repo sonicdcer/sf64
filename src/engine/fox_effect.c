@@ -389,7 +389,7 @@ void Effect_Clouds_Draw(EffectClouds* this) {
     gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
 }
 
-void Effect_Bubble_Draw(Bubble* this) {
+void Effect_Bubble_Draw(EffectBubble* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
@@ -952,7 +952,7 @@ void Effect_Effect383_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Effect384_Spawn(xPos, yPos, zPos, 80.0f, 4);
 }
 
-void Effect_TimedSfx_Setup(TimedSfx* this, Vec3f* pos, u32 sfxId) {
+void Effect_TimedSfx_Setup(EffectTimedSfx* this, Vec3f* pos, u32 sfxId) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_EFFECT_TIMED_SFX;
@@ -986,7 +986,7 @@ void Effect_TimedSfx_Spawn(Vec3f* pos, s32 sfxId) {
     }
 }
 
-void Effect_TimedSfx_Update(TimedSfx* this) {
+void Effect_TimedSfx_Update(EffectTimedSfx* this) {
     if (this->timer_50 == 0) {
         Object_Kill(&this->obj, this->sfxSource);
     }

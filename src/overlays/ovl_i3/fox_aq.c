@@ -1355,7 +1355,7 @@ void Aquas_BlueMarineShoot(Player* player) {
     }
 }
 
-void Aquas_Bubble_Setup(Bubble* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
+void Aquas_Bubble_Setup(EffectBubble* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 state) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_BUBBLE;
@@ -1386,7 +1386,7 @@ void Aquas_Bubble_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 unk4E) {
     }
 }
 
-void Aquas_Bubble_Update(Bubble* this) {
+void Aquas_Bubble_Update(EffectBubble* this) {
     f32 waveAmplitude;
 
     if (this->unk_46 != 0) {

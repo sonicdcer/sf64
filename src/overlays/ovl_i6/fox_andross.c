@@ -1496,7 +1496,7 @@ void Andross_AndSuction_Spawn(f32 xPos, f32 yPos, f32 zPos, s32 arg3) {
     }
 }
 
-void Andross_AndSuctionEject_Setup(AndSuction* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+void Andross_AndSuctionEject_Setup(EffectAndSuction* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
                                    s32 arg7) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
@@ -1533,7 +1533,7 @@ void Andross_AndSuctionEject_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
     }
 }
 
-void Andross_AndSuctionSmoke_Setup(AndSuction* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+void Andross_AndSuctionSmoke_Setup(EffectAndSuction* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
                                    f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
@@ -1566,7 +1566,7 @@ void Andross_AndSuctionSmoke_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 y
     }
 }
 
-void Andross_AndSuction_Update(AndSuction* this) {
+void Andross_AndSuction_Update(EffectAndSuction* this) {
     s32 i;
     Item* item;
     Vec3f vec;
@@ -1686,7 +1686,7 @@ Gfx* sAndSuctionDLs[10] = {
     aAndSuctionJunkDL, aAndSuctionJunkDL, aAndSuctionJunkDL, aAwLeftWingDL,     aAwRightWingDL,
 };
 
-void Andross_AndSuction_Draw(AndSuction* this) {
+void Andross_AndSuction_Draw(EffectAndSuction* this) {
     if (this->state == 10) { // Smoke from an exploding bomb inside Andross
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
