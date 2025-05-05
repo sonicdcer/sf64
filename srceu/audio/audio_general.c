@@ -2310,7 +2310,7 @@ void Audio_PlayFanfare(u16 seqId, u8 bgmVolume, u8 bgmFadeoutTime, u8 bgmFadeinT
 void Audio_PlayDeathSequence(void) {
     u8 i;
 
-    if (sAudioSpecId == AUDIOSPEC_24) {
+    if (sAudioSpecId == AUDIOSPEC_MAP) {
         Audio_ClearVoice();
         Audio_PlayMapMenuSfx(0);
         AUDIO_PLAY_SFX(NA_SE_ARWING_EXPLOSION, gDefaultSfxSource, 4);
@@ -2496,7 +2496,7 @@ void Audio_RestartSeqPlayers(void) {
 
     if (sAudioSpecId == AUDIOSPEC_AQ) {
         fadeIn = 360;
-    } else if (sAudioSpecId < AUDIOSPEC_23) {
+    } else if (sAudioSpecId < AUDIOSPEC_TITLE) {
         fadeIn = 90;
     }
     Audio_StartSequence(SEQ_PLAYER_SFX, NA_BGM_SE, -1, fadeIn);
@@ -2514,11 +2514,11 @@ void Audio_RestartSeqPlayers(void) {
 }
 
 void Audio_StartReset(u8 oldSpecId) {
-    if (oldSpecId == AUDIOSPEC_16) {
-        if ((sAudioSpecId == AUDIOSPEC_22) || (sAudioSpecId == AUDIOSPEC_23)) {
+    if (oldSpecId == AUDIOSPEC_VS) {
+        if ((sAudioSpecId == AUDIOSPEC_OPENING) || (sAudioSpecId == AUDIOSPEC_TITLE)) {
             sAudioResetStatus = AUDIORESET_BLOCK;
         }
-    } else if ((oldSpecId == AUDIOSPEC_28) && (sAudioSpecId == AUDIOSPEC_23)) {
+    } else if ((oldSpecId == AUDIOSPEC_TR) && (sAudioSpecId == AUDIOSPEC_TITLE)) {
         sAudioResetStatus = AUDIORESET_BLOCK;
     } else {
         sAudioResetStatus = AUDIORESET_WAIT;

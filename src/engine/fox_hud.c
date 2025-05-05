@@ -118,8 +118,8 @@ Gfx sRadioDamageDL[] = {
 
 // Used in the status screen, and when losing a life
 void HUD_LivesCount1_Draw(f32 xPos, f32 yPos, s32 lifeCount) {
-    u8* sLifeIconTex[] = { aArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
-    u16* sLifeIconTLUT[] = { aArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
+    u8* sLifeIconTex[] = { aAwArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
+    u16* sLifeIconTLUT[] = { aAwArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
     Player* player;
     s32 lifeIconIdx;
     s32 maxLives;
@@ -551,15 +551,15 @@ s32 HUD_GetLevelIndex(void) {
 }
 
 LevelTitleCard sLevelTitleCard[] = {
-    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },  { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
-    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },  { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
-    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },  { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
-    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },  { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
-    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },  { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
-    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },  { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
-    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },  { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
-    { aLargeText_7, 16, 15, aVe1TitleCardTex, 128, 28 }, { aLargeText_7, 16, 15, aVe2TitleCardTex, 128, 28 },
-    { aLargeText_7, 16, 15, aAndTitleCardTex, 128, 28 }, { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
+    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },    { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
+    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },    { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
+    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },    { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
+    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },    { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
+    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },    { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
+    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },    { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
+    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },    { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
+    { aLargeText_7, 16, 15, aVe1TitleCardTex, 128, 28 },   { aLargeText_7, 16, 15, aVe2TitleCardTex, 128, 28 },
+    { aLargeText_7, 16, 15, aAndTitleCardEnTex, 128, 28 }, { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
 };
 
 void HUD_VenomTitleCard_Draw(void) {
@@ -921,8 +921,8 @@ void HUD_DrawLevelClearScreen(void) {
 
 // Used in gameplay hud
 void HUD_LivesCount2_Draw(f32 x, f32 y, s32 number) {
-    u8* sLivesCounterTexs[] = { aArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
-    u16* sLivesCounterTLUTs[] = { aArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
+    u8* sLivesCounterTexs[] = { aAwArwingLifeIconTex, aLandmasterLifeIconTex, aBlueMarineLifeIconTex };
+    u16* sLivesCounterTLUTs[] = { aAwArwingLifeIconTLUT, aLandmasterLifeIconTLUT, aBlueMarineLifeIconTLUT };
     Player* player = &gPlayer[0];
     f32 x0;
     f32 x1;
@@ -1689,7 +1689,7 @@ void HUD_PauseScreen_Update(void) {
                 }
 
                 if (gCurrentLevel == LEVEL_TRAINING) {
-                    Lib_TextureRect_IA8(&gMasterDisp, D_TR_6000000, 96, 12, x1, y1, 1.0f, 1.0f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aTrQuitTrainingEnTex, 96, 12, x1, y1, 1.0f, 1.0f);
                 } else {
                     if (gLifeCount[gPlayerNum]) {
                         Lib_TextureRect_IA8(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);
@@ -3533,8 +3533,8 @@ void HUD_BombCounter_Draw(f32 x, f32 y) {
         case 6:
             RCP_SetupDL(&gMasterDisp, SETUPDL_78);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            Lib_TextureRect_CI4(&gMasterDisp, D_blue_marine_3000090, D_blue_marine_3000120, 32, 9, x + 1.0f, y, 1.0f,
-                                1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, aBlueMarineBombCountTex, aBlueMarineBombCountTLUT, 32, 9, x + 1.0f, y,
+                                1.0f, 1.0f);
             break;
     }
 }
@@ -5208,9 +5208,9 @@ void Aquas_CsLevelStart(Player* player) {
 
                 if (((gGameFrameCount % 3) == 0) && (player->csTimer <= 740)) {
                     for (i = 0; i < 8; i++) {
-                        Aquas_Effect366_Spawn(player->cam.eye.x + RAND_FLOAT_CENTERED(D_800D22C4),
-                                              player->cam.eye.y + 260.0f + RAND_FLOAT_CENTERED(D_800D22C8),
-                                              player->cam.eye.z + RAND_FLOAT_CENTERED(D_800D22CC), 1.0f, 0);
+                        Aquas_Bubble_Spawn(player->cam.eye.x + RAND_FLOAT_CENTERED(D_800D22C4),
+                                           player->cam.eye.y + 260.0f + RAND_FLOAT_CENTERED(D_800D22C8),
+                                           player->cam.eye.z + RAND_FLOAT_CENTERED(D_800D22CC), 1.0f, 0);
                     }
                 }
             }
@@ -5300,9 +5300,8 @@ void Aquas_CsLevelStart(Player* player) {
                 AUDIO_PLAY_BGM(NA_BGM_STAGE_AQ);
             }
 
-            Aquas_Effect366_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
-                                  player->pos.y + RAND_FLOAT_CENTERED(10.0f),
-                                  player->pos.z - 65.0f + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
+            Aquas_Bubble_Spawn(player->pos.x + RAND_FLOAT_CENTERED(10.0f), player->pos.y + RAND_FLOAT_CENTERED(10.0f),
+                               player->pos.z - 65.0f + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
             break;
 
         default:
@@ -5994,9 +5993,9 @@ void Aquas_CsLevelComplete(Player* player) {
         src.y = 0.0f;
         src.z = -70.0f;
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-        Aquas_Effect366_Spawn(player->pos.x + dest.x + RAND_FLOAT_CENTERED(10.0f),
-                              player->pos.y + dest.y + RAND_FLOAT_CENTERED(10.0f),
-                              player->pos.z + dest.z + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
+        Aquas_Bubble_Spawn(player->pos.x + dest.x + RAND_FLOAT_CENTERED(10.0f),
+                           player->pos.y + dest.y + RAND_FLOAT_CENTERED(10.0f),
+                           player->pos.z + dest.z + RAND_FLOAT_CENTERED(10.0f), 0.4f, 1);
     }
 
     player->unk_178 += 20.0f;

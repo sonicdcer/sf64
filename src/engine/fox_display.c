@@ -368,7 +368,7 @@ void Display_LandmasterMuzzleFlash(Player* player) {
 }
 
 void Display_LandmasterThrusters(Player* player) {
-    f32 sp2C;
+    f32 thrusterScale;
 
     Matrix_Push(&gGfxMatrix);
     Matrix_Copy(gGfxMatrix, &D_display_80161418[player->num]);
@@ -382,14 +382,14 @@ void Display_LandmasterThrusters(Player* player) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     }
 
-    sp2C = player->unk_16C;
-    if (sp2C > 0.2f) {
+    thrusterScale = player->unk_16C;
+    if (thrusterScale > 0.2f) {
         if (!gVersusMode) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         if ((gGameFrameCount % 2) != 0) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         Matrix_Push(&gGfxMatrix);
@@ -399,26 +399,26 @@ void Display_LandmasterThrusters(Player* player) {
             Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         }
 
-        Matrix_Scale(gGfxMatrix, sp2C, sp2C, sp2C, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, thrusterScale, thrusterScale, thrusterScale, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (!gVersusMode) {
-            gSPDisplayList(gMasterDisp++, D_landmaster_30066B0);
+            gSPDisplayList(gMasterDisp++, aLandmasterThrusterDL);
         } else {
-            gSPDisplayList(gMasterDisp++, D_versus_301B6E0);
+            gSPDisplayList(gMasterDisp++, aVsLandmasterThrusterDL);
         }
         Matrix_Pop(&gGfxMatrix);
     }
 
-    sp2C = player->unk_170;
-    if (sp2C > 0.2f) {
+    thrusterScale = player->unk_170;
+    if (thrusterScale > 0.2f) {
         if (!gVersusMode) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         if ((gGameFrameCount % 2) != 0) {
-            sp2C *= 1.1f;
+            thrusterScale *= 1.1f;
         }
 
         Matrix_Push(&gGfxMatrix);
@@ -428,14 +428,14 @@ void Display_LandmasterThrusters(Player* player) {
             Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
         }
 
-        Matrix_Scale(gGfxMatrix, sp2C, sp2C, sp2C, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, thrusterScale, thrusterScale, thrusterScale, MTXF_APPLY);
         Matrix_Translate(gGfxMatrix, 0.0f, -30.0f, 0.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
 
         if (!gVersusMode) {
-            gSPDisplayList(gMasterDisp++, D_landmaster_30066B0);
+            gSPDisplayList(gMasterDisp++, aLandmasterThrusterDL);
         } else {
-            gSPDisplayList(gMasterDisp++, D_versus_301B6E0);
+            gSPDisplayList(gMasterDisp++, aVsLandmasterThrusterDL);
         }
         Matrix_Pop(&gGfxMatrix);
     }
@@ -570,15 +570,15 @@ void Display_ArwingWings(ArwingInfo* arwing) {
     }
 
     if (gGameState == GSTATE_PLAY) {
-        Animation_DrawSkeleton(1, D_arwing_3016610, gPlayer[0].jointTable, Display_ArwingWingsOverrideLimbDraw, NULL,
+        Animation_DrawSkeleton(1, aAwArwingSkel, gPlayer[0].jointTable, Display_ArwingWingsOverrideLimbDraw, NULL,
                                arwing, &gIdentityMatrix);
     } else {
         if (gGameState == GSTATE_MENU) {
-            Animation_GetFrameData(&D_arwing_3015AF4, 0, frameTable);
+            Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, frameTable);
         } else {
-            Animation_GetFrameData(&D_arwing_3015C28, 0, frameTable);
+            Animation_GetFrameData(&aAwWingsClosedAnim, 0, frameTable);
         }
-        Animation_DrawSkeleton(1, D_arwing_3016610, frameTable, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
+        Animation_DrawSkeleton(1, aAwArwingSkel, frameTable, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
                                &gIdentityMatrix);
     }
 
@@ -619,15 +619,17 @@ void Display_ArwingWings(ArwingInfo* arwing) {
         (gCurrentLevel == LEVEL_CORNERIA)) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 120);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_arwing_30194E0);
+        gSPDisplayList(gMasterDisp++, aAwCockpitGlassDL);
+
+        // Cloud reflexions in Corneria level intro cutscene.
         RCP_SetupDL_46();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 100);
-        gSPDisplayList(gMasterDisp++, D_arwing_30183D0);
+        gSPDisplayList(gMasterDisp++, aAwCockpitGlassCsDL);
     } else {
         RCP_SetupDL_46();
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 140);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_arwing_30194E0);
+        gSPDisplayList(gMasterDisp++, aAwCockpitGlassDL);
     }
 
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -647,7 +649,7 @@ void Display_CockpitGlass(void) {
     RCP_SetupDL_64_2();
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 120);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_arwing_30194E0);
+    gSPDisplayList(gMasterDisp++, aAwCockpitGlassDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Pop(&gGfxMatrix);
 }
@@ -795,7 +797,7 @@ void Display_PlayerShadow_Draw(Player* player) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_65);
             }
             if (!gVersusMode) {
-                gSPDisplayList(gMasterDisp++, D_landmaster_3008100);
+                gSPDisplayList(gMasterDisp++, aLandmasterShadowDL);
             } else {
                 gSPDisplayList(gMasterDisp++, D_versus_301E570);
             }
@@ -1866,7 +1868,7 @@ void Display_Update(void) {
     }
 
     if ((gCurrentLevel == LEVEL_AQUAS) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
-        Aquas_801AA20C();
+        Aquas_BlueMarineReticle_Draw();
     }
 
     if (((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) &&

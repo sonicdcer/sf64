@@ -60,8 +60,32 @@ s32 sItemDropIds[] = {
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
 f32 sItemDropRates[] = {
-    0.0f, 1.0f, 0.5f, 0.33f, 0.25f, 1.0f,  0.5f,  0.33f, 0.25f, 1.0f, 0.5f, 0.33f, 0.25f,
-    1.0f, 1.0f, 1.0f, 1.0f,  1.0f,  -1.0f, -1.0f, -1.0f, -1.0f, 0.1f, 1.0f, 1.0f,  1.0f,
+    /* OBJ_SCENERY_CO_STONE_ARCH */ 0.0f,
+    /* OBJ_ITEM_SILVER_RING */ 1.0f,
+    /* OBJ_ITEM_SILVER_RING */ 0.5f,
+    /* OBJ_ITEM_SILVER_RING */ 0.33f,
+    /* OBJ_ITEM_SILVER_RING */ 0.25f,
+    /* OBJ_ITEM_BOMB */ 1.0f,
+    /* OBJ_ITEM_BOMB */ 0.5f,
+    /* OBJ_ITEM_BOMB */ 0.33f,
+    /* OBJ_ITEM_BOMB */ 0.25f,
+    /* OBJ_ITEM_LASERS */ 1.0f,
+    /* OBJ_ITEM_LASERS */ 0.5f,
+    /* OBJ_ITEM_LASERS */ 0.33f,
+    /* OBJ_ITEM_LASERS */ 0.25f,
+    /* OBJ_ITEM_1UP */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ 1.0f,
+    /* OBJ_ITEM_GOLD_RING */ -1.0f,
+    /* OBJ_ITEM_LASERS */ -1.0f,
+    /* OBJ_ITEM_BOMB */ -1.0f,
+    /* OBJ_ITEM_SILVER_RING */ -1.0f,
+    /* OBJ_ITEM_SILVER_RING */ 0.1f,
+    /* OBJ_ITEM_WING_REPAIR */ 1.0f,
+    /* OBJ_SCENERY_CO_STONE */ 1.0f,
+    /* OBJ_ITEM_SILVER_STAR */ 1.0f,
 };
 
 Vec3f D_enmy_800CFEC4[] = {
@@ -1096,7 +1120,7 @@ void Object_Init(s32 index, ObjectId objId) {
         case OBJ_ACTOR_ZO_BARRIER:
             Zoness_ZoBarrier_Init(&gActors[index]);
             break;
-        case OBJ_EFFECT_368:
+        case OBJ_EFFECT_TANK_TRACKS:
             if (gCurrentLevel == LEVEL_TITANIA) {
                 Ground_801B6E20(gEffects[index].obj.pos.x, gEffects[index].obj.pos.z + gPathProgress, &xRot, &sp4C,
                                 &zRot);
@@ -1759,7 +1783,7 @@ void Actor_Despawn(Actor* this) {
             }
         }
 
-        if (this->itemDrop) { // can't be != 0
+        if (this->itemDrop) {
             if (sItemDropRates[this->itemDrop] < 0.0f) {
                 for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
                     if ((otherActor->obj.status != OBJ_FREE) && (otherActor->index != this->index) &&
@@ -2602,7 +2626,7 @@ void Object_Dying(s32 index, ObjectId objId) {
 
         case OBJ_ACTOR_ALLRANGE:
             if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
-                Andross_801888F4(&gActors[index]);
+                Andross_AndBrainEye_Dying(&gActors[index]);
             } else {
                 Actor_DyingCrash(&gActors[index]);
             }

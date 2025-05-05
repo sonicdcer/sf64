@@ -3542,7 +3542,7 @@ void Zoness_ZoBall_Draw(ZoBall* this) {
     gSPDisplayList(gMasterDisp++, aZoBallDL);
 }
 
-void Zoness_FlamePillar_Setup(Effect374* this, f32 xPos, f32 yPos, f32 zPos) {
+void Zoness_FlamePillar_Setup(EffectFlamePillar* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_FLAME_PILLAR;

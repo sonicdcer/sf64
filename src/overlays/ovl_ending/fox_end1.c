@@ -338,10 +338,10 @@ void Ending_80188030(s32 arg0) {
     }
 }
 
-s32 Ending_80188394(void) {
+s32 Ending_GralPepper_Animate(void) {
     s32 i;
     UnkStruct_196D08 sp14[2] = {
-        { (void*) D_END_70143C0,
+        { (void*) aEndAwardFrontLowResDL,
           NULL,
           17,
           { 0.0f, -3830.0f, -7000.0f },
@@ -351,8 +351,8 @@ s32 Ending_80188394(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_END_7018708,
-          D_END_70187B4,
+        { &aEndGralPepperSpeakAnim,
+          aEndGralPepperSkel,
           23,
           { 0.0f, -310.0f, -370.0f },
           { 0.0f, 0.0f, 0.0f },
@@ -419,8 +419,8 @@ s32 Ending_80188634(void) {
     return 0;
 }
 
-void Ending_801886F4(void) {
-    f32 temp = 142.0f;
+void Ending_IncomingMsg_Draw(void) {
+    f32 xOffsetPos = 142.0f;
 
     if (gCallTimer == 0) {
         return;
@@ -431,16 +431,20 @@ void Ending_801886F4(void) {
 
     switch ((D_ending_80196F90 % 8) / 2) {
         case 3:
-            Lib_TextureRect_CI4(&gMasterDisp, D_END_70110E0, D_END_70111B0, 16, 26, temp + 31.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, aEndIncomingMsgTex4, aEndIncomingMsgTex4TLUT, 16, 26, xOffsetPos + 31.0f,
+                                18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 2:
-            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010FF0, D_END_70110C0, 16, 26, temp + 24.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, aEndIncomingMsgTex3, aEndIncomingMsgTex3TLUT, 16, 26, xOffsetPos + 24.0f,
+                                18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 1:
-            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010F00, D_END_7010FD0, 16, 26, temp + 18.0f, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, aEndIncomingMsgTex2, aEndIncomingMsgTex2TLUT, 16, 26, xOffsetPos + 18.0f,
+                                18.0f, 1.0f, 1.0f);
             /* fallthrough */
         case 0:
-            Lib_TextureRect_CI4(&gMasterDisp, D_END_7010E10, D_END_7010EE0, 16, 26, temp, 18.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, aEndIncomingMsgTex1, aEndIncomingMsgTex1TLUT, 16, 26, xOffsetPos, 18.0f,
+                                1.0f, 1.0f);
     }
 }
 
@@ -495,7 +499,7 @@ void Ending_80188DB4(void) {
     s32 j;
     Vec3f sp1B4 = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp74[5] = {
-        { (void*) D_END_70111D0,
+        { (void*) aEndAwardBackLowResDL,
           NULL,
           17,
           { 0.0f, -2960.0f, -6600.0f },
@@ -951,7 +955,7 @@ void Ending_8018A570(void) {
             break;
 
         case 5:
-            Ending_80188394();
+            Ending_GralPepper_Animate();
             gFillScreenAlphaTarget = 0;
             D_ending_8019858C = 0;
             D_ending_80196F8C = 6;
@@ -1007,7 +1011,7 @@ void Ending_8018A828(void) {
             D_ending_80196F88 = 4;
             Ending_80187860(1, 0);
             Ending_801888F4();
-            Ending_801886F4();
+            Ending_IncomingMsg_Draw();
             break;
     }
 }
@@ -1504,9 +1508,13 @@ void Ending_8018B860(void) {
     Play_ClearObjectData();
 
     Ending_8018B3E8(&gActors[0], 0);
-    Ending_8018B52C(&gActors[1], 0);
-    Ending_8018B52C(&gActors[2], 1);
-    Ending_8018B52C(&gActors[3], 2);
+
+    // Buildings
+    Ending_8018B52C(&gActors[1], 0); // left
+    Ending_8018B52C(&gActors[2], 1); // right near
+    Ending_8018B52C(&gActors[3], 2); // right far
+
+    // Cornerian fighters
     Ending_8018B6D8(&gActors[4], 0);
     Ending_8018B6D8(&gActors[5], 1);
     Ending_8018B6D8(&gActors[6], 2);
@@ -1738,7 +1746,7 @@ void Ending_8018C21C(void) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_17);
         Matrix_Translate(gGfxMatrix, 0.0f, -1200.0f, -6000.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_END_700C8B0);
+        gSPDisplayList(gMasterDisp++, aEndCorneriaBackdropDL);
         Matrix_Pop(&gGfxMatrix);
     } else {
         Matrix_Push(&gGfxMatrix);
@@ -1746,11 +1754,18 @@ void Ending_8018C21C(void) {
         Matrix_Translate(gGfxMatrix, -2000.0f, -3000.0f, 3000.0f, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, 110.0f * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_END_700C8B0);
+        gSPDisplayList(gMasterDisp++, aEndCorneriaBackdropDL);
         Matrix_Pop(&gGfxMatrix);
     }
 
     Matrix_Push(&gGfxMatrix);
+
+    // Actors
+    // 0 Great Fox
+    // 1 Building on the left
+    // 2 building on the right near
+    // 3 building on the right far
+    // 4 5 6 7 8 9 cornerian ships
 
     for (i = ARRAY_COUNT(gActors) - 1; i >= 0; i--) {
         if (gActors[i].obj.status != OBJ_FREE) {
@@ -1787,7 +1802,7 @@ void Ending_8018C21C(void) {
                             Matrix_Scale(gGfxMatrix, scale->x, scale->y, scale->z, MTXF_APPLY);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_END_7010970);
+                            gSPDisplayList(gMasterDisp++, aEndOrbDL);
                             Matrix_Pop(&gGfxMatrix);
                             Matrix_Push(&gGfxMatrix);
                             scale = &spF4[gGameFrameCount % 2];
@@ -1795,7 +1810,7 @@ void Ending_8018C21C(void) {
                             Matrix_Scale(gGfxMatrix, scale->x, scale->y, scale->z, MTXF_APPLY);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_END_7010970);
+                            gSPDisplayList(gMasterDisp++, aEndOrbDL);
                             Matrix_Pop(&gGfxMatrix);
                         }
                     } else {
@@ -1820,7 +1835,7 @@ void Ending_8018C21C(void) {
                     Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_END_700F240);
+                    gSPDisplayList(gMasterDisp++, aEndBuilding1DL);
                     break;
 
                 case 2:
@@ -1832,7 +1847,7 @@ void Ending_8018C21C(void) {
                     Matrix_RotateX(gGfxMatrix, gActors[i].obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, gActors[i].obj.rot.z * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_END_700F320);
+                    gSPDisplayList(gMasterDisp++, aEndBuilding2DL);
                     break;
 
                 case 3:
@@ -1853,7 +1868,7 @@ void Ending_8018C21C(void) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 1.0f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_END_7010970);
+                    gSPDisplayList(gMasterDisp++, aEndOrbDL);
                     Matrix_Pop(&gGfxMatrix);
                     spE4 = gActors[i].fwork[1];
                     RCP_SetupDL(&gMasterDisp, SETUPDL_41);
@@ -1884,7 +1899,7 @@ void Ending_8018C21C(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_END_700C620);
+                    gSPDisplayList(gMasterDisp++, aEndShipSkywritingDL);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, -70.0f, 0.0f, -100.0f, MTXF_APPLY);
@@ -1892,7 +1907,7 @@ void Ending_8018C21C(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -17.5f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_END_700C620);
+                    gSPDisplayList(gMasterDisp++, aEndShipSkywritingDL);
                     Matrix_Pop(&gGfxMatrix);
                     break;
             }

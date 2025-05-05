@@ -1019,7 +1019,7 @@ EventActorInfo sEventActorInfo[108] = {
     /* EVID_SY_LASER_TURRET */ { aSyLaserTurretDL, aSyLaserTurretHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 1.0f, 1 },
     /* EVID_SY_SHIP_DESTROYED */ { aSyShip3DestroyedDL, aSyShip3DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_SY_DEBRIS */ { aSyDebrisDL, gNoHitbox, 4.0f, 100.0f, 3000.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
-    /* EVID_ITEM_WING_REPAIR */ { aArwingItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
+    /* EVID_ITEM_WING_REPAIR */ { aAwItemLasersDL, gNoHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_OB_WING, 0, 0.0f, 1 },
     /* EVID_SY_SHIP_WINDOWS */ { aSyShipWindowsDL, aSyShipWindowsHitbox, 3.0f, 100.0f, 3000.0f, 1, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_SY_SHIP_4 */ { aSyShip4DL, aSyShip4Hitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_SY_SHIP_4_DESTROYED */ { aSyShip4DestroyedDL, aSyShip4DestroyedHitbox, -1.0f, 10000.0f, 3001.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
@@ -1666,7 +1666,7 @@ void ActorEvent_FlamePillar_Spawn(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-void ActorEvent_SetupTIMine(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
+void ActorEvent_TiLandmine_Setup(TiLandmine* actor, f32 xPos, f32 yPos, f32 zPos) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_INIT;
     actor->obj.id = OBJ_ACTOR_TI_LANDMINE;
@@ -1680,12 +1680,12 @@ void ActorEvent_SetupTIMine(Actor* actor, f32 xPos, f32 yPos, f32 zPos) {
     AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, actor->sfxSource, 4);
 }
 
-void ActorEvent_SpawnTIMine(f32 xPos, f32 yPos, f32 zPos) {
+void ActorEvent_TiLandmine_Spawn(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            ActorEvent_SetupTIMine(&gActors[i], xPos, yPos, zPos);
+            ActorEvent_TiLandmine_Setup(&gActors[i], xPos, yPos, zPos);
             break;
         }
     }
@@ -1762,7 +1762,7 @@ void Actor_SpawnGreatFoxLaser(s32 actorId, f32 xPos, f32 yPos, f32 zPos, f32 xVe
     }
 }
 
-void ActorEvent_SetupPinkExplosion(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_PinkExplosion_Setup(EffectPinkExplosion* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_PINK_EXPLOSION;
@@ -1777,18 +1777,18 @@ void ActorEvent_SetupPinkExplosion(Effect* effect, f32 xPos, f32 yPos, f32 zPos,
     Effect_TimedSfx_Spawn(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
-void ActorEvent_SpawnPinkExplosion(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_PinkExplosion_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_SetupPinkExplosion(&gEffects[i], xPos, yPos, zPos, scale1);
+            ActorEvent_PinkExplosion_Setup(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
 }
 
-void ActorEvent_SetupEffect394(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_Effect394_Setup(Effect394* effect, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_394;
@@ -1806,12 +1806,12 @@ void ActorEvent_SetupEffect394(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32
     Effect_TimedSfx_Spawn(&effect->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
-void ActorEvent_SpawnEffect394(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void ActorEvent_Effect394_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            ActorEvent_SetupEffect394(&gEffects[i], xPos, yPos, zPos, scale1);
+            ActorEvent_Effect394_Setup(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -1938,18 +1938,18 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
 
         case EVACT_EXPLODE_LARGE:
             if (gCurrentLevel == LEVEL_AQUAS) {
-                ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
+                ActorEvent_Effect394_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 12.0f);
             } else {
-                ActorEvent_SpawnPinkExplosion(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                ActorEvent_PinkExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             }
             Object_Kill(&this->obj, this->sfxSource);
             break;
 
         case EVACT_EXPLODE_SMALL:
             if (gCurrentLevel == LEVEL_AQUAS) {
-                ActorEvent_SpawnEffect394(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
+                ActorEvent_Effect394_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 6.0f);
             } else {
-                ActorEvent_SpawnPinkExplosion(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
+                ActorEvent_PinkExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
             }
             Object_Kill(&this->obj, this->sfxSource);
             break;
@@ -1975,7 +1975,7 @@ void ActorEvent_ProcessActions(ActorEvent* this) {
                 Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 0.0f, 0.2f, 8.0f, 0.01f);
             }
             if (this->timer_0BE == 30) {
-                ActorEvent_SpawnTIMine(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
+                ActorEvent_TiLandmine_Spawn(this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z);
             }
             if (this->timer_0BE == 0) {
                 this->work_048 = EVACT_NONE;
@@ -3764,9 +3764,9 @@ void ActorEvent_Update(ActorEvent* this) {
                         this->animFrame = 49;
                     }
                     if ((gGameFrameCount % 2) != 0) {
-                        Aquas_Effect366_Spawn(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
-                                              RAND_FLOAT(50.0f) + this->obj.pos.y,
-                                              RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
+                        Aquas_Bubble_Spawn(RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.x,
+                                           RAND_FLOAT(50.0f) + this->obj.pos.y,
+                                           RAND_FLOAT_CENTERED(100.0f) + this->obj.pos.z, 1.0f, 0);
                     }
                 }
                 this->timer_0C2 = 10000;
@@ -3791,7 +3791,7 @@ void ActorEvent_Update(ActorEvent* this) {
 
         case EVID_ANDROSS_GATE:
         case EVID_ANDROSS_GATE_2:
-            Andross_80187530(this);
+            Andross_EvAndrossGate_Update(this);
             break;
 
         case EVID_KILLER_BEE:

@@ -368,7 +368,7 @@ void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     }
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_END_7010970);
+    gSPDisplayList(gMasterDisp++, aEndOrbDL);
 }
 
 void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
@@ -428,10 +428,10 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_END_7010970);
+    gSPDisplayList(gMasterDisp++, aEndOrbDL);
 }
 
-void Ending_8018EDB8(u32 arg0, AssetInfo* asset) {
+void Ending_Floor_Draw(u32 arg0, AssetInfo* asset) {
     f32 temp;
 
     gStarCount = 0;
@@ -462,11 +462,11 @@ void Ending_8018EDB8(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gDPLoadTextureBlock(gMasterDisp++, D_END_700EA38, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_WRAP | G_TX_NOMIRROR,
+    gDPLoadTextureBlock(gMasterDisp++, aEndFloorTex, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, G_TX_WRAP | G_TX_NOMIRROR,
                         G_TX_WRAP | G_TX_NOMIRROR, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
     gDPSetupTile(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, arg0 * 14, 0, G_TX_NOMIRROR | G_TX_WRAP,
                  G_TX_NOMIRROR | G_TX_WRAP, 5, 5, G_TX_NOLOD, G_TX_NOLOD);
-    gSPDisplayList(gMasterDisp++, D_END_700E9E0);
+    gSPDisplayList(gMasterDisp++, aEndFloorDL);
 }
 
 void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
@@ -567,7 +567,7 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
                  MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_END_7010970);
+    gSPDisplayList(gMasterDisp++, aEndOrbDL);
 }
 
 void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
@@ -634,7 +634,7 @@ void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
                  MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_END_7010970);
+    gSPDisplayList(gMasterDisp++, aEndOrbDL);
 }
 
 void Ending_80190274(u32 arg0, AssetInfo* asset) {
@@ -666,7 +666,7 @@ void Ending_80190274(u32 arg0, AssetInfo* asset) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_END_7004240);
+    gSPDisplayList(gMasterDisp++, aEndCorneriaDL);
 }
 
 void Ending_80190648(s32 arg0, AssetInfo* asset) {
@@ -680,7 +680,7 @@ void Ending_80190648(s32 arg0, AssetInfo* asset) {
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_END_7002120);
+    gSPDisplayList(gMasterDisp++, aEndVenomDL);
 }
 
 void Ending_80190778(u32 arg0, AssetInfo* asset) {
@@ -804,7 +804,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     }
 
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_END_7000000);
+    gSPDisplayList(gMasterDisp++, aEndAndrossFaceDL);
 }
 
 void Ending_80191234(u32 arg0, AssetInfo* asset) {

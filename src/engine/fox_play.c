@@ -503,9 +503,9 @@ void Play_Setup(void) {
 }
 
 Environment* D_800D2F98[21] = {
-    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120,      &D_A6_6023F20, &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
-    &D_SO_601F1F0, &D_ZO_60266D0, &D_ANDROSS_C035110, &D_TR_6006A60, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
-    &D_FO_600EA90, NULL,          &D_KA_6011000,      &D_BO_600FF30, &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
+    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120,    &D_A6_6023F20,   &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
+    &D_SO_601F1F0, &D_ZO_60266D0, &aAndEnvSettings, &aTrEnvSettings, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
+    &D_FO_600EA90, NULL,          &D_KA_6011000,    &D_BO_600FF30,   &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
 };
 
 void Play_InitEnvironment(void) {
@@ -2563,7 +2563,7 @@ void Play_InitLevel(void) {
         case LEVEL_VENOM_ANDROSS:
             gDrawGround = false;
             gDrawBackdrop = 6;
-            D_Andross_801A7F58 = D_Andross_801A7F60 = D_Andross_801A7F68 = D_Andross_801A7F70 = D_Andross_801A7F78 =
+            D_Andross_801A7F58 = D_Andross_801A7F60 = gAndrossPassageZRot = D_Andross_801A7F70 = D_Andross_801A7F78 =
                 0.0f;
             break;
 
@@ -2864,9 +2864,9 @@ void Play_Init(void) {
             case LEVEL_VENOM_ANDROSS:
                 if (gLevelPhase == 1) {
                     if (gAllRangeCheckpoint == 0) {
-                        Andross_801878A8();
+                        Andross_Ve2LoadLevelObjects();
                     } else {
-                        Andross_801961AC();
+                        Andross_EscapePhase_Setup();
                     }
                 }
                 break;
@@ -4786,14 +4786,14 @@ void Player_Setup(Player* playerx) {
 
     if ((player->form == FORM_ARWING) && !gVersusMode) {
         switch (player->wingPosition) {
-            case 0:
-                Animation_GetFrameData(&D_arwing_3015AF4, 0, player->jointTable);
+            case 0: // Wings half open, for LEVELTYPE_PLANET
+                Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, player->jointTable);
                 break;
-            case 1:
-                Animation_GetFrameData(&D_arwing_3015C28, 0, player->jointTable);
+            case 1: // Wings closed, for LEVELTYPE_SPACE
+                Animation_GetFrameData(&aAwWingsClosedAnim, 0, player->jointTable);
                 break;
-            case 2:
-                Animation_GetFrameData(&D_arwing_30163C4, 0, player->jointTable);
+            case 2: // Wings opened, for LEVELMODE_ALL_RANGE
+                Animation_GetFrameData(&aAwWingsOpenAnim, 0, player->jointTable);
                 break;
         }
     }
@@ -5757,13 +5757,13 @@ void Player_Update(Player* player) {
     if ((player->state > PLAYERSTATE_INIT) && (player->form == FORM_ARWING) && !gVersusMode) {
         switch (player->wingPosition) {
             case 0:
-                sp1C4 = Animation_GetFrameData(&D_arwing_3015AF4, 0, sp58);
+                sp1C4 = Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, sp58);
                 break;
             case 1:
-                sp1C4 = Animation_GetFrameData(&D_arwing_3015C28, 0, sp58);
+                sp1C4 = Animation_GetFrameData(&aAwWingsClosedAnim, 0, sp58);
                 break;
             case 2:
-                sp1C4 = Animation_GetFrameData(&D_arwing_30163C4, 0, sp58);
+                sp1C4 = Animation_GetFrameData(&aAwWingsOpenAnim, 0, sp58);
                 break;
         }
         Math_SmoothStepToVec3fArray(sp58, player->jointTable, 1, sp1C4, 0.1f, 1.3f, 0.0f);
@@ -5917,7 +5917,7 @@ void Player_Update(Player* player) {
             break;
 
         case PLAYERSTATE_ANDROSS_MOUTH:
-            Andross_8018C390(player);
+            Andross_AbsorbArwing(player);
             Player_UpdateShields(player);
             break;
 

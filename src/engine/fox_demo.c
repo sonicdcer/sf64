@@ -1313,7 +1313,7 @@ void Cutscene_LevelComplete(Player* player) {
     switch (player->form) {
         case FORM_ARWING:
             if ((gCurrentLevel == LEVEL_VENOM_ANDROSS) || ((gCurrentLevel == LEVEL_VENOM_2) && (gLevelPhase == 1))) {
-                Andross_80193C4C(player);
+                Andross_LevelComplete(player);
             } else if (gCurrentLevel == LEVEL_SECTOR_X) {
                 if (gLevelPhase == 0) {
                     SectorX_LevelComplete(player);
@@ -2325,7 +2325,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
 
                 case LEVEL_VENOM_ANDROSS:
                 case LEVEL_VENOM_2:
-                    Andross_80195E44(this);
+                    Andross_ArwingEscape_Update(this);
                     break;
 
                 case LEVEL_KATINA:
@@ -2862,7 +2862,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case ACTOR_CS_AQ_SEAWEED:
-            Animation_GetFrameData(&aAqSeaweedAnim, this->iwork[0], this->vwork);
+            Animation_GetFrameData(&aAqSeaweedAnim1, this->iwork[0], this->vwork);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             Animation_DrawSkeleton(1, aAqSeaweedSkel, this->vwork, 0, 0, &this->index, &gIdentityMatrix);
             gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -2898,7 +2898,7 @@ void Cutscene_DrawGreatFox(void) {
     if (gGameState == GSTATE_TITLE) {
         dList = aTitleArwingEngineGlowDL;
     } else if (gGameState == GSTATE_ENDING) {
-        dList = D_END_7010970;
+        dList = aEndOrbDL;
     } else {
         dList = aOrbDL;
     }

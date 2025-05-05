@@ -416,7 +416,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_RotateZ(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * 1.5f)) * M_DTOR,
                                            MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
-                            gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
+                            gSPDisplayList(gMasterDisp++, aAndBackdropDL);
                             Matrix_Pop(&gGfxMatrix);
 
                             if (gDrawBackdrop != 5) {
@@ -425,7 +425,7 @@ void Background_DrawBackdrop(void) {
                                 Matrix_RotateZ(gGfxMatrix, (gPlayer[0].camRoll + (gGameFrameCount * -1.3f)) * M_DTOR,
                                                MTXF_APPLY);
                                 Matrix_SetGfxMtx(&gMasterDisp);
-                                gSPDisplayList(gMasterDisp++, D_ANDROSS_C039208);
+                                gSPDisplayList(gMasterDisp++, aAndBackdropDL);
                                 Matrix_Pop(&gGfxMatrix);
                             }
                         }
@@ -630,7 +630,7 @@ void Background_DrawBackdrop(void) {
                             Matrix_SetGfxMtx(&gMasterDisp);
                             RCP_SetupDL_62();
                             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
-                            gSPDisplayList(gMasterDisp++, D_TR_6003760);
+                            gSPDisplayList(gMasterDisp++, aTrBackdropDL);
                             break;
 
                         case LEVEL_AREA_6:
@@ -1054,14 +1054,14 @@ void Background_DrawGround(void) {
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -3000.0f + gPathTexScroll, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_TR_6005880);
+                gSPDisplayList(gMasterDisp++, aTrGroundDL);
                 Matrix_Pop(&gGfxMatrix);
                 if (1) {}
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 3000.0f + gPathTexScroll, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.5f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_TR_6005880);
+                gSPDisplayList(gMasterDisp++, aTrGroundDL);
                 Matrix_Pop(&gGfxMatrix);
             } else {
                 for (i = 0; i < ARRAY_COUNT(sGroundPositions360x); i++) {
@@ -1069,7 +1069,7 @@ void Background_DrawGround(void) {
                     Matrix_Translate(gGfxMatrix, sGroundPositions360x[i], 0.0f, sGroundPositions360z[i], MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.0f, 1.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_TR_6005880);
+                    gSPDisplayList(gMasterDisp++, aTrGroundDL);
                     Matrix_Pop(&gGfxMatrix);
                 }
             }
