@@ -386,138 +386,123 @@ void AudioSynth_HartleyTransform(f32* arg0, s32 arg1, f32* arg2) {
 #pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/audio/audio_synthesis/AudioSynth_HartleyTransform.s")
 #endif
 
-// https://decomp.me/scratch/TZQNS
-#ifdef NON_MATCHING
 void func_80009124(s16** arg0) {
-    s16* var_a1;
-    s32 temp_a0;
-    u8 temp_s0;
-    u8 temp_s1;
+    s16* bufPtr;
+    s32 shiftFactor;
+    s32 mode;
+    u8 blockHeader;
     u8 temp_u1;
-    s32 temp_t5_4;
-    s32 temp_v0;
-    u8 temp_v1;
-    s32 var_s1;
-    s32 var_t2;
-    s32 var_v1;
-    u16 var_s0;
-    u32 var_t3;
+    s32 headerPart;
+    s32 block;
+    s32 decodedBufIndex;
+    u16 bufValue;
+    u32 header;
     s32 i;
     s32 j;
-    s16 new_var2;
 
-    var_a1 = *arg0;
+    bufPtr = *arg0;
 
-    for (i = 255; i >= 0; i--) {
-        D_80145D48[i] = 0.0f;
+    for (decodedBufIndex = 255; decodedBufIndex >= 0; decodedBufIndex--) {
+        D_80145D48[decodedBufIndex] = 0.0f;
     }
-    temp_v0 = *var_a1++;
-    var_t3 = temp_v0 << 0x10;
-    temp_v0 = *var_a1++;
-    var_t3 |= temp_v0;
+    headerPart = *bufPtr++;
+    header = headerPart << 0x10;
+    headerPart = *bufPtr++;
+    header |= headerPart;
 
-    for (var_t2 = 0; var_t2 < 4; var_t2++) {
-        var_v1 = var_t2 * 0x40;
-        temp_s0 = var_t3 >> 0x18;
-
-        var_t3 <<= 8;
-
-        temp_v1 = ((temp_s0 >> 4) & 0xF);
-        temp_a0 = temp_s0 & 0xF;
-        if (temp_v1 == 0) {
+    for (block = 0; block < 4; block++) {
+        decodedBufIndex = block * 0x40;
+        blockHeader = (header >> 0x18) & 0xFF;
+        header <<= 8;
+        mode = ((blockHeader >> 4) & 0xF);
+        if (mode == 0) {
             continue;
         }
-        switch (temp_v1) {
+        shiftFactor = blockHeader & 0xF;
+        switch (mode) {
             case 1:
                 while (true) {
-                    var_s0 = *var_a1++;
-                    for (var_s1 = 0; var_s1 < 4; var_s1++) {
-                        temp_u1 = (var_s0 >> 0xC) & 0xF;
-                        var_s0 <<= 4;
-                        D_80145D48[var_v1++] = ((temp_u1 & 7) - 4) << temp_a0;
+                    bufValue = *bufPtr++;
+                    for (i = 0; i < 4; i++) {
+                        temp_u1 = (bufValue >> 0xC) & 0xF;
+                        bufValue <<= 4;
+                        D_80145D48[(u32)decodedBufIndex++] = ((temp_u1 & 7) - 4) << shiftFactor;
                         if (temp_u1 >= 8) {
                             goto case_1_break;
                         }
                     }
                 }
             case_1_break:
-                break;
+                continue;
             case 2:
-                for (var_s1 = 0; var_s1 < 16; var_s1++) {
-                    var_s0 = *var_a1++;
-                    for (i = 0; i < 4; i++) {
-                        temp_u1 = (var_s0 >> 0xC) & 0xF;
-                        var_s0 <<= 4;
-                        D_80145D48[var_v1++] = (temp_u1 - 8) << temp_a0;
+                for (i = 0; i < 16; i++) {
+                    bufValue = *bufPtr++;
+                    for (j = 0; j < 4; j++) {
+                        temp_u1 = (bufValue >> 0xC) & 0xF;
+                        bufValue <<= 4;
+                        D_80145D48[decodedBufIndex++] = (temp_u1 - 8) << shiftFactor;
                     }
                 }
                 break;
             case 6:
                 while (true) {
-                    var_s0 = *var_a1++;
-                    temp_u1 = (var_s0 >> 8) & 0xFF;
-                    temp_t5_4 = temp_u1 >> 6;
-                    D_80145D48[var_v1] = ((temp_u1 & 0x3F) - 0x20) << temp_a0;
-                    if (temp_t5_4 == 0) {
+                    bufValue = *bufPtr++;
+                    temp_u1 = (bufValue >> 8) & 0xFF;
+                    D_80145D48[decodedBufIndex] = ((temp_u1 & 0x3F) - 0x20) << shiftFactor;
+                    if (temp_u1 >> 6 == 0) {
                         break;
                     }
-                    var_v1 += temp_t5_4;
-                    temp_u1 = var_s0 & 0xFF;
-                    temp_t5_4 = temp_u1 >> 6;
-                    D_80145D48[var_v1] = ((temp_u1 & 0x3F) - 0x20) << temp_a0;
-                    if (temp_t5_4 == 0) {
+                    decodedBufIndex += temp_u1 >> 6;
+                    temp_u1 = bufValue & 0xFF;
+                    D_80145D48[decodedBufIndex] = ((temp_u1 & 0x3F) - 0x20) << shiftFactor;
+                    if (temp_u1 >> 6 == 0) {
                         break;
                     }
-                    var_v1 += temp_t5_4;
+                    decodedBufIndex += temp_u1 >> 6;
                 }
                 break;
             case 3:
                 while (true) {
-                    var_s0 = *var_a1++;
-                    temp_u1 = (var_s0 >> 8) & 0xFF;
+                    bufValue = *bufPtr++;
+                    temp_u1 = (bufValue >> 8) & 0xFF;
 
-                    D_80145D48[var_v1++] = ((temp_u1 & 0x7F) - 0x40) << temp_a0;
+                    D_80145D48[decodedBufIndex++] = ((temp_u1 & 0x7F) - 0x40) << shiftFactor;
 
                     if (temp_u1 >= 0x80) {
                         break;
                     }
-                    temp_u1 = var_s0 & 0xFF;
-                    D_80145D48[var_v1++] = ((temp_u1 & 0x7F) - 0x40) << temp_a0;
+                    temp_u1 = bufValue & 0xFF;
+                    D_80145D48[decodedBufIndex++] = ((temp_u1 & 0x7F) - 0x40) << shiftFactor;
                     if (temp_u1 >= 0x80) {
                         break;
                     }
                 }
-                break;
+                continue;
             case 4:
                 while (true) {
-                    var_s0 = *var_a1++;
-                    temp_t5_4 = var_s0 >> 0xC;
-                    D_80145D48[var_v1] = ((var_s0 & 0xFFF) - 0x800) << temp_a0;
-                    if (temp_t5_4 == 0) {
+                    bufValue = *bufPtr++;
+                    D_80145D48[decodedBufIndex] = ((bufValue & 0xFFF) - 0x800) << shiftFactor;
+                    if (bufValue >> 0xC == 0) {
                         break;
                     }
-                    var_v1 += temp_t5_4;
+                    decodedBufIndex += bufValue >> 0xC;
                 }
                 break;
             case 5:
                 while (true) {
-                    var_s0 = *var_a1++;
-                    temp_t5_4 = var_s0 >> 0xF;
-                    D_80145D48[var_v1] = ((var_s0 & 0x7FFF) - 0x4000) << temp_a0;
-                    if (temp_t5_4 == 1) {
+                    bufValue = *bufPtr++;
+                    D_80145D48[decodedBufIndex] = ((bufValue & 0x7FFF) - 0x4000) << shiftFactor;
+                    if (bufValue >> 0xF == 1) {
                         break;
                     }
-                    var_v1++;
+                    decodedBufIndex++;
                 }
                 break;
         }
+        if (decodedBufIndex) {}
     }
-    *arg0 = var_a1;
+    *arg0 = bufPtr;
 }
-#else
-void func_80009124(s16** arg0);
-#pragma GLOBAL_ASM("asm/us/rev1/nonmatchings/audio/audio_synthesis/func_80009124.s")
-#endif
 
 void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
     s32 i;
