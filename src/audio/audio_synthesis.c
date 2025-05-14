@@ -426,7 +426,7 @@ void func_80009124(s16** arg0) {
                     for (i = 0; i < 4; i++) {
                         temp_u1 = (bufValue >> 0xC) & 0xF;
                         bufValue <<= 4;
-                        D_80145D48[(u32)decodedBufIndex++] = ((temp_u1 & 7) - 4) << shiftFactor;
+                        D_80145D48[(u32) decodedBufIndex++] = ((temp_u1 & 7) - 4) << shiftFactor;
                         if (temp_u1 >= 8) {
                             goto case_1_break;
                         }
