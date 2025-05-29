@@ -1676,6 +1676,18 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
             break;
     }
 }
+extern int validVis;
+void* my_memcpy(void* dest, const void* src, size_t n);
+extern u8 Recording[512];
+extern int sCutsceneStarted;
+
+typedef struct Record {
+    u8 vis;
+    u16 frame;
+} Record;
+
+Record sNewRecord[256] = { 0 };
+u32 recordCount = 0;
 
 void Display_Update(void) {
     s32 i;
@@ -1912,4 +1924,83 @@ void Display_Update(void) {
     Display_DrawHelpAlert();
     sPlayersVisible[gPlayerNum] = false;
     Matrix_Pop(&gGfxMatrix);
+
+    {
+        Player* player = gPlayer;
+        static s32 prevSpeed;
+        static bool debugFreeze = false;
+        static bool displayFrames = false;
+
+        if (gControllerPress[0].button & L_JPAD) {
+            player->baseSpeed -= 50;
+        } else if (gControllerPress[0].button & R_JPAD) {
+            player->baseSpeed += 50;
+        }
+
+        if (gControllerPress[0].button & U_JPAD) {
+            player->state = PLAYERSTATE_START_360;
+        }
+
+        if ((!debugFreeze) && (gControllerPress[0].button & D_JPAD)) {
+            prevSpeed = player->baseSpeed;
+            player->baseSpeed = 0;
+            debugFreeze = true;
+        } else if ((debugFreeze) && (gControllerPress[0].button & D_JPAD)) {
+            player->baseSpeed = prevSpeed;
+            debugFreeze = false;
+        }
+
+        if (gControllerPress[0].button & R_CBUTTONS) {
+            displayFrames ^= 1;
+        }
+
+        if (displayFrames) {
+            RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+            Graphics_DisplaySmallText(30 + 210, 180, 1.0f, 1.0f, "VIS:");
+            Graphics_DisplaySmallNumber(60 + 210, 180, (int) validVis);
+            Graphics_DisplaySmallText(10 + 210, 190, 1.0f, 1.0f, "CSFMS:");
+            Graphics_DisplaySmallNumber(60 + 210, 190, (int) gCsFrameCount);
+            Graphics_DisplaySmallText(10 + 210, 200, 1.0f, 1.0f, "PLTIM:");
+            Graphics_DisplaySmallNumber(60 + 210, 200, (int) player->csTimer);
+        }
+    }
+
+#if 0
+    if (gControllerPress[0].button & L_TRIG) {
+        gSaveFile = *((SaveFile*) &Recording);
+        Save_Write();
+    }
+
+    if (sCutsceneStarted && (gCsFrameCount >= 500) && gCsFrameCount < (512 + 500)) {
+        // Recording[gCsFrameCount].frame = gCsFrameCount;
+        Recording[gCsFrameCount - 500] = validVis;
+        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+        Graphics_DisplaySmallText(210, 170, 1.0f, 1.0f, "RECORDING");
+    }
+#else
+#if 1
+    if (gControllerPress[0].button & L_TRIG) {
+        gSaveFile = *((SaveFile*) &sNewRecord);
+        Save_Write();
+    }
+
+    if (sCutsceneStarted && recordCount < 512 / sizeof(Record)) {
+        static u8 prevVis = 0;
+
+        if (prevVis != validVis) {
+            sNewRecord[recordCount].vis = validVis;
+            sNewRecord[recordCount].frame = (u16) gCsFrameCount;
+            recordCount++;
+            prevVis = validVis;
+        }
+
+        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+        Graphics_DisplaySmallText(210, 190, 1.0f, 1.0f, "RECORDING");
+    }
+#endif
+
+#endif
 }

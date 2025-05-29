@@ -237,7 +237,7 @@ void Timer_ThreadEntry(void* arg0) {
         Timer_CompleteTask(sp24);
     }
 }
-
+int validVis = 0;
 void Graphics_ThreadEntry(void* arg0) {
     u8 i;
     u8 visPerFrame;
@@ -291,7 +291,7 @@ void Graphics_ThreadEntry(void* arg0) {
         Fault_SetFrameBuffer(&gFrameBuffers[(gSysFrameCount - 1) % 3], SCREEN_WIDTH, 16);
 
         visPerFrame = MIN(gVIsPerFrame, 4);
-        validVIsPerFrame = MAX(visPerFrame, gGfxVImesgQueue.validCount + 1);
+        validVis = validVIsPerFrame = MAX(visPerFrame, gGfxVImesgQueue.validCount + 1);
         for (i = 0; i < validVIsPerFrame; i += 1) { // Can't be ++
             MQ_WAIT_FOR_MESG(&gGfxVImesgQueue, NULL);
         }

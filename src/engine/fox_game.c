@@ -64,7 +64,7 @@ void Game_Initialize(void) {
 #else
         gSaveFile = *((SaveFile*) &gDefaultSave);
 #endif
-        Save_Write();
+     //   Save_Write();
     }
 #endif
     gNextGameStateTimer = 0;
@@ -393,7 +393,7 @@ void Game_Update(void) {
 #else
                     gSaveFile = *((SaveFile*) &gDefaultSave);
 #endif
-                    Save_Write();
+            //        Save_Write();
                 }
                 gGameState++;
                 Timer_CreateTask(MSEC_TO_CYCLES(1000), Timer_Increment, (s32*) &gGameState, 1);

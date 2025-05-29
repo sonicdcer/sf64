@@ -780,7 +780,7 @@ void Meteo_80189624(void) {
         gLight2zRot = gLight2zRotTarget = 0.0f;
     }
 }
-
+extern int sCutsceneStarted;
 void Meteo_MeCrusher_Update(MeCrusher* this) {
     f32 sp7C;
     f32 rand;

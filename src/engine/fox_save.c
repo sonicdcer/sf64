@@ -142,8 +142,8 @@ u16 Save_Checksum(Save* arg0) {
 s32 Save_Write(void) {
     OSMesg sp1C;
 
-    gSaveFile.save.checksum = Save_Checksum(&gSaveFile.save);
-    gSaveFile.backup = gSaveFile.save;
+    // gSaveFile.save.checksum = Save_Checksum(&gSaveFile.save);
+    // gSaveFile.backup = gSaveFile.save;
     gSaveIOBuffer = gSaveFile;
     osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_WRITE_SAVE, OS_MESG_NOBLOCK);
     MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &sp1C);

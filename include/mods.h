@@ -17,7 +17,7 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
  */
-#define MODS_LEVEL_SELECT 0
+#define MODS_LEVEL_SELECT 1
 
 /**
  * Sound Effects Jukebox:
@@ -38,7 +38,7 @@
  * FPS Counter:
  * Hold Z + R and press L to toggle FPS Display
  */
-#define MODS_FPS_COUNTER 0
+#define MODS_FPS_COUNTER 1
 
 /**
  * RAM modifier:

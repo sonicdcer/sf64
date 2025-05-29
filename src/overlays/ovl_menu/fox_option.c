@@ -373,7 +373,7 @@ void Option_Setup(void) {
         gSaveFile.save.data.planet[i].expertMedal = 1;
         gSaveFile.save.data.planet[i].played = 1;
     }
-    Save_Write();
+    //Save_Write();
 #endif
     gVIsPerFrame = 2;
 
@@ -445,7 +445,7 @@ void Option_Setup(void) {
                 } else {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_1].normalClear = 1;
                 }
-                Save_Write();
+              //  Save_Write();
             } else if (gLeveLClearStatus[LEVEL_VENOM_ANDROSS] == 2) {
                 gMissionMedal[gMissionNumber] = 1;
                 gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].played = 1;
@@ -456,7 +456,7 @@ void Option_Setup(void) {
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalClear = 1;
                     gSaveFile.save.data.planet[SAVE_SLOT_VENOM_2].normalMedal = 1;
                 }
-                Save_Write();
+               // Save_Write();
             }
         }
 
@@ -1398,7 +1398,7 @@ void Option_Sound_Update(void) {
             D_menu_801B9284 = 0;
             Audio_PlaySoundTest(D_menu_801B9284);
         }
-        Save_Write();
+      //  Save_Write();
         gDrawMode = DRAW_NONE;
         sMenuEntryState = OPTION_MAIN_MENU;
         sMainMenuState = 0;
@@ -1881,7 +1881,7 @@ void Option_Data_Update(void) {
 
                             gSaveFile = *(SaveFile*) &gDefaultSave;
 
-                            Save_Write();
+                          //  Save_Write();
 
                             sExpertSoundCursor = 0;
                             sExpertModeCursor = 0;
@@ -4263,7 +4263,7 @@ void Option_Ranking_SaveData(void) {
 
     gSaveFile.save.data.unk_EA = sRankInPos;
 
-    Save_Write();
+  //  Save_Write();
 }
 
 void Option_3DFont_Draw(s32 character, f32 x, f32 y, f32 z, f32 scale, f32 xAngle, f32 yAngle, f32 zAngle) {

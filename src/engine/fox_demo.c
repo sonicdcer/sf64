@@ -19,6 +19,9 @@
 #include "assets/ast_katina.h"
 #include "assets/ast_allies.h"
 
+u8 Recording[512] = { 0 };
+int sCutsceneStarted = 0;
+
 void func_demo_80048AC0(TeamId teamId) {
     s32 teamShield;
 

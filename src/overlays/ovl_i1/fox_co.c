@@ -138,6 +138,7 @@ f32 Corneria_80187A88(s32 angle) {
     }
     return ret;
 }
+extern int sCutsceneStarted;
 
 void Corneria_CoGranga_HandleDamage(CoGranga* this) {
     CoTree* tree;
@@ -1733,6 +1734,23 @@ Vec3f D_i1_8019995C[20] = { { 67.0f, 44.0f, 377.0f },    { -146.0f, 24.0f, 376.0
 s32 D_i1_80199A4C[4] = { 150, 200, 150, 200 };
 f32 D_i1_80199A5C[4] = { -225.0f, 0.0f, 225.0f, 0.0f };
 
+extern int sCutsceneStarted;
+
+extern u8 Recording[512];
+
+#if 0
+void* my_memcpy(void* dest, const void* src, size_t n) {
+    unsigned char* d = dest;
+    const unsigned char* s = src;
+
+    while (n--) {
+        *d++ = *s++;
+    }
+
+    return dest;
+}
+#endif
+
 void Corneria_CoCarrier_Update(CoCarrier* this) {
     Vec3f sp84[33];
     Vec3f src;
@@ -2189,6 +2207,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
 
                 if (this->health != 0) {
                     if (this->timer_056 == 0) {
+
                         Boss_AwardBonus(this);
                         this->fwork[17] = 10.0f;
                         this->vel.y *= 1.5f;

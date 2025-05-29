@@ -4222,10 +4222,10 @@ void Effect_OrbRing_Update(EffectOrbRing* this) {
 }
 
 // RGB Values. Used like an array of [8][3], but only matches this way.
-s32 D_800D18F0[] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
+s32 sOrbRingEnvColor[] = { 32, 32, 255, 0, 255, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 255, 0, 255, 0 };
 
 // Alpha values
-s32 D_800D1950[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
+s32 sOrbRingPrimColor[] = { 255, 210, 180, 120, 70, 30, 0, 0 };
 
 void Effect_OrbRing_Draw(EffectOrbRing* this) {
     s32 tmp;
@@ -4236,12 +4236,13 @@ void Effect_OrbRing_Draw(EffectOrbRing* this) {
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
         tmp = this->alpha * 4;
-        gDPSetEnvColor(gMasterDisp++, D_800D18F0[tmp + 0], D_800D18F0[tmp + 1], D_800D18F0[tmp + 2], 255);
+        gDPSetEnvColor(gMasterDisp++, sOrbRingEnvColor[tmp + 0], sOrbRingEnvColor[tmp + 1], sOrbRingEnvColor[tmp + 2],
+                       255);
     } else {
         RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, D_800D1950[this->alpha]);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, sOrbRingPrimColor[this->alpha]);
         gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
     }
     gSPDisplayList(gMasterDisp++, aOrbDL);

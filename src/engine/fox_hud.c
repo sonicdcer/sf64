@@ -1309,7 +1309,7 @@ void HUD_Bolse_Area6_SaveData(void) {
         gMissionNumber++;
         gHitCount = 0;
 
-        Save_Write();
+      //  Save_Write();
     }
 }
 

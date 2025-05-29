@@ -1472,7 +1472,7 @@ void Map_Setup_Play(void) {
         Map_PlanetSaveSlot_Setup(gCurrentLevel, SAVETYPE_MEDAL);
     }
 
-    Save_Write();
+   // Save_Write();
 
     Map_Level_CamSetup();
 
@@ -1531,7 +1531,7 @@ void Map_Setup_GameOver(void) {
 
     Map_TeamStatus_Refill();
     Map_PlanetSaveSlot_Setup(gCurrentLevel, SAVETYPE_PLAYED);
-    Save_Write();
+ //   Save_Write();
     Map_PathStatus_Setup();
 
     for (i = 0; i < 7; i++) {

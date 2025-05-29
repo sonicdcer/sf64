@@ -410,7 +410,7 @@ void SectorY_80198CE4(SyShogun* this) {
         SectorY_80198244(this);
     }
 }
-
+extern int sCutsceneStarted;
 void SectorY_80198F5C(SyShogun* this) {
     Vec3f vec;
     Vec3f sp48;
