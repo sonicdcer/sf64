@@ -4,6 +4,8 @@
 
 This is a WIP **matching decompilation** of ***Starfox 64***. The purpose of the project is to recreate a source code base for the game from scratch, using information found inside the game along with static and/or dynamic analysis.
 
+##### Note: This is NOT a PC PORT.
+
 It currently builds the following ROM:
 
 * starfox64.us.rev1.z64 `MD5: 741a94eee093c4c8684e66b89f8685e8`
