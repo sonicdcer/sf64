@@ -387,8 +387,11 @@ void Cutscene_EffectSmallRock_Spawn(void) {
 }
 
 void Cutscene_EnterWarpZone(Player* player) {
-    s32 var_v0;
-    s32 pad[4];
+    s32 i;
+    ActorCutscene* falco = &gActors[0];
+    ActorCutscene* slippy = &gActors[1];
+    ActorCutscene* peppy = &gActors[2];
+    ActorCutscene* greatFox = &gActors[3];
 
     player->pos.x += player->vel.x;
     player->flags_228 = 0;
@@ -428,16 +431,16 @@ void Cutscene_EnterWarpZone(Player* player) {
             player->warpCamSpeed = -500.0f;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Cutscene_WarpZoneStart_TeamSetup(&gActors[0], 0);
+                Cutscene_WarpZoneStart_TeamSetup(falco, 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Cutscene_WarpZoneStart_TeamSetup(&gActors[1], 1);
+                Cutscene_WarpZoneStart_TeamSetup(slippy, 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Cutscene_WarpZoneStart_TeamSetup(&gActors[2], 2);
+                Cutscene_WarpZoneStart_TeamSetup(peppy, 2);
             }
 
-            Cutscene_WarpZoneStart_TeamSetup(&gActors[3], 3);
+            Cutscene_WarpZoneStart_TeamSetup(greatFox, 3);
             player->csTimer = 50;
             break;
 
@@ -476,27 +479,27 @@ void Cutscene_EnterWarpZone(Player* player) {
                     player->draw = false;
                 }
             }
-            var_v0 = 1;
+
             player->unk_190 = 2.0f;
 
             if ((player->csTimer == 95) && (gTeamShields[TEAM_ID_FALCO] > 0)) {
-                gActors[0].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[0].sfxSource, 0);
+                falco->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, falco->sfxSource, 0);
             }
 
             if ((player->csTimer == 90) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
-                gActors[2].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[2].sfxSource, 0);
+                peppy->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, peppy->sfxSource, 0);
             }
 
             if ((player->csTimer == 85) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
-                gActors[1].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[1].sfxSource, 0);
+                slippy->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, slippy->sfxSource, 0);
             }
 
             if (player->csTimer == 60) {
-                gActors[3].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[3].sfxSource, 0);
+                greatFox->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, greatFox->sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             }
@@ -551,7 +554,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             Math_SmoothStepToF(&gStarWarpDistortion, 0.0f, 0.2f, 1000.0f, 0.1f);
             Math_SmoothStepToF(&player->camDist, 0.0f, 0.2f, 500.0f, 0.1f);
             if (player->csTimer < 30) {
-                for (var_v0 = 0; var_v0 < 3; var_v0++) {
+                for (i = 0; i < 3; i++) {
                     Cutscene_EffectSmallRock_Spawn();
                 }
             }
