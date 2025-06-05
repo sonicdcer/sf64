@@ -472,7 +472,7 @@ void Effect_BlueOrb_Draw(EffectBlueOrb* this) {
 
 void Effect_EnemyLaser_Draw(EffectEnemyLaser* this) {
     RCP_SetupDL_21();
-    gSPDisplayList(gMasterDisp++, D_101ABD0);
+    gSPDisplayList(gMasterDisp++, aLaserShotRedDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 

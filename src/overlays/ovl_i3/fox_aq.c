@@ -196,7 +196,7 @@ typedef enum AqBacoonvwork {
     /* 50 */ AQ_VWK_MAX,
 } AqBacoonvwork;
 
-f32 D_AQ_801C4188;
+f32 gAquasSurfaceAlpha;
 s32 D_i3_801C4190[10];
 f32 D_i3_801C41B8[30];
 s32 sAqBacoonlimbTimers[AQ_LIMB_MAX];
@@ -477,20 +477,20 @@ void Aquas_InitLevel(void) {
     }
 
     D_i3_801C4190[5] = 0;
-    D_i3_801C41B8[25] = D_bg_8015F970;
+    D_i3_801C41B8[25] = gSurfaceWaterYPos;
     D_i3_801C41B8[26] = 128.0f;
 }
 
 void Aquas_801A99D4(Player* player) {
     s32 sp24 = fabsf(player->trueZpos / 1000.0f);
 
-    Math_SmoothStepToF(&D_bg_8015F970, D_i3_801C41B8[25], 1.0f, 10.0f, 0.00001f);
-    Math_SmoothStepToF(&D_AQ_801C4188, D_i3_801C41B8[26], 0.1f, 10.0f, 0.00001f);
+    Math_SmoothStepToF(&gSurfaceWaterYPos, D_i3_801C41B8[25], 1.0f, 10.0f, 0.00001f);
+    Math_SmoothStepToF(&gAquasSurfaceAlpha, D_i3_801C41B8[26], 0.1f, 10.0f, 0.00001f);
 
     if ((D_i3_801C4190[8] < sp24) && (D_i3_801C41B8[25] < 4600.0f)) {
         D_i3_801C4190[8] = sp24;
         D_i3_801C41B8[25] += 150.0f;
-        D_i3_801C41B8[26] = D_AQ_801C4188 - 6.0f;
+        D_i3_801C41B8[26] = gAquasSurfaceAlpha - 6.0f;
 
         if (D_i3_801C41B8[26] < 0.0f) {
             D_i3_801C41B8[26] = 0.0f;
@@ -2802,7 +2802,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
 
-            Math_SmoothStepToF(&D_i3_801C41B8[25], D_bg_8015F970, 1.0f, 100, 0.f);
+            Math_SmoothStepToF(&D_i3_801C41B8[25], gSurfaceWaterYPos, 1.0f, 100, 0.f);
             Math_SmoothStepToF(&D_i3_801C41B8[26], 128.0f, 1.0f, 100, 0.f);
 
             for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {

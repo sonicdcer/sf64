@@ -545,20 +545,20 @@ aItemLaserUpgradeLetterTex:
 aItemLaserUpgradeLetterTLUT:
   { type: TEXTURE, format: TLUT, colors: 12, offset: 0x101ABB8, ctype: u16, symbol: aItemLaserUpgradeLetterTLUT }
 
-D_101ABD0:
-  { type: GFX, offset: 0x101ABD0, symbol: D_101ABD0 }
+aLaserShotRedDL:
+  { type: GFX, offset: 0x101ABD0, symbol: aLaserShotRedDL }
 
 D_101AC98:
   { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x0101AC98, symbol: D_101AC98 }
 
-D_101AD20:
-  { type: GFX, offset: 0x101AD20, symbol: D_101AD20 }
+aLaserShotBlueDL:
+  { type: GFX, offset: 0x101AD20, symbol: aLaserShotBlueDL }
 
 D_101AE48:
   { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x101AE48, symbol: D_101AE48 }
 
-D_101AED0:
-  { type: GFX, offset: 0x101AED0, symbol: D_101AED0 }
+aLaserShotGreenDL:
+  { type: GFX, offset: 0x101AED0, symbol: aLaserShotGreenDL }
 
 D_101AF98:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x101AF98, symbol: D_101AF98 }
@@ -968,8 +968,8 @@ D_102FF90:
 D_1031228:
   { type: TEXTURE, format: RGBA16, width: 32, height: 16, ctype: u16, offset: 0x1031228, symbol: D_1031228 }
 
-D_1031630:
-  { type: GFX, offset: 0x1031630, symbol: D_1031630 }
+aShieldDL:
+  { type: GFX, offset: 0x1031630, symbol: aShieldDL }
 
 D_1031CC08:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1031CC0, symbol: D_1031CC0 }

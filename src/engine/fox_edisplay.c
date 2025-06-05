@@ -1907,14 +1907,14 @@ void Effect_Draw(u8 arg0) {
     gReflectY = 1;
 }
 
-Vtx D_edisplay_800CFD40[] = {
+Vtx gTexturedLineVtx[] = {
     VTX(1, 0, 0, 0, 0, 255, 255, 255, 255),
     VTX(-1, 0, 0, 0, 0, 255, 255, 255, 255),
     VTX(-1, 0, -1, 0, 0, 255, 255, 255, 255),
     VTX(1, 0, -1, 0, 0, 255, 255, 255, 255),
 };
-Gfx D_edisplay_800CFD80[] = {
-    gsSPVertex(D_edisplay_800CFD40, 4, 0),
+Gfx gTexturedLineDL[] = {
+    gsSPVertex(gTexturedLineVtx, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
@@ -1967,7 +1967,7 @@ void TexturedLine_Draw(void) {
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b,
                                     texLine->prim.a);
-                    gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
+                    gSPDisplayList(gMasterDisp++, gTexturedLineDL);
                 }
             }
             Matrix_Pop(&gGfxMatrix);
@@ -1995,7 +1995,7 @@ void TexturedLine_DrawPath(s32 index) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
+    gSPDisplayList(gMasterDisp++, gTexturedLineDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
     Matrix_Pop(&gGfxMatrix);

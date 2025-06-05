@@ -33,11 +33,11 @@ aAndPathExitDL:
 aAndPathIntersectionDL:
   { type: GFX, offset: 0x6003000, symbol: aAndPathIntersectionDL }
 
-D_VE2_60038E0:
-  { type: GFX, offset: 0x60038E0, symbol: D_VE2_60038E0 }
+aVe2AndBrainBackdropDL:
+  { type: GFX, offset: 0x60038E0, symbol: aVe2AndBrainBackdropDL }
 
-D_VE2_6003970:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003970, ctype: u16, symbol: D_VE2_6003970 }
+aVe2AndBrainBackdropTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003970, ctype: u16, symbol: aVe2AndBrainBackdropTex }
 
 aAndPathEntranceDL:
   { type: GFX, offset: 0x6004170, symbol: aAndPathEntranceDL }
@@ -153,14 +153,14 @@ D_VE2_600EEF0:
 D_VE2_600F290:
   { type: GFX, offset: 0x600F290, symbol: D_VE2_600F290 }
 
-D_VE2_600F670:
-  { type: GFX, offset: 0x600F670, symbol: D_VE2_600F670 }
+aVe2BackdropDL:
+  { type: GFX, offset: 0x600F670, symbol: aVe2BackdropDL }
 
-D_VE2_600F700:
-  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600F700, ctype: u16, symbol: D_VE2_600F700 }
+aVe2BackdropTex:
+  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600F700, ctype: u16, symbol: aVe2BackdropTex }
 
-D_VE2_6010700:
-  { type: GFX, offset: 0x6010700, symbol: D_VE2_6010700 }
+aVe2GroundDL:
+  { type: GFX, offset: 0x6010700, symbol: aVe2GroundDL }
 
 aVe2MountainDL:
   { type: GFX, offset: 0x6010960, symbol: aVe2MountainDL }
@@ -168,8 +168,8 @@ aVe2MountainDL:
 D_VE2_6010CA0:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6010CA0, ctype: u16, symbol: D_VE2_6010CA0 }
 
-D_VE2_60114A0:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60114A0, ctype: u16, symbol: D_VE2_60114A0 }
+aVe2GroundTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60114A0, ctype: u16, symbol: aVe2GroundTex }
 
 D_VE2_6013AF8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6013AF8, ctype: u16, symbol: D_VE2_6013AF8 }

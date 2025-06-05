@@ -1781,7 +1781,7 @@ void Display_Update(void) {
             gPathGroundScroll = 0.0f;
             Matrix_Pop(&gGfxMatrix);
         } else if (gGroundSurface != SURFACE_WATER) {
-            D_bg_8015F964 = false;
+            gDrawAquasSurfaceWater = false;
             Background_DrawGround();
         }
     }
@@ -1846,7 +1846,7 @@ void Display_Update(void) {
     }
 
     if ((gGroundSurface == SURFACE_WATER) || (gAqDrawMode != 0)) {
-        D_bg_8015F964 = true;
+        gDrawAquasSurfaceWater = true;
         Effect_Draw(1);
         Background_DrawGround();
     }

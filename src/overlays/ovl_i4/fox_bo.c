@@ -2229,9 +2229,9 @@ void Bolse_DrawDynamicGround(void) {
             if ((spD0.z < 3000.0f) && (spD0.z > -13000.0f) && (fabsf(spD0.x) < (fabsf(spD0.z * 0.7f) + 3000.0f)) &&
                 (fabsf(spD0.y) < (fabsf(spD0.z * 0.5f) + 2000.0f))) {
                 if (rnd < 0.3f) {
-                    gDPLoadTileTexture(gMasterDisp++, D_BO_6008BB8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                    gDPLoadTileTexture(gMasterDisp++, aBoGroundTex2, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 } else {
-                    gDPLoadTileTexture(gMasterDisp++, D_BO_600AD80, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                    gDPLoadTileTexture(gMasterDisp++, aBoGroundTex1, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, D_BO_600BEC0)

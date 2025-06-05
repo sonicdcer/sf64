@@ -5707,61 +5707,61 @@ void Macbeth_ShortTrainObjects(void) {
     }
 }
 
-void Macbeth_801AD144(PlayerShot* shot) {
+void Macbeth_CheckTrainHitbox(PlayerShot* shot) {
     s32 i;
     s32 j;
     Actor* actor;
-    f32 temp_fs2;
+    f32 radius;
     Vec3f test;
-    f32* var_s1;
-    Vec3f sp8C;
-    Vec3f sp80;
+    f32* hitboxData;
+    Vec3f shotDistSrc;
+    Vec3f shotDist;
     s32 temp_ft3;
-    s32 temp_s6;
+    s32 modFrames;
 
-    temp_fs2 = shot->scale * 40.0f;
+    radius = shot->scale * 40.0f;
     actor = &gActors[0];
 
     for (i = 0; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->timer_0C2 == 0) &&
             (actor->obj.id >= OBJ_ACTOR_MA_LOCOMOTIVE) && (actor->obj.id <= OBJ_ACTOR_MA_TANK_CAR)) {
-            temp_s6 = gGameFrameCount % 8U;
-            var_s1 = &actor->info.hitbox[0];
-            temp_ft3 = var_s1[0];
-            var_s1++;
+            modFrames = gGameFrameCount % 8U;
+            hitboxData = &actor->info.hitbox[0];
+            temp_ft3 = hitboxData[0];
+            hitboxData++;
 
             if (temp_ft3 != 0) {
-                for (j = 0; j < temp_ft3; j++, var_s1 += 6) {
-                    if (var_s1[0] == 200000.0f) {
-                        Matrix_RotateZ(gCalcMatrix, -var_s1[3] * M_DTOR, MTXF_NEW);
-                        Matrix_RotateX(gCalcMatrix, -var_s1[1] * M_DTOR, MTXF_APPLY);
-                        Matrix_RotateY(gCalcMatrix, -var_s1[2] * M_DTOR, MTXF_APPLY);
+                for (j = 0; j < temp_ft3; j++, hitboxData += 6) {
+                    if (hitboxData[0] == 200000.0f) {
+                        Matrix_RotateZ(gCalcMatrix, -hitboxData[3] * M_DTOR, MTXF_NEW);
+                        Matrix_RotateX(gCalcMatrix, -hitboxData[1] * M_DTOR, MTXF_APPLY);
+                        Matrix_RotateY(gCalcMatrix, -hitboxData[2] * M_DTOR, MTXF_APPLY);
                         Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_APPLY);
                         Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
-                        var_s1 += 4;
+                        hitboxData += 4;
                     } else {
                         Matrix_RotateZ(gCalcMatrix, -actor->obj.rot.z * M_DTOR, MTXF_NEW);
                         Matrix_RotateX(gCalcMatrix, -actor->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -actor->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
 
-                    if ((j == temp_s6) && (var_s1[1] > -100.0f) && (var_s1[3] > -100.0f)) {
-                        sp8C.x = shot->obj.pos.x - actor->obj.pos.x;
-                        sp8C.y = shot->obj.pos.y - actor->obj.pos.y;
-                        sp8C.z = shot->obj.pos.z - actor->obj.pos.z;
+                    if ((j == modFrames) && (hitboxData[1] > -100.0f) && (hitboxData[3] > -100.0f)) {
+                        shotDistSrc.x = shot->obj.pos.x - actor->obj.pos.x;
+                        shotDistSrc.y = shot->obj.pos.y - actor->obj.pos.y;
+                        shotDistSrc.z = shot->obj.pos.z - actor->obj.pos.z;
 
-                        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp8C, &sp80);
+                        Matrix_MultVec3fNoTranslate(gCalcMatrix, &shotDistSrc, &shotDist);
 
-                        test.x = (var_s1[4] + actor->obj.pos.x) - (actor->obj.pos.x + sp80.x);
-                        test.y = (var_s1[2] + actor->obj.pos.y) - (actor->obj.pos.y + sp80.y);
-                        test.z = (var_s1[0] + actor->obj.pos.z) - (actor->obj.pos.z + sp80.z);
+                        test.x = (hitboxData[4] + actor->obj.pos.x) - (actor->obj.pos.x + shotDist.x);
+                        test.y = (hitboxData[2] + actor->obj.pos.y) - (actor->obj.pos.y + shotDist.y);
+                        test.z = (hitboxData[0] + actor->obj.pos.z) - (actor->obj.pos.z + shotDist.z);
 
                         if ((gLevelMode == LEVELMODE_ON_RAILS) && (test.z < 0.0f)) {
                             test.z *= 0.6f;
                         }
 
-                        if (VEC3F_MAG(&test) < temp_fs2) {
+                        if (VEC3F_MAG(&test) < radius) {
                             actor->dmgPart = j;
                             actor->dmgType = -1;
                             if ((gPlayer[0].trueZpos - actor->obj.pos.z) < 5000.0f) {
@@ -7773,7 +7773,7 @@ void Macbeth_LevelComplete1(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(TEAM_ID_SLIPPY);
+                    Cutscene_AllAircraftReport(TEAM_ID_SLIPPY);
                     break;
             }
             break;
@@ -7793,7 +7793,7 @@ void Macbeth_LevelComplete1(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20332, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(TEAM_ID_PEPPY);
+                    Cutscene_AllAircraftReport(TEAM_ID_PEPPY);
                     break;
             }
             break;
@@ -7813,7 +7813,7 @@ void Macbeth_LevelComplete1(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20331, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(TEAM_ID_FALCO);
+                    Cutscene_AllAircraftReport(TEAM_ID_FALCO);
                     break;
             }
             break;

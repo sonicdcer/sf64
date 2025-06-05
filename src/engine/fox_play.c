@@ -2569,8 +2569,8 @@ void Play_InitLevel(void) {
 
         case LEVEL_AQUAS:
             gVIsPerFrame = 3;
-            D_bg_8015F970 = 1600.0f;
-            D_AQ_801C4188 = 128.0f;
+            gSurfaceWaterYPos = 1600.0f;
+            gAquasSurfaceAlpha = 128.0f;
             Aquas_InitLevel();
             break;
 
@@ -6764,19 +6764,19 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_AQUAS:
-            HUD_Texture_Wave(D_AQ_603158C, D_AQ_602ACC0);
+            HUD_Texture_Wave(D_AQ_603158C, aAqWaterTex);
             break;
 
         case LEVEL_SOLAR:
             Play_UpdateDynaFloor();
 
             for (gPathTexScroll; gPathTexScroll >= 10.0f; gPathTexScroll -= 10.0f) {
-                Lib_Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                Lib_Texture_Scroll(aSoLavaTex, 32, 32, 1);
             }
             if (gPlayer[0].state == PLAYERSTATE_NEXT) {
-                Lib_Texture_Scroll(D_SO_6005710, 32, 32, 1);
+                Lib_Texture_Scroll(aSoLavaTex, 32, 32, 1);
             }
-            Lib_Texture_Mottle(D_SO_601E1E8, D_SO_6020F60, 3);
+            Lib_Texture_Mottle(aSoBackdropTex, D_SO_6020F60, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
                 cycleMask = 8 - 1;
@@ -6843,7 +6843,7 @@ void Play_UpdateLevel(void) {
                 Lib_Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
             }
 
-            HUD_Texture_Wave(D_ZO_602C2CC, D_ZO_600D990);
+            HUD_Texture_Wave(D_ZO_602C2CC, aZoWaterTex);
 
             if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
                                              gPlayer[0].cam.eye.z - gPathProgress)) {

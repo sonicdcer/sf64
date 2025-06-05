@@ -92,8 +92,8 @@ D_BO_6008760:
 D_BO_6008770:
   { type: GFX, offset: 0x6008770, symbol: D_BO_6008770 }
 
-D_BO_6008BB8:
-  { type: TEXTURE, format: RGBA16, offset: 0x06008BB8, width: 32, height: 32, ctype: u16, symbol: D_BO_6008BB8 }
+aBoGroundTex2:
+  { type: TEXTURE, format: RGBA16, offset: 0x06008BB8, width: 32, height: 32, ctype: u16, symbol: aBoGroundTex2 }
 
 D_BO_60093B8:
   { type: TEXTURE, format: RGBA16, offset: 0x060093B8, width: 32, height: 32, ctype: u16, symbol: D_BO_60093B8 }
@@ -105,15 +105,15 @@ D_BO_6009BC0:
 D_BO_600A2C0:
   { type: GFX, offset: 0x600A2C0, symbol: D_BO_600A2C0 }
 
-D_BO_600A810:
-  { type: GFX, offset: 0x600A810, symbol: D_BO_600A810 }
+aBoGroundDL:
+  { type: GFX, offset: 0x600A810, symbol: aBoGroundDL }
 
 # Unused DisplayList, looks like a cube with an entrance.
 D_BO_600AB90:
   { type: GFX, offset: 0x600AB90, symbol: D_BO_600AB90 }
 
-D_BO_600AD80:
-  { type: TEXTURE, format: RGBA16, offset: 0x0600AD80, width: 32, height: 32, ctype: u16, symbol: D_BO_600AD80 }
+aBoGroundTex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x0600AD80, width: 32, height: 32, ctype: u16, symbol: aBoGroundTex1 }
 
 aBoBuildingDL:
   { type: GFX, offset: 0x600B8B0, symbol: aBoBuildingDL }
@@ -139,14 +139,14 @@ aBoBaseShieldDL:
 aBoBaseShieldTex:
   { type: TEXTURE, format: RGBA16, offset: 0x0600CF88, width: 16, height: 16, ctype: u16, symbol: aBoBaseShieldTex }
 
-D_BO_600D190:
-  { type: GFX, offset: 0x600D190, symbol: D_BO_600D190 }
+aBoBackdropDL:
+  { type: GFX, offset: 0x600D190, symbol: aBoBackdropDL }
 
-D_BO_600D2A0:
-  { type: TEXTURE, format: RGBA16, offset: 0x0600D2A0, width: 32, height: 64, ctype: u16, symbol: D_BO_600D2A0 }
+aBoBackdropTex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x0600D2A0, width: 32, height: 64, ctype: u16, symbol: aBoBackdropTex1 }
 
-D_BO_600E2A0:
-  { type: TEXTURE, format: RGBA16, offset: 0x0600E2A0, width: 32, height: 64, ctype: u16, symbol: D_BO_600E2A0 }
+aBoBackdropTex2:
+  { type: TEXTURE, format: RGBA16, offset: 0x0600E2A0, width: 32, height: 64, ctype: u16, symbol: aBoBackdropTex2 }
 
 aBoLaserCannonAnim:
   { type: SF64:ANIM, offset: 0x600F2E0, symbol: aBoLaserCannonAnim }

@@ -2302,7 +2302,7 @@ void SectorY_LevelComplete(Player* player) {
                     if (gHitCount >= 100) {
                         Radio_PlayMessage(gMsg_ID_2305, RCID_SLIPPY);
                     } else {
-                        func_demo_80048AC0(TEAM_ID_SLIPPY);
+                        Cutscene_AllAircraftReport(TEAM_ID_SLIPPY);
                     }
                     break;
             }
@@ -2322,7 +2322,7 @@ void SectorY_LevelComplete(Player* player) {
                     if (gHitCount >= 100) {
                         Radio_PlayMessage(gMsg_ID_20261, RCID_PEPPY);
                     } else {
-                        func_demo_80048AC0(TEAM_ID_PEPPY);
+                        Cutscene_AllAircraftReport(TEAM_ID_PEPPY);
                     }
                     break;
             }
@@ -2342,7 +2342,7 @@ void SectorY_LevelComplete(Player* player) {
                     if (gHitCount >= 100) {
                         Radio_PlayMessage(gMsg_ID_20262, RCID_FALCO);
                     } else {
-                        func_demo_80048AC0(TEAM_ID_FALCO);
+                        Cutscene_AllAircraftReport(TEAM_ID_FALCO);
                     }
                     break;
             }

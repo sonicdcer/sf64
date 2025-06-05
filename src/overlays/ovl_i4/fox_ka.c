@@ -2458,7 +2458,7 @@ void Katina_EnemyUpdate(ActorAllRange* this) {
                         this->iwork[KA_ACTOR_IWORK_5] = 1;
 
                         if ((((this->index + gGameFrameCount) & 11) == 0) && (Rand_ZeroOne() < 0.1f) &&
-                            func_360_80031900(this) && (gActors[0].state == 2)) {
+                            ActorAllRange_CheckActorInFrontXZ(this) && (gActors[0].state == 2)) {
                             this->iwork[KA_ACTOR_IWORK_0] = true;
                         }
                     } else {

@@ -22,12 +22,12 @@ aSyTitleCardTex:
 D_SY_6000840:
   { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 64, offset: 0x6000840, symbol: D_SY_6000840 }
 
-D_SY_6001840:
-  { type: GFX, offset: 0x6001840, symbol: D_SY_6001840 }
+aSyBackdropDL:
+  { type: GFX, offset: 0x6001840, symbol: aSyBackdropDL }
 
 # Sector Y Background
-D_SY_60018D0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060018D0, symbol: D_SY_60018D0 }
+aSyBackdropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060018D0, symbol: aSyBackdropTex }
 
 D_SY_6003348:
   { type: SF64:ANIM, offset: 0x6003348, symbol: D_SY_6003348 }

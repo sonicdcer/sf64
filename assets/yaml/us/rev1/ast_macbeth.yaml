@@ -427,11 +427,11 @@ D_MA_6019028:
 D_MA_6019128:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 120, offset: 0x6019128, symbol: D_MA_6019128}
 
-D_MA_6019220:
-  {type: GFX, offset: 0x6019220, symbol: D_MA_6019220}
+aMaBackdropDL:
+  {type: GFX, offset: 0x6019220, symbol: aMaBackdropDL}
 
-D_MA_60192B0:
-  {type: TEXTURE, format: RGBA16, ctype: u16,  width: 64, height: 32, offset: 0x60192B0, symbol: D_MA_60192B0}
+aMaBackdropTex:
+  {type: TEXTURE, format: RGBA16, ctype: u16,  width: 64, height: 32, offset: 0x60192B0, symbol: aMaBackdropTex}
 
 aMaBoulderDL:
   {type: GFX, offset: 0x601A2B0, symbol: aMaBoulderDL}
@@ -667,8 +667,8 @@ aMaFloor3DL:
 aMaFloor5DL:
   {type: GFX, offset: 0x602DC20, symbol: aMaFloor5DL}
 
-D_MA_602DCB8:
-  {type: TEXTURE, format: RGBA16, ctype: u16,  width: 32, height: 32, offset: 0x602DCB8, symbol: D_MA_602DCB8}
+aMaGroundTex:
+  {type: TEXTURE, format: RGBA16, ctype: u16,  width: 32, height: 32, offset: 0x602DCB8, symbol: aMaGroundTex}
 
 D_MA_602EA0C:
   {type: SF64:ANIM, offset: 0x602EA0C, symbol: D_MA_602EA0C}
@@ -709,8 +709,8 @@ aMaTerrainBumpDL:
 aMaFloor4DL:
   {type: GFX, offset: 0x6030630, symbol: aMaFloor4DL}
 
-D_MA_60306D0:
-  {type: GFX, offset: 0x60306D0, symbol: D_MA_60306D0}
+aMaGroundDL:
+  {type: GFX, offset: 0x60306D0, symbol: aMaGroundDL}
 
 D_MA_6030750:
   {type: GFX, offset: 0x6030750, symbol: D_MA_6030750}

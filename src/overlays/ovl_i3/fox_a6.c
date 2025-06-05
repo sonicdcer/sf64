@@ -517,7 +517,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
                     gTeamLowHealthMsgTimer = -1;
 
-                    D_bg_8015F984 = (gPathProgress * 0.00004f) + 0.5f;
+                    gArea6BackdropScale = (gPathProgress * 0.00004f) + 0.5f;
 
                     AUDIO_PLAY_SFX(NA_SE_EN_DOWN_IMPACT, this->sfxSource, 4);
 
@@ -2777,7 +2777,7 @@ void Area6_LevelComplete(Player* player) {
                     player->boostSpeed = player->camRoll = player->zRotBank = player->zRotBarrelRoll =
                         player->aerobaticPitch = 0.0f;
 
-                D_bg_8015F984 = (gPathProgress * 0.00004f) + 0.5f;
+                gArea6BackdropScale = (gPathProgress * 0.00004f) + 0.5f;
 
                 Area6_8018EC38(&gActors[1], 0);
                 Area6_8018EC38(&gActors[2], 1);
@@ -2831,7 +2831,7 @@ void Area6_LevelComplete(Player* player) {
             } else {
                 Math_SmoothStepToAngle(&D_ctx_80177A48[4], 0.0f, 0.1f, 10.0f, 0.001f);
                 Math_SmoothStepToF(&D_ctx_80177A48[5], 0.0f, 0.1f, 1000.0f, 0.001f);
-                D_bg_8015F984 -= 0.005f;
+                gArea6BackdropScale -= 0.005f;
                 gCsCamAtX += 2.0f;
                 player->cam.at.x = gCsCamAtX = player->pos.x;
                 player->cam.at.y = gCsCamAtY = 0.0f;
