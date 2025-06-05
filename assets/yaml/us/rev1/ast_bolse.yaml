@@ -19,8 +19,8 @@ aBoTitleCardTex:
 D_BO_6000C80:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6000C80, symbol: D_BO_6000C80 }
 
-D_BO_6000D80:
-  { type: GFX, offset: 0x6000D80, symbol: D_BO_6000D80 }
+aBoSatelliteLightsDL:
+  { type: GFX, offset: 0x6000D80, symbol: aBoSatelliteLightsDL }
 
 D_BO_6001908:
   { type: TEXTURE, format: RGBA16, offset: 0x6001908, width: 16, height: 16, ctype: u16, symbol: D_BO_6001908 }
@@ -89,8 +89,8 @@ D_BO_60086F4:
 D_BO_6008760: 
   { type: SF64:SKELETON, offset: 0x6008760, symbol: D_BO_6008760 }
 
-D_BO_6008770:
-  { type: GFX, offset: 0x6008770, symbol: D_BO_6008770 }
+aBoFighterDL:
+  { type: GFX, offset: 0x6008770, symbol: aBoFighterDL }
 
 aBoGroundTex2:
   { type: TEXTURE, format: RGBA16, offset: 0x06008BB8, width: 32, height: 32, ctype: u16, symbol: aBoGroundTex2 }
@@ -118,8 +118,8 @@ aBoGroundTex1:
 aBoBuildingDL:
   { type: GFX, offset: 0x600B8B0, symbol: aBoBuildingDL }
 
-D_BO_600BAA0:
-  { type: GFX, offset: 0x600BAA0, symbol: D_BO_600BAA0 }
+aBoSatelliteDL:
+  { type: GFX, offset: 0x600BAA0, symbol: aBoSatelliteDL }
 
 D_BO_600BEC0:
   { type: GFX, offset: 0x600BEC0, symbol: D_BO_600BEC0 }

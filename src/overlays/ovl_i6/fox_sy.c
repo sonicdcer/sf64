@@ -25,7 +25,7 @@ void SectorY_8019B6E8(SyShogun*);
 void SectorY_8019BBBC(SyShogun*);
 void SectorY_8019BC14(SyShogun*);
 void SectorY_8019C194(SyShogun*, f32, f32);
-void SectorY_801A0510(ActorCutscene*, s32);
+void SectorY_ActorCs_Setup(ActorCutscene*, s32);
 void SectorY_ActorDebris_Setup(Actor*, f32, f32, f32, f32, f32, f32, s32);
 void SectorY_ActorDebris_Spawn(f32, f32, f32, f32, f32, f32, s32);
 
@@ -59,7 +59,7 @@ void SectorY_80197B30(ActorCutscene* this, s32 timer) {
 
 void SectorY_SyRobotLaser_Draw(EffectSyRobotLaser* this) {
     RCP_SetupDL_21();
-    gSPDisplayList(gMasterDisp++, D_SY_6014A40);
+    gSPDisplayList(gMasterDisp++, aSyRobotLaserDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -1021,7 +1021,7 @@ void SectorY_8019AEEC(SyShogun* this) {
                 gPlayer[0].cam.at.z = this->obj.pos.z;
                 gPlayer[0].camRoll = 0.0f;
                 Radio_PlayMessage(gMsg_ID_14300, RCID_BOSS_SECTORY);
-                SectorY_801A0510(&gActors[59], 7);
+                SectorY_ActorCs_Setup(&gActors[59], 7);
                 gActors[59].obj.pos.y = this->obj.pos.y - 202.0f;
                 gActors[59].obj.pos.x = this->obj.pos.x;
                 gActors[59].obj.pos.z = this->obj.pos.z - 30.0f;
@@ -2511,22 +2511,22 @@ void SectorY_8019FF00(ActorCutscene* this) {
     }
 }
 
-Vec3f D_i6_801A6A74[10] = { { -10100.0f, -300.0f, -600.0f },  { -10300.0f, 1200.0f, -1070.0f },
-                            { -10500.0f, 300.0f, 900.0f },    { 9000.0f, 0.0f, 1500.0f },
-                            { 5000.0f, -100.0f, -100.0f },    { 1150.0f, -1100.0f, -7500.0f },
-                            { -200.0f, -2400.0f, -12650.0f }, { 0.0f, 4000.0f, -600.0f },
-                            { -10800.0f, 900.0f, -600.0f },   { -2750.0f, 900.0f, -9150.0f } };
+Vec3f sSyActorCsSetupPos[10] = { { -10100.0f, -300.0f, -600.0f },  { -10300.0f, 1200.0f, -1070.0f },
+                                 { -10500.0f, 300.0f, 900.0f },    { 9000.0f, 0.0f, 1500.0f },
+                                 { 5000.0f, -100.0f, -100.0f },    { 1150.0f, -1100.0f, -7500.0f },
+                                 { -200.0f, -2400.0f, -12650.0f }, { 0.0f, 4000.0f, -600.0f },
+                                 { -10800.0f, 900.0f, -600.0f },   { -2750.0f, 900.0f, -9150.0f } };
 
-void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
+void SectorY_ActorCs_Setup(ActorCutscene* this, s32 idx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i6_801A6A74[arg1].x;
-    this->obj.pos.y = D_i6_801A6A74[arg1].y;
-    this->obj.pos.z = D_i6_801A6A74[arg1].z;
+    this->obj.pos.x = sSyActorCsSetupPos[idx].x;
+    this->obj.pos.y = sSyActorCsSetupPos[idx].y;
+    this->obj.pos.z = sSyActorCsSetupPos[idx].z;
 
-    switch (arg1) {
+    switch (idx) {
         case 0:
         case 1:
         case 2:
@@ -2545,7 +2545,7 @@ void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
             break;
 
         case 4:
-            this->animFrame = ACTOR_CS_37;
+            this->animFrame = ACTOR_CS_ORB_GLOW;
             this->obj.rot.y = 90.0f;
             Object_SetInfo(&this->info, this->obj.id);
             break;
@@ -2565,7 +2565,7 @@ void SectorY_801A0510(ActorCutscene* this, s32 arg1) {
             break;
 
         case 7:
-            this->animFrame = ACTOR_CS_40;
+            this->animFrame = ACTOR_CS_SY_SHOGUN_PLATFORM;
             Object_SetInfo(&this->info, this->obj.id);
             break;
 
@@ -2600,7 +2600,7 @@ void SectorY_801A06A4(ActorCutscene* this, s32 arg1) {
     }
 }
 
-void SectorY_801A07FC(Actor* actor0, ActorCutscene* actor1) {
+void SectorY_SyRobotLaser_Spawn(SyRobot* actor0, ActorCutscene* actor1) {
     Vec3f src;
     Vec3f dest;
 
@@ -2631,11 +2631,11 @@ void SectorY_801A07FC(Actor* actor0, ActorCutscene* actor1) {
     actor1->vel.z = dest.z;
     actor1->obj.rot.x = actor0->obj.rot.x;
     actor1->obj.rot.y = actor0->obj.rot.y;
-    actor1->animFrame = ACTOR_CS_42;
+    actor1->animFrame = ACTOR_CS_SY_ROBOT_LASER;
     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, actor1->sfxSource, 4);
 }
 
-void SectorY_801A0A08(ActorCutscene* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
+void SectorY_ActorCsExplosion_Setup(ActorCutscene* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -2647,11 +2647,11 @@ void SectorY_801A0A08(ActorCutscene* this, f32 xPos, f32 yPos, f32 zPos, f32 arg
     Object_SetInfo(&this->info, this->obj.id);
     this->timer_0BC = 35;
     this->iwork[0] = 255;
-    this->animFrame = ACTOR_CS_43;
+    this->animFrame = ACTOR_CS_SY_EXPLOSION;
     AUDIO_PLAY_SFX(NA_SE_EN_MS_SHOT_S, this->sfxSource, 4);
 }
 
-void SectorY_801A0AC0(Player* player) {
+void SectorY_LevelStart(Player* player) {
     s32 i;
     s32 spB0;
     Vec3f spA4;
@@ -2667,7 +2667,7 @@ void SectorY_801A0AC0(Player* player) {
         case 0:
             gCsFrameCount = 0;
             for (i = 0; i < 5; i++) {
-                SectorY_801A0510(&gActors[i + 5], i);
+                SectorY_ActorCs_Setup(&gActors[i + 5], i);
             }
             player->csState = 1;
             player->cam.eye.x = gCsCamEyeX = -2000.0f;
@@ -2696,7 +2696,7 @@ void SectorY_801A0AC0(Player* player) {
                 spB0 = ((gGameFrameCount & 12) >> 2) + 4;
                 for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.status == OBJ_FREE) {
-                        SectorY_801A07FC(&gActors[spB0], &gActors[i]);
+                        SectorY_SyRobotLaser_Spawn(&gActors[spB0], &gActors[i]);
                         break;
                     }
                 }
@@ -2755,7 +2755,7 @@ void SectorY_801A0AC0(Player* player) {
 
                     for (i = 10; i < ARRAY_COUNT(gActors); i++) {
                         if (gActors[i].obj.status == OBJ_FREE) {
-                            SectorY_801A07FC(&gActors[11], &gActors[i]);
+                            SectorY_SyRobotLaser_Spawn(&gActors[11], &gActors[i]);
                             break;
                         }
                     }
@@ -2799,9 +2799,10 @@ void SectorY_801A0AC0(Player* player) {
                                          gActors[8].obj.pos.z + RAND_FLOAT_CENTERED(3000.0f), 8);
             }
             if ((gGameFrameCount & 20) != 0) {
+                // Background explosions
                 for (i = 12; i < ARRAY_COUNT(gActors); i++) {
                     if (gActors[i].obj.status == OBJ_FREE) {
-                        SectorY_801A0A08(
+                        SectorY_ActorCsExplosion_Setup(
                             &gActors[i], gActors[8].obj.pos.x + 1000.0f,
                             (gActors[8].obj.pos.y + 2000.0f + ((s32) ((gGameFrameCount % 4U) - 2) * 2000.0f)) +
                                 RAND_FLOAT_CENTERED(4000.0f),
@@ -2849,7 +2850,7 @@ void SectorY_801A0AC0(Player* player) {
                         }
                     }
 
-                    SectorY_801A0510(&gActors[11], 8);
+                    SectorY_ActorCs_Setup(&gActors[11], 8);
 
                     gActors[11].vel.x = 80.0f;
                     gActors[11].vel.z = -10.0f;
@@ -3243,7 +3244,7 @@ void SectorY_801A0AC0(Player* player) {
 
             switch (gCsFrameCount) {
                 case 390:
-                    SectorY_801A07FC(&gActors[5], &gActors[10]);
+                    SectorY_SyRobotLaser_Spawn(&gActors[5], &gActors[10]);
                     gActors[5].vel.x -= 0.25f;
                     gActors[5].vel.z -= 2.0f;
                     break;
@@ -3265,12 +3266,12 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[5].vel.x -= 0.5f;
                     gActors[5].vel.z -= 1.5f;
                     Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
-                    SectorY_801A07FC(&gActors[5], &gActors[10]);
+                    SectorY_SyRobotLaser_Spawn(&gActors[5], &gActors[10]);
                     break;
 
                 case 435:
                     Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
-                    SectorY_801A07FC(&gActors[5], &gActors[10]);
+                    SectorY_SyRobotLaser_Spawn(&gActors[5], &gActors[10]);
                     gActors[7].fwork[0] = 1.8f;
                     AUDIO_PLAY_SFX(NA_SE_EN_MS_DASH, gActors[7].sfxSource, 4);
                     break;
@@ -3283,7 +3284,7 @@ void SectorY_801A0AC0(Player* player) {
                     gActors[5].vel.x -= 0.5f;
                     gActors[5].vel.z -= 1.5f;
                     Object_Kill(&gActors[10].obj, gActors[10].sfxSource);
-                    SectorY_801A07FC(&gActors[5], &gActors[10]);
+                    SectorY_SyRobotLaser_Spawn(&gActors[5], &gActors[10]);
                     gActors[10].timer_0BC = 180;
                     break;
 
@@ -3372,9 +3373,9 @@ void SectorY_801A0AC0(Player* player) {
                     }
 
                     for (i = 5; i < 7; i++) {
-                        SectorY_801A0510(&gActors[i + 2], i);
+                        SectorY_ActorCs_Setup(&gActors[i + 2], i);
                     }
-                    SectorY_801A0510(&gActors[9], 9);
+                    SectorY_ActorCs_Setup(&gActors[9], 9);
                     break;
 
                 case 590:

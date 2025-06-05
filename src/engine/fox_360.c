@@ -2510,7 +2510,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    gSPDisplayList(gMasterDisp++, D_BO_6008770);
+                    gSPDisplayList(gMasterDisp++, aBoFighterDL);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);

@@ -2571,14 +2571,14 @@ void Area6_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[1], 50000.0f, 0.001f);
 }
 
-void Area6_8018EA88(ActorCutscene* this) {
+void Area6_ActorCsOrbGlow_Setup(ActorCutscene* this) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
     this->obj.pos.x = 0.0f;
     this->obj.pos.y = 0.0f;
     this->obj.pos.z = gBosses[0].obj.pos.z + 500.0f;
-    this->animFrame = ACTOR_CS_37;
+    this->animFrame = ACTOR_CS_ORB_GLOW;
     this->state = 100;
     this->iwork[0] = 255;
     this->iwork[1] = 255;
@@ -2649,10 +2649,10 @@ void Area6_LevelComplete(Player* player) {
     f32 sp8C;
     f32 sp88;
     f32 sp84;
-    Vec3f sp78;
-    Vec3f sp6C;
+    Vec3f src;
+    Vec3f dest;
     Actor* actor4 = &gActors[4];
-    s32 pad;
+    Actor* actor5 = &gActors[5];
 
     switch (player->csState) {
         case 0:
@@ -2709,9 +2709,9 @@ void Area6_LevelComplete(Player* player) {
             D_ctx_80177A48[0] = 0.04f;
 
             if (gCsFrameCount == 140) {
-                Area6_8018EA88(actor4);
-                Area6_8018EA88(&gActors[5]);
-                Area6_8018EA88(&gActors[6]);
+                Area6_ActorCsOrbGlow_Setup(actor4);
+                Area6_ActorCsOrbGlow_Setup(actor5);
+                Area6_ActorCsOrbGlow_Setup(&gActors[6]);
                 actor4->fwork[4] = 0.5f;
             }
 
@@ -2732,7 +2732,7 @@ void Area6_LevelComplete(Player* player) {
             }
 
             if ((gCsFrameCount == 146) || (gCsFrameCount == 150)) {
-                AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[5].sfxSource, 4);
+                AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, actor5->sfxSource, 4);
             }
 
             if (gCsFrameCount > 146) {
@@ -2744,8 +2744,8 @@ void Area6_LevelComplete(Player* player) {
                 if (actor4->iwork[7] < 0) {
                     actor4->iwork[7] = 0;
                 }
-                Math_SmoothStepToF(&gActors[5].fwork[4], 450.0f, 0.03f, 1000.0f, 1.0f);
-                Math_SmoothStepToF(&gActors[5].scale, 450.0f, 0.03f, 1000.0f, 1.0f);
+                Math_SmoothStepToF(&actor5->fwork[4], 450.0f, 0.03f, 1000.0f, 1.0f);
+                Math_SmoothStepToF(&actor5->scale, 450.0f, 0.03f, 1000.0f, 1.0f);
             }
 
             if (gCsFrameCount > 160) {
@@ -2754,9 +2754,9 @@ void Area6_LevelComplete(Player* player) {
             }
 
             if (gCsFrameCount > 140) {
-                actor4->obj.pos.x = gActors[5].obj.pos.x = gActors[6].obj.pos.x = gBosses[0].obj.pos.x;
-                actor4->obj.pos.y = gActors[5].obj.pos.y = gActors[6].obj.pos.y = gBosses[0].obj.pos.y;
-                actor4->obj.pos.z = gActors[5].obj.pos.z = gActors[6].obj.pos.z = gBosses[0].obj.pos.z + 500.0f;
+                actor4->obj.pos.x = actor5->obj.pos.x = gActors[6].obj.pos.x = gBosses[0].obj.pos.x;
+                actor4->obj.pos.y = actor5->obj.pos.y = gActors[6].obj.pos.y = gBosses[0].obj.pos.y;
+                actor4->obj.pos.z = actor5->obj.pos.z = gActors[6].obj.pos.z = gBosses[0].obj.pos.z + 500.0f;
                 Math_SmoothStepToF(&actor4->scale, 600.0f, 0.03f, 1000.0f, 0.01f);
             }
             break;
@@ -2838,17 +2838,17 @@ void Area6_LevelComplete(Player* player) {
                 player->cam.at.z = gCsCamAtZ = D_ctx_80177A48[9] + player->pos.z + gPathProgress;
             }
 
-            sp78.x = 0.0f;
-            sp78.y = 0.0f;
-            sp78.z = D_ctx_80177A48[5];
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = D_ctx_80177A48[5];
 
             Matrix_Translate(gCalcMatrix, D_ctx_80177A48[1], 0.0f, D_ctx_80177A48[3] + gPathProgress, MTXF_NEW);
             Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), MTXF_APPLY);
-            Matrix_MultVec3f(gCalcMatrix, &sp78, &sp6C);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-            player->cam.eye.x = gCsCamEyeX = sp6C.x;
-            player->cam.eye.y = gCsCamEyeY = sp6C.y;
-            player->cam.eye.z = gCsCamEyeZ = sp6C.z;
+            player->cam.eye.x = gCsCamEyeX = dest.x;
+            player->cam.eye.y = gCsCamEyeY = dest.y;
+            player->cam.eye.z = gCsCamEyeZ = dest.z;
 
             if (gCsFrameCount == 1076) {
                 Object_Kill(&gActors[0].obj, gActors[0].sfxSource);
@@ -2949,15 +2949,15 @@ void Area6_LevelComplete(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + player->yRot_114 + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
-    sp78.x = 0.0f;
-    sp78.y = 0.0f;
-    sp78.z = player->baseSpeed;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = player->baseSpeed;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp78, &sp6C);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    player->vel.x = sp6C.x;
-    player->vel.z = sp6C.z;
-    player->vel.y = sp6C.y;
+    player->vel.x = dest.x;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
 
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;

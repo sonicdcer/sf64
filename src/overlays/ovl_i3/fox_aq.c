@@ -6587,7 +6587,7 @@ void Aquas_CsAqFishGroup_Update(AqFishGroup* this) {
     }
 }
 
-void Aquas_801BE0F0(ActorCutscene* this) {
+void Aquas_CsAqFishGroup_Draw(ActorCutscene* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_61);
     Matrix_Scale(gGfxMatrix, 0.5f, 0.5f, 0.5f, MTXF_APPLY);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 255, 255);

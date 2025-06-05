@@ -3539,7 +3539,7 @@ void Corneria_LevelComplete1(Player* player) {
 
         case 3:
             if ((gCsFrameCount > 700) && (gCsFrameCount < 1000)) {
-                func_demo_8004AA84();
+                Cutscene_CoComplete_SpawnClouds();
             }
             Math_SmoothStepToAngle(&player->rot.x, 20.0f, 0.1f, 0.5f, 0);
             Math_SmoothStepToAngle(&player->rot.z, 0.0f, 0.1f, 1.0f, 0);

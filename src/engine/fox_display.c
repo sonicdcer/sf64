@@ -449,7 +449,7 @@ void Display_SetCullingMode(void) {
     }
 }
 
-bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
+bool Display_ArwingOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos, Vec3f* rot, void* wingData) {
     ArwingInfo* arwing = (ArwingInfo*) wingData;
 
     if (D_display_800CA22C && (gPlayer[0].dmgEffect == 0)) {
@@ -558,7 +558,7 @@ bool Display_ArwingWingsOverrideLimbDraw(s32 limbIndex, Gfx** gfxPtr, Vec3f* pos
     return false;
 }
 
-void Display_ArwingWings(ArwingInfo* arwing) {
+void Display_Arwing_Skel(ArwingInfo* arwing) {
     Vec3f frameTable[30];
     s32 drawFace;
 
@@ -570,15 +570,15 @@ void Display_ArwingWings(ArwingInfo* arwing) {
     }
 
     if (gGameState == GSTATE_PLAY) {
-        Animation_DrawSkeleton(1, aAwArwingSkel, gPlayer[0].jointTable, Display_ArwingWingsOverrideLimbDraw, NULL,
-                               arwing, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, aAwArwingSkel, gPlayer[0].jointTable, Display_ArwingOverrideLimbDraw, NULL, arwing,
+                               &gIdentityMatrix);
     } else {
         if (gGameState == GSTATE_MENU) {
             Animation_GetFrameData(&aAwWingsHalfOpenAnim, 0, frameTable);
         } else {
             Animation_GetFrameData(&aAwWingsClosedAnim, 0, frameTable);
         }
-        Animation_DrawSkeleton(1, aAwArwingSkel, frameTable, Display_ArwingWingsOverrideLimbDraw, NULL, arwing,
+        Animation_DrawSkeleton(1, aAwArwingSkel, frameTable, Display_ArwingOverrideLimbDraw, NULL, arwing,
                                &gIdentityMatrix);
     }
 
@@ -703,7 +703,7 @@ void Display_Arwing(Player* player, s32 reflectY) {
             }
             D_display_800CA22C = true;
             gReflectY = reflectY;
-            Display_ArwingWings(&player->arwing);
+            Display_Arwing_Skel(&player->arwing);
         }
     }
 }

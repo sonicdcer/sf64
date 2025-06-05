@@ -868,7 +868,7 @@ void Effect_Effect357_Draw(Effect357* this) {
                     Matrix_SetGfxMtx(&gMasterDisp);
                     RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                    gSPDisplayList(gMasterDisp++, D_1021E20);
+                    gSPDisplayList(gMasterDisp++, aMetalDebrisDL);
                     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
                     break;
             }

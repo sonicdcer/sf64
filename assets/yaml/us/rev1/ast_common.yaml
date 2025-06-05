@@ -722,8 +722,8 @@ D_101FE20:
 D_1020E20:
   { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x1020E20, symbol: D_1020E20 }
 
-D_1021E20:
-  { type: GFX, offset: 0x1021E20, symbol: D_1021E20 }
+aMetalDebrisDL:
+  { type: GFX, offset: 0x1021E20, symbol: aMetalDebrisDL }
 
 D_1021EF8:
   { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x1021EF8, tlut: 0x10220F8, symbol: D_1021EF8 }

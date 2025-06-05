@@ -14,7 +14,7 @@ void Aquas_CsAqFishGroup_Update(Actor*);
 void Area6_8018DA58(Actor*);
 void Zoness_8019E5F0(Actor*);
 void Aquas_BlueMarineDown(Player*);
-void Aquas_801BE0F0(Actor*);
+void Aquas_CsAqFishGroup_Draw(Actor*);
 
 void OvlI3_CallFunction(s32, void*);
 void Area6_A6Gorgon_Init(Boss *);

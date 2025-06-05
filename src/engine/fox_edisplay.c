@@ -596,7 +596,7 @@ void ActorTeamArwing_Draw(ActorTeamArwing* this) {
             gActorTeamArwing.upperRightFlapYrot = gActorTeamArwing.bottomRightFlapYrot =
                 gActorTeamArwing.upperLeftFlapYrot = gActorTeamArwing.bottomLeftFlapYrot = 0.0f;
         }
-        Display_ArwingWings(&gActorTeamArwing);
+        Display_Arwing_Skel(&gActorTeamArwing);
     } else if (gLevelType == LEVELTYPE_PLANET) {
         gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
     } else if (gPlayer[0].wingPosition == 2) {

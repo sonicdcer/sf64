@@ -1057,7 +1057,7 @@ void Bolse_8018EAEC(ActorCutscene* this, s32 index) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
-void Bolse_8018EC1C(void) {
+void Bolse_CsBoSatellite_Setup(void) {
     ActorCutscene* actor = &gActors[50];
 
     Actor_Initialize(actor);
@@ -1065,7 +1065,7 @@ void Bolse_8018EC1C(void) {
     actor->obj.pos.x = 0;
     actor->obj.pos.y = 0.0f;
     actor->obj.pos.z = -9000.0f;
-    actor->animFrame = ACTOR_CS_30;
+    actor->animFrame = ACTOR_CS_BO_SATELLITE;
     actor->fwork[20] = 1.0f;
     actor->obj.id = OBJ_ACTOR_CUTSCENE;
     Object_SetInfo(&actor->info, actor->obj.id);
@@ -1086,7 +1086,7 @@ void Bolse_BoBaseShield_Setup(void) {
     Object_SetInfo(&boss->info, boss->obj.id);
 }
 
-void Bolse_8018ED44(void) {
+void Bolse_ActorCsLaserShot_Spawn(void) {
     ActorCutscene* actor = &gActors[0];
     s32 i;
 
@@ -1099,7 +1099,7 @@ void Bolse_8018ED44(void) {
             actor->obj.pos.y = gActors[50].obj.pos.y + RAND_FLOAT(100.0f);
             actor->obj.pos.z = -9000.0f;
             actor->timer_0BC = 50;
-            actor->animFrame = ACTOR_CS_31;
+            actor->animFrame = ACTOR_CS_BO_LASER_SHOT;
             actor->vel.z = 200.0f;
             Object_SetInfo(&actor->info, actor->obj.id);
             AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, actor->sfxSource, 4);
@@ -1108,7 +1108,7 @@ void Bolse_8018ED44(void) {
     }
 }
 
-void Bolse_8018EE4C(f32 x, f32 y) {
+void Bolse_ActorCsBoFighter_Spawn(f32 x, f32 y) {
     ActorCutscene* actor;
     s32 i;
 
@@ -1121,7 +1121,7 @@ void Bolse_8018EE4C(f32 x, f32 y) {
             actor->obj.pos.y = gActors[50].obj.pos.y + y;
             actor->obj.pos.z = -9000.0f;
             actor->timer_0BC = 200;
-            actor->animFrame = ACTOR_CS_32;
+            actor->animFrame = ACTOR_CS_BO_FIGHTER;
             actor->vel.z = 80.0f;
             actor->obj.rot.z = RAND_FLOAT_CENTERED(120.0f);
             actor->orient.z = RAND_FLOAT_CENTERED(1.0f);
@@ -1184,7 +1184,7 @@ void Bolse_LevelStart(Player* player) {
                 Bolse_8018EAEC(&gActors[2], 2);
             }
 
-            Bolse_8018EC1C();
+            Bolse_CsBoSatellite_Setup();
             Bolse_BoBaseShield_Setup();
 
             D_ctx_80177A48[1] = -13000.0f;
@@ -1216,43 +1216,43 @@ void Bolse_LevelStart(Player* player) {
             player->rot.z = SIN_DEG(D_ctx_80177A48[2]) * -60.0f;
 
             if (((gCsFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
-                Bolse_8018ED44();
+                Bolse_ActorCsLaserShot_Spawn();
             }
 
             switch (gCsFrameCount) {
                 case 2:
-                    Bolse_8018EE4C(600.0f, -100.0f);
+                    Bolse_ActorCsBoFighter_Spawn(600.0f, -100.0f);
                     break;
                 case 30:
-                    Bolse_8018EE4C(400.0f, 0.0f);
+                    Bolse_ActorCsBoFighter_Spawn(400.0f, 0.0f);
                     break;
 
                 case 40:
-                    Bolse_8018EE4C(0.0f, 100.0f);
+                    Bolse_ActorCsBoFighter_Spawn(0.0f, 100.0f);
                     break;
 
                 case 50:
-                    Bolse_8018EE4C(-200.0f, 200.0f);
+                    Bolse_ActorCsBoFighter_Spawn(-200.0f, 200.0f);
                     break;
 
                 case 70:
-                    Bolse_8018EE4C(200.0f, -300.0f);
+                    Bolse_ActorCsBoFighter_Spawn(200.0f, -300.0f);
                     break;
 
                 case 80:
-                    Bolse_8018EE4C(700.0f, 400.0f);
+                    Bolse_ActorCsBoFighter_Spawn(700.0f, 400.0f);
                     break;
 
                 case 85:
-                    Bolse_8018EE4C(600.0f, -200.0f);
+                    Bolse_ActorCsBoFighter_Spawn(600.0f, -200.0f);
                     break;
 
                 case 100:
-                    Bolse_8018EE4C(-500.0f, 0.0f);
+                    Bolse_ActorCsBoFighter_Spawn(-500.0f, 0.0f);
                     break;
 
                 case 120:
-                    Bolse_8018EE4C(-500.0f, 0.0f);
+                    Bolse_ActorCsBoFighter_Spawn(-500.0f, 0.0f);
                     break;
 
                 case 127:
@@ -1430,7 +1430,7 @@ void Bolse_LevelComplete(Player* player) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
 
-                Bolse_8018EC1C();
+                Bolse_CsBoSatellite_Setup();
 
                 player->pos.x = actor50->obj.pos.x;
                 player->pos.y = actor50->obj.pos.y;

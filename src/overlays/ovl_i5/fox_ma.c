@@ -6422,7 +6422,7 @@ void Macbeth_801AF628(ActorCutscene* this, s32 index) {
     this->obj.pos.x = gPlayer[0].xPath + D_i5_801BA834[index].x;
     this->obj.pos.y = D_i5_801BA834[index].y;
     this->obj.pos.z = D_i5_801BA834[index].z - gPathProgress;
-    this->animFrame = ACTOR_CS_37;
+    this->animFrame = ACTOR_CS_ORB_GLOW;
     this->obj.rot.y = D_i5_801BA84C[index];
     this->iwork[4] = this->iwork[5] = 192;
     this->iwork[0] = this->iwork[1] = this->iwork[2] = this->iwork[7] = this->iwork[3] = 255;
