@@ -52,25 +52,25 @@ extern f32* D_edata_800CF964[];
 
 // fox_edisplay
 extern f32 D_edisplay_800CF9B0[];
-extern Gfx* D_edisplay_800CFA54[];
-extern Gfx* D_edisplay_800CFAC4[];
-extern Gfx* D_edisplay_800CFADC[];
-extern Gfx* D_edisplay_800CFB08[];
-extern Gfx* D_edisplay_800CFB14[];
-extern Gfx* D_edisplay_800CFB28[];
-extern Gfx* D_edisplay_800CFB40[];
-extern Gfx* D_edisplay_800CFB64[];
-extern Gfx* D_edisplay_800CFB88[];
-extern Gfx* D_edisplay_800CFBA8[];
-extern Gfx* D_edisplay_800CFBE4[];
-extern Gfx* D_edisplay_800CFC0C[];
-extern Gfx* D_edisplay_800CFC40[];
-extern Gfx* D_edisplay_800CFC50[];
-extern Gfx* D_edisplay_800CFC64[];
-extern Gfx* D_edisplay_800CFC7C[];
+extern Gfx* gMechDebrisDLs[];
+extern Gfx* gZoContainerDebrisDLs[];
+extern Gfx* gZoBirdDebrisDLs[];
+extern Gfx* gZGullDebrisDLs[];
+extern Gfx* sZoShrimpDebrisDLs[];
+extern Gfx* sZoTroikaDebrisDLs[];
+extern Gfx* sSoVulkainDebrisDLs[];
+extern Gfx* sAqAnglerFishDebrisDLs[];
+extern Gfx* sAqSculpinDebrisDLs[];
+extern Gfx* sAqSpindlyFishDebrisDLs[];
+extern Gfx* sAqGaroaDebrisDLs[];
+extern Gfx* sAqSquidDebrisDLs[];
+extern Gfx* sAqBoulderDebrisDLs[];
+extern Gfx* sAqCoralDebrisDLs[];
+extern Gfx* sAqJellyfishDebrisDLs[];
+extern Gfx* sZoObnemaDebrisDLs[];
 extern f32 D_edisplay_800CFCA0[];
 extern f32 D_edisplay_800CFCCC[];
-extern Gfx D_edisplay_800CFD80[];
+extern Gfx gTexturedLineDL[];
 
 // fox_enmy
 extern ObjectInit* gLevelObjectInits[];
@@ -116,15 +116,15 @@ extern f32 gAllRangeCountdownScale;
 extern f32 gAndrossUnkAlpha;
 extern u16 gBolseDynamicGround;
 extern f32 gWarpZoneBgAlpha;
-extern u8 D_bg_8015F964;
+extern u8 gDrawAquasSurfaceWater;
 extern f32 D_bg_8015F968;
 extern f32 D_bg_8015F96C;
-extern f32 D_bg_8015F970;
-extern s32 D_bg_8015F974;
-extern s32 D_bg_8015F978;
-extern s32 D_bg_8015F97C;
-extern s32 D_bg_8015F980;
-extern f32 D_bg_8015F984;
+extern f32 gSurfaceWaterYPos;
+extern s32 gAquasSurfaceColorR;
+extern s32 gAquasSurfaceColorG;
+extern s32 gAquasSurfaceColorB;
+extern s32 gAquasSurfaceAlpha2;
+extern f32 gArea6BackdropScale;
 
 // fox_boss
 extern s32 gBossFrameCount;

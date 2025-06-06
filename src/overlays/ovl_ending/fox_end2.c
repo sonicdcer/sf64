@@ -869,7 +869,7 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
     D_ending_80198590.teamFaceXrot = +D_ending_801985F0.x;
     D_ending_80198590.teamFaceYrot = -D_ending_801985F0.y;
 
-    Display_ArwingWings(&D_ending_80198590);
+    Display_Arwing_Skel(&D_ending_80198590);
 }
 
 void Ending_80191700(u32 arg0, AssetInfo* asset) {

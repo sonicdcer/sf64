@@ -68,6 +68,6 @@ void Venom1_Ve1Golemech_Dying(Boss *);
 void Training_RingPassCount_Draw(void);
 void Training_Setup360(void);
 void Training_SpawnEnemies(void);
-void Venom1_8019864C(PlayerShot*);
+void Venom1_CheckGolemechHitbox(PlayerShot*);
 
 #endif
