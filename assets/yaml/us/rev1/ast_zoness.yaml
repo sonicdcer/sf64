@@ -291,8 +291,8 @@ D_ZO_601AB14:
 D_ZO_601AFB8:
   { type: SF64:ANIM, offset: 0x601AFB8, symbol: D_ZO_601AFB8}
 
-D_ZO_601B184:
-  { type: SF64:SKELETON, offset: 0x601B184, symbol: D_ZO_601B184}
+aZoObnemaSkel:
+  { type: SF64:SKELETON, offset: 0x601B184, symbol: aZoObnemaSkel}
 
 D_ZO_601B1C0:
   { type: GFX, offset: 0x601B1C0, symbol: D_ZO_601B1C0}

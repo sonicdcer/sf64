@@ -104,8 +104,8 @@ D_TI1_7007234:
 D_TI1_700733C:
   { type: SF64:ANIM, offset: 0x700733C, symbol: D_TI1_700733C }
 
-D_TI1_7007350:
-  { type: GFX, offset: 0x7007350, symbol: D_TI1_7007350 }
+aTi1SkullDL:
+  { type: GFX, offset: 0x7007350, symbol: aTi1SkullDL }
 
 D_TI1_7007AB0:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x7007AB0, symbol: D_TI1_7007AB0, tlut: 0x07007EB0 }
@@ -185,8 +185,8 @@ D_TI1_700B7B8:
 aTi1FekudaGun1DL:
   { type: GFX, offset: 0x700B9C0, symbol: aTi1FekudaGun1DL }
 
-D_TI1_700BB10:
-  { type: GFX, offset: 0x700BB10, symbol: D_TI1_700BB10 }
+aTi1RibsDL:
+  { type: GFX, offset: 0x700BB10, symbol: aTi1RibsDL }
 
 aTiBridgeDL:
   { type: GFX, offset: 0x700BE00, symbol: aTiBridgeDL }

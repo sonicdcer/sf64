@@ -483,14 +483,14 @@ void Zoness_8018FF50(ZoEnergyBall* this) {
 }
 
 void Zoness_ActorDebris_Setup(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state,
-                              f32 scale, s32 timerBC, s32 unk48) {
+                              f32 scale, s32 timerBC, s32 idx) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_DEBRIS;
 
     this->state = state;
     this->scale = scale;
-    this->work_048 = unk48;
+    this->work_048 = idx;
     this->obj.pos = *pos;
     this->obj.rot = *rot;
     this->vel.x = xVel;
@@ -503,12 +503,12 @@ void Zoness_ActorDebris_Setup(ActorDebris* this, Vec3f* pos, Vec3f* rot, f32 xVe
 }
 
 void Zoness_ActorDebris_Spawn(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zVel, s32 state, f32 scale, s32 timerBC,
-                              s32 unk48) {
+                              s32 idx) {
     s32 i;
 
     for (i = ARRAY_COUNT(gActors) - 1; i > 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Zoness_ActorDebris_Setup(&gActors[i], pos, rot, xVel, yVel, zVel, state, scale, timerBC, unk48);
+            Zoness_ActorDebris_Setup(&gActors[i], pos, rot, xVel, yVel, zVel, state, scale, timerBC, idx);
             break;
         }
     }
@@ -1496,11 +1496,11 @@ void Zoness_ZoObnema_Update(ZoObnema* this) {
     }
 }
 
-void Zoness_ZoObnema_Draw(Actor* actor) {
-    Vec3f sp28[30];
+void Zoness_ZoObnema_Draw(ZoObnema* actor) {
+    Vec3f frameTable[30];
 
-    Animation_GetFrameData(&D_ZO_601AFB8, actor->animFrame, sp28);
-    Animation_DrawSkeleton(2, D_ZO_601B184, sp28, NULL, Zoness_ZoObnema_PostLimbDraw, actor, gCalcMatrix);
+    Animation_GetFrameData(&D_ZO_601AFB8, actor->animFrame, frameTable);
+    Animation_DrawSkeleton(2, aZoObnemaSkel, frameTable, NULL, Zoness_ZoObnema_PostLimbDraw, actor, gCalcMatrix);
 }
 
 s32 D_i3_801BF5F0[6] = {

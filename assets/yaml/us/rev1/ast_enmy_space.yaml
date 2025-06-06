@@ -65,8 +65,8 @@ aCommanderTex5:
 D_ENMY_SPACE_4003670:
   { type: TEXTURE, format: RGBA16, offset: 0x04003670, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_4003670 }
 
-D_ENMY_SPACE_4003BD0:
-  { type: GFX, offset: 0x4003BD0, symbol: D_ENMY_SPACE_4003BD0 }
+aSpaceArwingAllRangeDL:
+  { type: GFX, offset: 0x4003BD0, symbol: aSpaceArwingAllRangeDL }
 
 D_ENMY_SPACE_40047E8:
   { type: TEXTURE, format: RGBA16, offset: 0x40047E8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_40047E8 }
@@ -83,8 +83,8 @@ D_ENMY_SPACE_40067E8:
 D_ENMY_SPACE_40077E8:
   { type: TEXTURE, format: RGBA16, offset: 0x40077E8, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_40077E8 }
 
-D_ENMY_SPACE_4007870:
-  { type: GFX, offset: 0x4007870, symbol: D_ENMY_SPACE_4007870 }
+aSpaceArwingOnRailsDL:
+  { type: GFX, offset: 0x4007870, symbol: aSpaceArwingOnRailsDL }
 
 D_ENMY_SPACE_4006FE8:
   { type: TEXTURE, format: RGBA16, offset: 0x4006FE8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4006FE8 }

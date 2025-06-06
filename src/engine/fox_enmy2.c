@@ -3982,9 +3982,9 @@ void ActorEvent_Draw(ActorEvent* this) {
 
                 case EVID_TEAMMATE:
                     if (gLevelType == LEVELTYPE_PLANET) {
-                        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+                        gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
+                        gSPDisplayList(gMasterDisp++, aSpaceArwingOnRailsDL);
                     }
                     Actor_DrawEngineAndContrails(this);
                     break;
