@@ -1,7 +1,12 @@
 ### Progress:
+
 <p align="left">
-    <a href="" alt="SF64_Total_Functions">
-        <img src="https://img.shields.io/badge/2948%2F2951%20Functions-99.90%25-blue" /></a>
+    <a href="" alt="SF64_Total_NonMatchingFunctions">
+        <img src="https://img.shields.io/badge/Functions%20decompiled:%202951%2F2951-100%25-Yellow" /></a>
+</p>
+<p align="left">
+    <a href="" alt="SF64_Total_MatchingFunctions">
+        <img src="https://img.shields.io/badge/Matching%20Functions:%202948%2F2951-99.90%25-yellow" /></a>
 </p>
 
 [![Discord Invitation](https://discordapp.com/api/guilds/1190102597521133700/widget.png?style=banner2 'Starfox 64')](https://discord.gg/tuwdmuTTqc)
