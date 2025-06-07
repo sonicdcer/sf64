@@ -1,3 +1,9 @@
+### Progress:
+<p align="left">
+    <a href="" alt="SF64_Total_Functions">
+        <img src="https://img.shields.io/badge/2948%2F2951%20Functions-99.90%25-blue" /></a>
+</p>
+
 [![Discord Invitation](https://discordapp.com/api/guilds/1190102597521133700/widget.png?style=banner2 'Starfox 64')](https://discord.gg/tuwdmuTTqc)
 
 # Starfox 64 (US) REV 1.1
