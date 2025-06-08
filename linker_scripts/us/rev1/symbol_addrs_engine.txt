@@ -769,7 +769,7 @@ Play_Main = 0x800B86CC;
 
 D_tank_800C9F2C = 0x800C9F2C;
 gNoHitbox = 0x800CBF34;
-D_bg_8015F970 = 0x8015F970;
-D_bg_8015F984 = 0x8015F984;
+gSurfaceWaterYPos = 0x8015F970;
+gArea6BackdropScale = 0x8015F984;
 gTeamLowHealthMsgTimer = 0x8017796C;
 Effect_OrbRing_Draw = 0x80084194;

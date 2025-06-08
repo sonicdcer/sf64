@@ -807,20 +807,20 @@ typedef enum ActorCutsceneModels {
     /*   25 */ ACTOR_CS_SZ_SPACE_JUNK,
     /*   26 */ ACTOR_CS_SZ_INVADER,
     /*   28 */ ACTOR_CS_COMMANDER_GLOW = 28, // Commander with Engine Glow.
-    /*   30 */ ACTOR_CS_30 = 30,             // Related to LEVEL_BOLSE
-    /*   31 */ ACTOR_CS_31,
-    /*   32 */ ACTOR_CS_32,
+    /*   30 */ ACTOR_CS_BO_SATELLITE = 30,   // Bolse satellite shown in the intro and complete cutscenes
+    /*   31 */ ACTOR_CS_BO_LASER_SHOT, // Laser shots coming from Bolse satellite in the intro cutscene
+    /*   32 */ ACTOR_CS_BO_FIGHTER, // Bolse fighter
     /*   33 */ ACTOR_CS_CORNERIAN_FIGHTER, // Bill's ship when actor->index is 3.
     /*   34 */ ACTOR_CS_KA_ENEMY,
     /*   35 */ ACTOR_CS_SY_SHIP_1_SHRINK,  // Scale Matrix by 1/8.
     /*   36 */ ACTOR_CS_SY_SHIP_2,
-    /*   37 */ ACTOR_CS_37,
+    /*   37 */ ACTOR_CS_ORB_GLOW, // Used for Sector Y Intro Cutscene robots engine glow and Area 6 Boss explosion.
     /*   38 */ ACTOR_CS_SY_ROBOT,
     /*   39 */ ACTOR_CS_SY_SHIP_1 = 39,
-    /*   40 */ ACTOR_CS_40,
+    /*   40 */ ACTOR_CS_SY_SHOGUN_PLATFORM, // Launch platform used by SyShogun (SY BOSS).
     /*   41 */ ACTOR_CS_AQ_FISHGROUP,
-    /*   42 */ ACTOR_CS_42, // Related to Sector Y
-    /*   43 */ ACTOR_CS_43, // Related to Sector Y
+    /*   42 */ ACTOR_CS_SY_ROBOT_LASER, // Lasers shot by SyRobots at Sector Y intro cutscene.
+    /*   43 */ ACTOR_CS_SY_EXPLOSION, // Explosions in the background of Sector Y intro cutscene.
     /*   44 */ ACTOR_CS_AQ_SEAWEED,
     /*   45 */ ACTOR_CS_AQ_BUMP_2,
     /*   46 */ ACTOR_CS_AQ_CORAL_REEF_2,

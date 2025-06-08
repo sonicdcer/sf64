@@ -139,7 +139,7 @@ sOvlUnused_Unk = 0x800CBD3C;
 D_A0300000 = 0xA0300000; // ignore:true
 D_A4000000 = 0xA4000000; // ignore:true
 
-D_edisplay_800CFA54 = 0x800CFA54;
+gMechDebrisDLs = 0x800CFA54;
 
 D_800D934C = 0x800D934C; // force_migration:True
 D_800D503C = 0x800D503C; // force_migration:True

@@ -20,17 +20,17 @@ aFoTitleCardTex:
 D_FO_6001260:
   { type: TEXTURE, format: IA8, width: 16, height: 16, offset: 0x6001260, ctype: u8, symbol: D_FO_6001260 }
 
-D_FO_6001360:
-  { type: GFX, offset: 0x6001360, symbol: D_FO_6001360 }
+aFoGroundDL:
+  { type: GFX, offset: 0x6001360, symbol: aFoGroundDL }
 
-D_FO_6001890:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6001890, ctype: u16, symbol: D_FO_6001890 }
+aFoGroundTex1:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6001890, ctype: u16, symbol: aFoGroundTex1 }
 
-D_FO_6002090:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6002090, ctype: u16, symbol: D_FO_6002090 }
+aFoGroundTex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6002090, ctype: u16, symbol: aFoGroundTex2 }
 
-D_FO_6002890:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6002890, ctype: u16, symbol: D_FO_6002890 }
+aFoGroundTex3:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6002890, ctype: u16, symbol: aFoGroundTex3 }
 
 aFoBaseDL2:
   { type: GFX, offset: 0x6003090, symbol: aFoBaseDL2 }
@@ -122,14 +122,14 @@ aFoPoleDL:
 D_FO_600A4A8:
   { type: TEXTURE, format: RGBA16, width: 32, height: 64, offset: 0x600A4A8, ctype: u16, symbol: D_FO_600A4A8 }
 
-D_FO_600B4B0:
-  { type: GFX, offset: 0x600B4B0, symbol: D_FO_600B4B0 }
+aFoCorneriaDL:
+  { type: GFX, offset: 0x600B4B0, symbol: aFoCorneriaDL }
 
-D_FO_600B5C0:
-  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600B5C0, ctype: u16, symbol: D_FO_600B5C0 }
+aFoCorneriaTex1:
+  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600B5C0, ctype: u16, symbol: aFoCorneriaTex1 }
 
-D_FO_600C5C0:
-  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600C5C0, ctype: u16, symbol: D_FO_600C5C0 }
+aFoCorneriaTex2:
+  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600C5C0, ctype: u16, symbol: aFoCorneriaTex2 }
 
 aFoBaseDL1:
   { type: GFX, offset: 0x600D5C0, symbol: aFoBaseDL1 }
@@ -137,11 +137,11 @@ aFoBaseDL1:
 D_FO_600D7E8:
   { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600D7E8, ctype: u16, symbol: D_FO_600D7E8 }
 
-D_FO_600D9F0:
-  { type: GFX, offset: 0x600D9F0, symbol: D_FO_600D9F0 }
+aFoBackdropDL:
+  { type: GFX, offset: 0x600D9F0, symbol: aFoBackdropDL }
 
-D_FO_600DA88:
-  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600DA88, ctype: u16, symbol: D_FO_600DA88 }
+aFoBackdropTex:
+  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600DA88, ctype: u16, symbol: aFoBackdropTex }
 
 D_FO_600EA90:
   { type: SF64:ENVIRONMENT, offset: 0x600EA90, symbol: D_FO_600EA90 }

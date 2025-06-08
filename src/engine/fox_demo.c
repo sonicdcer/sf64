@@ -1,7 +1,7 @@
 /*
  * File: fox_demo.c
  * System: Game Engine
- * Description: Starfox Cutscene Handler
+ * Description: Starfox 64 Cutscene Handler
  */
 
 #include "global.h"
@@ -19,7 +19,7 @@
 #include "assets/ast_katina.h"
 #include "assets/ast_allies.h"
 
-void func_demo_80048AC0(TeamId teamId) {
+void Cutscene_AllAircraftReport(TeamId teamId) {
     s32 teamShield;
 
     if (teamId == TEAM_ID_FALCO) {
@@ -71,25 +71,25 @@ void func_demo_80048AC0(TeamId teamId) {
     }
 }
 
-Vec3f D_demo_800C9F60[] = {
+Vec3f sCsWarpZoneTeamSetupPos[] = {
     { 2000.0f, 2000.0f, 2000.0f },
     { -2000.0f, 2000.0f, 2000.0f },
     { 0.0f, -3000.0f, 3000.0f },
     { 5000.0f, -3000.0f, -3000.0f },
 };
-f32 D_demo_800C9F90[] = { 75.0f, -80.0f, 85.0f, 0.0f };
+f32 sCsWarpZoneTeamSetupOrient[] = { 75.0f, -80.0f, 85.0f, 0.0f };
 
-void func_demo_80048CC4(ActorCutscene* this, s32 index) {
+void Cutscene_WarpZoneComplete_TeamSetup(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_demo_800C9F60[index].x + gPlayer[0].pos.x;
-    this->obj.pos.y = D_demo_800C9F60[index].y + gPlayer[0].pos.y;
-    this->obj.pos.z = D_demo_800C9F60[index].z + gPlayer[0].trueZpos;
+    this->obj.pos.x = sCsWarpZoneTeamSetupPos[index].x + gPlayer[0].pos.x;
+    this->obj.pos.y = sCsWarpZoneTeamSetupPos[index].y + gPlayer[0].pos.y;
+    this->obj.pos.z = sCsWarpZoneTeamSetupPos[index].z + gPlayer[0].trueZpos;
 
     this->orient.y = 0.0f;
-    this->orient.z = D_demo_800C9F90[index];
+    this->orient.z = sCsWarpZoneTeamSetupOrient[index];
 
     Object_SetInfo(&this->info, this->obj.id);
 
@@ -152,13 +152,13 @@ void Cutscene_WarpZoneComplete(Player* player) {
             switch (gCsFrameCount) {
                 case 101:
                     if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                        func_demo_80048CC4(&gActors[0], 0);
+                        Cutscene_WarpZoneComplete_TeamSetup(&gActors[0], 0);
                     }
                     if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                        func_demo_80048CC4(&gActors[1], 1);
+                        Cutscene_WarpZoneComplete_TeamSetup(&gActors[1], 1);
                     }
                     if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                        func_demo_80048CC4(&gActors[2], 2);
+                        Cutscene_WarpZoneComplete_TeamSetup(&gActors[2], 2);
                     }
                     break;
 
@@ -260,22 +260,23 @@ void Cutscene_WarpZoneComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-Vec3f D_demo_800C9FA0[] = {
+Vec3f sCsTeamFormPos[] = {
     { 200.0f, -10.0f, 200.0f },
     { -200.0f, 20.0f, 200.0f },
     { 0.0f, 50.0f, 400.0f },
     { -2000.0f, -1000.0f, 0.0f },
 };
 
-void func_demo_80049630(ActorCutscene* this) {
+// Used in Meteo and Sector X
+void Cutscene_TeamFormAlongPlayer(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 
     switch (this->state) {
         case 0:
-            this->vwork[0].x = gPlayer[0].pos.x + D_demo_800C9FA0[this->index].x;
-            this->vwork[0].y = gPlayer[0].pos.y + D_demo_800C9FA0[this->index].y;
-            this->vwork[0].z = gPlayer[0].pos.z + D_demo_800C9FA0[this->index].z;
+            this->vwork[0].x = gPlayer[0].pos.x + sCsTeamFormPos[this->index].x;
+            this->vwork[0].y = gPlayer[0].pos.y + sCsTeamFormPos[this->index].y;
+            this->vwork[0].z = gPlayer[0].pos.z + sCsTeamFormPos[this->index].z;
             Math_SmoothStepToF(&this->obj.pos.x, this->vwork[0].x, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.y, this->vwork[0].y, 0.05f, 50.0f, 0.0001f);
             Math_SmoothStepToF(&this->obj.pos.z, this->vwork[0].z, 0.05f, 50.0f, 0.0001f);
@@ -316,7 +317,7 @@ void func_demo_80049630(ActorCutscene* this) {
     this->obj.rot.z = -this->orient.z;
 }
 
-void func_demo_8004990C(Player* player) {
+void Cutscene_PathTexScroll(Player* player) {
     if (gGroundType == GROUND_0) {
         gPathTexScroll += 60.0f;
     }
@@ -333,7 +334,7 @@ f32 D_demo_800CA020[] = { 45.0f, -45.0f, 10.0f, 0.0f };
 s32 D_demo_800CA030[] = { ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_GREAT_FOX };
 s32 D_demo_800CA040[] = { 0, 0, 0, 0 };
 
-void func_demo_80049968(ActorCutscene* this, s32 index) {
+void Cutscene_WarpZoneStart_TeamSetup(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -355,7 +356,7 @@ void func_demo_80049968(ActorCutscene* this, s32 index) {
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
-void func_demo_80049A9C(EffectSmallRock* this, f32 x, f32 y, f32 z) {
+void Cutscene_EffectSmallRock_Setup(EffectSmallRock* this, f32 x, f32 y, f32 z) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_SMALL_ROCK;
@@ -369,7 +370,7 @@ void func_demo_80049A9C(EffectSmallRock* this, f32 x, f32 y, f32 z) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_demo_80049B44(void) {
+void Cutscene_EffectSmallRock_Spawn(void) {
     s32 i;
     f32 x;
     f32 y;
@@ -380,15 +381,18 @@ void func_demo_80049B44(void) {
             x = RAND_FLOAT_CENTERED(400.0f);
             y = RAND_FLOAT_CENTERED(400.0f);
             z = -gPathProgress - 500.0f - RAND_FLOAT(500.0f);
-            func_demo_80049A9C(&gEffects[i], x, y, z);
+            Cutscene_EffectSmallRock_Setup(&gEffects[i], x, y, z);
             break;
         }
     }
 }
 
 void Cutscene_EnterWarpZone(Player* player) {
-    s32 var_v0;
-    s32 pad[4];
+    s32 i;
+    ActorCutscene* falco = &gActors[0];
+    ActorCutscene* slippy = &gActors[1];
+    ActorCutscene* peppy = &gActors[2];
+    ActorCutscene* greatFox = &gActors[3];
 
     player->pos.x += player->vel.x;
     player->flags_228 = 0;
@@ -396,7 +400,7 @@ void Cutscene_EnterWarpZone(Player* player) {
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
 
-    func_demo_8004990C(player);
+    Cutscene_PathTexScroll(player);
 
     player->zPathVel = -player->vel.z;
     player->zPath += -player->vel.z;
@@ -428,16 +432,16 @@ void Cutscene_EnterWarpZone(Player* player) {
             player->warpCamSpeed = -500.0f;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                func_demo_80049968(&gActors[0], 0);
+                Cutscene_WarpZoneStart_TeamSetup(falco, 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                func_demo_80049968(&gActors[1], 1);
+                Cutscene_WarpZoneStart_TeamSetup(slippy, 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                func_demo_80049968(&gActors[2], 2);
+                Cutscene_WarpZoneStart_TeamSetup(peppy, 2);
             }
 
-            func_demo_80049968(&gActors[3], 3);
+            Cutscene_WarpZoneStart_TeamSetup(greatFox, 3);
             player->csTimer = 50;
             break;
 
@@ -476,27 +480,27 @@ void Cutscene_EnterWarpZone(Player* player) {
                     player->draw = false;
                 }
             }
-            var_v0 = 1;
+
             player->unk_190 = 2.0f;
 
             if ((player->csTimer == 95) && (gTeamShields[TEAM_ID_FALCO] > 0)) {
-                gActors[0].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[0].sfxSource, 0);
+                falco->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, falco->sfxSource, 0);
             }
 
             if ((player->csTimer == 90) && (gTeamShields[TEAM_ID_PEPPY] > 0)) {
-                gActors[2].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[2].sfxSource, 0);
+                peppy->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, peppy->sfxSource, 0);
             }
 
             if ((player->csTimer == 85) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
-                gActors[1].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[1].sfxSource, 0);
+                slippy->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, slippy->sfxSource, 0);
             }
 
             if (player->csTimer == 60) {
-                gActors[3].state = var_v0;
-                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, gActors[3].sfxSource, 0);
+                greatFox->state = 1;
+                AUDIO_PLAY_SFX(NA_SE_ARWING_WARP_DASH, greatFox->sfxSource, 0);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
                 SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
             }
@@ -551,8 +555,8 @@ void Cutscene_EnterWarpZone(Player* player) {
             Math_SmoothStepToF(&gStarWarpDistortion, 0.0f, 0.2f, 1000.0f, 0.1f);
             Math_SmoothStepToF(&player->camDist, 0.0f, 0.2f, 500.0f, 0.1f);
             if (player->csTimer < 30) {
-                for (var_v0 = 0; var_v0 < 3; var_v0++) {
-                    func_demo_80049B44();
+                for (i = 0; i < 3; i++) {
+                    Cutscene_EffectSmallRock_Spawn();
                 }
             }
 
@@ -610,7 +614,7 @@ void Cutscene_LevelStart(Player* player) {
                 break;
 
             case LEVEL_SECTOR_Y:
-                SectorY_801A0AC0(player);
+                SectorY_LevelStart(player);
                 break;
 
             case LEVEL_SOLAR:
@@ -630,7 +634,7 @@ void Cutscene_LevelStart(Player* player) {
                 Area6_LevelStart(player);
                 break;
         }
-        func_demo_8004990C(player);
+        Cutscene_PathTexScroll(player);
     } else {
         switch (gCurrentLevel) {
             case LEVEL_FORTUNA:
@@ -665,9 +669,9 @@ void Cutscene_LevelStart(Player* player) {
 f32 D_demo_800CA050[] = { 210.0f, -210.0f, 0.0f };
 f32 D_demo_800CA05C[] = { -60.0f, -60.0f, -120.0f };
 f32 D_demo_800CA068[] = { -150.0f, -150.0f, -300.0f };
-f32 D_demo_800CA074[] = { 360.0f, -360.0f, 0.0f };
+f32 sCsTeamSetupZRot[] = { 360.0f, -360.0f, 0.0f };
 
-void func_demo_8004A700(ActorCutscene* this, s32 index) {
+void Cutscene_TeamSetup(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -683,17 +687,17 @@ void func_demo_8004A700(ActorCutscene* this, s32 index) {
     this->fwork[3] = 4.0f;
     this->fwork[7] = RAND_FLOAT(100.0f);
     this->fwork[8] = RAND_FLOAT(100.0f);
-    this->obj.rot.z = D_demo_800CA074[index];
+    this->obj.rot.z = sCsTeamSetupZRot[index];
     this->iwork[ACTOR_ENGINE_GLOW] = 1;
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
-void func_demo_8004A840(s32 actor) {
-    func_demo_8004A700(&gActors[actor], actor);
+void Cutscene_CoComplete2_TeamSetup(s32 actorIdx) {
+    Cutscene_TeamSetup(&gActors[actorIdx], actorIdx);
 }
 
-void func_demo_8004A888(EffectClouds* this) {
+void Cutscene_CoComplete_SetupClouds(EffectClouds* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -731,33 +735,30 @@ void func_demo_8004A888(EffectClouds* this) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void func_demo_8004AA84(void) {
+void Cutscene_CoComplete_SpawnClouds(void) {
     s32 i;
 
     if (((gGameFrameCount % 8) == 0) && (gLevelType == LEVELTYPE_PLANET)) {
         for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                func_demo_8004A888(&gEffects[i]);
+                Cutscene_CoComplete_SetupClouds(&gEffects[i]);
                 break;
             }
         }
     }
 }
 
-f32 D_demo_800CA080[] = { -400.0f, 0.0f, 400.0f };
-f32 D_demo_800CA08C[] = { 0.0f, 200.0f, 0.0f };
+f32 sCsTeamBossSetupXPos[] = { -400.0f, 0.0f, 400.0f };
+f32 sCsTeamBossSetupYPos[] = { 0.0f, 200.0f, 0.0f };
 
 void Cutscene_AllRangeMode(Player* player) {
-    s32 pad;
-    Vec3f sp70;
-    Vec3f sp64;
-    ActorTeamBoss* actor;
-    f32 var_s1;
-    f32 var_s2;
-    f32 var_s3;
-    s32 i;
     s32 pad1;
-    s32 pad2;
+    Vec3f src;
+    Vec3f dest;
+    ActorTeamBoss* actor;
+    s32 pad2[3];
+    s32 i;
+    s32 pad3[2];
 
     gCsFrameCount++;
 
@@ -843,8 +844,8 @@ void Cutscene_AllRangeMode(Player* player) {
                         Actor_Initialize(actor);
                         actor->obj.status = OBJ_INIT;
                         actor->obj.id = OBJ_ACTOR_TEAM_BOSS;
-                        actor->obj.pos.x = D_demo_800CA080[i] + player->pos.x;
-                        actor->obj.pos.y = D_demo_800CA08C[i] + player->pos.y;
+                        actor->obj.pos.x = sCsTeamBossSetupXPos[i] + player->pos.x;
+                        actor->obj.pos.y = sCsTeamBossSetupYPos[i] + player->pos.y;
                         actor->obj.pos.z = player->trueZpos - 1000.0f;
                         actor->orient.y = 180.0f;
                         Object_SetInfo(&actor->info, actor->obj.id);
@@ -855,19 +856,19 @@ void Cutscene_AllRangeMode(Player* player) {
             Matrix_RotateY(gCalcMatrix, D_ctx_80177A48[1] * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, D_ctx_80177A48[2] * M_DTOR, MTXF_APPLY);
 
-            sp70.x = 0.0f;
-            sp70.y = 0.0f;
-            sp70.z = 200.0f;
+            src.x = 0.0f;
+            src.y = 0.0f;
+            src.z = 200.0f;
 
-            Matrix_MultVec3f(gCalcMatrix, &sp70, &sp64);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
             if ((gCurrentLevel == LEVEL_CORNERIA) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
-                sp64.x *= -1.0f;
+                dest.x *= -1.0f;
             }
             Math_SmoothStepToF(&D_ctx_80177A48[0], 0.1f, 1.0f, 0.005f, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + sp64.x, D_ctx_80177A48[0], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + sp64.y, D_ctx_80177A48[0], 500.0f, 0.0f);
-            Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + sp64.z, D_ctx_80177A48[0], 500.0f,
+            Math_SmoothStepToF(&player->cam.eye.x, player->pos.x + dest.x, D_ctx_80177A48[0], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.y, player->pos.y + dest.y, D_ctx_80177A48[0], 500.0f, 0.0f);
+            Math_SmoothStepToF(&player->cam.eye.z, player->trueZpos + gPathProgress + dest.z, D_ctx_80177A48[0], 500.0f,
                                0.0f);
             Math_SmoothStepToF(&player->cam.at.x, player->pos.x, D_ctx_80177A48[0], 500.0f, 0.0f);
             Math_SmoothStepToF(&player->cam.at.y, player->pos.y, D_ctx_80177A48[0], 500.0f, 0.0f);
@@ -877,15 +878,15 @@ void Cutscene_AllRangeMode(Player* player) {
     Matrix_RotateY(gCalcMatrix, (player->rot.y + 180.0f) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
-    sp70.x = 0.0f;
-    sp70.y = 0.0f;
-    sp70.z = player->baseSpeed + player->boostSpeed;
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = player->baseSpeed + player->boostSpeed;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    player->vel.x = sp64.x;
-    player->vel.z = sp64.z;
-    player->vel.y = sp64.y;
+    player->vel.x = dest.x;
+    player->vel.z = dest.z;
+    player->vel.y = dest.y;
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
@@ -1111,17 +1112,17 @@ void Cutscene_CoComplete2(Player* player) {
             player->vel.y = 5.0f;
 
             if ((player->csTimer == 50) && (gTeamShields[TEAM_ID_FALCO] > 0)) {
-                func_demo_8004A840(0);
+                Cutscene_CoComplete2_TeamSetup(0);
             }
 
             if ((player->csTimer == 70) && (gTeamShields[TEAM_ID_SLIPPY] > 0)) {
-                func_demo_8004A840(1);
+                Cutscene_CoComplete2_TeamSetup(1);
             }
 
             if (player->csTimer == 90) {
                 Play_ClearObjectData();
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                    func_demo_8004A840(2);
+                    Cutscene_CoComplete2_TeamSetup(2);
                 }
                 gGroundSurface = SURFACE_GRASS;
             }
@@ -1131,7 +1132,7 @@ void Cutscene_CoComplete2(Player* player) {
             Matrix_RotateZ(gCalcMatrix, -((player->bankAngle + player->rockAngle) * M_DTOR), MTXF_APPLY);
 
             if ((gCOComplete2CamRotY > 70.0f) && (gCOComplete2CamRotY < 280.0f)) {
-                func_demo_8004AA84();
+                Cutscene_CoComplete_SpawnClouds();
             }
             sp78.x = gActors[0].fwork[0] * gActors[0].fwork[3];
             sp78.y = gActors[0].fwork[1] * gActors[0].fwork[3];
@@ -1173,7 +1174,7 @@ void Cutscene_CoComplete2(Player* player) {
                     break;
 
                 case 550:
-                    if ((gTeamShields[TEAM_ID_SLIPPY] == (-1)) || (gTeamShields[TEAM_ID_SLIPPY] == 0)) {
+                    if ((gTeamShields[TEAM_ID_SLIPPY] == -1) || (gTeamShields[TEAM_ID_SLIPPY] == 0)) {
                         Radio_PlayMessage(gMsg_ID_20333, RCID_ROB64);
                     } else {
                         Radio_PlayMessage(gMsg_ID_2300, RCID_SLIPPY);
@@ -1878,23 +1879,24 @@ f32 D_demo_800CA098[] = { 1.0f, -0.9f, 0.7f };
 f32 D_demo_800CA0A4[] = { 150.0f, 100.0f, 200.0f };
 f32 D_demo_800CA0B0[] = { 200.0f, 300.0f, 500.0f };
 
-void func_demo_8004E4D4(ActorCutscene* this) {
-    Vec3f sp54;
-    Vec3f sp48;
-    Vec3f sp3C;
+// Used in Corneria AllRange, Titania and Sector X
+void Cutscene_CoTeamFormAlongPlayer2(ActorCutscene* this) {
+    Vec3f src;
+    Vec3f dest;
+    Vec3f dest2;
     Player* player = &gPlayer[0];
-    f32 sp34;
+    f32 radius;
 
     this->fwork[7] += 3.0f;
     this->orient.z = SIN_DEG(this->fwork[7]) * 1.5f;
     this->fwork[8] += 2.0f;
-    sp34 = SIN_DEG(this->fwork[8]) * 10.0f;
+    radius = SIN_DEG(this->fwork[8]) * 10.0f;
 
     switch (this->state) {
         case 0:
             Math_SmoothStepToF(&this->obj.rot.z, 0.0f, 0.05f, 1.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + radius, 0.03f, 10.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             this->obj.rot.x = -player->rot.x;
             this->obj.rot.y = player->rot.y + 180.0f;
@@ -1965,19 +1967,19 @@ void func_demo_8004E4D4(ActorCutscene* this) {
 
             Matrix_RotateY(gCalcMatrix, this->fwork[3] * M_DTOR, MTXF_NEW);
 
-            sp54.x = 0.0f;
-            sp54.y = D_demo_800CA0A4[this->index];
-            sp54.z = D_demo_800CA0B0[this->index];
+            src.x = 0.0f;
+            src.y = D_demo_800CA0A4[this->index];
+            src.z = D_demo_800CA0B0[this->index];
 
-            Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest2);
 
-            this->fwork[0] = sp3C.x;
-            this->fwork[1] = sp3C.y;
-            this->fwork[2] = sp3C.z - 100.0f;
+            this->fwork[0] = dest2.x;
+            this->fwork[1] = dest2.y;
+            this->fwork[2] = dest2.z - 100.0f;
 
             Math_SmoothStepToF(&this->obj.rot.z, SIN_DEG(this->fwork[3]) * -30.0f, 0.1f, 2.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.x, this->fwork[0] + player->pos.x, 0.03f, 10.0f, 0.0f);
-            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + sp34, 0.03f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&this->obj.pos.y, this->fwork[1] + player->pos.y + radius, 0.03f, 10.0f, 0.0f);
             Math_SmoothStepToF(&this->obj.pos.z, this->fwork[2] + player->trueZpos, 0.03f, 10.0f, 0.0f);
             break;
 
@@ -1997,18 +1999,19 @@ void func_demo_8004E4D4(ActorCutscene* this) {
     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
 
-    sp54.x = 0.0f;
-    sp54.y = 0.0f;
-    sp54.z = this->fwork[9];
+    src.x = 0.0f;
+    src.y = 0.0f;
+    src.z = this->fwork[9];
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp54, &sp48);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    this->vel.x = sp48.x;
-    this->vel.y = sp48.y;
-    this->vel.z = sp48.z;
+    this->vel.x = dest.x;
+    this->vel.y = dest.y;
+    this->vel.z = dest.z;
 }
 
-void func_demo_8004EBD0(ActorCutscene* this) {
+// Used in corneria hard path
+void Cutscene_CoTeamFormAlongPlayer(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -2113,7 +2116,7 @@ void func_demo_8004EBD0(ActorCutscene* this) {
     }
 }
 
-void func_demo_8004F05C(ActorCutscene* this) {
+void Cutscene_ActorCs_LevelIntro(ActorCutscene* this) {
     if (((gLevelType == LEVELTYPE_PLANET) && (this->animFrame == 0)) || (gCurrentLevel == LEVEL_BOLSE)) {
         this->fwork[0] += 3.0f;
         this->fwork[1] = SIN_DEG(this->fwork[0]) * 1.5f;
@@ -2152,20 +2155,20 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     }
                     break;
 
-                case ACTOR_CS_31:
+                case ACTOR_CS_BO_LASER_SHOT:
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
 
-                case ACTOR_CS_32:
+                case ACTOR_CS_BO_FIGHTER:
                     this->obj.rot.z += this->orient.z;
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
 
-                case ACTOR_CS_30:
+                case ACTOR_CS_BO_SATELLITE:
                     break;
             }
             break;
@@ -2180,7 +2183,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     SectorY_8019FF00(this);
                     break;
 
-                case ACTOR_CS_42:
+                case ACTOR_CS_SY_ROBOT_LASER:
                     if (this->timer_0BC == 0) {
                         if (this->obj.pos.x >= -3500.0f) {
                             if (this->obj.pos.z <= 3000.0f) {
@@ -2193,7 +2196,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
                     }
                     break;
 
-                case ACTOR_CS_43:
+                case ACTOR_CS_SY_EXPLOSION:
                     if (this->timer_0BC == 0) {
                         Object_Kill(&this->obj, this->sfxSource);
                     }
@@ -2275,7 +2278,7 @@ void func_demo_8004F05C(ActorCutscene* this) {
     }
 }
 
-void func_demo_8004F798(ActorCutscene* this) {
+void Cutscene_ActorCs_EnterWarpZone(ActorCutscene* this) {
     this->iwork[ACTOR_ENGINE_GLOW] = 2;
 
     switch (this->state) {
@@ -2344,7 +2347,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     if (gLevelPhase == 0) {
                         Meteo_8018ED9C(this);
                     } else {
-                        func_demo_80049630(this);
+                        Cutscene_TeamFormAlongPlayer(this);
                     }
                     break;
 
@@ -2389,22 +2392,22 @@ void ActorCutscene_Update(ActorCutscene* this) {
 
                 case LEVEL_CORNERIA:
                     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-                        func_demo_8004E4D4(this);
+                        Cutscene_CoTeamFormAlongPlayer2(this);
                     } else {
-                        func_demo_8004EBD0(this);
+                        Cutscene_CoTeamFormAlongPlayer(this);
                     }
                     break;
 
                 case LEVEL_SECTOR_X:
                     if (gLevelPhase != 0) {
-                        func_demo_80049630(this);
+                        Cutscene_TeamFormAlongPlayer(this);
                     } else {
-                        func_demo_8004E4D4(this);
+                        Cutscene_CoTeamFormAlongPlayer2(this);
                     }
                     break;
 
                 case LEVEL_TITANIA:
-                    func_demo_8004E4D4(this);
+                    Cutscene_CoTeamFormAlongPlayer2(this);
                     break;
 
                 case LEVEL_MACBETH:
@@ -2412,21 +2415,21 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     break;
 
                 case LEVEL_BOLSE:
-                    func_demo_8004F05C(this);
+                    Cutscene_ActorCs_LevelIntro(this);
                     break;
 
                 default:
-                    func_demo_8004EBD0(this);
+                    Cutscene_CoTeamFormAlongPlayer(this);
                     break;
             }
             break;
 
         case PLAYERSTATE_LEVEL_INTRO:
-            func_demo_8004F05C(this);
+            Cutscene_ActorCs_LevelIntro(this);
             break;
 
         case PLAYERSTATE_ENTER_WARP_ZONE:
-            func_demo_8004F798(this);
+            Cutscene_ActorCs_EnterWarpZone(this);
             break;
 
         case PLAYERSTATE_STANDBY:
@@ -2437,13 +2440,13 @@ void ActorCutscene_Update(ActorCutscene* this) {
     }
 }
 
-Vec3f D_demo_800CA0BC[] = {
+Vec3f sGreatFoxLightPos2[] = {
     { -1373.0, 484.0, -374.0 },
     { 1373.0, 484.0, -374.0 },
     { -1373.0, -704.0, -374.0 },
     { 1373.0, -704.0, -374.0 },
 };
-Vec3f D_demo_800CA0EC[] = {
+Vec3f sGreatFoxLightPos[] = {
     { 0.0, 40.0, -2278.0 },
     { 295.0, -92.0, -1301.0 },
     { -295.0, -92.0, -1301.0 },
@@ -2456,14 +2459,14 @@ Vec3f sCsSyShipPos[8] = {
 f32 D_demo_800CA170[] = {
     0.15f, 0.45f, 0.75f, 1.3f, 0.75f, 0.45f, 0.15f, 0.0f,
 };
-f32 D_demo_800CA190[] = { 5.0f, 5.2f };
-f32 D_demo_800CA198[] = {
+f32 sGreatFoxLightScale2[] = { 5.0f, 5.2f };
+f32 sMeGreatFoxLightScale[] = {
     0.5f, 1.5f, 2.5f, 1.5f, 0.5f, 0.2f, 0.2f,
 };
 f32 D_demo_800CA1B4[] = {
     -30.0f, -60.0f, -90.0f, -120.0f, -150.0f, -180.0f, -200.0, -210.0,
 };
-f32 D_demo_800CA1D4[] = {
+f32 sGreatFoxLightScale3[] = {
     1.5f, 0.87f, 0.83f, 0.75f, 0.7f, 0.6f, 0.4f, 0.1f,
 };
 Animation* D_demo_800CA1F4[] = {
@@ -2508,7 +2511,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
     f32 sp2DC;
     f32 sp2D8;
     f32 sp2D4;
-    s32 sp2D0;
+    s32 i;
     s32 pad2C4[3];
     Vec3f sp2B8;
     Vec3f sp2AC;
@@ -2525,7 +2528,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
         case ACTOR_CS_JAMES_ARWING:
             RCP_SetupDL(&gMasterDisp, SETUPDL_45);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->work_046);
-            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+            gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
 
             if (this->work_046 > 50) {
                 Actor_DrawEngineAndContrails(this);
@@ -2594,7 +2597,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Actor_DrawEngineGlow(this, EG_GREEN);
             break;
 
-        case ACTOR_CS_30:
+        case ACTOR_CS_BO_SATELLITE:
             Display_SetSecondLight(&this->obj.pos);
 
             if (this->work_046 != 0) {
@@ -2602,7 +2605,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 Rand_SetSeed(1, 29000, 9876);
 
-                for (sp2D0 = 0; sp2D0 < 30; sp2D0++) {
+                for (i = 0; i < 30; i++) {
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, RAND_FLOAT_CENTERED_SEEDED(3000.0f) * this->fwork[20],
                                      RAND_FLOAT_CENTERED_SEEDED(3000.0f) * this->fwork[20],
@@ -2611,7 +2614,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
                     Matrix_RotateZ(gGfxMatrix, (2.0f * gGameFrameCount) * M_DTOR, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, 2.0f * RAND_FLOAT_SEEDED(M_PI), MTXF_APPLY);
 
-                    switch ((s32) (sp2D0 % 4U)) {
+                    switch ((s32) (i % 4U)) {
                         case 0:
                             Matrix_Scale(gGfxMatrix, 1.0f, 0.3f, 1.0f, MTXF_APPLY);
                             break;
@@ -2632,10 +2635,9 @@ void ActorCutscene_Draw(ActorCutscene* this) {
                     Matrix_Scale(gGfxMatrix, RAND_FLOAT_SEEDED(8.0f) + 8.0f, RAND_FLOAT_SEEDED(8.0f) + 8.0f, 10.0f,
                                  MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_1021E20);
+                    gSPDisplayList(gMasterDisp++, aMetalDebrisDL);
                     Matrix_Pop(&gGfxMatrix);
                 }
-
                 break;
             }
 
@@ -2655,7 +2657,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gSPDisplayList(gMasterDisp++, D_BO_600BAA0);
+            gSPDisplayList(gMasterDisp++, aBoSatelliteDL);
 
             Matrix_Push(&gGfxMatrix);
 
@@ -2702,7 +2704,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
 
             gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
-            gSPDisplayList(gMasterDisp++, D_BO_6000D80);
+            gSPDisplayList(gMasterDisp++, aBoSatelliteLightsDL);
             gDPSetTextureFilter(gMasterDisp++, G_TF_BILERP);
 
             Matrix_Pop(&gGfxMatrix);
@@ -2714,15 +2716,15 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             }
             break;
 
-        case ACTOR_CS_31:
+        case ACTOR_CS_BO_LASER_SHOT:
             RCP_SetupDL_21();
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 2.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_101ABD0);
+            gSPDisplayList(gMasterDisp++, aLaserShotRedDL);
             break;
 
-        case ACTOR_CS_32:
-            gSPDisplayList(gMasterDisp++, D_BO_6008770);
+        case ACTOR_CS_BO_FIGHTER:
+            gSPDisplayList(gMasterDisp++, aBoFighterDL);
             break;
 
         case ACTOR_CS_CORNERIAN_FIGHTER:
@@ -2755,7 +2757,7 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             ActorCutscene_SyShip_Setup(this, 0);
             break;
 
-        case ACTOR_CS_37:
+        case ACTOR_CS_ORB_GLOW:
             RCP_SetupDL_49();
             gDPSetPrimColor(gMasterDisp++, 0, 0, this->iwork[0], this->iwork[1], this->iwork[2], this->iwork[3]);
             gDPSetEnvColor(gMasterDisp++, this->iwork[4], this->iwork[5], this->iwork[6], this->iwork[7]);
@@ -2828,19 +2830,19 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             }
             break;
 
-        case ACTOR_CS_40:
-            gSPDisplayList(gMasterDisp++, D_SY_60132A0);
+        case ACTOR_CS_SY_SHOGUN_PLATFORM:
+            gSPDisplayList(gMasterDisp++, aSyShogunPlatformDL);
             break;
 
         case ACTOR_CS_AQ_FISHGROUP:
-            Aquas_801BE0F0(this);
+            Aquas_CsAqFishGroup_Draw(this);
             break;
 
-        case ACTOR_CS_42:
-            gSPDisplayList(gMasterDisp++, D_SY_6014A40);
+        case ACTOR_CS_SY_ROBOT_LASER:
+            gSPDisplayList(gMasterDisp++, aSyRobotLaserDL);
             break;
 
-        case ACTOR_CS_43:
+        case ACTOR_CS_SY_EXPLOSION:
             RCP_SetupDL_49();
 
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->iwork[0]);
@@ -2885,14 +2887,14 @@ void ActorCutscene_Draw(ActorCutscene* this) {
 }
 
 void Cutscene_DrawGreatFox(void) {
-    Vec3f* var_s6_2;
+    Vec3f* greatFoxLightPos;
     s32 i;
     s32 j;
-    f32 sp9C[4];
+    f32 greatFoxLightScale[4];
     Gfx* dList;
 
-    PRINTF("Demo_Time=%d\n");
-    PRINTF("Demo_Time=%d\n");
+    PRINTF("Demo_Time=%d\n", gCsFrameCount);
+    PRINTF("Demo_Time=%d\n", gCsFrameCount);
     PRINTF("d Enm->wrk0 %d\n");
 
     if (gGameState == GSTATE_TITLE) {
@@ -2918,25 +2920,26 @@ void Cutscene_DrawGreatFox(void) {
         RCP_SetupDL_49();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-        for (i = 0, var_s6_2 = D_demo_800CA0BC; i < ARRAY_COUNT(sp9C); i++, var_s6_2++) {
+        for (i = 0, greatFoxLightPos = sGreatFoxLightPos2; i < ARRAY_COUNT(greatFoxLightScale);
+             i++, greatFoxLightPos++) {
             if ((i != 1) || gGreatFoxIntact) {
-                sp9C[i] = 0.0f;
+                greatFoxLightScale[i] = 0.0f;
 
                 if (i < 2) {
                     if ((gGameFrameCount & ((64 - 1) & ~(8 - 1))) == 0) {
-                        sp9C[i] = D_demo_800CA170[gGameFrameCount % 8U];
+                        greatFoxLightScale[i] = D_demo_800CA170[gGameFrameCount % 8U];
                     }
                     gDPSetEnvColor(gMasterDisp++, 255, 32, 32, 128);
                 } else {
                     if (((gGameFrameCount + 32) & 0x38) == 0) {
-                        sp9C[i] = D_demo_800CA170[gGameFrameCount % 8U];
+                        greatFoxLightScale[i] = D_demo_800CA170[gGameFrameCount % 8U];
                     }
                     gDPSetEnvColor(gMasterDisp++, 32, 32, 255, 128);
                 }
 
                 Matrix_Push(&gGfxMatrix);
-                Matrix_Translate(gGfxMatrix, var_s6_2->x, var_s6_2->y, var_s6_2->z, MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, sp9C[i], sp9C[i], 1.0f, MTXF_APPLY);
+                Matrix_Translate(gGfxMatrix, greatFoxLightPos->x, greatFoxLightPos->y, greatFoxLightPos->z, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, greatFoxLightScale[i], greatFoxLightScale[i], 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, dList);
                 Matrix_Pop(&gGfxMatrix);
@@ -2946,18 +2949,18 @@ void Cutscene_DrawGreatFox(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 48);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 48);
 
-        for (i = 0, var_s6_2 = D_demo_800CA0EC; i < 3; i++, var_s6_2++) {
-            sp9C[i] = D_demo_800CA190[gGameFrameCount % 2U];
+        for (i = 0, greatFoxLightPos = sGreatFoxLightPos; i < 3; i++, greatFoxLightPos++) {
+            greatFoxLightScale[i] = sGreatFoxLightScale2[gGameFrameCount % 2U];
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, var_s6_2->x, var_s6_2->y, var_s6_2->z, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, sp9C[i], sp9C[i], 1.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, greatFoxLightPos->x, greatFoxLightPos->y, greatFoxLightPos->z, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, greatFoxLightScale[i], greatFoxLightScale[i], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, dList);
 
             for (j = 0; j < 4; j++) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, D_demo_800CA1B4[2 * j], MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, D_demo_800CA1D4[2 * j], D_demo_800CA1D4[2 * j], 1.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, sGreatFoxLightScale3[2 * j], sGreatFoxLightScale3[2 * j], 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPDisplayList(gMasterDisp++, dList);
                 Matrix_Pop(&gGfxMatrix);
@@ -2968,9 +2971,9 @@ void Cutscene_DrawGreatFox(void) {
         if ((gCurrentLevel == LEVEL_METEO) && (gPlayer[0].csEventTimer != 0)) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 32, 128);
-            Matrix_Translate(gGfxMatrix, D_ctx_80177A48[3] * (-74.0f), -232.0f, 1190.0f, MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, D_demo_800CA198[gPlayer[0].csEventTimer], D_demo_800CA198[gPlayer[0].csEventTimer],
-                         1.0f, MTXF_APPLY);
+            Matrix_Translate(gGfxMatrix, D_ctx_80177A48[3] * -74.0f, -232.0f, 1190.0f, MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, sMeGreatFoxLightScale[gPlayer[0].csEventTimer],
+                         sMeGreatFoxLightScale[gPlayer[0].csEventTimer], 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, dList);
         }

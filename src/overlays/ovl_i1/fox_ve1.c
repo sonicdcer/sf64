@@ -2561,7 +2561,7 @@ void Venom1_Ve1Golemech_Draw(Ve1Golemech* this) {
     this->state = this->swork[9];
 }
 
-void Venom1_8019864C(PlayerShot* shot) {
+void Venom1_CheckGolemechHitbox(PlayerShot* shot) {
     s32 i;
     s32 j;
     s32 count;

@@ -5764,8 +5764,8 @@ void Aquas_CsLevelComplete(Player* player) {
             player->barrelRollAlpha = 0;
             player->unk_17C = player->unk_180 = 0.0f;
 
-            D_bg_8015F974 = D_bg_8015F978 = D_bg_8015F97C = 255;
-            D_bg_8015F980 = 0;
+            gAquasSurfaceColorR = gAquasSurfaceColorG = gAquasSurfaceColorB = 255;
+            gAquasSurfaceAlpha2 = 0;
 
             gLight1R = 40;
             gLight1G = 100;

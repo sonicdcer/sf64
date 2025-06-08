@@ -42,11 +42,11 @@ D_CO_60049F0:
 D_CO_6004900:
   { type: GFX, offset: 0x6004900, symbol: D_CO_6004900 }
 
-D_CO_60059F0:
-  { type: GFX, offset: 0x60059F0, symbol: D_CO_60059F0 }
+aCoBackdropDL:
+  { type: GFX, offset: 0x60059F0, symbol: aCoBackdropDL }
 
-D_CO_6005A80:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06005A80, symbol: D_CO_6005A80 }
+aCoBackdropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06005A80, symbol: aCoBackdropTex }
   
 aCoArch3DL:
   { type: GFX, offset: 0x6006A80, symbol: aCoArch3DL }
@@ -204,11 +204,11 @@ D_CO_601AD60:
 aCoBuilding5DL: 
   { type: GFX, offset: 0x601B560, symbol: aCoBuilding5DL }
   
-D_CO_601B640: 
-  { type: GFX, offset: 0x601B640, symbol: D_CO_601B640 }
+aCoGroundOnRailsDL: 
+  { type: GFX, offset: 0x601B640, symbol: aCoGroundOnRailsDL }
 
-D_CO_601B6C0: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601B6C0, symbol: D_CO_601B6C0 }
+aCoGroundGrassTex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601B6C0, symbol: aCoGroundGrassTex }
     
 aCoBump2DL: 
   { type: GFX, offset: 0x601BEC0, symbol: aCoBump2DL }
@@ -225,8 +225,8 @@ D_CO_601CAA0:
 D_CO_601DAA0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0601DAA0, symbol: D_CO_601DAA0 }
     
-D_CO_601EAA0: 
-  { type: GFX, offset: 0x601EAA0, symbol: D_CO_601EAA0 }
+aCoGroundAllRangeDL: 
+  { type: GFX, offset: 0x601EAA0, symbol: aCoGroundAllRangeDL }
 
 D_CO_601ED00:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601ED00, symbol: D_CO_601ED00 }
@@ -273,8 +273,8 @@ D_CO_6026420:
 D_CO_6027340:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06027340, symbol: D_CO_6027340 }
 
-D_CO_6028260:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028260, symbol: D_CO_6028260 }
+aCoGroundRockTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028260, symbol: aCoGroundRockTex }
 
 D_CO_6028A60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028A60, symbol: D_CO_6028A60 }

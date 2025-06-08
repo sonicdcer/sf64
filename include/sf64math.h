@@ -6,29 +6,29 @@
 #define MTXF_NEW 0
 #define MTXF_APPLY 1
 
-typedef struct {
+typedef struct Vec3f {
     /* 0x0 */ f32 x;
     /* 0x4 */ f32 y;
     /* 0x8 */ f32 z;
 } Vec3f; // size = 0xC
 
-typedef struct {
+typedef struct Vec3s {
     /* 0x0 */ s16 x;
     /* 0x2 */ s16 y;
     /* 0x4 */ s16 z;
 } Vec3s; // size = 0x6;
 
-typedef struct {
+typedef struct PosRot {
     /* 0x00 */ Vec3f pos;
     /* 0x0C */ Vec3f rot;
 } PosRot; // size = 0x18
 
-typedef struct {
+typedef struct CameraPoint {
     /* 0x00 */ Vec3f eye;
     /* 0x0C */ Vec3f at;
 } CameraPoint; // size = 0x18
 
-typedef struct {
+typedef struct Triangle {
     /* 0x0 */ s16 vtx[3];
 } Triangle; // size = 0x6
 
@@ -45,16 +45,13 @@ typedef struct {
 typedef union {
     float m[4][4];
     struct {
-        float xx, yx, zx, wx,
-              xy, yy, zy, wy,
-              xz, yz, zz, wz,
-              xw, yw, zw, ww;
+        float xx, yx, zx, wx, xy, yy, zy, wy, xz, yz, zz, wz, xw, yw, zw, ww;
     };
     // u64 force_struct_alignment;
 } Matrix; // size = 0x40
 
-extern Mtx gIdentityMtx; // 800C4620
-extern Matrix gIdentityMatrix; //800C4660
+extern Mtx gIdentityMtx;       // 800C4620
+extern Matrix gIdentityMatrix; // 800C4660
 
 extern Matrix* gGfxMatrix;
 extern Matrix sGfxMatrixStack[0x20];
@@ -72,11 +69,11 @@ f32 Math_Atan2F_XYAlt(f32 x, f32 y);
 f32 Math_PowF(f32 base, s32 exp);
 void Math_MinMax(s32* min, s32* max, s32 val1, s32 val2, s32 val3);
 
-f32 Math_SmoothStepToF(f32 *value, f32 target, f32 scale, f32 maxStep, f32 minStep);
-f32 Math_SmoothStepToAngle(f32 *angle, f32 target, f32 scale, f32 maxStep, f32 minStep);
-void Math_SmoothStepToVec3fArray(Vec3f *src, Vec3f *dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep);
-s32 Math_PursueVec3f(Vec3f *pos, Vec3f *target, Vec3f *rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist);
-void Math_Vec3fFromAngles(Vec3f *step, f32 xRot, f32 yRot, f32 stepsize);
+f32 Math_SmoothStepToF(f32* value, f32 target, f32 scale, f32 maxStep, f32 minStep);
+f32 Math_SmoothStepToAngle(f32* angle, f32 target, f32 scale, f32 maxStep, f32 minStep);
+void Math_SmoothStepToVec3fArray(Vec3f* src, Vec3f* dst, s32 mode, s32 count, f32 scale, f32 maxStep, f32 minStep);
+s32 Math_PursueVec3f(Vec3f* pos, Vec3f* target, Vec3f* rot, f32 stepSize, f32 scaleTurn, f32 maxTurn, f32 dist);
+void Math_Vec3fFromAngles(Vec3f* step, f32 xRot, f32 yRot, f32 stepsize);
 f32 Math_RadToDeg(f32 rAngle);
 
 // Copies src Matrix into dst
@@ -134,11 +131,10 @@ void Matrix_GetXYZAngles(Matrix* mtx, Vec3f* rot);
 // Creates a look-at matrix from Eye, At, and Up in mtx (MTXF_NEW) or applies one to mtx (MTXF_APPLY).
 // A look-at matrix is a rotation-translation matrix that maps y to Up, z to (At - Eye), and translates to Eye
 void Matrix_LookAt(Matrix* mtx, f32 xEye, f32 yEye, f32 zEye, f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp,
-                  u8 mode);
+                   u8 mode);
 
 // Converts the current Gfx matrix to a Mtx and sets it to the display list
 void Matrix_SetGfxMtx(Gfx** gfx);
-
 
 f32 Math_FAtanF(f32);
 f32 Math_FAtan2F(f32, f32);

@@ -430,16 +430,16 @@ s32 PlayerShot_CheckEventHitbox(PlayerShot* shot, Actor* actor) {
 
 s32 PlayerShot_CheckActorHitbox(PlayerShot* shot, Actor* actor) {
     Object* shotx = &shot->obj;
-    f32 temp_fv1 = actor->obj.pos.x - shotx->pos.x;
-    f32 temp_fa0 = actor->obj.pos.z - shotx->pos.z;
+    f32 xPos = actor->obj.pos.x - shotx->pos.x;
+    f32 zPos = actor->obj.pos.z - shotx->pos.z;
     f32 var_fa1;
     f32* hitboxData = actor->info.hitbox;
 
-    if (((s32) hitboxData[0] != 0) && (sqrtf(SQ(temp_fv1) + SQ(temp_fa0)) <= 500.0f)) {
+    if (((s32) hitboxData[0] != 0) && (sqrtf(SQ(xPos) + SQ(zPos)) <= 500.0f)) {
         if (shot->sourceId < 4) {
-            temp_fv1 = actor->obj.pos.x - gPlayer[0].cam.eye.x;
-            temp_fa0 = actor->obj.pos.z + gPathProgress - gPlayer[0].cam.eye.z;
-            var_fa1 = (sqrtf(SQ(temp_fv1) + SQ(temp_fa0)) / 50.0f) + 20.0f + 10.0f;
+            xPos = actor->obj.pos.x - gPlayer[0].cam.eye.x;
+            zPos = actor->obj.pos.z + gPathProgress - gPlayer[0].cam.eye.z;
+            var_fa1 = (sqrtf(SQ(xPos) + SQ(zPos)) / 50.0f) + 20.0f + 10.0f;
             if (var_fa1 > 200.0f) {
                 var_fa1 = 200.0f;
             }
@@ -660,8 +660,8 @@ bool PlayerShot_CheckPolyCollision(PlayerShot* shot, ObjectId objId, Object* obj
 }
 
 void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex) {
-    Vec3f sp44 = { 0.0f, 0.0f, -100.0f };
-    Vec3f sp38;
+    Vec3f src = { 0.0f, 0.0f, -100.0f };
+    Vec3f dest;
 
     actor->dmgType = DMG_BEAM;
     actor->dmgPart = hitIndex - 1;
@@ -716,10 +716,10 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
             shot->obj.rot.x = RAND_FLOAT(360.0f);
             Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
-            Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-            shot->vel.x = sp38.x;
-            shot->vel.y = sp38.y;
-            shot->vel.z = sp38.z;
+            Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+            shot->vel.x = dest.x;
+            shot->vel.y = dest.y;
+            shot->vel.z = dest.z;
             shot->obj.pos.x += shot->vel.x * 5.0f;
             shot->obj.pos.y += shot->vel.y * 5.0f;
             shot->obj.pos.z += shot->vel.z * 5.0f;
@@ -735,7 +735,7 @@ void PlayerShot_ApplyDamageToActor(PlayerShot* shot, Actor* actor, s32 hitIndex)
 
 void PlayerShot_CollisionCheck(PlayerShot* shot) {
     s32 i;
-    s32 temp_v0;
+    s32 colResult;
     s32 spA4;
     Vec3f test;
     f32 sp94;
@@ -755,7 +755,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
         sp60 = false;
     }
     if (sp60) {
-        for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+        for (i = 0, effect = &gEffects[0]; i < ARRAY_COUNT(gEffects); i++, effect++) {
             if ((effect->obj.status >= OBJ_ACTIVE) && (effect->info.unk_19 != 0) &&
                 (fabsf(shot->obj.pos.z - effect->obj.pos.z) < 200.0f) &&
                 (fabsf(shot->obj.pos.x - effect->obj.pos.x) < 100.0f) &&
@@ -792,9 +792,9 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                                 PlayerShot_ApplyDamageToActor(shot, actor, 0);
                             }
                         } else {
-                            temp_v0 = PlayerShot_CheckEventHitbox(shot, actor);
-                            if (temp_v0 != 0) {
-                                PlayerShot_ApplyDamageToActor(shot, actor, temp_v0);
+                            colResult = PlayerShot_CheckEventHitbox(shot, actor);
+                            if (colResult != 0) {
+                                PlayerShot_ApplyDamageToActor(shot, actor, colResult);
                                 return;
                             }
                         }
@@ -817,15 +817,15 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                                     }
                                 }
                             }
-                            temp_v0 = PlayerShot_CheckActorHitbox(shot, actor);
-                            if (temp_v0 != 0) {
-                                PlayerShot_ApplyDamageToActor(shot, actor, temp_v0);
+                            colResult = PlayerShot_CheckActorHitbox(shot, actor);
+                            if (colResult != 0) {
+                                PlayerShot_ApplyDamageToActor(shot, actor, colResult);
                                 return;
                             }
                         } else {
-                            temp_v0 = PlayerShot_CheckObjectHitbox(shot, actor->info.hitbox, &actor->obj);
-                            if (temp_v0 != 0) {
-                                PlayerShot_ApplyDamageToActor(shot, actor, temp_v0);
+                            colResult = PlayerShot_CheckObjectHitbox(shot, actor->info.hitbox, &actor->obj);
+                            if (colResult != 0) {
+                                PlayerShot_ApplyDamageToActor(shot, actor, colResult);
                                 return;
                             }
                         }
@@ -931,7 +931,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
             }
         }
     } else {
-        for (i = 0, scenery = gScenery; i < ARRAY_COUNT(gScenery); i++, scenery++) {
+        for (i = 0, scenery = &gScenery[0]; i < ARRAY_COUNT(gScenery); i++, scenery++) {
             if (scenery->obj.status == OBJ_ACTIVE) {
                 if ((scenery->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery->obj.id == OBJ_SCENERY_ME_TUNNEL) ||
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_4) || (scenery->obj.id == OBJ_SCENERY_CO_BUMP_5) ||
@@ -942,17 +942,17 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                     (scenery->obj.id == OBJ_SCENERY_CO_BUMP_3)) {
                     PlayerShot_CheckPolyCollision(shot, scenery->obj.id, &scenery->obj);
                 } else {
-                    temp_v0 = PlayerShot_CheckObjectHitbox(shot, scenery->info.hitbox, &scenery->obj);
-                    if (temp_v0 != 0) {
+                    colResult = PlayerShot_CheckObjectHitbox(shot, scenery->info.hitbox, &scenery->obj);
+                    if (colResult != 0) {
                         scenery->dmgType = DMG_BEAM;
-                        scenery->dmgPart = temp_v0 - 1;
+                        scenery->dmgPart = colResult - 1;
                     }
                 }
             }
         }
     }
     if (sp60) {
-        for (i = 0, sprite = gSprites; i < ARRAY_COUNT(gSprites); i++, sprite++) {
+        for (i = 0, sprite = &gSprites[0]; i < ARRAY_COUNT(gSprites); i++, sprite++) {
             if (sprite->obj.status == OBJ_ACTIVE) {
                 if (sprite->obj.id != OBJ_SPRITE_TI_CACTUS) {
                     if (PlayerShot_CheckSpriteHitbox(shot, sprite)) {
@@ -966,7 +966,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
             }
         }
     }
-    for (i = 0, boss = gBosses; i < ARRAY_COUNT(gBosses); i++, boss++) {
+    for (i = 0, boss = &gBosses[0]; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             if ((boss->obj.id == OBJ_BOSS_FO_BASE) || (boss->obj.id == OBJ_BOSS_VE2_BASE) ||
                 (boss->obj.id == OBJ_BOSS_BO_BASE) || (boss->obj.id == OBJ_BOSS_SZ_GREAT_FOX)) {
@@ -1000,8 +1000,8 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                         }
                     }
                 }
-                temp_v0 = PlayerShot_CheckObjectHitbox(shot, boss->info.hitbox, &boss->obj);
-                if (temp_v0 != 0) {
+                colResult = PlayerShot_CheckObjectHitbox(shot, boss->info.hitbox, &boss->obj);
+                if (colResult != 0) {
                     if (shot->obj.id == PLAYERSHOT_LOCK_SEARCH) {
                         Object_Kill(&shot->obj, shot->sfxSource);
                     } else {
@@ -1034,7 +1034,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
                         if (boss->obj.id == OBJ_BOSS_SY_SHOGUN) {
                             boss->swork[19] = shot->sourceId;
                         }
-                        boss->dmgPart = temp_v0 - 1;
+                        boss->dmgPart = colResult - 1;
                         if (boss->obj.id == OBJ_BOSS_AQ_UNK_301) {
                             boss->swork[5] = shot->obj.id;
                         } else if (boss->obj.id == OBJ_BOSS_VE1_GOLEMECH) {
@@ -1050,11 +1050,12 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
 }
 
 void PlayerShot_DrawHitmark(PlayerShot* shot) {
-    Vec3f sp4C = { 0.0f, 0.0f, 0.0f };
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
     s32 isDrawn = false;
 
     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress, MTXF_APPLY);
-    Matrix_MultVec3f(gGfxMatrix, &sp4C, &sShotViewPos);
+    Matrix_MultVec3f(gGfxMatrix, &src, &sShotViewPos);
+
     if ((sShotViewPos.z < 0.0f) && (sShotViewPos.z > -10000.0f)) {
         if (fabsf(sShotViewPos.x) < (fabsf(sShotViewPos.z * 0.5f) + 500.0f)) {
             if (fabsf(sShotViewPos.y) < (fabsf(sShotViewPos.z * 0.5f) + 500.0f)) {
@@ -1062,6 +1063,7 @@ void PlayerShot_DrawHitmark(PlayerShot* shot) {
             }
         }
     }
+
     if (!isDrawn) {
         if (!gVersusMode) {
             Object_Kill(&shot->obj, shot->sfxSource);
@@ -1071,11 +1073,13 @@ void PlayerShot_DrawHitmark(PlayerShot* shot) {
         shot->obj.rot.y = -gPlayer[gPlayerNum].camYaw;
         Matrix_RotateY(gGfxMatrix, shot->obj.rot.y, MTXF_APPLY);
         Matrix_Scale(gGfxMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
+
         if (shot->obj.id == PLAYERSHOT_7) {
             Matrix_Scale(gGfxMatrix, 0.2f, 0.2f, 0.2f, MTXF_APPLY);
         }
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL_40();
+
         switch (shot->unk_60) {
             case 0:
                 gSPDisplayList(gMasterDisp++, D_1026090);
@@ -1095,11 +1099,10 @@ void PlayerShot_DrawHitmark(PlayerShot* shot) {
 void PlayerShot_DrawLaser(PlayerShot* shot) {
     f32 width;
     f32 length;
-    u8 var_a1;
+    u8 shotType;
     f32 twinLaserSeparation;
-    Gfx* dList;
+    Gfx* shotDL = aLaserShotGreenDL;
 
-    dList = D_101AED0;
     if (gCamCount < 4) {
         RCP_SetupDL_21();
         twinLaserSeparation = 9.0f;
@@ -1110,12 +1113,14 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
             width = 2.0f;
             length = 10.0f;
         }
+
         if ((gLaserStrength[0] > LASERS_SINGLE) && (shot->unk_58 == 0)) {
             switch (gLaserStrength[0]) {
                 case LASERS_TWIN:
+                    shotDL = aLaserShotGreenDL;
                     break;
                 case LASERS_HYPER:
-                    dList = D_101AD20;
+                    shotDL = aLaserShotBlueDL;
                     break;
             }
             if (gCurrentLevel == LEVEL_AQUAS) {
@@ -1125,71 +1130,74 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, twinLaserSeparation, 0.f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, dList);
+            gSPDisplayList(gMasterDisp++, shotDL);
             Matrix_Translate(gGfxMatrix, -(2.0f * twinLaserSeparation), 0.0f, 0.f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, dList);
+            gSPDisplayList(gMasterDisp++, shotDL);
         } else {
-            var_a1 = 0;
+            shotType = 0;
             if ((gCurrentLevel != LEVEL_KATINA) && (shot->sourceId > NPC_SHOT_ID + AI360_PEPPY) &&
                 (shot->sourceId != NPC_SHOT_ID + AI360_KATT)) {
                 if (gActors[shot->sourceId - NPC_SHOT_ID].obj.id != OBJ_ACTOR_EVENT) {
-                    var_a1 = 1;
+                    shotType = 1;
                 } else if (gActors[shot->sourceId - NPC_SHOT_ID].iwork[EVA_TEAM_ID] == TEAM_ID_BILL) {
-                    var_a1 = 2;
+                    shotType = 2;
                 }
             } else if (gCurrentLevel == LEVEL_KATINA) {
                 if (gPlayer[0].state != PLAYERSTATE_LEVEL_INTRO) {
                     if (shot->sourceId > NPC_SHOT_ID + AI360_PEPPY) {
                         if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 0) {
-                            var_a1 = 1;
+                            shotType = 1;
                         }
                         if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 2) {
-                            var_a1 = 2;
+                            shotType = 2;
                         }
                     }
                 } else if (gActors[shot->sourceId - NPC_SHOT_ID].animFrame == 34) {
-                    var_a1 = 1;
+                    shotType = 1;
                 }
             }
-            switch (var_a1) {
+
+            switch (shotType) {
                 case 0:
                     Matrix_Scale(gGfxMatrix, width, width, length, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_101AED0);
+                    gSPDisplayList(gMasterDisp++, aLaserShotGreenDL);
                     break;
+
                 case 1:
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.f, 150.0f, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.5f, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_101ABD0);
+                    gSPDisplayList(gMasterDisp++, aLaserShotRedDL);
                     break;
+
                 case 2:
                     Matrix_Scale(gGfxMatrix, width, width, length, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_Translate(gGfxMatrix, 25.0f, 0.0f, 0.f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_101AED0);
-                    dList = D_101AED0;
+                    gSPDisplayList(gMasterDisp++, aLaserShotGreenDL);
                     Matrix_Translate(gGfxMatrix, -50.0f, 0.0f, 0.f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, dList);
+                    gSPDisplayList(gMasterDisp++, shotDL);
                     break;
+
                 case 3:
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 50.0f, 0.0f, 150.0f, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.5f, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_101ABD0);
+                    gSPDisplayList(gMasterDisp++, aLaserShotRedDL);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, -50.0f, 0.0f, 150.0f, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 0.7f, 0.7f, 1.5f, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_101ABD0);
+                    gSPDisplayList(gMasterDisp++, aLaserShotRedDL);
                     break;
             }
         }
@@ -1197,30 +1205,32 @@ void PlayerShot_DrawLaser(PlayerShot* shot) {
         RCP_SetupDL_64();
         switch (shot->sourceId) {
             case 0:
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 32, 255);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 32, 255); // Yellow
                 break;
             case 1:
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 100, 200, 255);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 100, 200, 255); // Pink
                 break;
             case 2:
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 255, 32, 255);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 255, 32, 255); // Green
                 break;
             case 3:
-                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255);
+                gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 32, 32, 255, 255); // blue
                 break;
         }
+
         Matrix_Scale(gGfxMatrix, 6.0f, 4.0f, 10.0f, MTXF_APPLY);
         Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
+
         if (gLaserStrength[shot->sourceId] != LASERS_SINGLE) {
             Matrix_Translate(gGfxMatrix, 6.0f, 0.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_versus_302D120);
+            gSPDisplayList(gMasterDisp++, aVsLaserShotDL);
             Matrix_Translate(gGfxMatrix, -12.0f, 0.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_versus_302D120);
+            gSPDisplayList(gMasterDisp++, aVsLaserShotDL);
         } else {
-            gSPDisplayList(gMasterDisp++, D_versus_302D120);
+            gSPDisplayList(gMasterDisp++, aVsLaserShotDL);
         }
     }
 }
@@ -1644,8 +1654,8 @@ void PlayerShot_UpdateShot2(PlayerShot* shot, Player* player) {
 }
 
 void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
-    Vec3f sp44;
-    Vec3f sp38;
+    Vec3f src;
+    Vec3f dest;
 
     if ((gGroundSurface == SURFACE_WATER) && (shot->obj.pos.y < (gGroundHeight + 50.0f)) && (index == 0)) {
         Effect_WaterSpray_Spawn(shot->obj.pos.x, gGroundHeight, shot->obj.pos.z, 0.1f, 1.5f, shot->obj.rot.y + 20.0f);
@@ -1663,14 +1673,14 @@ void PlayerShot_UpdateBeam(PlayerShot* shot, s32 index) {
                 Matrix_RotateY(gCalcMatrix, shot->obj.rot.y * M_DTOR, MTXF_NEW);
                 Matrix_RotateX(gCalcMatrix, shot->obj.rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateZ(gCalcMatrix, shot->obj.rot.z * M_DTOR, MTXF_APPLY);
-                sp44.y = sp44.z = 0.0f;
-                sp44.x = 40.0f;
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-                PlayerShot_HitGround(shot->obj.pos.x + sp38.x, gGroundHeight + 2.0f, shot->obj.pos.z + sp38.z,
+                src.y = src.z = 0.0f;
+                src.x = 40.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                PlayerShot_HitGround(shot->obj.pos.x + dest.x, gGroundHeight + 2.0f, shot->obj.pos.z + dest.z,
                                      shot->obj.rot.y, 2.0f);
-                sp44.x = -40.0f;
-                Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp44, &sp38);
-                PlayerShot_HitGround(shot->obj.pos.x + sp38.x, gGroundHeight + 2.0f, shot->obj.pos.z + sp38.z,
+                src.x = -40.0f;
+                Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+                PlayerShot_HitGround(shot->obj.pos.x + dest.x, gGroundHeight + 2.0f, shot->obj.pos.z + dest.z,
                                      shot->obj.rot.y, 2.0f);
             } else {
                 PlayerShot_HitGround(shot->obj.pos.x, gGroundHeight + 2.0f, shot->obj.pos.z, shot->obj.rot.y, 2.0f);
@@ -1716,18 +1726,21 @@ void PlayerShot_UpdateOnFoot(PlayerShot* shot) {
 }
 
 void PlayerShot_UpdateShot7(PlayerShot* shot) {
-    Vec3f sp3C;
-    Vec3f sp30;
-    Vec3f sp24;
+    Vec3f objPos;
+    Vec3f colliderPos;
+    Vec3f hitDataDummy;
 
     PlayerShot_UpdateBeam(shot, 0);
-    sp3C.x = shot->obj.pos.x;
-    sp3C.y = shot->obj.pos.y;
-    sp3C.z = shot->obj.pos.z;
-    sp30.x = 0.0f;
-    sp30.y = 0.0f;
-    sp30.z = 0.0f;
-    if (!func_col2_800A3690(&sp3C, &sp30, COL2_5, &sp24)) {
+
+    objPos.x = shot->obj.pos.x;
+    objPos.y = shot->obj.pos.y;
+    objPos.z = shot->obj.pos.z;
+
+    colliderPos.x = 0.0f;
+    colliderPos.y = 0.0f;
+    colliderPos.z = 0.0f;
+
+    if (!func_col2_800A3690(&objPos, &colliderPos, COL2_5, &hitDataDummy)) {
         PlayerShot_Impact(shot);
     }
     shot->unk_58 = 0;
@@ -1745,6 +1758,7 @@ bool PlayerShot_FindLockTarget(PlayerShot* shot) {
     } else {
         lockRange = 200.0f;
     }
+
     for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
         if ((actor->obj.status == OBJ_ACTIVE) && (actor->info.targetOffset != 0.0f) &&
             ((actor->lockOnTimers[shot->sourceId] == 0) && (fabsf(shot->obj.pos.x - actor->obj.pos.x) <= lockRange) &&
@@ -1762,6 +1776,7 @@ bool PlayerShot_FindLockTarget(PlayerShot* shot) {
             return true;
         }
     }
+
     if (gVersusMode) {
         for (i = 0, player = gPlayer; i < gCamCount; i++, player++) {
             if ((player->state == PLAYERSTATE_ACTIVE) && !player->somersault && (player->form != FORM_ON_FOOT) &&
@@ -1808,21 +1823,21 @@ void PlayerShot_CheckBossHitbox(PlayerShot* shot) {
     f32* hitboxData;
     Boss* boss;
     Vec3f test;
-    f32 var_fs2;
+    f32 radius;
     Vec3f sp8C;
     Vec3f sp80;
-    s32 var_s6;
+    s32 modFrames;
     s32 count;
 
-    boss = gBosses;
+    boss = &gBosses[0];
     for (i = 0; i < ARRAY_COUNT(gBosses); i++, boss++) {
         if ((boss->obj.status == OBJ_ACTIVE) && (boss->timer_05A == 0)) {
             if (boss->obj.id == OBJ_BOSS_KA_SAUCERER) {
-                var_s6 = gGameFrameCount % 8U;
-                var_fs2 = shot->scale * 40.0f;
+                modFrames = gGameFrameCount % 8U;
+                radius = shot->scale * 40.0f;
             } else {
-                var_s6 = gGameFrameCount % 16U;
-                var_fs2 = shot->scale * 30.0f;
+                modFrames = gGameFrameCount % 16U;
+                radius = shot->scale * 30.0f;
             }
             hitboxData = boss->info.hitbox;
             count = *hitboxData++;
@@ -1841,7 +1856,7 @@ void PlayerShot_CheckBossHitbox(PlayerShot* shot) {
                         Matrix_RotateX(gCalcMatrix, -boss->obj.rot.x * M_DTOR, MTXF_APPLY);
                         Matrix_RotateY(gCalcMatrix, -boss->obj.rot.y * M_DTOR, MTXF_APPLY);
                     }
-                    if ((j == var_s6) && (hitboxData[1] > -100.0f) && (hitboxData[3] > -100.0f)) {
+                    if ((j == modFrames) && (hitboxData[1] > -100.0f) && (hitboxData[3] > -100.0f)) {
                         sp8C.x = shot->obj.pos.x - boss->obj.pos.x;
                         sp8C.y = shot->obj.pos.y - boss->obj.pos.y;
                         sp8C.z = shot->obj.pos.z - boss->obj.pos.z;
@@ -1852,7 +1867,7 @@ void PlayerShot_CheckBossHitbox(PlayerShot* shot) {
                         if ((gLevelMode == LEVELMODE_ON_RAILS) && (test.z < 0.0f)) {
                             test.z *= 0.6f;
                         }
-                        if (VEC3F_MAG(&test) < var_fs2) {
+                        if (VEC3F_MAG(&test) < radius) {
                             boss->dmgPart = j;
                             boss->dmgType = DMG_BOMB;
                             boss->damage = 20;
@@ -1989,9 +2004,9 @@ void PlayerShot_ApplyExplosionDamage(PlayerShot* shot, s32 damage) {
     }
 
     if (gCurrentLevel == LEVEL_MACBETH) {
-        Macbeth_801AD144(shot);
+        Macbeth_CheckTrainHitbox(shot);
     } else if (gCurrentLevel == LEVEL_VENOM_1) {
-        Venom1_8019864C(shot);
+        Venom1_CheckGolemechHitbox(shot);
     } else {
         PlayerShot_CheckBossHitbox(shot);
     }
