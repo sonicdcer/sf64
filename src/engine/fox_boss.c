@@ -65,23 +65,23 @@ void Boss300_Draw(Boss300* this) {
     /* Unimplemented */
 }
 
-void Boss_SetupDebris(ActorDebris* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
-                      f32 arg9, f32 argA, s32 argB, s32 argC) {
+void Boss_SetupDebris(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel,
+                      f32 zVel, f32 scale, s32 state, s32 time) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_DEBRIS;
-    this->state = argB;
-    this->obj.pos.x = arg1;
-    this->obj.pos.y = arg2;
-    this->obj.pos.z = arg3;
-    this->obj.rot.x = arg4;
-    this->obj.rot.y = arg5;
-    this->obj.rot.z = arg6;
-    this->vel.x = arg7;
-    this->vel.y = arg8;
-    this->vel.z = arg9;
-    this->scale = argA;
-    this->timer_0BC = argC;
+    this->state = state;
+    this->obj.pos.x = xPos;
+    this->obj.pos.y = yPos;
+    this->obj.pos.z = zPos;
+    this->obj.rot.x = xRot;
+    this->obj.rot.y = yRot;
+    this->obj.rot.z = zRot;
+    this->vel.x = xVel;
+    this->vel.y = yVel;
+    this->vel.z = zVel;
+    this->scale = scale;
+    this->timer_0BC = time;
     this->timer_0BE = 20;
     Object_SetInfo(&this->info, this->obj.id);
     if (gLevelType == LEVELTYPE_PLANET) {
@@ -89,13 +89,13 @@ void Boss_SetupDebris(ActorDebris* this, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
     }
 }
 
-void Boss_SpawnDebris(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8,
-                      f32 arg9, s32 argA, s32 argB) {
+void Boss_SpawnDebris(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, f32 xVel, f32 yVel, f32 zVel,
+                      f32 scale, s32 state, s32 time) {
     s32 i;
 
     for (i = (ARRAY_COUNT(gActors)) - 1; i >= 0; i--) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Boss_SetupDebris(&gActors[i], arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, argA, argB);
+            Boss_SetupDebris(&gActors[i], xPos, yPos, zPos, xRot, yRot, zRot, xVel, yVel, zVel, scale, state, time);
             break;
         }
     }

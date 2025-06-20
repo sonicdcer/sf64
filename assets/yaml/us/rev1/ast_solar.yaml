@@ -16,20 +16,20 @@
 aSoTitleCardTex:
   { type: TEXTURE, ctype: u8, format: IA8, width: 112, height: 13, offset: 0x6000000, symbol: aSoTitleCardTex}
 
-D_SO_60005B0:
-  { type: GFX, offset: 0x60005B0, symbol: D_SO_60005B0}
+aSoLava1DL:
+  { type: GFX, offset: 0x60005B0, symbol: aSoLava1DL}
 
 D_SO_6001C50:
   { type: VTX, count: 289, offset: 0x6001C50, symbol: D_SO_6001C50}
 
-D_SO_6002E60:
-  { type: GFX, offset: 0x6002E60, symbol: D_SO_6002E60}
+aSoLava2DL:
+  { type: GFX, offset: 0x6002E60, symbol: aSoLava2DL}
 
 D_SO_6004500:
   { type: VTX, count: 289, offset: 0x6004500, symbol: D_SO_6004500}
 
-D_SO_6005710:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6005710, symbol: D_SO_6005710}
+aSoLavaTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6005710, symbol: aSoLavaTex}
 
 aSoGoreAnim:
   { type: SF64:ANIM, offset: 0x600636C, symbol: aSoGoreAnim}
@@ -196,11 +196,11 @@ D_SO_601D8B0:
 D_SO_601D948:
   { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x601D948, symbol: D_SO_601D948}
 
-D_SO_601E150:
-  { type: GFX, offset: 0x601E150, symbol: D_SO_601E150}
+aSoBackdropDL:
+  { type: GFX, offset: 0x601E150, symbol: aSoBackdropDL}
 
-D_SO_601E1E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x601E1E8, symbol: D_SO_601E1E8}
+aSoBackdropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x601E1E8, symbol: aSoBackdropTex}
 
 D_SO_601F1F0:
   { type: SF64:ENVIRONMENT, offset: 0x601F1F0, symbol: D_SO_601F1F0}

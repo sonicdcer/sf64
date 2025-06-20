@@ -141,10 +141,10 @@ s32 gPlayerGlareReds[4];
 s32 gPlayerGlareGreens[4];
 s32 gPlayerGlareBlues[4];
 UNK_TYPE D_ctx_801783C0[4]; // unused. player alpha targets?
-f32 gSunViewX;              // something x translate
-f32 gSunViewY;              // something y translate
-s32 gFogNear;               // near
-s32 gFogFar;                // far
+f32 gSunViewX;
+f32 gSunViewY;
+s32 gFogNear;
+s32 gFogFar;
 UNK_TYPE F_801783E0;
 UNK_TYPE F_801783E4;
 UNK_TYPE F_801783E8;
@@ -165,12 +165,12 @@ UNK_TYPE F_8017841C;
 f32 gStarfieldX;
 f32 gStarfieldY;
 f32 gStarfieldRoll;
-f32 gStarfieldScrollX; // starfield yaw?
-f32 gStarfieldScrollY; // starfield roll?
+f32 gStarfieldScrollX;
+f32 gStarfieldScrollY;
 UNK_TYPE F_80178434;
 UNK_TYPE F_80178438;
 UNK_TYPE F_8017843C;
-f32 gBossDeathCamAtX; //
+f32 gBossDeathCamAtX;
 f32 gBossDeathCamAtY;
 f32 gBossDeathCamAtZ;
 f32 gCsTeamTargetsX[3]; // x positions of certain actors (teammates?)
@@ -299,7 +299,7 @@ u8 gShowLevelClearStatusScreen;
 s32 gLevelStartStatusScreenTimer;
 s32 gLevelClearScreenTimer; // timer for mission accomplished screen
 s32 gBossHealthBar;
-s32 D_ctx_80177850;    // bonus text related. set to 15 but never read
+s32 D_ctx_80177850;    // bonus text related. set to 15 but never read. Bonus display timer perhaps?
 s32 D_ctx_80177858[4]; // set to 3 but never used. related to VS mode customization?
 PlayerForm gPlayerForms[4];
 s32 gHandicap[4];

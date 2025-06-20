@@ -110,32 +110,32 @@ aMeMeteorShower3DL:
 D_ME_600CDE8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0600CDE8, symbol: D_ME_600CDE8 }
   
-D_ME_600DDF0: 
-  { type: GFX, offset: 0x600DDF0, symbol: D_ME_600DDF0 }
+aMeBackdropDL: 
+  { type: GFX, offset: 0x600DDF0, symbol: aMeBackdropDL }
 
-D_ME_600E238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0600E238, symbol: D_ME_600E238 }
+aMeBackdropTex1: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0600E238, symbol: aMeBackdropTex1 }
 
-D_ME_600F238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0600F238, symbol: D_ME_600F238 }
+aMeBackdropTex2: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0600F238, symbol: aMeBackdropTex2 }
 
-D_ME_6010238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06010238, symbol: D_ME_6010238 }
+aMeBackdropTex3: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06010238, symbol: aMeBackdropTex3 }
 
-D_ME_6011238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06011238, symbol: D_ME_6011238 }
+aMeBackdropTex4: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06011238, symbol: aMeBackdropTex4 }
 
-D_ME_6012238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06012238, symbol: D_ME_6012238 }
+aMeBackdropTex5: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06012238, symbol: aMeBackdropTex5 }
 
-D_ME_6013238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06013238, symbol: D_ME_6013238 }
+aMeBackdropTex6: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06013238, symbol: aMeBackdropTex6 }
 
-D_ME_6014238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06014238, symbol: D_ME_6014238 }
+aMeBackdropTex7: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06014238, symbol: aMeBackdropTex7 }
 
-D_ME_6015238: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06015238, symbol: D_ME_6015238 }
+aMeBackdropTex8: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x06015238, symbol: aMeBackdropTex8 }
 
 aMeMeteorShower2DL:
   { type: GFX, offset: 0x6016240, symbol: aMeMeteorShower2DL }

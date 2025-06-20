@@ -220,11 +220,11 @@ D_SX_6029098:
 D_SX_60292A0:
   { type: GFX, offset: 0x60292A0, symbol: D_SX_60292A0 }
 
-D_SX_6029890:
-  { type: GFX, offset: 0x6029890, symbol: D_SX_6029890 }
+aSxBackdropDL:
+  { type: GFX, offset: 0x6029890, symbol: aSxBackdropDL }
 
-D_SX_6029918:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x029918, symbol: D_SX_6029918 }
+aSxBackdropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x029918, symbol: aSxBackdropTex }
 
 D_SX_602A120:
   { type: SF64:ENVIRONMENT, offset: 0x602A120, symbol: D_SX_602A120 }

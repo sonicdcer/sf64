@@ -3446,7 +3446,7 @@ void Solar_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20339, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(TEAM_ID_SLIPPY);
+                    Cutscene_AllAircraftReport(TEAM_ID_SLIPPY);
                     break;
             }
             break;
@@ -3460,7 +3460,7 @@ void Solar_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20338, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(TEAM_ID_PEPPY);
+                    Cutscene_AllAircraftReport(TEAM_ID_PEPPY);
                     break;
             }
             break;
@@ -3474,7 +3474,7 @@ void Solar_LevelComplete(Player* player) {
                     Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
                     break;
                 default:
-                    func_demo_80048AC0(TEAM_ID_FALCO);
+                    Cutscene_AllAircraftReport(TEAM_ID_FALCO);
                     break;
             }
             break;

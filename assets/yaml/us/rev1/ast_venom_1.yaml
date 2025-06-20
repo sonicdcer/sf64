@@ -64,11 +64,11 @@ D_VE1_60044D0:
 D_VE1_60045D0:
   { type: TEXTURE, format: TLUT, colors: 144, offset: 0x60045D0, ctype: u16, symbol: D_VE1_60045D0 }
 
-D_VE1_60046F0:
-  { type: GFX, offset: 0x60046F0, symbol: D_VE1_60046F0 }
+aVe1BackdropDL:
+  { type: GFX, offset: 0x60046F0, symbol: aVe1BackdropDL }
 
-D_VE1_6004780:
-  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x6004780, ctype: u16, symbol: D_VE1_6004780 }
+aVe1BackdropTex:
+  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x6004780, ctype: u16, symbol: aVe1BackdropTex }
 
 aVe1GeneratorDL:
   { type: GFX, offset: 0x6005780, symbol: aVe1GeneratorDL }
@@ -91,11 +91,11 @@ D_VE1_6006530:
 D_VE1_6006630:
   { type: TEXTURE, format: TLUT, colors: 80, offset: 0x6006630, ctype: u16, symbol: D_VE1_6006630 }
 
-D_VE1_60066D0:
-  { type: GFX, offset: 0x60066D0, symbol: D_VE1_60066D0 }
+aVe1GroundDL:
+  { type: GFX, offset: 0x60066D0, symbol: aVe1GroundDL }
 
-D_VE1_6006750:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006750, ctype: u16, symbol: D_VE1_6006750 }
+aVe1GroundTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006750, ctype: u16, symbol: aVe1GroundTex }
 
 aVe1HallwayObstacleDL:
   { type: GFX, offset: 0x6006F50, symbol: aVe1HallwayObstacleDL }

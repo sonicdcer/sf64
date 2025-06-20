@@ -2276,7 +2276,7 @@ void Title_Arwing_Draw(TitleTeam teamIdx) {
     arwing.teamFaceYrot = sTitleArwing[teamIdx].teamFaceYrot;
     arwing.cockpitGlassXrot = sTitleArwing[teamIdx].cockpitGlassXrot;
 
-    Display_ArwingWings(&arwing);
+    Display_Arwing_Skel(&arwing);
 
     Object_UpdateSfxSource(sTitleArwing[teamIdx].sfxSource);
 
