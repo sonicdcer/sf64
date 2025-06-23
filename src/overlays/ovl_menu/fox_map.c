@@ -2287,7 +2287,7 @@ void Map_PrologueArwing_Draw(void) {
         arwing.teamFaceYrot = 0.0f;
         arwing.cockpitGlassXrot = 0.0f;
 
-        Display_ArwingWings(&arwing);
+        Display_Arwing_Skel(&arwing);
 
         Matrix_Pop(&gGfxMatrix);
         Matrix_Pop(&gGfxMatrix);

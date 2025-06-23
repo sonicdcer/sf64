@@ -2554,7 +2554,7 @@ void Titania_8019002C(s32 limbIndex, Vec3f* rot, void* thisx) {
         Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+        gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, MTXF_APPLY);
         Matrix_GetYPRAngles(gGfxMatrix, &sp64);
         Matrix_RotateZ(gGfxMatrix, -sp64.z * M_DTOR, MTXF_APPLY);
@@ -3115,7 +3115,7 @@ void Titania_80191AE8(s32 limbIndex, Vec3f* rot, void* thisx) {
                 Matrix_RotateX(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
                 Matrix_RotateZ(gGfxMatrix, -(M_DTOR * 90.0f), MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+                gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
                 Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -47.0f, MTXF_APPLY);
                 Matrix_GetYPRAngles(gGfxMatrix, &sp78);
                 Matrix_RotateZ(gGfxMatrix, -sp78.z * M_DTOR, MTXF_APPLY);

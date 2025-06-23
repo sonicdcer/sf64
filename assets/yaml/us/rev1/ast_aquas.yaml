@@ -140,11 +140,11 @@ D_AQ_600A8E0:
 D_AQ_600A970:
   { type: GFX, offset: 0x600A970, symbol: D_AQ_600A970 }
 
-D_AQ_600AB10:
-  { type: GFX, offset: 0x600AB10, symbol: D_AQ_600AB10 }
+aAqGroundDL:
+  { type: GFX, offset: 0x600AB10, symbol: aAqGroundDL }
 
-D_AQ_600AB68:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600AB68, symbol: D_AQ_600AB68 }
+aAqGroundTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600AB68, symbol: aAqGroundTex }
 
 D_AQ_600BD20:
   { type: GFX, offset: 0x600BD20, symbol: D_AQ_600BD20 }
@@ -365,17 +365,17 @@ D_AQ_601AE70:
 D_AQ_601AF70:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x601AF70, symbol: D_AQ_601AF70 }
 
-D_AQ_601AFF0:
-  { type: GFX, offset: 0x601AFF0, symbol: D_AQ_601AFF0 }
+aAqBackdropIntroDL:
+  { type: GFX, offset: 0x601AFF0, symbol: aAqBackdropIntroDL }
 
-D_AQ_601B080:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x601C110, symbol: D_AQ_601C110 }
+aAqBackdropIntroTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x601C110, symbol: aAqBackdropTex }
 
-D_AQ_601C080:
-  { type: GFX, offset: 0x601C080, symbol: D_AQ_601C080 }
+aAqBackdropDL:
+  { type: GFX, offset: 0x601C080, symbol: aAqBackdropDL }
 
-D_AQ_601C110:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x601B080, symbol: D_AQ_601B080 }
+aAqBackdropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x601B080, symbol: aAqBackdropIntroTex }
 
 D_AQ_601D110:
   { type: GFX, offset: 0x601D110, symbol: D_AQ_601D110 }
@@ -599,11 +599,11 @@ D_AQ_6029900:
 D_AQ_602AC28:
   { type: SF64:ANIM, offset: 0x602AC28, symbol: D_AQ_602AC28 }
 
-D_AQ_602AC40:
-  { type: GFX, offset: 0x602AC40, symbol: D_AQ_602AC40 }
+aAqWaterSurfaceDL:
+  { type: GFX, offset: 0x602AC40, symbol: aAqWaterSurfaceDL }
 
-D_AQ_602ACC0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602ACC0, symbol: D_AQ_602ACC0 }
+aAqWaterTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602ACC0, symbol: aAqWaterTex }
 
 aAqRockDL:
   { type: GFX, offset: 0x602B4C0, symbol: aAqRockDL }
@@ -620,17 +620,17 @@ D_AQ_602BF88:
 D_AQ_602C014:
   { type: SF64:SKELETON, offset: 0x602C014, symbol: D_AQ_602C014 }
 
-D_AQ_602C030:
-  { type: GFX, offset: 0x602C030, symbol: D_AQ_602C030 }
+aAqUnusedWater1DL:
+  { type: GFX, offset: 0x602C030, symbol: aAqUnusedWater1DL }
 
-D_AQ_602C088:
-  { type: GFX, offset: 0x602C088, symbol: D_AQ_602C088 }
+aAqUnusedWater2DL:
+  { type: GFX, offset: 0x602C088, symbol: aAqUnusedWater2DL }
 
-D_AQ_602C160:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C160, symbol: D_AQ_602C160 }
+aAqUnusedWater1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C160, symbol: aAqUnusedWater1Tex }
 
-D_AQ_602C960:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C960, symbol: D_AQ_602C960 }
+aAqUnusedWater2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C960, symbol: aAqUnusedWater2Tex }
 
 D_AQ_602DA28:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DA28, symbol: D_AQ_602DA28 }

@@ -60,11 +60,11 @@ D_KA_6006AF8:
 aKaDestroyedKaSaucererDL:
   { type: GFX, offset: 0x6007300, symbol: aKaDestroyedKaSaucererDL }
 
-D_KA_6009250:
-  { type: GFX, offset: 0x6009250, symbol: D_KA_6009250 }
+aKaGroundDL:
+  { type: GFX, offset: 0x6009250, symbol: aKaGroundDL }
 
-D_KA_60094A8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60094A8, ctype: u16, symbol: D_KA_60094A8 }
+aKaGroundTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60094A8, ctype: u16, symbol: aKaGroundTex }
 
 D_KA_6009CB0:
   { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6009CB0, ctype: u16, symbol: D_KA_6009CB0 }
@@ -139,11 +139,11 @@ D_KA_600EDE8:
 aKaEnemyLowPolyDL:
   { type: GFX, offset: 0x600EFF0, symbol: aKaEnemyLowPolyDL }
 
-D_KA_600F1D0:
-  { type: GFX, offset: 0x600F1D0, symbol: D_KA_600F1D0 }
+aKaBackdropDL:
+  { type: GFX, offset: 0x600F1D0, symbol: aKaBackdropDL }
 
-D_KA_600F260:
-  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600F260, ctype: u16, symbol: D_KA_600F260 }
+aKaBackdropTex:
+  { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600F260, ctype: u16, symbol: aKaBackdropTex }
 
 D_KA_6010260:
   { type: GFX, offset: 0x6010260, symbol: D_KA_6010260 }

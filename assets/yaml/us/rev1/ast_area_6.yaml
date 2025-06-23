@@ -192,32 +192,32 @@ D_A6_601B2B0:
 D_A6_601B338:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601B338, symbol: D_A6_601B338 }
 
-D_A6_601BB40:
-  { type: GFX, offset: 0x601BB40, symbol: D_A6_601BB40 }
+aA6BackdropDL:
+  { type: GFX, offset: 0x601BB40, symbol: aA6BackdropDL }
 
-D_A6_601BF20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601BF20, symbol: D_A6_601BF20 }
+aA6BackdropTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601BF20, symbol: aA6BackdropTex1 }
 
-D_A6_601CF20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601CF20, symbol: D_A6_601CF20 }
+aA6BackdropTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601CF20, symbol: aA6BackdropTex2 }
 
-D_A6_601DF20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601DF20, symbol: D_A6_601DF20 }
+aA6BackdropTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601DF20, symbol: aA6BackdropTex3 }
 
-D_A6_601EF20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601EF20, symbol: D_A6_601EF20 }
+aA6BackdropTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601EF20, symbol: aA6BackdropTex4 }
 
-D_A6_601FF20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601FF20, symbol: D_A6_601FF20 }
+aA6BackdropTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0601FF20, symbol: aA6BackdropTex5 }
 
-D_A6_6020F20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06020F20, symbol: D_A6_6020F20 }
+aA6BackdropTex6:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06020F20, symbol: aA6BackdropTex6 }
 
-D_A6_6021F20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06021F20, symbol: D_A6_6021F20 }
+aA6BackdropTex7:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06021F20, symbol: aA6BackdropTex7 }
 
-D_A6_6022F20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06022F20, symbol: D_A6_6022F20 }
+aA6BackdropTex8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06022F20, symbol: aA6BackdropTex8 }
 
 D_A6_6023F20:
   { type: SF64:ENVIRONMENT, offset: 0x6023F20, symbol: D_A6_6023F20}

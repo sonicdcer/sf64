@@ -266,12 +266,12 @@ void AllRange_GreatFoxRepair(Player* player) {
 }
 
 void AllRange_FortunaIntro(Player* player) {
-    Vec3f sp24;
+    Vec3f vel;
 
-    Math_Vec3fFromAngles(&sp24, 0.0f, player->yRot_114 + 180.0f, 40.0f);
-    player->vel.x = sp24.x;
-    player->vel.z = sp24.z;
-    player->vel.y = sp24.y;
+    Math_Vec3fFromAngles(&vel, 0.0f, player->yRot_114 + 180.0f, 40.0f);
+    player->vel.x = vel.x;
+    player->vel.z = vel.z;
+    player->vel.y = vel.y;
     player->pos.x += player->vel.x;
     player->pos.y += player->vel.y;
     player->pos.z += player->vel.z;
@@ -292,17 +292,17 @@ void ActorAllRange_SetShadowData(Actor* this) {
     s32 i;
     s32 colId;
     Scenery360* scenery360;
-    Vec3f temp1;
-    f32 temp4;
+    Vec3f pos;
+    f32 yRot;
     f32 temp5;
     Vec3f src;
     Vec3f dest;
-    Vec3f spCC;
-    Vec3f spC0;
+    Vec3f objPos;
+    Vec3f colliderPos;
     Vec3f spB4;
-    Vec3f spA8;
-    f32 spA0[2];
-    Vec3f sp94 = { 0.0f, -10.0f, 0.0f };
+    Vec3f hitPosOut;
+    f32 hitAnglesOut[2];
+    Vec3f objVel = { 0.0f, -10.0f, 0.0f };
     s32 pad[2];
 
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
@@ -316,23 +316,23 @@ void ActorAllRange_SetShadowData(Actor* this) {
                  (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3)) &&
                 (fabsf(scenery360->obj.pos.x - this->obj.pos.x) < 2500.0f) &&
                 (fabsf(scenery360->obj.pos.z - this->obj.pos.z) < 2500.0f)) {
-                temp1.x = scenery360->obj.pos.x;
-                temp1.y = scenery360->obj.pos.y;
-                temp1.z = scenery360->obj.pos.z;
-                temp4 = scenery360->obj.rot.y;
+                pos.x = scenery360->obj.pos.x;
+                pos.y = scenery360->obj.pos.y;
+                pos.z = scenery360->obj.pos.z;
+                yRot = scenery360->obj.rot.y;
 
-                Matrix_RotateY(gCalcMatrix, -temp4 * M_DTOR, MTXF_NEW);
-                src.x = this->obj.pos.x - temp1.x;
+                Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_NEW);
+                src.x = this->obj.pos.x - pos.x;
                 src.y = 0.0f;
-                src.z = this->obj.pos.z - temp1.z;
+                src.z = this->obj.pos.z - pos.z;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-                spC0.x = temp1.x;
-                spC0.y = temp1.y;
+                colliderPos.x = pos.x;
+                colliderPos.y = pos.y;
 
-                spCC.x = dest.x + temp1.x;
-                spC0.z = temp1.z; // fake? weird ordering
-                spCC.y = dest.y + temp1.y;
-                spCC.z = dest.z + temp1.z;
+                objPos.x = dest.x + pos.x;
+                colliderPos.z = pos.z; // fake? weird ordering
+                objPos.y = dest.y + pos.y;
+                objPos.z = dest.z + pos.z;
 
                 if ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
                     (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3)) {
@@ -341,22 +341,22 @@ void ActorAllRange_SetShadowData(Actor* this) {
                     } else {
                         colId = COL1_6;
                     }
-                    if (func_col1_800998FC(&spCC, &spC0, &sp94, colId, &spA8, spA0) > 0) {
-                        this->fwork[25] = spA8.y;
-                        this->fwork[26] = spA0[0];
-                        this->fwork[28] = spA0[1];
-                        this->fwork[27] = DEG_TO_RAD(temp4);
+                    if (func_col1_800998FC(&objPos, &colliderPos, &objVel, colId, &hitPosOut, hitAnglesOut) > 0) {
+                        this->fwork[25] = hitPosOut.y;
+                        this->fwork[26] = hitAnglesOut[0];
+                        this->fwork[28] = hitAnglesOut[1];
+                        this->fwork[27] = DEG_TO_RAD(yRot);
                     }
                 } else {
                     colId = COL2_0;
                     if (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) {
                         colId = COL2_3;
                     }
-                    if (func_col2_800A3690(&spCC, &spC0, colId, &spB4)) {
+                    if (func_col2_800A3690(&objPos, &colliderPos, colId, &spB4)) {
                         this->fwork[25] = spB4.y;
                         this->fwork[26] = spB4.x;
                         this->fwork[28] = spB4.z;
-                        this->fwork[27] = DEG_TO_RAD(temp4);
+                        this->fwork[27] = DEG_TO_RAD(yRot);
                     }
                 }
             }
@@ -377,9 +377,9 @@ s32 sTeamSpawnTargetsKA[4] = { -1, AI360_ENEMY + 11, AI360_ENEMY + 13, AI360_ENE
 void ActorAllRange_SpawnTeam(void) {
     ActorAllRange* actor;
     s32 i;
-    s32 temp = 4;
+    s32 maxTeamActors = 4;
 
-    for (i = 0, actor = &gActors[0]; i < temp; i++, actor++) {
+    for (i = 0, actor = &gActors[0]; i < maxTeamActors; i++, actor++) {
         if ((i > 0) && (gTeamShields[i] <= 0)) {
             continue;
         }
@@ -871,7 +871,7 @@ s32 ActorAllRange_CheckObjectNearby(ActorAllRange* this) {
 }
 
 void ActorAllRange_ApplyDamage(ActorAllRange* this) {
-    bool var_a1;
+    bool shieldEnabled;
     Vec3f src;
     Vec3f dest;
 
@@ -899,14 +899,14 @@ void ActorAllRange_ApplyDamage(ActorAllRange* this) {
         }
 
         if (this->dmgType != DMG_NONE) {
-            var_a1 = false;
+            shieldEnabled = false;
             if ((this->animFrame == 3) ||
                 ((gCurrentLevel == LEVEL_BOLSE) && (gBosses[1].obj.status != OBJ_FREE) &&
                  (this->aiType >= AI360_WOLF)) ||
                 ((gCurrentLevel == LEVEL_VENOM_2) && (this->aiType >= AI360_WOLF) && (this->aiType < AI360_ENEMY) &&
                  (this->dmgType == DMG_EXPLOSION))) {
                 this->damage = DMG_NONE;
-                var_a1 = true;
+                shieldEnabled = true;
                 if (gCurrentLevel == LEVEL_BOLSE) {
                     this->dmgSource = 0;
                 }
@@ -1094,7 +1094,7 @@ void ActorAllRange_ApplyDamage(ActorAllRange* this) {
                         break;
                 }
             } else {
-                if (var_a1) {
+                if (shieldEnabled) {
                     AUDIO_PLAY_SFX(NA_SE_EN_BARRIER_REFLECT, this->sfxSource, 4);
                     this->iwork[7] = 3;
                     this->iwork[18] = 5;
@@ -1256,7 +1256,11 @@ void ActorAllRange_CheckPlayerNearby(ActorAllRange* this) {
     }
 }
 
-bool func_360_80031900(ActorAllRange* this) {
+/**
+ * This function checks whether a target point
+ * (specified by this->fwork[4], this->fwork[6]) is in front of the actor in the XZ-plane
+ */
+bool ActorAllRange_CheckActorInFrontXZ(ActorAllRange* this) {
     Vec3f src;
     Vec3f dest;
 
@@ -1699,7 +1703,7 @@ void ActorAllRange_Update(ActorAllRange* this) {
                         this->iwork[4]++;
                         this->iwork[5] = 1;
                         if (!((this->index + gGameFrameCount) & sp10F) && (Rand_ZeroOne() < spF0) &&
-                            func_360_80031900(this) &&
+                            ActorAllRange_CheckActorInFrontXZ(this) &&
                             ((gActors[0].state == STATE360_2) || (gCurrentLevel == LEVEL_TRAINING))) {
                             if ((this->aiIndex == AI360_FOX) && (gCurrentLevel != LEVEL_TRAINING)) {
                                 if ((this->iwork[4] > 250) && (gCurrentLevel != LEVEL_VENOM_ANDROSS)) {
@@ -2328,13 +2332,15 @@ void ActorAllRange_DrawShield(ActorAllRange* this) {
         Matrix_SetGfxMtx(&gMasterDisp);
         RCP_SetupDL(&gMasterDisp, SETUPDL_41);
         if (gCurrentLevel == LEVEL_KATINA) {
+            // This code never runs.
+            // Katina enemies had a light blue shield early up in development.
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 128, 255, 255, alpha);
         } else if (gCurrentLevel == LEVEL_BOLSE) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, alpha);
         } else {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 48, 255, 255, alpha);
         }
-        gSPDisplayList(gMasterDisp++, D_1031630);
+        gSPDisplayList(gMasterDisp++, aShieldDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -2387,19 +2393,19 @@ bool ActorAllRange_MissileOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* po
 }
 
 void ActorAllRange_Draw(ActorAllRange* this) {
-    f32 sp38;
+    f32 rotAngle;
     s32 pad[3];
     Vec3f sp1E4 = { 0.0f, 0.0f, 0.0f };
     Vec3f jointTable[30];
-    f32 pad2;
+    f32 temp;
 
     if (this->aiType != AI360_EVENT_HANDLER) {
         if ((this->iwork[8] != 0) && (this->aiType < AI360_GREAT_FOX)) {
-            pad2 = SIN_DEG(this->iwork[8] * 400.0f);
-            sp38 = this->iwork[8] * pad2;
-            Matrix_RotateY(gGfxMatrix, M_DTOR * sp38, MTXF_APPLY);
-            Matrix_RotateX(gGfxMatrix, M_DTOR * sp38, MTXF_APPLY);
-            Matrix_RotateZ(gGfxMatrix, M_DTOR * sp38, MTXF_APPLY);
+            temp = SIN_DEG(this->iwork[8] * 400.0f);
+            rotAngle = this->iwork[8] * temp;
+            Matrix_RotateY(gGfxMatrix, M_DTOR * rotAngle, MTXF_APPLY);
+            Matrix_RotateX(gGfxMatrix, M_DTOR * rotAngle, MTXF_APPLY);
+            Matrix_RotateZ(gGfxMatrix, M_DTOR * rotAngle, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
         }
 
@@ -2480,6 +2486,8 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);
                 } else if (gCurrentLevel == LEVEL_KATINA) {
+                    // This code never runs, since Katina AllRange actors use their own update function.
+                    // Leftover from development?
                     switch (this->animFrame) {
                         case 0:
                             gSPDisplayList(gMasterDisp++, aKaEnemyLowPolyDL);
@@ -2492,6 +2500,8 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                         case 3:
                             gSPDisplayList(gMasterDisp++, aKaEnemyDL);
                             Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 30.0f, MTXF_APPLY);
+
+                            // Shield applied to Katina enemies, similar to Bolse.
                             ActorAllRange_DrawShield(this);
                             break;
                     }
@@ -2500,7 +2510,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);
                 } else if (gCurrentLevel == LEVEL_BOLSE) {
-                    gSPDisplayList(gMasterDisp++, D_BO_6008770);
+                    gSPDisplayList(gMasterDisp++, aBoFighterDL);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -60.0f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);

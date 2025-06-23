@@ -85,24 +85,24 @@ void MeHopBot_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* index) {
     }
 }
 
-f32 D_edisplay_800CF9B0[] = {
+f32 sMeHopBotPos[] = {
     -12.324226f, -12.008495f, -11.083107f, -9.56147f,  -7.440754f, -4.713318f,  -1.393303f,  2.48587f,
     6.872662f,   11.668991f,  16.752102f,  21.98127f,  27.193024f, 32.21534f,   36.875694f,  41.007812f,
     44.462303f,  47.094223f,  48.761005f,  49.345966f, 47.6453f,   42.988186f,  36.062622f,  27.662722f,
     18.646473f,  9.883305f,   2.113918f,   -4.157948f, -8.673706f, -11.395222f, -12.324226f,
 };
-f32 D_edisplay_800CFA2C[] = {
+f32 sTiRibScale[] = {
     1.0f, 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f,
 };
 
 void MeHopBot_Draw(MeHopBot* this) {
-    Vec3f sp30[30];
-    f32 yTrans = D_edisplay_800CF9B0[this->animFrame] - 114.0f;
+    Vec3f frameTable[30];
+    f32 yPos = sMeHopBotPos[this->animFrame] - 114.0f;
 
-    Matrix_Translate(gGfxMatrix, 0.f, -yTrans, 0.0f, MTXF_APPLY);
+    Matrix_Translate(gGfxMatrix, 0.f, -yPos, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    Animation_GetFrameData(&aMeHopBotAnim, this->animFrame, sp30);
-    Animation_DrawSkeleton(1, aMeHopBotSkel, sp30, NULL, MeHopBot_PostLimbDraw, &this->index, &gIdentityMatrix);
+    Animation_GetFrameData(&aMeHopBotAnim, this->animFrame, frameTable);
+    Animation_DrawSkeleton(1, aMeHopBotSkel, frameTable, NULL, MeHopBot_PostLimbDraw, &this->index, &gIdentityMatrix);
 }
 
 void MeteoTunnel_Draw(MeTunnel* this) {
@@ -111,10 +111,10 @@ void MeteoTunnel_Draw(MeTunnel* this) {
 
 void Scenery_DrawTitaniaBones(Scenery* this) {
     if (this->obj.id == OBJ_SCENERY_TI_SKULL) {
-        gSPDisplayList(gMasterDisp++, D_TI1_7007350);
+        gSPDisplayList(gMasterDisp++, aTi1SkullDL);
     } else {
-        Graphics_SetScaleMtx(D_edisplay_800CFA2C[this->obj.id - 29]);
-        gSPDisplayList(gMasterDisp++, D_TI1_700BB10);
+        Graphics_SetScaleMtx(sTiRibScale[this->obj.id - 29]);
+        gSPDisplayList(gMasterDisp++, aTi1RibsDL);
     }
 }
 
@@ -193,7 +193,7 @@ void CoBuilding10_Draw(CoBuilding10* this) {
     gSPDisplayList(gMasterDisp++, aCoBuilding10DL);
 }
 
-// repurposed into OBJ_SCENERY_CO_BUILDING_6
+// Unused: repurposed into OBJ_SCENERY_CO_BUILDING_6
 void func_edisplay_8005A010(Sprite* this) {
     if (!this->toLeft) {
         Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
@@ -208,48 +208,68 @@ void func_edisplay_8005A07C(void* arg0) {
 void func_edisplay_8005A088(void* arg0) {
 }
 
-Gfx* D_edisplay_800CFA54[] = {
+// Debris parts for SyRobot, CoGaruga and FoRadar
+Gfx* sMechDebrisDLs[] = {
     D_SY_6027960, D_SY_60273A0, D_SY_60183B0, D_SY_60121E0, D_SY_602A2E0, D_SY_602A720, D_SY_602B8F0,
     D_SY_602A8C0, D_SY_6028E70, D_SY_602E0A0, D_SY_602DE70, D_SY_602DC40, D_SY_602D830, D_SY_602D340,
     D_CO_6031280, D_CO_6031130, D_CO_6030850, D_CO_6030FD0, D_CO_602DD40, D_CO_6033AF0, D_CO_60186E0,
     D_CO_6024160, D_CO_6033290, D_CO_6017F10, D_FO_60074E0, D_FO_6007590, D_FO_6007730, D_FO_6005CC0,
 };
-Gfx* D_edisplay_800CFAC4[] = {
+
+Gfx* sZoContainerDebrisDLs[] = {
     D_ZO_60176D0, D_ZO_6017810, D_ZO_6017770, D_ZO_6016D90, D_ZO_6016E30, D_ZO_60178B0,
 };
-Gfx* D_edisplay_800CFADC[] = {
+
+Gfx* sZoBirdDebrisDLs[] = {
     D_ZO_6023690, D_ZO_6021BB0, D_ZO_6021C50, D_ZO_6021CE0, D_ZO_6021D80, D_ZO_6016350,
     D_ZO_6021E20, D_ZO_60222A0, D_ZO_6022BE0, D_ZO_6022D70, D_ZO_6022F00,
 };
-Gfx* D_edisplay_800CFB08[] = { D_ZO_6020F10, D_ZO_6021100, D_ZO_60214B0 };
-Gfx* D_edisplay_800CFB14[] = { D_ZO_60163E0, D_ZO_60165D0, D_ZO_6016880, D_ZO_6016B50, D_ZO_6000C40 };
-Gfx* D_edisplay_800CFB28[] = { D_ZO_6018E80, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
-Gfx* D_edisplay_800CFB40[] = {
+
+Gfx* sZGullDebrisDLs[] = { D_ZO_6020F10, D_ZO_6021100, D_ZO_60214B0 };
+
+Gfx* sZoShrimpDebrisDLs[] = { D_ZO_60163E0, D_ZO_60165D0, D_ZO_6016880, D_ZO_6016B50, D_ZO_6000C40 };
+
+Gfx* sZoTroikaDebrisDLs[] = { D_ZO_6018E80, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
+
+Gfx* sSoVulkainDebrisDLs[] = {
     D_SO_6014DB0, D_SO_60146D0, D_SO_6014B80, D_SO_6014470, D_SO_6014930,
     D_SO_60138A0, D_SO_60151A0, D_SO_600F750, D_SO_6015810,
 };
-Gfx* D_edisplay_800CFB64[] = {
+
+Gfx* sAqAnglerFishDebrisDLs[] = {
     D_AQ_600D4A0, D_AQ_600D720, D_AQ_600D810, D_AQ_600CFF0, D_AQ_600BD20,
     D_AQ_600D390, D_AQ_600E150, D_AQ_6007160, D_AQ_600D900,
 };
-Gfx* D_edisplay_800CFB88[] = {
+
+Gfx* sAqSculpinDebrisDLs[] = {
     D_AQ_600A8E0, D_AQ_600A840, D_AQ_600A480, D_AQ_600A720, D_AQ_600A970, D_AQ_6007D70, D_AQ_600A520, D_AQ_6009990,
 };
-Gfx* D_edisplay_800CFBA8[] = {
+
+Gfx* sAqSpindlyFishDebrisDLs[] = {
     D_AQ_6026460, D_AQ_60266B0, D_AQ_6026950, D_AQ_60276F0, D_AQ_6027810, D_AQ_6027330, D_AQ_60273C0, D_AQ_6026E30,
     D_AQ_6026EC0, D_AQ_6026DA0, D_AQ_6026D10, D_AQ_6026C80, D_AQ_6026BF0, D_AQ_6027460, D_AQ_6026F60,
 };
-Gfx* D_edisplay_800CFBE4[] = { D_AQ_60040F0, D_AQ_6027C90, D_AQ_6027FA0, D_AQ_6003350, D_AQ_6028240,
-                               D_AQ_6028550, D_AQ_6004DB0, D_AQ_6027930, D_AQ_600F030, D_AQ_60050F0 };
-Gfx* D_edisplay_800CFC0C[] = {
+
+Gfx* sAqGaroaDebrisDLs[] = {
+    D_AQ_60040F0, D_AQ_6027C90, D_AQ_6027FA0, D_AQ_6003350, D_AQ_6028240,
+    D_AQ_6028550, D_AQ_6004DB0, D_AQ_6027930, D_AQ_600F030, D_AQ_60050F0,
+};
+
+Gfx* sAqSquidDebrisDLs[] = {
     D_AQ_60294A0, D_AQ_60291B0, D_AQ_60287F0, D_AQ_6029330, D_AQ_6029240, D_AQ_6029790, D_AQ_6029900,
     D_AQ_6028F50, D_AQ_60290C0, D_AQ_6029530, D_AQ_60296A0, D_AQ_6028A80, D_AQ_6028910,
 };
-Gfx* D_edisplay_800CFC40[] = { aAqBoulderDL, aAqBoulderDL, aAqBoulderDL, aAqBoulderDL };
-Gfx* D_edisplay_800CFC50[] = { D_AQ_601EDE0, D_AQ_601F2F0, D_AQ_601F830, D_AQ_601FD70, D_AQ_601D110 };
-Gfx* D_edisplay_800CFC64[] = { D_AQ_6023940, D_AQ_6023D70, D_AQ_60249C0, D_AQ_6023EB0, D_AQ_60249C0, D_AQ_6023B80 };
-Gfx* D_edisplay_800CFC7C[] = { D_ZO_601B570, D_ZO_601B710, D_ZO_60209B0, D_ZO_6020B70, D_ZO_6020D50,
-                               D_ZO_601B8F0, D_ZO_601B3B0, D_ZO_601B1C0, D_ZO_6011660 };
+
+Gfx* sAqBoulderDebrisDLs[] = { aAqBoulderDL, aAqBoulderDL, aAqBoulderDL, aAqBoulderDL };
+
+Gfx* sAqCoralDebrisDLs[] = { D_AQ_601EDE0, D_AQ_601F2F0, D_AQ_601F830, D_AQ_601FD70, D_AQ_601D110 };
+
+Gfx* sAqJellyfishDebrisDLs[] = { D_AQ_6023940, D_AQ_6023D70, D_AQ_60249C0, D_AQ_6023EB0, D_AQ_60249C0, D_AQ_6023B80 };
+
+Gfx* sZoObnemaDebrisDLs[] = {
+    D_ZO_601B570, D_ZO_601B710, D_ZO_60209B0, D_ZO_6020B70, D_ZO_6020D50,
+    D_ZO_601B8F0, D_ZO_601B3B0, D_ZO_601B1C0, D_ZO_6011660,
+};
 
 void ActorDebris_Draw(ActorDebris* this) {
     switch (this->state) {
@@ -287,7 +307,7 @@ void ActorDebris_Draw(ActorDebris* this) {
 
         case 39:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFAC4[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sZoContainerDebrisDLs[this->work_048]);
             break;
 
         case 40:
@@ -321,32 +341,32 @@ void ActorDebris_Draw(ActorDebris* this) {
                     gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
                 }
                 Graphics_SetScaleMtx(this->scale);
-                gSPDisplayList(gMasterDisp++, D_edisplay_800CFB40[this->work_046]);
+                gSPDisplayList(gMasterDisp++, sSoVulkainDebrisDLs[this->work_046]);
             }
             break;
 
         case 41:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFADC[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sZoBirdDebrisDLs[this->work_048]);
             break;
 
         case 42:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB08[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sZGullDebrisDLs[this->work_048]);
             break;
 
         case 43:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB14[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sZoShrimpDebrisDLs[this->work_048]);
             break;
 
         case 44:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB28[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sZoTroikaDebrisDLs[this->work_048]);
             break;
 
         case 45:
-            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+            gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
             break;
 
         case 46:
@@ -363,12 +383,12 @@ void ActorDebris_Draw(ActorDebris* this) {
 
         case 48:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB64[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqAnglerFishDebrisDLs[this->work_048]);
             break;
 
         case 49:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFB88[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqSculpinDebrisDLs[this->work_048]);
             break;
 
         case 50:
@@ -406,27 +426,27 @@ void ActorDebris_Draw(ActorDebris* this) {
 
         case 51:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFBA8[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqSpindlyFishDebrisDLs[this->work_048]);
             break;
 
         case 52:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFBE4[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqGaroaDebrisDLs[this->work_048]);
             break;
 
         case 53:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC0C[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqSquidDebrisDLs[this->work_048]);
             break;
 
         case 54:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC40[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqBoulderDebrisDLs[this->work_048]);
             break;
 
         case 55:
             Graphics_SetScaleMtx(this->scale);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC50[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqCoralDebrisDLs[this->work_048]);
             break;
 
         case 56:
@@ -434,7 +454,7 @@ void ActorDebris_Draw(ActorDebris* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             Matrix_SetGfxMtx(&gMasterDisp);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 191, 255, 223, 255);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC64[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sAqJellyfishDebrisDLs[this->work_048]);
             break;
 
         case 58:
@@ -446,7 +466,7 @@ void ActorDebris_Draw(ActorDebris* this) {
         case 59:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_edisplay_800CFC7C[this->work_048]);
+            gSPDisplayList(gMasterDisp++, sZoObnemaDebrisDLs[this->work_048]);
             break;
 
         case 70:
@@ -462,7 +482,7 @@ void ActorDebris_Draw(ActorDebris* this) {
                 if (this->state == 36) {
                     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
                 }
-                gSPDisplayList(gMasterDisp++, D_edisplay_800CFA54[this->state - 10]);
+                gSPDisplayList(gMasterDisp++, sMechDebrisDLs[this->state - 10]);
             }
             break;
     }
@@ -596,13 +616,13 @@ void ActorTeamArwing_Draw(ActorTeamArwing* this) {
             gActorTeamArwing.upperRightFlapYrot = gActorTeamArwing.bottomRightFlapYrot =
                 gActorTeamArwing.upperLeftFlapYrot = gActorTeamArwing.bottomLeftFlapYrot = 0.0f;
         }
-        Display_ArwingWings(&gActorTeamArwing);
+        Display_Arwing_Skel(&gActorTeamArwing);
     } else if (gLevelType == LEVELTYPE_PLANET) {
-        gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_40018A0);
+        gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
     } else if (gPlayer[0].wingPosition == 2) {
-        gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4003BD0);
+        gSPDisplayList(gMasterDisp++, aSpaceArwingAllRangeDL);
     } else {
-        gSPDisplayList(gMasterDisp++, D_ENMY_SPACE_4007870);
+        gSPDisplayList(gMasterDisp++, aSpaceArwingOnRailsDL);
     }
     Actor_DrawEngineAndContrails(this);
 }
@@ -1907,14 +1927,14 @@ void Effect_Draw(u8 arg0) {
     gReflectY = 1;
 }
 
-Vtx D_edisplay_800CFD40[] = {
+Vtx gTexturedLineVtx[] = {
     VTX(1, 0, 0, 0, 0, 255, 255, 255, 255),
     VTX(-1, 0, 0, 0, 0, 255, 255, 255, 255),
     VTX(-1, 0, -1, 0, 0, 255, 255, 255, 255),
     VTX(1, 0, -1, 0, 0, 255, 255, 255, 255),
 };
-Gfx D_edisplay_800CFD80[] = {
-    gsSPVertex(D_edisplay_800CFD40, 4, 0),
+Gfx gTexturedLineDL[] = {
+    gsSPVertex(gTexturedLineVtx, 4, 0),
     gsSP1Quadrangle(1, 2, 3, 0, 0),
     gsSPEndDisplayList(),
 };
@@ -1967,7 +1987,7 @@ void TexturedLine_Draw(void) {
                 } else {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, texLine->prim.r, texLine->prim.g, texLine->prim.b,
                                     texLine->prim.a);
-                    gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
+                    gSPDisplayList(gMasterDisp++, gTexturedLineDL);
                 }
             }
             Matrix_Pop(&gGfxMatrix);
@@ -1995,7 +2015,7 @@ void TexturedLine_DrawPath(s32 index) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_edisplay_800CFD80);
+    gSPDisplayList(gMasterDisp++, gTexturedLineDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 
     Matrix_Pop(&gGfxMatrix);

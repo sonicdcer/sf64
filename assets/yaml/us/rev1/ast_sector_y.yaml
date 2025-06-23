@@ -22,12 +22,12 @@ aSyTitleCardTex:
 D_SY_6000840:
   { type: TEXTURE, ctype: u8, format: IA8, width: 64, height: 64, offset: 0x6000840, symbol: D_SY_6000840 }
 
-D_SY_6001840:
-  { type: GFX, offset: 0x6001840, symbol: D_SY_6001840 }
+aSyBackdropDL:
+  { type: GFX, offset: 0x6001840, symbol: aSyBackdropDL }
 
 # Sector Y Background
-D_SY_60018D0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060018D0, symbol: D_SY_60018D0 }
+aSyBackdropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x060018D0, symbol: aSyBackdropTex }
 
 D_SY_6003348:
   { type: SF64:ANIM, offset: 0x6003348, symbol: D_SY_6003348 }
@@ -107,8 +107,8 @@ D_SY_60117D8:
 D_SY_60119D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060119D8, symbol: D_SY_60119D8 }
 
-D_SY_60132A0:
-  { type: GFX, offset: 0x60132A0, symbol: D_SY_60132A0 }
+aSyShogunPlatformDL:
+  { type: GFX, offset: 0x60132A0, symbol: aSyShogunPlatformDL }
 
 aSyRobot4DL:
   { type: GFX, offset: 0x6015D60, symbol: aSyRobot4DL }
@@ -137,8 +137,8 @@ D_SY_6014040:
 D_SY_6014240:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06014240, symbol: D_SY_6014240 }
 
-D_SY_6014A40:
-  { type: GFX, offset: 0x6014A40, symbol: D_SY_6014A40 }
+aSyRobotLaserDL:
+  { type: GFX, offset: 0x6014A40, symbol: aSyRobotLaserDL }
 
 D_SY_6014B48:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x06014B48, symbol: D_SY_6014B48 }

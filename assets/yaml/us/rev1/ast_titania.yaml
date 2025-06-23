@@ -16,11 +16,11 @@
 aTiTitleCardTex:
   {type: TEXTURE, format: IA8, ctype: u8, width: 96, height: 28, offset: 0x6000000, symbol: aTiTitleCardTex}
 
-D_TI_6000A80:
-  {type: GFX, offset: 0x6000A80, symbol: D_TI_6000A80}
+aTiBackdropDL:
+  {type: GFX, offset: 0x6000A80, symbol: aTiBackdropDL}
 
-D_TI_6000B10:
-  {type: TEXTURE, format: RGBA16, ctype: u16, width: 64, height: 32, offset: 0x6000B10, symbol: D_TI_6000B10}
+aTiBackdropTex:
+  {type: TEXTURE, format: RGBA16, ctype: u16, width: 64, height: 32, offset: 0x6000B10, symbol: aTiBackdropTex}
 
 D_TI_6001B10:
   {type: GFX, offset: 0x6001B10, symbol: D_TI_6001B10}

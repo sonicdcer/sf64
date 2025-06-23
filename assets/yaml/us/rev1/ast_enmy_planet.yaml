@@ -39,8 +39,8 @@ D_ENMY_PLANET_4001098:
 D_ENMY_PLANET_4001498:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001498, symbol: D_ENMY_PLANET_4001498 }
 
-D_ENMY_PLANET_40018A0:
-  { type: GFX, offset: 0x40018A0, symbol: D_ENMY_PLANET_40018A0 }
+aPlanetArwingAllRangeDL:
+  { type: GFX, offset: 0x40018A0, symbol: aPlanetArwingAllRangeDL }
 
 D_ENMY_PLANET_40024B8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x040024B8, symbol: D_ENMY_PLANET_40024B8 }

@@ -28,7 +28,7 @@ void ActorAllRange_PlayMessage(u16* msg, RadioCharacterId character);
 void ActorAllRange_UpdateStarWolfEvents(Actor*);
 void ActorAllRange_UpdateEnemyEvents(Actor*);
 void ActorAllRange_ApplyDamage(Actor*);
-bool func_360_80031900(Actor*);
+bool ActorAllRange_CheckActorInFrontXZ(Actor*);
 void ActorAllRange_Update(Actor* this);
 void ActorAllRange_Draw(Actor* this);
 
@@ -73,10 +73,10 @@ void func_tank_80046358(Player*);
 
 // fox_demo
 void Cutscene_KillPlayer(Player*);
-void func_demo_80048AC0(TeamId teamId);
+void Cutscene_AllAircraftReport(TeamId teamId);
 void Cutscene_EnterWarpZone(Player*);
 void Cutscene_LevelStart(Player*);
-void func_demo_8004AA84(void);
+void Cutscene_CoComplete_SpawnClouds(void);
 void Cutscene_AllRangeMode(Player*);
 void Cutscene_LevelComplete(Player*);
 void Cutscene_UTurn(Player*);
@@ -87,7 +87,7 @@ void ActorCutscene_Draw(Actor*);
 void Cutscene_DrawGreatFox(void);
 
 // fox_display
-void Display_ArwingWings(ArwingInfo*);
+void Display_Arwing_Skel(ArwingInfo*);
 void Display_DrawEngineGlow(EngineGlowColor);
 void Display_SetupPlayerSfxPos(Player*);
 void Display_Update(void);

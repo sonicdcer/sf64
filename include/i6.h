@@ -20,7 +20,7 @@ void Venom2_LevelStart(Player*);
 void Venom2_LevelComplete(Player*);
 void SectorY_LevelComplete(Player*);
 void SectorY_8019FF00(Actor*);
-void SectorY_801A0AC0(Player*);
+void SectorY_LevelStart(Player*);
 
 void Andross_Gate_Draw(Actor*);
 void OvlI6_CallFunction(u32 mode, void* ptr);

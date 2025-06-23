@@ -1885,7 +1885,7 @@ void SectorX_LevelComplete(Player* player) {
                         break;
 
                     default:
-                        func_demo_80048AC0(TEAM_ID_SLIPPY);
+                        Cutscene_AllAircraftReport(TEAM_ID_SLIPPY);
                         break;
                 }
                 break;
@@ -1901,13 +1901,13 @@ void SectorX_LevelComplete(Player* player) {
                         break;
 
                     default:
-                        func_demo_80048AC0(TEAM_ID_PEPPY);
+                        Cutscene_AllAircraftReport(TEAM_ID_PEPPY);
                         break;
                 }
                 break;
 
             case 521:
-                func_demo_80048AC0(TEAM_ID_FALCO);
+                Cutscene_AllAircraftReport(TEAM_ID_FALCO);
                 switch (gTeamShields[TEAM_ID_FALCO]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
@@ -1918,7 +1918,7 @@ void SectorX_LevelComplete(Player* player) {
                         break;
 
                     default:
-                        func_demo_80048AC0(TEAM_ID_FALCO);
+                        Cutscene_AllAircraftReport(TEAM_ID_FALCO);
                         break;
                 }
                 break;
@@ -1950,7 +1950,7 @@ void SectorX_LevelComplete(Player* player) {
                 break;
 
             case 569:
-                func_demo_80048AC0(TEAM_ID_FALCO);
+                Cutscene_AllAircraftReport(TEAM_ID_FALCO);
                 switch (gTeamShields[TEAM_ID_FALCO]) {
                     case -1:
                         Radio_PlayMessage(gMsg_ID_20337, RCID_ROB64);
