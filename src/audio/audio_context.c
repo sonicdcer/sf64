@@ -99,7 +99,7 @@ s32 gRefreshRate;
 s16* gAiBuffers[3];
 s16 gAiBuffLengths[3];
 u32 gAudioRandom;
-u32 D_80155D88;
+u32 gAudioErrorFlags;
 volatile u32 gAudioResetTimer;
 
 u64 gAudioContextEnd[2];

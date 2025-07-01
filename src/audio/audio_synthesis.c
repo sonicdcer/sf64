@@ -640,6 +640,7 @@ void AudioSynth_SyncSampleStates(s32 updateIndex) {
     }
 }
 
+// Original name: Nas_smzAudioFrame
 Acmd* AudioSynth_Update(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen) {
     Acmd* aCmdPtr;
     s32* aiBufPtr;

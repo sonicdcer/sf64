@@ -68,6 +68,7 @@ static const char devstr53[] = "Try Kill %d \n";
 static const char devstr54[] = "Try Kill %x %x\n";
 static const char devstr55[] = "Try Kill %x %x %x\n";
 
+// Original name: Nas_ResetIDtable
 void AudioHeap_ResetLoadStatus(void) {
     s32 i;
 
@@ -88,6 +89,7 @@ void AudioHeap_ResetLoadStatus(void) {
     }
 }
 
+// Original name: Nas_ForceStopChannel
 void AudioHeap_DiscardFont(s32 fontId) {
     Note* note;
     s32 i;
@@ -106,6 +108,7 @@ void AudioHeap_DiscardFont(s32 fontId) {
     }
 }
 
+// Original name: Nas_ForceStopSeq
 void AudioHeap_DiscardSequence(s32 seqId) {
     s32 i;
 
@@ -116,6 +119,7 @@ void AudioHeap_DiscardSequence(s32 seqId) {
     }
 }
 
+// Original name: Nas_HeapAlloc_CL
 void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;
@@ -133,6 +137,7 @@ void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
     return ramAddr;
 }
 
+// Original name: Nas_HeapAlloc
 void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;
@@ -146,18 +151,21 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     return ramAddr;
 }
 
+// Original name: Nas_HeapInit
 void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, u32 size) {
     pool->curRamAddr = pool->startRamAddr = (u8*) ALIGN16((u32) ramAddr);
     pool->size = size - ((u32) ramAddr & 0xF);
     pool->numEntries = 0;
 }
 
+// Original name: Nas_SzStayClear
 void AudioHeap_InitPersistentCache(AudioPersistentCache* persistent) {
     persistent->pool.numEntries = 0;
     persistent->numEntries = 0;
     persistent->pool.curRamAddr = persistent->pool.startRamAddr;
 }
 
+// Original name: Nas_SzAutoClear
 void AudioHeap_InitTemporaryCache(AudioTemporaryCache* temporary) {
     temporary->pool.numEntries = 0;
     temporary->pool.curRamAddr = temporary->pool.startRamAddr;
@@ -168,22 +176,26 @@ void AudioHeap_InitTemporaryCache(AudioTemporaryCache* temporary) {
     temporary->entries[1].id = -1;
 }
 
+// Original name: Nas_SzCustomClear
 void AudioHeap_ResetPool(AudioAllocPool* pool) {
     pool->numEntries = 0;
     pool->curRamAddr = pool->startRamAddr;
 }
 
+// Original name: Nas_SzHeapReset
 void AudioHeap_InitMainPools(s32 initPoolSize) {
     AudioHeap_InitPool(&gInitPool, gAudioHeap, initPoolSize);
     AudioHeap_InitPool(&gSessionPool, gAudioHeap + initPoolSize, gAudioHeapSize - initPoolSize);
 }
 
+// Original name: Nas_SzHeapDivide
 void AudioHeap_InitSessionPools(AudioSessionPoolSplit* split) {
     gSessionPool.curRamAddr = gSessionPool.startRamAddr;
     AudioHeap_InitPool(&gMiscPool, AudioHeap_Alloc(&gSessionPool, split->miscPoolSize), split->miscPoolSize);
     AudioHeap_InitPool(&gCachePool, AudioHeap_Alloc(&gSessionPool, split->cachePoolSize), split->cachePoolSize);
 }
 
+// Original name: Nas_SzDataDivide
 void AudioHeap_InitCachePools(AudioCachePoolSplit* split) {
     gCachePool.curRamAddr = gCachePool.startRamAddr;
     AudioHeap_InitPool(&gPersistentCommonPool, AudioHeap_Alloc(&gCachePool, split->persistentCommonPoolSize),
@@ -192,6 +204,7 @@ void AudioHeap_InitCachePools(AudioCachePoolSplit* split) {
                        split->temporaryCommonPoolSize);
 }
 
+// Original name: Nas_SzStayDivide
 void AudioHeap_InitPersistentPoolsAndCaches(AudioCommonPoolSplit* split) {
     gPersistentCommonPool.curRamAddr = gPersistentCommonPool.startRamAddr;
     AudioHeap_InitPool(&gSeqCache.persistent.pool, AudioHeap_Alloc(&gPersistentCommonPool, split->seqCacheSize),
@@ -205,6 +218,7 @@ void AudioHeap_InitPersistentPoolsAndCaches(AudioCommonPoolSplit* split) {
     AudioHeap_InitPersistentCache(&gSampleBankCache.persistent);
 }
 
+// Original name: Nas_SzAutoDivide
 void AudioHeap_InitTemporaryPoolsAndCaches(AudioCommonPoolSplit* split) {
     gTemporaryCommonPool.curRamAddr = gTemporaryCommonPool.startRamAddr;
     AudioHeap_InitPool(&gSeqCache.temporary.pool, AudioHeap_Alloc(&gTemporaryCommonPool, split->seqCacheSize),
@@ -218,6 +232,7 @@ void AudioHeap_InitTemporaryPoolsAndCaches(AudioCommonPoolSplit* split) {
     AudioHeap_InitTemporaryCache(&gSampleBankCache.temporary);
 }
 
+// Original name: Nas_SzHeapAlloc
 void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
     AudioCache* loadedCache;
     AudioTemporaryCache* temporaryCache;
@@ -442,6 +457,7 @@ void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
     return loadedCache->persistent.entries[loadedCache->persistent.numEntries++].ramAddr;
 }
 
+// Original name: Nas_SzCacheCheck
 void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
     void* ramAddr;
 
@@ -456,6 +472,7 @@ void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
     return AudioHeap_SearchRegularCaches(tableType, cache, id);
 }
 
+// Original name: __Nas_SzCacheCheck_Inner
 void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
     u32 i;
     AudioCache* loadedCache;
@@ -502,6 +519,7 @@ void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
     return NULL;
 }
 
+// Original name: Nas_InitFilterCoef
 void func_8000CAF4(f32 p, f32 q, u16* out) {
     // With the bug below fixed, this mysterious unused function computes two recurrences
     // out[0..7] = a_i, out[8..15] = b_i, where
@@ -530,6 +548,7 @@ void func_8000CAF4(f32 p, f32 q, u16* out) {
     }
 }
 
+// Original name: __Nas_DelayDown
 void AudioHeap_UpdateReverbs(void) {
     s32 i;
     s32 count;
@@ -547,6 +566,7 @@ void AudioHeap_UpdateReverbs(void) {
     }
 }
 
+// Original name: __Nas_DacClear
 void AudioHeap_ClearCurrentAiBuffer(void) {
     s32 i;
     s32 index = gCurAiBuffIndex;
@@ -558,6 +578,7 @@ void AudioHeap_ClearCurrentAiBuffer(void) {
     }
 }
 
+// Original name: Nas_SpecChange
 s32 AudioHeap_ResetStep(void) {
     s32 i;
     s32 j;
@@ -633,6 +654,7 @@ s32 AudioHeap_ResetStep(void) {
     return 1;
 }
 
+// Original name: __Nas_MemoryReconfig
 void AudioHeap_Init(void) {
     s32 i;
     s32 j;
@@ -747,6 +769,7 @@ void AudioHeap_Init(void) {
     osWritebackDCacheAll();
 }
 
+// Original name: EmemOnCheck
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
     s32 i;
 
@@ -758,6 +781,7 @@ void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
     return NULL;
 }
 
+// Original name: EmemAlloc
 u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size) {
     u8* ramAddr;
     s32 index = gPermanentPool.pool.numEntries;
@@ -791,6 +815,7 @@ void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, 
     }
 }
 
+// Original name: Nas_Alloc_Single
 void* AudioHeap_AllocPersistentSampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
     SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
 
@@ -817,6 +842,7 @@ void* AudioHeap_AllocPersistentSampleCache_2(u32 size, s32 fontId, s32 sampleAdd
     }
 }
 
+// Original name: Nas_Init_Single
 void AudioHeap_InitSampleCaches(u32 persistentSampleCacheSize, u32 temporarySampleCacheSize) {
     void* ramAddr;
 
@@ -836,6 +862,7 @@ void AudioHeap_InitSampleCaches(u32 persistentSampleCacheSize, u32 temporarySamp
     gTemporarySampleCache.numEntries = 0;
 }
 
+// Original name: __Nas_Alloc_Single_Auto_Inner
 SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32 size) {
     u8* endRamAddr;
     u8* old;
@@ -905,6 +932,7 @@ SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32 size) {
     return entry;
 }
 
+// Original name: __KillSwMember
 void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry) {
     s32 fondId;
     s32 numFonts;
@@ -947,6 +975,7 @@ void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry) {
     }
 }
 
+// Original name: __RomAddrSet
 void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, Sample* sample) {
     if ((sample != NULL) && (sample->sampleAddr == entry->allocatedAddr)) {
         sample->sampleAddr = entry->sampleAddr;
@@ -954,6 +983,7 @@ void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, Sample* sample) {
     }
 }
 
+// Original name: __Nas_Alloc_Single_Stay_Inner
 SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size) {
     AudioSampleCache* cache = &gPersistentSampleCache;
     SampleCacheEntry* entry;
@@ -971,6 +1001,7 @@ SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size) {
     return entry;
 }
 
+// Original name: Emem_KillSwMember
 void AudioHeap_DiscardSampleCaches(void) {
     s32 fontId;
     s32 i;
