@@ -1053,13 +1053,13 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
 
                 if (numSamplesProcessed == 0) {
                     switch (bookSample->codec) {
-                        case 0:
+                        case CODEC_ADPCM:
                             aSetBuffer(aList++, 0, addr + sampleDataChunkAlignPad, DMEM_UNCOMPRESSED_NOTE,
                                        numSamplesToDecode * SAMPLE_SIZE);
                             aADPCMdec(aList++, flags, OS_K0_TO_PHYSICAL(synthState->synthesisBuffers));
                             break;
 
-                        case 1:
+                        case CODEC_S8:
                             aSetBuffer(aList++, 0, addr + sampleDataChunkAlignPad, DMEM_UNCOMPRESSED_NOTE,
                                        numSamplesToDecode * SAMPLE_SIZE);
                             aS8Dec(aList++, flags, OS_K0_TO_PHYSICAL(synthState->synthesisBuffers));
@@ -1070,13 +1070,13 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                 } else {
                     aligned = ALIGN16(dmemUncompressedAddrOffset1 + SAMPLES_PER_FRAME);
                     switch (bookSample->codec) {
-                        case 0:
+                        case CODEC_ADPCM:
                             aSetBuffer(aList++, 0, addr + sampleDataChunkAlignPad, DMEM_UNCOMPRESSED_NOTE + aligned,
                                        numSamplesToDecode * SAMPLE_SIZE);
                             aADPCMdec(aList++, flags, OS_K0_TO_PHYSICAL(synthState->synthesisBuffers));
                             break;
 
-                        case 1:
+                        case CODEC_S8:
                             aSetBuffer(aList++, 0, addr + sampleDataChunkAlignPad, DMEM_UNCOMPRESSED_NOTE + aligned,
                                        numSamplesToDecode * SAMPLE_SIZE);
                             aS8Dec(aList++, flags, OS_K0_TO_PHYSICAL(synthState->synthesisBuffers));

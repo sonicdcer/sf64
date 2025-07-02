@@ -7,7 +7,7 @@ u8 sAudioContextPad10[0x10]; // 0x10
 u16 D_8014C1B0;
 s8 D_8014C1B2;
 s8 gNumSynthReverbs;
-s16 D_8014C1B4;
+s16 D_8014C1B4; // IDCT related
 NoteSubEu* gNoteSubsEu;
 // 0x4
 AudioAllocPool gSessionPool;
