@@ -69,6 +69,7 @@ void AudioHeap_DiscardSequence(s32 seqId) {
     }
 }
 
+// Original name: Nas_HeapAlloc_CL
 void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;
@@ -86,6 +87,7 @@ void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
     return ramAddr;
 }
 
+// Original name: Nas_HeapAlloc
 void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;

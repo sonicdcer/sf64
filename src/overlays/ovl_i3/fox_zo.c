@@ -4953,7 +4953,7 @@ void Zoness_LevelComplete(Player* player) {
             break;
     }
 
-    PRINTF("Demo_Time %d\n");
+    PRINTF("Demo_Time %d\n", gCsFrameCount);
 
     switch (gCsFrameCount) {
         case 320:

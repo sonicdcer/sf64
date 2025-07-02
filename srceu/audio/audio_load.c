@@ -16,31 +16,31 @@ s32 AudioLoad_GetLoadTableIndex(s32 tableType, u32 entryId);
 void* AudioLoad_SearchCaches(s32 tableType, s32 id);
 AudioTable* AudioLoad_GetLoadTable(s32 tableType);
 void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium);
-void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
+void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam);
 s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size,
                   OSMesgQueue* retQueue, s32 medium, const char* dmaType);
-s32 func_8000FC7C(u32 unkMediumParam, u32* addrPtr);
+s32 func_8000FC7C(u32 diskParam, u32* addrPtr);
 void func_8000FC8C(s32 unkParam2, u32 addr, u8* ramAddr, u32 size);
 void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
 Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId);
 void AudioLoad_ProcessSlowLoads(s32 resetStatus);
 void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size);
-void AudioLoad_DmaSlowCopyUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
+void AudioLoad_DmaSlowCopyDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam);
 AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, u32 size, s32 medium, s32 nChunks,
                                          OSMesgQueue* retQueue, u32 retMesg);
 void AudioLoad_ProcessAsyncLoads(s32 resetStatus);
 void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus);
 void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size);
-void AudioLoad_AsyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam);
+void AudioLoad_AsyncDmaDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam);
 void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo);
 s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, SampleBankRelocInfo* relocData, s32 isAsync);
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus);
 void func_8000FCDC(s32 unkParam2, u32 addr, u8* ramAddr, u32 size);
-s32 func_8000FCCC(u32 unkMediumParam, u32* addrPtr);
+s32 func_8000FCCC(u32 diskParam, u32* addrPtr);
 void* AudioLoad_SyncLoadSampleBank(u32 sampleBankId, s32* outMedium);
 void AudioLoad_FinishSlowLoad(AudioSlowLoad* slowLoad);
 void func_8001689C(void);
-void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam);
+void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 diskParam);
 void func_800144C4(SequencePlayer* seqPlayer);
 void func_800167E4(s32 arg0);
 
@@ -207,10 +207,10 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
 }
 
 // Updates the audiotable entries with their relative ROM addresses
-void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 unkMediumParam) {
+void AudioLoad_InitTable(AudioTable* table, u8* romAddr, u16 diskParam) {
     s32 i;
 
-    table->base.unkMediumParam = unkMediumParam;
+    table->base.diskParam = diskParam;
     table->base.romAddr = (uintptr_t) romAddr;
 
     for (i = 0; i < table->base.numEntries; i++) {
@@ -257,9 +257,8 @@ s32 AudioLoad_SyncLoadSample(Sample* sample, s32 fontId) {
         if (sampleAddr == NULL) {
             return -1;
         }
-        if (sample->medium == MEDIUM_UNK) {
-            AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleAddr, sample->size,
-                                       gSampleBankTable->base.unkMediumParam);
+        if (sample->medium == MEDIUM_DISK) {
+            AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleAddr, sample->size, gSampleBankTable->base.diskParam);
         } else {
             AudioLoad_SyncDma(sample->sampleAddr, sampleAddr, sample->size, sample->medium);
         }
@@ -538,8 +537,8 @@ void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate) {
 
         *didAllocate = true;
 
-        if (medium == MEDIUM_UNK) {
-            AudioLoad_SyncDmaUnkMedium(romAddr, ramAddr, size, table->base.unkMediumParam);
+        if (medium == MEDIUM_DISK) {
+            AudioLoad_SyncDmaUnkMedium(romAddr, ramAddr, size, table->base.diskParam);
         } else {
             AudioLoad_SyncDma(romAddr, ramAddr, size, medium);
         }
@@ -696,11 +695,11 @@ void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium) {
 }
 #endif
 
-void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam) {
+void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam) {
     s32 addr = devAddr;
 
     osInvalDCache(ramAddr, size);
-    func_8000FCDC(func_8000FCCC(unkMediumParam, &addr), addr, ramAddr, size);
+    func_8000FCDC(func_8000FCCC(diskParam, &addr), addr, ramAddr, size);
 }
 
 s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size,
@@ -734,7 +733,7 @@ s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void
     return 0;
 }
 
-s32 func_8000FCCC(u32 unkMediumParam, u32* addrPtr) {
+s32 func_8000FCCC(u32 diskParam, u32* addrPtr) {
     return 0;
 }
 
@@ -993,7 +992,7 @@ s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status) {
         AudioHeap_AllocTemporarySampleCache(sample->size, fontId, sample->sampleAddr, sample->medium);
 
     if (slowLoad->curRamAddr == NULL) {
-        if ((sample->medium == MEDIUM_UNK) || (sample->codec == 2)) {
+        if ((sample->medium == MEDIUM_DISK) || (sample->codec == 2)) {
             *status = SLOW_LOAD_STATUS_0;
             return -1;
         } else {
@@ -1069,17 +1068,17 @@ void AudioLoad_ProcessSlowLoads(s32 resetStatus) {
                     slowLoad->state = SLOW_LOAD_DONE;
                     *slowLoad->status = SLOW_LOAD_STATUS_1;
                 } else if (slowLoad->bytesRemaining < 0x1000) {
-                    if (slowLoad->medium == MEDIUM_UNK) {
-                        AudioLoad_DmaSlowCopyUnkMedium(slowLoad->curDevAddr, slowLoad->curRamAddr,
-                                                       slowLoad->bytesRemaining, sampleBankTable->base.unkMediumParam);
+                    if (slowLoad->medium == MEDIUM_DISK) {
+                        AudioLoad_DmaSlowCopyDisk(slowLoad->curDevAddr, slowLoad->curRamAddr, slowLoad->bytesRemaining,
+                                                  sampleBankTable->base.diskParam);
                     } else {
                         AudioLoad_DmaSlowCopy(&gSlowLoads.slowLoad[i], slowLoad->bytesRemaining);
                     }
                     slowLoad->bytesRemaining = 0;
                 } else {
-                    if (slowLoad->medium == MEDIUM_UNK) {
-                        AudioLoad_DmaSlowCopyUnkMedium(slowLoad->curDevAddr, slowLoad->curRamAddr, 0x1000,
-                                                       sampleBankTable->base.unkMediumParam);
+                    if (slowLoad->medium == MEDIUM_DISK) {
+                        AudioLoad_DmaSlowCopyDisk(slowLoad->curDevAddr, slowLoad->curRamAddr, 0x1000,
+                                                  sampleBankTable->base.diskParam);
                     } else {
                         AudioLoad_DmaSlowCopy(&gSlowLoads.slowLoad[i], 0x1000);
                     }
@@ -1103,11 +1102,11 @@ void AudioLoad_DmaSlowCopy(AudioSlowLoad* slowLoad, s32 size) {
 }
 #endif
 
-void AudioLoad_DmaSlowCopyUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam) {
+void AudioLoad_DmaSlowCopyDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam) {
     s32 addr = devAddr;
 
     osInvalDCache(ramAddr, size);
-    func_8000FCDC(func_8000FCCC(unkMediumParam, &addr), addr, ramAddr, size);
+    func_8000FCDC(func_8000FCCC(diskParam, &addr), addr, ramAddr, size);
 }
 
 AudioAsyncLoad* AudioLoad_StartAsyncLoad(u32 devAddr, u8* ramAddr, u32 size, s32 medium, s32 nChunks,
@@ -1232,17 +1231,17 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
         asyncLoad->status = 0;
         osSendMesg(asyncLoad->retQueue, asyncLoad->retMsg, OS_MESG_NOBLOCK);
     } else if (asyncLoad->bytesRemaining < asyncLoad->chunkSize) {
-        if (asyncLoad->medium == MEDIUM_UNK) {
-            AudioLoad_AsyncDmaUnkMedium(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->bytesRemaining,
-                                        sampleTable->base.unkMediumParam);
+        if (asyncLoad->medium == MEDIUM_DISK) {
+            AudioLoad_AsyncDmaDisk(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->bytesRemaining,
+                                   sampleTable->base.diskParam);
         } else {
             AudioLoad_AsyncDma(asyncLoad, asyncLoad->bytesRemaining);
         }
         asyncLoad->bytesRemaining = 0;
     } else {
-        if (asyncLoad->medium == MEDIUM_UNK) {
-            AudioLoad_AsyncDmaUnkMedium(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->chunkSize,
-                                        sampleTable->base.unkMediumParam);
+        if (asyncLoad->medium == MEDIUM_DISK) {
+            AudioLoad_AsyncDmaDisk(asyncLoad->curDevAddr, asyncLoad->curRamAddr, asyncLoad->chunkSize,
+                                   sampleTable->base.diskParam);
         } else {
             AudioLoad_AsyncDma(asyncLoad, asyncLoad->chunkSize);
         }
@@ -1265,11 +1264,11 @@ void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size) {
 }
 #endif
 
-void AudioLoad_AsyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 unkMediumParam) {
+void AudioLoad_AsyncDmaDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam) {
     s32 addr = devAddr;
 
     osInvalDCache(ramAddr, size);
-    func_8000FCDC(func_8000FCCC(unkMediumParam, &addr), addr, ramAddr, size);
+    func_8000FCDC(func_8000FCCC(diskParam, &addr), addr, ramAddr, size);
 }
 
 void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo) {
@@ -1288,7 +1287,7 @@ void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBank
                     sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr1;
                     sample->medium = relocInfo->medium1;
                     break;
-                case MEDIUM_UNK:
+                case MEDIUM_DISK:
                     sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr2;
                     sample->medium = relocInfo->medium2;
                     break;
@@ -1366,9 +1365,9 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
 
         switch (isAsync) {
             case AUDIOLOAD_SYNC:
-                if (sample->medium == MEDIUM_UNK) {
+                if (sample->medium == MEDIUM_DISK) {
                     AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleRamAddr, sample->size,
-                                               gSampleBankTable->base.unkMediumParam);
+                                               gSampleBankTable->base.diskParam);
                     sample->sampleAddr = sampleRamAddr;
                     sample->medium = MEDIUM_RAM;
                 } else {
