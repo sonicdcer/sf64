@@ -523,16 +523,20 @@ void Game_Update(void) {
         if (gCamCount == 2) {
             Game_InitViewport(&gMasterDisp, gCamCount, 1);
             Game_Draw(1);
+
             gDPPipeSync(gMasterDisp++);
             gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
                           SCREEN_HEIGHT - SCREEN_MARGIN);
         } else if ((gCamCount == 4) && (gDrawMode != DRAW_NONE)) {
             Game_InitViewport(&gMasterDisp, gCamCount, 3);
             Game_Draw(3);
+
             Game_InitViewport(&gMasterDisp, gCamCount, 2);
             Game_Draw(2);
+
             Game_InitViewport(&gMasterDisp, gCamCount, 1);
             Game_Draw(1);
+
             gDPPipeSync(gMasterDisp++);
             gDPSetScissor(gMasterDisp++, G_SC_NON_INTERLACE, SCREEN_MARGIN, SCREEN_MARGIN, SCREEN_WIDTH - SCREEN_MARGIN,
                           SCREEN_HEIGHT - SCREEN_MARGIN);
@@ -552,6 +556,7 @@ void Game_Update(void) {
             } else {
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 100, 100, 255, 255);
             }
+
             gDPFillRectangle(gMasterDisp++, SCREEN_WIDTH / 2 - 1 - 1, SCREEN_MARGIN, SCREEN_WIDTH / 2 + 1,
                              SCREEN_HEIGHT - SCREEN_MARGIN);
             gDPFillRectangle(gMasterDisp++, SCREEN_MARGIN, SCREEN_HEIGHT / 2 - 1 - 1, SCREEN_WIDTH - SCREEN_MARGIN,

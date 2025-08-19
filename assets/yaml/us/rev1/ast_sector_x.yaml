@@ -226,8 +226,8 @@ aSxBackdropDL:
 aSxBackdropTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x029918, symbol: aSxBackdropTex }
 
-D_SX_602A120:
-  { type: SF64:ENVIRONMENT, offset: 0x602A120, symbol: D_SX_602A120 }
+aSxEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x602A120, symbol: aSxEnvSetup }
 
 aSxLevelObjects:
   { type: SF64:OBJECT_INIT, count: 1026, offset: 0x602A164, symbol: aSxLevelObjects }

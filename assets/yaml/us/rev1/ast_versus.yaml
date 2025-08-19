@@ -683,14 +683,14 @@ aVsCorneriaBackdropDL:
 aVsCorneriaBackdropTex:
   {type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x302D568, symbol: aVsCorneriaBackdropTex }
 
-D_versus_302DD70:
-  { type: SF64:ENVIRONMENT, offset: 0x302DD70, symbol: D_versus_302DD70}
+aVsCoEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x302DD70, symbol: aVsCoEnvSetup}
 
-D_versus_302DDB4:
-  { type: SF64:ENVIRONMENT, offset: 0x302DDB4, symbol: D_versus_302DDB4}
+aVsKaEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x302DDB4, symbol: aVsKaEnvSetup}
 
-D_versus_302DDF8:
-  { type: SF64:ENVIRONMENT, offset: 0x302DDF8, symbol: D_versus_302DDF8}
+aVsSzEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x302DDF8, symbol: aVsSzEnvSetup}
 
 aVsCoLevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x302DE3C, symbol: aVsCoLevelObjects}

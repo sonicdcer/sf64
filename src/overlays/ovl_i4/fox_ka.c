@@ -58,16 +58,21 @@ s32 sEnemySpawnTargets[] = {
     3,
     2,
 };
-f32 D_i4_8019F260[] = { 377.0f, -600.0f, 700.0f };
-f32 D_i4_8019F26C[] = { 50.0f, -50.0f, -100.0f };
-f32 D_i4_8019F278[] = { 100.0f, 500.0f, 260.0f };
-f32 D_i4_8019F284[] = { -600.0f, 60.0f, 120.0f };
-f32 D_i4_8019F290[] = { 60.0f, 262.0f, 285.0f };
-f32 D_i4_8019F29C[] = { 252.0f, -1000.0f, 0.0f, 1000.0f };
-f32 D_i4_8019F2AC[] = { 0.0f, 1000.0f, 1000.0f, 1000.0f };
-f32 D_i4_8019F2BC[] = { 1000.0f, 0.0f, 1000.0, -500.0f };
-f32 D_i4_8019F2CC[] = { -1000.0f, 180.0f, 180.0f, 180.0f };
-f32 D_i4_8019F2DC[] = { 180.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+
+// unused
+f32 D_i4_8019F260 = 377.0f;
+
+f32 D_i4_8019F264[] = { -600.0f, 700.0f, 50.0f };
+f32 D_i4_8019F270[] = { -50.0f, -100.0f, 100.0f };
+f32 D_i4_8019F27C[] = { 500.0f, 260.0f, -600.0f };
+f32 D_i4_8019F288[] = { 60.0f, 120.0f, 60.0f };
+f32 D_i4_8019F294[] = { 262.0f, 285.0f, 252.0f };
+f32 D_i4_8019F2A0[] = { -1000.0f, 0.0f, 1000.0f, 0.0f };
+f32 D_i4_8019F2B0[] = { 1000.0f, 1000.0f, 1000.0f, 1000.0f };
+f32 D_i4_8019F2C0[] = { 0.0f, 1000.0, -500.0f, -1000.0f };
+f32 D_i4_8019F2D0[] = { 180.0f, 180.0f, 180.0f, 180.0f };
+f32 D_i4_8019F2E0[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
 s32 D_i4_8019F2F0[] = {
     100000, 100000, 100000, 100000, 1, 16, 15, 8, 3, 7, 12, 2, 5, 14, 9, 4, 10, 13, 6, 11,
 };
@@ -1702,13 +1707,13 @@ void Katina_SFTeamMissionAccomUpdate(ActorCutscene* this, s32 idx) {
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i4_8019F260[idx + 1] + gPlayer[0].pos.x;
-    this->obj.pos.y = D_i4_8019F26C[idx + 1] + gPlayer[0].pos.y;
-    this->obj.pos.z = D_i4_8019F278[idx + 1] + gPlayer[0].pos.z;
+    this->obj.pos.x = D_i4_8019F264[idx] + gPlayer[0].pos.x;
+    this->obj.pos.y = D_i4_8019F270[idx] + gPlayer[0].pos.y;
+    this->obj.pos.z = D_i4_8019F27C[idx] + gPlayer[0].pos.z;
 
-    this->orient.y = D_i4_8019F284[idx + 1];
+    this->orient.y = D_i4_8019F288[idx];
 
-    this->fwork[KA_ACTOR_FWORK_1] = D_i4_8019F290[idx + 1];
+    this->fwork[KA_ACTOR_FWORK_1] = D_i4_8019F294[idx];
     this->fwork[KA_ACTOR_FWORK_0] = 40.0f;
 
     Object_SetInfo(&this->info, this->obj.id);
@@ -1728,13 +1733,13 @@ void Katina_SFTeamFleeUpdate(ActorCutscene* this, s32 idx) {
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = D_i4_8019F29C[idx + 1];
-    this->obj.pos.y = D_i4_8019F2AC[idx + 1];
-    this->obj.pos.z = D_i4_8019F2BC[idx + 1];
+    this->obj.pos.x = D_i4_8019F2A0[idx];
+    this->obj.pos.y = D_i4_8019F2B0[idx];
+    this->obj.pos.z = D_i4_8019F2C0[idx];
 
-    this->orient.y = D_i4_8019F2CC[idx + 1];
+    this->orient.y = D_i4_8019F2D0[idx];
 
-    this->fwork[KA_ACTOR_FWORK_1] = D_i4_8019F2DC[idx + 1];
+    this->fwork[KA_ACTOR_FWORK_1] = D_i4_8019F2E0[idx];
     this->fwork[KA_ACTOR_FWORK_0] = 40.0f;
 
     Object_SetInfo(&this->info, this->obj.id);

@@ -172,15 +172,18 @@ Instrument* Audio_GetInstrument(s32 fontId, s32 instId) {
         gAudioErrorFlags = fontId + 0x10000000;
         return NULL;
     }
+
     if (instId >= gSoundFontList[fontId].numInstruments) {
         gAudioErrorFlags = (fontId << 8) + instId + 0x03000000;
         return NULL;
     }
+
     instrument = gSoundFontList[fontId].instruments[instId];
     if (instrument == NULL) {
         gAudioErrorFlags = (fontId << 8) + instId + 0x01000000;
         return instrument;
     }
+
     return instrument;
 }
 
@@ -192,17 +195,21 @@ Drum* Audio_GetDrum(s32 fontId, s32 drumId) {
         gAudioErrorFlags = fontId + 0x10000000;
         return NULL;
     }
+
     if (drumId >= gSoundFontList[fontId].numDrums) {
         gAudioErrorFlags = (fontId << 8) + drumId + 0x04000000;
         return NULL;
     }
+
     if ((u32) gSoundFontList[fontId].drums < AUDIO_RELOCATED_ADDRESS_START) {
         return NULL;
     }
+
     drum = gSoundFontList[fontId].drums[drumId];
     if (gSoundFontList[fontId].drums[drumId] == NULL) {
         gAudioErrorFlags = (fontId << 8) + drumId + 0x05000000;
     }
+
     return drum;
 }
 
@@ -323,6 +330,7 @@ void Audio_ProcessNotes(void) {
 
             scale = Audio_AdsrUpdate(&playbackState->adsr);
             Audio_NoteVibratoUpdate(note);
+
             attr = &playbackState->attributes;
             if ((playbackState->unk_04 == 1) || (playbackState->unk_04 == 2)) {
                 sp70.freqMod = attr->freqMod;
@@ -365,11 +373,15 @@ void Audio_SeqLayerDecayRelease(SequenceLayer* layer, s32 target) {
     if (layer == NO_LAYER) {
         return;
     }
+
     layer->unk_3 = 0;
+
     if (layer->note == NULL) {
         return;
     }
+
     note = layer->note;
+
     if (layer == note->playbackState.wantedParentLayer) {
         note->playbackState.wantedParentLayer = NO_LAYER;
     }
@@ -643,32 +655,38 @@ Note* Audio_FindNodeWithPrioLessThan(AudioListItem* item, s32 priority) {
 // Original name: Nas_EntryTrack
 void Audio_NoteInitForLayer(Note* note, SequenceLayer* layer) {
     s32 pad[4];
-    s32 var_a2;
+    s32 waveId;
     NoteSubEu* noteSub;
 
     note->playbackState.prevParentLayer = NO_LAYER;
     note->playbackState.parentLayer = layer;
     note->playbackState.priority = layer->channel->notePriority;
+
     layer->ignoreDrumPan = 1;
     layer->unk_3 = 3;
     layer->note = note;
     layer->channel->noteUnused = note;
     layer->channel->layerUnused = layer;
     layer->noteVelocity = 0.0f;
+
     Audio_NoteInit(note);
-    var_a2 = layer->instOrWave;
+
+    waveId = layer->instOrWave;
     noteSub = &note->noteSubEu;
-    if (var_a2 == 0xFF) {
-        var_a2 = layer->channel->instOrWave;
+
+    if (waveId == 0xFF) {
+        waveId = layer->channel->instOrWave;
     }
+
     noteSub->waveSampleAddr = (s16*) layer->tunedSample;
-    if (var_a2 >= 128) {
+
+    if (waveId >= 128) {
         noteSub->bitField1.isSyntheticWave = true;
     } else {
         noteSub->bitField1.isSyntheticWave = false;
     }
     if (noteSub->bitField1.isSyntheticWave) {
-        Audio_BuildSyntheticWave(note, layer, var_a2);
+        Audio_BuildSyntheticWave(note, layer, waveId);
     }
     note->playbackState.fontId = layer->channel->fontId;
     noteSub->bitField0.stereoHeadsetEffects = layer->channel->stereoHeadsetEffects;

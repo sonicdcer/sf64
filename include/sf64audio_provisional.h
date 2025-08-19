@@ -164,14 +164,14 @@ typedef enum {
     /* 5 */ LOAD_STATUS_PERMANENTLY_LOADED // the entry data is loaded in the permanent pool, it won't be discarded
 } AudioLoadStatus;
 
-typedef enum {
+typedef enum SlowLoadState {
     /* 0 */ SLOW_LOAD_WAITING,
     /* 1 */ SLOW_LOAD_START,
     /* 2 */ SLOW_LOAD_LOADING,
     /* 3 */ SLOW_LOAD_DONE
 } SlowLoadState;
 
-typedef enum {
+typedef enum SlowLoadStatus {
     /* 0 */ SLOW_LOAD_STATUS_0,
     /* 1 */ SLOW_LOAD_STATUS_1,
     /* 2 */ SLOW_LOAD_STATUS_2,

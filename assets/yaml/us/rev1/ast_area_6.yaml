@@ -219,8 +219,8 @@ aA6BackdropTex7:
 aA6BackdropTex8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06022F20, symbol: aA6BackdropTex8 }
 
-D_A6_6023F20:
-  { type: SF64:ENVIRONMENT, offset: 0x6023F20, symbol: D_A6_6023F20}
+aA6EnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x6023F20, symbol: aA6EnvSetup}
 
 aA6LevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x6023F64, symbol: aA6LevelObjects}
@@ -243,8 +243,8 @@ aA6GorgonHitbox:
 D_A6_6028578:
   { type: SF64:HITBOX, offset: 0x6028578, symbol: D_A6_6028578 }
 
-D_A6_6028760:
-  { type: SF64:ENVIRONMENT, offset: 0x6028760, symbol: D_A6_6028760}
+aLevelUnkEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x6028760, symbol: aLevelUnkEnvSetup}
 
 aA6Unk4LevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x60287A4, symbol: aA6Unk4LevelObjects}

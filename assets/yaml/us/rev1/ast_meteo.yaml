@@ -271,8 +271,8 @@ D_ME_6026478:
 aMeLevelObjects: 
   { type: SF64:OBJECT_INIT, offset: 0x6026CC4, symbol: aMeLevelObjects }
 
-D_ME_6026C80:
-  { type: SF64:ENVIRONMENT, offset: 0x6026C80, symbol: D_ME_6026C80 }
+aMeEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x6026C80, symbol: aMeEnvSetup }
 
 aMeWarpZoneLevelObjects: 
   { type: SF64:OBJECT_INIT, offset: 0x602B148, symbol: aMeWarpZoneLevelObjects }

@@ -41,8 +41,8 @@ Vtx D_Vtx_800D9658[] = {
     VTX(-50, 100, 0, 0, 0, 255, 255, 255, 255),
 };
 
+// used in fox_fade for unused spinning fade
 Gfx D_Gfx_800D9688[] = {
-    // used in fox_fade for unused spinning fade
     gsSPVertex(D_Vtx_800D9658, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -54,20 +54,21 @@ Vtx D_Vtx_800D96A0[] = {
     VTX(100, 200, 0, 0, 0, 0, 0, 0, 255),
 };
 
+// unused
 Gfx D_Gfx_800D96D0[] = {
-    // unused
     gsSPVertex(D_Vtx_800D96A0, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
 };
 
+// unused
 Vec3s D_Unk_800D96E8[] = {
-    // unused
     { -100, 100, -100 },  { -100, 100, 100 },  { 100, 100, 100 },  { 100, 100, -100 },
     { -100, -100, -100 }, { -100, -100, 100 }, { 100, -100, 100 }, { 100, -100, -100 },
 };
+
+// unused
 Triangle D_Unk_800D9718[] = {
-    // unused
     { 0, 1, 2 }, { 0, 2, 3 }, { 5, 4, 7 }, { 5, 7, 6 }, { 1, 5, 6 }, { 1, 6, 2 },
     { 3, 7, 4 }, { 3, 4, 0 }, { 2, 6, 7 }, { 2, 7, 3 }, { 0, 4, 5 }, { 0, 5, 1 },
 };
@@ -83,8 +84,8 @@ Vtx D_Vtx_800D9760[] = {
     VTX(-1, 1, -1, 991, 991, 0, 0, 127, 255), VTX(-1, 1, 1, 991, 0, 0, 0, 127, 255),
 };
 
+// unused
 Gfx D_Gfx_800D9860[] = {
-    // unused
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32, 0, 0, G_TX_MIRROR | G_TX_WRAP, G_TX_MIRROR | G_TX_WRAP, 5, 5,
                   G_TX_NOLOD, G_TX_NOLOD),
     gsDPLoadTileTexture(D_Tex_800D99F8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32),
@@ -118,8 +119,8 @@ Vtx D_Vtx_800D9950[] = {
     VTX(80, 0, 119, 256, 256, 0, 127, 255, 0),
 };
 
+// unused
 Gfx D_Gfx_800D9990[] = {
-    // unused
     gsDPSetPrimColor(0, 0, 255, 255, 255, 255),
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 0, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 3, 3,
                   G_TX_NOLOD, G_TX_NOLOD),
@@ -130,8 +131,8 @@ Gfx D_Gfx_800D9990[] = {
     gsSPEndDisplayList(),
 };
 
+// used in fox_hud
 u16 D_Tex_800D99F8[1024] = {
-    // used in fox_hud
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
     0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF,
@@ -285,8 +286,8 @@ u16 aCoHighwayShadowTex[1024] = {
     0x0001, 0x0001,
 };
 
+// unused
 Gfx D_Gfx_800DA9F8[] = {
-    // unused
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 0, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 3, 3,
                   G_TX_NOLOD, G_TX_NOLOD),
     gsDPLoadTileTexture(D_Tex_800D99F8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8),
@@ -303,8 +304,8 @@ Vtx D_Vtx_800DAA58[] = {
     VTX(100, 0, -100, 0, 0, 0, 120, 0, 0),
 };
 
+// unused
 Gfx D_Gfx_800DAA98[] = {
-    // unused
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 0, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 3, 3,
                   G_TX_NOLOD, G_TX_NOLOD),
     gsDPLoadTileTexture(D_Tex_800D99F8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8),
@@ -320,8 +321,8 @@ Vtx D_Vtx_800DAAF8[] = {
     VTX(0, 1000, 0, 255, 0, 255, 255, 255, 255),
 };
 
+// unused
 Gfx D_Gfx_800DAB28[] = {
-    // unused
     gsSPVertex(D_Vtx_800DAAF8, 3, 0),
     gsSP1Triangle(0, 1, 2, 0),
     gsSPEndDisplayList(),
@@ -334,8 +335,8 @@ Vtx D_Vtx_800DAB40[] = {
     VTX(20, 1000, 0, 0, 255, 0, 0, 127, 0),
 };
 
+// unused
 Gfx D_Gfx_800DAB80[] = {
-    // unused
     gsDPSetupTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8, 0, 0, G_TX_NOMIRROR | G_TX_CLAMP, G_TX_NOMIRROR | G_TX_CLAMP, 3, 3,
                   G_TX_NOLOD, G_TX_NOLOD),
     gsDPLoadTileTexture(D_Tex_800D99F8, G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 8),
