@@ -222,15 +222,15 @@ sAudioResetMsg = 0x8015661C;
 
 
 // functions
-AudioSynth_InitNextRingBuf = 0x800080C0;
+AudioSynth_InitNextReverbRingBuf = 0x800080C0;
 AudioSynth_InverseDiscreteCosineTransform = 0x80008364;
 AudioSynth_HartleyTransform = 0x80008780;
 func_80009124 = 0x80009124;
 func_80009504 = 0x80009504;
 func_8000967C = 0x8000967C;
 func_800097A8 = 0x800097A8;
-AudioSynth_LoadRingBufferPart = 0x800098DC;
-AudioSynth_SaveRingBufferPart = 0x80009984;
+AudioSynth_LoadReverbRingBufferPart = 0x800098DC;
+AudioSynth_SaveReverbRingBufferPart = 0x80009984;
 AudioSynth_DisableSampleStates = 0x80009A2C;
 AudioSynth_SyncSampleStates = 0x80009AAC;
 AudioSynth_Update = 0x80009B64;

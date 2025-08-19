@@ -432,8 +432,8 @@ D_CO_6036CD0:
 D_CO_6036D58: 
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x06036D58, symbol: D_CO_6036D58 }
 
-D_CO_6037160:
-  { type: SF64:ENVIRONMENT, offset: 0x6037160, symbol: D_CO_6037160 }
+aCoEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x6037160, symbol: aCoEnvSetup }
 
 aCoOnRailsLevelObjects: 
   { type: SF64:OBJECT_INIT, offset: 0x60371A4, symbol: aCoOnRailsLevelObjects }

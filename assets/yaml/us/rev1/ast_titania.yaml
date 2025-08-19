@@ -70,8 +70,8 @@ D_TI_6004800:
 D_TI_6004C00:
   {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004C00, symbol: D_TI_6004C00}
 
-D_TI_6005000:
-  {type: SF64:ENVIRONMENT, offset: 0x6005000, symbol: D_TI_6005000}
+aTiEnvSetup:
+  {type: SF64:ENVIRONMENT, offset: 0x6005000, symbol: aTiEnvSetup}
 
 aTiEventScript:
   {type: SF64:SCRIPT, offset: 0x600631C, symbol: aTiEventScript}

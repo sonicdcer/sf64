@@ -186,8 +186,8 @@ aVe2BaseAnim:
 aVe2BaseSkel:
   { type: SF64:SKELETON, offset: 0x60149D0, symbol: aVe2BaseSkel }
 
-D_VE2_6014D50:
-  { type: SF64:ENVIRONMENT, offset: 0x6014D50, symbol: D_VE2_6014D50 }
+aVe2EnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x6014D50, symbol: aVe2EnvSetup }
 
 aVe2LevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x6014D94, symbol: aVe2LevelObjects }

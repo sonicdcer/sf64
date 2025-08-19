@@ -836,6 +836,7 @@ bool Versus_CheckForWinner(void) {
                     numDown++;
                 }
             }
+
             if ((sVsPlayerCount == 1) && (numDown == 4)) {
                 gVsMatchWon = true;
                 sVsWinner = VS_TIE;
@@ -909,7 +910,8 @@ bool Versus_CheckForWinner(void) {
                     if (!gControllerPlugged[i] || beaten[i]) {
                         continue;
                     }
-                    if (0) {}
+
+                    if (0) {} //! FAKE
 
                     for (j = 0, tieScore = 0; j < 4; j++) {
                         if (!gControllerPlugged[j] || beaten[j] || (i == j)) {
@@ -932,6 +934,7 @@ bool Versus_CheckForWinner(void) {
                         if (!gControllerPlugged[i] || beaten[i]) {
                             continue;
                         }
+
                         for (j = 0, tieScore = 0; j < 4; j++) {
                             if (!gControllerPlugged[j] || beaten[j] || (i == j)) {
                                 continue;
@@ -1183,7 +1186,7 @@ s32 func_versus_800C0B0C(void) {
 bool Versus_UpdateMenu(void) {
     s32 i;
 
-    for (i = 0; i < 4; i++) {
+    for (i = 0; i < MAXCONTROLLERS; i++) {
         if ((gControllerPlugged[i] == true) && (gControllerPress[i].button & A_BUTTON)) {
             D_801787AC = 32.0f;
             return true;

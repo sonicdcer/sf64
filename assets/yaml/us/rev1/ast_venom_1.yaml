@@ -112,8 +112,8 @@ aVe1Wall2DL:
 aVe1Wall1DL:
   { type: GFX, offset: 0x6007D90, symbol: aVe1Wall1DL }
 
-D_VE1_6007E30:
-  { type: SF64:ENVIRONMENT, offset: 0x6007E30, symbol: D_VE1_6007E30 }
+aVe1EnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x6007E30, symbol: aVe1EnvSetup }
 
 aVe1LevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x6007E74, symbol: aVe1LevelObjects }

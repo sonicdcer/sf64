@@ -180,8 +180,8 @@ void Player_WingEffects(Player* player) {
 }
 
 void Player_DamageEffects(Player* player) {
-    s32 var_v1;
-    f32 sp40;
+    s32 frameMask;
+    f32 yOffset;
 
     if (!player->alternateView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
         if (player->arwing.rightWingState <= WINGSTATE_BROKEN) {
@@ -208,39 +208,39 @@ void Player_DamageEffects(Player* player) {
         }
     }
 
-    var_v1 = 7;
+    frameMask = 7;
     if (player->shields < 64) {
         if (player->shields > 16) {
-            var_v1 = 16 - 1;
+            frameMask = 16 - 1;
         }
         if (player->shields > 32) {
-            var_v1 = 32 - 1;
+            frameMask = 32 - 1;
         }
         if (player->shields > 48) {
-            var_v1 = 64 - 1;
+            frameMask = 64 - 1;
         }
 
         if (!player->alternateView || (gLevelMode == LEVELMODE_ALL_RANGE)) {
-            sp40 = 0.0f;
+            yOffset = 0.0f;
             if (player->form == FORM_LANDMASTER) {
-                sp40 = 30.0f;
+                yOffset = 30.0f;
             }
 
-            if ((gGameFrameCount & var_v1) == 0) {
+            if ((gGameFrameCount & frameMask) == 0) {
                 Effect_FireSmoke2_Spawn3(player->pos.x + RAND_FLOAT_CENTERED(10.0f),
-                                         player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                                         player->pos.y + yOffset + RAND_FLOAT(10.0f),
                                          player->trueZpos + RAND_FLOAT_CENTERED(10.0f), 2.2f);
             }
-            if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f)) {
+            if (((gGameFrameCount & (frameMask >> 2)) == 0) && (Rand_ZeroOne() < 0.5f)) {
                 Effect_ElectricArc_Spawn(player->pos.x + RAND_FLOAT_CENTERED(30.0f),
-                                         player->pos.y + sp40 + RAND_FLOAT(10.0f),
+                                         player->pos.y + yOffset + RAND_FLOAT(10.0f),
                                          player->trueZpos + RAND_FLOAT_CENTERED(30.0f), player->vel.x, player->vel.y,
                                          player->vel.z, 0.04f + RAND_FLOAT(0.03f), player->num + 1);
                 if (player->dmgEffectTimer == 0) {
                     player->dmgEffectTimer = 2;
                 }
             }
-        } else if (((gGameFrameCount & (var_v1 >> 2)) == 0) && (Rand_ZeroOne() < 0.5f) &&
+        } else if (((gGameFrameCount & (frameMask >> 2)) == 0) && (Rand_ZeroOne() < 0.5f) &&
                    (player->dmgEffectTimer == 0)) {
             player->dmgEffectTimer = 2;
         }
@@ -248,10 +248,10 @@ void Player_DamageEffects(Player* player) {
 }
 
 void Player_WaterEffects(Player* player) {
-    Vec3f sp54 = { -65.0f, -22.0f, -65.0f };
-    Vec3f sp48 = { 65.0f, -22.0f, -65.0f };
-    Vec3f sp3C;
-    Vec3f sp30;
+    Vec3f waterSpray1SrcPos = { -65.0f, -22.0f, -65.0f };
+    Vec3f waterSpray2SrcPos = { 65.0f, -22.0f, -65.0f };
+    Vec3f waterSpray1Pos;
+    Vec3f waterSpray2Pos;
 
     if (gGroundSurface == SURFACE_WATER) {
         Matrix_Translate(gCalcMatrix, player->pos.x, player->pos.y, player->trueZpos, MTXF_NEW);
@@ -260,22 +260,22 @@ void Player_WaterEffects(Player* player) {
         Matrix_RotateX(gCalcMatrix, -((player->rot.x + player->aerobaticPitch) * M_DTOR), MTXF_APPLY);
         Matrix_RotateZ(gCalcMatrix, -(player->bankAngle * M_DTOR), MTXF_APPLY);
 
-        Matrix_MultVec3f(gCalcMatrix, &sp54, &sp3C);
-        Matrix_MultVec3f(gCalcMatrix, &sp48, &sp30);
+        Matrix_MultVec3f(gCalcMatrix, &waterSpray1SrcPos, &waterSpray1Pos);
+        Matrix_MultVec3f(gCalcMatrix, &waterSpray2SrcPos, &waterSpray2Pos);
 
         if (player->pos.y < (gGroundHeight + 100.0f)) {
-            if ((sp3C.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
+            if ((waterSpray1Pos.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
                 if (sPlayWingSplashSfx) {}
-                Effect_WaterSpray_Spawn(sp3C.x, gGroundHeight, sp3C.z, 0.1f, 2.0f,
+                Effect_WaterSpray_Spawn(waterSpray1Pos.x, gGroundHeight, waterSpray1Pos.z, 0.1f, 2.0f,
                                         player->rot.y + player->yRot_114 + 20.0f);
             }
-            if ((sp30.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
-                Effect_WaterSpray_Spawn(sp30.x, gGroundHeight, sp30.z, 0.1f, 2.0f,
+            if ((waterSpray2Pos.y < gGroundHeight + 80.0f) && ((gGameFrameCount % 2) == 0)) {
+                Effect_WaterSpray_Spawn(waterSpray2Pos.x, gGroundHeight, waterSpray2Pos.z, 0.1f, 2.0f,
                                         player->rot.y + player->yRot_114 - 20.0f);
             }
         }
 
-        if ((sp30.y < gGroundHeight + 80.0f) || (sp3C.y < gGroundHeight + 80.0f)) {
+        if ((waterSpray2Pos.y < gGroundHeight + 80.0f) || (waterSpray1Pos.y < gGroundHeight + 80.0f)) {
             if (!sPlayWingSplashSfx) {
                 sPlayWingSplashSfx = true;
                 AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_S, player->sfxSource, 0);
@@ -297,13 +297,8 @@ void Scenery360_Initialize(Scenery360* scenery360) {
 }
 
 void Play_InitVsStage(void) {
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s32 var_s1;
-    s32 var_s1_2;
     s32 i;
     s32 j;
-    s32 var_s4_2;
 
     switch (gVersusStage) {
         case VS_STAGE_CORNERIA:
@@ -502,27 +497,27 @@ void Play_Setup(void) {
     }
 }
 
-Environment* D_800D2F98[21] = {
-    &D_CO_6037160, &D_ME_6026C80, &D_SX_602A120,    &D_A6_6023F20,   &D_A6_6028760, &D_SY_602E4B0,  &D_VE1_6007E30,
-    &D_SO_601F1F0, &D_ZO_60266D0, &aAndEnvSettings, &aTrEnvSettings, &D_MA_6030E30, &D_TI_6005000,  &D_AQ_602E540,
-    &D_FO_600EA90, NULL,          &D_KA_6011000,    &D_BO_600FF30,   &D_SZ_6006E70, &D_VE2_6014D50, &D_versus_302DD70,
+Environment* sEnvironmentSetup[21] = {
+    &aCoEnvSetup, &aMeEnvSetup, &aSxEnvSetup,     &aA6EnvSetup,    &aLevelUnkEnvSetup, &aSyEnvSetup,  &aVe1EnvSetup,
+    &aSoEnvSetup, &aZoEnvSetup, &aAndEnvSettings, &aTrEnvSettings, &aMaEnvSetup,       &aTiEnvSetup,  &aAqEnvSetup,
+    &aFoEnvSetup, NULL,         &aKaEnvSetup,     &aBoEnvSetup,    &aSzEnvSetup,       &aVe2EnvSetup, &aVsCoEnvSetup,
 };
 
 void Play_InitEnvironment(void) {
     if (gVersusMode) {
         switch (gVersusStage) {
-            case 0:
-                sEnvironment = SEGMENTED_TO_VIRTUAL(&D_versus_302DD70);
+            case VS_STAGE_CORNERIA:
+                sEnvironment = SEGMENTED_TO_VIRTUAL(&aVsCoEnvSetup);
                 break;
-            case 1:
-                sEnvironment = SEGMENTED_TO_VIRTUAL(&D_versus_302DDB4);
+            case VS_STAGE_KATINA:
+                sEnvironment = SEGMENTED_TO_VIRTUAL(&aVsKaEnvSetup);
                 break;
-            case 2:
-                sEnvironment = SEGMENTED_TO_VIRTUAL(&D_versus_302DDF8);
+            case VS_STAGE_SECTOR_Z:
+                sEnvironment = SEGMENTED_TO_VIRTUAL(&aVsSzEnvSetup);
                 break;
         }
     } else {
-        sEnvironment = SEGMENTED_TO_VIRTUAL(D_800D2F98[gCurrentLevel]);
+        sEnvironment = SEGMENTED_TO_VIRTUAL(sEnvironmentSetup[gCurrentLevel]);
     }
 
     if (!D_ctx_8017782C) {
@@ -701,6 +696,7 @@ void Play_ClearObjectData(void) {
     for (i = 0; i < ARRAY_COUNT(gTeamArrowsViewPos); i++) {
         gTeamArrowsViewPos[i].x = gTeamArrowsViewPos[i].y = gTeamArrowsViewPos[i].z = 100.0f;
     }
+
     for (i = 0; i < ARRAY_COUNT(gMeMoraYpos); i++) {
         gMeMoraStatus[i] = 0;
         for (j = 0; j < ARRAY_COUNT(*gMeMoraYpos); j++) {

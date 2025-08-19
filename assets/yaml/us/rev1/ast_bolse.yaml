@@ -166,8 +166,8 @@ aBoPoleDL:
 D_BO_600F728:
   { type: TEXTURE, format: RGBA16, offset: 0x0600F728, width: 32, height: 32, ctype: u16, symbol: D_BO_600F728 }
 
-D_BO_600FF30:
-  { type: SF64:ENVIRONMENT, offset: 0x600FF30, symbol: D_BO_600FF30 }
+aBoEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x600FF30, symbol: aBoEnvSetup }
 
 aBoLevelObjects: 
   { type: SF64:OBJECT_INIT, offset: 0x600FF74, symbol: aBoLevelObjects }

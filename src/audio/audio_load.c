@@ -16,10 +16,10 @@ s32 AudioLoad_GetLoadTableIndex(s32 tableType, u32 entryId);
 void* AudioLoad_SearchCaches(s32 tableType, s32 id);
 AudioTable* AudioLoad_GetLoadTable(s32 tableType);
 void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium);
-void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam);
+void AudioLoad_SyncDmaDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam);
 s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size,
                   OSMesgQueue* retQueue, s32 medium, const char* dmaType);
-s32 func_8000FC7C(u32 diskParam, u32* addrPtr);
+s32 AudioLoad_OffsetToLbaOffset(u32 diskParam, u32* addrPtr);
 void func_8000FC8C(s32 unkParam2, u32 addr, u8* ramAddr, u32 size);
 void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, OSMesgQueue* retQueue);
 Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId);
@@ -276,7 +276,7 @@ s32 AudioLoad_SyncLoadSample(Sample* sample, s32 fontId) {
             return -1;
         }
         if (sample->medium == MEDIUM_DISK) {
-            AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleAddr, sample->size, gSampleBankTable->base.diskParam);
+            AudioLoad_SyncDmaDisk(sample->sampleAddr, sampleAddr, sample->size, gSampleBankTable->base.diskParam);
         } else {
             AudioLoad_SyncDma(sample->sampleAddr, sampleAddr, sample->size, sample->medium);
         }
@@ -572,7 +572,7 @@ void* AudioLoad_SyncLoad(u32 tableType, u32 id, s32* didAllocate) {
         *didAllocate = true;
 
         if (medium == MEDIUM_DISK) {
-            AudioLoad_SyncDmaUnkMedium(romAddr, ramAddr, size, table->base.diskParam);
+            AudioLoad_SyncDmaDisk(romAddr, ramAddr, size, table->base.diskParam);
         } else {
             AudioLoad_SyncDma(romAddr, ramAddr, size, medium);
         }
@@ -731,18 +731,12 @@ void AudioLoad_SyncDma(u32 devAddr, u8* ramAddr, u32 size, s32 medium) {
 }
 
 // Original name: Nas_FastDiskCopy
-void AudioLoad_SyncDmaUnkMedium(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam) {
+void AudioLoad_SyncDmaDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam) {
     s32 addr = devAddr;
 
     osInvalDCache(ramAddr, size);
-    func_8000FC8C(func_8000FC7C(diskParam, &addr), addr, ramAddr, size);
+    func_8000FC8C(AudioLoad_OffsetToLbaOffset(diskParam, &addr), addr, ramAddr, size);
 }
-
-static const char devstr22[] = "Error: Cannot DMA Media [%d]\n";
-static const char devstr23[] = "Warning: size not align 16 %x  (%s)\n";
-static const char devstr24[] = "Load Bank BG, Type %d , ID %d\n";
-static const char devstr25[] = "get auto\n";
-static const char devstr26[] = "get s-auto %x\n";
 
 // Original name: Nas_StartDma
 s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void* ramAddr, u32 size,
@@ -756,11 +750,14 @@ s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void
         case MEDIUM_DISK_DRIVE:
             handle = osDriveRomInit();
             break;
+
         default:
+            PRINTF("Error: Cannot DMA Media [%d]\n", medium);
             return 0;
     }
 
     if (size % 16) {
+        PRINTF("Warning: size not align 16 %x  (%s)\n", size, dmaType);
         size = ALIGN16(size);
     }
 
@@ -777,11 +774,11 @@ s32 AudioLoad_Dma(OSIoMesg* mesg, u32 priority, s32 direction, u32 devAddr, void
 }
 
 // Original name: __OfsToLbaOfs
-s32 func_8000FC7C(u32 diskParam, u32* addrPtr) {
+s32 AudioLoad_OffsetToLbaOffset(u32 diskParam, u32* addrPtr) {
     return 0;
 }
 
-void func_8000FC8C(s32 unkParam2, u32 addr, u8* ramAddr, u32 size) {
+void func_8000FC8C(s32 lbaOffset, u32 addr, u8* ramAddr, u32 size) {
 }
 
 // Original name: EmemLoad
@@ -800,6 +797,8 @@ void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, 
     s32 cachePolicy;
     u32 romAddr;
     s32 loadStatus;
+
+    PRINTF("Load Bank BG, Type %d , ID %d\n");
 
     switch (tableType) {
         case SEQUENCE_TABLE:
@@ -893,6 +892,9 @@ void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, 
     return ramAddr;
 }
 
+static const char devstr25[] = "get auto\n";
+static const char devstr26[] = "get s-auto %x\n";
+
 // Original name: Nas_BgDmaFrameWork
 void AudioLoad_ProcessLoads(s32 resetStatus) {
     AudioLoad_ProcessSlowLoads(resetStatus);
@@ -955,7 +957,7 @@ void AudioLoad_Init(void) {
 
     AudioThread_Init();
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < ARRAY_COUNT(gAiBuffLengths); i++) {
         gAiBuffLengths[i] = 0xA0;
     }
 
@@ -977,7 +979,7 @@ void AudioLoad_Init(void) {
 
     AudioHeap_InitMainPools(gInitPoolSize);
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < ARRAY_COUNT(gAiBuffers); i++) {
         gAiBuffers[i] = AudioHeap_Alloc(&gInitPool, AIBUF_SIZE);
         for (j = 0; j < AIBUF_LEN; j++) {
             gAiBuffers[i][j] = 0;
@@ -1171,7 +1173,7 @@ void AudioLoad_DmaSlowCopyDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam
     s32 addr = devAddr;
 
     osInvalDCache(ramAddr, size);
-    func_8000FC8C(func_8000FC7C(diskParam, &addr), addr, ramAddr, size);
+    func_8000FC8C(AudioLoad_OffsetToLbaOffset(diskParam, &addr), addr, ramAddr, size);
 }
 
 // Original name: Nas_BgCopyReq
@@ -1320,14 +1322,14 @@ void AudioLoad_ProcessAsyncLoad(AudioAsyncLoad* asyncLoad, s32 resetStatus) {
     }
 }
 
-static const char devstr48[] = "BGLOAD:Error: dma length 0\n";
-
 // Original name: __Nas_BgCopy
 void AudioLoad_AsyncDma(AudioAsyncLoad* asyncLoad, u32 size) {
     size = ALIGN16(size);
     osInvalDCache(asyncLoad->curRamAddr, size);
     osCreateMesgQueue(&asyncLoad->mesgQueue, &asyncLoad->msg, 1);
-    if (size) {}
+    if (size) {
+        PRINTF("BGLOAD:Error: dma length 0\n");
+    }
     AudioLoad_Dma(&asyncLoad->ioMesg, 0, 0, asyncLoad->curDevAddr, asyncLoad->curRamAddr, size, &asyncLoad->mesgQueue,
                   asyncLoad->medium, "BGCOPY");
 }
@@ -1337,42 +1339,46 @@ void AudioLoad_AsyncDmaDisk(u32 devAddr, u8* ramAddr, u32 size, s32 diskParam) {
     s32 addr = devAddr;
 
     osInvalDCache(ramAddr, size);
-    func_8000FC8C(func_8000FC7C(diskParam, &addr), addr, ramAddr, size);
+    func_8000FC8C(AudioLoad_OffsetToLbaOffset(diskParam, &addr), addr, ramAddr, size);
 }
-
-static const char devstr50[] = "Error: Already wavetable is touched %x.\n";
-static const char devstr51[] = "Touch Warning: Length zero %x\n";
 
 // Original name: __WaveTouch
 void AudioLoad_RelocateSample(TunedSample* tSample, u32 fontDataAddr, SampleBankRelocInfo* relocInfo) {
     void* reloc;
     Sample* sample;
 
-    // "Error: Already wavetable is touched %x.\n";
-    if ((u32) tSample->sample <= AUDIO_RELOCATED_ADDRESS_START) {
-        sample = tSample->sample = reloc = (u32) tSample->sample + fontDataAddr;
-        // "Touch Warning: Length zero %x\n";
-        if ((sample->size != 0) && (sample->isRelocated != 1)) {
-            sample->loop = reloc = (u32) sample->loop + fontDataAddr;
-            sample->book = reloc = (u32) sample->book + fontDataAddr;
-            switch (sample->medium) {
-                case MEDIUM_RAM:
-                    sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr1;
-                    sample->medium = relocInfo->medium1;
-                    break;
-                case MEDIUM_DISK:
-                    sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr2;
-                    sample->medium = relocInfo->medium2;
-                    break;
-                case MEDIUM_CART:
-                case MEDIUM_DISK_DRIVE:
-                    break;
-            }
+    if ((u32) tSample->sample > AUDIO_RELOCATED_ADDRESS_START) {
+        PRINTF("Error: Already wavetable is touched %x.\n", (u32) tSample->sample);
+        return;
+    }
 
-            sample->isRelocated = true;
-            if (sample->unk_bit26 && (sample->medium != MEDIUM_RAM)) {
-                gUsedSamples[gNumUsedSamples++] = sample;
-            }
+    sample = tSample->sample = reloc = (u32) tSample->sample + fontDataAddr;
+
+    if (sample->size == 0) {
+        PRINTF("Touch Warning: Length zero %x\n", (u32) sample);
+        return;
+    }
+
+    if (sample->isRelocated != 1) {
+        sample->loop = reloc = (u32) sample->loop + fontDataAddr;
+        sample->book = reloc = (u32) sample->book + fontDataAddr;
+        switch (sample->medium) {
+            case MEDIUM_RAM:
+                sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr1;
+                sample->medium = relocInfo->medium1;
+                break;
+            case MEDIUM_DISK:
+                sample->sampleAddr = reloc = sample->sampleAddr + relocInfo->baseAddr2;
+                sample->medium = relocInfo->medium2;
+                break;
+            case MEDIUM_CART:
+            case MEDIUM_DISK_DRIVE:
+                break;
+        }
+
+        sample->isRelocated = true;
+        if (sample->unk_bit26 && (sample->medium != MEDIUM_RAM)) {
+            gUsedSamples[gNumUsedSamples++] = sample;
         }
     }
 }
@@ -1455,8 +1461,8 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
         switch (isAsync) {
             case AUDIOLOAD_SYNC:
                 if (sample->medium == MEDIUM_DISK) {
-                    AudioLoad_SyncDmaUnkMedium(sample->sampleAddr, sampleRamAddr, sample->size,
-                                               gSampleBankTable->base.diskParam);
+                    AudioLoad_SyncDmaDisk(sample->sampleAddr, sampleRamAddr, sample->size,
+                                          gSampleBankTable->base.diskParam);
                     sample->sampleAddr = sampleRamAddr;
                     sample->medium = MEDIUM_RAM;
                 } else {

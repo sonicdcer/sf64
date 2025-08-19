@@ -2911,8 +2911,8 @@ void HUD_VS_ShieldGaugeTex_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale, f32 
                       4);
 }
 
-void HUD_VS_BombIcon_Draw(f32 arg0, f32 arg1, f32 arg2, f32 arg3) {
-    Lib_TextureRect_CI4(&gMasterDisp, aVsBombIconTex, aVsBombIconTLUT, 16, 16, arg0, arg1, arg2, arg3);
+void HUD_VS_BombIcon_Draw(f32 xPos, f32 yPos, f32 xScale, f32 yScale) {
+    Lib_TextureRect_CI4(&gMasterDisp, aVsBombIconTex, aVsBombIconTLUT, 16, 16, xPos, yPos, xScale, yScale);
 }
 
 void HUD_VsModePortrait_Draw(void) {

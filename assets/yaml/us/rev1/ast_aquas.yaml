@@ -644,8 +644,8 @@ D_AQ_602DE28:
 D_AQ_602E028:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602E028, symbol: D_AQ_602E028 }
 
-D_AQ_602E540:
-  { type: SF64:ENVIRONMENT, offset: 0x602E540, symbol: D_AQ_602E540 }
+aAqEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x602E540, symbol: aAqEnvSetup }
 
 D_AQ_602E584:
   { type: SF64:ENVIRONMENT, offset: 0x602E584, symbol: D_AQ_602E584 }

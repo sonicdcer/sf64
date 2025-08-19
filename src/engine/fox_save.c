@@ -124,42 +124,42 @@ Save gDefaultSave = {
 };
 // clang-format on
 
-u16 Save_Checksum(Save* arg0) {
-    u16 var_v1;
+u16 Save_Checksum(Save* save) {
+    u16 checksum;
     s32 i;
 
-    for (i = 0, var_v1 = 0; i < sizeof(SaveData); i++) {
-        var_v1 ^= arg0->raw[i];
-        var_v1 <<= 1;
-        var_v1 = (var_v1 & 0xFE) | ((var_v1 >> 8) & 1);
+    for (i = 0, checksum = 0; i < sizeof(SaveData); i++) {
+        checksum ^= save->raw[i];
+        checksum <<= 1;
+        checksum = (checksum & 0xFE) | ((checksum >> 8) & 1);
     }
 
-    var_v1 = (var_v1 & 0xFF) | 0x9500;
+    checksum = (checksum & 0xFF) | 0x9500;
 
-    return var_v1;
+    return checksum;
 }
 
 s32 Save_Write(void) {
-    OSMesg sp1C;
+    OSMesg msg;
 
     gSaveFile.save.checksum = Save_Checksum(&gSaveFile.save);
     gSaveFile.backup = gSaveFile.save;
     gSaveIOBuffer = gSaveFile;
     osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_WRITE_SAVE, OS_MESG_NOBLOCK);
-    MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &sp1C);
-    if (sp1C != (OSMesg) SI_SAVE_SUCCESS) {
+    MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &msg);
+    if (msg != (OSMesg) SI_SAVE_SUCCESS) {
         return -1;
     }
     return 0;
 }
 
 s32 Save_Read(void) {
-    OSMesg sp24;
+    OSMesg msg;
     s32 i;
 
     osSendMesg(&gSerialThreadMesgQueue, (OSMesg) SI_READ_SAVE, OS_MESG_NOBLOCK);
-    MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &sp24);
-    if ((s32) sp24 != SI_SAVE_SUCCESS) {
+    MQ_WAIT_FOR_MESG(&gSaveMesgQueue, &msg);
+    if ((s32) msg != SI_SAVE_SUCCESS) {
         return -1;
     }
 

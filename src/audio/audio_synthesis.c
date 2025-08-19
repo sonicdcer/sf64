@@ -49,8 +49,8 @@ void AudioSynth_SyncSampleStates(s32 updateIndex);
 Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf,
                              s32 aiBufLen, Acmd* aList, s32 updateIndex);
 Acmd* AudioSynth_DoOneAudioUpdate(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
-Acmd* AudioSynth_LoadRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
-Acmd* AudioSynth_SaveRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
+Acmd* AudioSynth_LoadReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
+Acmd* AudioSynth_SaveReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
 Acmd* AudioSynth_LoadReverbSamples(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
 Acmd* AudioSynth_SaveReverbSamples(Acmd* aList, s16 reverbIndex, s16 updateIndex);
 Acmd* AudioSynth_LoadWaveSamples(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad);
@@ -61,7 +61,7 @@ Acmd* AudioSynth_ProcessEnvelope(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisS
 Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags,
                                  s32 delaySide);
 
-void AudioSynth_InitNextRingBuf(s32 sampleCount, s32 itemIndex, s32 reverbIndex) {
+void AudioSynth_InitNextReverbRingBuf(s32 sampleCount, s32 itemIndex, s32 reverbIndex) {
     ReverbRingBufferItem* ringItem;
     SynthesisReverb* reverb = &gSynthReverbs[reverbIndex];
     s32 numSamples;
@@ -593,14 +593,14 @@ u8* func_800097A8(Sample* sample, s32 length, u32 flags, UnkStruct_800097A8* arg
     return sp1C->ramAddr;
 }
 
-Acmd* AudioSynth_LoadRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex) {
+Acmd* AudioSynth_LoadReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex) {
     aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(&gSynthReverbs[reverbIndex].leftRingBuf[startPos]), dmem, size);
     aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(&gSynthReverbs[reverbIndex].rightRingBuf[startPos]), dmem + DMEM_1CH_SIZE,
                 size);
     return aList;
 }
 
-Acmd* AudioSynth_SaveRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex) {
+Acmd* AudioSynth_SaveReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex) {
     aSaveBuffer(aList++, dmem, OS_K0_TO_PHYSICAL(&gSynthReverbs[reverbIndex].leftRingBuf[startPos]), size);
     aSaveBuffer(aList++, dmem + DMEM_1CH_SIZE, OS_K0_TO_PHYSICAL(&gSynthReverbs[reverbIndex].rightRingBuf[startPos]),
                 size);
@@ -668,7 +668,7 @@ Acmd* AudioSynth_Update(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLe
 
         for (j = 0; j < gNumSynthReverbs; j++) {
             if (gSynthReverbs[j].useReverb) {
-                AudioSynth_InitNextRingBuf(chunkLen, gAudioBufferParams.ticksPerUpdate - i, j);
+                AudioSynth_InitNextReverbRingBuf(chunkLen, gAudioBufferParams.ticksPerUpdate - i, j);
             }
         }
 
@@ -698,20 +698,22 @@ Acmd* AudioSynth_LoadReverbSamples(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s
     aClearBuffer(aList++, DMEM_WET_LEFT_CH, DMEM_2CH_SIZE);
 
     if (gSynthReverbs[reverbIndex].downsampleRate == 1) {
-        aList = AudioSynth_LoadRingBufferPart(aList, DMEM_WET_LEFT_CH, sp64->startPos, sp64->lengthA, reverbIndex);
+        aList =
+            AudioSynth_LoadReverbRingBufferPart(aList, DMEM_WET_LEFT_CH, sp64->startPos, sp64->lengthA, reverbIndex);
         if (sp64->lengthB != 0) {
-            aList =
-                AudioSynth_LoadRingBufferPart(aList, sp64->lengthA + DMEM_WET_LEFT_CH, 0, sp64->lengthB, reverbIndex);
+            aList = AudioSynth_LoadReverbRingBufferPart(aList, sp64->lengthA + DMEM_WET_LEFT_CH, 0, sp64->lengthB,
+                                                        reverbIndex);
         }
         aAddMixer(aList++, 0x300, DMEM_WET_LEFT_CH, DMEM_LEFT_CH, 0x7FFF);
         aMix(aList++, 0x30, gSynthReverbs[reverbIndex].decayRatio + 0x8000, DMEM_WET_LEFT_CH, DMEM_WET_LEFT_CH);
     } else {
         sp62 = (sp64->startPos & 7) * 2;
         sp60 = ALIGN16(sp62 + sp64->lengthA);
-        aList = AudioSynth_LoadRingBufferPart(aList, DMEM_WET_SCRATCH, sp64->startPos - (sp62 / 2), DMEM_1CH_SIZE,
-                                              reverbIndex);
+        aList = AudioSynth_LoadReverbRingBufferPart(aList, DMEM_WET_SCRATCH, sp64->startPos - (sp62 / 2), DMEM_1CH_SIZE,
+                                                    reverbIndex);
         if (sp64->lengthB != 0) {
-            aList = AudioSynth_LoadRingBufferPart(aList, sp60 + DMEM_WET_SCRATCH, 0, DMEM_1CH_SIZE - sp60, reverbIndex);
+            aList = AudioSynth_LoadReverbRingBufferPart(aList, sp60 + DMEM_WET_SCRATCH, 0, DMEM_1CH_SIZE - sp60,
+                                                        reverbIndex);
         }
         aSetBuffer(aList++, 0, sp62 + DMEM_WET_SCRATCH, DMEM_WET_LEFT_CH, aiBufLen * 2);
         aResample(aList++, gSynthReverbs[reverbIndex].resampleFlags, gSynthReverbs[reverbIndex].unk_0A,
@@ -737,10 +739,11 @@ Acmd* AudioSynth_SaveReverbSamples(Acmd* aList, s16 reverbIndex, s16 updateIndex
     sp24 = &gSynthReverbs[reverbIndex].items[gSynthReverbs[reverbIndex].curFrame][updateIndex];
     switch (gSynthReverbs[reverbIndex].downsampleRate) {
         case 1:
-            aList = AudioSynth_SaveRingBufferPart(aList, DMEM_WET_LEFT_CH, sp24->startPos, sp24->lengthA, reverbIndex);
+            aList = AudioSynth_SaveReverbRingBufferPart(aList, DMEM_WET_LEFT_CH, sp24->startPos, sp24->lengthA,
+                                                        reverbIndex);
             if (sp24->lengthB != 0) {
-                aList = AudioSynth_SaveRingBufferPart(aList, sp24->lengthA + DMEM_WET_LEFT_CH, 0, sp24->lengthB,
-                                                      reverbIndex);
+                aList = AudioSynth_SaveReverbRingBufferPart(aList, sp24->lengthA + DMEM_WET_LEFT_CH, 0, sp24->lengthB,
+                                                            reverbIndex);
             }
             break;
 
@@ -791,8 +794,7 @@ Acmd* AudioSynth_DoOneAudioUpdate(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 upd
 
     aClearBuffer(aList++, DMEM_LEFT_CH, DMEM_2CH_SIZE);
 
-    j = 0;
-    for (i = 0; i < gNumSynthReverbs; i++) {
+    for (i = 0, j = 0; i < gNumSynthReverbs; i++) {
         D_8014C1B2 = gSynthReverbs[i].useReverb;
         if (D_8014C1B2) {
             aList = AudioSynth_LoadReverbSamples(aList, aiBufLen, i, updateIndex);
