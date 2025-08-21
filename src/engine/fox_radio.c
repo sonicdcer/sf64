@@ -336,14 +336,14 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = D_100ABA0;
             break;
         case RCID_KATT:
-            radioPortraitTex = D_D003DF0;
+            radioPortraitTex = aKattPortrait1Tex;
             break;
         case RCID_KATT + 1:
-            radioPortraitTex = D_D004D10;
+            radioPortraitTex = aKattPortrait2Tex;
             break;
         case RCID_ANDROSS_RED:
         case RCID_ANDROSS:
-            radioPortraitTex = D_D000170;
+            radioPortraitTex = aAndPortrait1Tex;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
                 radioPortraitTex = D_A6_6000B60;
             }
@@ -351,29 +351,29 @@ void func_radio_800BAAE8(void) {
             break;
         case RCID_ANDROSS_RED + 1:
         case RCID_ANDROSS + 1:
-            radioPortraitTex = D_D001090;
+            radioPortraitTex = aAndPortrait2Tex;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
                 radioPortraitTex = D_A6_6001A80;
             }
             sRadioUseRedBox = true;
             break;
         case RCID_JAMES:
-            radioPortraitTex = D_D005C30;
+            radioPortraitTex = aJamesPortrait1Tex;
             break;
         case RCID_JAMES + 1:
-            radioPortraitTex = D_D006B50;
+            radioPortraitTex = aJamesPortrait2Tex;
             break;
         case RCID_BILL:
-            radioPortraitTex = D_D001FB0;
+            radioPortraitTex = aBillPortrait1Tex;
             break;
         case RCID_BILL + 1:
-            radioPortraitTex = D_D002ED0;
+            radioPortraitTex = aBillPortrait2Tex;
             break;
         case RCID_GEN_PEPPER:
-            radioPortraitTex = D_D007A70;
+            radioPortraitTex = aPepperPortrait1Tex;
             break;
         case RCID_GEN_PEPPER + 1:
-            radioPortraitTex = D_D008990;
+            radioPortraitTex = aPepperPortrait2Tex;
             break;
         case RCID_ROB64_TITLE:
             radioPortraitTex = D_GREAT_FOX_E00E100;

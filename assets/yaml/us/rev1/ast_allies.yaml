@@ -23,35 +23,35 @@ aKattMarkTex:
 aKattMarkTLUT:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0xD000160, symbol: aKattMarkTLUT }
 
-D_D000170:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD000170, symbol: D_D000170 }
+aAndPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD000170, symbol: aAndPortrait1Tex }
 
-D_D001090:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD001090, symbol: D_D001090 }
+aAndPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD001090, symbol: aAndPortrait2Tex }
 
-D_D001FB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD001FB0, symbol: D_D001FB0 }
+aBillPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD001FB0, symbol: aBillPortrait1Tex }
 
-D_D002ED0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD002ED0, symbol: D_D002ED0 }
+aBillPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD002ED0, symbol: aBillPortrait2Tex }
 
-D_D003DF0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD003DF0, symbol: D_D003DF0 }
+aKattPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD003DF0, symbol: aKattPortrait1Tex }
 
-D_D004D10:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD004D10, symbol: D_D004D10 }
+aKattPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD004D10, symbol: aKattPortrait2Tex }
 
-D_D005C30:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD005C30, symbol: D_D005C30 }
+aJamesPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD005C30, symbol: aJamesPortrait1Tex }
 
-D_D006B50:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD006B50, symbol: D_D006B50 }
+aJamesPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD006B50, symbol: aJamesPortrait2Tex }
 
-D_D007A70:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD007A70, symbol: D_D007A70 }
+aPepperPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD007A70, symbol: aPepperPortrait1Tex }
 
-D_D008990:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD008990, symbol: D_D008990 }
+aPepperPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD008990, symbol: aPepperPortrait2Tex }
 
 aKattRadarMarkDL:
   { type: GFX, offset: 0xD0098B0, symbol: aKattRadarMarkDL }
@@ -62,20 +62,20 @@ aKattRadarMarkTex:
 aKattShipDL:
   { type: GFX, offset: 0xD009A40, symbol: aKattShipDL }
 
-D_D00A3B8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0D00A3B8, symbol: D_D00A3B8 }
+aKattShipTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0D00A3B8, symbol: aKattShipTex1 }
 
-D_D00ABB8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00ABB8, symbol: D_D00ABB8 }
+aKattShipTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00ABB8, symbol: aKattShipTex2 }
 
-D_D00ADB8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00ADB8, symbol: D_D00ADB8 }
+aKattShipTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00ADB8, symbol: aKattShipTex3 }
 
-D_D00AFB8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x0D00AFB8, symbol: D_D00AFB8 }
+aKattShipTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x0D00AFB8, symbol: aKattShipTex4 }
 
-D_D00B3B8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00B3B8, symbol: D_D00B3B8 }
+aKattShipTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00B3B8, symbol: aKattShipTex5 }
 
 aBillMarkDL:
   { type: GFX, offset: 0xD00B5C0, symbol: aBillMarkDL }
@@ -100,14 +100,14 @@ aJamesMarkTLUT:
 aBillShipDL:
   { type: GFX, offset: 0xD00B880, symbol: aBillShipDL }
 
-ast_allies_seg13_vtx_BB70:
-  { type: VTX, count: 144, offset: 0xD00BB70, symbol: ast_allies_seg13_vtx_BB70 }
+aBillShipVTX:
+  { type: VTX, count: 144, offset: 0xD00BB70, symbol: aBillShipVTX }
 
-D_D00C470:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xD00C470, symbol: D_D00C470 }
+aBillShipTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0xD00C470, symbol: aBillShipTex1 }
 
-D_D00C670:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C670, symbol: D_D00C670 }
+aBillShipTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C670, symbol: aBillShipTex2 }
 
-D_D00C870:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C870, symbol: D_D00C870 }
+aBillShipTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C870, symbol: aBillShipTex3 }

@@ -116,7 +116,7 @@
     start: 0x9257A0
     vram: 0x0D000000
     subsegments:
-      - [0x9257A0, bin, ast_allies/ast_allies]
+      - [0x9257A0, .data, ast_allies/ast_allies]
 
   - name: ast_corneria
     exclusive_ram_id: segment_06

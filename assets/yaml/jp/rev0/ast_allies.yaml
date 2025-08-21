@@ -1,0 +1,107 @@
+:config:
+  segments:
+    - [0x0D, 0x9257A0]
+  header:
+    code:
+      - '#include "assets/ast_allies.h"'
+    header:
+      - '#include "gfx.h"'
+      - '#include "sf64object.h"'
+
+aAndPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD000000, symbol: aAndPortrait1Tex }
+
+aAndPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD000F20, symbol: aAndPortrait2Tex }
+
+aBillPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD001E40, symbol: aBillPortrait1Tex }
+
+aBillPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD002D60, symbol: aBillPortrait2Tex }
+
+aKattPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD003C80, symbol: aKattPortrait1Tex }
+
+aKattPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD004BA0, symbol: aKattPortrait2Tex }
+
+aJamesPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD005AC0, symbol: aJamesPortrait1Tex }
+
+aJamesPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD0069E0, symbol: aJamesPortrait2Tex }
+
+aPepperPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD007900, symbol: aPepperPortrait1Tex }
+
+aPepperPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0xD008820, symbol: aPepperPortrait2Tex }
+
+aKattRadarMarkDL:
+  { type: GFX, offset: 0xD009740, symbol: aKattRadarMarkDL }
+
+aKattRadarMarkTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0D0097C8, symbol: aKattRadarMarkTex }
+
+aKattShipDL:
+  { type: GFX, offset: 0xD0098C8, symbol: aKattShipDL }
+
+aKattShipTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0D00A248, symbol: aKattShipTex1 }
+
+aKattShipTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00AA48, symbol: aKattShipTex2 }
+
+aKattShipTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00AC48, symbol: aKattShipTex3 }
+
+aKattShipTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x0D00AE48, symbol: aKattShipTex4 }
+
+aKattShipTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00B248, symbol: aKattShipTex5 }
+
+aBillMarkDL:
+  { type: GFX, offset: 0xD00B448, symbol: aBillMarkDL }
+
+# Letter B
+aBillMarkTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B518, symbol: aBillMarkTex, tlut: 0x0D00B598 }
+
+aBillMarkTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x0D00B598, symbol: aBillMarkTLUT }
+
+aJamesMarkDL:
+  { type: GFX, offset: 0xD00B5A8, symbol: aJamesMarkDL }
+
+# Letter J ?
+aJamesMarkTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B680, symbol: aJamesMarkTex, tlut: 0x0D00B700 }
+
+aJamesMarkTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x0D00B700, symbol: aJamesMarkTLUT }
+
+aKattMarkDL:
+  { type: GFX, offset: 0xD00B710, symbol: aKattMarkDL }
+
+aKattMarkTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D00B7E0, symbol: aKattMarkTex, tlut: 0x0D00B860 }
+
+aKattMarkTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x0D00B860, symbol: aKattMarkTLUT }
+
+aBillShipDL:
+  { type: GFX, offset: 0xD00B870, symbol: aBillShipDL }
+
+aBillShipVTX:
+  { type: VTX, count: 144, offset: 0xD00BB60, symbol: aBillShipVTX }
+
+aBillShipTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C460, symbol: aBillShipTex1 }
+
+aBillShipTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C660, symbol: aBillShipTex2 }
+
+aBillShipTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0D00C860, symbol: aBillShipTex3 }
