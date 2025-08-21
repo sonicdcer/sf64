@@ -480,7 +480,7 @@ void Play_Setup(void) {
     gAllRangeCheckpoint = gSavedObjectLoadIndex = 0;
     gSavedPathProgress = 0.0f;
     gSavedHitCount = gCsFrameCount = gLevelStartStatusScreenTimer = gLevelClearScreenTimer = gRadioState = 0;
-    D_ctx_8017782C = true;
+    gCsWasNotSkipped = true;
 
     if (((gCurrentLevel == LEVEL_VENOM_2) && (gNextLevelPhase == 2)) || (gCurrentLevel == LEVEL_VENOM_ANDROSS)) {
         return;
@@ -520,14 +520,14 @@ void Play_InitEnvironment(void) {
         sEnvironment = SEGMENTED_TO_VIRTUAL(sEnvironmentSetup[gCurrentLevel]);
     }
 
-    if (!D_ctx_8017782C) {
+    if (!gCsWasNotSkipped) {
         if (gCurrentLevel == LEVEL_SOLAR) {
             Audio_SetHeatAlarmParams(255, 1);
             AUDIO_PLAY_SFX(NA_SE_OVERHEAT_ALARM, gDefaultSfxSource, 4);
             Audio_KillSfxBySourceAndId(gPlayer[0].sfxSource, NA_SE_OB_MAGMA_BUBBLE);
         }
     } else if (gCurrentLevel == LEVEL_AQUAS) {
-        sEnvironment = SEGMENTED_TO_VIRTUAL(&D_AQ_602E584);
+        sEnvironment = SEGMENTED_TO_VIRTUAL(&aAqCsEnvSetup);
     }
 
     gBgmSeqId = sEnvironment->seqId;
@@ -2825,7 +2825,7 @@ void Play_Init(void) {
 
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
-                if (!D_ctx_8017782C) {
+                if (!gCsWasNotSkipped) {
                     SectorZ_LoadLevelObjects();
                     ActorAllRange_SpawnTeam();
                 }
@@ -2838,13 +2838,13 @@ void Play_Init(void) {
 
             case LEVEL_KATINA:
                 Katina_Init();
-                if (!D_ctx_8017782C) {
+                if (!gCsWasNotSkipped) {
                     ActorAllRange_SpawnTeam();
                 }
                 break;
 
             case LEVEL_BOLSE:
-                if (!D_ctx_8017782C) {
+                if (!gCsWasNotSkipped) {
                     Bolse_LoadLevelObjects();
                     ActorAllRange_SpawnTeam();
                 }
@@ -4634,14 +4634,14 @@ void Player_Setup(Player* playerx) {
         player->unk_018 = 1.0f;
     }
 
-    if (D_ctx_8017782C && (gSavedObjectLoadIndex == 0)) {
+    if (gCsWasNotSkipped && (gSavedObjectLoadIndex == 0)) {
         gLeveLClearStatus[gCurrentLevel] = 0;
 
         for (j = 0; j < 10; j++) {
             D_ctx_80177A10[j] = 0;
             D_ctx_80177A48[j] = 0.0f;
         }
-        D_ctx_8017782C = false;
+        gCsWasNotSkipped = false;
         gAllRangeCheckpoint = 0;
 
         switch (gCurrentLevel) {
@@ -6760,7 +6760,7 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_AQUAS:
-            HUD_Texture_Wave(D_AQ_603158C, aAqWaterTex);
+            HUD_Texture_Wave(aAqWaterTex2, aAqWaterTex1);
             break;
 
         case LEVEL_SOLAR:
@@ -7032,7 +7032,7 @@ void Play_Main(void) {
                 gCamCount = 1;
                 gBgColor = 0;
                 gCsFrameCount = gLevelClearScreenTimer = gLevelStartStatusScreenTimer = gRadioState = 0;
-                D_ctx_8017782C = false;
+                gCsWasNotSkipped = false;
             }
 
             if (gVersusMode) {

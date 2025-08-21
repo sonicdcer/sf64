@@ -1444,7 +1444,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
 
                 if (gCurrentLevel == LEVEL_AQUAS) {
                     RCP_SetupDL(&gMasterDisp, SETUPDL_60);
-                    gSPDisplayList(gMasterDisp++, D_AQ_600DB80);
+                    gSPDisplayList(gMasterDisp++, aAqBlueMarineTorpedoDL);
                     Matrix_Pop(&gGfxMatrix);
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, shot->obj.pos.x, gGroundHeight, shot->obj.pos.z + gPathProgress,

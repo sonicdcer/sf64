@@ -6,8 +6,8 @@
 
 s32 gSceneId;
 s32 gSceneSetup;
-s32 gClearPlayerInfo; // some sort of flag
-bool D_ctx_8017782C;  // some sort of flag. all range related?
+s32 gClearPlayerInfo;  // some sort of flag
+bool gCsWasNotSkipped; // false = Cutscene was skipped; true = Cutscene wasn't skipped.
 GameState gGameState;
 s32 gNextGameStateTimer;
 s32 gVsItemSpawnTimer;

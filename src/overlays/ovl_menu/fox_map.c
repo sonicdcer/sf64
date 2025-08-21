@@ -4287,7 +4287,7 @@ void Map_PlayLevel(void) {
 
     gSavedObjectLoadIndex = 0;
     gSavedPathProgress = 0.0f;
-    D_ctx_8017782C = true;
+    gCsWasNotSkipped = true;
 }
 
 void Map_PositionPlanets(void) {

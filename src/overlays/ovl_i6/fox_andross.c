@@ -719,7 +719,7 @@ void Andross_AndJamesTrigger_Update(AndJamesTrigger* this) {
         }
 
         Andross_LoadLevelObjects();
-        D_ctx_8017782C = true;
+        gCsWasNotSkipped = true;
         Play_InitEnvironment();
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
         gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -4085,7 +4085,7 @@ void Andross_LevelComplete(Player* player) {
                     }
 
                     Andross_LoadLevelObjects();
-                    D_ctx_8017782C = true;
+                    gCsWasNotSkipped = true;
                     Play_InitEnvironment();
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
                     gFillScreenAlpha = gFillScreenAlphaTarget = 255;

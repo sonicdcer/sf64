@@ -225,9 +225,9 @@ void Titania_LevelStart(Player* player) {
                 player->csState = player->csTimer = player->csEventTimer = player->hideShadow = 0;
                 player->gravity = 3.0f;
                 player->unk_014 = 0.0f;
-                D_ctx_8017782C = true;
+                gCsWasNotSkipped = true;
                 Play_InitEnvironment();
-                D_ctx_8017782C = false;
+                gCsWasNotSkipped = false;
                 if ((gControllerHold[player->num].button & Z_TRIG) && (gControllerHold[player->num].button & R_TRIG)) {
                     Audio_KillSfxBySourceAndId(player->sfxSource, NA_SE_TANK_GO_UP);
                 }

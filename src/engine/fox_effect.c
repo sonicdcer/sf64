@@ -837,7 +837,7 @@ void Effect_Effect357_Draw(Effect357* this) {
         case LEVEL_AQUAS:
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL(&gMasterDisp, SETUPDL_60);
-            gSPDisplayList(gMasterDisp++, D_AQ_600A220);
+            gSPDisplayList(gMasterDisp++, aAqDebrisDL);
             break;
 
         default:
@@ -3941,10 +3941,10 @@ void Effect_Effect395_Draw(Effect395* this) {
             Graphics_SetScaleMtx(this->scale2);
             RCP_SetupDL(&gMasterDisp, SETUPDL_60);
             if (gCurrentLevel == LEVEL_AQUAS) {
-                gSPDisplayList(gMasterDisp++, D_AQ_600A220);
+                gSPDisplayList(gMasterDisp++, aAqDebrisDL);
             }
             if (gCurrentLevel == LEVEL_ZONESS) {
-                gSPDisplayList(gMasterDisp++, D_ZO_6016880);
+                gSPDisplayList(gMasterDisp++, aZoShrimpDebris3DL);
             }
             break;
 

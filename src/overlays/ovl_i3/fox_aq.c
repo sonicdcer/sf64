@@ -216,7 +216,7 @@ s32 D_i3_801BFB64[11] = {
 u8 D_i3_801BFB90[12] = {
     0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 };
-Gfx* D_i3_801BFB9C[3] = { D_AQ_6015FF0, D_AQ_6022110, D_AQ_6015DD0 };
+Gfx* gAqSanadaDLs[3] = { aAqSanadaHeadDL, aAqSanadaBodyBallDL, aAqSanadaTailDL };
 f32 D_i3_801BFBA8[2] = { 40.0f, -40.0f };
 f32 D_i3_801BFBB0[3] = { 20.0f, 10.0f, 15.0f };
 f32 D_i3_801BFBBC[3] = { 8.0f, 27.0f, 42.0f };
@@ -298,28 +298,29 @@ PosRot* D_i3_801C27C0;
 PosRot D_i3_801C27C8[4 * 50];
 Vtx D_i3_801C3A88[2][2][28];
 
-void Aquas_801A8E30(void) {
+// Waves the electric arcs that link JellyFish together
+void Aquas_JellyFishLinkArcs_Wave(void) {
     s32 i;
-    f32 spA8[17];
-    f32 sp64[17];
+    f32 linkArcxMod[17];
+    f32 linkArcYmod[17];
     s32 j;
-    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_AQ_6031D90);
-    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_AQ_6011A78);
+    Vtx* linkArcSrc = SEGMENTED_TO_VIRTUAL(aAqJellyFishLinkArcSrcVTX);
+    Vtx* linkArcDst = SEGMENTED_TO_VIRTUAL(aAqJellyFishLinkArcDstVTX);
 
     for (i = 0; i < 17; i++) {
         if ((i == 0) || (i == 16)) {
-            spA8[i] = 0.0f;
-            sp64[i] = 0.0f;
+            linkArcxMod[i] = 0.0f;
+            linkArcYmod[i] = 0.0f;
         } else {
-            spA8[i] = RAND_FLOAT_CENTERED(70.0f);
-            sp64[i] = RAND_FLOAT_CENTERED(70.0f);
+            linkArcxMod[i] = RAND_FLOAT_CENTERED(70.0f);
+            linkArcYmod[i] = RAND_FLOAT_CENTERED(70.0f);
         }
     }
 
     for (i = 0; i < 34; i++) {
-        j = (sp5C[i].v.ob[2] + 200) / 25;
-        sp58[i].v.ob[0] = sp5C[i].v.ob[0] + spA8[j];
-        sp58[i].v.ob[1] = sp5C[i].v.ob[1] + sp64[j];
+        j = (linkArcSrc[i].v.ob[2] + 200) / 25;
+        linkArcDst[i].v.ob[0] = linkArcSrc[i].v.ob[0] + linkArcxMod[j];
+        linkArcDst[i].v.ob[1] = linkArcSrc[i].v.ob[1] + linkArcYmod[j];
     }
 }
 
@@ -878,7 +879,7 @@ void Aquas_BlueMarineMove(Player* player) {
 
     Aquas_801AA4BC(player);
     Aquas_801A99D4(player);
-    Aquas_801A8E30();
+    Aquas_JellyFishLinkArcs_Wave();
 
     stickX = -gInputPress->stick_x;
     stickY = +gInputPress->stick_y;
@@ -1795,8 +1796,8 @@ void Aquas_AqSanada_Update(AqSanada* this) {
     D_i3_801C27C0->rot.z = this->orient.z;
 }
 
-void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 type, s32 flag, f32 scale,
-                    s32 index) {
+void Aquas_AqSanada_DrawPieces(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, u8 type, s32 flag, f32 scale,
+                               s32 index) {
     Matrix_Push(&gGfxMatrix);
     Matrix_Translate(gGfxMatrix, xPos, yPos, zPos + gPathProgress, MTXF_APPLY);
 
@@ -1821,7 +1822,7 @@ void Aquas_801ADF7C(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 zRot, 
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
         }
     }
-    gSPDisplayList(gMasterDisp++, D_i3_801BFB9C[type]);
+    gSPDisplayList(gMasterDisp++, gAqSanadaDLs[type]);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -1864,8 +1865,8 @@ void Aquas_AqSanada_Draw(AqSanada* this) {
             xRot = RAD_TO_DEG(-Math_Atan2F(gPlayer[0].cam.eye.y - D_i3_801C27C0->pos.y, xz));
         }
 
-        Aquas_801ADF7C(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, xRot, yRot,
-                       D_i3_801C27C0->rot.z, D_i3_801BFB90[i], this->timer_0C6 % 2U, this->scale, i);
+        Aquas_AqSanada_DrawPieces(D_i3_801C27C0->pos.x, D_i3_801C27C0->pos.y, D_i3_801C27C0->pos.z, xRot, yRot,
+                                  D_i3_801C27C0->rot.z, D_i3_801BFB90[i], this->timer_0C6 % 2U, this->scale, i);
     }
 }
 
@@ -2039,11 +2040,11 @@ void Aquas_AqBacoonMuscle_Draw(AqBacoonMuscle* this) {
         this->iwork[1] %= 8;
     }
 
-    temp_v1_2 = SEGMENTED_TO_VIRTUAL(D_AQ_6019078);
+    temp_v1_2 = SEGMENTED_TO_VIRTUAL(aAqBacoonMuscleVTX3);
     if (this->iwork[1] < 4) {
-        var_t5 = SEGMENTED_TO_VIRTUAL(D_AQ_6018C78);
+        var_t5 = SEGMENTED_TO_VIRTUAL(aAqBacoonMuscleVTX2);
     } else {
-        var_t5 = SEGMENTED_TO_VIRTUAL(D_AQ_6018878);
+        var_t5 = SEGMENTED_TO_VIRTUAL(aAqBacoonMuscleVTX1);
     }
 
     var_t1 = this->iwork[1] % 4;
@@ -2413,13 +2414,13 @@ void Aquas_AqBacconBarnacle_Draw(AqBacconBarnacle* this) {
 
     switch (this->iwork[0]) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_AQ_6019E80);
+            gSPDisplayList(gMasterDisp++, aAqBarnacle1DL);
             break;
         case 1:
-            gSPDisplayList(gMasterDisp++, D_AQ_60194D0);
+            gSPDisplayList(gMasterDisp++, aAqBarnacle2DL);
             break;
         case 2:
-            gSPDisplayList(gMasterDisp++, D_AQ_6019880);
+            gSPDisplayList(gMasterDisp++, aAqBarnacle3DL);
             break;
     }
 }
@@ -2490,7 +2491,7 @@ void Aquas_AqPearl_Update(AqPearl* this) {
             break;
     }
 
-    if (((gGameFrameCount % 16) == 0)) {
+    if ((gGameFrameCount % 16) == 0) {
         Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(10.0f), this->obj.pos.y + RAND_FLOAT_CENTERED(10.0f),
                            this->obj.pos.z + RAND_FLOAT_CENTERED(10.0f), 2.0f, 1);
     }
@@ -3750,7 +3751,7 @@ void Aquas_AqBacoon_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
 }
 
 void Aquas_AqBacoon_Draw(AqBacoon* this) {
-    Animation_DrawSkeleton(3, D_AQ_602BD60, this->vwork, Aquas_AqBacoon_OverrideLimbDraw, Aquas_AqBacoon_PostLimbDraw,
+    Animation_DrawSkeleton(3, aAqBacoonSkel, this->vwork, Aquas_AqBacoon_OverrideLimbDraw, Aquas_AqBacoon_PostLimbDraw,
                            this, gCalcMatrix);
 }
 
@@ -5091,7 +5092,7 @@ void Aquas_AqSquid_Update(AqSquid* this) {
             this->fwork[1] = this->obj.pos.z;
 
             if (this->obj.rot.z >= 4.0f) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_60314AC);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aAqSquidHitbox);
                 this->health = 200;
                 this->info.bonus = 1;
                 this->state = 2;
@@ -5386,7 +5387,7 @@ void Aquas_AqBoulder_Init(AqBoulder* this) {
         this->info.bonus = 0;
         this->scale = 0.5f;
         this->gravity = 0.1f;
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_603151C);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aAqBoulderHitbox2);
         this->fwork[2] = RAND_FLOAT_CENTERED((s32) (this->index % 4U) + 1.0f);
     }
     this->fwork[1] = RAND_FLOAT(50.0f);
@@ -6176,10 +6177,10 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
                             stoneColumn->vel.z = sp98.z;
                             stoneColumn->gravity = 0.4f;
                             stoneColumn->state = 5;
-                            stoneColumn->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_6030D3C);
+                            stoneColumn->info.hitbox = SEGMENTED_TO_VIRTUAL(aAqStoneColumn1Hitbox);
                         } else {
                             stoneColumn->state = 2;
-                            stoneColumn->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_6030D58);
+                            stoneColumn->info.hitbox = SEGMENTED_TO_VIRTUAL(aAqStoneColumn2Hitbox);
                         }
                         break;
                     }
@@ -6272,22 +6273,22 @@ void Aquas_AqStoneColumn_Draw(AqStoneColumn* this) {
     if (this->state != 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_55);
         switch (this->iwork[0]) {
-            case 0:
+            case 0: // Whole
                 if (this->state != 0) {
                     if ((this->iwork[3] == 0) && (this->info.drawType == 2)) {
                         Animation_GetFrameData(&aAqStoneColumnAnim, 0, frameTable);
                         Animation_DrawSkeleton(3, aAqStoneColumnSkel, frameTable, NULL,
                                                Aquas_AqStoneColumn_PostLimbDraw, this, gCalcMatrix);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_AQ_6014520);
+                        gSPDisplayList(gMasterDisp++, aAqStoneColumnDL);
                     }
                 }
                 break;
-            case 1:
-                gSPDisplayList(gMasterDisp++, D_AQ_60137F0);
+            case 1: // Broken Top piece
+                gSPDisplayList(gMasterDisp++, aAqStoneColumnTopDL);
                 break;
-            case 2:
-                gSPDisplayList(gMasterDisp++, D_AQ_6014030);
+            case 2: // Broken Bottom piece
+                gSPDisplayList(gMasterDisp++, aAqStoneColumnBottomDL);
                 break;
         }
     }
@@ -6649,7 +6650,7 @@ void Aquas_AqOyster_Update(AqOyster* this) {
 
         case 1:
             if (fabsf(gPlayer[0].pos.z - this->obj.pos.z) <= 3000.0f) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_60314E4);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aAqOysterHitbox2);
                 this->info.damage = 0;
                 this->info.bonus = 1;
                 this->timer_0BC = 40.0f + RAND_FLOAT(30.0f);
@@ -6722,7 +6723,7 @@ void Aquas_AqOyster_Update(AqOyster* this) {
             }
 
             if (this->state == 1) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_AQ_60314E4);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aAqOysterHitbox2);
                 this->info.damage = 0;
                 this->info.bonus = 1;
                 this->state = 2;

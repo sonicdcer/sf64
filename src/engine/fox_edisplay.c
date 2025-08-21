@@ -210,65 +210,77 @@ void func_edisplay_8005A088(void* arg0) {
 
 // Debris parts for SyRobot, CoGaruga and FoRadar
 Gfx* sMechDebrisDLs[] = {
-    D_SY_6027960, D_SY_60273A0, D_SY_60183B0, D_SY_60121E0, D_SY_602A2E0, D_SY_602A720, D_SY_602B8F0,
-    D_SY_602A8C0, D_SY_6028E70, D_SY_602E0A0, D_SY_602DE70, D_SY_602DC40, D_SY_602D830, D_SY_602D340,
-    D_CO_6031280, D_CO_6031130, D_CO_6030850, D_CO_6030FD0, D_CO_602DD40, D_CO_6033AF0, D_CO_60186E0,
-    D_CO_6024160, D_CO_6033290, D_CO_6017F10, D_FO_60074E0, D_FO_6007590, D_FO_6007730, D_FO_6005CC0,
+    aSyRobotDebris1DL,  aSyRobotDebris2DL,  aSyRobotDebris3DL,  aSyRobotDebris4DL,   aSyRobotDebris5DL,
+    aSyRobotDebris6DL,  aSyRobotDebris7DL,  aSyRobotDebris8DL,  aSyRobotDebris9DL,   aSyRobotDebris10DL,
+    aSyRobotDebris11DL, aSyRobotDebris12DL, aSyRobotDebris13DL, aSyRobotDebris14DL,  aCoGarugaDebris1DL,
+    aCoGarugaDebris2DL, aCoGarugaDebris3DL, aCoGarugaDebris4DL, aCoGarugaDebris5DL,  aCoGarugaDebris6DL,
+    aCoGarugaDebris7DL, aCoGarugaDebris8DL, aCoGarugaDebris9DL, aCoGarugaDebris10DL, aFoRadarDebris1DL,
+    aFoRadarDebris2DL,  aFoRadarDebris3DL,  aFoRadarDebris4DL,
 };
 
 Gfx* sZoContainerDebrisDLs[] = {
-    D_ZO_60176D0, D_ZO_6017810, D_ZO_6017770, D_ZO_6016D90, D_ZO_6016E30, D_ZO_60178B0,
+    aZoContainerDebris1DL, aZoContainerDebris2DL, aZoContainerDebris3DL,
+    aZoContainerDebris4DL, aZoContainerDebris5DL, aZoContainerDebris6DL,
 };
 
 Gfx* sZoBirdDebrisDLs[] = {
-    D_ZO_6023690, D_ZO_6021BB0, D_ZO_6021C50, D_ZO_6021CE0, D_ZO_6021D80, D_ZO_6016350,
-    D_ZO_6021E20, D_ZO_60222A0, D_ZO_6022BE0, D_ZO_6022D70, D_ZO_6022F00,
+    aZoBirdDebris1DL, aZoBirdDebris2DL, aZoBirdDebris3DL, aZoBirdDebris4DL,  aZoBirdDebris5DL,  aZoBirdDebris6DL,
+    aZoBirdDebris7DL, aZoBirdDebris8DL, aZoBirdDebris9DL, aZoBirdDebris10DL, aZoBirdDebris11DL,
 };
 
-Gfx* sZGullDebrisDLs[] = { D_ZO_6020F10, D_ZO_6021100, D_ZO_60214B0 };
+Gfx* sZGullDebrisDLs[] = { aZoZGullDebris1DL, aZoZGullDebris2DL, aZoZGullDebris3DL };
 
-Gfx* sZoShrimpDebrisDLs[] = { D_ZO_60163E0, D_ZO_60165D0, D_ZO_6016880, D_ZO_6016B50, D_ZO_6000C40 };
+Gfx* sZoShrimpDebrisDLs[] = { aZoShrimpDebris1DL, aZoShrimpDebris2DL, aZoShrimpDebris3DL, aZoShrimpDebris4DL,
+                              aZoShrimpDebris5DL };
 
-Gfx* sZoTroikaDebrisDLs[] = { D_ZO_6018E80, D_ZO_601F620, D_ZO_601F420, D_ZO_6018C80, D_ZO_601F940, D_ZO_601F260 };
+Gfx* sZoTroikaDebrisDLs[] = { aZoTroikaDebris1DL, aZoTroikaDebris2DL, aZoTroikaDebris3DL,
+                              aZoTroikaDebris4DL, aZoTroikaDebris5DL, aZoTroikaDebris6DL };
 
 Gfx* sSoVulkainDebrisDLs[] = {
-    D_SO_6014DB0, D_SO_60146D0, D_SO_6014B80, D_SO_6014470, D_SO_6014930,
-    D_SO_60138A0, D_SO_60151A0, D_SO_600F750, D_SO_6015810,
+    aSoVulkainDebris1DL, aSoVulkainDebris2DL, aSoVulkainDebris3DL, aSoVulkainDebris4DL, aSoVulkainDebris5DL,
+    aSoVulkainDebris6DL, aSoVulkainDebris7DL, aSoVulkainDebris8DL, aSoVulkainDebris9DL,
 };
 
 Gfx* sAqAnglerFishDebrisDLs[] = {
-    D_AQ_600D4A0, D_AQ_600D720, D_AQ_600D810, D_AQ_600CFF0, D_AQ_600BD20,
-    D_AQ_600D390, D_AQ_600E150, D_AQ_6007160, D_AQ_600D900,
+    aAqAnglerFishDebris1DL, aAqAnglerFishDebris2DL, aAqAnglerFishDebris3DL,
+    aAqAnglerFishDebris4DL, aAqAnglerFishDebris5DL, aAqAnglerFishDebris6DL,
+    aAqAnglerFishDebris7DL, aAqAnglerFishDebris8DL, aAqAnglerFishDebris9DL,
 };
 
 Gfx* sAqSculpinDebrisDLs[] = {
-    D_AQ_600A8E0, D_AQ_600A840, D_AQ_600A480, D_AQ_600A720, D_AQ_600A970, D_AQ_6007D70, D_AQ_600A520, D_AQ_6009990,
+    aAqSculpinDebris1DL, aAqSculpinDebris2DL, aAqSculpinDebris3DL, aAqSculpinDebris4DL,
+    aAqSculpinDebris5DL, aAqSculpinDebris6DL, aAqSculpinDebris7DL, aAqSculpinDebris8DL,
 };
 
 Gfx* sAqSpindlyFishDebrisDLs[] = {
-    D_AQ_6026460, D_AQ_60266B0, D_AQ_6026950, D_AQ_60276F0, D_AQ_6027810, D_AQ_6027330, D_AQ_60273C0, D_AQ_6026E30,
-    D_AQ_6026EC0, D_AQ_6026DA0, D_AQ_6026D10, D_AQ_6026C80, D_AQ_6026BF0, D_AQ_6027460, D_AQ_6026F60,
+    aAqSpindlyFishDebris1DL,  aAqSpindlyFishDebris2DL,  aAqSpindlyFishDebris3DL,  aAqSpindlyFishDebris4DL,
+    aAqSpindlyFishDebris5DL,  aAqSpindlyFishDebris6DL,  aAqSpindlyFishDebris7DL,  aAqSpindlyFishDebris8DL,
+    aAqSpindlyFishDebris9DL,  aAqSpindlyFishDebris10DL, aAqSpindlyFishDebris11DL, aAqSpindlyFishDebris12DL,
+    aAqSpindlyFishDebris13DL, aAqSpindlyFishDebris14DL, aAqSpindlyFishDebris15DL,
 };
 
 Gfx* sAqGaroaDebrisDLs[] = {
-    D_AQ_60040F0, D_AQ_6027C90, D_AQ_6027FA0, D_AQ_6003350, D_AQ_6028240,
-    D_AQ_6028550, D_AQ_6004DB0, D_AQ_6027930, D_AQ_600F030, D_AQ_60050F0,
+    aAqGaroaDebris1DL, aAqGaroaDebris2DL, aAqGaroaDebris3DL, aAqGaroaDebris4DL, aAqGaroaDebris5DL,
+    aAqGaroaDebris6DL, aAqGaroaDebris7DL, aAqGaroaDebris8DL, aAqGaroaDebris9DL, aAqGaroaDebris10DL,
 };
 
 Gfx* sAqSquidDebrisDLs[] = {
-    D_AQ_60294A0, D_AQ_60291B0, D_AQ_60287F0, D_AQ_6029330, D_AQ_6029240, D_AQ_6029790, D_AQ_6029900,
-    D_AQ_6028F50, D_AQ_60290C0, D_AQ_6029530, D_AQ_60296A0, D_AQ_6028A80, D_AQ_6028910,
+    aAqSquidDebris1DL,  aAqSquidDebris2DL,  aAqSquidDebris3DL,  aAqSquidDebris4DL, aAqSquidDebris5DL,
+    aAqSquidDebris6DL,  aAqSquidDebris7DL,  aAqSquidDebris8DL,  aAqSquidDebris9DL, aAqSquidDebris10DL,
+    aAqSquidDebris11DL, aAqSquidDebris12DL, aAqSquidDebris13DL,
 };
 
 Gfx* sAqBoulderDebrisDLs[] = { aAqBoulderDL, aAqBoulderDL, aAqBoulderDL, aAqBoulderDL };
 
-Gfx* sAqCoralDebrisDLs[] = { D_AQ_601EDE0, D_AQ_601F2F0, D_AQ_601F830, D_AQ_601FD70, D_AQ_601D110 };
+Gfx* sAqCoralDebrisDLs[] = { aAqCoralDebris1DL, aAqCoralDebris2DL, aAqCoralDebris3DL, aAqCoralDebris4DL,
+                             aAqCoralDebris5DL };
 
-Gfx* sAqJellyfishDebrisDLs[] = { D_AQ_6023940, D_AQ_6023D70, D_AQ_60249C0, D_AQ_6023EB0, D_AQ_60249C0, D_AQ_6023B80 };
+Gfx* sAqJellyfishDebrisDLs[] = { aAqJellyfishDebris1DL, aAqJellyfishDebris2DL, aAqJellyfishDebris3DL,
+                                 aAqJellyfishDebris4DL, aAqJellyfishDebris3DL, aAqJellyfishDebris5DL };
 
 Gfx* sZoObnemaDebrisDLs[] = {
-    D_ZO_601B570, D_ZO_601B710, D_ZO_60209B0, D_ZO_6020B70, D_ZO_6020D50,
-    D_ZO_601B8F0, D_ZO_601B3B0, D_ZO_601B1C0, D_ZO_6011660,
+    aZoObnemaDebris1DL, aZoObnemaDebris2DL, aZoObnemaDebris3DL, aZoObnemaDebris4DL, aZoObnemaDebris5DL,
+    aZoObnemaDebris6DL, aZoObnemaDebris7DL, aZoObnemaDebris8DL, aZoObnemaDebris9DL,
 };
 
 void ActorDebris_Draw(ActorDebris* this) {
@@ -460,7 +472,7 @@ void ActorDebris_Draw(ActorDebris* this) {
         case 58:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_AQ_60148B0);
+            gSPDisplayList(gMasterDisp++, aAqStoneColumnDebrisDL);
             break;
 
         case 59:
@@ -1972,7 +1984,7 @@ void TexturedLine_Draw(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_AQ_60119A0);
+                    gSPDisplayList(gMasterDisp++, aAqJellyFishLinkArcDL);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, MTXF_APPLY);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);

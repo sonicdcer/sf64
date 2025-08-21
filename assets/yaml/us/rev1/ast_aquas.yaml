@@ -44,26 +44,26 @@ D_AQ_6002D58:
 D_AQ_6003158:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x6003158, symbol: D_AQ_6003158 }
 
-D_AQ_6003350:
-  { type: GFX, offset: 0x6003350, symbol: D_AQ_6003350 }
+aAqGaroaDebris4DL:
+  { type: GFX, offset: 0x6003350, symbol: aAqGaroaDebris4DL }
 
-D_AQ_6003610:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6003610, symbol: D_AQ_6003610 }
+aAqOysterLimbTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6003610, symbol: aAqOysterLimbTex }
 
-D_AQ_60043B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60043B0, symbol: D_AQ_60043B0 }
+aAqGaroaDebrisTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60043B0, symbol: aAqGaroaDebrisTex1 }
 
-D_AQ_6004BB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6004BB0, symbol: D_AQ_6004BB0 }
+aAqDebrisTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6004BB0, symbol: aAqDebrisTex1 }
 
-D_AQ_60040F0:
-  { type: GFX, offset: 0x60040F0, symbol: D_AQ_60040F0 }
+aAqGaroaDebris1DL:
+  { type: GFX, offset: 0x60040F0, symbol: aAqGaroaDebris1DL }
 
-D_AQ_6004DB0:
-  { type: GFX, offset: 0x6004DB0, symbol: D_AQ_6004DB0 }
+aAqGaroaDebris7DL:
+  { type: GFX, offset: 0x6004DB0, symbol: aAqGaroaDebris7DL }
 
-D_AQ_60050F0:
-  { type: GFX, offset: 0x60050F0, symbol: D_AQ_60050F0 }
+aAqGaroaDebris10DL:
+  { type: GFX, offset: 0x60050F0, symbol: aAqGaroaDebris10DL }
 
 aAqSculpinAnim:
   { type: SF64:ANIM, offset: 0x6005954, symbol: aAqSculpinAnim }
@@ -71,32 +71,32 @@ aAqSculpinAnim:
 aAqSculpinSkel:
   { type: SF64:SKELETON, offset: 0x6005A80, symbol: aAqSculpinSkel }
 
-D_AQ_6006160:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6006160, symbol: D_AQ_6006160 }
+aAqGaroaDebrisTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6006160, symbol: aAqGaroaDebrisTex2 }
 
-D_AQ_6006960:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6006960, symbol: D_AQ_6006960 }
+aAqAnglerFishTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6006960, symbol: aAqAnglerFishTex1 }
 
-D_AQ_6007160:
-  { type: GFX, offset: 0x6007160, symbol: D_AQ_6007160 }
+aAqAnglerFishDebris8DL:
+  { type: GFX, offset: 0x6007160, symbol: aAqAnglerFishDebris8DL }
 
-D_AQ_6007378:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6007378, symbol: D_AQ_6007378 }
+aAqAnglerFishTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6007378, symbol: aAqAnglerFishTex2 }
 
-D_AQ_6007B80:
-  { type: GFX, offset: 0x6007B80, symbol: D_AQ_6007B80 }
+aAqOysterLimb2DL:
+  { type: GFX, offset: 0x6007B80, symbol: aAqOysterLimb2DL }
 
-D_AQ_6007D70:
-  { type: GFX, offset: 0x6007D70, symbol: D_AQ_6007D70 }
+aAqSculpinDebris6DL:
+  { type: GFX, offset: 0x6007D70, symbol: aAqSculpinDebris6DL }
 
-D_AQ_6007F68:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6007F68, symbol: D_AQ_6007F68 }
+aAqSculpinDebrisTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6007F68, symbol: aAqSculpinDebrisTex1 }
 
-D_AQ_6003FF0:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 32, offset: 0x6003FF0, symbol: D_AQ_6003FF0 }
+aAqAnglerFishLimb7Tex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 32, offset: 0x6003FF0, symbol: aAqAnglerFishLimb7Tex }
 
-D_AQ_6008168:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6008168, symbol: D_AQ_6008168 }
+aAqSculpinDebrisTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6008168, symbol: aAqSculpinDebrisTex2 }
 
 aAqStarfishDL:
   { type: GFX, offset: 0x6008970, symbol: aAqStarfishDL }
@@ -110,8 +110,8 @@ D_AQ_6008FC8:
 D_AQ_6009188:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6009188, symbol: D_AQ_6009188 }
 
-D_AQ_6009990:
-  { type: GFX, offset: 0x6009990, symbol: D_AQ_6009990 }
+aAqSculpinDebris8DL:
+  { type: GFX, offset: 0x6009990, symbol: aAqSculpinDebris8DL }
 
 D_AQ_6009C28:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6009C28, symbol: D_AQ_6009C28, tlut: 0x600A028 }
@@ -119,26 +119,26 @@ D_AQ_6009C28:
 D_AQ_600A028:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x600A028, symbol: D_AQ_600A028 }
 
-D_AQ_600A220:
-  { type: GFX, offset: 0x600A220, symbol: D_AQ_600A220 }
+aAqDebrisDL:
+  { type: GFX, offset: 0x600A220, symbol: aAqDebrisDL }
 
-D_AQ_600A480:
-  { type: GFX, offset: 0x600A480, symbol: D_AQ_600A480 }
+aAqSculpinDebris3DL:
+  { type: GFX, offset: 0x600A480, symbol: aAqSculpinDebris3DL }
 
-D_AQ_600A520:
-  { type: GFX, offset: 0x600A520, symbol: D_AQ_600A520 }
+aAqSculpinDebris7DL:
+  { type: GFX, offset: 0x600A520, symbol: aAqSculpinDebris7DL }
 
-D_AQ_600A720:
-  { type: GFX, offset: 0x600A720, symbol: D_AQ_600A720 }
+aAqSculpinDebris4DL:
+  { type: GFX, offset: 0x600A720, symbol: aAqSculpinDebris4DL }
 
-D_AQ_600A840:
-  { type: GFX, offset: 0x600A840, symbol: D_AQ_600A840 }
+aAqSculpinDebris2DL:
+  { type: GFX, offset: 0x600A840, symbol: aAqSculpinDebris2DL }
 
-D_AQ_600A8E0:
-  { type: GFX, offset: 0x600A8E0, symbol: D_AQ_600A8E0 }
+aAqSculpinDebris1DL:
+  { type: GFX, offset: 0x600A8E0, symbol: aAqSculpinDebris1DL }
 
-D_AQ_600A970:
-  { type: GFX, offset: 0x600A970, symbol: D_AQ_600A970 }
+aAqSculpinDebris5DL:
+  { type: GFX, offset: 0x600A970, symbol: aAqSculpinDebris5DL }
 
 aAqGroundDL:
   { type: GFX, offset: 0x600AB10, symbol: aAqGroundDL }
@@ -146,8 +146,8 @@ aAqGroundDL:
 aAqGroundTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600AB68, symbol: aAqGroundTex }
 
-D_AQ_600BD20:
-  { type: GFX, offset: 0x600BD20, symbol: D_AQ_600BD20 }
+aAqAnglerFishDebris5DL:
+  { type: GFX, offset: 0x600BD20, symbol: aAqAnglerFishDebris5DL }
 
 D_AQ_600B518:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600B518, symbol: D_AQ_600B518 }
@@ -167,32 +167,32 @@ D_AQ_600CB20:
 D_AQ_600CF20:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 104, offset: 0x600CF20, symbol: D_AQ_600CF20 }
 
-D_AQ_600CFF0:
-  { type: GFX, offset: 0x600CFF0, symbol: D_AQ_600CFF0 }
+aAqAnglerFishDebris4DL:
+  { type: GFX, offset: 0x600CFF0, symbol: aAqAnglerFishDebris4DL }
 
-D_AQ_600D390:
-  { type: GFX, offset: 0x600D390, symbol: D_AQ_600D390 }
+aAqAnglerFishDebris6DL:
+  { type: GFX, offset: 0x600D390, symbol: aAqAnglerFishDebris6DL }
 
-D_AQ_600D4A0:
-  { type: GFX, offset: 0x600D4A0, symbol: D_AQ_600D4A0 }
+aAqAnglerFishDebris1DL:
+  { type: GFX, offset: 0x600D4A0, symbol: aAqAnglerFishDebris1DL }
 
-D_AQ_600D720:
-  { type: GFX, offset: 0x600D720, symbol: D_AQ_600D720 }
+aAqAnglerFishDebris2DL:
+  { type: GFX, offset: 0x600D720, symbol: aAqAnglerFishDebris2DL }
 
-D_AQ_600D810:
-  { type: GFX, offset: 0x600D810, symbol: D_AQ_600D810 }
+aAqAnglerFishDebris3DL:
+  { type: GFX, offset: 0x600D810, symbol: aAqAnglerFishDebris3DL }
 
-D_AQ_600D900:
-  { type: GFX, offset: 0x600D900, symbol: D_AQ_600D900 }
+aAqAnglerFishDebris9DL:
+  { type: GFX, offset: 0x600D900, symbol: aAqAnglerFishDebris9DL }
 
-D_AQ_600DB80:
-  { type: GFX, offset: 0x600DB80, symbol: D_AQ_600DB80 }
+aAqBlueMarineTorpedoDL:
+  { type: GFX, offset: 0x600DB80, symbol: aAqBlueMarineTorpedoDL }
 
 D_AQ_600DF48:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x600DF48, symbol: D_AQ_600DF48 }
 
-D_AQ_600E150:
-  { type: GFX, offset: 0x600E150, symbol: D_AQ_600E150 }
+aAqAnglerFishDebris7DL:
+  { type: GFX, offset: 0x600E150, symbol: aAqAnglerFishDebris7DL }
 
 D_AQ_600E368:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600E368, symbol: D_AQ_600E368 }
@@ -203,8 +203,8 @@ aAqWall1DL:
 aAqBump2DL:
   { type: GFX, offset: 0x600EEF0, symbol: aAqBump2DL }
 
-D_AQ_600F030:
-  { type: GFX, offset: 0x600F030, symbol: D_AQ_600F030 }
+aAqGaroaDebris9DL:
+  { type: GFX, offset: 0x600F030, symbol: aAqGaroaDebris9DL }
 
 D_AQ_600F1A0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600F1A0, symbol: D_AQ_600F1A0 }
@@ -221,14 +221,14 @@ D_AQ_60109A0:
 D_AQ_60111A0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60111A0, symbol: D_AQ_60111A0 }
 
-D_AQ_60119A0:
-  { type: GFX, offset: 0x60119A0, symbol: D_AQ_60119A0 }
+aAqJellyFishLinkArcDL:
+  { type: GFX, offset: 0x60119A0, symbol: aAqJellyFishLinkArcDL }
 
-D_AQ_6011A78:
-  { type: VTX, count: 38, offset: 0x6011A78, symbol: D_AQ_6011A78 }
+aAqJellyFishLinkArcDstVTX:
+  { type: VTX, count: 38, offset: 0x6011A78, symbol: aAqJellyFishLinkArcDstVTX }
 
-D_AQ_6011CD8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6011CD8, symbol: D_AQ_6011CD8 }
+aAqJellyFishLinkArcTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6011CD8, symbol: aAqJellyFishLinkArcTex }
 
 aAqTunnel1DL:
   { type: GFX, offset: 0x6011EE0, symbol: aAqTunnel1DL }
@@ -236,23 +236,23 @@ aAqTunnel1DL:
 aAqRoofDL:
   { type: GFX, offset: 0x60120F0, symbol: aAqRoofDL }
 
-D_AQ_60126A8:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 64, offset: 0x60126A8, symbol: D_AQ_60126A8, tlut: 0x6012AA8 }
+aAqStoneColumnTex2:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 64, offset: 0x60126A8, symbol: aAqStoneColumnTex2, tlut: 0x6012AA8 }
 
-D_AQ_6012AA8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x6012AA8, symbol: D_AQ_6012AA8 }
+aAqStoneColumnTLUT2:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x6012AA8, symbol: aAqStoneColumnTLUT2 }
 
-D_AQ_6012C98:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6012C98, symbol: D_AQ_6012C98, tlut: 0x6012D98 }
+aAqStoneColumnTex3:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6012C98, symbol: aAqStoneColumnTex3, tlut: 0x6012D98 }
 
-D_AQ_6012D98:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x6012D98, symbol: D_AQ_6012D98 }
+aAqStoneColumnTLUT3:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 136, offset: 0x6012D98, symbol: aAqStoneColumnTLUT3 }
 
-D_AQ_6012EA8:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6012EA8, symbol: D_AQ_6012EA8, tlut: 0x60132A8 }
+aAqStoneColumnTex1:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6012EA8, symbol: aAqStoneColumnTex1, tlut: 0x60132A8 }
 
-D_AQ_60132A8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x60132A8, symbol: D_AQ_60132A8 }
+aAqStoneColumnTLUT1:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 240, offset: 0x60132A8, symbol: aAqStoneColumnTLUT1 }
 
 aAqFishGroupAnim:
   { type: SF64:ANIM, offset: 0x60135E0, symbol: aAqFishGroupAnim }
@@ -263,17 +263,17 @@ aAqFishGroupSkel1:
 aAqFishGroupSkel2:
   { type: SF64:SKELETON, offset: 0x60137CC, symbol: aAqFishGroupSkel2 }
 
-D_AQ_60137F0:
-  { type: GFX, offset: 0x60137F0, symbol: D_AQ_60137F0 }
+aAqStoneColumnTopDL:
+  { type: GFX, offset: 0x60137F0, symbol: aAqStoneColumnTopDL }
 
-D_AQ_6013CC0:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 32, offset: 0x6013CC0, symbol: D_AQ_6013CC0, tlut: 0x6013EC0 }
+aAqStoneColumnTex4:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 32, offset: 0x6013CC0, symbol: aAqStoneColumnTex4, tlut: 0x6013EC0 }
 
-D_AQ_6013EC0:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 184, offset: 0x6013EC0, symbol: D_AQ_6013EC0 }
+aAqStoneColumnTLUT4:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 184, offset: 0x6013EC0, symbol: aAqStoneColumnTLUT4 }
 
-D_AQ_6014030:
-  { type: GFX, offset: 0x6014030, symbol: D_AQ_6014030 }
+aAqStoneColumnBottomDL:
+  { type: GFX, offset: 0x6014030, symbol: aAqStoneColumnBottomDL }
 
 aAqStoneColumnAnim:
   { type: SF64:ANIM, offset: 0x6014438, symbol: aAqStoneColumnAnim }
@@ -281,38 +281,38 @@ aAqStoneColumnAnim:
 aAqStoneColumnSkel:
   { type: SF64:SKELETON, offset: 0x6014504, symbol: aAqStoneColumnSkel }
 
-D_AQ_6014520:
-  { type: GFX, offset: 0x6014520, symbol: D_AQ_6014520 }
+aAqStoneColumnDL:
+  { type: GFX, offset: 0x6014520, symbol: aAqStoneColumnDL }
 
-D_AQ_60148B0:
-  { type: GFX, offset: 0x60148B0, symbol: D_AQ_60148B0 }
+aAqStoneColumnDebrisDL:
+  { type: GFX, offset: 0x60148B0, symbol: aAqStoneColumnDebrisDL }
 
-D_AQ_6014CD0:
-  { type: GFX, offset: 0x6014CD0, symbol: D_AQ_6014CD0 }
+aAqOysterLimb3DL:
+  { type: GFX, offset: 0x6014CD0, symbol: aAqOysterLimb3DL }
 
-D_AQ_6014E50:
-  { type: GFX, offset: 0x6014E50, symbol: D_AQ_6014E50 }
+aAqOysterLimb5DL:
+  { type: GFX, offset: 0x6014E50, symbol: aAqOysterLimb5DL }
 
 aAqBoulderDL:
   { type: GFX, offset: 0x6014FD0, symbol: aAqBoulderDL }
 
-D_AQ_6015430:
-  { type: GFX, offset: 0x6015430, symbol: D_AQ_6015430 }
+aAqUnused1DL:
+  { type: GFX, offset: 0x6015430, symbol: aAqUnused1DL }
 
-D_AQ_60154F8:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x60154F8, symbol: D_AQ_60154F8, tlut: 0x60155F8 }
+aAqUnused1DLTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x60154F8, symbol: aAqUnused1DLTex, tlut: 0x60155F8 }
 
-D_AQ_60155F8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155F8, symbol: D_AQ_60155F8 }
+aAqUnused1DLTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 152, offset: 0x60155F8, symbol: aAqUnused1DLTLUT }
 
 aAqArchDL:
   { type: GFX, offset: 0x6015730, symbol: aAqArchDL }
 
-D_AQ_6015DD0:
-  { type: GFX, offset: 0x6015DD0, symbol: D_AQ_6015DD0 }
+aAqSanadaTailDL:
+  { type: GFX, offset: 0x6015DD0, symbol: aAqSanadaTailDL }
 
-D_AQ_6015FF0:
-  { type: GFX, offset: 0x6015FF0, symbol: D_AQ_6015FF0 }
+aAqSanadaHeadDL:
+  { type: GFX, offset: 0x6015FF0, symbol: aAqSanadaHeadDL }
 
 D_AQ_6017BD8:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6017BD8, symbol: D_AQ_6017BD8, tlut: 0x6017CD8 }
@@ -320,17 +320,17 @@ D_AQ_6017BD8:
 D_AQ_6017CD8:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 64, offset: 0x6017CD8, symbol: D_AQ_6017CD8 }
 
-D_AQ_6018640:
-  { type: GFX, offset: 0x6018640, symbol: D_AQ_6018640 }
+aAqUnusedBacoonMuscleDL:
+  { type: GFX, offset: 0x6018640, symbol: aAqUnusedBacoonMuscleDL }
 
-D_AQ_6018878:
-  { type: VTX, count: 64, offset: 0x6018878, symbol: D_AQ_6018878 }
+aAqBacoonMuscleVTX1:
+  { type: VTX, count: 64, offset: 0x6018878, symbol: aAqBacoonMuscleVTX1 }
 
-D_AQ_6018C78:
-  { type: VTX, count: 64, offset: 0x6018C78, symbol: D_AQ_6018C78 }
+aAqBacoonMuscleVTX2:
+  { type: VTX, count: 64, offset: 0x6018C78, symbol: aAqBacoonMuscleVTX2 }
 
-D_AQ_6019078:
-  { type: VTX, count: 28, offset: 0x6019078, symbol: D_AQ_6019078 }
+aAqBacoonMuscleVTX3:
+  { type: VTX, count: 28, offset: 0x6019078, symbol: aAqBacoonMuscleVTX3 }
 
 D_AQ_6019238:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6019238, symbol: D_AQ_6019238, tlut: 0x6019338 }
@@ -338,11 +338,11 @@ D_AQ_6019238:
 D_AQ_6019338:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 200, offset: 0x6019338, symbol: D_AQ_6019338 }
 
-D_AQ_60194D0:
-  { type: GFX, offset: 0x60194D0, symbol: D_AQ_60194D0 }
+aAqBarnacle2DL:
+  { type: GFX, offset: 0x60194D0, symbol: aAqBarnacle2DL }
 
-D_AQ_6019880:
-  { type: GFX, offset: 0x6019880, symbol: D_AQ_6019880 }
+aAqBarnacle3DL:
+  { type: GFX, offset: 0x6019880, symbol: aAqBarnacle3DL }
 
 D_AQ_6019C28:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6019C28, symbol: D_AQ_6019C28, tlut: 0x6019D28 }
@@ -350,8 +350,8 @@ D_AQ_6019C28:
 D_AQ_6019D28:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 168, offset: 0x6019D28, symbol: D_AQ_6019D28 }
 
-D_AQ_6019E80:
-  { type: GFX, offset: 0x6019E80, symbol: D_AQ_6019E80 }
+aAqBarnacle1DL:
+  { type: GFX, offset: 0x6019E80, symbol: aAqBarnacle1DL }
 
 D_AQ_601A308:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x601A308, symbol: D_AQ_601A308, tlut: 0x601A708 }
@@ -377,8 +377,8 @@ aAqBackdropDL:
 aAqBackdropTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x601B080, symbol: aAqBackdropIntroTex }
 
-D_AQ_601D110:
-  { type: GFX, offset: 0x601D110, symbol: D_AQ_601D110 }
+aAqCoralDebris5DL:
+  { type: GFX, offset: 0x601D110, symbol: aAqCoralDebris5DL }
 
 aAqSeaweedAnim2:
   { type: SF64:ANIM, offset: 0x601DE50, symbol: aAqSeaweedAnim2 }
@@ -389,8 +389,8 @@ aAqCoralReef2DL:
 D_AQ_601E1F0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x601E1F0, symbol: D_AQ_601E1F0 }
 
-D_AQ_601E9F0:
-  { type: GFX, offset: 0x601E9F0, symbol: D_AQ_601E9F0 }
+aAqOysterLimb1DL:
+  { type: GFX, offset: 0x601E9F0, symbol: aAqOysterLimb1DL }
 
 aAqCoralAnim:
   { type: SF64:ANIM, offset: 0x601EC68, symbol: aAqCoralAnim }
@@ -398,17 +398,17 @@ aAqCoralAnim:
 aAqCoralSkel:
   { type: SF64:SKELETON, offset: 0x601EDB4, symbol: aAqCoralSkel }
 
-D_AQ_601EDE0:
-  { type: GFX, offset: 0x601EDE0, symbol: D_AQ_601EDE0 }
+aAqCoralDebris1DL:
+  { type: GFX, offset: 0x601EDE0, symbol: aAqCoralDebris1DL }
 
-D_AQ_601F2F0:
-  { type: GFX, offset: 0x601F2F0, symbol: D_AQ_601F2F0 }
+aAqCoralDebris2DL:
+  { type: GFX, offset: 0x601F2F0, symbol: aAqCoralDebris2DL }
 
-D_AQ_601F830:
-  { type: GFX, offset: 0x601F830, symbol: D_AQ_601F830 }
+aAqCoralDebris3DL:
+  { type: GFX, offset: 0x601F830, symbol: aAqCoralDebris3DL }
 
-D_AQ_601FD70:
-  { type: GFX, offset: 0x601FD70, symbol: D_AQ_601FD70 }
+aAqCoralDebris4DL:
+  { type: GFX, offset: 0x601FD70, symbol: aAqCoralDebris4DL }
 
 aAqSeaweedAnim1:
   { type: SF64:ANIM, offset: 0x6020A40, symbol: aAqSeaweedAnim1 }
@@ -431,8 +431,8 @@ aAqOysterAnim:
 aAqOysterSkel:
   { type: SF64:SKELETON, offset: 0x60220E8, symbol: aAqOysterSkel }
 
-D_AQ_6022110:
-  { type: GFX, offset: 0x6022110, symbol: D_AQ_6022110 }
+aAqSanadaBodyBallDL:
+  { type: GFX, offset: 0x6022110, symbol: aAqSanadaBodyBallDL }
 
 D_AQ_6022198:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6022198, symbol: D_AQ_6022198, tlut: 0x6022598 }
@@ -458,17 +458,17 @@ aAqJellyfishAnim:
 aAqJellyfishSkel:
   { type: SF64:SKELETON, offset: 0x602390C, symbol: aAqJellyfishSkel }
 
-D_AQ_6023940:
-  { type: GFX, offset: 0x6023940, symbol: D_AQ_6023940 }
+aAqJellyfishDebris1DL:
+  { type: GFX, offset: 0x6023940, symbol: aAqJellyfishDebris1DL }
 
-D_AQ_6023B80:
-  { type: GFX, offset: 0x6023B80, symbol: D_AQ_6023B80 }
+aAqJellyfishDebris5DL:
+  { type: GFX, offset: 0x6023B80, symbol: aAqJellyfishDebris5DL }
 
-D_AQ_6023D70:
-  { type: GFX, offset: 0x6023D70, symbol: D_AQ_6023D70 }
+aAqJellyfishDebris2DL:
+  { type: GFX, offset: 0x6023D70, symbol: aAqJellyfishDebris2DL }
 
-D_AQ_6023EB0:
-  { type: GFX, offset: 0x6023EB0, symbol: D_AQ_6023EB0 }
+aAqJellyfishDebris4DL:
+  { type: GFX, offset: 0x6023EB0, symbol: aAqJellyfishDebris4DL }
 
 D_AQ_6023F38:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6023F38, symbol: D_AQ_6023F38 }
@@ -479,8 +479,8 @@ D_AQ_6024738:
 D_AQ_6024938:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x6024938, symbol: D_AQ_6024938 }
 
-D_AQ_60249C0:
-  { type: GFX, offset: 0x60249C0, symbol: D_AQ_60249C0 }
+aAqJellyfishDebris3DL:
+  { type: GFX, offset: 0x60249C0, symbol: aAqJellyfishDebris3DL }
 
 aAqPearlDL:
   { type: GFX, offset: 0x6024A50, symbol: aAqPearlDL }
@@ -497,104 +497,104 @@ aAqSpindlyFishAnim:
 aAqSpindlyFishSkel:
   { type: SF64:SKELETON, offset: 0x60263F8, symbol: aAqSpindlyFishSkel }
 
-D_AQ_6026460:
-  { type: GFX, offset: 0x6026460, symbol: D_AQ_6026460 }
+aAqSpindlyFishDebris1DL:
+  { type: GFX, offset: 0x6026460, symbol: aAqSpindlyFishDebris1DL }
 
-D_AQ_60266B0:
-  { type: GFX, offset: 0x60266B0, symbol: D_AQ_60266B0 }
+aAqSpindlyFishDebris2DL:
+  { type: GFX, offset: 0x60266B0, symbol: aAqSpindlyFishDebris2DL }
 
-D_AQ_6026950:
-  { type: GFX, offset: 0x6026950, symbol: D_AQ_6026950 }
+aAqSpindlyFishDebris3DL:
+  { type: GFX, offset: 0x6026950, symbol: aAqSpindlyFishDebris3DL }
 
-D_AQ_6026BF0:
-  { type: GFX, offset: 0x6026BF0, symbol: D_AQ_6026BF0 }
+aAqSpindlyFishDebris13DL:
+  { type: GFX, offset: 0x6026BF0, symbol: aAqSpindlyFishDebris13DL }
 
-D_AQ_6026C80:
-  { type: GFX, offset: 0x6026C80, symbol: D_AQ_6026C80 }
+aAqSpindlyFishDebris12DL:
+  { type: GFX, offset: 0x6026C80, symbol: aAqSpindlyFishDebris12DL }
 
-D_AQ_6026D10:
-  { type: GFX, offset: 0x6026D10, symbol: D_AQ_6026D10 }
+aAqSpindlyFishDebris11DL:
+  { type: GFX, offset: 0x6026D10, symbol: aAqSpindlyFishDebris11DL }
 
-D_AQ_6026DA0:
-  { type: GFX, offset: 0x6026DA0, symbol: D_AQ_6026DA0 }
+aAqSpindlyFishDebris10DL:
+  { type: GFX, offset: 0x6026DA0, symbol: aAqSpindlyFishDebris10DL }
 
-D_AQ_6026E30:
-  { type: GFX, offset: 0x6026E30, symbol: D_AQ_6026E30 }
+aAqSpindlyFishDebris8DL:
+  { type: GFX, offset: 0x6026E30, symbol: aAqSpindlyFishDebris8DL }
 
-D_AQ_6026EC0:
-  { type: GFX, offset: 0x6026EC0, symbol: D_AQ_6026EC0 }
+aAqSpindlyFishDebris9DL:
+  { type: GFX, offset: 0x6026EC0, symbol: aAqSpindlyFishDebris9DL }
 
-D_AQ_6026F60:
-  { type: GFX, offset: 0x6026F60, symbol: D_AQ_6026F60 }
+aAqSpindlyFishDebris15DL:
+  { type: GFX, offset: 0x6026F60, symbol: aAqSpindlyFishDebris15DL }
 
-D_AQ_6027330:
-  { type: GFX, offset: 0x6027330, symbol: D_AQ_6027330 }
+aAqSpindlyFishDebris6DL:
+  { type: GFX, offset: 0x6027330, symbol: aAqSpindlyFishDebris6DL }
 
-D_AQ_60273C0:
-  { type: GFX, offset: 0x60273C0, symbol: D_AQ_60273C0 }
+aAqSpindlyFishDebris7DL:
+  { type: GFX, offset: 0x60273C0, symbol: aAqSpindlyFishDebris7DL }
 
-D_AQ_6027460:
-  { type: GFX, offset: 0x6027460, symbol: D_AQ_6027460 }
+aAqSpindlyFishDebris14DL:
+  { type: GFX, offset: 0x6027460, symbol: aAqSpindlyFishDebris14DL }
 
-D_AQ_60276F0:
-  { type: GFX, offset: 0x60276F0, symbol: D_AQ_60276F0 }
+aAqSpindlyFishDebris4DL:
+  { type: GFX, offset: 0x60276F0, symbol: aAqSpindlyFishDebris4DL }
 
-D_AQ_6027810:
-  { type: GFX, offset: 0x6027810, symbol: D_AQ_6027810 }
+aAqSpindlyFishDebris5DL:
+  { type: GFX, offset: 0x6027810, symbol: aAqSpindlyFishDebris5DL }
 
-D_AQ_6027930:
-  { type: GFX, offset: 0x6027930, symbol: D_AQ_6027930 }
+aAqGaroaDebris8DL:
+  { type: GFX, offset: 0x6027930, symbol: aAqGaroaDebris8DL }
 
-D_AQ_6027C90:
-  { type: GFX, offset: 0x6027C90, symbol: D_AQ_6027C90 }
+aAqGaroaDebris2DL:
+  { type: GFX, offset: 0x6027C90, symbol: aAqGaroaDebris2DL }
 
-D_AQ_6027FA0:
-  { type: GFX, offset: 0x6027FA0, symbol: D_AQ_6027FA0 }
+aAqGaroaDebris3DL:
+  { type: GFX, offset: 0x6027FA0, symbol: aAqGaroaDebris3DL }
 
-D_AQ_6028240:
-  { type: GFX, offset: 0x6028240, symbol: D_AQ_6028240 }
+aAqGaroaDebris5DL:
+  { type: GFX, offset: 0x6028240, symbol: aAqGaroaDebris5DL }
 
-D_AQ_6028550:
-  { type: GFX, offset: 0x6028550, symbol: D_AQ_6028550 }
+aAqGaroaDebris6DL:
+  { type: GFX, offset: 0x6028550, symbol: aAqGaroaDebris6DL }
 
-D_AQ_60287F0:
-  { type: GFX, offset: 0x60287F0, symbol: D_AQ_60287F0 }
+aAqSquidDebris3DL:
+  { type: GFX, offset: 0x60287F0, symbol: aAqSquidDebris3DL }
 
-D_AQ_6028910:
-  { type: GFX, offset: 0x6028910, symbol: D_AQ_6028910 }
+aAqSquidDebris13DL:
+  { type: GFX, offset: 0x6028910, symbol: aAqSquidDebris13DL }
 
-D_AQ_6028A80:
-  { type: GFX, offset: 0x6028A80, symbol: D_AQ_6028A80 }
+aAqSquidDebris12DL:
+  { type: GFX, offset: 0x6028A80, symbol: aAqSquidDebris12DL }
 
-D_AQ_6028F50:
-  { type: GFX, offset: 0x6028F50, symbol: D_AQ_6028F50 }
+aAqSquidDebris8DL:
+  { type: GFX, offset: 0x6028F50, symbol: aAqSquidDebris8DL }
 
-D_AQ_60290C0:
-  { type: GFX, offset: 0x60290C0, symbol: D_AQ_60290C0 }
+aAqSquidDebris9DL:
+  { type: GFX, offset: 0x60290C0, symbol: aAqSquidDebris9DL }
 
-D_AQ_60291B0:
-  { type: GFX, offset: 0x60291B0, symbol: D_AQ_60291B0 }
+aAqSquidDebris2DL:
+  { type: GFX, offset: 0x60291B0, symbol: aAqSquidDebris2DL }
 
-D_AQ_6029240:
-  { type: GFX, offset: 0x6029240, symbol: D_AQ_6029240 }
+aAqSquidDebris5DL:
+  { type: GFX, offset: 0x6029240, symbol: aAqSquidDebris5DL }
 
-D_AQ_6029330:
-  { type: GFX, offset: 0x6029330, symbol: D_AQ_6029330 }
+aAqSquidDebris4DL:
+  { type: GFX, offset: 0x6029330, symbol: aAqSquidDebris4DL }
 
-D_AQ_60294A0:
-  { type: GFX, offset: 0x60294A0, symbol: D_AQ_60294A0 }
+aAqSquidDebris1DL:
+  { type: GFX, offset: 0x60294A0, symbol: aAqSquidDebris1DL }
 
-D_AQ_6029530:
-  { type: GFX, offset: 0x6029530, symbol: D_AQ_6029530 }
+aAqSquidDebris10DL:
+  { type: GFX, offset: 0x6029530, symbol: aAqSquidDebris10DL }
 
-D_AQ_60296A0:
-  { type: GFX, offset: 0x60296A0, symbol: D_AQ_60296A0 }
+aAqSquidDebris11DL:
+  { type: GFX, offset: 0x60296A0, symbol: aAqSquidDebris11DL }
 
-D_AQ_6029790:
-  { type: GFX, offset: 0x6029790, symbol: D_AQ_6029790 }
+aAqSquidDebris6DL:
+  { type: GFX, offset: 0x6029790, symbol: aAqSquidDebris6DL }
 
-D_AQ_6029900:
-  { type: GFX, offset: 0x6029900, symbol: D_AQ_6029900 }
+aAqSquidDebris7DL:
+  { type: GFX, offset: 0x6029900, symbol: aAqSquidDebris7DL }
 
 D_AQ_602AC28:
   { type: SF64:ANIM, offset: 0x602AC28, symbol: D_AQ_602AC28 }
@@ -602,8 +602,8 @@ D_AQ_602AC28:
 aAqWaterSurfaceDL:
   { type: GFX, offset: 0x602AC40, symbol: aAqWaterSurfaceDL }
 
-aAqWaterTex:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602ACC0, symbol: aAqWaterTex }
+aAqWaterTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602ACC0, symbol: aAqWaterTex1 }
 
 aAqRockDL:
   { type: GFX, offset: 0x602B4C0, symbol: aAqRockDL }
@@ -611,14 +611,14 @@ aAqRockDL:
 D_AQ_602B9D4: # unused and possibly broken
  { type: SF64:ANIM, offset: 0x602B9D4, symbol: D_AQ_602B9D4 }
 
-D_AQ_602BD60:
-  { type: SF64:SKELETON, offset: 0x602BD60, symbol: D_AQ_602BD60 }
+aAqBacoonSkel:
+  { type: SF64:SKELETON, offset: 0x602BD60, symbol: aAqBacoonSkel }
 
 D_AQ_602BF88:
   { type: SF64:ANIM, offset: 0x602BF88, symbol: D_AQ_602BF88 }
 
-D_AQ_602C014:
-  { type: SF64:SKELETON, offset: 0x602C014, symbol: D_AQ_602C014 }
+aAqUnusedFishSkel:
+  { type: SF64:SKELETON, offset: 0x602C014, symbol: aAqUnusedFishSkel }
 
 aAqUnusedWater1DL:
   { type: GFX, offset: 0x602C030, symbol: aAqUnusedWater1DL }
@@ -632,23 +632,23 @@ aAqUnusedWater1Tex:
 aAqUnusedWater2Tex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x602C960, symbol: aAqUnusedWater2Tex }
 
-D_AQ_602DA28:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DA28, symbol: D_AQ_602DA28 }
+aAqUnusedFishTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DA28, symbol: aAqUnusedFishTex2 }
 
-D_AQ_602DC28:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DC28, symbol: D_AQ_602DC28 }
+aAqUnusedFishTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DC28, symbol: aAqUnusedFishTex3 }
 
-D_AQ_602DE28:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DE28, symbol: D_AQ_602DE28 }
+aAqUnusedFishTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602DE28, symbol: aAqUnusedFishTex4 }
 
-D_AQ_602E028:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602E028, symbol: D_AQ_602E028 }
+aAqUnusedFishTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x602E028, symbol: aAqUnusedFishTex1 }
 
 aAqEnvSetup:
   { type: SF64:ENVIRONMENT, offset: 0x602E540, symbol: aAqEnvSetup }
 
-D_AQ_602E584:
-  { type: SF64:ENVIRONMENT, offset: 0x602E584, symbol: D_AQ_602E584 }
+aAqCsEnvSetup:
+  { type: SF64:ENVIRONMENT, offset: 0x602E584, symbol: aAqCsEnvSetup }
 
 aAqLevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x602E5C8, symbol: aAqLevelObjects }
@@ -668,11 +668,11 @@ aAqStarfishHitbox:
 aAqOysterEvHitbox:
   { type: SF64:HITBOX, offset: 0x6030B4C, symbol: aAqOysterEvHitbox }
 
-D_AQ_6030B68:
-  { type: SF64:HITBOX, offset: 0x6030B68, symbol: D_AQ_6030B68 }
+aAqUnusedHitbox1:
+  { type: SF64:HITBOX, offset: 0x6030B68, symbol: aAqUnusedHitbox1 }
 
-D_AQ_6030BAC:
-  { type: SF64:HITBOX, offset: 0x6030BAC, symbol: D_AQ_6030BAC }
+aAqUnusedHitbox2:
+  { type: SF64:HITBOX, offset: 0x6030BAC, symbol: aAqUnusedHitbox2 }
 
 aAqActor188Hitbox:
   { type: SF64:HITBOX, offset: 0x6030BE0, symbol: aAqActor188Hitbox }
@@ -695,11 +695,11 @@ aAqTunnel1Hitbox:
 aAqStoneColumnHitbox:
   { type: SF64:HITBOX, offset: 0x6030D20, symbol: aAqStoneColumnHitbox }
 
-D_AQ_6030D3C:
-  { type: SF64:HITBOX, offset: 0x6030D3C, symbol: D_AQ_6030D3C }
+aAqStoneColumn1Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030D3C, symbol: aAqStoneColumn1Hitbox }
 
-D_AQ_6030D58:
-  { type: SF64:HITBOX, offset: 0x6030D58, symbol: D_AQ_6030D58 }
+aAqStoneColumn2Hitbox:
+  { type: SF64:HITBOX, offset: 0x6030D58, symbol: aAqStoneColumn2Hitbox }
 
 aAqArchHitbox:
   { type: SF64:HITBOX, offset: 0x6030D74, symbol: aAqArchHitbox }
@@ -734,23 +734,23 @@ aAqSculpinHitbox:
 aAqSpindlyFishHitbox:
   { type: SF64:HITBOX, offset: 0x603144C, symbol: aAqSpindlyFishHitbox }
 
+aAqSquidRotHitbox:
+  { type: SF64:HITBOX, offset: 0x6031480, symbol: aAqSquidRotHitbox }
+
 aAqSquidHitbox:
-  { type: SF64:HITBOX, offset: 0x6031480, symbol: aAqSquidHitbox }
+  { type: SF64:HITBOX, offset: 0x60314AC, symbol: aAqSquidHitbox }
 
-D_AQ_60314AC:
-  { type: SF64:HITBOX, offset: 0x60314AC, symbol: D_AQ_60314AC }
+aAqOysterHitbox1:
+  { type: SF64:HITBOX, offset: 0x60314C8, symbol: aAqOysterHitbox1 }
 
-aAqOysterHitbox:
-  { type: SF64:HITBOX, offset: 0x60314C8, symbol: aAqOysterHitbox }
+aAqOysterHitbox2:
+  { type: SF64:HITBOX, offset: 0x60314E4, symbol: aAqOysterHitbox2 }
 
-D_AQ_60314E4:
-  { type: SF64:HITBOX, offset: 0x60314E4, symbol: D_AQ_60314E4 }
+aAqBoulderHitbox1:
+  { type: SF64:HITBOX, offset: 0x6031500, symbol: aAqBoulderHitbox1 }
 
-aAqBoulderHitbox:
-  { type: SF64:HITBOX, offset: 0x6031500, symbol: aAqBoulderHitbox }
-
-D_AQ_603151C:
-  { type: SF64:HITBOX, offset: 0x603151C, symbol: D_AQ_603151C }
+aAqBoulderHitbox2:
+  { type: SF64:HITBOX, offset: 0x603151C, symbol: aAqBoulderHitbox2 }
 
 aAqCoralHitbox:
   { type: SF64:HITBOX, offset: 0x6031538, symbol: aAqCoralHitbox }
@@ -761,11 +761,11 @@ aAqJellyfishHitbox:
 aAqFishGroupHitbox:
   { type: SF64:HITBOX, offset: 0x6031570, symbol: aAqFishGroupHitbox }
 
-D_AQ_603158C:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x603158C, symbol: D_AQ_603158C }
+aAqWaterTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x603158C, symbol: aAqWaterTex2 }
 
-D_AQ_6031D90:
-  { type: VTX, count: 34, offset: 0x6031D90, symbol: D_AQ_6031D90 }
+aAqJellyFishLinkArcSrcVTX:
+  { type: VTX, count: 34, offset: 0x6031D90, symbol: aAqJellyFishLinkArcSrcVTX }
 
 D_AQ_6031FB0:
   { type: SF64:TRIANGLE, count: 8, offset: 0x6031FB0, symbol: D_AQ_6031FB0, mesh_symbol: D_AQ_OFFSET, mesh_count: 2}

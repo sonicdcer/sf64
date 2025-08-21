@@ -1122,9 +1122,9 @@ void Background_DrawGround(void) {
 
             // Surface water
             if (gDrawAquasSurfaceWater || (gAqDrawMode == 0)) {
-                gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(aAqWaterTex), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
+                gDPLoadTileTexture(gMasterDisp++, SEGMENTED_TO_VIRTUAL(aAqWaterTex1), G_IM_FMT_RGBA, G_IM_SIZ_16b, 32,
                                    32);
-                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(aAqWaterTex));
+                gDPSetTextureImage(gMasterDisp++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, SEGMENTED_TO_VIRTUAL(aAqWaterTex1));
 
                 yScroll = fabsf(Math_ModF(2.0f * (gPathTexScroll * 0.2133333f), 128.0f));
                 xScroll = Math_ModF((10000.0f - gPlayer[gPlayerNum].xPath) * 0.32f, 128.0f);

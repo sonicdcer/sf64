@@ -79,8 +79,8 @@ D_SO_600E470:
 D_SO_600F744:
   { type: SF64:ANIM, offset: 0x600F744, symbol: D_SO_600F744}
 
-D_SO_600F750:
-  { type: GFX, offset: 0x600F750, symbol: D_SO_600F750}
+aSoVulkainDebris8DL:
+  { type: GFX, offset: 0x600F750, symbol: aSoVulkainDebris8DL}
 
 D_SO_6010198:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6010198, symbol: D_SO_6010198}
@@ -100,32 +100,32 @@ D_SO_6012C00:
 D_SO_601388C:
   { type: SF64:ANIM, offset: 0x601388C, symbol: D_SO_601388C}
 
-D_SO_60138A0:
-  { type: GFX, offset: 0x60138A0, symbol: D_SO_60138A0}
+aSoVulkainDebris6DL:
+  { type: GFX, offset: 0x60138A0, symbol: aSoVulkainDebris6DL}
 
 D_SO_6013C70:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6013C70, symbol: D_SO_6013C70}
 
-D_SO_6014470:
-  { type: GFX, offset: 0x6014470, symbol: D_SO_6014470}
+aSoVulkainDebris4DL:
+  { type: GFX, offset: 0x6014470, symbol: aSoVulkainDebris4DL}
 
-D_SO_60146D0:
-  { type: GFX, offset: 0x60146D0, symbol: D_SO_60146D0}
+aSoVulkainDebris2DL:
+  { type: GFX, offset: 0x60146D0, symbol: aSoVulkainDebris2DL}
 
-D_SO_6014930:
-  { type: GFX, offset: 0x6014930, symbol: D_SO_6014930}
+aSoVulkainDebris5DL:
+  { type: GFX, offset: 0x6014930, symbol: aSoVulkainDebris5DL}
 
-D_SO_6014B80:
-  { type: GFX, offset: 0x6014B80, symbol: D_SO_6014B80}
+aSoVulkainDebris3DL:
+  { type: GFX, offset: 0x6014B80, symbol: aSoVulkainDebris3DL}
 
-D_SO_6014DB0:
-  { type: GFX, offset: 0x6014DB0, symbol: D_SO_6014DB0}
+aSoVulkainDebris1DL:
+  { type: GFX, offset: 0x6014DB0, symbol: aSoVulkainDebris1DL}
 
-D_SO_60151A0:
-  { type: GFX, offset: 0x60151A0, symbol: D_SO_60151A0}
+aSoVulkainDebris7DL:
+  { type: GFX, offset: 0x60151A0, symbol: aSoVulkainDebris7DL}
 
-D_SO_6015810:
-  { type: GFX, offset: 0x6015810, symbol: D_SO_6015810}
+aSoVulkainDebris9DL:
+  { type: GFX, offset: 0x6015810, symbol: aSoVulkainDebris9DL}
 
 aSoRock3DL:
   { type: GFX, offset: 0x6016CF0, symbol: aSoRock3DL}
