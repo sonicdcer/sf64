@@ -216,7 +216,7 @@ s32 D_i3_801BFB64[11] = {
 u8 D_i3_801BFB90[12] = {
     0, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0,
 };
-Gfx* gAqSanadaDLs[3] = { aAqSanadaHeadDL, aAqSanadaBodyBallDL, aAqSanadaTailDL };
+Gfx* sAqSanadaDLs[3] = { aAqSanadaHeadDL, aAqSanadaBodyBallDL, aAqSanadaTailDL };
 f32 D_i3_801BFBA8[2] = { 40.0f, -40.0f };
 f32 D_i3_801BFBB0[3] = { 20.0f, 10.0f, 15.0f };
 f32 D_i3_801BFBBC[3] = { 8.0f, 27.0f, 42.0f };
@@ -410,7 +410,7 @@ void Aquas_CsCamera_Update(void) {
     Math_SmoothStepToF(&gPlayer[0].cam.at.z, gCsCamAtZ, 0.1f, 50.0f, 0.0001f);
 }
 
-void Aquas_801A96DC(AqPearl* this) {
+void Aquas_801A96DC(Actor* this) {
     this->obj.rot.y = RAD_TO_DEG(-gPlayer[0].camYaw);
     this->obj.rot.x = RAD_TO_DEG(gPlayer[0].camPitch);
 }
@@ -431,11 +431,6 @@ void Aquas_801A9728(AqSculpin* this, f32 radius, f32 scale, s32 spread) {
 
 void Aquas_InitLevel(void) {
     s32 i;
-    f32* var_v0;
-    f32* var_v0_4;
-    s32* var_a0;
-    s32* var_v0_2;
-    s32* var_v0_3;
 
     gTeamShields[TEAM_ID_FALCO] = gTeamShields[TEAM_ID_SLIPPY] = gTeamShields[TEAM_ID_PEPPY] = 255;
 
@@ -584,8 +579,8 @@ void Aquas_801A9DE4(Player* player) {
 
 // Loop looks really fake. optimized out index?
 void Aquas_801A9ED0(Player* player) {
-    s32 j;
     s32 i;
+    s32 j;
     s32 sp8C;
     f32 temp_fa0;
     f32 temp_fa1;
@@ -609,9 +604,9 @@ void Aquas_801A9ED0(Player* player) {
 
         if ((fabsf(D_i3_801C4308[10]) >= 6.0f) && (gBosses[0].state >= 10) && (gBosses[0].obj.status == OBJ_ACTIVE) &&
             (gBosses[0].health != 0)) {
-            for (j = 119, i = 121; j < 199; j += 10, i += 10) {
-                if ((j == 119) || (j == 129) || (j == 139) || (j == 169)) {
-                    tempy = &gBosses[0].info.hitbox[i];
+            for (i = 119, j = 121; i < 199; i += 10, j += 10) {
+                if ((i == 119) || (i == 129) || (i == 139) || (i == 169)) {
+                    tempy = &gBosses[0].info.hitbox[j];
 
                     temp_fv0 = gBosses[0].obj.pos.y + tempy[0] + tempy[1] + 200.0f;
                     temp_fa0 = gBosses[0].obj.pos.y + tempy[0] - tempy[1] - 200.0f;
@@ -622,17 +617,17 @@ void Aquas_801A9ED0(Player* player) {
                         (temp_fa0 <= (player->pos.y + sp64.y)) && ((player->pos.x + sp64.x) <= temp_fv1) &&
                         (temp_fa1 <= (player->pos.x + sp64.x))) {
                         if (D_i3_801C41B8[11] >=
-                            fabsf(player->trueZpos - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j])) {
+                            fabsf(player->trueZpos - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[i])) {
                             D_i3_801C41B8[11] =
-                                fabsf(player->trueZpos - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[j]);
+                                fabsf(player->trueZpos - gBosses[0].obj.pos.z - gBosses[0].info.hitbox[i]);
                             D_i3_801C4190[0] = 777;
-                            D_i3_801C4190[4] = i;
+                            D_i3_801C4190[4] = j;
                             D_i3_801C4190[1] = OBJ_BOSS_AQ_BACOON;
                         }
 
-                        if (((j == 129) && (gBosses[0].swork[AQ_SWK_8] == 0)) ||
-                            ((j == 139) && (gBosses[0].swork[AQ_SWK_9] == 0)) ||
-                            ((j == 119) && (gBosses[0].swork[AQ_SWK_12] == 0))) {
+                        if (((i == 129) && (gBosses[0].swork[AQ_SWK_8] == 0)) ||
+                            ((i == 139) && (gBosses[0].swork[AQ_SWK_9] == 0)) ||
+                            ((i == 119) && (gBosses[0].swork[AQ_SWK_12] == 0))) {
                             D_i3_801C4190[0] = D_i3_801C4190[4] = D_i3_801C4190[3] = D_i3_801C4190[5] =
                                 D_i3_801C4190[1] = 0;
                         }
@@ -1822,7 +1817,7 @@ void Aquas_AqSanada_DrawPieces(f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot,
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
         }
     }
-    gSPDisplayList(gMasterDisp++, gAqSanadaDLs[type]);
+    gSPDisplayList(gMasterDisp++, sAqSanadaDLs[type]);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -2095,9 +2090,9 @@ void Aquas_AqBacoonMuscle_Draw(AqBacoonMuscle* this) {
     Matrix_SetGfxMtx(&gMasterDisp);
 
     gDPSetTextureLUT(gMasterDisp++, G_TT_RGBA16);
-    gDPLoadTLUT_pal256(gMasterDisp++, D_AQ_6008FC8);
-    gDPLoadTextureBlock(gMasterDisp++, D_AQ_6008EC8, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP,
-                        G_TX_NOMIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadTLUT_pal256(gMasterDisp++, aAqRedGradientTLUT);
+    gDPLoadTextureBlock(gMasterDisp++, aAqRedGradientTex, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0,
+                        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
     gSPVertex(gMasterDisp++, D_i3_801C3A88[this->iwork[0]][gSysFrameCount % 2], 14, 0);
     gSP1Triangle(gMasterDisp++, 0, 1, 2, 0);
     gSP1Triangle(gMasterDisp++, 3, 1, 0, 0);

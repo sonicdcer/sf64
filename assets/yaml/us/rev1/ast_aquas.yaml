@@ -101,23 +101,23 @@ aAqSculpinDebrisTex2:
 aAqStarfishDL:
   { type: GFX, offset: 0x6008970, symbol: aAqStarfishDL }
 
-D_AQ_6008EC8:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6008EC8, symbol: D_AQ_6008EC8, tlut: 0x6008FC8 }
+aAqRedGradientTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6008EC8, symbol: aAqRedGradientTex, tlut: 0x6008FC8 }
 
-D_AQ_6008FC8:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 224, offset: 0x6008FC8, symbol: D_AQ_6008FC8 }
+aAqRedGradientTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 224, offset: 0x6008FC8, symbol: aAqRedGradientTLUT }
 
-D_AQ_6009188:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6009188, symbol: D_AQ_6009188 }
+aAqAlgaeTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6009188, symbol: aAqAlgaeTex }
 
 aAqSculpinDebris8DL:
   { type: GFX, offset: 0x6009990, symbol: aAqSculpinDebris8DL }
 
-D_AQ_6009C28:
-  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6009C28, symbol: D_AQ_6009C28, tlut: 0x600A028 }
+aAqOysterInnerTex:
+  { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 32, offset: 0x6009C28, symbol: aAqOysterInnerTex, tlut: 0x600A028 }
 
-D_AQ_600A028:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x600A028, symbol: D_AQ_600A028 }
+aAqOysterInnerTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 248, offset: 0x600A028, symbol: aAqOysterInnerTLUT }
 
 aAqDebrisDL:
   { type: GFX, offset: 0x600A220, symbol: aAqDebrisDL }
@@ -149,8 +149,8 @@ aAqGroundTex:
 aAqAnglerFishDebris5DL:
   { type: GFX, offset: 0x600BD20, symbol: aAqAnglerFishDebris5DL }
 
-D_AQ_600B518:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600B518, symbol: D_AQ_600B518 }
+aAqFishGroupTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600B518, symbol: aAqFishGroupTex }
 
 aAqTunnel2DL:
   { type: GFX, offset: 0x600BF80, symbol: aAqTunnel2DL }
