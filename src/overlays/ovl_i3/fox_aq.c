@@ -2129,9 +2129,9 @@ void Aquas_AqBacoonMuscle_Draw(AqBacoonMuscle* this) {
     gSP1Triangle(gMasterDisp++, 0, 11, 9, 0);
     gSP1Triangle(gMasterDisp++, 9, 1, 0, 0);
     gSP1Triangle(gMasterDisp++, 9, 12, 8, 0);
-    gDPLoadTLUT_pal256(gMasterDisp++, D_AQ_6019338);
-    gDPLoadTextureBlock(gMasterDisp++, D_AQ_6019238, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0, G_TX_NOMIRROR | G_TX_WRAP,
-                        G_TX_NOMIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
+    gDPLoadTLUT_pal256(gMasterDisp++, aAqBacoonMuscleTLUT);
+    gDPLoadTextureBlock(gMasterDisp++, aAqBacoonMuscleTex, G_IM_FMT_CI, G_IM_SIZ_8b, 16, 16, 0,
+                        G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMIRROR | G_TX_WRAP, 4, 4, G_TX_NOLOD, G_TX_NOLOD);
     gSPVertex(gMasterDisp++, &D_i3_801C3A88[this->iwork[0]][gSysFrameCount % 2][20], 8, 0);
     gSP1Triangle(gMasterDisp++, 0, 1, 2, 0);
     gSP1Triangle(gMasterDisp++, 2, 3, 0, 0);
@@ -4717,7 +4717,7 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
 
         case 2:
             this->animFrame += this->iwork[1];
-            if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6024F80)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aAqGaroaGuardAnim)) {
                 this->animFrame = 0;
                 this->timer_0BE = 0;
 
@@ -4752,8 +4752,8 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
             if (this->timer_0C0 == 0) {
                 Audio_KillSfxBySource(this->sfxSource);
                 this->animFrame++;
-                if (Animation_GetFrameCount(&D_AQ_602AC28) < this->animFrame) {
-                    this->animFrame = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
+                if (Animation_GetFrameCount(&aAqGaroaAttackAnim) < this->animFrame) {
+                    this->animFrame = Animation_GetFrameCount(&aAqGaroaGuardAnim) - 1;
                     this->state = 7;
                 }
             }
@@ -4832,8 +4832,8 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
             Math_SmoothStepToAngle(&this->obj.rot.x, 40.0f, 0.1f, 10.0f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6024F80)) {
-                this->animFrame = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
+            if (this->animFrame >= Animation_GetFrameCount(&aAqGaroaGuardAnim)) {
+                this->animFrame = Animation_GetFrameCount(&aAqGaroaGuardAnim) - 1;
             }
 
             if (this->timer_0C0 == 0) {
@@ -4857,8 +4857,8 @@ void Aquas_AqGaroa_Update(AqGaroa* this) {
 
         case 6:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_AQ_6024F80)) {
-                this->animFrame = Animation_GetFrameCount(&D_AQ_6024F80) - 1;
+            if (this->animFrame >= Animation_GetFrameCount(&aAqGaroaGuardAnim)) {
+                this->animFrame = Animation_GetFrameCount(&aAqGaroaGuardAnim) - 1;
             }
 
             Math_SmoothStepToAngle(&this->obj.rot.x, 30.0f, 0.1f, 10.0f, 0);
@@ -5023,9 +5023,9 @@ void Aquas_AqGaroa_Draw(AqGaroa* this) {
     Vec3f frameTable[30];
 
     if ((this->state >= 3) && (this->state < 5)) {
-        Animation_GetFrameData(&D_AQ_602AC28, this->animFrame, frameTable);
+        Animation_GetFrameData(&aAqGaroaAttackAnim, this->animFrame, frameTable);
     } else {
-        Animation_GetFrameData(&D_AQ_6024F80, this->animFrame, frameTable);
+        Animation_GetFrameData(&aAqGaroaGuardAnim, this->animFrame, frameTable);
     }
 
     Matrix_Translate(gCalcMatrix, 0.0f, -150.0f, 100.0f, MTXF_APPLY);

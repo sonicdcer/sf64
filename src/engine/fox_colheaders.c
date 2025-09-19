@@ -209,22 +209,22 @@ CollisionHeader2 D_800D2CA0[19] = {
     {
         { -74.0f, 0.0f, -84.0f },
         { 74.0f, 125.0f, 84.0f },
-        ARRAY_COUNT(D_AQ_60320B8),
-        D_AQ_60320B8,
+        ARRAY_COUNT(aAqTriangle2),
+        aAqTriangle2,
         D_AQ_603216C,
     },
     {
         { -1200.0f, 0.0f, -1315.0f },
         { 1403.0f, 200.0f, 1308.0f },
-        ARRAY_COUNT(D_AQ_6031FB0),
-        D_AQ_6031FB0,
+        ARRAY_COUNT(aAqTriangle1),
+        aAqTriangle1,
         D_AQ_6031FE0,
     },
     {
         { -600.0f, 0.0f, -657.0f },
         { 701.0f, 100.0f, 654.0f },
-        ARRAY_COUNT(D_AQ_6031FB0),
-        D_AQ_6031FB0,
+        ARRAY_COUNT(aAqTriangle1),
+        aAqTriangle1,
         D_AQ_603204C,
     },
     {
@@ -237,8 +237,8 @@ CollisionHeader2 D_800D2CA0[19] = {
     {
         { -814.0f, 0.0f, -691.0f },
         { 814.0f, 752.0f, 691.0f },
-        ARRAY_COUNT(D_AQ_6032388),
-        D_AQ_6032388,
+        ARRAY_COUNT(aAqTriangle3),
+        aAqTriangle3,
         D_AQ_6032430,
     },
 };
