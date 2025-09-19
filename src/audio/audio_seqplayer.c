@@ -76,7 +76,7 @@ void AudioSeq_InitSequenceChannel(SequenceChannel* channel) {
     channel->volume = 1.0f;
     channel->volumeMod = 1.0f;
     channel->freqMod = 1.0f;
-    for (i = 0; i < 8; i++) {
+    for (i = 0; i < ARRAY_COUNT(channel->seqScriptIO); i++) {
         channel->seqScriptIO[i] = -1;
     }
     channel->unused = 0;
@@ -1587,8 +1587,8 @@ void AudioSeq_InitSequencePlayers(void) {
 #ifdef AVOID_UB
         for (j = 0; j < ARRAY_COUNT(gSeqChannels->layers); j++) {
 #else
-        for (j = 0; j < 64;
-             j++) { // bug: this is ARRAY_COUNT(gSeqLayers) instead of ARRAY_COUNT(gSeqChannels[i].layers)
+        for (j = 0; j < ARRAY_COUNT(gSeqLayers);
+             j++) { // bug: this is ARRAY_COUNT(gSeqLayers) instead of ARRAY_COUNT(gSeqChannels->layers)
 #endif
             gSeqChannels[i].layers[j] = NULL;
         }
@@ -1602,7 +1602,7 @@ void AudioSeq_InitSequencePlayers(void) {
     }
 
     for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
-        for (j = 0; j < 16; j++) {
+        for (j = 0; j < SEQ_NUM_CHANNELS; j++) {
             gSeqPlayers[i].channels[j] = &gSeqChannelNone;
         }
         gSeqPlayers[i].unk_07[0] = -1;

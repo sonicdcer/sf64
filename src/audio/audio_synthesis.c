@@ -520,7 +520,7 @@ void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
 
     AudioSynth_InverseDiscreteCosineTransform(D_80145D48, D_80146148, 8, D_80146548);
 
-    for (i = 0; i < 256; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_80145D48); i++) {
         if (D_80145D48[i] > 32767.0f) {
             D_80145D48[i] = 32767.0f;
         }
@@ -529,7 +529,7 @@ void func_80009504(s16* arg0, UnkStruct_800097A8* arg1) {
         }
     }
 
-    for (i = 0; i < 0x100; i++, arg0++) {
+    for (i = 0; i < ARRAY_COUNT(D_80145D48); i++, arg0++) {
         *arg0 = D_80145D48[i];
     }
 }

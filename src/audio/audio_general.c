@@ -1003,7 +1003,7 @@ void Audio_UpdateActiveSequences(void) {
         }
         if (sActiveSequences[seqPlayId].mainVolume.fadeActive) {
             fadeMod = 1.0f;
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < ARRAY_COUNT(sActiveSequences->mainVolume.fadeMod); i++) {
                 fadeMod *= sActiveSequences[seqPlayId].mainVolume.fadeMod[i] / 127.0f;
             }
             SEQCMD_SET_SEQPLAYER_VOLUME(seqPlayId, sActiveSequences[seqPlayId].mainVolume.fadeTimer,
@@ -1892,8 +1892,8 @@ void Audio_ResetPlayerFreqMods(void) {
     u8 i;
     u8 j;
 
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 5; j++) {
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise); i++) {
+        for (j = 0; j < ARRAY_COUNT(sPlayerNoise->freqMod); j++) {
             sPlayerNoise[i].freqMod[j].value = 1.0f;
             sPlayerNoise[i].freqMod[j].timer = 0;
             sPlayerNoise[i].freqMod[j].boost = 0;
@@ -1956,7 +1956,8 @@ void Audio_UpdateArwingNoise(u8 playerId) {
             (sPlayerNoise[playerId].freqMod[4].target - sPlayerNoise[playerId].freqMod[3].value) /
             sPlayerNoise[playerId].freqMod[4].timer;
     }
-    for (i = 0; i < 5; i++) {
+
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise->freqMod); i++) {
         if (sPlayerNoise[playerId].freqMod[i].timer != 0) {
             sPlayerNoise[playerId].freqMod[i].timer--;
             sPlayerNoise[playerId].freqMod[i].value += sPlayerNoise[playerId].freqMod[i].step;
@@ -1968,8 +1969,9 @@ void Audio_UpdateArwingNoise(u8 playerId) {
             }
         }
     }
+
     freqMod = 1.0f;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise->freqMod); i++) {
         freqMod *= sPlayerNoise[playerId].freqMod[i].value;
     }
     if (freqMod >= 4.0f) {
@@ -2001,7 +2003,7 @@ void Audio_UpdateLandmasterNoise(u8 playerId) {
         sPlayerNoise[playerId].freqMod[3].boost = false;
         sPlayerNoise[playerId].freqMod[3].timer = 1;
     }
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise->freqMod); i++) {
         if (sPlayerNoise[playerId].freqMod[i].timer != 0) {
             sPlayerNoise[playerId].freqMod[i].timer--;
             sPlayerNoise[playerId].freqMod[i].value += sPlayerNoise[playerId].freqMod[i].step;
@@ -2014,7 +2016,7 @@ void Audio_UpdateLandmasterNoise(u8 playerId) {
         }
     }
     freqMod = 1.0f;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise->freqMod); i++) {
         freqMod *= sPlayerNoise[playerId].freqMod[i].value;
     }
     if (ABS(gPlayer[playerId].pos.y) < 600.0f) {
@@ -2059,7 +2061,7 @@ void Audio_UpdateBlueMarineNoise(u8 playerId) {
         sPlayerNoise[playerId].freqMod[3].boost = false;
         sPlayerNoise[playerId].freqMod[3].timer = 1;
     }
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise->freqMod); i++) {
         if (sPlayerNoise[playerId].freqMod[i].timer != 0) {
             sPlayerNoise[playerId].freqMod[i].timer--;
             sPlayerNoise[playerId].freqMod[i].value += sPlayerNoise[playerId].freqMod[i].step;
@@ -2073,7 +2075,7 @@ void Audio_UpdateBlueMarineNoise(u8 playerId) {
     }
     freqMod = 1.0f;
 
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < ARRAY_COUNT(sPlayerNoise->freqMod); i++) {
         freqMod *= sPlayerNoise[playerId].freqMod[i].value;
     }
     if (freqMod > 2.0f) {
@@ -2136,7 +2138,7 @@ void Audio_ResetVoicesAndPlayers(void) {
     u8 playerId;
 
     Audio_ResetPlayerFreqMods();
-    for (playerId = 0; playerId < 4; playerId++) {
+    for (playerId = 0; playerId < ARRAY_COUNT(sPlayerNoise); playerId++) {
         sPlayerNoise[playerId].form = FORM_NONE;
         sPlayerNoise[playerId].reverbAdd = 0;
         sPlayerNoise[playerId].totalMod = 1.0f;
@@ -2293,13 +2295,13 @@ u8* Audio_UpdateFrequencyAnalysis(void) {
     Audio_ProcessPlaylist();
     // clang-format off
     aiData = gAiBuffers[gCurAiBuffIndex];\
-    for(i3 = 0; i3 < 256; i3++) {\
+    for(i3 = 0; i3 < ARRAY_COUNT(sAudioAnalyzerData); i3++) {\
         sAudioAnalyzerData[i3] = *aiData++;
     }
     // clang-format on
     Audio_AnalyzeFrequencies(sAudioAnalyzerData, sAnalyzerBuffer1, 8, sAnalyzerBuffer2);
     fmin = 0;
-    for (i1 = 0; i1 < 32; i1++) {
+    for (i1 = 0; i1 < ARRAY_COUNT(sFreqBins); i1++) {
         fmax = sFreqBins[i1] + 1;
         for (fbin = fmin; fbin < fmax; fbin++) {
             if (sAudioAnalyzerData[fbin] > 0.0f) {
@@ -2310,10 +2312,10 @@ u8* Audio_UpdateFrequencyAnalysis(void) {
         }
         fmin = fbin;
     }
-    for (i2 = 0; i2 < 32; i2++) {
+    for (i2 = 0; i2 < ARRAY_COUNT(sNewFreqAmplitudes); i2++) {
         sNewFreqAmplitudes[i2] /= 8;
     }
-    for (i3 = 0; i3 < 32; i3++) {
+    for (i3 = 0; i3 < ARRAY_COUNT(sNewFreqAmplitudes); i3++) {
         sNewFreqAmplitudes[i3] = (sNewFreqAmplitudes[i3] / 32768.0f) * sFreqGain;
         if (sNewFreqAmplitudes[i3] > 1.0f) {
             sNewFreqAmplitudes[i3] = 1.0f;

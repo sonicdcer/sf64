@@ -54,12 +54,14 @@ void Audio_InitNoteSub(Note* note, NoteAttributes* noteAttr) {
     Stereo stereo;
 
     Audio_NoteSetResamplingRate(note, noteAttr->freqMod);
+
     noteSub = &note->noteSubEu;
     velocity = noteAttr->velocity;
     pan = noteAttr->pan;
     reverb = noteAttr->reverb;
     stereo = noteAttr->stereo;
     pan %= ARRAY_COUNTU(gHeadsetPanVolume);
+
     if ((noteSub->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == SOUNDMODE_HEADSET)) {
         var_a0 = pan >> 1;
         if (var_a0 >= ARRAY_COUNT(gHaasEffectDelaySizes)) {
@@ -74,21 +76,24 @@ void Audio_InitNoteSub(Note* note, NoteAttributes* noteAttr) {
         panVolumeLeft = gHeadsetPanVolume[pan];
         pamVolumeRight = gHeadsetPanVolume[ARRAY_COUNT(gHeadsetPanVolume) - 1 - pan];
     } else if (noteSub->bitField0.stereoHeadsetEffects && (gAudioSoundMode == SOUNDMODE_STEREO)) {
+        strongLeft = strongRight = false;
+
         noteSub->leftDelaySize = 0;
         noteSub->rightDelaySize = 0;
         noteSub->bitField0.usesHeadsetPanEffects = false;
 
         panVolumeLeft = gStereoPanVolume[pan];
         pamVolumeRight = gStereoPanVolume[ARRAY_COUNT(gStereoPanVolume) - 1 - pan];
-        strongRight = false;
-        strongLeft = false;
+
         if (pan < 32) {
             strongLeft = true;
         } else if (pan > 96) {
             strongRight = true;
         }
+
         noteSub->bitField0.stereoStrongRight = strongRight;
         noteSub->bitField0.stereoStrongLeft = strongLeft;
+
         switch (stereo.s.bit2) {
             case 0:
                 noteSub->bitField0.stereoStrongRight = stereo.s.strongRight;
@@ -112,15 +117,18 @@ void Audio_InitNoteSub(Note* note, NoteAttributes* noteAttr) {
         panVolumeLeft = gDefaultPanVolume[pan];
         pamVolumeRight = gDefaultPanVolume[ARRAY_COUNT(gDefaultPanVolume) - 1 - pan];
     }
+
     if (velocity < 0.0f) {
         velocity = 0.0f;
     }
     if (velocity > 1.0f) {
         velocity = 1.0f;
     }
+
     noteSub->panVolLeft = (s32) (velocity * panVolumeLeft * 4095.999f);
     noteSub->panVolRight = (s32) (velocity * pamVolumeRight * 4095.999f);
     noteSub->gain = noteAttr->gain;
+
     if (noteSub->reverb != reverb) {
         noteSub->reverb = reverb;
         noteSub->bitField0.unused = true;

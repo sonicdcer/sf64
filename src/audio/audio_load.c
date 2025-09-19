@@ -182,7 +182,7 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
         gSampleDmas[i].reuseIndex = i;
     }
 
-    for (i = gSampleDmaCount; i < 0x100; i++) {
+    for (i = gSampleDmaCount; i < ARRAY_COUNT(gSampleDmaReuseQueue1); i++) {
         gSampleDmaReuseQueue1[i] = 0;
     }
 
@@ -210,7 +210,7 @@ void AudioLoad_InitSampleDmaBuffers(s32 numNotes) {
         gSampleDmas[i].reuseIndex = i - gSampleDmaListSize1;
     }
 
-    for (i = gSampleDmaCount; i < 0x100; i++) {
+    for (i = gSampleDmaCount; i < ARRAY_COUNT(gSampleDmaReuseQueue2); i++) {
         gSampleDmaReuseQueue2[i] = gSampleDmaListSize1;
     }
 
