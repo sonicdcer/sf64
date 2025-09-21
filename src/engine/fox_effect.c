@@ -3978,13 +3978,13 @@ void Effect_Effect395_Draw(Effect395* this) {
 
         case 10:
             if (gPlayState != PLAY_PAUSE) {
-                Lib_Texture_Scroll(D_A6_6012840, 16, 16, 0);
+                Lib_Texture_Scroll(aA6GorgonLaserTex, 16, 16, 0);
             }
             RCP_SetupDL(&gMasterDisp, SETUPDL_53);
             Matrix_Scale(gGfxMatrix, this->orient.x, this->orient.y, this->orient.z, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_A6_6012550);
+            gSPDisplayList(gMasterDisp++, aA6GorgonLaserDL);
             break;
 
         case 11:

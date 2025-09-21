@@ -2174,7 +2174,7 @@ void Cutscene_ActorCs_LevelIntro(ActorCutscene* this) {
             break;
 
         case LEVEL_AREA_6:
-            Area6_8018DA58(this);
+            Area6_IntroCs_ManeuverTeam(this);
             break;
 
         case LEVEL_SECTOR_Y:
@@ -2340,7 +2340,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     break;
 
                 case LEVEL_AREA_6:
-                    Area6_8018DA58(this);
+                    Area6_IntroCs_ManeuverTeam(this);
                     break;
 
                 case LEVEL_METEO:

@@ -11,7 +11,7 @@ extern f32 gAquasSurfaceAlpha;
 
 void Aquas_CsAqFishGroup_Update(Actor*);
 
-void Area6_8018DA58(Actor*);
+void Area6_IntroCs_ManeuverTeam(Actor*);
 void Zoness_8019E5F0(Actor*);
 void Aquas_BlueMarineDown(Player*);
 void Aquas_CsAqFishGroup_Draw(Actor*);

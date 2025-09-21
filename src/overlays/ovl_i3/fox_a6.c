@@ -7,10 +7,10 @@
 #include "global.h"
 #include "assets/ast_area_6.h"
 
-void Area6_8018A1B0(Boss* this, s32 arg1);
-void Area6_8018A2C4(Boss* this);
-void Area6_8018A464(Boss* this, s32 arg1);
-void Area6_8018B9BC(Boss* this);
+void Area6_A6GorgonTentacle_RespawnCheck(Boss* this, s32 tentacleIdx);
+void Area6_A6GorgonTentacles_ApplyDamage(Boss* this);
+void Area6_A6GorgonTentacle_Update(Boss* this, s32 arg1);
+void Area6_A6GorgonEnergyBalls_ApplyDamage(Boss* this);
 
 #define A6_HITBOX_COUNT ((s32) (bossA6)->info.hitbox[0])
 #define A6_HIT_0(bossA6) ((Hitbox*) ((bossA6)->info.hitbox + 1))
@@ -25,7 +25,7 @@ void Area6_8018B9BC(Boss* this);
 #define A6_HIT_11_2(bossA6, index) ((TiltHitbox*) ((f32*) (A6_HIT_8_2(bossA6) + 3) + 10 * (index)))
 #define A6_HIT_14_2(bossA6) ((TiltHitbox*) (A6_HIT_11_2(bossA6) + 3))
 
-typedef enum {
+typedef enum A6Gorgonswork {
     /*  0 */ A6_SWK_0,
     /*  1 */ A6_SWK_1,
     /*  2 */ A6_SWK_2,
@@ -56,9 +56,9 @@ typedef enum {
     /* 27 */ A6_SWK_27,
     /* 28 */ A6_SWK_28,
     /* 29 */ A6_SWK_29,
-    /* 30 */ A6_SWK_30,
-    /* 31 */ A6_SWK_31,
-    /* 32 */ A6_SWK_32,
+    /* 30 */ A6_SWK_30, // Tentacle 1 Alive
+    /* 31 */ A6_SWK_31, // Tentacle 2 Alive
+    /* 32 */ A6_SWK_32, // Tentacle 3 Alive
     /* 33 */ A6_SWK_33,
     /* 34 */ A6_SWK_34,
     /* 35 */ A6_SWK_35,
@@ -69,7 +69,7 @@ typedef enum {
     /* 40 */ A6_SWK_MAX,
 } A6Gorgonswork;
 
-typedef enum {
+typedef enum A6Gorgonfwork {
     /*  0 */ A6_FWK_0,
     /*  1 */ A6_FWK_1,
     /*  2 */ A6_FWK_2,
@@ -98,7 +98,7 @@ typedef enum {
     /* 25 */ A6_FWK_25,
     /* 26 */ A6_FWK_26,
     /* 27 */ A6_FWK_27,
-    /* 28 */ A6_FWK_28,
+    /* 28 */ A6_FWK_28, // Rot speed
     /* 29 */ A6_FWK_29,
     /* 30 */ A6_FWK_30,
     /* 31 */ A6_FWK_31,
@@ -123,7 +123,7 @@ typedef enum {
     /* 50 */ A6_FWK_MAX,
 } A6Gorgonfwork;
 
-typedef enum {
+typedef enum A6Gorgonvwork {
     /*  0 */ A6_VWK_0,
     /*  1 */ A6_VWK_1,
     /*  2 */ A6_VWK_2,
@@ -177,7 +177,7 @@ typedef enum {
     /* 50 */ A6_VWK_MAX,
 } A6Gorgonvwork;
 
-typedef enum {
+typedef enum A6Gorgonbsswork {
     /*  0 */ A6_BSS_0,
     /*  1 */ A6_BSS_1,
     /*  2 */ A6_BSS_2_0,
@@ -202,7 +202,7 @@ typedef enum {
     /* 21 */ A6_BSS_21,
     /* 22 */ A6_BSS_22,
     /* 23 */ A6_BSS_23,
-    /* 24 */ A6_BSS_24,
+    /* 24 */ A6_BSS_24, // Missiles dispatched
     /* 25 */ A6_BSS_25,
     /* 26 */ A6_BSS_26,
     /* 27 */ A6_BSS_27,
@@ -225,7 +225,7 @@ typedef struct {
     /* 0x00 */ f32 r[3];
     /* 0x0C */ f32 g[3];
     /* 0x18 */ f32 b[3];
-    /* 0x24 */ f32 unk_24;
+    /* 0x24 */ f32 alpha;
     /* 0x30 */ f32 unk_28[3];
     /* 0x3C */ f32 unk_34;
 } UnkStruct_1C22F0;
@@ -261,93 +261,33 @@ Vec3f D_i3_801BED40[4] = {
     { 270.0f, 45.0f, 135.0f },
     { 0.0f, 135.0f, 235.0f },
 };
-Vec3f D_i3_801BED70[12] = {
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-};
-Vec3f D_i3_801BEE00[12] = {
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-};
-f32 D_i3_801BEE90[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BEEC0[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-Vec3f D_i3_801BEEF0[12] = {
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-};
-Vec3f D_i3_801BEF80[12] = {
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-};
-f32 D_i3_801BF010[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF040[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-Vec3f D_i3_801BF070[12] = {
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-};
-Vec3f D_i3_801BF100[12] = {
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-    { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 0.0f, 0.0f },
-};
-f32 D_i3_801BF190[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF1C0[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF1F0[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF220[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF250[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF280[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF2B0[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF2E0[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
+Vec3f D_i3_801BED70[12] = { 0.0f };
+Vec3f D_i3_801BEE00[12] = { 0.0f };
+f32 D_i3_801BEE90[12] = { 0.0f };
+f32 D_i3_801BEEC0[12] = { 0.0f };
+Vec3f D_i3_801BEEF0[12] = { 0.0f };
+Vec3f D_i3_801BEF80[12] = { 0.0f };
+f32 D_i3_801BF010[12] = { 0.0f };
+f32 D_i3_801BF040[12] = { 0.0f };
+Vec3f D_i3_801BF070[12] = { 0.0f };
+Vec3f D_i3_801BF100[12] = { 0.0f };
+f32 D_i3_801BF190[12] = { 0.0f };
+f32 D_i3_801BF1C0[12] = { 0.0f };
+f32 D_i3_801BF1F0[12] = { 0.0f };
+f32 D_i3_801BF220[12] = { 0.0f };
+f32 D_i3_801BF250[12] = { 0.0f };
+f32 D_i3_801BF280[12] = { 0.0f };
+f32 D_i3_801BF2B0[12] = { 0.0f };
+f32 D_i3_801BF2E0[12] = { 0.0f };
 s32 D_i3_801BF310[3] = { 255, 255, 32 };
 s32 D_i3_801BF31C[3] = { 32, 255, 32 };
 s32 D_i3_801BF328[3] = { 32, 34, 255 };
-f32 D_i3_801BF334[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF364[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF394[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF3C4[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF3F4[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
-f32 D_i3_801BF424[12] = {
-    0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-};
+f32 D_i3_801BF334[12] = { 0.0f };
+f32 D_i3_801BF364[12] = { 0.0f };
+f32 D_i3_801BF394[12] = { 0.0f };
+f32 D_i3_801BF3C4[12] = { 0.0f };
+f32 D_i3_801BF3F4[12] = { 0.0f };
+f32 D_i3_801BF424[12] = { 0.0f };
 f32 D_i3_801BF454[16] = {
     255.0f, 0.0f, 0.0f, 0.0f, 255.0f, 255.0f, 0.0f, 0.0f, 0.0f, 255.0f, 255.0f, 0.0f, 144.0f, 255.0f, 144.0f, 0.0f,
 };
@@ -438,7 +378,7 @@ void Area6_A6Gorgon_Init(A6Gorgon* this) {
         D_i3_801C2250[i] = 0;
     }
 
-    D_i3_801C22F0.unk_24 = D_i3_801C22F0.unk_28[0] = D_i3_801C22F0.unk_28[2] = D_i3_801C22F0.unk_28[1] = 255.0f;
+    D_i3_801C22F0.alpha = D_i3_801C22F0.unk_28[0] = D_i3_801C22F0.unk_28[2] = D_i3_801C22F0.unk_28[1] = 255.0f;
     D_i3_801C22F0.unk_34 = 0.0f;
 
     this->swork[A6_SWK_27 + 0] = this->swork[A6_SWK_27 + 1] = this->swork[A6_SWK_27 + 2] = 0;
@@ -556,12 +496,12 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
             if (((this->dmgPart == 4) || (this->dmgPart == 5) || (this->dmgPart == 6)) &&
                 (this->swork[A6_SWK_25] != 0)) {
-                Area6_8018B9BC(this);
+                Area6_A6GorgonEnergyBalls_ApplyDamage(this);
             }
         }
 
         if ((this->dmgPart == 1) || (this->dmgPart == 2) || (this->dmgPart == 3)) {
-            Area6_8018A2C4(this);
+            Area6_A6GorgonTentacles_ApplyDamage(this);
         }
         if (this->dmgPart >= 7) {
             AUDIO_PLAY_SFX(NA_SE_EN_REFLECT, this->sfxSource, 4);
@@ -709,7 +649,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
     }
 
     switch (this->state) {
-        case 0:
+        case 0: // Spawn
             this->info.hitbox[0] = 0;
 
             dx_11C = gPlayer[0].pos.x - this->obj.pos.x;
@@ -753,9 +693,9 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             this->fwork[A6_FWK_33] += 30.0f;
 
             if (this->timer_050 == 0) {
-                Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 0.0f, 0.1f, 1.0f, 0);
-                if (D_i3_801C22F0.unk_24 < 1.0f) {
-                    D_i3_801C22F0.unk_24 = 0.0f;
+                Math_SmoothStepToF(&D_i3_801C22F0.alpha, 0.0f, 0.1f, 1.0f, 0);
+                if (D_i3_801C22F0.alpha < 1.0f) {
+                    D_i3_801C22F0.alpha = 0.0f;
 
                     Audio_KillSfxBySource(this->sfxSource);
 
@@ -775,7 +715,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 1:
+        case 1: // Fade out
             Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
             this->info.hitbox[0] = 0;
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 1.0f, 10.0f, 0.0001f);
@@ -786,11 +726,11 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     D_i3_801C2250[A6_BSS_27] = 1;
                 }
                 this->obj.rot.z = 0.0f;
-                Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 0.0f, 0.1f, 5.0f, 0.0f);
+                Math_SmoothStepToF(&D_i3_801C22F0.alpha, 0.0f, 0.1f, 5.0f, 0.0f);
                 Math_SmoothStepToF(&this->fwork[A6_FWK_34], 2.0f, 0.1f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&this->fwork[A6_FWK_35], 1.2f, 0.1f, 0.1f, 0.0f);
 
-                if (D_i3_801C22F0.unk_24 < 1.0f) {
+                if (D_i3_801C22F0.alpha < 1.0f) {
                     this->fwork[A6_FWK_6] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].cam.eye.x;
                     this->fwork[A6_FWK_7] = RAND_FLOAT_CENTERED(1000.0f) + gPlayer[0].cam.eye.y;
                     this->fwork[A6_FWK_3] = -3700.0f + RAND_FLOAT_CENTERED(3000.0f);
@@ -815,7 +755,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                         this->fwork[A6_FWK_7] = this->obj.pos.y = gPlayer[0].cam.eye.y;
                     }
 
-                    D_i3_801C22F0.unk_24 = 0.0f;
+                    D_i3_801C22F0.alpha = 0.0f;
 
                     this->timer_050 = 50;
                     this->state = 2;
@@ -827,7 +767,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 2:
+        case 2: // Fade in
             Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
             if (this->timer_050 == 10) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -843,12 +783,12 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 }
 
-                Math_SmoothStepToF(&D_i3_801C22F0.unk_24, 255.0f, 0.1f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&D_i3_801C22F0.alpha, 255.0f, 0.1f, 10.0f, 0.0f);
                 Math_SmoothStepToF(&this->fwork[A6_FWK_34], 1.0f, 0.1f, 0.1f, 0.0f);
                 Math_SmoothStepToF(&this->fwork[A6_FWK_35], 1.0f, 0.1f, 0.1f, 0.0f);
 
-                if (D_i3_801C22F0.unk_24 > 254.0f) {
-                    D_i3_801C22F0.unk_24 = 255.0f;
+                if (D_i3_801C22F0.alpha > 254.0f) {
+                    D_i3_801C22F0.alpha = 255.0f;
                     this->info.hitbox[0] = 10;
                     this->fwork[A6_FWK_34] = this->fwork[A6_FWK_35] = 1.0f;
 
@@ -888,14 +828,14 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                         this->fwork[A6_FWK_1] = 90.0f;
                         this->fwork[A6_FWK_2] = 2.0f;
                         AUDIO_PLAY_SFX(NA_SE_EN_COVER_OPEN, this->sfxSource, 4);
-                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aA6GorgonCoverHitbox);
                         D_i3_801C2250[A6_BSS_7] = 0;
                     }
                 }
             }
             break;
 
-        case 3:
+        case 3: // Spawn Energy balls
             if (this->timer_050 == 1) {
                 Audio_KillSfxBySource(this->sfxSource);
                 if (D_i3_801C2250[A6_BSS_7] == 0) {
@@ -923,8 +863,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     D_i3_801C2250[A6_BSS_29] &= 1;
                 }
 
-                if ((this->swork[A6_SWK_30 + 0] != 0) && (this->swork[A6_SWK_30 + 1] != 0) &&
-                    (this->swork[A6_SWK_30 + 2] != 0)) {
+                if ((this->swork[A6_SWK_30] != 0) && (this->swork[A6_SWK_31] != 0) && (this->swork[A6_SWK_32] != 0)) {
                     this->timer_050 = 1500;
                     this->fwork[A6_FWK_1] = 0.0f;
                     D_i3_801C2250[A6_BSS_28] = 0;
@@ -934,18 +873,18 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     D_i3_801C2250[A6_BSS_6] = 1;
                     Audio_KillSfxBySource(this->sfxSource);
                     AUDIO_PLAY_SFX(NA_SE_EN_COVER_CLOSE, this->sfxSource, 4);
-                    this->swork[A6_SWK_30 + 0] = this->swork[A6_SWK_30 + 1] = this->swork[A6_SWK_30 + 2] = 0;
-                } else if (this->swork[A6_SWK_30 + 0] == 0) {
-                    Area6_8018A1B0(this, 0);
-                } else if (this->swork[A6_SWK_30 + 1] == 0) {
-                    Area6_8018A1B0(this, 1);
-                } else if (this->swork[A6_SWK_30 + 2] == 0) {
-                    Area6_8018A1B0(this, 2);
+                    this->swork[A6_SWK_30] = this->swork[A6_SWK_31] = this->swork[A6_SWK_32] = 0;
+                } else if (this->swork[A6_SWK_30] == 0) {
+                    Area6_A6GorgonTentacle_RespawnCheck(this, 0);
+                } else if (this->swork[A6_SWK_31] == 0) {
+                    Area6_A6GorgonTentacle_RespawnCheck(this, 1);
+                } else if (this->swork[A6_SWK_32] == 0) {
+                    Area6_A6GorgonTentacle_RespawnCheck(this, 2);
                 }
             }
             break;
 
-        case 4:
+        case 4: // Tentacles attack
             if (this->timer_050 == 1400) {
                 this->swork[A6_SWK_15 + 0] = this->swork[A6_SWK_15 + 1] = this->swork[A6_SWK_15 + 2] = 40;
                 if (this->swork[A6_SWK_25] == 0) {
@@ -987,7 +926,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
                     AUDIO_PLAY_SFX(NA_SE_EN_COVER_OPEN, this->sfxSource, 4);
 
-                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_A6_6028578);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aA6GorgonCoverHitbox);
 
                     D_i3_801C2250[A6_BSS_7] = this->swork[A6_SWK_37] = 0;
 
@@ -1009,7 +948,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 5:
+        case 5: // Charge laser
             if (this->timer_050 == 1) {
                 Area6_Effect395_Spawn();
                 AUDIO_PLAY_SFX(NA_SE_EN_A6BOSS_CHARGE, this->sfxSource, 4);
@@ -1035,7 +974,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 6:
+        case 6: // Fire laser
             this->obj.pos.z -= this->fwork[A6_FWK_37];
 
             Math_SmoothStepToF(&this->fwork[A6_FWK_37], 0.0f, 1.0f, 10.0f, 0.00001f);
@@ -1058,7 +997,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 7:
+        case 7: // Retract laser
             effect = &gEffects[this->swork[A6_SWK_39]];
 
             Math_SmoothStepToF(&D_i3_801C22F0.unk_28[0], 255.0f, 1.0f, 100.0f, 0.00001f);
@@ -1087,7 +1026,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 8:
+        case 8: // Spawn enemies
             if (this->timer_052 == 0) {
                 D_i3_801C2250[A6_BSS_24] = 0;
                 this->timer_052 = 300;
@@ -1097,7 +1036,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 9:
+        case 9: // Start rotating
             if (this->timer_052 == 0) {
                 Audio_KillSfxBySource(this->sfxSource);
                 AUDIO_PLAY_SFX(NA_SE_EN_SHIELD_ROLL_STOP, this->sfxSource, 4);
@@ -1109,6 +1048,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
                     this->obj.rot.z = Math_ModF(this->obj.rot.z, 360.0f);
                     Math_SmoothStepToF(&this->fwork[A6_FWK_28], 20.0f, 0.1f, 0.5f, 0.0001f);
                 }
+
                 if (this->timer_054 == 0) {
                     this->timer_054 = 10;
 
@@ -1164,7 +1104,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 10:
+        case 10: // Stop rotating
             if (D_i3_801C2250[A6_BSS_34] == 0) {
                 this->obj.rot.z += this->fwork[A6_FWK_28];
                 this->obj.rot.z = Math_ModF(this->obj.rot.z, 360.0f);
@@ -1184,7 +1124,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
             break;
 
-        case 11:
+        case 11: // Dying
             if ((this->timer_052 == 160) &&
                 ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
                 gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;
@@ -1204,9 +1144,9 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             break;
     }
 
-    Area6_8018A464(this, 0);
-    Area6_8018A464(this, 1);
-    Area6_8018A464(this, 2);
+    Area6_A6GorgonTentacle_Update(this, 0);
+    Area6_A6GorgonTentacle_Update(this, 1);
+    Area6_A6GorgonTentacle_Update(this, 2);
 
     for (i = 0; i < 5; i++) {
         if (!(gGameFrameCount % 4U)) {
@@ -1261,39 +1201,39 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
     }
 }
 
-void Area6_8018A1B0(A6Gorgon* this, s32 arg1) {
-    switch (D_i3_801C2250[A6_BSS_2_0 + arg1]) {
+void Area6_A6GorgonTentacle_RespawnCheck(A6Gorgon* this, s32 tentacleIdx) {
+    switch (D_i3_801C2250[A6_BSS_2_0 + tentacleIdx]) {
         case 0:
-            this->swork[A6_SWK_27 + arg1] = 12;
-            D_i3_801C2250[A6_BSS_2_0 + arg1] = 1;
+            this->swork[A6_SWK_27 + tentacleIdx] = 12;
+            D_i3_801C2250[A6_BSS_2_0 + tentacleIdx] = 1;
             break;
 
         case 1:
-            this->fwork[A6_FWK_13 + arg1] = 120.0f;
-            if (((this->swork[A6_SWK_33 + arg1] == 0) && (D_i3_801C2250[A6_BSS_6] != 0) &&
+            this->fwork[A6_FWK_13 + tentacleIdx] = 120.0f;
+            if (((this->swork[A6_SWK_33 + tentacleIdx] == 0) && (D_i3_801C2250[A6_BSS_6] != 0) &&
                  ((this->swork[A6_SWK_15 + 0] != 0) || (this->swork[A6_SWK_15 + 1] != 0) ||
                   (this->swork[A6_SWK_15 + 2] != 0))) ||
                 (this->swork[A6_SWK_25] == 0)) {
-                this->fwork[A6_FWK_16 + arg1] = 1.0f;
+                this->fwork[A6_FWK_16 + tentacleIdx] = 1.0f;
             } else {
-                this->fwork[A6_FWK_16 + arg1] = 60.0f;
+                this->fwork[A6_FWK_16 + tentacleIdx] = 60.0f;
             }
 
-            if (this->fwork[A6_FWK_10 + arg1] >= 119.0f) {
-                this->fwork[A6_FWK_10 + arg1] = 120.0f;
-                this->swork[A6_SWK_33 + arg1] = 30;
-                this->fwork[A6_FWK_16 + arg1] = 60.0f;
-                D_i3_801C2250[A6_BSS_2_0 + arg1] = 0;
-                this->swork[A6_SWK_6 + arg1] = 0;
-                this->swork[A6_SWK_9 + arg1] = 0;
-                this->swork[A6_SWK_30 + arg1] = 1;
-                this->swork[A6_SWK_18 + arg1] = 0;
+            if (this->fwork[A6_FWK_10 + tentacleIdx] >= 119.0f) {
+                this->fwork[A6_FWK_10 + tentacleIdx] = 120.0f;
+                this->swork[A6_SWK_33 + tentacleIdx] = 30;
+                this->fwork[A6_FWK_16 + tentacleIdx] = 60.0f;
+                D_i3_801C2250[A6_BSS_2_0 + tentacleIdx] = 0;
+                this->swork[A6_SWK_6 + tentacleIdx] = 0;
+                this->swork[A6_SWK_9 + tentacleIdx] = 0;
+                this->swork[A6_SWK_30 + tentacleIdx] = 1;
+                this->swork[A6_SWK_18 + tentacleIdx] = 0;
             }
             break;
     }
 }
 
-void Area6_8018A2C4(A6Gorgon* this) {
+void Area6_A6GorgonTentacles_ApplyDamage(A6Gorgon* this) {
     s32 i;
     Vec3f effectPos;
 
@@ -1333,7 +1273,7 @@ void Area6_8018A2C4(A6Gorgon* this) {
     }
 }
 
-void Area6_8018A464(A6Gorgon* this, s32 arg1) {
+void Area6_A6GorgonTentacle_Update(A6Gorgon* this, s32 arg1) {
     s32 i;
     s32 j;
     f32 var_fs0;
@@ -1491,7 +1431,7 @@ void Area6_8018A464(A6Gorgon* this, s32 arg1) {
                             }
                         }
 
-                        for (i = 0; i < 12; i++) {
+                        for (i = 0; i < ARRAY_COUNT(D_i3_801BF070); i++) {
                             Math_SmoothStepToF(&D_i3_801BF070[i].y, D_i3_801BF100[i].y, 0.05f, D_i3_801BF1C0[i],
                                                0.001f);
                             Math_SmoothStepToF(&D_i3_801BF070[i].x, D_i3_801BF100[i].x, 0.05f, D_i3_801BF190[i],
@@ -1695,7 +1635,7 @@ void Area6_8018A464(A6Gorgon* this, s32 arg1) {
     }
 }
 
-void Area6_8018B9BC(A6Gorgon* this) {
+void Area6_A6GorgonEnergyBalls_ApplyDamage(A6Gorgon* this) {
     s32 i;
     s32 j;
     Vec3f dest;
@@ -1755,15 +1695,16 @@ void Area6_8018B9BC(A6Gorgon* this) {
     }
 }
 
-void Area6_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 arg5, s32 arg6, f32 arg7) {
+void Area6_A6Gorgon_DrawTentacle(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 arg5, s32 maxLimbs,
+                                 f32 arg7) {
     s32 i;
-    Vec3f sp90 = { 0.0f, 0.0f, 0.0f };
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
 
-    if (D_i3_801C22F0.unk_24 != 0.0f) {
+    if (D_i3_801C22F0.alpha != 0.0f) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_23);
-        if (D_i3_801C22F0.unk_24 != 255.0f) {
+        if (D_i3_801C22F0.alpha != 255.0f) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_71);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.alpha);
         } else if (arg4 != 0) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_27);
             if (arg7 < 18.0f) {
@@ -1780,7 +1721,7 @@ void Area6_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 
         Matrix_Translate(gCalcMatrix, 0.0f, 100.0f, -223.0f, MTXF_APPLY);
         Matrix_RotateX(gCalcMatrix, M_DTOR * arg2, MTXF_APPLY);
 
-        for (i = 0; i < arg6; i++) {
+        for (i = 0; i < maxLimbs; i++) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Push(&gCalcMatrix);
 
@@ -1789,18 +1730,18 @@ void Area6_8018BCD4(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s32 arg4, f32 
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_A6_600F1F0);
-                Matrix_MultVec3f(gCalcMatrix, &sp90, arg3);
+                gSPDisplayList(gMasterDisp++, aA6GorgonTentacleHandDL);
+                Matrix_MultVec3f(gCalcMatrix, &src, arg3);
             } else {
                 Matrix_Scale(gCalcMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, D_A6_6015EE0);
+                gSPDisplayList(gMasterDisp++, aA6GorgonTentacleLimbDL);
 
-                if (arg6 != 12) {
-                    Matrix_MultVec3f(gCalcMatrix, &sp90, arg3);
+                if (maxLimbs != 12) {
+                    Matrix_MultVec3f(gCalcMatrix, &src, arg3);
                 }
             }
             Matrix_Pop(&gGfxMatrix);
@@ -1884,18 +1825,18 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
 
     if (this->state == 0) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_49);
-        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
+        gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 255);
         Matrix_Scale(gGfxMatrix, 10.0f, 10.0f, 10.0f, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, this->fwork[A6_FWK_33] * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aStarDL);
-    } else if (D_i3_801C22F0.unk_24 != 0.0f) {
-        Animation_GetFrameData(&D_A6_6018994, 0, jointTable);
+    } else if (D_i3_801C22F0.alpha != 0.0f) {
+        Animation_GetFrameData(&aA6GorgonAnim, 0, jointTable);
 
-        if (D_i3_801C22F0.unk_24 != 255.0f) {
+        if (D_i3_801C22F0.alpha != 255.0f) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_71);
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.alpha);
             spAC.x = 0.0f;
 
             if (!(gSysFrameCount & 1)) {
@@ -1927,7 +1868,7 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
         jointTable[4].z -= this->fwork[A6_FWK_0];
         jointTable[5].z -= this->fwork[A6_FWK_0];
 
-        Animation_DrawSkeleton(1, D_A6_6018BA0, jointTable, NULL, NULL, &this->index, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, aA6GorgonSkel, jointTable, NULL, NULL, &this->index, &gIdentityMatrix);
 
         if (this->scale >= 1.0f) {
             for (i = 0; i < 3; i++) {
@@ -1989,27 +1930,27 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
                     }
                 }
             }
-            Area6_8018BCD4(D_i3_801BED70, 0.0f, this->fwork[A6_FWK_25], &this->vwork[A6_VWK_1],
-                           this->swork[A6_SWK_0] & 1, this->fwork[A6_FWK_10] + this->fwork[A6_FWK_19],
-                           this->swork[A6_SWK_27], this->fwork[A6_FWK_0]);
-            Area6_8018BCD4(D_i3_801BEEF0, -120.0f, this->fwork[A6_FWK_26], &this->vwork[A6_VWK_2],
-                           this->swork[A6_SWK_1] & 1, this->fwork[A6_FWK_11] + this->fwork[A6_FWK_20],
-                           this->swork[A6_SWK_28], this->fwork[A6_FWK_0]);
-            Area6_8018BCD4(D_i3_801BF070, 120.0f, this->fwork[A6_FWK_27], &this->vwork[A6_VWK_3],
-                           this->swork[A6_SWK_2] & 1, this->fwork[A6_FWK_12] + this->fwork[A6_FWK_21],
-                           this->swork[A6_SWK_29], this->fwork[A6_FWK_0]);
+            Area6_A6Gorgon_DrawTentacle(D_i3_801BED70, 0.0f, this->fwork[A6_FWK_25], &this->vwork[A6_VWK_1],
+                                        this->swork[A6_SWK_0] & 1, this->fwork[A6_FWK_10] + this->fwork[A6_FWK_19],
+                                        this->swork[A6_SWK_27], this->fwork[A6_FWK_0]);
+            Area6_A6Gorgon_DrawTentacle(D_i3_801BEEF0, -120.0f, this->fwork[A6_FWK_26], &this->vwork[A6_VWK_2],
+                                        this->swork[A6_SWK_1] & 1, this->fwork[A6_FWK_11] + this->fwork[A6_FWK_20],
+                                        this->swork[A6_SWK_28], this->fwork[A6_FWK_0]);
+            Area6_A6Gorgon_DrawTentacle(D_i3_801BF070, 120.0f, this->fwork[A6_FWK_27], &this->vwork[A6_VWK_3],
+                                        this->swork[A6_SWK_2] & 1, this->fwork[A6_FWK_12] + this->fwork[A6_FWK_21],
+                                        this->swork[A6_SWK_29], this->fwork[A6_FWK_0]);
 
-            if ((this->swork[A6_SWK_15] != 0) && (this->state >= 3) && (D_i3_801C22F0.unk_24 == 255.0f) &&
+            if ((this->swork[A6_SWK_15] != 0) && (this->state >= 3) && (D_i3_801C22F0.alpha == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
                 Area6_8018C0D0(D_i3_801BF1F0, 0.0f, &this->vwork[A6_VWK_4], this->fwork[A6_FWK_0], 0);
             }
 
-            if ((this->swork[A6_SWK_16] != 0) && (this->state >= 3) && (D_i3_801C22F0.unk_24 == 255.0f) &&
+            if ((this->swork[A6_SWK_16] != 0) && (this->state >= 3) && (D_i3_801C22F0.alpha == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
                 Area6_8018C0D0(D_i3_801BF220, -120.0f, &this->vwork[A6_VWK_5], this->fwork[A6_FWK_0], 1);
             }
 
-            if ((this->swork[A6_SWK_17] != 0) && (this->state >= 3) && (D_i3_801C22F0.unk_24 == 255.0f) &&
+            if ((this->swork[A6_SWK_17] != 0) && (this->state >= 3) && (D_i3_801C22F0.alpha == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
                 Area6_8018C0D0(D_i3_801BF250, 120.0f, &this->vwork[A6_VWK_6], this->fwork[A6_FWK_0], 2);
             }
@@ -2070,16 +2011,16 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
         if (this->timer_05C & 1) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
         } else {
-            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.unk_24);
+            gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.alpha);
         }
 
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_A6_601B2B0);
+        gSPDisplayList(gMasterDisp++, aA6GorgonCoreDL);
 
         Matrix_Pop(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, SETUPDL_71);
-        if (D_i3_801C22F0.unk_24 != 255.0f) {
+        if (D_i3_801C22F0.alpha != 255.0f) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->swork[A6_SWK_22], this->swork[A6_SWK_23],
                             this->swork[A6_SWK_24], (s32) D_i3_801C22F0.unk_28[-1]);
         } else {
@@ -2088,13 +2029,13 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
         }
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 74.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_A6_6011910);
+        gSPDisplayList(gMasterDisp++, aA6GorgonCoreShieldDL);
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 74.0f, MTXF_APPLY);
     }
 }
 
-void Area6_8018D3CC(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
-                    f32 zRot) {
+void Area6_IntroCs_SpawnShots(s32 arg0, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 xRot, f32 yRot,
+                              f32 zRot) {
     s32 i;
 
     for (i = 0; i < 10; i++) {
@@ -2137,26 +2078,27 @@ void Area6_8018D4E0(Actor* this) {
     Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_M);
 }
 
-void Area6_8018D5C8(void) {
-    s32 i = 0; // Fake ?
+void Area6_LevelStart_SpawnGreatFox(void) {
+    ActorCutscene* greatFox = &gActors[0];
 
-    Actor_Initialize(&gActors[i]);
-    gActors[i].obj.status = OBJ_INIT;
+    Actor_Initialize(greatFox);
 
-    gActors[i].obj.pos.x = 1600.0f;
-    gActors[i].obj.pos.y = 3750.0f;
-    gActors[i].obj.pos.z = 13000.0f;
+    greatFox->obj.status = OBJ_INIT;
 
-    gActors[i].animFrame = ACTOR_CS_GREAT_FOX;
-    gActors[i].state = 90;
-    gActors[i].fwork[0] = 0.0f;
-    gActors[i].obj.id = OBJ_ACTOR_CUTSCENE;
+    greatFox->obj.pos.x = 1600.0f;
+    greatFox->obj.pos.y = 3750.0f;
+    greatFox->obj.pos.z = 13000.0f;
 
-    Object_SetInfo(&gActors[i].info, gActors[i].obj.id);
-    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, gActors[i].sfxSource, 0);
+    greatFox->animFrame = ACTOR_CS_GREAT_FOX;
+    greatFox->state = 90;
+    greatFox->fwork[0] = 0.0f;
+    greatFox->obj.id = OBJ_ACTOR_CUTSCENE;
+
+    Object_SetInfo(&greatFox->info, greatFox->obj.id);
+    AUDIO_PLAY_SFX(NA_SE_GREATFOX_ENGINE, greatFox->sfxSource, 0);
 }
 
-void Area6_8018D694(ActorCutscene* this, s32 index) {
+void Area6_LevelStart_SpawnCommander(ActorCutscene* this, s32 index) {
     Vec3f commanderSetupPos[5] = {
         { -150.0f, 0.0f, 200.0f },   { 0.0f, 50.0f, 0.0f },       { 150.0f, -50.0f, 100.0f },
         { -350.0f, 100.0f, 300.0f }, { 100.0f, -300.0f, 100.0f },
@@ -2183,8 +2125,8 @@ void Area6_8018D694(ActorCutscene* this, s32 index) {
     AUDIO_PLAY_SFX(NA_SE_EN_ENGINE_01, this->sfxSource, 4);
 }
 
-void Area6_8018D804(ActorCutscene* this, s32 arg1) {
-    Vec3f sp2C[3] = {
+void Area6_IntroCs_SpawnTeam(ActorCutscene* this, s32 teamIdx) {
+    Vec3f teamAwOffsetPos[3] = {
         { -200.0f, 0.0f, -500.0f },
         { 200.0f, 30.0f, -600.0f },
         { 50.0f, -90.0f, -700.0f },
@@ -2192,21 +2134,26 @@ void Area6_8018D804(ActorCutscene* this, s32 arg1) {
     Player* player = &gPlayer[0];
 
     Actor_Initialize(this);
+
+    // Implicit as actors are initialized to zero when created
+    // this->animFrame = ACTOR_CS_TEAM_ARWING;
+
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-    this->obj.pos.x = sp2C[arg1].x + player->pos.x;
-    this->obj.pos.y = sp2C[arg1].y + player->pos.y;
-    this->obj.pos.z = sp2C[arg1].z + player->pos.z;
+    this->obj.pos.x = teamAwOffsetPos[teamIdx].x + player->pos.x;
+    this->obj.pos.y = teamAwOffsetPos[teamIdx].y + player->pos.y;
+    this->obj.pos.z = teamAwOffsetPos[teamIdx].z + player->pos.z;
 
     this->state = 5;
     this->iwork[11] = 1;
     this->fwork[0] = 0.0f;
+
     Object_SetInfo(&this->info, this->obj.id);
     AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
 }
 
-void Area6_8018D920(Vec3f* pos) {
+void Area6_IntroCs_ShootEnemies(Vec3f* pos) {
     f32 sp6C = pos->x - pos->x; // what is this calculation?
     f32 sp68 = pos->y - pos->y;
     f32 sp64 = pos->z - 1000.0f - pos->z;
@@ -2223,10 +2170,10 @@ void Area6_8018D920(Vec3f* pos) {
     speed.z = 100.0f;
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &speed, &vel);
-    Area6_8018D3CC(CS_SHOT_ID, pos->x, pos->y, pos->z, vel.x, vel.y, vel.z, xRot, yRot, 0.0f);
+    Area6_IntroCs_SpawnShots(CS_SHOT_ID, pos->x, pos->y, pos->z, vel.x, vel.y, vel.z, xRot, yRot, 0.0f);
 }
 
-void Area6_8018DA58(ActorCutscene* this) {
+void Area6_IntroCs_ManeuverTeam(ActorCutscene* this) {
     Vec3f sp5C;
     Vec3f sp50;
     f32 sp4C;
@@ -2331,9 +2278,9 @@ void Area6_8018DA58(ActorCutscene* this) {
 }
 
 void Area6_LevelStart(Player* player) {
-    Vec3f sp74;
-    Vec3f sp68;
-    Vec3f sp5C;
+    Vec3f src;
+    Vec3f dest;
+    Vec3f playerPos;
     f32 temp1;
     f32 temp2;
     f32 temp3;
@@ -2347,12 +2294,12 @@ void Area6_LevelStart(Player* player) {
 
             Rand_SetSeed(1, 29000, 9876);
 
-            Area6_8018D694(&gActors[1], 0);
-            Area6_8018D694(&gActors[2], 1);
-            Area6_8018D694(&gActors[6], 2);
-            Area6_8018D694(&gActors[7], 3);
-            Area6_8018D694(&gActors[8], 4);
-            Area6_8018D5C8();
+            Area6_LevelStart_SpawnCommander(&gActors[1], 0);
+            Area6_LevelStart_SpawnCommander(&gActors[2], 1);
+            Area6_LevelStart_SpawnCommander(&gActors[6], 2);
+            Area6_LevelStart_SpawnCommander(&gActors[7], 3);
+            Area6_LevelStart_SpawnCommander(&gActors[8], 4);
+            Area6_LevelStart_SpawnGreatFox(); // uses gActors[0]
 
             player->pos.x = 0.0f;
             player->pos.y = 350.0f;
@@ -2360,14 +2307,15 @@ void Area6_LevelStart(Player* player) {
             player->baseSpeed = 30.0f;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Area6_8018D804(&gActors[3], 0);
+                Area6_IntroCs_SpawnTeam(&gActors[3], 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Area6_8018D804(&gActors[4], 1);
+                Area6_IntroCs_SpawnTeam(&gActors[4], 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Area6_8018D804(&gActors[5], 2);
+                Area6_IntroCs_SpawnTeam(&gActors[5], 2);
             }
+
             gActors[0].fwork[0] = 20.0f;
             gActors[3].fwork[0] = 30.0f;
             gActors[4].fwork[0] = 30.0f;
@@ -2381,17 +2329,17 @@ void Area6_LevelStart(Player* player) {
             Math_SmoothStepToF(&gActors[0].obj.pos.y, 0.0f, 0.01f, 10.0f, 0.001f);
 
             if (gCsFrameCount < 490) {
-                sp74.x = 0.0f;
-                sp74.y = 0.0f;
-                sp74.z = D_ctx_80177A48[5];
+                src.x = 0.0f;
+                src.y = 0.0f;
+                src.z = D_ctx_80177A48[5];
 
                 Matrix_Translate(gCalcMatrix, 0.0f, 350.0f, D_ctx_80177A48[6], MTXF_NEW);
                 Matrix_RotateY(gCalcMatrix, -(D_ctx_80177A48[4] * M_DTOR), MTXF_APPLY);
-                Matrix_MultVec3f(gCalcMatrix, &sp74, &sp68);
+                Matrix_MultVec3f(gCalcMatrix, &src, &dest);
 
-                gCsCamEyeX = sp68.x;
-                gCsCamEyeY = sp68.y;
-                gCsCamEyeZ = sp68.z;
+                gCsCamEyeX = dest.x;
+                gCsCamEyeY = dest.y;
+                gCsCamEyeZ = dest.z;
 
                 if (gCsFrameCount < 200) {
                     Math_SmoothStepToF(&D_ctx_80177A48[4], 0.0f, 0.05f, 0.56f, 0.001f);
@@ -2471,27 +2419,27 @@ void Area6_LevelStart(Player* player) {
             break;
 
         case 155:
-            sp5C.x = player->pos.x;
-            sp5C.y = player->pos.y;
-            sp5C.z = player->pos.z;
-            Area6_8018D920(&sp5C);
+            playerPos.x = player->pos.x;
+            playerPos.y = player->pos.y;
+            playerPos.z = player->pos.z;
+            Area6_IntroCs_ShootEnemies(&playerPos);
             break;
 
         case 176:
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Area6_8018D920(&gActors[3].obj.pos);
+                Area6_IntroCs_ShootEnemies(&gActors[3].obj.pos);
             }
             break;
 
         case 187:
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Area6_8018D920(&gActors[4].obj.pos);
+                Area6_IntroCs_ShootEnemies(&gActors[4].obj.pos);
             }
             break;
 
         case 198:
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Area6_8018D920(&gActors[5].obj.pos);
+                Area6_IntroCs_ShootEnemies(&gActors[5].obj.pos);
             }
             break;
 
@@ -2544,15 +2492,15 @@ void Area6_LevelStart(Player* player) {
     Matrix_RotateX(gCalcMatrix, -(player->rot.x * M_DTOR), MTXF_APPLY);
 
     if (player->state != PLAYERSTATE_ACTIVE) {
-        sp74.x = 0.0f;
-        sp74.y = 0.0f;
-        sp74.z = player->baseSpeed;
+        src.x = 0.0f;
+        src.y = 0.0f;
+        src.z = player->baseSpeed;
 
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-        player->vel.x = sp68.x;
-        player->vel.z = sp68.z;
-        player->vel.y = sp68.y;
+        player->vel.x = dest.x;
+        player->vel.z = dest.z;
+        player->vel.y = dest.y;
 
         player->pos.x += player->vel.x;
         player->pos.y += player->vel.y;
@@ -2593,7 +2541,7 @@ void Area6_ActorCsOrbGlow_Setup(ActorCutscene* this) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Area6_8018EB3C(ActorCutscene* this) {
+void Area6_LevelComplete_SpawnGreatFox(ActorCutscene* this) {
     Player* player = &gPlayer[0];
 
     Actor_Initialize(this);
@@ -2611,8 +2559,8 @@ void Area6_8018EB3C(ActorCutscene* this) {
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
 }
 
-void Area6_8018EC38(ActorCutscene* this, s32 teamIdx) {
-    Vec3f sp2C[3] = {
+void Area6_LevelComplete_SpawnTeam(ActorCutscene* this, s32 teamIdx) {
+    Vec3f teamAwOffsetPos[3] = {
         { -150.0f, 40.0f, 75.0f },
         { 150.0f, 40.0f, 150.0f },
         { 38.0f, 88.0f, 225.0f },
@@ -2624,16 +2572,16 @@ void Area6_8018EC38(ActorCutscene* this, s32 teamIdx) {
         this->obj.status = OBJ_ACTIVE;
         this->obj.id = OBJ_ACTOR_CUTSCENE;
 
-        this->obj.pos.x = sp2C[teamIdx].x + player->pos.x;
-        this->obj.pos.y = sp2C[teamIdx].y + player->pos.y;
-        this->obj.pos.z = sp2C[teamIdx].z + player->pos.z;
+        this->obj.pos.x = teamAwOffsetPos[teamIdx].x + player->pos.x;
+        this->obj.pos.y = teamAwOffsetPos[teamIdx].y + player->pos.y;
+        this->obj.pos.z = teamAwOffsetPos[teamIdx].z + player->pos.z;
 
         this->state = 100;
 
         this->iwork[11] = 1;
         this->fwork[0] = 0.0f;
 
-        // Peppy is omitted, probably because it's outside of the camera view.
+        // Peppy's head is omitted, probably because it's outside of the camera view.
         if (teamIdx + 1 != 3) {
             this->iwork[TEAM_FACE] = teamIdx + 2;
         }
@@ -2779,10 +2727,10 @@ void Area6_LevelComplete(Player* player) {
 
                 gArea6BackdropScale = (gPathProgress * 0.00004f) + 0.5f;
 
-                Area6_8018EC38(&gActors[1], 0);
-                Area6_8018EC38(&gActors[2], 1);
-                Area6_8018EC38(&gActors[3], 2);
-                Area6_8018EB3C(&gActors[0]);
+                Area6_LevelComplete_SpawnTeam(&gActors[1], 0);
+                Area6_LevelComplete_SpawnTeam(&gActors[2], 1);
+                Area6_LevelComplete_SpawnTeam(&gActors[3], 2);
+                Area6_LevelComplete_SpawnGreatFox(&gActors[0]);
 
                 D_ctx_80177A48[5] = 300.0f;
                 D_ctx_80177A48[4] = 0.0f;

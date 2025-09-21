@@ -286,16 +286,16 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = D_ME_601D800;
             break;
         case RCID_BOSS_AREA6:
-            radioPortraitTex = D_A6_60047E0;
+            radioPortraitTex = aA6BossPortrait1Tex;
             break;
         case RCID_BOSS_AREA6 + 1:
-            radioPortraitTex = D_A6_6005700;
+            radioPortraitTex = aA6BossPortrait2Tex;
             break;
         case RCID_CAIMAN_AREA6:
-            radioPortraitTex = D_A6_60029A0;
+            radioPortraitTex = aA6CaimanPortrait1Tex;
             break;
         case RCID_CAIMAN_AREA6 + 1:
-            radioPortraitTex = D_A6_60038C0;
+            radioPortraitTex = aA6CaimanPortrait2Tex;
             break;
         case RCID_BOSS_ZONESS:
             radioPortraitTex = D_ZO_6014510;
@@ -345,7 +345,7 @@ void func_radio_800BAAE8(void) {
         case RCID_ANDROSS:
             radioPortraitTex = aAndPortrait1Tex;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
-                radioPortraitTex = D_A6_6000B60;
+                radioPortraitTex = aA6AndPortrait1Tex;
             }
             sRadioUseRedBox = true;
             break;
@@ -353,7 +353,7 @@ void func_radio_800BAAE8(void) {
         case RCID_ANDROSS + 1:
             radioPortraitTex = aAndPortrait2Tex;
             if ((gGameState == GSTATE_PLAY) && (gCurrentLevel == LEVEL_AREA_6)) {
-                radioPortraitTex = D_A6_6001A80;
+                radioPortraitTex = aA6AndPortrait2Tex;
             }
             sRadioUseRedBox = true;
             break;
@@ -414,6 +414,7 @@ void func_radio_800BAAE8(void) {
             }
             break;
     }
+
     if ((radioPortraitTex != NULL) && (gRadioPortraitScaleY != 0.0f)) {
         temp_fa0 = (2.0f * gRadioPortraitScaleY) + gRadioPortraitPosY;
         if ((gRadioPortraitPosY + 20.0f) <= temp_fa0) {
