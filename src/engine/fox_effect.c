@@ -386,7 +386,7 @@ void Effect_Clouds_Draw(EffectClouds* this) {
     Graphics_SetScaleMtx(this->scale2);
     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_BG_PLANET_200D750);
+    gSPDisplayList(gMasterDisp++, aPlCloudsDL);
 }
 
 void Effect_Bubble_Draw(EffectBubble* this) {
@@ -402,7 +402,7 @@ void Effect_Effect367_Draw(Effect367* this) {
     if (this->timer_50 == 0) {
         Graphics_SetScaleMtx(this->scale2);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
-        gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+        gSPDisplayList(gMasterDisp++, aPlCircleDL);
     }
 }
 
@@ -457,7 +457,7 @@ void Effect_SmallRock_Draw(EffectSmallRock* this) {
 void Effect_Effect348_Draw(Effect348* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
-    gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+    gSPDisplayList(gMasterDisp++, aPlCircleDL);
 }
 
 void func_effect_80078AE0(Effect* this) {
@@ -1433,7 +1433,7 @@ void Effect_Effect364_Draw(Effect364* this) {
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (!(gControllerHold[3].button & A_BUTTON)) {
-        gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
+        gSPDisplayList(gMasterDisp++, aPlFireSmokeFrame14DL);
     }
     //! DEBUG: Hold Z on controller 4 to set up a display list.
     if (gControllerHold[3].button & Z_TRIG) {
@@ -1531,7 +1531,7 @@ void Effect_Effect360_Update(Effect360* this) {
 void Effect_Effect360_361_362_Draw(Effect* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
-    gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
+    gSPDisplayList(gMasterDisp++, aPlFireSmokeFrame14DL);
 }
 
 void Effect_Effect_Effect386_Setup(Effect386* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
@@ -1809,7 +1809,7 @@ void Effect_Effect343_Draw(Effect343* this) {
         Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
-        gSPDisplayList(gMasterDisp++, D_BG_PLANET_20031B0);
+        gSPDisplayList(gMasterDisp++, aPlFireSmokeFrame10DL);
     }
 }
 
@@ -2050,12 +2050,12 @@ void Effect_FireSmoke1_Update(EffectFireSmoke* this) {
     Math_SmoothStepToF(&this->scale1, 0.0f, 1.0f, 0.05f, 0.0f);
 }
 
-Gfx* D_800D17A4[] = {
-    D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200B630, D_BG_PLANET_200A5A0,
-    D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0, D_BG_PLANET_2006360, D_BG_PLANET_200C6C0,
-    D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0, D_BG_PLANET_2002120, D_BG_PLANET_2001090,
-    D_BG_PLANET_2000000, D_BG_PLANET_2010A30, D_BG_PLANET_20101A0, D_BG_PLANET_200F910, D_BG_PLANET_200F080,
-    D_BG_PLANET_200E7F0,
+Gfx* sPlanetFireSmokeFrameDLs[] = {
+    aPlFireSmokeFrame1DL,  aPlFireSmokeFrame1DL,  aPlFireSmokeFrame1DL,  aPlFireSmokeFrame1DL,  aPlFireSmokeFrame2DL,
+    aPlFireSmokeFrame3DL,  aPlFireSmokeFrame4DL,  aPlFireSmokeFrame5DL,  aPlFireSmokeFrame6DL,  aPlFireSmokeFrame7DL,
+    aPlFireSmokeFrame8DL,  aPlFireSmokeFrame9DL,  aPlFireSmokeFrame10DL, aPlFireSmokeFrame11DL, aPlFireSmokeFrame12DL,
+    aPlFireSmokeFrame13DL, aPlFireSmokeFrame14DL, aPlFireSmokeFrame15DL, aPlFireSmokeFrame16DL, aPlFireSmokeFrame17DL,
+    aPlFireSmokeFrame18DL,
 };
 
 f32 D_800D17F8[] = {
@@ -2063,7 +2063,7 @@ f32 D_800D17F8[] = {
     1.6f, 1.6f, 1.7f, 1.7f, 1.8f, 1.8f, 1.9f, 1.9f, 2.0f, 2.0f,
 };
 
-Color_RGBA32 D_800D184C[] = {
+Color_RGBA32 sFireSmokePrimCol[] = {
     { 255, 255, 255, 255 }, { 255, 0, 0, 255 },     { 255, 40, 40, 255 },   { 255, 80, 80, 255 },
     { 255, 120, 120, 255 }, { 255, 160, 160, 255 }, { 255, 200, 200, 255 }, { 255, 240, 240, 255 },
     { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 }, { 255, 255, 255, 255 },
@@ -2072,7 +2072,7 @@ Color_RGBA32 D_800D184C[] = {
     { 0, 0, 0, 50 },
 };
 
-Gfx* D_800D18A0[] = {
+Gfx* sSpaceFireSmokeFrameDLs[] = {
     D_BG_SPACE_20066C0, D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10,
     D_BG_SPACE_2004480, D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240,
     D_BG_SPACE_20019B0, D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
@@ -2085,12 +2085,12 @@ void Effect_FireSmoke_Draw(EffectFireSmoke* this) {
     Graphics_SetScaleMtx(this->scale2);
 
     if (gLevelType == LEVELTYPE_PLANET) {
-        gDPSetPrimColor(gMasterDisp++, 0, 0, D_800D184C[this->unk_4C].r, D_800D184C[this->unk_4C].g,
-                        D_800D184C[this->unk_4C].b, D_800D184C[this->unk_4C].a);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, sFireSmokePrimCol[this->unk_4C].r, sFireSmokePrimCol[this->unk_4C].g,
+                        sFireSmokePrimCol[this->unk_4C].b, sFireSmokePrimCol[this->unk_4C].a);
         scale = D_800D17F8[this->unk_4C] - 0.5f;
         Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_800D17A4[this->unk_4C]);
+        gSPDisplayList(gMasterDisp++, sPlanetFireSmokeFrameDLs[this->unk_4C]);
         return;
     }
 
@@ -2099,10 +2099,10 @@ void Effect_FireSmoke_Draw(EffectFireSmoke* this) {
     if (this->unk_4C == 0) {
         Matrix_Scale(gGfxMatrix, 2.5f, 2.5f, 2.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_800D18A0[this->unk_4C]);
+        gSPDisplayList(gMasterDisp++, sSpaceFireSmokeFrameDLs[this->unk_4C]);
         return;
     }
-    gSPDisplayList(gMasterDisp++, D_800D18A0[this->unk_4C]);
+    gSPDisplayList(gMasterDisp++, sSpaceFireSmokeFrameDLs[this->unk_4C]);
 }
 
 void Effect_FireSmoke2_Update(Effect340* this) {
@@ -2331,7 +2331,7 @@ void Effect_Effect342_Draw(Effect342* this) {
     } else {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     }
-    gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
+    gSPDisplayList(gMasterDisp++, aPlFireSmokeFrame14DL);
 }
 
 void Effect_TorpedoTrail_Update(EffectTorpedoTrail* this) {
@@ -2383,7 +2383,7 @@ void Effect_Effect365_Update(Effect365* this) {
 void Effect_Effect365_Draw(Effect365* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
-    gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
+    gSPDisplayList(gMasterDisp++, aPlFireSmokeFrame14DL);
 }
 
 void Effect_Effect367_Update(Effect367* this) {

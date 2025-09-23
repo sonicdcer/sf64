@@ -1358,10 +1358,11 @@ s32 HUD_PauseScreenInput(void) {
 
 void HUD_LoseLifeExplosion_Draw(s32 animFrames) {
     Gfx* sLoseLifePlanetAnimDLs[] = {
-        D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_BG_PLANET_2008480, D_BG_PLANET_20073F0,
-        D_BG_PLANET_2006360, D_BG_PLANET_200C6C0, D_BG_PLANET_20052D0, D_BG_PLANET_2004240, D_BG_PLANET_20031B0,
-        D_BG_PLANET_2002120, D_BG_PLANET_2001090, D_BG_SPACE_2000000,  D_BG_PLANET_2010A30, D_BG_PLANET_20101A0,
-        D_BG_PLANET_200F910, D_BG_PLANET_200F080, D_BG_PLANET_200E7F0,
+        aPlFireSmokeFrame1DL,  aPlFireSmokeFrame2DL,  aPlFireSmokeFrame3DL,  aPlFireSmokeFrame4DL,
+        aPlFireSmokeFrame5DL,  aPlFireSmokeFrame6DL,  aPlFireSmokeFrame7DL,  aPlFireSmokeFrame8DL,
+        aPlFireSmokeFrame9DL,  aPlFireSmokeFrame10DL, aPlFireSmokeFrame11DL, aPlFireSmokeFrame12DL,
+        D_BG_SPACE_2000000,    aPlFireSmokeFrame14DL, aPlFireSmokeFrame15DL, aPlFireSmokeFrame16DL,
+        aPlFireSmokeFrame17DL, aPlFireSmokeFrame18DL,
     };
     Gfx* sLoseLifeSpaceAnimDLs[] = {
         D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10, D_BG_SPACE_2004480,

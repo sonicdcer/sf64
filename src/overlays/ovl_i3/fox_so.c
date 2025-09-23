@@ -400,7 +400,7 @@ Vec3f D_i3_801BF8F0[4] = {
 Vec3f D_i3_801BF920 = { 0.0f, 0.0f, 0.0f };
 
 Gfx* D_i3_801BF92C[6] = {
-    D_BG_PLANET_200B630, D_BG_PLANET_200A5A0, D_BG_PLANET_2009510, D_SO_60084C0, D_SO_6008D40, D_SO_6007C40,
+    aPlFireSmokeFrame1DL, aPlFireSmokeFrame2DL, aPlFireSmokeFrame3DL, D_SO_60084C0, D_SO_6008D40, D_SO_6007C40,
 };
 
 Gfx* D_i3_801BF944[6] = {
@@ -3092,10 +3092,10 @@ void Solar_SoVulkain_Draw(SoVulkain* this) {
             Matrix_RotateX(gGfxMatrix, M_DTOR * 5.0f, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+            gSPDisplayList(gMasterDisp++, aPlCircleDL);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+            gSPDisplayList(gMasterDisp++, aPlCircleDL);
             Matrix_Pop(&gGfxMatrix);
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, this->obj.pos.x, this->obj.pos.y + 270.0f,
@@ -3103,10 +3103,10 @@ void Solar_SoVulkain_Draw(SoVulkain* this) {
             Matrix_RotateX(gGfxMatrix, -3.0f * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, D_i3_801C2768[13], 1.0f, D_i3_801C2768[13], MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+            gSPDisplayList(gMasterDisp++, aPlCircleDL);
             Matrix_Scale(gGfxMatrix, 0.6f, 1.0f, 0.6f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+            gSPDisplayList(gMasterDisp++, aPlCircleDL);
         }
     }
 }

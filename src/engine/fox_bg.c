@@ -48,9 +48,8 @@ u16 gStarColors[16] = {
     0x294B, 0x18DF, 0x294B, 0x1085, 0x39FF, 0x108B, 0x18CD, 0x108B,
 };
 Gfx* sSunDLs[13] = {
-    aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, D_BG_PLANET_20112C0,
-    aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, D_BG_PLANET_20112C0,
-    aBallDL,
+    aBallDL, aBallDL, aBallDL, aBallDL, aBallDL,     aPlCircleDL, aBallDL,
+    aBallDL, aBallDL, aBallDL, aBallDL, aPlCircleDL, aBallDL,
 };
 Gfx* sKaSunDLs[13] = {
     aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL, aBallDL,

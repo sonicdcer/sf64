@@ -2456,7 +2456,7 @@ void Map_ZoomPlanet_Update(void) {
 
             D_menu_801CD9D8 = 0;
 
-            for (i = 0; i < 24; i++) {
+            for (i = 0; i < ARRAY_COUNT(sPaths); i++) {
                 sPaths[i].alpha = 0;
             }
             gStarCount = 0;
@@ -4611,7 +4611,7 @@ void Map_PlanetAnim(PlanetId planetId) {
 }
 
 void Map_SolarRays_Draw(PlanetId planetId) {
-    static f32 D_menu_801B6A74 = 0.0f;
+    static f32 angle = 0.0f;
     s32 alpha = sPlanets[PLANET_VENOM].alpha;
 
     if (sPlanets[planetId].alpha > 128) {
@@ -4626,7 +4626,7 @@ void Map_SolarRays_Draw(PlanetId planetId) {
     Matrix_Push(&gGfxMatrix);
 
     Matrix_Copy(gGfxMatrix, &D_menu_801CDE20[planetId]);
-    Matrix_RotateZ(gGfxMatrix, M_DTOR * D_menu_801B6A74, MTXF_APPLY);
+    Matrix_RotateZ(gGfxMatrix, M_DTOR * angle, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 0.8f, 0.8f, 0.8f, MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -4635,7 +4635,7 @@ void Map_SolarRays_Draw(PlanetId planetId) {
 
     Matrix_Pop(&gGfxMatrix);
 
-    D_menu_801B6A74 -= 0.2f;
+    angle -= 0.2f;
 }
 
 void Map_VenomCloud2_Draw(PlanetId planetId) {
@@ -5297,9 +5297,12 @@ void Map_Wipe_Draw(void) {
 }
 
 void Map_TitleCards_Draw(void) {
-    static s32 sMapCurPlanetCards[] = { 1, 13, 12, 11, 6, 2, 4, 10, 8, 0, 9, 5, 3, 7, 7 };
+    static PlanetId sMapCurPlanetCards[] = { PLANET_AREA_6,   PLANET_VENOM,   PLANET_FORTUNA,  PLANET_AQUAS,
+                                             PLANET_KATINA,   PLANET_BOLSE,   PLANET_SECTOR_X, PLANET_TITANIA,
+                                             PLANET_ZONESS,   PLANET_METEO,   PLANET_CORNERIA, PLANET_SECTOR_Y,
+                                             PLANET_SECTOR_Z, PLANET_MACBETH, PLANET_MACBETH };
     s32 i;
-    s32 planetCardIdx = sMapCurPlanetCards[sCurrentPlanetId];
+    PlanetId planetCardIdx = sMapCurPlanetCards[sCurrentPlanetId];
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_83);
 
@@ -5462,9 +5465,9 @@ void Map_TotalHits_Draw(void) {
 void Map_801A9FD4(bool arg0) {
     s32 i;
     s32 curMission;
-    f32 var_fs0, var_fs1;
+    f32 pathInfoXPos, pathPlanetXPos;
     s32 pad[2];
-    f32 temp = 16.0f;
+    f32 pathInfoXPosOffset = 16.0f;
 
     if (arg0) {
         curMission = gMissionNumber;
@@ -5493,10 +5496,11 @@ void Map_801A9FD4(bool arg0) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    for (var_fs0 = 0.0f, var_fs1 = -41.5f, i = 0; i < curMission; i++, var_fs0 += 24.0f + temp, var_fs1 += 13.8f) {
+    for (pathInfoXPos = 0.0f, pathPlanetXPos = -41.5f, i = 0; i < curMission;
+         i++, pathInfoXPos += 24.0f + pathInfoXPosOffset, pathPlanetXPos += 13.8f) {
         if (gMissionPlanet[i] != PLANET_NONE) {
-            Map_PathInfo_Draw(i, 28.0f + var_fs0, 182.0f, gMissionPlanet[i]);
-            Map_PathPlanet_Draw(i, var_fs1, -25.4f, gMissionPlanet[i]);
+            Map_PathInfo_Draw(i, 28.0f + pathInfoXPos, 182.0f, gMissionPlanet[i]);
+            Map_PathPlanet_Draw(i, pathPlanetXPos, -25.4f, gMissionPlanet[i]);
         }
     }
 

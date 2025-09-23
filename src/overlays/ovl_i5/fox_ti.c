@@ -5336,7 +5336,7 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
                 Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 120, 255, 220, D_i5_801BBEF0[7] * 50);
-                gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+                gSPDisplayList(gMasterDisp++, aPlCircleDL);
                 Matrix_Pop(&gGfxMatrix);
 
                 if (D_i5_801BBEF0[7] > 0) {
@@ -5344,7 +5344,7 @@ void Titania_TiGoras_Draw(TiGoras* boss) {
                     Matrix_Scale(gGfxMatrix, sp120, 1.0f, sp120, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 120, 255, 220, D_i5_801BBEF0[7] * 50);
-                    gSPDisplayList(gMasterDisp++, D_BG_PLANET_20112C0);
+                    gSPDisplayList(gMasterDisp++, aPlCircleDL);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }

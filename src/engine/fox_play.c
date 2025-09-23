@@ -2743,7 +2743,9 @@ void Play_Init(void) {
     }
 
     gVsMatchStart = false;
+
     Play_InitEnvironment();
+
     gDropHitCountItem = gTeamLowHealthMsgTimer = gStartAndrossFightTimer = gSoShieldsEmpty = gAllRangeEventTimer =
         gAllRangeFrameCount = gBossActive = gGameFrameCount = gCameraShake = gDynaFloorTimer = gBossFrameCount =
             gCallTimer = gAllRangeSupplyTimer = gMissionStatus = 0;
@@ -2760,6 +2762,7 @@ void Play_Init(void) {
     } else {
         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
     }
+
     gScreenFlashTimer = gLight3R = gLight3G = gLight3B = D_hud_80161704 = D_hud_80161708 = gFillScreenAlpha =
         gCircleWipeFrame = gShowAllRangeCountdown = gCoUturnCount = 0;
 

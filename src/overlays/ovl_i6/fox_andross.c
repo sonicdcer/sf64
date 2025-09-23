@@ -1691,7 +1691,7 @@ void Andross_AndSuction_Draw(EffectAndSuction* this) {
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, this->alpha);
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_BG_PLANET_2010A30);
+        gSPDisplayList(gMasterDisp++, aPlFireSmokeFrame14DL);
     } else { // Objects being suctioned and ejected by Andross
         RCP_SetupDL(&gMasterDisp, SETUPDL_29);
         if (this->unk_4C < 8) {

@@ -8,122 +8,122 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_BG_PLANET_2000000:
-  { type: GFX, offset: 0x2000000, symbol: D_BG_PLANET_2000000 }
+aPlFireSmokeFrame13DL:
+  { type: GFX, offset: 0x2000000, symbol: aPlFireSmokeFrame13DL }
 
-D_BG_PLANET_2000088:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x2000088, symbol: D_BG_PLANET_2000088 }
+aPlFireSmokeFrame13Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x2000088, symbol: aPlFireSmokeFrame13Tex }
 
-D_BG_PLANET_2001090:
-  { type: GFX, offset: 0x2001090, symbol: D_BG_PLANET_2001090 }
+aPlFireSmokeFrame12DL:
+  { type: GFX, offset: 0x2001090, symbol: aPlFireSmokeFrame12DL }
 
-D_BG_PLANET_2001118:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02001118, symbol: D_BG_PLANET_2001118 }
+aPlFireSmokeFrame12Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02001118, symbol: aPlFireSmokeFrame12Tex }
 
-D_BG_PLANET_2002120:
-  { type: GFX, offset: 0x2002120, symbol: D_BG_PLANET_2002120 }
+aPlFireSmokeFrame11DL:
+  { type: GFX, offset: 0x2002120, symbol: aPlFireSmokeFrame11DL }
 
-D_BG_PLANET_20021A8:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x020021A8, symbol: D_BG_PLANET_20021A8 }
+aPlFireSmokeFrame11Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x020021A8, symbol: aPlFireSmokeFrame11Tex }
 
-D_BG_PLANET_20031B0:
-  { type: GFX, offset: 0x20031B0, symbol: D_BG_PLANET_20031B0 }
+aPlFireSmokeFrame10DL:
+  { type: GFX, offset: 0x20031B0, symbol: aPlFireSmokeFrame10DL }
 
-D_BG_PLANET_2003238:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02003238, symbol: D_BG_PLANET_2003238 }
+aPlFireSmokeFrame10Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02003238, symbol: aPlFireSmokeFrame10Tex }
 
-D_BG_PLANET_2004240:
-  { type: GFX, offset: 0x2004240, symbol: D_BG_PLANET_2004240 }
+aPlFireSmokeFrame9DL:
+  { type: GFX, offset: 0x2004240, symbol: aPlFireSmokeFrame9DL }
 
-D_BG_PLANET_20042C8:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x020042C8, symbol: D_BG_PLANET_20042C8 }
+aPlFireSmokeFrame9Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x020042C8, symbol: aPlFireSmokeFrame9Tex }
 
-D_BG_PLANET_20052D0:
-  { type: GFX, offset: 0x20052D0, symbol: D_BG_PLANET_20052D0 }
+aPlFireSmokeFrame8DL:
+  { type: GFX, offset: 0x20052D0, symbol: aPlFireSmokeFrame8DL }
 
-D_BG_PLANET_2005358:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02005358, symbol: D_BG_PLANET_2005358 }
+aPlFireSmokeFrame8Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02005358, symbol: aPlFireSmokeFrame8Tex }
 
-D_BG_PLANET_2006360:
-  { type: GFX, offset: 0x2006360, symbol: D_BG_PLANET_2006360 }
+aPlFireSmokeFrame6DL:
+  { type: GFX, offset: 0x2006360, symbol: aPlFireSmokeFrame6DL }
 
-D_BG_PLANET_20063E8:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x020063E8, symbol: D_BG_PLANET_20063E8 }
+aPlFireSmokeFrame6Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x020063E8, symbol: aPlFireSmokeFrame6Tex }
 
-D_BG_PLANET_20073F0:
-  { type: GFX, offset: 0x20073F0, symbol: D_BG_PLANET_20073F0 }
+aPlFireSmokeFrame5DL:
+  { type: GFX, offset: 0x20073F0, symbol: aPlFireSmokeFrame5DL }
 
-D_BG_PLANET_2007478:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02007478, symbol: D_BG_PLANET_2007478 }
+aPlFireSmokeFrame5Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02007478, symbol: aPlFireSmokeFrame5Tex }
 
-D_BG_PLANET_2008480:
-  { type: GFX, offset: 0x2008480, symbol: D_BG_PLANET_2008480 }
+aPlFireSmokeFrame4DL:
+  { type: GFX, offset: 0x2008480, symbol: aPlFireSmokeFrame4DL }
 
-D_BG_PLANET_2008508:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02008508, symbol: D_BG_PLANET_2008508 }
+aPlFireSmokeFrame4Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02008508, symbol: aPlFireSmokeFrame4Tex }
 
-D_BG_PLANET_2009510:
-  { type: GFX, offset: 0x2009510, symbol: D_BG_PLANET_2009510 }
+aPlFireSmokeFrame3DL:
+  { type: GFX, offset: 0x2009510, symbol: aPlFireSmokeFrame3DL }
 
-D_BG_PLANET_2009598:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02009598, symbol: D_BG_PLANET_2009598 }
+aPlFireSmokeFrame3Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x02009598, symbol: aPlFireSmokeFrame3Tex }
 
-D_BG_PLANET_200A5A0:
-  { type: GFX, offset: 0x200A5A0, symbol: D_BG_PLANET_200A5A0 }
+aPlFireSmokeFrame2DL:
+  { type: GFX, offset: 0x200A5A0, symbol: aPlFireSmokeFrame2DL }
 
-D_BG_PLANET_200A628:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x0200A628, symbol: D_BG_PLANET_200A628 }
+aPlFireSmokeFrame2Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x0200A628, symbol: aPlFireSmokeFrame2Tex }
 
-D_BG_PLANET_200B630:
-  { type: GFX, offset: 0x200B630, symbol: D_BG_PLANET_200B630 }
+aPlFireSmokeFrame1DL:
+  { type: GFX, offset: 0x200B630, symbol: aPlFireSmokeFrame1DL }
 
-D_BG_PLANET_200B6B8:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x0200B6B8, symbol: D_BG_PLANET_200B6B8 }
+aPlFireSmokeFrame1Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x0200B6B8, symbol: aPlFireSmokeFrame1Tex }
 
-D_BG_PLANET_200C6C0:
-  { type: GFX, offset: 0x200C6C0, symbol: D_BG_PLANET_200C6C0 }
+aPlFireSmokeFrame7DL:
+  { type: GFX, offset: 0x200C6C0, symbol: aPlFireSmokeFrame7DL }
 
-D_BG_PLANET_200C748:
-  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x0200C748, symbol: D_BG_PLANET_200C748 }
+aPlFireSmokeFrame7Tex:
+  { type: TEXTURE, ctype: u32, format: RGBA32, width: 32, height: 32, offset: 0x0200C748, symbol: aPlFireSmokeFrame7Tex }
 
-D_BG_PLANET_200D750:
-  { type: GFX, offset: 0x200D750, symbol: D_BG_PLANET_200D750 }
+aPlCloudsDL:
+  { type: GFX, offset: 0x200D750, symbol: aPlCloudsDL }
 
-D_BG_PLANET_200D7E8:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 64, height: 32, offset: 0x0200D7E8, symbol: D_BG_PLANET_200D7E8 }
+aPlCloudsTex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 64, height: 32, offset: 0x0200D7E8, symbol: aPlCloudsTex }
 
-D_BG_PLANET_200E7F0:
-  { type: GFX, offset: 0x200E7F0, symbol: D_BG_PLANET_200E7F0 }
+aPlFireSmokeFrame18DL:
+  { type: GFX, offset: 0x200E7F0, symbol: aPlFireSmokeFrame18DL }
 
-D_BG_PLANET_200E878:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x0200E878, symbol: D_BG_PLANET_200E878 }
+aPlFireSmokeFrame18Tex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x0200E878, symbol: aPlFireSmokeFrame18Tex }
 
-D_BG_PLANET_200F080:
-  { type: GFX, offset: 0x200F080, symbol: D_BG_PLANET_200F080 }
+aPlFireSmokeFrame17DL:
+  { type: GFX, offset: 0x200F080, symbol: aPlFireSmokeFrame17DL }
 
-D_BG_PLANET_200F108:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x0200F108, symbol: D_BG_PLANET_200F108 }
+aPlFireSmokeFrame17Tex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x0200F108, symbol: aPlFireSmokeFrame17Tex }
 
-D_BG_PLANET_200F910:
-  { type: GFX, offset: 0x200F910, symbol: D_BG_PLANET_200F910 }
+aPlFireSmokeFrame16DL:
+  { type: GFX, offset: 0x200F910, symbol: aPlFireSmokeFrame16DL }
 
-D_BG_PLANET_200F998:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x0200F998, symbol: D_BG_PLANET_200F998 }
+aPlFireSmokeFrame16Tex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x0200F998, symbol: aPlFireSmokeFrame16Tex }
 
-D_BG_PLANET_20101A0:
-  { type: GFX, offset: 0x20101A0, symbol: D_BG_PLANET_20101A0 }
+aPlFireSmokeFrame15DL:
+  { type: GFX, offset: 0x20101A0, symbol: aPlFireSmokeFrame15DL }
 
-D_BG_PLANET_2010228:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x02010228, symbol: D_BG_PLANET_2010228 }
+aPlFireSmokeFrame15Tex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x02010228, symbol: aPlFireSmokeFrame15Tex }
 
-D_BG_PLANET_2010A30:
-  { type: GFX, offset: 0x2010A30, symbol: D_BG_PLANET_2010A30 }
+aPlFireSmokeFrame14DL:
+  { type: GFX, offset: 0x2010A30, symbol: aPlFireSmokeFrame14DL }
 
-D_BG_PLANET_2010AB8:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x02010AB8, symbol: D_BG_PLANET_2010AB8 }
+aPlFireSmokeFrame14Tex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x02010AB8, symbol: aPlFireSmokeFrame14Tex }
 
-D_BG_PLANET_20112C0:
-  { type: GFX, offset: 0x20112C0, symbol: D_BG_PLANET_20112C0 }
+aPlCircleDL:
+  { type: GFX, offset: 0x20112C0, symbol: aPlCircleDL }
 
-D_BG_PLANET_2011358:
-  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x02011358, symbol: D_BG_PLANET_2011358 }
+aPlCircleTex:
+  { type: TEXTURE, ctype: u16, format: IA16, width: 32, height: 32, offset: 0x02011358, symbol: aPlCircleTex }
