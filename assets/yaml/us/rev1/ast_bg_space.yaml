@@ -8,86 +8,86 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_BG_SPACE_2000000:
-  { type: GFX, offset: 0x2000000, symbol: D_BG_SPACE_2000000 }
+aSpFireSmokeFrame13DL:
+  { type: GFX, offset: 0x2000000, symbol: aSpFireSmokeFrame13DL }
 
-D_BG_SPACE_2000088:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x2000088, symbol: D_BG_SPACE_2000088 }
+aSpFireSmokeFrame13Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x2000088, symbol: aSpFireSmokeFrame13Tex }
 
-D_BG_SPACE_2000890:
-  { type: GFX, offset: 0x2000890, symbol: D_BG_SPACE_2000890 }
+aSpFireSmokeFrame12DL:
+  { type: GFX, offset: 0x2000890, symbol: aSpFireSmokeFrame12DL }
 
-D_BG_SPACE_2000918:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x2000918, symbol: D_BG_SPACE_2000918 }
+aSpFireSmokeFrame12Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x2000918, symbol: aSpFireSmokeFrame12Tex }
 
-D_BG_SPACE_2001120:
-  { type: GFX, offset: 0x2001120, symbol: D_BG_SPACE_2001120 }
+aSpFireSmokeFrame11DL:
+  { type: GFX, offset: 0x2001120, symbol: aSpFireSmokeFrame11DL }
 
-D_BG_SPACE_20011A8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x020011A8, symbol: D_BG_SPACE_20011A8 }
+aSpFireSmokeFrame11Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x020011A8, symbol: aSpFireSmokeFrame11Tex }
 
-D_BG_SPACE_20019B0:
-  { type: GFX, offset: 0x20019B0, symbol: D_BG_SPACE_20019B0 }
+aSpFireSmokeFrame10DL:
+  { type: GFX, offset: 0x20019B0, symbol: aSpFireSmokeFrame10DL }
 
-D_BG_SPACE_2001A38:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02001A38, symbol: D_BG_SPACE_2001A38 }
+aSpFireSmokeFrame10Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02001A38, symbol: aSpFireSmokeFrame10Tex }
 
-D_BG_SPACE_2002240:
-  { type: GFX, offset: 0x2002240, symbol: D_BG_SPACE_2002240 }
+aSpFireSmokeFrame9DL:
+  { type: GFX, offset: 0x2002240, symbol: aSpFireSmokeFrame9DL }
 
-D_BG_SPACE_20022C8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x020022C8, symbol: D_BG_SPACE_20022C8 }
+aSpFireSmokeFrame9Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x020022C8, symbol: aSpFireSmokeFrame9Tex }
 
-D_BG_SPACE_2002AD0:
-  { type: GFX, offset: 0x2002AD0, symbol: D_BG_SPACE_2002AD0 }
+aSpFireSmokeFrame8DL:
+  { type: GFX, offset: 0x2002AD0, symbol: aSpFireSmokeFrame8DL }
 
-D_BG_SPACE_2002B58:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02002B58, symbol: D_BG_SPACE_2002B58 }
+aSpFireSmokeFrame8Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02002B58, symbol: aSpFireSmokeFrame8Tex }
 
-D_BG_SPACE_2003360:
-  { type: GFX, offset: 0x2003360, symbol: D_BG_SPACE_2003360 }
+aSpFireSmokeFrame7DL:
+  { type: GFX, offset: 0x2003360, symbol: aSpFireSmokeFrame7DL }
 
-D_BG_SPACE_20033E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x020033E8, symbol: D_BG_SPACE_20033E8 }
+aSpFireSmokeFrame7Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x020033E8, symbol: aSpFireSmokeFrame7Tex }
 
-D_BG_SPACE_2003BF0:
-  { type: GFX, offset: 0x2003BF0, symbol: D_BG_SPACE_2003BF0 }
+aSpFireSmokeFrame6DL:
+  { type: GFX, offset: 0x2003BF0, symbol: aSpFireSmokeFrame6DL }
 
-D_BG_SPACE_2003C78:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02003C78, symbol: D_BG_SPACE_2003C78 }
+aSpFireSmokeFrame6Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02003C78, symbol: aSpFireSmokeFrame6Tex }
 
-D_BG_SPACE_2004480:
-  { type: GFX, offset: 0x2004480, symbol: D_BG_SPACE_2004480 }
+aSpFireSmokeFrame5DL:
+  { type: GFX, offset: 0x2004480, symbol: aSpFireSmokeFrame5DL }
 
-D_BG_SPACE_2004508:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02004508, symbol: D_BG_SPACE_2004508 }
+aSpFireSmokeFrame5Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02004508, symbol: aSpFireSmokeFrame5Tex }
 
-D_BG_SPACE_2004D10:
-  { type: GFX, offset: 0x2004D10, symbol: D_BG_SPACE_2004D10 }
+aSpFireSmokeFrame4DL:
+  { type: GFX, offset: 0x2004D10, symbol: aSpFireSmokeFrame4DL }
 
-D_BG_SPACE_2004D98:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02004D98, symbol: D_BG_SPACE_2004D98 }
+aSpFireSmokeFrame4Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02004D98, symbol: aSpFireSmokeFrame4Tex }
 
-D_BG_SPACE_20055A0:
-  { type: GFX, offset: 0x20055A0, symbol: D_BG_SPACE_20055A0 }
+aSpFireSmokeFrame3DL:
+  { type: GFX, offset: 0x20055A0, symbol: aSpFireSmokeFrame3DL }
 
-D_BG_SPACE_2005628:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02005628, symbol: D_BG_SPACE_2005628 }
+aSpFireSmokeFrame3Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02005628, symbol: aSpFireSmokeFrame3Tex }
 
-D_BG_SPACE_2005E30:
-  { type: GFX, offset: 0x2005E30, symbol: D_BG_SPACE_2005E30 }
+aSpFireSmokeFrame2DL:
+  { type: GFX, offset: 0x2005E30, symbol: aSpFireSmokeFrame2DL }
 
-D_BG_SPACE_2005EB8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02005EB8, symbol: D_BG_SPACE_2005EB8 }
+aSpFireSmokeFrame2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02005EB8, symbol: aSpFireSmokeFrame2Tex }
 
-D_BG_SPACE_20066C0:
-  { type: GFX, offset: 0x20066C0, symbol: D_BG_SPACE_20066C0 }
+aSpFireSmokeFrame1DL:
+  { type: GFX, offset: 0x20066C0, symbol: aSpFireSmokeFrame1DL }
 
-D_BG_SPACE_2006748:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02006748, symbol: D_BG_SPACE_2006748 }
+aSpFireSmokeFrame1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02006748, symbol: aSpFireSmokeFrame1Tex }
 
-D_BG_SPACE_2006F50:
-  { type: GFX, offset: 0x2006F50, symbol: D_BG_SPACE_2006F50 }
+aSpPinkExplosionDL:
+  { type: GFX, offset: 0x2006F50, symbol: aSpPinkExplosionDL }
 
-D_BG_SPACE_2006FD8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02006FD8, symbol: D_BG_SPACE_2006FD8 }
+aSpPinkExplosionTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x02006FD8, symbol: aSpPinkExplosionTex }

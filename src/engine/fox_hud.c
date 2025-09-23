@@ -1361,13 +1361,14 @@ void HUD_LoseLifeExplosion_Draw(s32 animFrames) {
         aPlFireSmokeFrame1DL,  aPlFireSmokeFrame2DL,  aPlFireSmokeFrame3DL,  aPlFireSmokeFrame4DL,
         aPlFireSmokeFrame5DL,  aPlFireSmokeFrame6DL,  aPlFireSmokeFrame7DL,  aPlFireSmokeFrame8DL,
         aPlFireSmokeFrame9DL,  aPlFireSmokeFrame10DL, aPlFireSmokeFrame11DL, aPlFireSmokeFrame12DL,
-        D_BG_SPACE_2000000,    aPlFireSmokeFrame14DL, aPlFireSmokeFrame15DL, aPlFireSmokeFrame16DL,
+        aSpFireSmokeFrame13DL, aPlFireSmokeFrame14DL, aPlFireSmokeFrame15DL, aPlFireSmokeFrame16DL,
         aPlFireSmokeFrame17DL, aPlFireSmokeFrame18DL,
     };
     Gfx* sLoseLifeSpaceAnimDLs[] = {
-        D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10, D_BG_SPACE_2004480,
-        D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240, D_BG_SPACE_20019B0,
-        D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
+        aSpFireSmokeFrame1DL,  aSpFireSmokeFrame2DL,  aSpFireSmokeFrame3DL,  aSpFireSmokeFrame4DL,
+        aSpFireSmokeFrame5DL,  aSpFireSmokeFrame6DL,  aSpFireSmokeFrame7DL,  aSpFireSmokeFrame8DL,
+        aSpFireSmokeFrame9DL,  aSpFireSmokeFrame10DL, aSpFireSmokeFrame11DL, aSpFireSmokeFrame12DL,
+        aSpFireSmokeFrame13DL,
     };
     s32 sLoseLifePrimColors[] = {
         255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 200, 150, 100, 50,

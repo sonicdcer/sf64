@@ -372,7 +372,7 @@ void Effect_ElectricArc_Draw(EffectElectricArc* this) {
 void Effect_PinkExplosion_Draw(EffectPinkExplosion* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
     Graphics_SetScaleMtx(this->scale2);
-    gSPDisplayList(gMasterDisp++, D_BG_SPACE_2006F50);
+    gSPDisplayList(gMasterDisp++, aSpPinkExplosionDL);
 }
 
 void Effect_TorpedoTrail_Draw(EffectTorpedoTrail* this) {
@@ -2058,7 +2058,7 @@ Gfx* sPlanetFireSmokeFrameDLs[] = {
     aPlFireSmokeFrame18DL,
 };
 
-f32 D_800D17F8[] = {
+f32 sFireSmokeScales[] = {
     1.0f, 1.1f, 1.1f, 1.2f, 1.2f, 1.3f, 1.3f, 1.4f, 1.4f, 1.5f, 1.5f,
     1.6f, 1.6f, 1.7f, 1.7f, 1.8f, 1.8f, 1.9f, 1.9f, 2.0f, 2.0f,
 };
@@ -2073,9 +2073,9 @@ Color_RGBA32 sFireSmokePrimCol[] = {
 };
 
 Gfx* sSpaceFireSmokeFrameDLs[] = {
-    D_BG_SPACE_20066C0, D_BG_SPACE_20066C0, D_BG_SPACE_2005E30, D_BG_SPACE_20055A0, D_BG_SPACE_2004D10,
-    D_BG_SPACE_2004480, D_BG_SPACE_2003BF0, D_BG_SPACE_2003360, D_BG_SPACE_2002AD0, D_BG_SPACE_2002240,
-    D_BG_SPACE_20019B0, D_BG_SPACE_2001120, D_BG_SPACE_2000890, D_BG_SPACE_2000000,
+    aSpFireSmokeFrame1DL,  aSpFireSmokeFrame1DL,  aSpFireSmokeFrame2DL,  aSpFireSmokeFrame3DL,  aSpFireSmokeFrame4DL,
+    aSpFireSmokeFrame5DL,  aSpFireSmokeFrame6DL,  aSpFireSmokeFrame7DL,  aSpFireSmokeFrame8DL,  aSpFireSmokeFrame9DL,
+    aSpFireSmokeFrame10DL, aSpFireSmokeFrame11DL, aSpFireSmokeFrame12DL, aSpFireSmokeFrame13DL,
 };
 
 // Effects 339 to 341
@@ -2087,7 +2087,7 @@ void Effect_FireSmoke_Draw(EffectFireSmoke* this) {
     if (gLevelType == LEVELTYPE_PLANET) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, sFireSmokePrimCol[this->unk_4C].r, sFireSmokePrimCol[this->unk_4C].g,
                         sFireSmokePrimCol[this->unk_4C].b, sFireSmokePrimCol[this->unk_4C].a);
-        scale = D_800D17F8[this->unk_4C] - 0.5f;
+        scale = sFireSmokeScales[this->unk_4C] - 0.5f;
         Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, sPlanetFireSmokeFrameDLs[this->unk_4C]);
@@ -2111,9 +2111,9 @@ void Effect_FireSmoke2_Update(Effect340* this) {
         if (this->timer_50 == 0) {
             if (this->unk_4C > 15) {
                 this->timer_50 = 2;
-                this->unk_4C = this->unk_4C + 1;
+                this->unk_4C += 1;
             } else {
-                this->unk_4C = this->unk_4C + 2;
+                this->unk_4C += 2;
             }
             if (this->unk_4C > 20) {
                 Object_Kill(&this->obj, this->sfxSource);
@@ -2146,7 +2146,9 @@ void Effect_FireSmoke3_Update(Effect341* this) {
         Effect_FireSmoke1_Update(this);
         return;
     }
+
     this->vel.y += 0.3f;
+
     if (this->timer_50 == 0) {
         this->unk_4C++;
         this->timer_50 = 2;
@@ -2154,6 +2156,7 @@ void Effect_FireSmoke3_Update(Effect341* this) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
+
     if (this->unk_4C > 15) {
         this->alpha -= 20;
     }
@@ -2191,7 +2194,9 @@ void Effect_Effect375_Update(Effect375* this) {
     } else {
         this->scale1 -= 0.001f;
     }
+
     this->obj.rot.y += this->orient.y;
+
     if (this->scale2 < 0.01f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -2221,10 +2226,13 @@ void Effect_FlamePillar_Update(EffectFlamePillar* this) {
                 this->alpha = 192;
                 this->scale2 = 2.5f;
                 this->scale1 = 2.5f;
+
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
+
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 7.0f);
                 Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                         4.0f, 5);
+
                 if ((this->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundSurface != SURFACE_WATER)) {
                     PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
                                                0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
