@@ -2103,15 +2103,18 @@ s32 HUD_RadarMarks_Update(void) {
 
         switch (gCurrentLevel) {
             case LEVEL_SECTOR_Z:
-                Lib_TextureRect_IA8(&gMasterDisp, D_SZ_60012D0, 16, 9, 251.0f + D_800D1E10, 181.0f, 1.00f, 1.00f);
+                Lib_TextureRect_IA8(&gMasterDisp, aSzGreatFoxRadarMark, 16, 9, 251.0f + D_800D1E10, 181.0f, 1.00f,
+                                    1.00f);
                 break;
 
             case LEVEL_FORTUNA:
-                Lib_TextureRect_IA8(&gMasterDisp, D_FO_6001260, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                Lib_TextureRect_IA8(&gMasterDisp, aFoBaseRadarMarkTex, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f,
+                                    1.00f);
                 break;
 
             case LEVEL_BOLSE:
-                Lib_TextureRect_IA8(&gMasterDisp, D_BO_6000C80, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                Lib_TextureRect_IA8(&gMasterDisp, aBoDefenseOutpostRadarMarkTex, 16, 16, 251.0f + D_800D1E10, 178.0f,
+                                    1.00f, 1.00f);
                 break;
 
             case LEVEL_SECTOR_Y:

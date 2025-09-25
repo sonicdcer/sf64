@@ -1078,7 +1078,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             if (this->timer_050 == 230) {
                 gShowBossHealth = false;
                 Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 30.0f, 40);
-                Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             }
 
             if (this->timer_050 == 210) {

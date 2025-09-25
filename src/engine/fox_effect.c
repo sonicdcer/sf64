@@ -882,7 +882,7 @@ void Effect_Effect357_Draw(Effect357* this) {
     }
 }
 
-void Effect_Effect383_Update(Effect383* this) {
+void Effect_EffectBossExplosion_Update(EffectBossExplosion* this) {
     Lib_Texture_Scroll(D_10190C0, 16, 32, 0);
     gGroundClipMode = 2;
     this->obj.rot.y += 1.0f;
@@ -911,7 +911,7 @@ void Effect_Effect383_Update(Effect383* this) {
     }
 }
 
-void Effect_Effect383_Draw(Effect383* this) {
+void Effect_EffectBossExplosion_Draw(EffectBossExplosion* this) {
     if (gReflectY > 0) {
         Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -924,10 +924,10 @@ void Effect_Effect383_Draw(Effect383* this) {
     }
 }
 
-void Effect_Effect383_Setup(Effect383* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_EffectBossExplosion_Setup(EffectBossExplosion* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_383;
+    this->obj.id = OBJ_EFFECT_BOSS_EXPLOSION;
     this->scale1 = scale1;
     this->timer_50 = 50;
     this->alpha = 200;
@@ -940,12 +940,12 @@ void Effect_Effect383_Setup(Effect383* this, f32 xPos, f32 yPos, f32 zPos, f32 s
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect383_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_EffectBossExplosion_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect383_Setup(&gEffects[i], xPos, yPos, zPos, scale1);
+            Effect_EffectBossExplosion_Setup(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -1002,10 +1002,11 @@ bool Effect_CheckPlayerCollision(Player* player, Effect* effect, f32 scale) {
     }
 }
 
-void Effect_Effect359_Setup(Effect359* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 alpha, u8 arg6, u16 arg7) {
+void Effect_EffectTiDust_Setup(EffectTiDust* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 alpha, u8 arg6,
+                               u16 arg7) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_359;
+    this->obj.id = OBJ_EFFECT_TI_DUST;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -1022,20 +1023,20 @@ void Effect_Effect359_Setup(Effect359* this, f32 xPos, f32 yPos, f32 zPos, f32 s
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect359_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 alpha, u8 arg5, u16 arg6) {
+void Effect_EffectTiDust_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1, u8 alpha, u8 arg5, u16 arg6) {
     s32 i;
 
     if (gCurrentLevel == LEVEL_TITANIA) {
         for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                Effect_Effect359_Setup(&gEffects[i], xPos, yPos, zPos, scale1, alpha, arg5, arg6);
+                Effect_EffectTiDust_Setup(&gEffects[i], xPos, yPos, zPos, scale1, alpha, arg5, arg6);
                 break;
             }
         }
     }
 }
 
-void Effect_Effect359_Update(Effect359* this) {
+void Effect_EffectTiDust_Update(EffectTiDust* this) {
     Math_SmoothStepToF(&this->scale2, this->scale1, 0.1f, 10.0f, 0.01f);
     this->obj.rot.z += this->orient.z;
     this->vel.y += this->orient.y;
@@ -1056,7 +1057,7 @@ void Effect_Effect359_Update(Effect359* this) {
 
 Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
 
-void Effect_Effect359_Draw(Effect359* this) {
+void Effect_EffectTiDust_Draw(EffectTiDust* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_68);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 31, 10, 00, this->alpha);
     gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
@@ -2775,7 +2776,7 @@ void Effect_Effect348_Update(Effect348* this) {
             } else if (gCurrentLevel == LEVEL_FORTUNA) {
                 Effect_Effect362_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 20.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                Effect_Effect359_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 10.0f, 255, 15, 0);
+                Effect_EffectTiDust_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 10.0f, 255, 15, 0);
             }
         }
     }
@@ -2820,7 +2821,7 @@ void Effect_Effect349_Update(Effect349* this) {
             if (gCurrentLevel == LEVEL_FORTUNA) {
                 Effect_Effect362_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f);
             } else if (gCurrentLevel == LEVEL_TITANIA) {
-                Effect_Effect359_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f, 255, 15, 0);
+                Effect_EffectTiDust_Spawn(this->obj.pos.x + sin, yPos, this->obj.pos.z + cos, 8.0f, 255, 15, 0);
             }
         }
     }
@@ -3882,7 +3883,7 @@ void Effect_Effect395_Update(Effect395* this) {
             break;
 
         case 12:
-            Effect_Effect383_Update(this);
+            Effect_EffectBossExplosion_Update(this);
             break;
     }
 
@@ -4004,7 +4005,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             break;
 
         case 12:
-            Effect_Effect383_Draw(this);
+            Effect_EffectBossExplosion_Draw(this);
             break;
     }
 

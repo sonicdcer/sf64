@@ -902,7 +902,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
         Ground_801B6AEC(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z + gPathProgress)) {
         PlayerShot_Impact(shot);
         if (shot->obj.id != PLAYERSHOT_LOCK_SEARCH) {
-            Effect_Effect359_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
+            Effect_EffectTiDust_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 2.0f, 255, 15, 0);
         }
     }
     if (gUseDynaFloor &&

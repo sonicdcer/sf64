@@ -683,7 +683,7 @@ typedef enum ObjectId {
     /* 356 */ OBJ_EFFECT_ME_FIREBALL,
     /* 357 */ OBJ_EFFECT_357, // debris
     /* 358 */ OBJ_EFFECT_KA_ENERGY_PARTICLES,
-    /* 359 */ OBJ_EFFECT_359, // titania tank tread marks
+    /* 359 */ OBJ_EFFECT_TI_DUST,
     /* 360 */ OBJ_EFFECT_360, // these seem to be various dust and splashes
     /* 361 */ OBJ_EFFECT_361,
     /* 362 */ OBJ_EFFECT_362,
@@ -707,7 +707,7 @@ typedef enum ObjectId {
     /* 380 */ OBJ_EFFECT_380, // Some kind of shot (Macbeth boss), probably wing projectile
     /* 381 */ OBJ_EFFECT_381, // small splash
     /* 382 */ OBJ_EFFECT_382, // larger splash?
-    /* 383 */ OBJ_EFFECT_383, // Big boss explosion
+    /* 383 */ OBJ_EFFECT_BOSS_EXPLOSION, // Big spherical boss explosion
     /* 384 */ OBJ_EFFECT_384, // small explosion
     /* 385 */ OBJ_EFFECT_385, // small explosion
     /* 386 */ OBJ_EFFECT_386, // some type of explosion
@@ -721,7 +721,7 @@ typedef enum ObjectId {
     /* 394 */ OBJ_EFFECT_394, // various explosion effects. specifically damaging ones?
     /* 395 */ OBJ_EFFECT_395, // multipurpose effect. laser-related?
     /* 396 */ OBJ_EFFECT_AND_SUCTION, // Effects in andross fight
-    /* 397 */ OBJ_EFFECT_397, // Lasers shot by bolse core?
+    /* 397 */ OBJ_EFFECT_BO_LASER_SHOT, // Lasers shot by bolse core
     /* 398 */ OBJ_EFFECT_398, // orange projectiles from carrier and sarumarine
     /* 399 */ OBJ_EFFECT_ORB_RING,
     /* 400 */ OBJ_ENV_SMALL_ROCKS_ENABLE,
@@ -1343,7 +1343,7 @@ typedef Effect EffectBlueOrb;
 typedef Effect EffectMeFireball;
 typedef Effect Effect357;
 typedef Effect Effect358;
-typedef Effect Effect359;
+typedef Effect EffectTiDust;
 typedef Effect Effect360;
 typedef Effect Effect361;
 typedef Effect Effect362;
@@ -1367,7 +1367,7 @@ typedef Effect Effect379;
 typedef Effect Effect380;
 typedef Effect Effect381;
 typedef Effect Effect382;
-typedef Effect Effect383;
+typedef Effect EffectBossExplosion;
 typedef Effect Effect384;
 typedef Effect Effect385;
 typedef Effect Effect386;
@@ -1381,7 +1381,7 @@ typedef Effect EffectSparkle;
 typedef Effect Effect394;
 typedef Effect Effect395;
 typedef Effect EffectAndSuction;
-typedef Effect Effect397;
+typedef Effect EffectBoLaserShot;
 typedef Effect Effect398;
 typedef Effect EffectOrbRing;
 

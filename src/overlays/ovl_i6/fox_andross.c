@@ -1047,7 +1047,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
                 Audio_StopPlayerNoise(0);
                 this->state = 21;
                 Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 60.0f, 5);
-                Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+                Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
 
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {
                     if ((gActors[i].obj.status == OBJ_ACTIVE) && (gActors[i].obj.id == OBJ_ACTOR_AND_BRAIN_WASTE)) {
@@ -3933,7 +3933,7 @@ void Andross_LevelComplete(Player* player) {
 
             switch (gCsFrameCount) {
                 case 80:
-                    Effect_Effect383_Spawn(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
+                    Effect_EffectBossExplosion_Spawn(boss->obj.pos.x, boss->obj.pos.y, boss->obj.pos.z, 40.0f);
                     Effect_TimedSfx_Spawn(&boss->obj.pos, NA_SE_EN_EXPLOSION_L);
                     /* fallthrough */
                 case 85:
@@ -4039,7 +4039,8 @@ void Andross_LevelComplete(Player* player) {
             switch (gCsFrameCount) {
                 case 60:
                     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
-                        if ((gEffects[i].obj.id == OBJ_EFFECT_383) && (gEffects[i].obj.status == OBJ_ACTIVE)) {
+                        if ((gEffects[i].obj.id == OBJ_EFFECT_BOSS_EXPLOSION) &&
+                            (gEffects[i].obj.status == OBJ_ACTIVE)) {
                             Object_Kill(&gEffects[i].obj, gEffects[i].sfxSource);
                             break;
                         }

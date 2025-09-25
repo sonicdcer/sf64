@@ -31,6 +31,7 @@ ObjectInit* gLevelObjectInits[] = {
     aKaLevelObjects,        aBoLevelObjects,        aSzLevelObjects,        aVe2LevelObjects,
     aVsCoLevelObjects,
 };
+
 s32 sItemDropIds[] = {
     /*  0 */ OBJ_SCENERY_CO_STONE_ARCH,
     /*  1 */ OBJ_ITEM_SILVER_RING,
@@ -59,6 +60,7 @@ s32 sItemDropIds[] = {
     /* 24 */ OBJ_SCENERY_CO_STONE_ARCH,
     /* 25 */ OBJ_ITEM_SILVER_STAR,
 };
+
 f32 sItemDropRates[] = {
     /* OBJ_SCENERY_CO_STONE_ARCH */ 0.0f,
     /* OBJ_ITEM_SILVER_RING */ 1.0f,

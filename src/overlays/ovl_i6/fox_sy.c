@@ -606,7 +606,7 @@ void SectorY_80199438(SyShogun* this) {
 
             Audio_KillSfxBySource(this->sfxSource);
             gShowBossHealth = false;
-            Effect_Effect383_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
+            Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 40.0f);
             Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 30.0f);
             Effect_Effect348_Spawn(this->obj.pos.x, this->obj.pos.z, 0, 120.0f);
             gCameraShake = 25;

@@ -1725,7 +1725,7 @@ void Object_DrawAll(s32 cullDirection) {
                     spAC.x = scenery360->sfxSource[0];
                     spAC.y = scenery360->sfxSource[1];
                     spAC.z = scenery360->sfxSource[2];
-                    Matrix_MultVec3fNoTranslate(&D_BO_8019EE80, &spAC, &scenery360->obj.pos);
+                    Matrix_MultVec3fNoTranslate(&sSceneryRotMatrix, &spAC, &scenery360->obj.pos);
                     scenery360->obj.rot.y = scenery360->unk_54 + gBosses->obj.rot.y;
                 }
                 Matrix_Push(&gGfxMatrix);

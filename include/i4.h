@@ -8,7 +8,7 @@
 #include "sf64mesg.h"
 
 extern s32 D_BO_801A03DC;
-extern Matrix D_BO_8019EE80;
+extern Matrix sSceneryRotMatrix;
 
 void Bolse_LevelStart(Player*);
 void Bolse_LevelComplete(Player*);
@@ -35,8 +35,8 @@ void SectorZ_LoadLevelObjects(void);
 
 void Fortuna_FoRadar_Update(Actor*);
 void Fortuna_FoRadar_Draw(Actor*);
-void Bolse_Effect397_Update(Effect397*);
-void Bolse_Effect397_Draw(Effect397*);
+void Bolse_EffectBoLaserShot_Update(EffectBoLaserShot*);
+void Bolse_EffectBoLaserShot_Draw(EffectBoLaserShot*);
 void Bolse_BoBaseCore_Update(Boss*);
 void Bolse_BoBaseCore_Draw(Boss*);
 void Katina_LaserEnergyParticlesUpdate(Effect*);

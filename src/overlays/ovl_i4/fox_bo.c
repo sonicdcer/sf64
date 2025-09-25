@@ -6,87 +6,41 @@
 
 #include "global.h"
 #include "assets/ast_bolse.h"
+
 #include "prevent_bss_reordering.h"
-
-extern s32 dummy200;
-
-struct Dummy200 {
-    int x;
-};
-struct Dummy201 {
-    int x;
-};
-struct Dummy202 {
-    int x;
-};
-struct Dummy203 {
-    int x;
-};
-struct Dummy204 {
-    int x;
-};
-struct Dummy205 {
-    int x;
-};
-struct Dummy206 {
-    int x;
-};
-struct Dummy210 {
-    int x;
-};
-struct Dummy211 {
-    int x;
-};
-struct Dummy212 {
-    int x;
-};
-struct Dummy213 {
-    int x;
-};
-struct Dummy214 {
-    int x;
-};
-struct Dummy215 {
-    int x;
-};
-struct Dummy216 {
-    int x;
-};
-struct Dummy220 {
-    int x;
-};
-struct Dummy221 {
-    int x;
-};
-struct Dummy222 {
-    int x;
-};
-struct Dummy223 {
-    int x;
-};
-struct Dummy224 {
-    int x;
-};
-
-typedef struct UnkStruct_D_i4_801A03E0 {
-    f32 unk_00;
-    f32 unk_04;
-    f32 unk_08;
-    f32 unk_0C;
-    f32 unk_10;
-    f32 unk_14;
-    s32 unk_18;
-} UnkStruct_D_i4_801A03E0;
+#include "prevent_bo_reordering.h"
 
 f32 D_i4_801A03D0;
 f32 D_i4_801A03D4;
 f32 D_i4_801A03D8;
 s32 D_BO_801A03DC;
-UnkStruct_D_i4_801A03E0 D_i4_801A03E0[6];
-UnkStruct_D_i4_801A03E0 D_i4_801A0488[6];
+
+typedef struct ShieldReactorTower {
+    /* 0x00 */ f32 xPos;
+    /* 0x4 */ f32 yPos;
+    /* 0x8 */ f32 zPos;
+    /* 0xC */ f32 unk_C;
+    /* 0x10 */ f32 unk_10;
+    /* 0x14 */ f32 unk_14;
+    /* 0x18 */ s32 status; // 0: Destroyed | 1: Intact
+} ShieldReactorTower;      // size = 0x1C
+
+typedef struct ShieldReactorArc {
+    /* 0x00 */ f32 xRot;
+    /* 0x4 */ f32 yRot;
+    /* 0x8 */ f32 zScale;
+    /* 0xC */ f32 xLength;
+    /* 0x10 */ f32 yLength;
+    /* 0x14 */ f32 zLength;
+    /* 0x18 */ s32 status; // 0: Inactive | 1: Active
+} ShieldReactorArc;        // size = 0x1C
+
+ShieldReactorTower sShieldReactor[6];
+ShieldReactorArc sElectricArc[6];
+
 s32 D_i4_801A0530;
 
-Matrix D_BO_8019EE80 = { {
+Matrix sSceneryRotMatrix = { {
     { 0.0f, 0.0f, 0.0f, 0.0f },
     { 0.0f, 0.0f, 0.0f, 0.0f },
     { 0.0f, 0.0f, 0.0f, 0.0f },
@@ -459,7 +413,7 @@ s32 Bolse_8018CC60(Actor* this) {
         this->obj.pos.x = src.x = this->fwork[10];
         this->obj.pos.y = src.y = this->fwork[11];
         this->obj.pos.z = src.z = this->fwork[12];
-        Matrix_MultVec3fNoTranslate(&D_BO_8019EE80, &src, &this->obj.pos);
+        Matrix_MultVec3fNoTranslate(&sSceneryRotMatrix, &src, &this->obj.pos);
         this->fwork[13] = gBosses[0].obj.rot.y;
     }
 
@@ -526,9 +480,11 @@ s32 Bolse_8018CCE8(BoLaserCannon* this) {
         y = gActors[actorIndex].obj.pos.y;
         z = gActors[actorIndex].obj.pos.z;
     }
+
     this->fwork[0] = x;
     this->fwork[1] = y;
     this->fwork[2] = z;
+
     return 0;
 }
 
@@ -613,7 +569,7 @@ void Bolse_8018D124(BoLaserCannon* this) {
                       0.0f, dest.x, dest.y, dest.z, 1.0f);
 }
 
-bool Bolse_8018D278(BoLaserCannon* this) {
+bool Bolse_BoLaserCannon_HandleDamage(BoLaserCannon* this) {
     s32 i;
 
     if (this->dmgType == DMG_NONE) {
@@ -647,6 +603,7 @@ bool Bolse_8018D278(BoLaserCannon* this) {
 
 void Bolse_BoLaserCannon_Update(BoLaserCannon* this) {
     Bolse_8018CC60(this);
+
     if ((gPlayer[0].state != PLAYERSTATE_STANDBY) && (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE)) {
         Bolse_8018CCE8(this);
         Bolse_8018CE5C(this);
@@ -654,7 +611,7 @@ void Bolse_BoLaserCannon_Update(BoLaserCannon* this) {
             Bolse_8018D124(this);
         }
     }
-    Bolse_8018D278(this);
+    Bolse_BoLaserCannon_HandleDamage(this);
     this->iwork[0] = 0;
 }
 
@@ -676,31 +633,31 @@ void Bolse_BoLaserCannon_Draw(BoLaserCannon* this) {
     this->iwork[0] = 1;
 }
 
-s32 Bolse_8018D4F0(BoShieldReactor* this) {
+s32 Bolse_ShieldReactorTower_Setup(BoShieldReactor* this) {
     s32 i;
 
-    for (i = 0; i < 6; i++) {
-        if (D_i4_801A03E0[i].unk_18 == 0) {
+    for (i = 0; i < ARRAY_COUNT(sShieldReactor); i++) {
+        if (sShieldReactor[i].status == 0) {
             break;
         }
     }
 
-    if (i >= 6) {
+    if (i >= ARRAY_COUNT(sShieldReactor)) {
         return 0;
     }
 
-    D_i4_801A03E0[i].unk_00 = this->obj.pos.x;
-    D_i4_801A03E0[i].unk_04 = this->obj.pos.y + 730.0f;
-    D_i4_801A03E0[i].unk_08 = this->obj.pos.z;
-    D_i4_801A03E0[i].unk_0C = this->fwork[10];
-    D_i4_801A03E0[i].unk_10 = this->fwork[11];
-    D_i4_801A03E0[i].unk_14 = this->fwork[12];
-    D_i4_801A03E0[i].unk_18 = 1;
+    sShieldReactor[i].xPos = this->obj.pos.x;
+    sShieldReactor[i].yPos = this->obj.pos.y + 730.0f;
+    sShieldReactor[i].zPos = this->obj.pos.z;
+    sShieldReactor[i].unk_C = this->fwork[10];
+    sShieldReactor[i].unk_10 = this->fwork[11];
+    sShieldReactor[i].unk_14 = this->fwork[12];
+    sShieldReactor[i].status = 1;
 
     return 0;
 }
 
-bool Bolse_8018D584(BoShieldReactor* this) {
+bool Bolse_ShieldReactorTower_HandleDamage(BoShieldReactor* this) {
     s32 i;
 
     if (this->dmgType == DMG_NONE) {
@@ -718,10 +675,14 @@ bool Bolse_8018D584(BoShieldReactor* this) {
         }
 
         BonusText_Display(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 3);
+
         gHitCount += 4;
         D_ctx_80177850 = 15;
         D_BO_801A03DC--;
+
+        //! FAKE:
         if (1) {}
+
         this->state = 1;
 
         Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 10.0f,
@@ -734,7 +695,7 @@ bool Bolse_8018D584(BoShieldReactor* this) {
         }
 
         Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y + 730.0f, this->obj.pos.z, 10.0f, 5);
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_BO_6011BA4);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aBoShieldReactorDamagedHitbox);
         Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_OB_SPARK_BEAM);
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 0);
     } else {
@@ -752,8 +713,8 @@ void Bolse_BoShieldReactor_Update(BoShieldReactor* this) {
     Bolse_8018CC60(this);
 
     if (this->state == 0) {
-        Bolse_8018D4F0(this);
-        Bolse_8018D584(this);
+        Bolse_ShieldReactorTower_Setup(this);
+        Bolse_ShieldReactorTower_HandleDamage(this);
     } else {
         this->lockOnTimers[TEAM_ID_FOX] = 0;
         this->info.bonus = 0;
@@ -783,34 +744,34 @@ void Bolse_BoShieldReactor_Draw(BoShieldReactor* this) {
                            gCalcMatrix);
 }
 
-s32 Bolse_8018D9CC(void) {
+s32 Bolse_ElectricArcs_Modulate(void) {
     s32 i;
-    f32 spA8[17];
-    f32 sp64[17];
+    f32 yMod[17];
+    f32 xMod[17];
     s32 j;
-    Vtx* sp5C = SEGMENTED_TO_VIRTUAL(D_BO_6011E28);
-    Vtx* sp58 = SEGMENTED_TO_VIRTUAL(D_BO_600C0B8);
+    Vtx* srcVtx = SEGMENTED_TO_VIRTUAL(aBoBaseElectricArcVTX1);
+    Vtx* destVtx = SEGMENTED_TO_VIRTUAL(aBoBaseElectricArcVTX2);
 
     for (i = 0; i < 17; i++) {
         if ((i == 0) || (i == 16)) {
-            spA8[i] = 0.0f;
-            sp64[i] = 0.0f;
+            yMod[i] = 0.0f;
+            xMod[i] = 0.0f;
         } else {
-            spA8[i] = RAND_FLOAT_CENTERED(400.0f);
-            sp64[i] = RAND_FLOAT_CENTERED(400.0f);
+            yMod[i] = RAND_FLOAT_CENTERED(400.0f);
+            xMod[i] = RAND_FLOAT_CENTERED(400.0f);
         }
     }
 
     for (i = 0; i < 34; i++) {
-        j = (sp5C[i].v.ob[2] + 200) / 25;
-        sp58[i].v.ob[0] = sp5C[i].v.ob[0] + spA8[j];
-        sp58[i].v.ob[1] = sp5C[i].v.ob[1] + sp64[j];
+        j = (srcVtx[i].v.ob[2] + 200) / 25;
+        destVtx[i].v.ob[0] = srcVtx[i].v.ob[0] + yMod[j];
+        destVtx[i].v.ob[1] = srcVtx[i].v.ob[1] + xMod[j];
     }
     return 0;
 }
 
 s32 Bolse_8018DE8C(BoBase* this) {
-    Vec3s D_i4_8019EEF8[26] = {
+    Vec3s effectSpawnPos[26] = {
         { -81, 220, -4 },     { 635, 66, -362 },  { 677, 231, 1063 }, { 370, 340, 650 },   { -191, 478, -616 },
         { 30, 210, -593 },    { 1321, 83, -2 },   { 458, 340, 518 },  { -312, 478, -561 }, { 646, 66, -362 },
         { 660, 183, -1052 },  { 770, 248, 55 },   { -510, 539, -77 }, { 163, 222, 99 },    { 646, 60, 331 },
@@ -821,15 +782,15 @@ s32 Bolse_8018DE8C(BoBase* this) {
     s32 index = RAND_FLOAT(26);
 
     if (!(gGameFrameCount % 2)) { // has to be ! instead of == 0
-        Effect_Effect390_Spawn(D_i4_8019EEF8[index].x + this->obj.pos.x,
-                               D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
-                               D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
+        Effect_Effect390_Spawn(effectSpawnPos[index].x + this->obj.pos.x,
+                               effectSpawnPos[index].y + this->obj.pos.y - 10.0f,
+                               effectSpawnPos[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
     }
 
     if (!(gGameFrameCount % 5)) {
-        Effect_Effect386_Spawn1(D_i4_8019EEF8[index].x + this->obj.pos.x,
-                                D_i4_8019EEF8[index].y + this->obj.pos.y - 10.0f,
-                                D_i4_8019EEF8[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
+        Effect_Effect386_Spawn1(effectSpawnPos[index].x + this->obj.pos.x,
+                                effectSpawnPos[index].y + this->obj.pos.y - 10.0f,
+                                effectSpawnPos[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 8.0f, 10);
     }
 
     return 0;
@@ -837,40 +798,40 @@ s32 Bolse_8018DE8C(BoBase* this) {
 
 s32 Bolse_8018E05C(BoBase* this, s32 index) {
     s32 i;
-    f32 temp_fs0;
-    f32 temp_fs1;
-    f32 temp_fs2;
-    f32 temp_fs3;
-    f32 temp_fs4;
-    f32 var_fs0;
+    s32 pad;
+    f32 xRot;
+    f32 xLength;
+    f32 zLength;
+    f32 zScale;
+    f32 yRot;
     bool ret = false;
     Vec3f src;
     Vec3f dest;
 
-    temp_fs4 = D_i4_801A0488[index].unk_08 * 400.0f;
-    temp_fs2 = D_i4_801A0488[index].unk_0C;
-    temp_fs3 = D_i4_801A0488[index].unk_14;
-    temp_fs1 = D_i4_801A0488[index].unk_00;
-    var_fs0 = D_i4_801A0488[index].unk_04;
+    zScale = sElectricArc[index].zScale * 400.0f;
+    xLength = sElectricArc[index].xLength;
+    zLength = sElectricArc[index].zLength;
+    xRot = sElectricArc[index].xRot;
+    yRot = sElectricArc[index].yRot;
 
     Matrix_Push(&gGfxMatrix);
-    Matrix_RotateX(gCalcMatrix, -temp_fs1 * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, -xRot * M_DTOR, MTXF_NEW);
 
-    var_fs0 += this->obj.rot.y;
-    if (var_fs0 >= 360.0f) {
-        var_fs0 -= 360.0f;
+    yRot += this->obj.rot.y;
+    if (yRot >= 360.0f) {
+        yRot -= 360.0f;
     }
 
-    Matrix_RotateY(gCalcMatrix, (-var_fs0) * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, -yRot * M_DTOR, MTXF_APPLY);
 
-    src.x = gPlayer[0].pos.x - (this->obj.pos.x + temp_fs2);
+    src.x = gPlayer[0].pos.x - (this->obj.pos.x + xLength);
     src.y = gPlayer[0].pos.y - (this->obj.pos.y + 580.0f);
-    src.z = gPlayer[0].trueZpos - (this->obj.pos.z + temp_fs3);
+    src.z = gPlayer[0].trueZpos - (this->obj.pos.z + zLength);
 
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
     if ((fabsf(dest.x) < 100.0f) && (fabsf(dest.y) < 200.0f)) {
-        if ((dest.z >= 0.0f) && (dest.z < temp_fs4) && (gPlayer[0].hitTimer == 0)) {
+        if ((dest.z >= 0.0f) && (dest.z < zScale) && (gPlayer[0].hitTimer == 0)) {
             Player_ApplyDamage(&gPlayer[0], 0, 40);
 
             if (dest.y > 0.0f) {
@@ -911,11 +872,11 @@ s32 Bolse_8018E3FC(BoBase* this) {
     f32 temp;
 
     for (i = 0; i < 6; i++) {
-        if (D_i4_801A03E0[i].unk_18 == 0) {
-            D_i4_801A0488[i].unk_18 = 0;
+        if (sShieldReactor[i].status == 0) {
+            sElectricArc[i].status = 0;
         } else {
-            x = D_i4_801A03E0[i].unk_0C - this->obj.pos.x;
-            var_fs0 = Math_RadToDeg(Math_Atan2F(x, D_i4_801A03E0[i].unk_14 - this->obj.pos.z));
+            x = sShieldReactor[i].unk_C - this->obj.pos.x;
+            var_fs0 = Math_RadToDeg(Math_Atan2F(x, sShieldReactor[i].unk_14 - this->obj.pos.z));
             if (var_fs0 >= 360.0f) {
                 var_fs0 = var_fs0 - 360.0f;
             }
@@ -931,9 +892,9 @@ s32 Bolse_8018E3FC(BoBase* this) {
             }
 
             if (j < 6) {
-                x = D_i4_801A03E0[i].unk_0C - (this->obj.pos.x + D_i4_8019EFAC[j]);
-                y = D_i4_801A03E0[i].unk_04 - (this->obj.pos.y + 580.0f);
-                z = D_i4_801A03E0[i].unk_14 - (this->obj.pos.z + D_i4_8019EFC4[j]);
+                x = sShieldReactor[i].unk_C - (this->obj.pos.x + D_i4_8019EFAC[j]);
+                y = sShieldReactor[i].yPos - (this->obj.pos.y + 580.0f);
+                z = sShieldReactor[i].unk_14 - (this->obj.pos.z + D_i4_8019EFC4[j]);
 
                 var_fs0 = Math_RadToDeg(Math_Atan2F(x, z));
 
@@ -947,17 +908,17 @@ s32 Bolse_8018E3FC(BoBase* this) {
                 z = sqrtf(SQ(x) + SQ(z));
                 temp = Math_RadToDeg(Math_Atan2F(y, z));
 
-                D_i4_801A0488[i].unk_0C = D_i4_8019EFAC[j];
-                D_i4_801A0488[i].unk_10 = 580.0f;
-                D_i4_801A0488[i].unk_14 = D_i4_8019EFC4[j];
-                D_i4_801A0488[i].unk_04 = var_fs0;
-                D_i4_801A0488[i].unk_00 = 360.0f - temp;
-                D_i4_801A0488[i].unk_18 = 1;
-                D_i4_801A0488[i].unk_08 = (z / 400.0f);
+                sElectricArc[i].xLength = D_i4_8019EFAC[j];
+                sElectricArc[i].yLength = 580.0f;
+                sElectricArc[i].zLength = D_i4_8019EFC4[j];
+                sElectricArc[i].yRot = var_fs0;
+                sElectricArc[i].xRot = 360.0f - temp;
+                sElectricArc[i].status = 1;
+                sElectricArc[i].zScale = (z / 400.0f);
 
                 Bolse_8018E05C(this, i);
 
-                D_i4_801A03E0[i].unk_18 = 0;
+                sShieldReactor[i].status = 0;
             }
         }
     }
@@ -982,7 +943,7 @@ void Bolse_BoBase_Update(BoBase* this) {
         }
     }
 
-    Bolse_8018D9CC();
+    Bolse_ElectricArcs_Modulate();
     Bolse_8018E3FC(this);
 
     if (this->fwork[1] != 0.0f) {
@@ -993,7 +954,7 @@ void Bolse_BoBase_Update(BoBase* this) {
     }
 
     this->fwork[0] += 2.0f;
-    Matrix_RotateY(&D_BO_8019EE80, gBosses[0].obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateY(&sSceneryRotMatrix, gBosses[0].obj.rot.y * M_DTOR, MTXF_NEW);
 }
 
 void Bolse_BoBase_Draw(BoBase* this) {
@@ -1003,7 +964,7 @@ void Bolse_BoBase_Draw(BoBase* this) {
     Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
 
     if (this->vwork[30].y >= 0.0f) {
-        gSPDisplayList(gMasterDisp++, D_BO_6002020);
+        gSPDisplayList(gMasterDisp++, aBoBaseDL);
     }
 
     if ((gGameFrameCount % 2) != 0) {
@@ -1012,23 +973,24 @@ void Bolse_BoBase_Draw(BoBase* this) {
         alpha = 30;
     }
 
-    for (i = 0; i < 6; i++) {
-        if (D_i4_801A0488[i].unk_18 == 0) {
+    // Energy tower electric arcs
+    for (i = 0; i < ARRAY_COUNT(sElectricArc); i++) {
+        if (sElectricArc[i].status == 0) {
             continue;
         }
         Matrix_Push(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, SETUPDL_49);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
         gDPSetEnvColor(gMasterDisp++, 255, 56, 56, alpha);
-        Matrix_Translate(gGfxMatrix, D_i4_801A0488[i].unk_0C, D_i4_801A0488[i].unk_10, D_i4_801A0488[i].unk_14,
+        Matrix_Translate(gGfxMatrix, sElectricArc[i].xLength, sElectricArc[i].yLength, sElectricArc[i].zLength,
                          MTXF_APPLY);
-        Matrix_RotateY(gGfxMatrix, D_i4_801A0488[i].unk_04 * M_DTOR, MTXF_APPLY);
-        Matrix_RotateX(gGfxMatrix, D_i4_801A0488[i].unk_00 * M_DTOR, MTXF_APPLY);
+        Matrix_RotateY(gGfxMatrix, sElectricArc[i].yRot * M_DTOR, MTXF_APPLY);
+        Matrix_RotateX(gGfxMatrix, sElectricArc[i].xRot * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
-        Matrix_Translate(gGfxMatrix, 1.0f, 1.0f, D_i4_801A0488[i].unk_08 * 200.0f, MTXF_APPLY);
-        Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, D_i4_801A0488[i].unk_08, MTXF_APPLY);
+        Matrix_Translate(gGfxMatrix, 1.0f, 1.0f, sElectricArc[i].zScale * 200.0f, MTXF_APPLY);
+        Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, sElectricArc[i].zScale, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, D_BO_600BF30);
+        gSPDisplayList(gMasterDisp++, aBoBaseElectricArcDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -1040,7 +1002,7 @@ s32 D_i4_8019F000[] = { ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEAM_ARWING, ACTOR_CS_TEA
 f32 D_i4_8019F00C[] = { 0.0f, 80.0f, 150.0f };
 f32 D_i4_8019F018[] = { 3.0f, -4.0f, 5.0f, 700.0f, 300.0f, 1000.0f };
 
-void Bolse_8018EAEC(ActorCutscene* this, s32 index) {
+void Bolse_LevelStart_SetupTeam(ActorCutscene* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
@@ -1141,10 +1103,10 @@ Vec3f D_i4_8019F054[] = {
     { -8000.0f, 200.0f, 0.0f },
     { 300.0f, 5000.0f, 0.0f },
 };
-f32 D_i4_8019F06C[] = { -300.0f, 300.0f, 50.0f };
-f32 D_i4_8019F078[] = { -30.0f, -60.0f, -90.0f };
-f32 D_i4_8019F084[] = { 200.0f, 260.0f, 400.0f };
-f32 D_i4_8019F090[] = { 70.0f, -80.0f, -65.0f };
+f32 sLvlStartTeamSetupXPos[] = { -300.0f, 300.0f, 50.0f };
+f32 sLvlStartTeamSetupYPos[] = { -30.0f, -60.0f, -90.0f };
+f32 sLvlStartTeamSetupZPos[] = { 200.0f, 260.0f, 400.0f };
+f32 sLvlStartTeamSetupZRot[] = { 70.0f, -80.0f, -65.0f };
 
 void Bolse_LevelStart(Player* player) {
     s32 i;
@@ -1175,13 +1137,13 @@ void Bolse_LevelStart(Player* player) {
             player->baseSpeed = 30.0f;
 
             if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                Bolse_8018EAEC(&gActors[0], 0);
+                Bolse_LevelStart_SetupTeam(&gActors[0], 0);
             }
             if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                Bolse_8018EAEC(&gActors[1], 1);
+                Bolse_LevelStart_SetupTeam(&gActors[1], 1);
             }
             if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                Bolse_8018EAEC(&gActors[2], 2);
+                Bolse_LevelStart_SetupTeam(&gActors[2], 2);
             }
 
             Bolse_CsBoSatellite_Setup();
@@ -1356,15 +1318,15 @@ void Bolse_LevelStart(Player* player) {
     Math_SmoothStepToF(&player->cam.at.z, gCsCamAtZ, D_ctx_80177A48[0], 50000.0f, 0);
 }
 
-void Bolse_8018F83C(Actor* this, s32 index) {
+void Bolse_LevelComplete_SetupTeam(Actor* this, s32 index) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_CUTSCENE;
-    this->obj.pos.x = D_i4_8019F06C[index] + gPlayer[0].pos.x;
-    this->obj.pos.y = D_i4_8019F078[index] + gPlayer[0].pos.y;
-    this->obj.pos.z = D_i4_8019F084[index] + gPlayer[0].pos.z;
+    this->obj.pos.x = sLvlStartTeamSetupXPos[index] + gPlayer[0].pos.x;
+    this->obj.pos.y = sLvlStartTeamSetupYPos[index] + gPlayer[0].pos.y;
+    this->obj.pos.z = sLvlStartTeamSetupZPos[index] + gPlayer[0].pos.z;
     this->obj.rot.y = 180.0f;
-    this->obj.rot.z = D_i4_8019F090[index];
+    this->obj.rot.z = sLvlStartTeamSetupZRot[index];
     this->vel.z = -gPlayer[0].baseSpeed;
     Object_SetInfo(&this->info, this->obj.id);
     this->iwork[11] = 1;
@@ -1443,13 +1405,13 @@ void Bolse_LevelComplete(Player* player) {
                 player->baseSpeed = 40.0f;
 
                 if (gTeamShields[TEAM_ID_FALCO] > 0) {
-                    Bolse_8018F83C(&gActors[0], 0);
+                    Bolse_LevelComplete_SetupTeam(&gActors[0], 0);
                 }
                 if (gTeamShields[TEAM_ID_SLIPPY] > 0) {
-                    Bolse_8018F83C(&gActors[1], 1);
+                    Bolse_LevelComplete_SetupTeam(&gActors[1], 1);
                 }
                 if (gTeamShields[TEAM_ID_PEPPY] > 0) {
-                    Bolse_8018F83C(&gActors[2], 2);
+                    Bolse_LevelComplete_SetupTeam(&gActors[2], 2);
                 }
 
                 D_ctx_80177A48[0] = 1.0f;
@@ -1752,13 +1714,13 @@ void Bolse_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void Bolse_Effect397_Setup1(Effect397* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {
+void Bolse_EffectBoLaserShot_Setup1(EffectBoLaserShot* this, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot) {
     Vec3f src;
     Vec3f dest;
 
     Effect_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
-    this->obj.id = OBJ_EFFECT_397;
+    this->obj.id = OBJ_EFFECT_BO_LASER_SHOT;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;
@@ -1779,21 +1741,21 @@ void Bolse_Effect397_Setup1(Effect397* this, f32 xPos, f32 yPos, f32 zPos, f32 x
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Bolse_Effect397_Spawn1(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
+void Bolse_EffectBoLaserShot_Spawn1(f32 x, f32 y, f32 z, f32 arg3, f32 arg4) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Bolse_Effect397_Setup1(&gEffects[i], x, y, z, arg3, arg4);
+            Bolse_EffectBoLaserShot_Setup1(&gEffects[i], x, y, z, arg3, arg4);
             break;
         }
     }
 }
 
-void Bolse_Effect397_Setup2(Effect397* this, f32 x, f32 y, f32 z, f32 scale) {
+void Bolse_EffectBoLaserShot_Setup2(EffectBoLaserShot* this, f32 x, f32 y, f32 z, f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_397;
+    this->obj.id = OBJ_EFFECT_BO_LASER_SHOT;
     this->obj.pos.x = x;
     this->obj.pos.y = y;
     this->obj.pos.z = z;
@@ -1804,18 +1766,18 @@ void Bolse_Effect397_Setup2(Effect397* this, f32 x, f32 y, f32 z, f32 scale) {
     this->info.unk_14 = 1;
 }
 
-void Bolse_Effect397_Spawn2(f32 x, f32 y, f32 z, f32 scale) {
+void Bolse_EffectBoLaserShot_Spawn2(f32 x, f32 y, f32 z, f32 scale) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Bolse_Effect397_Setup2(&gEffects[i], x, y, z, scale);
+            Bolse_EffectBoLaserShot_Setup2(&gEffects[i], x, y, z, scale);
             break;
         }
     }
 }
 
-void Bolse_Effect397_Update(Effect397* this) {
+void Bolse_EffectBoLaserShot_Update(EffectBoLaserShot* this) {
     switch (this->state) {
         case 0:
             if (gPlayer[0].barrelRollAlpha == 0) {
@@ -1829,7 +1791,7 @@ void Bolse_Effect397_Update(Effect397* this) {
             }
 
             if (this->obj.pos.y < gGroundHeight + 50.0f) {
-                Bolse_Effect397_Spawn2(this->obj.pos.x, gGroundHeight + 50.0f, this->obj.pos.z, 3.0f);
+                Bolse_EffectBoLaserShot_Spawn2(this->obj.pos.x, gGroundHeight + 50.0f, this->obj.pos.z, 3.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
             break;
@@ -1844,13 +1806,13 @@ void Bolse_Effect397_Update(Effect397* this) {
     }
 }
 
-void Bolse_Effect397_Draw(Effect397* this) {
+void Bolse_EffectBoLaserShot_Draw(EffectBoLaserShot* this) {
     switch (this->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
             Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, this->scale2, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_BO_6006910);
+            gSPDisplayList(gMasterDisp++, aBoLaserShotDL);
             break;
 
         case 1:
@@ -1964,9 +1926,9 @@ void Bolse_BoBaseCore_Update(BoBaseCore* this) {
             if (this->swork[i] <= 0) {
                 this->info.hitbox[i * 6 + 4] = -200.0f;
                 if (((gGameFrameCount + i) % 8) == 0) {
-                    Bolse_Effect397_Spawn1(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
-                                           RAND_FLOAT_CENTERED(30.0f),
-                                           this->obj.rot.y + D_i4_8019F09C[i] + RAND_FLOAT_CENTERED(30.0f));
+                    Bolse_EffectBoLaserShot_Spawn1(this->vwork[i].x, this->vwork[i].y, this->vwork[i].z,
+                                                   RAND_FLOAT_CENTERED(30.0f),
+                                                   this->obj.rot.y + D_i4_8019F09C[i] + RAND_FLOAT_CENTERED(30.0f));
                     this->swork[i + 12] = 1003;
                 }
             } else {
@@ -2021,7 +1983,7 @@ bool Bolse_BoBaseCore_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
                 }
             }
             if (baseCore->swork[0 + limbIndex - 9] <= 0) {
-                *dList = D_BO_6009BC0;
+                *dList = aBoCorePanelDL;
             }
             break;
     }
@@ -2194,8 +2156,8 @@ void Bolse_LoadLevelObjects(void) {
 }
 
 void Bolse_DrawDynamicGround(void) {
-    Vec3f spDC = { 0.0f, 0.0f, 0.0f };
-    Vec3f spD0;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
     f32 rnd;
     f32 x;
     f32 z;
@@ -2225,16 +2187,16 @@ void Bolse_DrawDynamicGround(void) {
             rnd = Rand_ZeroOneSeeded();
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, x, 0.0f, z, MTXF_APPLY);
-            Matrix_MultVec3f(gGfxMatrix, &spDC, &spD0);
-            if ((spD0.z < 3000.0f) && (spD0.z > -13000.0f) && (fabsf(spD0.x) < (fabsf(spD0.z * 0.7f) + 3000.0f)) &&
-                (fabsf(spD0.y) < (fabsf(spD0.z * 0.5f) + 2000.0f))) {
+            Matrix_MultVec3f(gGfxMatrix, &src, &dest);
+            if ((dest.z < 3000.0f) && (dest.z > -13000.0f) && (fabsf(dest.x) < (fabsf(dest.z * 0.7f) + 3000.0f)) &&
+                (fabsf(dest.y) < (fabsf(dest.z * 0.5f) + 2000.0f))) {
                 if (rnd < 0.3f) {
                     gDPLoadTileTexture(gMasterDisp++, aBoGroundTex2, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 } else {
                     gDPLoadTileTexture(gMasterDisp++, aBoGroundTex1, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                 }
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_BO_600BEC0)
+                gSPDisplayList(gMasterDisp++, aBoGroundTileDL)
             }
             Matrix_Pop(&gGfxMatrix);
         }
