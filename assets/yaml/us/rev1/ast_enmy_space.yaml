@@ -23,8 +23,8 @@ aSpiderDL:
 aGammaOnDL:
   { type: GFX, offset: 0x4000EC0, symbol: aGammaOnDL }
 
-D_ENMY_SPACE_4001108:
-  { type: TEXTURE, format: RGBA16, offset: 0x4001108, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4001108 }
+aGammaTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x4001108, width: 16, height: 16, ctype: u16, symbol: aGammaTex }
 
 aAttacker2DL:
   { type: GFX, offset: 0x4001310, symbol: aAttacker2DL }
@@ -41,59 +41,56 @@ aCommanderTex3:
 aCommanderTex4:
   { type: TEXTURE, format: RGBA16, offset: 0x04002030, width: 16, height: 16, ctype: u16, symbol: aCommanderTex4 }
 
-D_ENMY_SPACE_4002230:
-  { type: GFX, offset: 0x4002230, symbol: D_ENMY_SPACE_4002230 }
+aEnmySpaceGenTex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x04002C50, width: 16, height: 16, ctype: u16, symbol: aEnmySpaceGenTex1 }
 
-D_ENMY_SPACE_4002C50:
-  { type: TEXTURE, format: RGBA16, offset: 0x04002C50, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4002C50 }
-
-D_ENMY_SPACE_4002E50:
-  { type: TEXTURE, format: RGBA16, offset: 0x04002E50, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4002E50 }
+aEnmySpaceGenTex2:
+  { type: TEXTURE, format: RGBA16, offset: 0x04002E50, width: 16, height: 16, ctype: u16, symbol: aEnmySpaceGenTex2 }
 
 aCommanderTex6:
   { type: TEXTURE, format: RGBA16, offset: 0x04003050, width: 16, height: 16, ctype: u16, symbol: aCommanderTex6 }
 
-D_ENMY_SPACE_4003250:
-  { type: TEXTURE, format: RGBA16, offset: 0x04003250, width: 4, height: 4, ctype: u16, symbol: D_ENMY_SPACE_4003250 }
+aKillerBeeTex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x04003250, width: 4, height: 4, ctype: u16, symbol: aKillerBeeTex1 }
 
-D_ENMY_SPACE_4003270:
-  { type: TEXTURE, format: RGBA16, offset: 0x04003270, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_4003270 }
+aEnmySpaceGenTex3:
+  { type: TEXTURE, format: RGBA16, offset: 0x04003270, width: 16, height: 16, ctype: u16, symbol: aEnmySpaceGenTex3 }
 
 aCommanderTex5:
   { type: TEXTURE, format: RGBA16, offset: 0x04003470, width: 16, height: 16, ctype: u16, symbol: aCommanderTex5 }
 
-D_ENMY_SPACE_4003670:
-  { type: TEXTURE, format: RGBA16, offset: 0x04003670, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_4003670 }
+aEnmySpaceGenTex4:
+  { type: TEXTURE, format: RGBA16, offset: 0x04003670, width: 8, height: 8, ctype: u16, symbol: aEnmySpaceGenTex4 }
 
 aSpaceArwingAllRangeDL:
   { type: GFX, offset: 0x4003BD0, symbol: aSpaceArwingAllRangeDL }
 
-D_ENMY_SPACE_40047E8:
-  { type: TEXTURE, format: RGBA16, offset: 0x40047E8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_40047E8 }
+aSpaceArwingTex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x40047E8, width: 32, height: 32, ctype: u16, symbol: aSpaceArwingTex1 }
 
-D_ENMY_SPACE_4004FE8:
-  { type: TEXTURE, format: RGBA16, offset: 0x4004FE8, width: 64, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4004FE8 }
+aSpaceArwingTex2:
+  { type: TEXTURE, format: RGBA16, offset: 0x4004FE8, width: 64, height: 32, ctype: u16, symbol: aSpaceArwingTex2 }
 
-D_ENMY_SPACE_4005FE8:
-  { type: TEXTURE, format: RGBA16, offset: 0x4005FE8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4005FE8 }
+aSpaceArwingTex3:
+  { type: TEXTURE, format: RGBA16, offset: 0x4005FE8, width: 32, height: 32, ctype: u16, symbol: aSpaceArwingTex3 }
 
-D_ENMY_SPACE_40067E8:
-  { type: TEXTURE, format: RGBA16, offset: 0x40067E8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_40067E8 }
+aSpaceArwingTex4:
+  { type: TEXTURE, format: RGBA16, offset: 0x40067E8, width: 32, height: 32, ctype: u16, symbol: aSpaceArwingTex4 }
 
-D_ENMY_SPACE_40077E8:
-  { type: TEXTURE, format: RGBA16, offset: 0x40077E8, width: 8, height: 8, ctype: u16, symbol: D_ENMY_SPACE_40077E8 }
+aSpaceArwingTex5:
+  { type: TEXTURE, format: RGBA16, offset: 0x40077E8, width: 8, height: 8, ctype: u16, symbol: aSpaceArwingTex5 }
 
 aSpaceArwingOnRailsDL:
   { type: GFX, offset: 0x4007870, symbol: aSpaceArwingOnRailsDL }
 
-D_ENMY_SPACE_4006FE8:
-  { type: TEXTURE, format: RGBA16, offset: 0x4006FE8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4006FE8 }
+aSpaceArwingTex6:
+  { type: TEXTURE, format: RGBA16, offset: 0x4006FE8, width: 32, height: 32, ctype: u16, symbol: aSpaceArwingTex6 }
 
 aEnmySpMeMora2DL:
   { type: GFX, offset: 0x40084D0, symbol: aEnmySpMeMora2DL }
 
-D_ENMY_SPACE_4008550:
-  { type: TEXTURE, format: RGBA16, offset: 0x04008550, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4008550 }
+aEnmySpMeMora2Tex:
+  { type: TEXTURE, format: RGBA16, offset: 0x04008550, width: 32, height: 32, ctype: u16, symbol: aEnmySpMeMora2Tex }
 
 aGammaOffDL:
   { type: GFX, offset: 0x4008D50, symbol: aGammaOffDL }
@@ -101,14 +98,14 @@ aGammaOffDL:
 aVenomFighter3DL:
   { type: GFX, offset: 0x4008FA0, symbol: aVenomFighter3DL }
 
-D_ENMY_SPACE_40096B8:
-  { type: TEXTURE, format: RGBA16, offset: 0x040096B8, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_40096B8 }
+aVenomFighter3Tex1:
+  { type: TEXTURE, format: RGBA16, offset: 0x040096B8, width: 16, height: 16, ctype: u16, symbol: aVenomFighter3Tex1 }
 
-D_ENMY_SPACE_40098B8:
-  { type: TEXTURE, format: RGBA16, offset: 0x040098B8, width: 16, height: 16, ctype: u16, symbol: D_ENMY_SPACE_40098B8 }
+aVenomFighter3Tex2:
+  { type: TEXTURE, format: RGBA16, offset: 0x040098B8, width: 16, height: 16, ctype: u16, symbol: aVenomFighter3Tex2 }
 
-D_ENMY_SPACE_4009AB8:
-  { type: TEXTURE, format: RGBA16, offset: 0x04009AB8, width: 32, height: 32, ctype: u16, symbol: D_ENMY_SPACE_4009AB8 }
+aVenomFighter3Tex3:
+  { type: TEXTURE, format: RGBA16, offset: 0x04009AB8, width: 32, height: 32, ctype: u16, symbol: aVenomFighter3Tex3 }
 
 aCruiserGunAnim:
   { type: SF64:ANIM, offset: 0x400A30C, symbol: aCruiserGunAnim }
@@ -118,15 +115,12 @@ aCruiserGunSkel:
 
 aEnmySpMeMora3DL:
   { type: GFX, offset: 0x400A630, symbol: aEnmySpMeMora3DL }
-
   
 aCommanderDL:
   { type: GFX, offset: 0x400AAE0, symbol: aCommanderDL }
-
   
 aAttacker3DL:
   { type: GFX, offset: 0x400B390, symbol: aAttacker3DL }
-  
   
 aAttacker1DL:
   { type: GFX, offset: 0x400BD20, symbol: aAttacker1DL }
