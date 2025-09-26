@@ -375,7 +375,7 @@ void Play_Setup360_CO(void) {
             scenery360->obj.rot.y = gLevelObjects[i].rot.y;
             Object_SetInfo(&scenery360->info, scenery360->obj.id);
             if (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) {
-                scenery360->info.dList = D_CO_6020760;
+                scenery360->info.dList = aCoBump1AllRangeDL;
             }
             scenery360++;
         }
@@ -6756,9 +6756,9 @@ void Play_UpdateLevel(void) {
             break;
 
         case LEVEL_CORNERIA:
-            HUD_Texture_Wave(D_CO_603EB38, D_CO_6028A60);
+            HUD_Texture_Wave(aCoWaterTex2, aCoWaterTex1);
             if ((gGameFrameCount % 2) != 0) {
-                Lib_Texture_Scroll(D_CO_600CBD8, 64, 32, 3);
+                Lib_Texture_Scroll(aCoGoodLuckTex, 64, 32, 3);
             }
             break;
 
@@ -6775,7 +6775,7 @@ void Play_UpdateLevel(void) {
             if (gPlayer[0].state == PLAYERSTATE_NEXT) {
                 Lib_Texture_Scroll(aSoLavaTex, 32, 32, 1);
             }
-            Lib_Texture_Mottle(aSoBackdropTex, D_SO_6020F60, 3);
+            Lib_Texture_Mottle(aSoBackdropTex2, aSoBackdropTex1, 3);
 
             if (gPlayer[0].pos.y > 600.0f) {
                 cycleMask = 8 - 1;

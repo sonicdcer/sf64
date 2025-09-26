@@ -17,7 +17,7 @@ void Corneria_CoBuildingOnFire_Update(CoBuildingOnFire* this) {
 
 void Corneria_CoBuildingOnFire_Draw(CoBuildingOnFire* this) {
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-    gSPDisplayList(gMasterDisp++, D_CO_60199D0);
+    gSPDisplayList(gMasterDisp++, aCoBuildingOnFireDL);
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
 }
 
@@ -452,8 +452,8 @@ void Corneria_CoGranga_Attack(CoGranga* this) {
                 gPlayer[0].pos.y += RAND_FLOAT_CENTERED(300.0f);
                 gPlayer[0].trueZpos += RAND_FLOAT_CENTERED(300.0f);
 
-                Effect_ShootAtPlayer(OBJ_EFFECT_376, sCoGrangaWork[GRANGA_WORK_12], sCoGrangaWork[GRANGA_WORK_13],
-                                     sCoGrangaWork[GRANGA_WORK_14], 60.0f);
+                Effect_ShootAtPlayer(OBJ_EFFECT_CO_GRANGA_PLASMA_SHOT, sCoGrangaWork[GRANGA_WORK_12],
+                                     sCoGrangaWork[GRANGA_WORK_13], sCoGrangaWork[GRANGA_WORK_14], 60.0f);
 
                 gPlayer[0].pos.x = savedPlayerPos.x;
                 gPlayer[0].pos.y = savedPlayerPos.y;
@@ -1431,10 +1431,10 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
             Lib_Texture_Scroll(aCoGarudaTracksTex, 16, 16, 1);
             this->animFrame++;
 
-            if (this->animFrame >= Animation_GetFrameCount(&D_CO_602AA04)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aCoGaruga2Anim)) {
                 this->state = 3;
             }
-            if (this->animFrame == (Animation_GetFrameCount(&D_CO_602AA04) - this->iwork[2])) {
+            if (this->animFrame == (Animation_GetFrameCount(&aCoGaruga2Anim) - this->iwork[2])) {
                 this->iwork[1] = 1;
                 scenery->state = 1; // I beam rotating
                 src.x = 0.0f;
@@ -1461,7 +1461,7 @@ void Corneria_CoGaruda2_Update(CoGaruda2* this) {
     }
 
     Math_SmoothStepToVec3fArray(frameTable, this->vwork, 0,
-                                Animation_GetFrameData(&D_CO_602AA04, this->animFrame, frameTable), 1.0f, 1.0f, 1.0f);
+                                Animation_GetFrameData(&aCoGaruga2Anim, this->animFrame, frameTable), 1.0f, 1.0f, 1.0f);
 }
 
 void Corneria_CoGaruda3_Update(CoGaruda3* this) {
@@ -2707,7 +2707,7 @@ void Corneria_CoDoors_Update(CoDoors* this) {
                     this->vel.y += 2.0f;
                     if (this->unk_44 >= 3) {
                         this->state = 1;
-                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(&D_CO_603E924);
+                        this->info.hitbox = SEGMENTED_TO_VIRTUAL(&aCoDoorsOpenHitbox);
                         AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                     } else {
                         AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 0);

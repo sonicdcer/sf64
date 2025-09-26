@@ -21,26 +21,26 @@ aCoTitleCardTex:
 aCoWaterfallDL:
   { type: GFX, offset: 0x6000E00, symbol: aCoWaterfallDL }
 
-D_CO_60018F8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060018F8, symbol: D_CO_60018F8 }
+aCoGenericTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060018F8, symbol: aCoGenericTex1 }
 
-D_CO_60020F8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060020F8, symbol: D_CO_60020F8 }
+aCoGenericTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060020F8, symbol: aCoGenericTex2 }
 
-D_CO_60028F8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x060028F8, symbol: D_CO_60028F8 }
+aCoGenericTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x060028F8, symbol: aCoGenericTex3 }
 
-D_CO_60038F8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060038F8, symbol: D_CO_60038F8 }
+aCoWaterfallTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060038F8, symbol: aCoWaterfallTex2 }
 
-D_CO_60040F8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060040F8, symbol: D_CO_60040F8 }
+aCoWaterfallTex21:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060040F8, symbol: aCoWaterfallTex21 }
 
-D_CO_60049F0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x060049F0, symbol: D_CO_60049F0 }
+aCoGenericTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x060049F0, symbol: aCoGenericTex4 }
     
-D_CO_6004900:
-  { type: GFX, offset: 0x6004900, symbol: D_CO_6004900 }
+aCoEffect375DL:
+  { type: GFX, offset: 0x6004900, symbol: aCoEffect375DL }
 
 aCoBackdropDL:
   { type: GFX, offset: 0x60059F0, symbol: aCoBackdropDL }
@@ -51,56 +51,53 @@ aCoBackdropTex:
 aCoArch3DL:
   { type: GFX, offset: 0x6006A80, symbol: aCoArch3DL }
 
-D_CO_6006E08:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06006E08, symbol: D_CO_6006E08 }
+aCoGenericTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06006E08, symbol: aCoGenericTex5 }
 
-D_CO_6007610:
-  { type: GFX, offset: 0x6007610, symbol: D_CO_6007610 }
+aCoGenericTex6:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060091C8, symbol: aCoGenericTex6 }
 
-D_CO_60091C8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060091C8, symbol: D_CO_60091C8 }
+aCoGrangaSkelTex1: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060099C8, symbol: aCoGrangaSkelTex1 }
 
-D_CO_60099C8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060099C8, symbol: D_CO_60099C8 }
+aCoGrangaSkelTex2: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009BC8, symbol: aCoGrangaSkelTex2 }
 
-D_CO_6009BC8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06009BC8, symbol: D_CO_6009BC8 }
+aCoGenericTex7: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600A3C8, symbol: aCoGenericTex7 }
 
-D_CO_600A3C8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600A3C8, symbol: D_CO_600A3C8 }
+aCoGrangaSkelTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600ABC8, symbol: aCoGrangaSkelTex3 }
 
-D_CO_600ABC8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600ABC8, symbol: D_CO_600ABC8 }
+aCoGenericTex8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600B3C8, symbol: aCoGenericTex8 }
 
-D_CO_600B3C8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600B3C8, symbol: D_CO_600B3C8 }
+aCoGenericTex9:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600C3D8, symbol: aCoGenericTex9 }
 
-D_CO_600C3D8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600C3D8, symbol: D_CO_600C3D8 }
+aCoGoodLuckTex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0600CBD8, symbol: aCoGoodLuckTex }
 
-D_CO_600CBD8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0600CBD8, symbol: D_CO_600CBD8 }
-
-D_CO_600DBD8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600DBD8, symbol: D_CO_600DBD8 }
+aCoGenericTex11:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600DBD8, symbol: aCoGenericTex11 }
     
-D_CO_600E3D8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600E3D8, symbol: D_CO_600E3D8 }
+aCoGenericTex12: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600E3D8, symbol: aCoGenericTex12 }
 
-D_CO_600EBD8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600EBD8, symbol: D_CO_600EBD8 }
+aCoGenericTex13: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600EBD8, symbol: aCoGenericTex13 }
   
-D_CO_600F3D8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600F3D8, symbol: D_CO_600F3D8 }
+aCoGenericTex14: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600F3D8, symbol: aCoGenericTex14 }
 
-D_CO_6010050:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06010050, symbol: D_CO_6010050 }
+aCoGenericTex15:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06010050, symbol: aCoGenericTex15 }
   
-D_CO_6010250:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06010250, symbol: D_CO_6010250 }
+aCoGenericTex16:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06010250, symbol: aCoGenericTex16 }
 
-D_CO_6010F90:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06010F90, symbol: D_CO_6010F90 }
+aCoGenericTex17:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06010F90, symbol: aCoGenericTex17 }
 
 aCoHighway7DL:
   { type: GFX, offset: 0x6010A50, symbol: aCoHighway7DL }
@@ -108,20 +105,20 @@ aCoHighway7DL:
 aCoHighway5DL:
   { type: GFX, offset: 0x6010E00, symbol: aCoHighway5DL }
 
-D_CO_6011790:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06011790, symbol: D_CO_6011790 }
+aCoHighwayTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06011790, symbol: aCoHighwayTex1 }
 
 aCoCornerianFighterDL:
   { type: GFX, offset: 0x6011F90, symbol: aCoCornerianFighterDL }
 
-D_CO_6012640:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012640, symbol: D_CO_6012640 }
+aCoCornerianFighterTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012640, symbol: aCoCornerianFighterTex1 }
   
-D_CO_6012840: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012840, symbol: D_CO_6012840 }
+aCoCornerianFighterTex2: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012840, symbol: aCoCornerianFighterTex2 }
   
-D_CO_6012D00:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012D00, symbol: D_CO_6012D00 }
+aCoGenericTex18:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06012D00, symbol: aCoGenericTex18 }
 
 aCoHighway1DL: 
   { type: GFX, offset: 0x60132B0, symbol: aCoHighway1DL }
@@ -132,8 +129,8 @@ aCoArch2DL:
 aCoRockwallDL: 
   { type: GFX, offset: 0x6013B50, symbol: aCoRockwallDL }
 
-D_CO_6013BE0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06013BE0, symbol: D_CO_6013BE0 }
+aCoRockwallTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06013BE0, symbol: aCoRockwallTex }
 
 aCoHighway8DL: 
   { type: GFX, offset: 0x60143E0, symbol: aCoHighway8DL }
@@ -150,8 +147,8 @@ aCoHighway9DL:
 aCoBuilding3DL: 
   { type: GFX, offset: 0x6014B50, symbol: aCoBuilding3DL }
   
-D_CO_60151A8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060151A8, symbol: D_CO_60151A8 }
+aGenericTex20: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x060151A8, symbol: aGenericTex20 }
 
 aCoTowerDL: 
   { type: GFX, offset: 0x60153B0, symbol: aCoTowerDL }
@@ -159,8 +156,8 @@ aCoTowerDL:
 aCoStoneArchDL: 
   { type: GFX, offset: 0x6015F00, symbol: aCoStoneArchDL }
 
-D_CO_6015700:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06015700, symbol: D_CO_6015700 }
+aCoTowerTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06015700, symbol: aCoTowerTex }
 
 aRadarDL: 
   { type: GFX, offset: 0x6016270, symbol: aRadarDL }
@@ -180,26 +177,26 @@ aCoGarugaDebris7DL:
 aCoBuilding7DL: 
   { type: GFX, offset: 0x6018E80, symbol: aCoBuilding7DL }
   
-D_CO_60191C8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060191C8, symbol: D_CO_60191C8 }
+aCoBuilding7Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060191C8, symbol: aCoBuilding7Tex }
   
-D_CO_60199D0: 
-  { type: GFX, offset: 0x60199D0, symbol: D_CO_60199D0 }
+aCoBuildingOnFireDL: 
+  { type: GFX, offset: 0x60199D0, symbol: aCoBuildingOnFireDL }
 
-D_CO_6019C60: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019C60, symbol: D_CO_6019C60 }
+aCoBuildingTex1: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06019C60, symbol: aCoBuildingTex1 }
 
-D_CO_6019E60: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06019E60, symbol: D_CO_6019E60 }
+aCoGenericTex21: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06019E60, symbol: aCoGenericTex21 }
 
-D_CO_601FF58: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601FF58, symbol: D_CO_601FF58 }
+aGenericTex22: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601FF58, symbol: aGenericTex22 }
     
 aCoBuilding2DL: 
   { type: GFX, offset: 0x601A7D0, symbol: aCoBuilding2DL }
 
-D_CO_601AD60: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AD60, symbol: D_CO_601AD60 }
+aCoBuildingTex2: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601AD60, symbol: aCoBuildingTex2 }
   
 aCoBuilding5DL: 
   { type: GFX, offset: 0x601B560, symbol: aCoBuilding5DL }
@@ -213,23 +210,23 @@ aCoGroundGrassTex:
 aCoBump2DL: 
   { type: GFX, offset: 0x601BEC0, symbol: aCoBump2DL }
 
-D_CO_601C1A8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601C1A8, symbol: D_CO_601C1A8 }
+aCoBumpTex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601C1A8, symbol: aCoBumpTex }
     
 aCoTreeDL: 
   { type: GFX, offset: 0x601C9B0, symbol: aCoTreeDL }
 
-D_CO_601CAA0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0601CAA0, symbol: D_CO_601CAA0 }
+aCoTreeTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0601CAA0, symbol: aCoTreeTex1 }
 
-D_CO_601DAA0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0601DAA0, symbol: D_CO_601DAA0 }
+aCoTreeTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0601DAA0, symbol: aCoTreeTex2 }
     
 aCoGroundAllRangeDL: 
   { type: GFX, offset: 0x601EAA0, symbol: aCoGroundAllRangeDL }
 
-D_CO_601ED00:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601ED00, symbol: D_CO_601ED00 }
+aCoGroundAllRangeTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0601ED00, symbol: aCoGroundAllRangeTex }
     
 aCoRuin2DL: 
   { type: GFX, offset: 0x601F500, symbol: aCoRuin2DL }
@@ -237,23 +234,23 @@ aCoRuin2DL:
 aCoArch1DL: 
   { type: GFX, offset: 0x601F5A0, symbol: aCoArch1DL }
     
-D_CO_6020760: 
-  { type: GFX, offset: 0x6020760, symbol: D_CO_6020760 }
+aCoBump1AllRangeDL: 
+  { type: GFX, offset: 0x6020760, symbol: aCoBump1AllRangeDL }
     
 aCoRadarDL: 
   { type: GFX, offset: 0x6020B40, symbol: aCoRadarDL }
 
-D_CO_6021188: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06021188, symbol: D_CO_6021188 }
+aCoRadarTex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06021188, symbol: aCoRadarTex }
 
-D_CO_60220D0: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060220D0, symbol: D_CO_60220D0 }
+aCoCarrierSkelTex1: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060220D0, symbol: aCoCarrierSkelTex1 }
     
 aCoIBeamDL: 
   { type: GFX, offset: 0x6023AC0, symbol: aCoIBeamDL }
 
-D_CO_6023DE8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06023DE8, symbol: D_CO_6023DE8 }
+aCoGenericTex19: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06023DE8, symbol: aCoGenericTex19 }
     
 aCoGarugaDebris8DL: 
   { type: GFX, offset: 0x6024160, symbol: aCoGarugaDebris8DL }
@@ -261,23 +258,23 @@ aCoGarugaDebris8DL:
 aCoBump4DL: 
   { type: GFX, offset: 0x60244A0, symbol: aCoBump4DL }
 
-D_CO_60245E0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x060245E0, symbol: D_CO_60245E0 }
+aCoCorneriaBoss2Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x060245E0, symbol: aCoCorneriaBoss2Portrait1Tex }
   
-D_CO_6025500:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06025500, symbol: D_CO_6025500 }
+aCoCorneriaBoss2Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06025500, symbol: aCoCorneriaBoss2Portrait2Tex }
   
-D_CO_6026420:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06026420, symbol: D_CO_6026420 }
+aCoCorneriaBoss1Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06026420, symbol: aCoCorneriaBoss1Portrait1Tex }
   
-D_CO_6027340:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06027340, symbol: D_CO_6027340 }
+aCoCorneriaBoss1Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x06027340, symbol: aCoCorneriaBoss1Portrait2Tex }
 
 aCoGroundRockTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028260, symbol: aCoGroundRockTex }
 
-D_CO_6028A60:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028A60, symbol: D_CO_6028A60 }
+aCoWaterTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06028A60, symbol: aCoWaterTex1 }
   
 aCoSkibotAnim:
   { type: SF64:ANIM, offset: 0x6029528, symbol: aCoSkibotAnim }
@@ -294,8 +291,8 @@ aCoGarudaSkel:
 aCoGaruda3Anim:
   { type: SF64:ANIM, offset: 0x602A520, symbol: aCoGaruda3Anim }
 
-D_CO_602AA04:
-  { type: SF64:ANIM, offset: 0x602AA04, symbol: D_CO_602AA04 }
+aCoGaruga2Anim:
+  { type: SF64:ANIM, offset: 0x602AA04, symbol: aCoGaruga2Anim }
 
 aCoDoorsAnim: 
   { type: SF64:ANIM, offset: 0x602AA7C, symbol: aCoDoorsAnim }
@@ -312,8 +309,9 @@ aCoGrangaSkel:
 aCoGrangaStationaryAnim:
   { type: SF64:ANIM, offset: 0x602C0D0, symbol: aCoGrangaStationaryAnim }
 
-D_CO_602D31C: 
-  { type: SF64:ANIM, offset: 0x602D31C, symbol: D_CO_602D31C }
+# Unused animation, probably from Granga since it moves the same number of limbs
+aCoUnusedAnim: 
+  { type: SF64:ANIM, offset: 0x602D31C, symbol: aCoUnusedAnim }
 
 aCoCarrierAnim:
   { type: SF64:ANIM, offset: 0x602D400, symbol: aCoCarrierAnim }
@@ -344,18 +342,19 @@ aCoBump3DL:
   
 aCoBump1DL:
   { type: GFX, offset: 0x602E9E0, symbol: aCoBump1DL }
-  
-D_CO_602ECB0:
-  { type: GFX, offset: 0x602ECB0, symbol: D_CO_602ECB0 }
-  
-D_CO_602ED50: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 16, offset: 0x0602ED50, symbol: D_CO_602ED50 }
+
+# Unused: It's a giant blue square, maybe intended to be a ground poly?
+aCoUnusedDL1:
+  { type: GFX, offset: 0x602ECB0, symbol: aCoUnusedDL1 }
+
+aCoUnusedDL1Tex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 16, offset: 0x0602ED50, symbol: aCoUnusedDL1Tex }
 
 aCoPoleDL:
   { type: GFX, offset: 0x602F7C0, symbol: aCoPoleDL }
 
-D_CO_602F848:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0602F848, symbol: D_CO_602F848 }
+aCoPoleTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x0602F848, symbol: aCoPoleTex }
 
 aCoGarugaDebris3DL:
   { type: GFX, offset: 0x6030850, symbol: aCoGarugaDebris3DL }
@@ -375,11 +374,11 @@ aCoGarudaTracksTex:
 CoMoleMissileDL:
   { type: GFX, offset: 0x6032BC0, symbol: CoMoleMissileDL }
   
-D_CO_6033000:
-  { type: GFX, offset: 0x6033000, symbol: D_CO_6033000 }
+aCoGrangaPlasmaShotDL:
+  { type: GFX, offset: 0x6033000, symbol: aCoGrangaPlasmaShotDL }
 
-D_CO_6033088:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06033088, symbol: D_CO_6033088 }
+aCoGrangaPlasmaShotTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x06033088, symbol: aCoGrangaPlasmaShotTex }
   
 aCoGarugaDebris9DL:
   { type: GFX, offset: 0x6033290, symbol: aCoGarugaDebris9DL }
@@ -387,23 +386,23 @@ aCoGarugaDebris9DL:
 aCoGarugaDebris6DL:
   { type: GFX, offset: 0x6033AF0, symbol: aCoGarugaDebris6DL }
 
-D_CO_6034388: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06034388, symbol: D_CO_6034388 }
+aCoGrangaSkelTex4: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06034388, symbol: aCoGrangaSkelTex4 }
   
 aCoShadow1DL: 
   { type: GFX, offset: 0x6034B90, symbol: aCoShadow1DL }
 
-D_CO_6034C28: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06034C28, symbol: D_CO_6034C28 }
+aCoShadow1Tex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x06034C28, symbol: aCoShadow1Tex }
   
-D_CO_6035430: 
-  { type: GFX, offset: 0x6035430, symbol: D_CO_6035430 }
+aCoUnusedBuildingDL: 
+  { type: GFX, offset: 0x6035430, symbol: aCoUnusedBuildingDL }
   
-D_CO_60354F0: 
-  { type: GFX, offset: 0x60354F0, symbol: D_CO_60354F0 }
+aCoUnused1DL: 
+  { type: GFX, offset: 0x60354F0, symbol: aCoUnused1DL }
 
-D_CO_60355A0:  
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060355A0, symbol: D_CO_60355A0 }
+aCoUnused1Tex:  
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x060355A0, symbol: aCoUnused1Tex }
   
 aCoBuilding10DL: 
   { type: GFX, offset: 0x6035DA0, symbol: aCoBuilding10DL }
@@ -414,23 +413,23 @@ aCoBuilding8DL:
 aCoBuilding6DL: 
   { type: GFX, offset: 0x60361F0, symbol: aCoBuilding6DL }
 
-D_CO_60363B0: 
-  { type: GFX, offset: 0x60363B0, symbol: D_CO_60363B0 }
+aCoCarrierUpperBottomShadowDL: 
+  { type: GFX, offset: 0x60363B0, symbol: aCoCarrierUpperBottomShadowDL }
 
-D_CO_6036438:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x06036438, symbol: D_CO_6036438 }
+aCoCarrierUpperBottomShadowTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x06036438, symbol: aCoCarrierUpperBottomShadowTex }
 
-D_CO_6036840: 
-  { type: GFX, offset: 0x6036840, symbol: D_CO_6036840 }
+aCoCarrierBodyShadowDL: 
+  { type: GFX, offset: 0x6036840, symbol: aCoCarrierBodyShadowDL }
 
-D_CO_60368C8: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x060368C8, symbol: D_CO_60368C8 }
+aCoCarrierBodyShadowTex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x060368C8, symbol: aCoCarrierBodyShadowTex }
 
-D_CO_6036CD0:  
-  { type: GFX, offset: 0x6036CD0, symbol: D_CO_6036CD0 }
+aCoCarrierLeftShadowDL:  
+  { type: GFX, offset: 0x6036CD0, symbol: aCoCarrierLeftShadowDL }
 
-D_CO_6036D58: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x06036D58, symbol: D_CO_6036D58 }
+aCoCarrierLeftShadowTex: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x06036D58, symbol: aCoCarrierLeftShadowTex }
 
 aCoEnvSetup:
   { type: SF64:ENVIRONMENT, offset: 0x6037160, symbol: aCoEnvSetup }
@@ -445,8 +444,8 @@ aCoEventScript:
   { type: SF64:SCRIPT, offset: 0x603D9E8, symbol: aCoEventScript }
 
 # Seems unused
-D_CO_603DC40:
-  { type: SF64:HITBOX, offset: 0x603DC40, symbol: D_CO_603DC40 }
+aCoUnusedHitbox1:
+  { type: SF64:HITBOX, offset: 0x603DC40, symbol: aCoUnusedHitbox1 }
 
 aCoHighway2Hitbox:
   { type: SF64:HITBOX, offset: 0x603DD40, symbol: aCoHighway2Hitbox }
@@ -494,12 +493,12 @@ aCoArch3Hitbox:
   { type: SF64:HITBOX, offset: 0x603E21C, symbol: aCoArch3Hitbox }
 
 # seems unused
-D_CO_603E2C0:
-  { type: SF64:HITBOX, offset: 0x603E2C0, symbol: D_CO_603E2C0 }
+aCoUnusedHitbox2:
+  { type: SF64:HITBOX, offset: 0x603E2C0, symbol: aCoUnusedHitbox2 }
 
 # seems unused
-D_CO_603E2F4:
-  { type: SF64:HITBOX, offset: 0x603E2F4, symbol: D_CO_603E2F4 }
+aCoUnusedHitbox3:
+  { type: SF64:HITBOX, offset: 0x603E2F4, symbol: aCoUnusedHitbox3 }
 
 aCoStoneArchHitbox:
   { type: SF64:HITBOX, offset: 0x603E3E0, symbol: aCoStoneArchHitbox }
@@ -555,11 +554,11 @@ aCoCarrierHitbox:
 aCoRockwallHitbox:
   { type: SF64:HITBOX, offset: 0x603E88C, symbol: aCoRockwallHitbox }
 
-aCoDoorsHitbox:
-  { type: SF64:HITBOX, offset: 0x603E8A8, symbol: aCoDoorsHitbox }
+aCoDoorsClosedHitbox:
+  { type: SF64:HITBOX, offset: 0x603E8A8, symbol: aCoDoorsClosedHitbox }
 
-D_CO_603E924:
-  { type: SF64:HITBOX, offset: 0x603E924, symbol: D_CO_603E924 }
+aCoDoorsOpenHitbox:
+  { type: SF64:HITBOX, offset: 0x603E924, symbol: aCoDoorsOpenHitbox }
 
 aCoBuildingOnFireHitbox:
   { type: SF64:HITBOX, offset: 0x603E98C, symbol: aCoBuildingOnFireHitbox }
@@ -579,11 +578,11 @@ aCoHighway8Hitbox:
 aCoHighway9Hitbox:
   { type: SF64:HITBOX, offset: 0x603EB0C, symbol: aCoHighway9Hitbox }
 
-D_CO_603EB38:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0603EB38, symbol: D_CO_603EB38 }
+aCoWaterTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0603EB38, symbol: aCoWaterTex2 }
 
-D_CO_603F338:
-  { type: SF64:TRIANGLE, count: 13, offset: 0x603F338, symbol: D_CO_603F338, mesh_symbol: D_CO_OFFSET, mesh_offset: 0x603F388 }
+aCoTriangle1:
+  { type: SF64:TRIANGLE, count: 13, offset: 0x603F338, symbol: aCoTriangle1, mesh_symbol: D_CO_OFFSET, mesh_offset: 0x603F388 }
 
-D_CO_603F40C:
-  { type: SF64:TRIANGLE, count: 36, offset: 0x603F40C, symbol: D_CO_603F40C, mesh_symbol: D_CO_OFFSET }
+aCoTriangle2:
+  { type: SF64:TRIANGLE, count: 36, offset: 0x603F40C, symbol: aCoTriangle2, mesh_symbol: D_CO_OFFSET }

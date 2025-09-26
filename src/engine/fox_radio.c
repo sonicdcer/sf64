@@ -268,16 +268,16 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = D_STAR_WOLF_F002D60;
             break;
         case RCID_BOSS_CORNERIA:
-            radioPortraitTex = D_CO_6026420;
+            radioPortraitTex = aCoCorneriaBoss1Portrait1Tex;
             break;
         case RCID_BOSS_CORNERIA + 1:
-            radioPortraitTex = D_CO_6027340;
+            radioPortraitTex = aCoCorneriaBoss1Portrait2Tex;
             break;
         case RCID_BOSS_CORNERIA2:
-            radioPortraitTex = D_CO_60245E0;
+            radioPortraitTex = aCoCorneriaBoss2Portrait1Tex;
             break;
         case RCID_BOSS_CORNERIA2 + 1:
-            radioPortraitTex = D_CO_6025500;
+            radioPortraitTex = aCoCorneriaBoss2Portrait2Tex;
             break;
         case RCID_BOSS_METEO:
             radioPortraitTex = D_ME_601C8E0;

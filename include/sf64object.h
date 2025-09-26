@@ -700,7 +700,7 @@ typedef enum ObjectId {
     /* 373 */ OBJ_EFFECT_TIMED_SFX,
     /* 374 */ OBJ_EFFECT_FLAME_PILLAR, // explosion pillar, ast_enmy_planet
     /* 375 */ OBJ_EFFECT_375, // Co mole missle burrowing effect?
-    /* 376 */ OBJ_EFFECT_376, // Plasma shot by Granga
+    /* 376 */ OBJ_EFFECT_CO_GRANGA_PLASMA_SHOT, // Plasma shot by Granga
     /* 377 */ OBJ_EFFECT_SPYBORG_ORB, // Spyborg blue shot
     /* 378 */ OBJ_EFFECT_378, // Ball projectiles shot by train car turret in Macbeth
     /* 379 */ OBJ_EFFECT_379, // small orbs in Ma boss wing projectile charge
@@ -1360,7 +1360,7 @@ typedef Effect EffectWaterSpray;
 typedef Effect EffectTimedSfx;
 typedef Effect EffectFlamePillar;
 typedef Effect Effect375;
-typedef Effect Effect376;
+typedef Effect EffectGrangaPlasmaShot;
 typedef Effect EffectSpyborgOrb;
 typedef Effect Effect378;
 typedef Effect Effect379;

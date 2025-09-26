@@ -199,8 +199,8 @@ D_SO_601D948:
 aSoBackdropDL:
   { type: GFX, offset: 0x601E150, symbol: aSoBackdropDL}
 
-aSoBackdropTex:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x601E1E8, symbol: aSoBackdropTex}
+aSoBackdropTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x601E1E8, symbol: aSoBackdropTex2}
 
 aSoEnvSetup:
   { type: SF64:ENVIRONMENT, offset: 0x601F1F0, symbol: aSoEnvSetup}
@@ -211,8 +211,8 @@ aSoLevelObjects:
 aSoEventScript:
   { type: SF64:SCRIPT, offset: 0x6020DD0, symbol: aSoEventScript}
 
-D_SO_6020F60:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x6020F60, symbol: D_SO_6020F60}
+aSoBackdropTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 64, offset: 0x6020F60, symbol: aSoBackdropTex1}
 
 D_SO_6021F60:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6021F60, symbol: D_SO_6021F60}

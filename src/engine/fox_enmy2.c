@@ -77,7 +77,7 @@ void Actor237_Draw(Actor237* this) {
     /* Unimplemented */
 }
 
-void Obj54_8006A984(Effect365* this, f32 xPos, f32 yPos, f32 zPos) {
+void Effect365_Setup(Effect365* this, f32 xPos, f32 yPos, f32 zPos) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_365;
@@ -94,31 +94,31 @@ void Obj54_8006A984(Effect365* this, f32 xPos, f32 yPos, f32 zPos) {
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Obj54_8006AA3C(f32 xPos, f32 yPos, f32 zPos) {
+void Effect365_Spawn(f32 xPos, f32 yPos, f32 zPos) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Obj54_8006A984(&gEffects[i], xPos, yPos, zPos);
+            Effect365_Setup(&gEffects[i], xPos, yPos, zPos);
             break;
         }
     }
 }
 
 void CoWaterfall_Update(CoWaterfall* this) {
-    Vec3f sp24;
-    Vec3f sp18;
+    Vec3f dest;
+    Vec3f src;
 
-    Lib_Texture_Scroll(D_CO_60038F8, 32, 32, 1);
+    Lib_Texture_Scroll(aCoWaterfallTex2, 32, 32, 1);
     if ((gGameFrameCount % 4) == 0) {
         Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
 
-        sp18.x = RAND_FLOAT_CENTERED(700.0f);
-        sp18.y = RAND_FLOAT(50.0f);
-        sp18.z = 700.0f;
+        src.x = RAND_FLOAT_CENTERED(700.0f);
+        src.y = RAND_FLOAT(50.0f);
+        src.z = 700.0f;
 
-        Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp18, &sp24);
-        Obj54_8006AA3C(this->obj.pos.x + sp24.x, this->obj.pos.y + sp24.y + 50.0f, this->obj.pos.z + sp24.z);
+        Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
+        Effect365_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y + 50.0f, this->obj.pos.z + dest.z);
     }
 }
 

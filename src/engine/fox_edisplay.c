@@ -785,14 +785,14 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
 
             switch (objId) {
                 case OBJ_BOSS_CO_CARRIER:
-                    gSPDisplayList(gMasterDisp++, D_CO_6036840);
+                    gSPDisplayList(gMasterDisp++, aCoCarrierBodyShadowDL);
                     break;
                 case OBJ_BOSS_CO_CARRIER_LEFT:
-                    gSPDisplayList(gMasterDisp++, D_CO_6036CD0);
+                    gSPDisplayList(gMasterDisp++, aCoCarrierLeftShadowDL);
                     break;
                 case OBJ_BOSS_CO_CARRIER_UPPER:
                 case OBJ_BOSS_CO_CARRIER_BOTTOM:
-                    gSPDisplayList(gMasterDisp++, D_CO_60363B0);
+                    gSPDisplayList(gMasterDisp++, aCoCarrierUpperBottomShadowDL);
                     break;
             }
             break;

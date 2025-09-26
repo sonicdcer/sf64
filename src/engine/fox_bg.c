@@ -992,7 +992,7 @@ void Background_DrawGround(void) {
                     case SURFACE_WATER:
                         RCP_SetupDL_45(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 128);
-                        gDPLoadTileTexture(gMasterDisp++, D_CO_6028A60, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
+                        gDPLoadTileTexture(gMasterDisp++, aCoWaterTex1, G_IM_FMT_RGBA, G_IM_SIZ_16b, 32, 32);
                         gBgColor = 0x190F; // 24, 32, 56
                         break;
                 }

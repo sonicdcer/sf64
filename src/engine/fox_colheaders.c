@@ -118,15 +118,15 @@ CollisionHeader2 D_800D2CA0[19] = {
     {
         { -1220.0f, 0.0f, -1315.0f },
         { 1403.0f, 174.0f, 1308.0f },
-        ARRAY_COUNT(D_CO_603F338),
-        D_CO_603F338,
+        ARRAY_COUNT(aCoTriangle1),
+        aCoTriangle1,
         D_CO_603F388,
     },
     {
         { -1311.0f, 0.0f, -1120.0f },
         { 1266.0f, 1465.0f, 1266.0f },
-        ARRAY_COUNT(D_CO_603F40C),
-        D_CO_603F40C,
+        ARRAY_COUNT(aCoTriangle2),
+        aCoTriangle2,
         D_CO_603F4E4,
     },
     {

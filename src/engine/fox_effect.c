@@ -496,10 +496,10 @@ void Effect_MeFireball_Draw(EffectMeFireball* this) {
     gSPDisplayList(gMasterDisp++, D_ME_6000A80);
 }
 
-void Effect_Effect376_Draw(Effect376* this) {
+void Effect_EffectGrangaPlasmaShot_Draw(EffectGrangaPlasmaShot* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     Graphics_SetScaleMtx(this->scale2);
-    gSPDisplayList(gMasterDisp++, D_CO_6033000);
+    gSPDisplayList(gMasterDisp++, aCoGrangaPlasmaShotDL);
 }
 
 void Effect_Sparkle_Setup(EffectSparkle* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
@@ -2206,7 +2206,7 @@ void Effect_Effect375_Update(Effect375* this) {
 void Effect_Effect375_Draw(Effect375* this) {
     Graphics_SetScaleMtx(this->scale2);
     RCP_SetupDL_29(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    gSPDisplayList(gMasterDisp++, D_CO_6004900);
+    gSPDisplayList(gMasterDisp++, aCoEffect375DL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -2448,7 +2448,7 @@ void Effect_SetupShootAtPlayer(Effect* this, ObjectId objId, f32 xPos, f32 yPos,
         AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, this->sfxSource, 4);
     }
 
-    if (objId == OBJ_EFFECT_376) {
+    if (objId == OBJ_EFFECT_CO_GRANGA_PLASMA_SHOT) {
         this->obj.rot.z = RAND_FLOAT(360.0f);
         this->unk_4A = 180;
         this->scale2 = 5.0f;
@@ -2502,7 +2502,7 @@ void Effect_SetupShootAtCamera(Effect* this, ObjectId objId, f32 xPos, f32 yPos,
         AUDIO_PLAY_SFX(NA_SE_EN_ENERGY_BEAM, this->sfxSource, 4);
     }
 
-    if (objId == OBJ_EFFECT_376) {
+    if (objId == OBJ_EFFECT_CO_GRANGA_PLASMA_SHOT) {
         this->obj.rot.z = RAND_FLOAT(360.0f);
         this->unk_4A = 180;
         this->scale2 = 5.0f;
@@ -2984,7 +2984,7 @@ void Effect_MeFireball_Update(EffectMeFireball* this) {
     }
 }
 
-void Effect_Effect376_Update(Effect376* this) {
+void Effect_EffectGrangaPlasmaShot_Update(EffectGrangaPlasmaShot* this) {
     this->obj.rot.z += 8.0f;
     this->scale2 += 0.1f;
     // It seems they forgot that unk_4A is s16 and not a float...
