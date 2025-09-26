@@ -376,16 +376,16 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = aPepperPortrait2Tex;
             break;
         case RCID_ROB64_TITLE:
-            radioPortraitTex = D_GREAT_FOX_E00E100;
+            radioPortraitTex = aGreatFoxRob64Portrait1Tex;
             break;
         case RCID_ROB64_TITLE + 1:
-            radioPortraitTex = D_GREAT_FOX_E00F020;
+            radioPortraitTex = aGreatFoxRob64Portrait2Tex;
             break;
         case RCID_GEN_PEPPER_TITLE:
-            radioPortraitTex = D_GREAT_FOX_E00FF40;
+            radioPortraitTex = aGreatFoxGralPepperPortrait1Tex;
             break;
         case RCID_GEN_PEPPER_TITLE + 1:
-            radioPortraitTex = D_GREAT_FOX_E010E60;
+            radioPortraitTex = aGreatFoxGralPepperPortrait2Tex;
             break;
         case RCID_TR:
             radioPortraitTex = aTrYaruDePonFace1Tex;

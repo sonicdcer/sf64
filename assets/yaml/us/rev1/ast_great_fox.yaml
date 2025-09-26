@@ -12,82 +12,81 @@
 aGreatFoxIntactDL:
   { type: GFX, offset: 0xE000000, symbol: aGreatFoxIntactDL }
 
-D_GREAT_FOX_E0094B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E0094B0, symbol: D_GREAT_FOX_E0094B0 }
+aGreatFoxTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E0094B0, symbol: aGreatFoxTex1 }
 
-D_GREAT_FOX_E009CB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E009CB0, symbol: D_GREAT_FOX_E009CB0 }
+aGreatFoxLogoTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E009CB0, symbol: aGreatFoxLogoTex }
 
-# Great Fox Logo
-D_GREAT_FOX_E00ACB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00ACB0, symbol: D_GREAT_FOX_E00ACB0 }
+aGreatFoxTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00ACB0, symbol: aGreatFoxTex2 }
 
-D_GREAT_FOX_E00B4B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E00B4B0, symbol: D_GREAT_FOX_E00B4B0 }
+aGreatFoxTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E00B4B0, symbol: aGreatFoxTex3 }
 
 # Yellow Square
-D_GREAT_FOX_E00B530:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E00B530, symbol: D_GREAT_FOX_E00B530 }
+aGreatFoxTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E00B530, symbol: aGreatFoxTex4 }
 
-D_GREAT_FOX_E00B5B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00B5B0, symbol: D_GREAT_FOX_E00B5B0 }
+aGreatFoxTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00B5B0, symbol: aGreatFoxTex5 }
 
-# Great Fox Starfox Logo
-D_GREAT_FOX_E00BDB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E00BDB0, symbol: D_GREAT_FOX_E00BDB0 }
+aGreatFoxStarfoxLogoTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E00BDB0, symbol: aGreatFoxStarfoxLogoTex }
 
-D_GREAT_FOX_E00CDB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0E00CDB0, symbol: D_GREAT_FOX_E00CDB0 }
+aGreatFoxTex6:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0E00CDB0, symbol: aGreatFoxTex6 }
 
-D_GREAT_FOX_E00CFB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00CFB0, symbol: D_GREAT_FOX_E00CFB0 }
+aGreatFoxTex7:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00CFB0, symbol: aGreatFoxTex7 }
 
-D_GREAT_FOX_E00D7B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00D7B0, symbol: D_GREAT_FOX_E00D7B0 }
+aGreatFoxTex8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E00D7B0, symbol: aGreatFoxTex8 }
 
 # Black Square
-D_GREAT_FOX_E007430:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E007430, symbol: D_GREAT_FOX_E007430 }
+aGreatFoxTex9:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E007430, symbol: aGreatFoxTex9 }
 
 # Great Fox Model (damaged)
 aGreatFoxDamagedDL:
   { type: GFX, offset: 0xE003AB0, symbol: aGreatFoxDamagedDL }
 
-D_GREAT_FOX_E0074B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E0074B0, symbol: D_GREAT_FOX_E0074B0 }
+aGreatFoxDamagedTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x0E0074B0, symbol: aGreatFoxDamagedTex1 }
 
-D_GREAT_FOX_E0084B0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E0084B0, symbol: D_GREAT_FOX_E0084B0 }
+aGreatFoxDamagedTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E0084B0, symbol: aGreatFoxDamagedTex2 }
 
-D_GREAT_FOX_E008CB0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E008CB0, symbol: D_GREAT_FOX_E008CB0 }
+aGreatFoxDamagedTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0E008CB0, symbol: aGreatFoxDamagedTex3 }
 
-D_GREAT_FOX_E00DFB0:
-  { type: GFX, offset: 0xE00DFB0, symbol: D_GREAT_FOX_E00DFB0 }
+aGreatFoxLaserDL:
+  { type: GFX, offset: 0xE00DFB0, symbol: aGreatFoxLaserDL }
 
-D_GREAT_FOX_E00E078:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E00E078, symbol: D_GREAT_FOX_E00E078 }
+aGreatFoxLaserTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E00E078, symbol: aGreatFoxLaserTex }
 
 # Radio Face of ROB64
-D_GREAT_FOX_E00E100:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E00E100, symbol: D_GREAT_FOX_E00E100 }
+aGreatFoxRob64Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E00E100, symbol: aGreatFoxRob64Portrait1Tex }
 
 # Radio Face of ROB64 (talking)
-D_GREAT_FOX_E00F020:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E00F020, symbol: D_GREAT_FOX_E00F020 }
+aGreatFoxRob64Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E00F020, symbol: aGreatFoxRob64Portrait2Tex }
 
 # Radio Face of General Pepper
-D_GREAT_FOX_E00FF40:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E00FF40, symbol: D_GREAT_FOX_E00FF40 }
+aGreatFoxGralPepperPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E00FF40, symbol: aGreatFoxGralPepperPortrait1Tex }
 
 # Radio Face of General Pepper (talking)
-D_GREAT_FOX_E010E60:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E010E60, symbol: D_GREAT_FOX_E010E60 }
+aGreatFoxGralPepperPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0E010E60, symbol: aGreatFoxGralPepperPortrait2Tex }
 
-D_GREAT_FOX_E011D80:
-  { type: GFX, offset: 0xE011D80, symbol: D_GREAT_FOX_E011D80 }
+# Unused
+aUnusedGreatFoxLightDL:
+  { type: GFX, offset: 0xE011D80, symbol: aUnusedGreatFoxLightDL }
 
-D_GREAT_FOX_E011E08:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E011E08, symbol: D_GREAT_FOX_E011E08 }
+aUnusedGreatFoxLightTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0E011E08, symbol: aUnusedGreatFoxLightTex }
 
 # size = 0x11E90

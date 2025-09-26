@@ -1534,7 +1534,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                 Matrix_Scale(gGfxMatrix, 3.0f, 3.0f, 20.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 RCP_SetupDL_40();
-                gSPDisplayList(gMasterDisp++, D_GREAT_FOX_E00DFB0);
+                gSPDisplayList(gMasterDisp++, aGreatFoxLaserDL);
                 break;
         }
     }
