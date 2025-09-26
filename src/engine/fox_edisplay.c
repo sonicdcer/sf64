@@ -1984,7 +1984,7 @@ void TexturedLine_Draw(void) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 5.0f * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, aAqJellyFishLinkArcDL);
+                    gSPDisplayList(gMasterDisp++, aAqJellyfishCurrentDL);
                 } else if (gCurrentLevel == LEVEL_VENOM_ANDROSS) {
                     Matrix_Scale(gGfxMatrix, 1.0f, 1.0f, 0.0025f, MTXF_APPLY);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -200.0f, MTXF_APPLY);

@@ -298,14 +298,14 @@ PosRot* D_i3_801C27C0;
 PosRot D_i3_801C27C8[4 * 50];
 Vtx D_i3_801C3A88[2][2][28];
 
-// Waves the electric arcs that link JellyFish together
-void Aquas_JellyFishLinkArcs_Wave(void) {
+// Waves the electric arcs that link Jellyfish together
+void Aquas_JellyfishCurrent_Wave(void) {
     s32 i;
     f32 linkArcxMod[17];
     f32 linkArcYmod[17];
     s32 j;
-    Vtx* linkArcSrc = SEGMENTED_TO_VIRTUAL(aAqJellyFishLinkArcSrcVTX);
-    Vtx* linkArcDst = SEGMENTED_TO_VIRTUAL(aAqJellyFishLinkArcDstVTX);
+    Vtx* linkArcSrc = SEGMENTED_TO_VIRTUAL(aAqJellyfishCurrentSrcVTX);
+    Vtx* linkArcDst = SEGMENTED_TO_VIRTUAL(aAqJellyfishCurrentDstVTX);
 
     for (i = 0; i < 17; i++) {
         if ((i == 0) || (i == 16)) {
@@ -874,7 +874,7 @@ void Aquas_BlueMarineMove(Player* player) {
 
     Aquas_801AA4BC(player);
     Aquas_801A99D4(player);
-    Aquas_JellyFishLinkArcs_Wave();
+    Aquas_JellyfishCurrent_Wave();
 
     stickX = -gInputPress->stick_x;
     stickY = +gInputPress->stick_y;

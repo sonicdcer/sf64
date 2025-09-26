@@ -220,14 +220,14 @@ aAqDebrisTex3:
 aAqSquidDebrisTex1:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60111A0, symbol: aAqSquidDebrisTex1 }
 
-aAqJellyFishLinkArcDL:
-  { type: GFX, offset: 0x60119A0, symbol: aAqJellyFishLinkArcDL }
+aAqJellyfishCurrentDL:
+  { type: GFX, offset: 0x60119A0, symbol: aAqJellyfishCurrentDL }
 
-aAqJellyFishLinkArcDstVTX:
-  { type: VTX, count: 38, offset: 0x6011A78, symbol: aAqJellyFishLinkArcDstVTX }
+aAqJellyfishCurrentDstVTX:
+  { type: VTX, count: 38, offset: 0x6011A78, symbol: aAqJellyfishCurrentDstVTX }
 
-aAqJellyFishLinkArcTex:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6011CD8, symbol: aAqJellyFishLinkArcTex }
+aAqJellyfishCurrentTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6011CD8, symbol: aAqJellyfishCurrentTex }
 
 aAqTunnel1DL:
   { type: GFX, offset: 0x6011EE0, symbol: aAqTunnel1DL }
@@ -763,8 +763,8 @@ aAqFishGroupHitbox:
 aAqWaterTex2:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x603158C, symbol: aAqWaterTex2 }
 
-aAqJellyFishLinkArcSrcVTX:
-  { type: VTX, count: 34, offset: 0x6031D90, symbol: aAqJellyFishLinkArcSrcVTX }
+aAqJellyfishCurrentSrcVTX:
+  { type: VTX, count: 34, offset: 0x6031D90, symbol: aAqJellyfishCurrentSrcVTX }
 
 aAqTriangle1:
   { type: SF64:TRIANGLE, count: 8, offset: 0x6031FB0, symbol: aAqTriangle1, mesh_symbol: D_AQ_OFFSET, mesh_count: 2}

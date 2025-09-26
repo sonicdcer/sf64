@@ -1730,7 +1730,7 @@ void Area6_A6Gorgon_DrawTentacle(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s
                 Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
-                gSPDisplayList(gMasterDisp++, aA6GorgonTentacleHandDL);
+                gSPDisplayList(gMasterDisp++, aA6GorgonTentacleClawDL);
                 Matrix_MultVec3f(gCalcMatrix, &src, arg3);
             } else {
                 Matrix_Scale(gCalcMatrix, 2.0f, 2.0f, 2.0f, MTXF_APPLY);

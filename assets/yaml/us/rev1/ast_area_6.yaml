@@ -67,8 +67,8 @@ aA6ShipGenericTex:
 aA6UmbraStationTex1:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0600EFE8, symbol: aA6UmbraStationTex1 }
 
-aA6GorgonTentacleHandDL:
-  { type: GFX, offset: 0x600F1F0, symbol: aA6GorgonTentacleHandDL }
+aA6GorgonTentacleClawDL:
+  { type: GFX, offset: 0x600F1F0, symbol: aA6GorgonTentacleClawDL }
 
 aA6GorgonSkelTex6:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0600F850, symbol: aA6GorgonSkelTex6 }
