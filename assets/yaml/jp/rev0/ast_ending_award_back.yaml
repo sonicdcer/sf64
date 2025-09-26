@@ -9,4 +9,4 @@
       - '#include "sf64object.h"'
 
 ending_award_back:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 270, offset: 0x8000000, symbol: gEndingAwardBack }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 270, offset: 0x8000000, symbol: aEndingAwardBack }

@@ -8,12 +8,12 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-# Seems unused
-D_ENMY_PLANET_4000290:
-  { type: GFX, offset: 0x4000290, symbol: D_ENMY_PLANET_4000290 }
+# Unused: An alternate version of Gamma-Off in ast_enmy_space
+aUnusedGammaOffAltDL:
+  { type: GFX, offset: 0x4000290, symbol: aUnusedGammaOffAltDL }
 
-ast_enmy_planet_seg4_vtx_8F8:
-  { type: VTX, count: 90, offset: 0x40008F8, symbol: ast_enmy_planet_seg4_vtx_8F8 }
+aVenomTankVTX:
+  { type: VTX, count: 90, offset: 0x40008F8, symbol: aVenomTankVTX }
 
 aTripodAnim:
   { type: SF64:ANIM, offset: 0x40001A4, symbol: aTripodAnim }
@@ -24,41 +24,41 @@ aTripodSkel:
 aVenomTankDL:
   { type: GFX, offset: 0x4000710, symbol: aVenomTankDL }
 
-D_ENMY_PLANET_4001298:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001298, symbol: D_ENMY_PLANET_4001298 }
+aFighterTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001298, symbol: aFighterTex1 }
 
-D_ENMY_PLANET_4001698:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001698, symbol: D_ENMY_PLANET_4001698 }
+aEnmyPlanetGenTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001698, symbol: aEnmyPlanetGenTex2 }
 
-D_ENMY_PLANET_4000E98:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04000E98, symbol: D_ENMY_PLANET_4000E98 }
+aFighterTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04000E98, symbol: aFighterTex2 }
 
-D_ENMY_PLANET_4001098:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001098, symbol: D_ENMY_PLANET_4001098 }
+aFighterTex7:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001098, symbol: aFighterTex7 }
 
-D_ENMY_PLANET_4001498:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001498, symbol: D_ENMY_PLANET_4001498 }
+aEnmyPlanetGenTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04001498, symbol: aEnmyPlanetGenTex3 }
 
 aPlanetArwingAllRangeDL:
   { type: GFX, offset: 0x40018A0, symbol: aPlanetArwingAllRangeDL }
 
-D_ENMY_PLANET_40024B8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x040024B8, symbol: D_ENMY_PLANET_40024B8 }
+aPlanetArwingAllRangeTex6:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x040024B8, symbol: aPlanetArwingAllRangeTex6 }
 
-D_ENMY_PLANET_4002538:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04002538, symbol: D_ENMY_PLANET_4002538 }
+aPlanetArwingAllRangeTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04002538, symbol: aPlanetArwingAllRangeTex3 }
 
-D_ENMY_PLANET_4002D38:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x04002D38, symbol: D_ENMY_PLANET_4002D38 }
+aPlanetArwingAllRangeTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x04002D38, symbol: aPlanetArwingAllRangeTex1 }
 
-D_ENMY_PLANET_4003D38:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04003D38, symbol: D_ENMY_PLANET_4003D38 }
+aPlanetArwingAllRangeTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04003D38, symbol: aPlanetArwingAllRangeTex2 }
 
-D_ENMY_PLANET_4004538:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04004538, symbol: D_ENMY_PLANET_4004538 }
+aPlanetArwingAllRangeTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04004538, symbol: aPlanetArwingAllRangeTex4 }
 
-D_ENMY_PLANET_4004D38:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04004D38, symbol: D_ENMY_PLANET_4004D38 }
+aPlanetArwingAllRangeTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04004D38, symbol: aPlanetArwingAllRangeTex5 }
 
 aFirebirdAnim:
   { type: SF64:ANIM, offset: 0x40057AC, symbol: aFirebirdAnim }
@@ -66,20 +66,21 @@ aFirebirdAnim:
 aFirebirdSkel: 
   { type: SF64:SKELETON, offset: 0x40058B8, symbol: aFirebirdSkel }
 
-D_ENMY_PLANET_4005E78:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04005E78, symbol: D_ENMY_PLANET_4005E78 }
+aFighterTex6:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04005E78, symbol: aFighterTex6 }
 
-D_ENMY_PLANET_4006078:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04006078, symbol: D_ENMY_PLANET_4006078 }
+aFighterTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04006078, symbol: aFighterTex5 }
 
-D_ENMY_PLANET_4006280:
-  { type: GFX, offset: 0x4006280, symbol: D_ENMY_PLANET_4006280 }
+# Unused: An alternate version of Gamma-On in ast_enmy_space
+aUnusedGammaOnAltDL:
+  { type: GFX, offset: 0x4006280, symbol: aUnusedGammaOnAltDL }
 
-D_ENMY_PLANET_40064E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x040064E8, symbol: D_ENMY_PLANET_40064E8 }
+aFighterTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x040064E8, symbol: aFighterTex4 }
 
-D_ENMY_PLANET_40066E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x040066E8, symbol: D_ENMY_PLANET_40066E8 }
+aEnmyPlanetGenTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x040066E8, symbol: aEnmyPlanetGenTex1 }
 
 aVenomFighter1DL:
   { type: GFX, offset: 0x40068F0, symbol: aVenomFighter1DL }
@@ -93,20 +94,20 @@ aGrangaFighter1DL:
 aGrangaFighter2DL:
   { type: GFX, offset: 0x4007AF0, symbol: aGrangaFighter2DL }
 
-D_ENMY_PLANET_4008100:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04008100, symbol: D_ENMY_PLANET_4008100 }
+aFighterTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04008100, symbol: aFighterTex3 }
 
-D_ENMY_PLANET_4008CE0:
-  { type: GFX, offset: 0x4008CE0, symbol: D_ENMY_PLANET_4008CE0 }
+aBombDropDL:
+  { type: GFX, offset: 0x4008CE0, symbol: aBombDropDL }
 
-D_ENMY_PLANET_4008D68:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04008D68, symbol: D_ENMY_PLANET_4008D68 }
+aBombDropTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x04008D68, symbol: aBombDropTex }
 
-D_ENMY_PLANET_4008FF8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04008FF8, symbol: D_ENMY_PLANET_4008FF8 }
+aBombDropFireTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x04008FF8, symbol: aBombDropFireTex }
 
-D_ENMY_PLANET_4008F70:
-  { type: GFX, offset: 0x4008F70, symbol: D_ENMY_PLANET_4008F70 }
+aBombDropFireDL:
+  { type: GFX, offset: 0x4008F70, symbol: aBombDropFireDL }
 
 aSpyEyeDL:
   { type: GFX, offset: 0x4009800, symbol: aSpyEyeDL }

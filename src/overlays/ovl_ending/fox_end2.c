@@ -158,9 +158,9 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
     if (gExpertMode != 0) {
         for (i = 0; i < 240; i += 4) {
             if (gVenomHardClear == 0) {
-                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, aEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             } else {
-                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, aEndingExpertReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
             }
         }
     } else {

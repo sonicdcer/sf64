@@ -5891,7 +5891,7 @@ void Macbeth_MaBombDrop_Draw(MaBombDrop* this) {
         case 0:
             Graphics_SetScaleMtx(this->scale);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
+            gSPDisplayList(gMasterDisp++, aBombDropDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
@@ -5900,7 +5900,7 @@ void Macbeth_MaBombDrop_Draw(MaBombDrop* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
+            gSPDisplayList(gMasterDisp++, aBombDropFireDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }

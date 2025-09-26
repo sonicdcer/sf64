@@ -9,7 +9,7 @@
       - '#include "sf64object.h"'
 
 ending_expert_reward:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 240, offset: 0x8000000, symbol: gEndingExpertReward }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 240, offset: 0x8000000, symbol: aEndingExpertReward }
 
 ending_normal_reward:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 240, offset: 0x8025080, symbol: gEndingNormalReward }
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 316, height: 240, offset: 0x8025080, symbol: aEndingNormalReward }

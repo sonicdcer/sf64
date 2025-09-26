@@ -2270,7 +2270,7 @@ void Effect_FlamePillar_Draw(EffectFlamePillar* this) {
         case 0:
             Graphics_SetScaleMtx(this->scale2);
             RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008CE0);
+            gSPDisplayList(gMasterDisp++, aBombDropDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
@@ -2279,7 +2279,7 @@ void Effect_FlamePillar_Draw(EffectFlamePillar* this) {
             Matrix_SetGfxMtx(&gMasterDisp);
             RCP_SetupDL_40();
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-            gSPDisplayList(gMasterDisp++, D_ENMY_PLANET_4008F70);
+            gSPDisplayList(gMasterDisp++, aBombDropFireDL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }

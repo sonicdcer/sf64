@@ -82,14 +82,14 @@ void Ending_80187520(s32 arg0) {
     switch (arg0) {
         case 0:
             for (j = 0, i = 0; i < 67; j += 316 * 4, i++) {
-                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, aEndingAwardBack + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
-            Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
+            Lib_TextureRect_RGBA16(&gMasterDisp, aEndingAwardBack + j, 316, 3, 0.0f, 4 * i, 1.0f, 1.0f);
             break;
 
         case 1:
             for (j = 0, i = 0; i < 60; j += 316 * 4, i++) {
-                Lib_TextureRect_RGBA16(&gMasterDisp, gEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, aEndingAwardFront + j, 316, 4, 0.0f, 4 * i, 1.0f, 1.0f);
             }
             break;
     }
