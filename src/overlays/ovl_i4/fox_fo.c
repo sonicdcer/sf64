@@ -509,7 +509,7 @@ void Fortuna_FoRadar_Update(FoRadar* this) {
     if ((this->dmgType != DMG_NONE) && (this->state == 0)) {
         this->dmgType = DMG_NONE;
         this->state = 1;
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_FO_600FF64);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aFoRadarDestroyedHitbox);
         this->info.targetOffset = 0.0f;
         this->lockOnTimers[TEAM_ID_FOX] = 0;
         this->info.bonus = 0;

@@ -66,22 +66,22 @@ CollisionHeader D_800D2B38[10] = {
     {
         { -1308.0f, 0.0f, -1460.0f },
         { 1310.0f, 666.0f, 807.0f },
-        ARRAY_COUNT(D_FO_600F60C),
-        D_FO_600F60C,
+        ARRAY_COUNT(aFoColPoly3),
+        aFoColPoly3,
         D_FO_600FD50,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 1014.0f, 1075.0f },
-        ARRAY_COUNT(D_FO_600F3F4),
-        D_FO_600F3F4,
+        ARRAY_COUNT(aFoColPoly2),
+        aFoColPoly2,
         D_FO_600F5AC,
     },
     {
         { -951.0f, 0.0f, -1075.0f },
         { 1075.0f, 384.0f, 1075.0f },
-        ARRAY_COUNT(D_FO_600F1DC),
-        D_FO_600F1DC,
+        ARRAY_COUNT(aFoColPoly1),
+        aFoColPoly1,
         D_FO_600F394,
     },
     {

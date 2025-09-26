@@ -2481,7 +2481,7 @@ void ActorAllRange_Draw(ActorAllRange* this) {
                 if (gCurrentLevel == LEVEL_FORTUNA) {
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 60.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_FO_6006BE0);
+                    gSPDisplayList(gMasterDisp++, aFoInvaderIDL);
                     Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, -100.0f, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
                     Actor_DrawEngineGlow(this, EG_GREEN);

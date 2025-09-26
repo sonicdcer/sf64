@@ -35,32 +35,32 @@ aFoGroundTex3:
 aFoBaseDL2:
   { type: GFX, offset: 0x6003090, symbol: aFoBaseDL2 }
 
-D_FO_6003EC0:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003EC0, ctype: u16, symbol: D_FO_6003EC0 }
+aFoGenericTex1:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003EC0, ctype: u16, symbol: aFoGenericTex1 }
 
-D_FO_60046C0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60046C0, ctype: u16, symbol: D_FO_60046C0 }
+aFoGenericTex2:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60046C0, ctype: u16, symbol: aFoGenericTex2 }
 
-D_FO_60048C0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60048C0, ctype: u16, symbol: D_FO_60048C0 }
+aFoGenericTex3:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60048C0, ctype: u16, symbol: aFoGenericTex3 }
 
-D_FO_6004AC0:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, offset: 0x6004AC0, ctype: u16, symbol: D_FO_6004AC0 }
+aFoGenericTex4:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, offset: 0x6004AC0, ctype: u16, symbol: aFoGenericTex4 }
 
-D_FO_6005AC0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6005AC0, ctype: u16, symbol: D_FO_6005AC0 }
+aFoRadarDebris3Tex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6005AC0, ctype: u16, symbol: aFoRadarDebris3Tex }
 
 aFoRadarDebris4DL:
   { type: GFX, offset: 0x6005CC0, symbol: aFoRadarDebris4DL }
 
-D_FO_6005F20:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6005F20, ctype: u16, symbol: D_FO_6005F20 }
+aFoGenericTex5:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x6005F20, ctype: u16, symbol: aFoGenericTex5 }
 
-D_FO_6006120:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x6006120, ctype: u8, symbol: D_FO_6006120 }
+aFoGenericTex6:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x6006120, ctype: u8, symbol: aFoGenericTex6 }
 
-D_FO_6006220:
-  { type: TEXTURE, format: TLUT, colors: 120, offset: 0x6006220, ctype: u16, symbol: D_FO_6006220 }
+aFoGenericTex6TLUT:
+  { type: TEXTURE, format: TLUT, colors: 120, offset: 0x6006220, ctype: u16, symbol: aFoGenericTex6TLUT }
 
 aFoMountain3DL:
   { type: GFX, offset: 0x6006310, symbol: aFoMountain3DL }
@@ -71,17 +71,17 @@ aFoTowerDL:
 ast_fortuna_seg6_vtx_6898:
   { type: VTX, count: 52, offset: 0x6006898, symbol: ast_fortuna_seg6_vtx_6898 }
 
-D_FO_6006BE0:
-  { type: GFX, offset: 0x6006BE0, symbol: D_FO_6006BE0 }
+aFoInvaderIDL:
+  { type: GFX, offset: 0x6006BE0, symbol: aFoInvaderIDL }
 
-ast_fortuna_seg6_vtx_6D00:
-  { type: VTX, count: 62, offset: 0x6006D00, symbol: ast_fortuna_seg6_vtx_6D00 }
+aFoInvaderIVTX:
+  { type: VTX, count: 62, offset: 0x6006D00, symbol: aFoInvaderIVTX }
 
-D_FO_60070E0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60070E0, ctype: u16, symbol: D_FO_60070E0 }
+aFoInvaderITex1:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60070E0, ctype: u16, symbol: aFoInvaderITex1 }
 
-D_FO_60072E0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60072E0, ctype: u16, symbol: D_FO_60072E0 }
+aFoInvaderITex2:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60072E0, ctype: u16, symbol: aFoInvaderITex2 }
 
 aFoRadarDebris1DL:
   { type: GFX, offset: 0x60074E0, symbol: aFoRadarDebris1DL }
@@ -104,23 +104,24 @@ aFoMountain1DL:
 aFoMountain2DL:
   { type: GFX, offset: 0x6007D80, symbol: aFoMountain2DL }
 
-D_FO_6008150:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6008150, ctype: u16, symbol: D_FO_6008150 }
+# Unused: Rob 64 portraits
+aFoUnusedRob64Portrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6008150, ctype: u16, symbol: aFoUnusedRob64Portrait1Tex }
 
-D_FO_6009070:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6009070, ctype: u16, symbol: D_FO_6009070 }
+aFoUnusedRob64Portrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6009070, ctype: u16, symbol: aFoUnusedRob64Portrait2Tex }
 
 aFoEnemyShadowDL:
   { type: GFX, offset: 0x6009F90, symbol: aFoEnemyShadowDL }
 
-D_FO_600A018:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600A018, ctype: u8, symbol: D_FO_600A018 }
+aFoEnemyShadowTex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600A018, ctype: u8, symbol: aFoEnemyShadowTex }
 
 aFoPoleDL:
   { type: GFX, offset: 0x600A420, symbol: aFoPoleDL }
 
-D_FO_600A4A8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, offset: 0x600A4A8, ctype: u16, symbol: D_FO_600A4A8 }
+aFoPoleTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, offset: 0x600A4A8, ctype: u16, symbol: aFoPoleTex }
 
 aFoCorneriaDL:
   { type: GFX, offset: 0x600B4B0, symbol: aFoCorneriaDL }
@@ -134,8 +135,8 @@ aFoCorneriaTex2:
 aFoBaseDL1:
   { type: GFX, offset: 0x600D5C0, symbol: aFoBaseDL1 }
 
-D_FO_600D7E8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600D7E8, ctype: u16, symbol: D_FO_600D7E8 }
+aFoBaseDL1Tex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600D7E8, ctype: u16, symbol: aFoBaseDL1Tex }
 
 aFoBackdropDL:
   { type: GFX, offset: 0x600D9F0, symbol: aFoBackdropDL }
@@ -149,14 +150,14 @@ aFoEnvSetup:
 aFoLevelObjects:
   { type: SF64:OBJECT_INIT, offset: 0x600EAD4, symbol: aFoLevelObjects }
 
-D_FO_600F1DC:
-  { type: SF64:COLPOLY, offset: 0x600F1DC, count: 22, symbol: D_FO_600F1DC, mesh_symbol: D_FO_OFFSET }
+aFoColPoly1:
+  { type: SF64:COLPOLY, offset: 0x600F1DC, count: 22, symbol: aFoColPoly1, mesh_symbol: D_FO_OFFSET }
 
-D_FO_600F3F4:
-  { type: SF64:COLPOLY, offset: 0x600F3F4, count: 22, symbol: D_FO_600F3F4, mesh_symbol: D_FO_OFFSET }
+aFoColPoly2:
+  { type: SF64:COLPOLY, offset: 0x600F3F4, count: 22, symbol: aFoColPoly2, mesh_symbol: D_FO_OFFSET }
 
-D_FO_600F60C:
-  { type: SF64:COLPOLY, offset: 0x600F60C, count: 93, symbol: D_FO_600F60C, mesh_symbol: D_FO_OFFSET }
+aFoColPoly3:
+  { type: SF64:COLPOLY, offset: 0x600F60C, count: 93, symbol: aFoColPoly3, mesh_symbol: D_FO_OFFSET }
 
 aFoPoleHitbox:
   { type: SF64:HITBOX, offset: 0x600FE9C, symbol: aFoPoleHitbox }
@@ -167,8 +168,8 @@ aFoTowerHitbox:
 aFoRadarHitbox:
   { type: SF64:HITBOX, offset: 0x600FF30, symbol: aFoRadarHitbox }
 
-D_FO_600FF64:
-  { type: SF64:HITBOX, offset: 0x600FF64, symbol: D_FO_600FF64 }
+aFoRadarDestroyedHitbox:
+  { type: SF64:HITBOX, offset: 0x600FF64, symbol: aFoRadarDestroyedHitbox }
 
 aFoMountain1Hitbox:
   { type: SF64:HITBOX, offset: 0x600FF80, symbol: aFoMountain1Hitbox }
