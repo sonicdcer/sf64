@@ -8,93 +8,93 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_STAR_WOLF_F000000:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F000000, symbol: D_STAR_WOLF_F000000 }
+aStarWolfAndrewPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F000000, symbol: aStarWolfAndrewPortrait1Tex }
 
-D_STAR_WOLF_F000F20:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F000F20, symbol: D_STAR_WOLF_F000F20 }
+aStarWolfAndrewPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F000F20, symbol: aStarWolfAndrewPortrait2Tex }
 
-D_STAR_WOLF_F001E40:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F001E40, symbol: D_STAR_WOLF_F001E40 }
+aStarWolfAndrew2Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F001E40, symbol: aStarWolfAndrew2Portrait1Tex }
 
-D_STAR_WOLF_F002D60:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F002D60, symbol: D_STAR_WOLF_F002D60 }
+aStarWolfAndrew2Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F002D60, symbol: aStarWolfAndrew2Portrait2Tex }
 
-D_STAR_WOLF_F003C80:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F003C80, symbol: D_STAR_WOLF_F003C80 }
+aStarWolfPigmaPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F003C80, symbol: aStarWolfPigmaPortrait1Tex }
 
-D_STAR_WOLF_F004BA0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F004BA0, symbol: D_STAR_WOLF_F004BA0 }
+aStarWolfPigmaPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F004BA0, symbol: aStarWolfPigmaPortrait2Tex }
 
-D_STAR_WOLF_F005AC0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F005AC0, symbol: D_STAR_WOLF_F005AC0 }
+aStarWolfPigma2Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F005AC0, symbol: aStarWolfPigma2Portrait1Tex }
 
-D_STAR_WOLF_F0069E0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F0069E0, symbol: D_STAR_WOLF_F0069E0 }
+aStarWolfPigma2Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F0069E0, symbol: aStarWolfPigma2Portrait2Tex }
 
-D_STAR_WOLF_F007900:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F007900, symbol: D_STAR_WOLF_F007900 }
+aStarWolfLeonPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F007900, symbol: aStarWolfLeonPortrait1Tex }
 
-D_STAR_WOLF_F008820:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F008820, symbol: D_STAR_WOLF_F008820 }
+aStarWolfLeonPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F008820, symbol: aStarWolfLeonPortrait2Tex }
 
-D_STAR_WOLF_F009740:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F009740, symbol: D_STAR_WOLF_F009740 }
+aStarWolfLeon2Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F009740, symbol: aStarWolfLeon2Portrait1Tex }
 
-D_STAR_WOLF_F00A660:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00A660, symbol: D_STAR_WOLF_F00A660 }
+aStarWolfLeon2Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00A660, symbol: aStarWolfLeon2Portrait2Tex }
 
-D_STAR_WOLF_F00B580:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00B580, symbol: D_STAR_WOLF_F00B580 }
+aStarWolfWolfPortrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00B580, symbol: aStarWolfWolfPortrait1Tex }
 
-D_STAR_WOLF_F00C4A0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00C4A0, symbol: D_STAR_WOLF_F00C4A0 }
+aStarWolfWolfPortrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00C4A0, symbol: aStarWolfWolfPortrait2Tex }
 
-D_STAR_WOLF_F00D3C0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00D3C0, symbol: D_STAR_WOLF_F00D3C0 }
+aStarWolfWolf2Portrait1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00D3C0, symbol: aStarWolfWolf2Portrait1Tex }
 
-D_STAR_WOLF_F00E2E0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00E2E0, symbol: D_STAR_WOLF_F00E2E0 }
+aStarWolfWolf2Portrait2Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, height: 44, offset: 0x0F00E2E0, symbol: aStarWolfWolf2Portrait2Tex }
 
 aStarWolfStandardShipDL:
   { type: GFX, offset: 0xF00F200, symbol: aStarWolfStandardShipDL }
 
-D_STAR_WOLF_F0101D0:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0F0101D0, symbol: D_STAR_WOLF_F0101D0 }
+aStarWolfShipTex7:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0F0101D0, symbol: aStarWolfShipTex7 }
 
-D_STAR_WOLF_F011E80:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0F011E80, symbol: D_STAR_WOLF_F011E80 }
+aStarWolfShipTex8:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0F011E80, symbol: aStarWolfShipTex8 }
 
-D_STAR_WOLF_F011680: 
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011680, symbol: D_STAR_WOLF_F011680 }
+aStarWolfShipTex9: 
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011680, symbol: aStarWolfShipTex9 }
 
 aStarWolfUpgradedShipDL:
   { type: GFX, offset: 0xF0103D0, symbol: aStarWolfUpgradedShipDL }
 
-D_STAR_WOLF_F011F00:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011F00, symbol: D_STAR_WOLF_F011F00 }
+aStarWolfShipTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F011F00, symbol: aStarWolfShipTex1 }
 
-D_STAR_WOLF_F012700:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F012700, symbol: D_STAR_WOLF_F012700 }
+aStarWolfShipTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F012700, symbol: aStarWolfShipTex2 }
 
-D_STAR_WOLF_F012F00:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0F012F00, symbol: D_STAR_WOLF_F012F00 }
+aStarWolfShipTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x0F012F00, symbol: aStarWolfShipTex3 }
 
-D_STAR_WOLF_F013100:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0F013100, symbol: D_STAR_WOLF_F013100 }
+aStarWolfShipTex4:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 8, height: 8, offset: 0x0F013100, symbol: aStarWolfShipTex4 }
 
-D_STAR_WOLF_F013180:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F013180, symbol: D_STAR_WOLF_F013180 }
+aStarWolfShipTex5:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F013180, symbol: aStarWolfShipTex5 }
 
-D_STAR_WOLF_F013980:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F013980, symbol: D_STAR_WOLF_F013980 }
+aStarWolfShipTex6:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x0F013980, symbol: aStarWolfShipTex6 }
 
 # Star Wolf Radar mark
 aStarWolfRadarMarkDL:
   { type: GFX, offset: 0xF014180, symbol: aStarWolfRadarMarkDL }
 
-D_STAR_WOLF_F014208:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0F014208, symbol: D_STAR_WOLF_F014208 }
+aStarWolfRadarMarkTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x0F014208, symbol: aStarWolfRadarMarkTex }
 
 # Star Wolf Shadow
 aStarWolfShadowDL:

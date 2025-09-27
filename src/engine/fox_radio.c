@@ -220,52 +220,52 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = D_100C9E0;
             break;
         case RCID_WOLF:
-            radioPortraitTex = D_STAR_WOLF_F00B580;
+            radioPortraitTex = aStarWolfWolfPortrait1Tex;
             break;
         case RCID_WOLF + 1:
-            radioPortraitTex = D_STAR_WOLF_F00C4A0;
+            radioPortraitTex = aStarWolfWolfPortrait2Tex;
             break;
         case RCID_PIGMA:
-            radioPortraitTex = D_STAR_WOLF_F003C80;
+            radioPortraitTex = aStarWolfPigmaPortrait1Tex;
             break;
         case RCID_PIGMA + 1:
-            radioPortraitTex = D_STAR_WOLF_F004BA0;
+            radioPortraitTex = aStarWolfPigmaPortrait2Tex;
             break;
         case RCID_LEON:
-            radioPortraitTex = D_STAR_WOLF_F007900;
+            radioPortraitTex = aStarWolfLeonPortrait1Tex;
             break;
         case RCID_LEON + 1:
-            radioPortraitTex = D_STAR_WOLF_F008820;
+            radioPortraitTex = aStarWolfLeonPortrait2Tex;
             break;
         case RCID_ANDREW:
-            radioPortraitTex = D_STAR_WOLF_F000000;
+            radioPortraitTex = aStarWolfAndrewPortrait1Tex;
             break;
         case RCID_ANDREW + 1:
-            radioPortraitTex = D_STAR_WOLF_F000F20;
+            radioPortraitTex = aStarWolfAndrewPortrait2Tex;
             break;
         case RCID_WOLF_2:
-            radioPortraitTex = D_STAR_WOLF_F00D3C0;
+            radioPortraitTex = aStarWolfWolf2Portrait1Tex;
             break;
         case RCID_WOLF_2 + 1:
-            radioPortraitTex = D_STAR_WOLF_F00E2E0;
+            radioPortraitTex = aStarWolfWolf2Portrait2Tex;
             break;
         case RCID_PIGMA_2:
-            radioPortraitTex = D_STAR_WOLF_F005AC0;
+            radioPortraitTex = aStarWolfPigma2Portrait1Tex;
             break;
         case RCID_PIGMA_2 + 1:
-            radioPortraitTex = D_STAR_WOLF_F0069E0;
+            radioPortraitTex = aStarWolfPigma2Portrait2Tex;
             break;
         case RCID_LEON_2:
-            radioPortraitTex = D_STAR_WOLF_F009740;
+            radioPortraitTex = aStarWolfLeon2Portrait1Tex;
             break;
         case RCID_LEON_2 + 1:
-            radioPortraitTex = D_STAR_WOLF_F00A660;
+            radioPortraitTex = aStarWolfLeon2Portrait2Tex;
             break;
         case RCID_ANDREW_2:
-            radioPortraitTex = D_STAR_WOLF_F001E40;
+            radioPortraitTex = aStarWolfAndrew2Portrait1Tex;
             break;
         case RCID_ANDREW_2 + 1:
-            radioPortraitTex = D_STAR_WOLF_F002D60;
+            radioPortraitTex = aStarWolfAndrew2Portrait2Tex;
             break;
         case RCID_BOSS_CORNERIA:
             radioPortraitTex = aCoCorneriaBoss1Portrait1Tex;
