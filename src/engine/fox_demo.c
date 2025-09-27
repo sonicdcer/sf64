@@ -2469,8 +2469,9 @@ f32 D_demo_800CA1B4[] = {
 f32 sGreatFoxLightScale3[] = {
     1.5f, 0.87f, 0.83f, 0.75f, 0.7f, 0.6f, 0.4f, 0.1f,
 };
-Animation* D_demo_800CA1F4[] = {
-    &D_SY_60265B4, &D_SY_602B8DC, &D_SY_60034C4, &D_SY_602A2CC, &D_SY_602CEB4, &D_SY_602B778, &D_SY_601F3B8,
+Animation* gSyLevelStartDemoAnim[] = {
+    &aSyShogunAnim1,  &aSyShogunAnim3, &aSyShogunAnim9,  &aSyShogunAnim10,
+    &aSyShogunAnim11, &aSyShogunAnim0, &aSyShogunAnim12,
 };
 
 void ActorCutscene_SyShip_Setup(ActorCutscene* this, s32 idx) {
@@ -2767,11 +2768,11 @@ void ActorCutscene_Draw(ActorCutscene* this) {
             break;
 
         case ACTOR_CS_SY_ROBOT:
-            animFrameData = Animation_GetFrameData(D_demo_800CA1F4[this->iwork[4]], this->iwork[5], sp144);
+            animFrameData = Animation_GetFrameData(gSyLevelStartDemoAnim[this->iwork[4]], this->iwork[5], sp144);
             Math_SmoothStepToVec3fArray(sp144, this->vwork, 1, animFrameData, this->fwork[2], 100.0f, .0f);
             RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 150, 255, 150, 255);
-            Animation_DrawSkeleton(1, D_SY_602D140, this->vwork, 0, 0, this, &gIdentityMatrix);
+            Animation_DrawSkeleton(1, aSyRobotSkel, this->vwork, 0, 0, this, &gIdentityMatrix);
 
             if (this->fwork[0] != 0.0f) {
                 RCP_SetupDL_49();

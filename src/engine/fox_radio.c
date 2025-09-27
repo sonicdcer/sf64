@@ -310,10 +310,10 @@ void func_radio_800BAAE8(void) {
             radioPortraitTex = aSxSpyborgPortrait2Tex;
             break;
         case RCID_BOSS_SECTORY:
-            radioPortraitTex = D_SY_6018F30;
+            radioPortraitTex = aSyShogunPortrait1Tex;
             break;
         case RCID_BOSS_SECTORY + 1:
-            radioPortraitTex = D_SY_6019E50;
+            radioPortraitTex = aSyShogunPortrait2Tex;
             break;
         case RCID_BOSS_MACBETH:
             radioPortraitTex = D_MA_6010C20;

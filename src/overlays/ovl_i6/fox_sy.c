@@ -76,7 +76,7 @@ void SectorY_SyShogun_Init(SyShogun* this) {
     D_ctx_80177A10[8] = 0;
 
     if (this->index == 0) {
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60342A0);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotUnkHitbox4);
         this->health = 150;
 
         this->swork[28] = 5;
@@ -92,7 +92,7 @@ void SectorY_SyShogun_Init(SyShogun* this) {
         SectorY_8019AEC0(this);
     } else {
         this->fwork[34] = 2.8f;
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034304);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotUnkHitbox5);
         this->health = 100;
         this->swork[28] = 0;
         this->swork[25] = 1;
@@ -655,7 +655,7 @@ void SectorY_80199438(SyShogun* this) {
                     }
                 }
                 Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 30.0f, 4.0f);
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_6034304);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotUnkHitbox5);
                 AUDIO_PLAY_SFX(NA_SE_EN_MS_SHIELD_BROKEN, this->sfxSource, 4);
             }
         }
@@ -906,12 +906,12 @@ void SectorY_8019AA08(SyShogun* this) {
     if (Rand_ZeroOne() >= 0.5f) {
         this->swork[21] = 7;
         this->swork[31] = 11;
-        this->swork[32] = Animation_GetFrameCount(&D_SY_602645C) - 1;
+        this->swork[32] = Animation_GetFrameCount(&aSyShogunAnim6) - 1;
 
     } else if (this->index == 0) {
         this->swork[21] = 8;
         this->swork[31] = 13;
-        this->swork[32] = Animation_GetFrameCount(&D_SY_60258A0) - 1;
+        this->swork[32] = Animation_GetFrameCount(&aSyShogunAnim8) - 1;
 
     } else {
         return;
@@ -1457,65 +1457,65 @@ void SectorY_SyShogun_Update(SyShogun* this) {
 
         switch (this->swork[21]) {
             case 0:
-                this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_602B778, this->animFrame, frameTable);
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim0) - 1;
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim0, this->animFrame, frameTable);
                 break;
 
             case 1:
-                this->animFrame = Animation_GetFrameCount(&D_SY_60265B4) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_60265B4, this->animFrame, frameTable);
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim1) - 1;
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim1, this->animFrame, frameTable);
                 break;
 
             case 2:
-                this->animFrame = Animation_GetFrameCount(&D_SY_6029B48) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_6029B48, this->animFrame, frameTable);
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim2) - 1;
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim2, this->animFrame, frameTable);
                 break;
 
             case 3:
-                this->animFrame = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
-                sp1D0 = Animation_GetFrameData(&D_SY_602B8DC, this->animFrame, frameTable);
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim3) - 1;
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim3, this->animFrame, frameTable);
                 break;
 
             case 4:
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_SY_6003348)) {
-                    this->animFrame = Animation_GetFrameCount(&D_SY_6003348) - 1;
+                if (this->animFrame >= Animation_GetFrameCount(&aSyShogunAnim4)) {
+                    this->animFrame = Animation_GetFrameCount(&aSyShogunAnim4) - 1;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_6003348, this->animFrame, frameTable);
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim4, this->animFrame, frameTable);
                 break;
 
             case 5:
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_SY_602738C)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aSyShogunAnim5)) {
                     this->animFrame = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->animFrame, frameTable);
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim5, this->animFrame, frameTable);
                 break;
 
             case 6:
-                sp1D0 = Animation_GetFrameData(&D_SY_602738C, this->animFrame, frameTable);
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim5, this->animFrame, frameTable);
                 break;
 
             case 7:
-                if (this->animFrame < (Animation_GetFrameCount(&D_SY_602645C) - 1)) {
+                if (this->animFrame < (Animation_GetFrameCount(&aSyShogunAnim6) - 1)) {
                     this->animFrame++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_602645C, this->animFrame, frameTable);
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim6, this->animFrame, frameTable);
                 break;
 
             case 8:
-                if (this->animFrame < (Animation_GetFrameCount(&D_SY_60258A0) - 1)) {
+                if (this->animFrame < (Animation_GetFrameCount(&aSyShogunAnim8) - 1)) {
                     this->animFrame++;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_60258A0, this->animFrame, frameTable);
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim8, this->animFrame, frameTable);
                 break;
 
             case 9:
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_SY_60034C4)) {
+                if (this->animFrame >= Animation_GetFrameCount(&aSyShogunAnim9)) {
                     this->animFrame = 0;
                 }
-                sp1D0 = Animation_GetFrameData(&D_SY_60034C4, this->animFrame, frameTable);
+                sp1D0 = Animation_GetFrameData(&aSyShogunAnim9, this->animFrame, frameTable);
                 break;
         }
 
@@ -1766,7 +1766,7 @@ bool SectorY_8019DC4C(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* 
         case 17:
             rot->x += boss->fwork[8];
             rot->y -= boss->fwork[7];
-            *dList = D_SY_6014BD0;
+            *dList = aSyShogunHeadDL;
             break;
 
         case 18:
@@ -1806,7 +1806,7 @@ bool SectorY_SyShogun_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
 
         case 4:
             if (this->swork[25] == 0) {
-                *dList = D_SY_6013600;
+                *dList = aSyShogunShieldDL;
                 if ((this->swork[24] % 2) != 0) {
                     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 0, 255, 0, 255);
                 }
@@ -1818,7 +1818,7 @@ bool SectorY_SyShogun_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, V
         case 17:
             rot->x += this->fwork[8];
             rot->y -= this->fwork[7];
-            *dList = D_SY_6014BD0;
+            *dList = aSyShogunHeadDL;
             break;
 
         case 18:
@@ -1915,7 +1915,7 @@ void SectorY_SyShogun_Draw(SyShogun* this) {
     }
 
     if ((this->health > 0) || (this->swork[36] == 0)) {
-        Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_SyShogun_OverrideLimbDraw,
+        Animation_DrawSkeleton(2, aSyRobotSkel, this->vwork, SectorY_SyShogun_OverrideLimbDraw,
                                SectorY_SyShogun_PostLimbDraw, this, gCalcMatrix);
         if (this->timer_054 != 0) {
             sp9C = D_i6_801A69AC[this->timer_054];
@@ -3554,12 +3554,12 @@ void SectorY_SyRobot_Update(SyRobot* this) {
 
             case 5:
                 this->work_046 = 5;
-                this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim0) - 1;
                 break;
 
             case 7:
                 this->work_046 = 6;
-                this->animFrame = Animation_GetFrameCount(&D_SY_602B778) - 1;
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim0) - 1;
                 break;
         }
         this->work_048 = 0;
@@ -3571,15 +3571,15 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             i = this->iwork[17];
             if (i != 0) {
                 if (i == 1) {
-                    this->animFrame = Animation_GetFrameCount(&D_SY_60265B4) - 1;
-                    sp4C = Animation_GetFrameData(&D_SY_60265B4, this->animFrame, sp68);
+                    this->animFrame = Animation_GetFrameCount(&aSyShogunAnim1) - 1;
+                    sp4C = Animation_GetFrameData(&aSyShogunAnim1, this->animFrame, sp68);
                 } else if (i == 2) {
-                    this->animFrame = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
-                    sp4C = Animation_GetFrameData(&D_SY_602B8DC, this->animFrame, sp68);
+                    this->animFrame = Animation_GetFrameCount(&aSyShogunAnim3) - 1;
+                    sp4C = Animation_GetFrameData(&aSyShogunAnim3, this->animFrame, sp68);
                 }
             } else {
-                this->animFrame = Animation_GetFrameCount(&D_SY_602CEB4);
-                sp4C = Animation_GetFrameData(&D_SY_602CEB4, this->animFrame, sp68);
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim11);
+                sp4C = Animation_GetFrameData(&aSyShogunAnim11, this->animFrame, sp68);
             }
             break;
 
@@ -3587,15 +3587,15 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             i = this->iwork[17];
             if (i != 0) {
                 if (i == 1) {
-                    this->animFrame = Animation_GetFrameCount(&D_SY_60265B4) - 1;
-                    sp4C = Animation_GetFrameData(&D_SY_60265B4, this->animFrame, sp68);
+                    this->animFrame = Animation_GetFrameCount(&aSyShogunAnim1) - 1;
+                    sp4C = Animation_GetFrameData(&aSyShogunAnim1, this->animFrame, sp68);
                 } else if (i == 2) {
-                    this->animFrame = Animation_GetFrameCount(&D_SY_602B8DC) - 1;
-                    sp4C = Animation_GetFrameData(&D_SY_602B8DC, this->animFrame, sp68);
+                    this->animFrame = Animation_GetFrameCount(&aSyShogunAnim3) - 1;
+                    sp4C = Animation_GetFrameData(&aSyShogunAnim3, this->animFrame, sp68);
                 }
             } else {
-                this->animFrame = Animation_GetFrameCount(&D_SY_602A2CC) - 1;
-                sp4C = Animation_GetFrameData(&D_SY_602A2CC, this->animFrame, sp68);
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim10) - 1;
+                sp4C = Animation_GetFrameData(&aSyShogunAnim10, this->animFrame, sp68);
             }
 
             if (this->timer_0BE == 15) {
@@ -3627,20 +3627,20 @@ void SectorY_SyRobot_Update(SyRobot* this) {
             break;
 
         case 2:
-            if (this->animFrame < (Animation_GetFrameCount(&D_SY_6029B48) - 1)) {
+            if (this->animFrame < (Animation_GetFrameCount(&aSyShogunAnim2) - 1)) {
                 this->animFrame++;
             }
-            sp4C = Animation_GetFrameData(&D_SY_6029B48, this->animFrame, sp68);
+            sp4C = Animation_GetFrameData(&aSyShogunAnim2, this->animFrame, sp68);
             break;
 
         case 4:
             this->animFrame++;
-            if (this->animFrame >= (Animation_GetFrameCount(&D_SY_602B778) - 1)) {
+            if (this->animFrame >= (Animation_GetFrameCount(&aSyShogunAnim0) - 1)) {
                 this->work_046 = 0;
                 this->iwork[17] = 0;
                 this->fwork[15] = 0.0f;
             }
-            sp4C = Animation_GetFrameData(&D_SY_602B778, this->animFrame, sp68);
+            sp4C = Animation_GetFrameData(&aSyShogunAnim0, this->animFrame, sp68);
             break;
 
         case 5:
@@ -3655,16 +3655,16 @@ void SectorY_SyRobot_Update(SyRobot* this) {
                 }
                 this->work_046 = 0;
             }
-            sp4C = Animation_GetFrameData(&D_SY_602B778, this->animFrame, sp68);
+            sp4C = Animation_GetFrameData(&aSyShogunAnim0, this->animFrame, sp68);
             break;
 
         case 3:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SY_6003348)) {
-                this->animFrame = Animation_GetFrameCount(&D_SY_6003348) - 1;
+            if (this->animFrame >= Animation_GetFrameCount(&aSyShogunAnim4)) {
+                this->animFrame = Animation_GetFrameCount(&aSyShogunAnim4) - 1;
             }
 
-            sp4C = Animation_GetFrameData(&D_SY_6003348, this->animFrame, sp68);
+            sp4C = Animation_GetFrameData(&aSyShogunAnim4, this->animFrame, sp68);
 
             if ((this->timer_0BE % 4U) == 0) {
                 Effect_FireSmoke1_Spawn3(RAND_FLOAT_CENTERED(150.0f) + this->obj.pos.x,
@@ -3759,7 +3759,7 @@ void SectorY_SyRobot_Update(SyRobot* this) {
 
     this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotHitbox);
     if (this->work_046 == 1) {
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_603421C);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotUnkHitbox1);
     }
 
     i = this->iwork[17];
@@ -3767,11 +3767,11 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         if (i == 1) {
             this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobot4Hitbox);
         } else if (i == 2) {
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60341A8);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotUnkHitbox2);
         }
     }
     if (this->work_046 == 2) {
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SY_60340C0);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSyRobotUnkHitbox3);
     }
 
     if ((this->dmgType != DMG_NONE) && (this->work_046 != 3)) {
@@ -3833,7 +3833,7 @@ bool SectorY_SyRobot_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Ve
         rot->x += actor->fwork[28];
         rot->y -= actor->fwork[29];
         if (actor->eventType == EVID_SY_ROBOT_1) {
-            *dList = D_SY_6014BD0;
+            *dList = aSyShogunHeadDL;
         }
     }
     if (limbIndex == 18) {
@@ -3864,7 +3864,7 @@ void SectorY_SyRobot_Draw(SyRobot* this) {
     f32 scale;
 
     RCP_SetupDL_30(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
-    Animation_DrawSkeleton(2, D_SY_602D140, this->vwork, SectorY_SyRobot_OverrideLimbDraw, SectorY_SyRobot_PostLimbDraw,
+    Animation_DrawSkeleton(2, aSyRobotSkel, this->vwork, SectorY_SyRobot_OverrideLimbDraw, SectorY_SyRobot_PostLimbDraw,
                            this, gCalcMatrix);
 
     if (this->timer_0C4 != 0) {

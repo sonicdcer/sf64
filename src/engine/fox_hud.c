@@ -2125,7 +2125,8 @@ s32 HUD_RadarMarks_Update(void) {
                     if ((y < 150.0f) || (y > 206.0f)) {
                         break;
                     }
-                    Lib_TextureRect_IA8(&gMasterDisp, D_SY_6000840, 64, 64, 250.0f + D_800D1E10, temp, 0.25f, 0.25f);
+                    Lib_TextureRect_IA8(&gMasterDisp, aSySaruzinRadarMark, 64, 64, 250.0f + D_800D1E10, temp, 0.25f,
+                                        0.25f);
                 }
                 break;
 
