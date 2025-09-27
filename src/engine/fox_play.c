@@ -2053,7 +2053,7 @@ void Player_CollisionCheck(Player* player) {
                             actor->vwork[EVA_FORMATION_ROT].y, actor->vwork[EVA_FORMATION_ROT].z + actor->orient.z);
                         if (temp_v0 != 0) {
                             if ((temp_v0 < 0) && (actor->eventType == EVID_SX_WARP_GATE)) {
-                                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032328);
+                                actor->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxWarpGatePassHitbox);
                                 if (gRingPassCount >= 0) {
                                     actor->work_046 = 2;
                                     gRingPassCount++;

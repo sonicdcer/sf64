@@ -487,7 +487,7 @@ void Effect_SpyborgOrb_Draw(EffectSpyborgOrb* this) {
     }
 
     Graphics_SetScaleMtx(this->scale2 * scale);
-    gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
+    gSPDisplayList(gMasterDisp++, aSxSpyborbOrbDL);
 }
 
 void Effect_MeFireball_Draw(EffectMeFireball* this) {

@@ -2941,7 +2941,7 @@ void ActorEvent_DamageWarpGate(ActorEvent* this) {
 
                 if (this->health <= 0) {
                     this->work_046 = 1;
-                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032408);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxWarpGateDamagedHitbox);
                     AUDIO_PLAY_SFX(NA_SE_OB_GATE_OPEN, this->sfxSource, 0);
                 } else {
                     AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 0);
@@ -3858,11 +3858,11 @@ bool ActorEvent_SxWarpGate_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* p
 void ActorEvent_SxWarpGate_Draw(ActorEvent* this) {
     Vec3f frameTable[10];
 
-    Animation_GetFrameData(&D_SX_6013820, 0, frameTable);
+    Animation_GetFrameData(&aSxWarpGateOpenAnim, 0, frameTable);
     frameTable[6].y += this->fwork[EVA_FWORK_15];
     frameTable[5].z += this->fwork[EVA_FWORK_16] + (s32) ((this->timer_0BE >> 2) % 2U);
     frameTable[4].z -= this->fwork[EVA_FWORK_16] + (s32) ((this->timer_0BE >> 2) % 2U);
-    Animation_DrawSkeleton(1, D_SX_601390C, frameTable, ActorEvent_SxWarpGate_OverrideLimbDraw, NULL, this,
+    Animation_DrawSkeleton(1, aSxWarpGateSkel, frameTable, ActorEvent_SxWarpGate_OverrideLimbDraw, NULL, this,
                            &gIdentityMatrix);
 }
 

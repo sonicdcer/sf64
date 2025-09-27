@@ -184,7 +184,7 @@ void SectorX_SxSlippy_Draw(SxSlippy* this) {
             gDPSetPrimColor(gMasterDisp++, 0, 0, 220, 70, 30, 255);
             Matrix_Scale(gGfxMatrix, 70.0f, 70.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_SX_60010C0);
+            gSPDisplayList(gMasterDisp++, aSxTitaniaDL);
 
         default:
             break;
@@ -269,7 +269,7 @@ void SectorX_SxSpyborgLeftArm_Update(SxSpyborgLeftArm* this) {
     Vec3f sp20;
 
     if (this->state == 0) {
-        Animation_GetFrameData(&D_SX_60206DC, this->animFrame, this->vwork);
+        Animation_GetFrameData(&aSxSpyborgLowerArmAnim, this->animFrame, this->vwork);
         Math_Vec3fFromAngles(&sp20, this->obj.rot.x, this->obj.rot.y, 20.0f);
         this->vel.x = sp20.x;
         this->vel.y = sp20.y;
@@ -443,7 +443,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                     this->swork[7] = 1;
                     Audio_KillSfxBySourceAndId(D_i2_80195D88, NA_SE_EN_SZMIS_ENGINE);
                     Audio_KillSfxBySourceAndId(D_i2_80195D98, NA_SE_EN_SZMIS_ENGINE);
-                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_603265C);
+                    this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxSpyborgSmallHeadHitbox);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 1);
                     SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 1);
                     this->timer_052 = 40;
@@ -517,7 +517,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->swork[7] = 1;
             this->obj.pos.x = gPlayer[0].xPath;
             this->swork[0] = 0;
-            Animation_GetFrameData(&D_SX_60206DC, this->animFrame, this->vwork);
+            Animation_GetFrameData(&aSxSpyborgLowerArmAnim, this->animFrame, this->vwork);
             this->fwork[1] = -2000.0f;
             this->fwork[14] = 300.0f;
             this->fwork[17] = -300.0f;
@@ -536,7 +536,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->fwork[42] = 30.0f;
             break;
 
-        case 90:
+        case 90: // Boss start, robot pieces combine
             if ((this->timer_050 == 110) || (this->timer_050 == 66)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_COMBINE, this->sfxSource, 4);
             }
@@ -566,16 +566,16 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->fwork[42] = 30.0f;
             break;
 
-        case 100:
+        case 100: // Lower arms and rotate head
             this->fwork[1] = -2000.0f;
 
-            frameData = Animation_GetFrameData(&D_SX_60206DC, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgLowerArmAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
             this->animFrame++;
 
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_60206DC)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgLowerArmAnim)) {
                 this->animFrame = 0;
                 this->state = 1;
                 this->fwork[0] = 0.0f;
@@ -594,13 +594,13 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->fwork[44] = 5.0f;
             this->fwork[43] = 5.0f;
 
-            frameData = Animation_GetFrameData(&D_SX_6016E28, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgTauntAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_6016E28)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgTauntAnim)) {
                 this->animFrame = 0;
                 this->state = 2;
                 this->fwork[0] = 0.0f;
@@ -630,13 +630,13 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                 this->fwork[42] = 0.0f;
             }
 
-            frameData = Animation_GetFrameData(&D_SX_60123BC, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgRightArmAttackAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_60123BC)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgRightArmAttackAnim)) {
                 this->animFrame = 0;
                 this->state = 3;
                 this->fwork[42] = this->fwork[43] = this->fwork[44] = this->fwork[0] = 0.0f;
@@ -666,13 +666,13 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                 this->fwork[42] = 0.0f;
             }
 
-            frameData = Animation_GetFrameData(&D_SX_6013798, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgLeftArmAttackAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_6013798)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgLeftArmAttackAnim)) {
                 this->animFrame = 0;
                 this->fwork[0] = 0.0f;
                 if (this->swork[3] <= 250) {
@@ -700,7 +700,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             Math_SmoothStepToF(&this->fwork[43], 10.0f, 1.0f, 1.0f, 0);
             Math_SmoothStepToF(&this->fwork[42], 50.0f, 1.0f, 3.0f, 0);
 
-            frameData = Animation_GetFrameData(&D_SX_6016E28, 0, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgTauntAnim, 0, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
@@ -819,7 +819,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 7:
+        case 7: // Destroy head
             if (this->timer_052 == 1) {
                 Radio_PlayMessage(gMsg_ID_15252, RCID_SLIPPY);
             }
@@ -827,13 +827,13 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->fwork[2] = -400.0f;
             this->fwork[42] = 30.0f;
 
-            frameData = Animation_GetFrameData(&D_SX_601C690, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgDyingAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_601C690)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgDyingAnim)) {
                 this->state = 75;
                 this->fwork[0] = 0.0f;
                 this->animFrame = 0;
@@ -841,11 +841,11 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 75:
+        case 75: // Faking death
             this->fwork[41] = 20.0f;
             this->fwork[2] = -400.0f;
 
-            frameData = Animation_GetFrameData(&D_SX_600A2D4, 0, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgFakeDeathAnim, 0, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 2.5f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 0.1f, 1.0f, 0.005f, 0);
@@ -861,7 +861,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 8:
+        case 8: // Recovers, signaling no with it's finger
             if (this->timer_052 == 1) {
                 Radio_PlayMessage(gMsg_ID_5497, RCID_BOSS_SECTORX);
             }
@@ -873,13 +873,13 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->fwork[43] = 5.0f;
             this->fwork[42] = 30.0f;
 
-            frameData = Animation_GetFrameData(&D_SX_600F890, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgRecoverAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.02f, 0);
 
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_600F890)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgRecoverAnim)) {
                 this->animFrame = 0;
                 this->fwork[0] = 0.0f;
                 this->state = 9;
@@ -888,20 +888,20 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 85:
+        case 85: // hitting slippy
             this->fwork[1] = -3000.0f;
             this->fwork[2] = gPlayer[0].pos.y;
             this->fwork[3] = gPlayer[0].pos.x;
 
-            frameData = Animation_GetFrameData(&D_SX_60123BC, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgRightArmAttackAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 50.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.01f, 0);
 
             if (this->timer_050 == 0) {
                 this->animFrame++;
-                if (this->animFrame >= Animation_GetFrameCount(&D_SX_60123BC)) {
-                    this->animFrame = Animation_GetFrameCount(&D_SX_60123BC) - 1;
+                if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgRightArmAttackAnim)) {
+                    this->animFrame = Animation_GetFrameCount(&aSxSpyborgRightArmAttackAnim) - 1;
                     if (gPlayer[0].state != PLAYERSTATE_STANDBY) {
                         this->animFrame = 0;
                         this->state = 10;
@@ -917,7 +917,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 9:
+        case 9: // Throw junk at player
             if (this->timer_050 == 1) {
                 Radio_PlayMessage(gMsg_ID_5492, RCID_BOSS_SECTORX);
             }
@@ -925,13 +925,13 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->fwork[2] = gPlayer[0].pos.y;
             this->fwork[3] = gPlayer[0].pos.x;
 
-            frameData = Animation_GetFrameData(&D_SX_601AA28, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgThrowJunkAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 50.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.01f, 0);
             this->animFrame++;
 
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_601AA28)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgThrowJunkAnim)) {
                 this->animFrame = 0;
                 this->state = 10;
                 this->fwork[0] = 0.0f;
@@ -949,12 +949,12 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 10:
+        case 10: // rotating arms attack
             attack = true;
             this->fwork[1] = -1000.0f;
             Math_SmoothStepToF(&this->fwork[42], 50.0f, 1.0f, 3.0f, 0);
 
-            frameData = Animation_GetFrameData(&D_SX_60158C4, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgRotateArmsAttackAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
@@ -964,7 +964,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_THROW, this->sfxSource, 4);
             }
 
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_60158C4)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgRotateArmsAttackAnim)) {
                 this->animFrame = 0;
                 this->fwork[0] = 0.0f;
 
@@ -986,7 +986,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 35:
+        case 35: // Spin Atack
             if (this->swork[9] != 0) {
                 this->fwork[2] = 500.0f;
             } else {
@@ -1017,7 +1017,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             Math_SmoothStepToF(&this->fwork[44], 20.0f, 1.0f, 0.5f, 0);
             Math_SmoothStepToF(&this->fwork[43], 20.0f, 1.0f, 0.5f, 0);
 
-            frameData = Animation_GetFrameData(&D_SX_6009FF8, 0, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpybornSpinAnim, 0, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 5.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 0.1f, 1.0f, 0.001f, 0);
@@ -1038,21 +1038,21 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
             break;
 
-        case 20:
+        case 20: // Dying
             Math_SmoothStepToF(&this->obj.rot.y, 0.0f, 0.1f, 3.0f, 0.1f);
             this->swork[0] = 0;
             this->fwork[1] = -1800.0f;
             this->fwork[41] = 340.0f;
             this->fwork[2] = -400.0f;
 
-            frameData = Animation_GetFrameData(&D_SX_601C690, this->animFrame, frameTable);
+            frameData = Animation_GetFrameData(&aSxSpyborgDyingAnim, this->animFrame, frameTable);
             Math_SmoothStepToVec3fArray(frameTable, this->vwork, 1, frameData, this->fwork[0], 100.0f, 0.0f);
 
             Math_SmoothStepToF(&this->fwork[0], 1.0f, 1.0f, 0.05f, 0);
             this->animFrame++;
 
-            if (this->animFrame >= Animation_GetFrameCount(&D_SX_601C690)) {
-                this->animFrame = Animation_GetFrameCount(&D_SX_601C690);
+            if (this->animFrame >= Animation_GetFrameCount(&aSxSpyborgDyingAnim)) {
+                this->animFrame = Animation_GetFrameCount(&aSxSpyborgDyingAnim);
             }
 
             if ((this->timer_050 & 3) == 0) {
@@ -1152,7 +1152,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             this->info.hitbox[66] = 70.0f;
         }
     } else {
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SX_6032768);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSxSpyborgSpinAttackHitbox);
     }
 
     if (this->swork[0] == 1) {
@@ -1189,7 +1189,7 @@ bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
             }
 
             if (boss->swork[4] == 1) {
-                *dList = D_SX_6006810;
+                *dList = aSxSpyborgSmallHeadDL;
             } else if (boss->swork[4] == 2) {
                 *dList = NULL;
             }
@@ -1216,6 +1216,7 @@ bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
                     } else {
                         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
                     }
+
                     Matrix_Push(&gGfxMatrix);
                     Matrix_Translate(gGfxMatrix, D_i2_80195644.x, D_i2_80195644.y, D_i2_80195644.z, (u8) MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, D_i2_80195650.z * M_DTOR, MTXF_APPLY);
@@ -1224,8 +1225,9 @@ bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
                     Matrix_RotateZ(gGfxMatrix, 2.0f * gGameFrameCount * M_DTOR, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_SX_6009C30);
+                    gSPDisplayList(gMasterDisp++, aSxSpyborgEyeDL);
                     Matrix_Pop(&gGfxMatrix);
+
                     Matrix_Translate(gGfxMatrix, D_i2_8019565C.x, D_i2_8019565C.y, D_i2_8019565C.z, (u8) MTXF_APPLY);
                     Matrix_RotateZ(gGfxMatrix, D_i2_80195668.z * M_DTOR, MTXF_APPLY);
                     Matrix_RotateY(gGfxMatrix, D_i2_80195668.y * M_DTOR, MTXF_APPLY);
@@ -1233,7 +1235,7 @@ bool SectorX_SxSpyborg_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, 
                     Matrix_RotateZ(gGfxMatrix, 2.0f * -gGameFrameCount * M_DTOR, MTXF_APPLY);
                     Matrix_Scale(gGfxMatrix, boss->fwork[45], boss->fwork[45], boss->fwork[45], MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_SX_6009C30);
+                    gSPDisplayList(gMasterDisp++, aSxSpyborgEyeDL);
                 }
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Pop(&gCalcMatrix);
@@ -1422,14 +1424,14 @@ void SectorX_SxSpyborg_Draw(SxSpyborg* this) {
             Matrix_Translate(gGfxMatrix, this->fwork[20], this->fwork[21], this->fwork[22], MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
+            gSPDisplayList(gMasterDisp++, aSxSpyborbOrbDL);
             Matrix_Pop(&gGfxMatrix);
 
             Matrix_Push(&gGfxMatrix);
             Matrix_Translate(gGfxMatrix, this->fwork[23], this->fwork[24], this->fwork[25], MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, fwork, fwork, fwork, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_SX_600F8A0);
+            gSPDisplayList(gMasterDisp++, aSxSpyborbOrbDL);
             Matrix_Pop(&gGfxMatrix);
         }
     }
