@@ -406,7 +406,7 @@ void func_radio_800BAAE8(void) {
                     break;
                 case GSTATE_TITLE:
                 case GSTATE_ENDING:
-                    radioPortraitTex = gTitleRadioStatic;
+                    radioPortraitTex = aTitleRadioStatic;
                     break;
             }
             if (((s32) gRadioMsgRadioId == RCID_ANDROSS) || ((s32) gRadioMsgRadioId == RCID_ANDROSS_RED)) {
@@ -472,8 +472,8 @@ void func_radio_800BB388(void) {
         switch (gGameState) {
             case GSTATE_TITLE:
             case GSTATE_ENDING:
-                texture = aNoControllerBgTex;
-                palette = aNoControllerBgTLUT;
+                texture = aTitleNoControllerBgTex;
+                palette = aTitleNoControllerBgTLUT;
                 break;
 
             case GSTATE_PLAY:

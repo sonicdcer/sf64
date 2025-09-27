@@ -110,7 +110,7 @@ void Ending_801876A4(void) {
         Matrix_RotateX(gGfxMatrix, (D_ending_80196D08[i].rot.x + 5.0f) * M_DTOR, MTXF_APPLY);
         Matrix_RotateZ(gGfxMatrix, D_ending_80196D08[i].rot.z * M_DTOR, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
-        gSPDisplayList(gMasterDisp++, aTeamShadowDL);
+        gSPDisplayList(gMasterDisp++, aTitleTeamShadowDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -119,7 +119,7 @@ void Ending_80187860(s32 arg0, s32 arg1) {
     Vec3f frameTable[50];
     s32 i;
     s32 limbCount;
-    Animation* sp70[4] = { &D_TITLE_60246F8, &aFalcoAnim, &aSlippyAnim, &aPeppyAnim };
+    Animation* sp70[4] = { &aTitleFoxSpeakAnim, &aTitleFalcoSpeakAnim, &aTitleSlippySpeakAnim, &aTitlePeppySpeakAnim };
     s32 pad;
 
     for (i = arg0; i < D_ending_80196F88; i++) {
@@ -150,16 +150,16 @@ void Ending_80187860(s32 arg0, s32 arg1) {
         if ((arg1 != 0) && (gCsFrameCount >= 394)) {
             switch (i) {
                 case 0:
-                    limbCount = Animation_GetFrameData(&D_TITLE_60246F8, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aTitleFoxSpeakAnim, 0, frameTable);
                     break;
                 case 1:
-                    limbCount = Animation_GetFrameData(&aFalcoAnim, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aTitleFalcoSpeakAnim, 0, frameTable);
                     break;
                 case 2:
-                    limbCount = Animation_GetFrameData(&aSlippyAnim, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aTitleSlippySpeakAnim, 0, frameTable);
                     break;
                 case 3:
-                    limbCount = Animation_GetFrameData(&aPeppyAnim, 0, frameTable);
+                    limbCount = Animation_GetFrameData(&aTitlePeppySpeakAnim, 0, frameTable);
                     break;
             }
             Math_SmoothStepToVec3fArray(frameTable, D_ending_80197900[i], 1, limbCount, 0.1f, 100.0f, 0.01f);
@@ -180,9 +180,9 @@ void Ending_80187D3C(s32 arg0) {
     s32 j;
     Vec3f sp23C = { 0.0f, 0.0f, 0.0f };
     UnkStruct_196D08 sp13C[4] = {
-        { &D_TITLE_602A710,
-          aFoxSkel,
-          23,
+        { &aTitleFoxAnim,
+          aTitleFoxSkel,
+          SETUPDL_23,
           { 110.0f, -520.0f, -1390.0f },
           { -20.0f, 0.0f, 0.0f },
           { 1.37f, 1.37f, 1.37f },
@@ -190,9 +190,9 @@ void Ending_80187D3C(s32 arg0) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_601E424,
-          aFalcoSkel,
-          23,
+        { &aTitleFalcoAnim,
+          aTitleFalcoSkel,
+          SETUPDL_23,
           { 380.0f, -670.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
           { 1.37f, 1.37f, 1.37f },
@@ -200,9 +200,9 @@ void Ending_80187D3C(s32 arg0) {
           30,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_6020058,
-          aSlippySkel,
-          23,
+        { &aTitleSlippyAnim,
+          aTitleSlippySkel,
+          SETUPDL_23,
           { -100.0f, -590.0f, -1630.0f },
           { -20.0f, 0.0f, 0.0f },
           { 1.37f, 1.37f, 1.37f },
@@ -210,9 +210,9 @@ void Ending_80187D3C(s32 arg0) {
           20,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_6029BE4,
-          aPeppySkel,
-          23,
+        { &aTitlePeppyAnim,
+          aTitlePeppySkel,
+          SETUPDL_23,
           { -330.0f, -660.0f, -1840.0f },
           { -20.0f, 0.0f, 0.0f },
           { 1.37f, 1.37f, 1.37f },
@@ -222,9 +222,9 @@ void Ending_80187D3C(s32 arg0) {
           { 0, 0, 0, 0 } },
     };
     UnkStruct_196D08 sp3C[4] = {
-        { &D_TITLE_602A710,
-          aFoxSkel,
-          23,
+        { &aTitleFoxAnim,
+          aTitleFoxSkel,
+          SETUPDL_23,
           { -80.0f, -400.0f, -50.0f },
           { 0.0f, 180.0f, 0.0f },
           { 0.86f, 0.86f, 0.86f },
@@ -232,9 +232,9 @@ void Ending_80187D3C(s32 arg0) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_601E424,
-          aFalcoSkel,
-          23,
+        { &aTitleFalcoAnim,
+          aTitleFalcoSkel,
+          SETUPDL_23,
           { -160.0f, -400.0f, 350.0f },
           { 0.0f, 180.0f, 0.0f },
           { 0.86f, 0.86f, 0.86f },
@@ -242,9 +242,9 @@ void Ending_80187D3C(s32 arg0) {
           30,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_6020058,
-          aSlippySkel,
-          23,
+        { &aTitleSlippyAnim,
+          aTitleSlippySkel,
+          SETUPDL_23,
           { 60.0f, -400.0f, 150.0f },
           { 0.0f, 180.0f, 0.0f },
           { 0.86f, 0.86f, 0.86f },
@@ -252,9 +252,9 @@ void Ending_80187D3C(s32 arg0) {
           20,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_6029BE4,
-          aPeppySkel,
-          23,
+        { &aTitlePeppyAnim,
+          aTitlePeppySkel,
+          SETUPDL_23,
           { 160.0f, -400.0f, 350.0f },
           { 350.0f, 180.0f, 0.0f },
           { 0.86f, 0.86f, 0.86f },
@@ -343,7 +343,7 @@ s32 Ending_GralPepper_Animate(void) {
     UnkStruct_196D08 sp14[2] = {
         { (void*) aEndAwardFrontLowResDL,
           NULL,
-          17,
+          SETUPDL_17,
           { 0.0f, -3830.0f, -7000.0f },
           { 0.0f, 0.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },
@@ -353,7 +353,7 @@ s32 Ending_GralPepper_Animate(void) {
           { 0, 0, 0, 0 } },
         { &aEndGralPepperSpeakAnim,
           aEndGralPepperSkel,
-          23,
+          SETUPDL_23,
           { 0.0f, -310.0f, -370.0f },
           { 0.0f, 0.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },
@@ -473,17 +473,18 @@ void Ending_801888F4(void) {
 
         case 1:
             frame = D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30;
-            if (frame >= Animation_GetFrameCount(&D_TITLE_601F8E0)) {
-                frame = Animation_GetFrameCount(&D_TITLE_601F8E0) - 1;
+            if (frame >= Animation_GetFrameCount(&aTitleFoxAnswerMsgAnim)) {
+                frame = Animation_GetFrameCount(&aTitleFoxAnswerMsgAnim) - 1;
             }
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1,
-                                        Animation_GetFrameData(&D_TITLE_601F8E0, frame, sp3C), 0.2f, 100.0f, 0.01f);
+                                        Animation_GetFrameData(&aTitleFoxAnswerMsgAnim, frame, sp3C), 0.2f, 100.0f,
+                                        0.01f);
             break;
 
         case 2:
             frame = (u32) (D_ending_80196D08[sp29C].unk_34 * D_ending_80196D08[sp29C].unk_30) %
                     Animation_GetFrameCount(D_ending_80196D08[sp29C].anim);
-            temp_s0_5 = Animation_GetFrameData(&D_TITLE_60246F8, frame, sp3C);
+            temp_s0_5 = Animation_GetFrameData(&aTitleFoxSpeakAnim, frame, sp3C);
             Math_SmoothStepToF(&D_ending_80198580, 1.0f, 0.01f, 1.0f, 0.05f);
             Math_SmoothStepToVec3fArray(sp3C, D_ending_80197900[0], 1, temp_s0_5, D_ending_80198580, 100.0f, 0.01f);
             break;
@@ -501,7 +502,7 @@ void Ending_80188DB4(void) {
     UnkStruct_196D08 sp74[5] = {
         { (void*) aEndAwardBackLowResDL,
           NULL,
-          17,
+          SETUPDL_17,
           { 0.0f, -2960.0f, -6600.0f },
           { 0.0f, 0.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },
@@ -509,9 +510,9 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &aFalcoAnim,
-          aFalcoSkel,
-          23,
+        { &aTitleFalcoSpeakAnim,
+          aTitleFalcoSkel,
+          SETUPDL_23,
           { 230.0f, -370.0f, -620.0f },
           { 350.0f, 0.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },
@@ -519,9 +520,9 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &aSlippyAnim,
-          aSlippySkel,
-          23,
+        { &aTitleSlippySpeakAnim,
+          aTitleSlippySkel,
+          SETUPDL_23,
           { -120.0f, -350.0f, -600.0f },
           { 350.0f, 10.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },
@@ -529,9 +530,9 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &aPeppyAnim,
-          aPeppySkel,
-          23,
+        { &aTitlePeppySpeakAnim,
+          aTitlePeppySkel,
+          SETUPDL_23,
           { -260.0f, -350.0f, -710.0f },
           { 350.0f, 10.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },
@@ -539,9 +540,9 @@ void Ending_80188DB4(void) {
           0,
           0,
           { 0, 0, 0, 0 } },
-        { &D_TITLE_60246F8,
-          aFoxSkel,
-          23,
+        { &aTitleFoxSpeakAnim,
+          aTitleFoxSkel,
+          SETUPDL_23,
           { 30.0f, -330.0f, -320.0f },
           { 350.0f, 0.0f, 0.0f },
           { 1.0f, 1.0f, 1.0f },

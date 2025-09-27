@@ -146,10 +146,10 @@ f32 D_menu_801B9080;
 f32 D_menu_801B9084;
 
 TitleAnimation sTeamAnim[4] = {
-    { &aFoxRunningAnim, &aFoxAnim, aFoxSkel },
-    { &aFalcoRunningAnim, &aFalcoAnim, aFalcoSkel },
-    { &aPeppyRunningAnim, &aPeppyAnim, aPeppySkel },
-    { &aSlippyRunningAnim, &aSlippyAnim, aSlippySkel },
+    { &aTitleFoxRunningAnim, &aTitleFoxSpeakAnim2, aTitleFoxSkel },
+    { &aTitleFalcoRunningAnim, &aTitleFalcoSpeakAnim, aTitleFalcoSkel },
+    { &aTitlePeppyRunningAnim, &aTitlePeppySpeakAnim, aTitlePeppySkel },
+    { &aTitleSlippyRunningAnim, &aTitleSlippySpeakAnim, aTitleSlippySkel },
 };
 
 u16* sGralPepperMsg[5] = {
@@ -2456,7 +2456,7 @@ void Title_Corneria_Draw(f32 zPos) {
     Matrix_Scale(gGfxMatrix, sTitleCorneria.scale, sTitleCorneria.scale, sTitleCorneria.scale, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, aPlanetCorneriaDL);
+    gSPDisplayList(gMasterDisp++, aTitlePlanetCorneriaDL);
     Title_CorneriaExplosions_Draw();
     Matrix_Pop(&gGfxMatrix);
 }
@@ -2478,7 +2478,7 @@ void Title_GreatFox_Draw(void) {
     Matrix_SetGfxMtx(&gMasterDisp);
     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
 
-    gGreatFoxIntact = true; // Unused here
+    gGreatFoxIntact = true;
 
     Cutscene_DrawGreatFox();
 
@@ -2605,7 +2605,7 @@ void Title_TeamRunning_Draw(TitleTeam teamIdx) {
     RCP_SetupDL_64();
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 128);
-    gSPDisplayList(gMasterDisp++, aTeamShadowDL);
+    gSPDisplayList(gMasterDisp++, aTitleTeamShadowDL);
 
     Matrix_Pop(&gGfxMatrix);
 
@@ -2624,7 +2624,7 @@ void Title_TeamRunning_Draw(TitleTeam teamIdx) {
 void Title_Team_Draw(TitleTeam teamIdx) {
     Vec3f frameTable[50];
     s32 frame;
-    // return; // DEBUG
+
     frame = sTitleTeam[teamIdx].frameCount % Animation_GetFrameCount(sTeamAnim[teamIdx].title);
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
@@ -2845,7 +2845,7 @@ void Title_64Logo_Draw(void) {
     Matrix_Scale(gGfxMatrix, D_menu_801B9068, D_menu_801B906C, 1.0f, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, M_DTOR * 90, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, a64LogoDL);
+    gSPDisplayList(gMasterDisp++, aTitle64LogoDL);
     Matrix_Pop(&gGfxMatrix);
 }
 
@@ -2881,8 +2881,8 @@ void Title_PressStart_Draw(void) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_85);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 60, 60, 255, 200);
 
-            Lib_TextureRect_CI8(&gMasterDisp, aNoControllerBgTex, aNoControllerBgTLUT, 32, 32, sNoControllerBgXpos,
-                                sNoControllerBgYpos, sNoControllerBgXscale, sNoControllerBgYscale);
+            Lib_TextureRect_CI8(&gMasterDisp, aTitleNoControllerBgTex, aTitleNoControllerBgTLUT, 32, 32,
+                                sNoControllerBgXpos, sNoControllerBgYpos, sNoControllerBgXscale, sNoControllerBgYscale);
 
             // No Controller
             RCP_SetupDL(&gMasterDisp, SETUPDL_83);
@@ -2936,50 +2936,50 @@ void Title_TeamName_Draw(void) {
 
     switch (D_menu_801B8340) {
         case 0:
-            Lib_TextureRect_IA8(&gMasterDisp, gTitleSlippyCard, 144, 13, temp_fs2, temp, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTitleSlippyCard, 144, 13, temp_fs2, temp, 1.0f, 1.0f);
             break;
 
         case 1:
-            Lib_TextureRect_IA8(&gMasterDisp, gTitlePeppyCard, 120, 13, temp_fs2, temp, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTitlePeppyCard, 120, 13, temp_fs2, temp, 1.0f, 1.0f);
             break;
 
         case 2:
             for (i = 0; i < 3; i++) {
-                Lib_TextureRect_IA8(&gMasterDisp, gTitleFalcoCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4),
+                Lib_TextureRect_IA8(&gMasterDisp, aTitleFalcoCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4),
                                     1.0f, 1.0f);
             }
-            Lib_TextureRect_IA8(&gMasterDisp, gTitleFalcoCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12.0f, 1.0f,
+            Lib_TextureRect_IA8(&gMasterDisp, aTitleFalcoCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12.0f, 1.0f,
                                 1.0f);
             break;
 
         case 3:
             for (i = 0; i < 3; i++) {
-                Lib_TextureRect_IA8(&gMasterDisp, gTitleFoxCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
+                Lib_TextureRect_IA8(&gMasterDisp, aTitleFoxCard + (176 * 4 * i), 176, 4, temp_fs2, temp + (i * 4), 1.0f,
                                     1.0f);
             }
-            Lib_TextureRect_IA8(&gMasterDisp, gTitleFoxCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12, 1.0f, 1.0f);
+            Lib_TextureRect_IA8(&gMasterDisp, aTitleFoxCard + 176 * 4 * 3, 176, 1, temp_fs2, temp + 12, 1.0f, 1.0f);
             break;
     }
 }
 
-Gfx* D_menu_801AE48C[12] = {
-    D_TITLE_6036290, D_TITLE_6036290, D_TITLE_6036290, D_TITLE_6036290, D_TITLE_6036B30, D_TITLE_6036290,
-    D_TITLE_6036290, D_TITLE_6036290, D_TITLE_6036290, D_TITLE_6036290, D_TITLE_6036B30, D_TITLE_6036290,
+Gfx* sTitleSunGlareDLs[12] = {
+    aTitleSunGlare1DL, aTitleSunGlare1DL, aTitleSunGlare1DL, aTitleSunGlare1DL, aTitleSunGlare2DL, aTitleSunGlare1DL,
+    aTitleSunGlare1DL, aTitleSunGlare1DL, aTitleSunGlare1DL, aTitleSunGlare1DL, aTitleSunGlare2DL, aTitleSunGlare1DL,
 };
 
-f32 D_menu_801AE4BC[12] = {
+f32 sTitleSunGlarePos[12] = {
     0.0f, 0.0f, 0.0f, 0.0f, 10.0f, 13.0f, 20.0f, 35.0f, 40.0f, 50.0f, 50.0f, 70.0f,
 };
 
-f32 D_menu_801AE4EC[] = {
+f32 sTitleSunGlareScale[] = {
     20.0f, 22.0f, 24.0f, 28.0f, 30.0f, 14.0f, 16.0f, 18.0f, 27.0f, 28.0f, 70.0f, 40.0f,
 };
 
-u8 D_menu_801AE51C[] = {
-    0xC0, 0x80, 0x60, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40, 0x40,
+u8 sTitleSunGlareBlue[] = {
+    192, 128, 96, 64, 64, 64, 64, 64, 64, 64, 64, 64,
 };
 
-s32 D_menu_801AE528[] = {
+s32 sTitleSunGlareAlpha[] = {
     80, 64, 48, 32, 12, 32, 44, 32, 42, 36, 12, 38,
 };
 
@@ -3045,12 +3045,12 @@ void Title_Sun_Draw(void) {
 
         for (i = 0; i < 4; i++) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
-                         MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, sTitleSunGlareScale[i] * 0.5f, sTitleSunGlareScale[i] * 0.5f,
+                         sTitleSunGlareScale[i] * 0.5f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, D_menu_801AE51C[i], D_menu_801AE528[i]);
-            gSPDisplayList(gMasterDisp++, D_menu_801AE48C[i]);
+            gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, sTitleSunGlareBlue[i], sTitleSunGlareAlpha[i]);
+            gSPDisplayList(gMasterDisp++, sTitleSunGlareDLs[i]);
 
             Matrix_Pop(&gGfxMatrix);
         }
@@ -3059,7 +3059,7 @@ void Title_Sun_Draw(void) {
 }
 
 void Title_SunGlare2_Draw(void) {
-    static s32 D_menu_801AE558 = 12;
+    static s32 sunGlareAlpha2 = 12;
     f32 temp_fs3;
     f32 temp_fs4;
     f32 var_fs1;
@@ -3087,21 +3087,21 @@ void Title_SunGlare2_Draw(void) {
 
         for (i = 4; i < 12; i++) {
             Matrix_Push(&gGfxMatrix);
-            Matrix_Translate(gGfxMatrix, D_menu_801AE4BC[i] * temp_fs3, -D_menu_801AE4BC[i] * temp_fs4, 0.0f,
+            Matrix_Translate(gGfxMatrix, sTitleSunGlarePos[i] * temp_fs3, -sTitleSunGlarePos[i] * temp_fs4, 0.0f,
                              MTXF_APPLY);
-            Matrix_Scale(gGfxMatrix, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f, D_menu_801AE4EC[i] * 0.5f,
-                         MTXF_APPLY);
+            Matrix_Scale(gGfxMatrix, sTitleSunGlareScale[i] * 0.5f, sTitleSunGlareScale[i] * 0.5f,
+                         sTitleSunGlareScale[i] * 0.5f, MTXF_APPLY);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            temp = D_menu_801AE528[i] * var_fs1;
+            temp = sTitleSunGlareAlpha[i] * var_fs1;
 
             if (i != 10) {
-                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, D_menu_801AE51C[i], (s32) temp);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, sTitleSunGlareBlue[i], (s32) temp);
             } else {
-                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, D_menu_801AE51C[i], D_menu_801AE558);
+                gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, sTitleSunGlareBlue[i], sunGlareAlpha2);
             }
-            gSPDisplayList(gMasterDisp++, D_menu_801AE48C[i]);
+            gSPDisplayList(gMasterDisp++, sTitleSunGlareDLs[i]);
             Matrix_Pop(&gGfxMatrix);
         }
         Matrix_Pop(&gGfxMatrix);
@@ -3119,7 +3119,7 @@ void Title_Logos_Draw(void) {
             Lib_TextureRect_CI4(&gMasterDisp, aIntroStarfoxLogoTex, aIntroStarfoxLogoTLUT, 256, 13, 90.0f, 110.0f, 1.0f,
                                 1.0f);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) sInAlpha);
-            Lib_TextureRect_CI4(&gMasterDisp, aIntroInTex, aIntroInTLUT, 32, 13, 150.0f, 110.0f, 1.0f, 1.0f);
+            Lib_TextureRect_CI4(&gMasterDisp, aTitleIntroInTex, aTitleIntroInTLUT, 32, 13, 150.0f, 110.0f, 1.0f, 1.0f);
             break;
 
         case TITLE_LOGO_NINTENDO_64:

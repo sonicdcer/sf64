@@ -91,7 +91,7 @@ aA6GorgonSkel = 0x6018BA0;
 aA6GorgonCoverHitbox = 0x6028578;
 aA6GorgonHitbox = 0x6028454;
 
-D_TITLE_60246F8 = 0x60246F8;
-aFalcoAnim = 0x60338DC;
-aSlippyAnim = 0x6036278;
-aPeppyAnim = 0x603531C;
+aTitleFoxSpeakAnim = 0x60246F8;
+aTitleFalcoSpeakAnim = 0x60338DC;
+aTitleSlippySpeakAnim = 0x6036278;
+aTitlePeppySpeakAnim = 0x603531C;
