@@ -90,11 +90,11 @@ void Play_UpdateDynaFloor(void) {
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
             if ((gGameFrameCount % 2) != 0) {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
+                spB4 = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX1);
             } else {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
+                spB4 = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX2);
             }
-            spB0 = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
+            spB0 = SEGMENTED_TO_VIRTUAL(aSoDynaFloorIndexes);
             spA8 = 16 - 1;
             sp90 = 70.0f;
             sp8C = 0.1f;
@@ -1058,8 +1058,8 @@ bool Play_CheckDynaFloorCollision(f32* floorHeight, s32* triangleIndex, f32 xPos
 
     switch (gCurrentLevel) {
         case LEVEL_SOLAR:
-            vertexData = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
-            indexData = SEGMENTED_TO_VIRTUAL(D_SO_6022760);
+            vertexData = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX1);
+            indexData = SEGMENTED_TO_VIRTUAL(aSoDynaFloorIndexes);
             break;
 
         case LEVEL_ZONESS:
@@ -2613,7 +2613,7 @@ void Play_InitLevel(void) {
 
             switch (gCurrentLevel) {
                 case LEVEL_SOLAR:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_SO_6001C50);
+                    mesh = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX1);
                     break;
                 case LEVEL_ZONESS:
                     mesh = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
@@ -2634,7 +2634,7 @@ void Play_InitLevel(void) {
 
             switch (gCurrentLevel) {
                 case LEVEL_SOLAR:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_SO_6004500);
+                    mesh = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX2);
                     break;
                 case LEVEL_ZONESS:
                     mesh = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
@@ -6826,7 +6826,7 @@ void Play_UpdateLevel(void) {
                                      RAND_FLOAT(10.0f) + 20.0f); // check
             }
 
-            HUD_Texture_Wave(D_SO_60229A4, D_SO_6010198);
+            HUD_Texture_Wave(aSoVulkainSkinSrcTex, aSoVulkainSkinDestTex);
 
             if (gPlayer[0].shields == 0) {
                 gSoShieldsEmpty = 1;

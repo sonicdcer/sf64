@@ -399,12 +399,14 @@ Vec3f D_i3_801BF8F0[4] = {
 
 Vec3f D_i3_801BF920 = { 0.0f, 0.0f, 0.0f };
 
-Gfx* D_i3_801BF92C[6] = {
-    aPlFireSmokeFrame1DL, aPlFireSmokeFrame2DL, aPlFireSmokeFrame3DL, D_SO_60084C0, D_SO_6008D40, D_SO_6007C40,
+Gfx* sSoRockFlareFrames[6] = {
+    aPlFireSmokeFrame1DL, aPlFireSmokeFrame2DL, aPlFireSmokeFrame3DL,
+    aSoFireSmokeFrame4DL, aSoFireSmokeFrame5DL, aSoFireSmokeFrame6DL,
 };
 
-Gfx* D_i3_801BF944[6] = {
-    D_SO_601B790, D_SO_601B790, D_SO_601A700, D_SO_6019670, D_SO_60185E0, D_SO_6017550,
+Gfx* sSoFlareS12FrameDLs[6] = {
+    sSoFlareS12Frame1DL, sSoFlareS12Frame1DL, sSoFlareS12Frame3DL,
+    sSoFlareS12Frame4DL, sSoFlareS12Frame5DL, sSoFlareS12Frame6DL,
 };
 
 Vec3f D_i3_801BF95C[3] = {
@@ -542,7 +544,7 @@ void Solar_SoRock_Draw(SoRock1* this) {
         Graphics_SetScaleMtx(this->scale * 3.5f);
         RCP_SetupDL(&gMasterDisp, SETUPDL_64);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, 160);
-        gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->animFrame]);
+        gSPDisplayList(gMasterDisp++, sSoRockFlareFrames[this->animFrame]);
     }
 }
 
@@ -925,16 +927,16 @@ void Solar_SoFlare_Draw(EffectSoFlare* this) {
     switch (this->state) {
         case 0:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
-            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->unk_4C]);
+            gSPDisplayList(gMasterDisp++, sSoRockFlareFrames[this->unk_4C]);
             break;
         case 1:
         case 2:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
-            gSPDisplayList(gMasterDisp++, D_i3_801BF944[this->unk_4C]);
+            gSPDisplayList(gMasterDisp++, sSoFlareS12FrameDLs[this->unk_4C]);
             break;
         case 3:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
-            gSPDisplayList(gMasterDisp++, D_SO_601C820);
+            gSPDisplayList(gMasterDisp++, aSoFlareS3FrameDL);
             break;
         case 4:
         case 5:
@@ -942,13 +944,13 @@ void Solar_SoFlare_Draw(EffectSoFlare* this) {
         case 7:
             RCP_SetupDL(&gMasterDisp, SETUPDL_53);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 128, 128, this->alpha);
-            gSPDisplayList(gMasterDisp++, D_i3_801BF92C[this->unk_4C]);
+            gSPDisplayList(gMasterDisp++, sSoRockFlareFrames[this->unk_4C]);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
     }
 }
 
-void Solar_801A0CEC(SoWave* this, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
+void Solar_SoWave_Setup(SoWave* this, f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_SO_WAVE;
@@ -971,7 +973,7 @@ void Solar_801A0D90(f32 xPos, f32 zPos, f32 zVel, s32 unkB8) {
 
     for (i = 4; i < ARRAY_COUNT(gActors); i++) {
         if (gActors[i].obj.status == OBJ_FREE) {
-            Solar_801A0CEC(&gActors[i], xPos, zPos, zVel, unkB8);
+            Solar_SoWave_Setup(&gActors[i], xPos, zPos, zVel, unkB8);
             break;
         }
     }
@@ -1357,14 +1359,14 @@ void Solar_801A1F80(SoVulkain* this) {
 
         this->obj.pos.y = -3000.0f;
 
-        Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 20.0f, 1);
+        Solar_SoWave_Setup(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 20.0f, 1);
 
         D_ctx_801779A8[gMainController] = 10.0f;
 
         gCameraShake = 120;
 
         this->fwork[SO_FWK_3] = 2400.0f;
-        this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_SO_60231A4);
+        this->info.hitbox = SEGMENTED_TO_VIRTUAL(aSoVulkainDyingHitbox);
         this->animFrame = 0;
         this->swork[SO_SWK_1] = 0;
         this->info.hitbox[8] = this->info.hitbox[12] = this->info.hitbox[14] = this->info.hitbox[18] =
@@ -1633,7 +1635,7 @@ void Solar_801A2C3C(SoVulkain* this) {
     this->swork[SO_SWK_0] = 2;
     this->swork[SO_SWK_1] = 0;
     this->fwork[SO_FWK_0] = 0.05f;
-    this->animFrame = Animation_GetFrameCount(&D_SO_601388C) - 2;
+    this->animFrame = Animation_GetFrameCount(&aSoVulkainAnim0) - 2;
     this->state = 0;
     this->swork[SO_SWK_11] = 15;
 }
@@ -1653,7 +1655,7 @@ void Solar_801A2C98(SoVulkain* this) {
             Math_SmoothStepToAngle(&this->obj.rot.y, 181.0f, 1.0f, 3.0f, 1.0f);
 
             if (this->animFrame == 50) {
-                Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_SoWave_Setup(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 70;
             }
@@ -1685,13 +1687,13 @@ void Solar_801A2C98(SoVulkain* this) {
                 this->obj.rot.y = -this->obj.rot.y;
             }
         } else {
-            this->animFrame = Animation_GetFrameCount(&D_SO_601388C) - 2;
+            this->animFrame = Animation_GetFrameCount(&aSoVulkainAnim0) - 2;
         }
     } else {
         Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
 
         if (this->swork[SO_SWK_11] == 80) {
-            Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
+            Solar_SoWave_Setup(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
         }
 
         if (this->swork[SO_SWK_11] == 0) {
@@ -1723,7 +1725,7 @@ void Solar_801A30CC(SoVulkain* this) {
     this->swork[SO_SWK_0] = 3;
     this->swork[SO_SWK_1] = 0;
     this->fwork[SO_FWK_0] = 0.1f;
-    this->animFrame = Animation_GetFrameCount(&D_SO_601388C) - 2;
+    this->animFrame = Animation_GetFrameCount(&aSoVulkainAnim0) - 2;
     this->state = 0;
     this->swork[SO_SWK_11] = 15;
 }
@@ -1740,7 +1742,7 @@ void Solar_801A3128(SoVulkain* this) {
             Math_SmoothStepToF(&this->obj.pos.y, -1000.0f, 0.1f, 10.0f, 0.1f);
 
             if (this->animFrame == 50) {
-                Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 10.0f, 1);
+                Solar_SoWave_Setup(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 10.0f, 1);
             }
 
             if (this->animFrame == 40) {
@@ -1756,11 +1758,11 @@ void Solar_801A3128(SoVulkain* this) {
                 this->obj.pos.z = gPlayer[0].trueZpos - 2100.0f;
             }
         } else {
-            this->animFrame = Animation_GetFrameCount(&D_SO_601388C) - 2;
+            this->animFrame = Animation_GetFrameCount(&aSoVulkainAnim0) - 2;
         }
     } else {
         if (this->swork[SO_SWK_11] == 80) {
-            Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 850.0f, 20.0f, 1);
+            Solar_SoWave_Setup(&gActors[9], this->obj.pos.x, this->obj.pos.z + 850.0f, 20.0f, 1);
 
             gControllerRumbleFlags[gMainController] = 1;
             gControllerRumbleTimers[gMainController] = 70;
@@ -2365,7 +2367,7 @@ void Solar_801A4EF8(SoVulkain* this) {
             }
 
             if (this->swork[SO_SWK_11] == 30) {
-                Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_SoWave_Setup(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
 
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 70;
@@ -2409,7 +2411,7 @@ void Solar_801A4EF8(SoVulkain* this) {
             }
 
             if (this->swork[SO_SWK_11] == 200) {
-                Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_SoWave_Setup(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
             }
 
             if (this->swork[SO_SWK_11] < 200) {
@@ -2432,7 +2434,7 @@ void Solar_801A4EF8(SoVulkain* this) {
                 }
 
                 if (this->swork[SO_SWK_11] == 50) {
-                    Solar_801A0CEC(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 80.0f, 2);
+                    Solar_SoWave_Setup(&gActors[10], this->obj.pos.x, this->obj.pos.z + 1000.0f, 80.0f, 2);
                     gControllerRumbleFlags[gMainController] = 1;
                     gControllerRumbleTimers[gMainController] = 100;
                     gCameraShake = 10;
@@ -2455,7 +2457,7 @@ void Solar_801A4EF8(SoVulkain* this) {
         case 3:
             Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 1.0f, 1.5f, 1.0f);
             if (this->swork[SO_SWK_11] == 65) {
-                Solar_801A0CEC(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
+                Solar_SoWave_Setup(&gActors[9], this->obj.pos.x, this->obj.pos.z + 1000.0f, 20.0f, 1);
             }
             if (this->swork[SO_SWK_11] == 0) {
                 this->swork[SO_SWK_11] = 220;
@@ -2698,48 +2700,48 @@ void Solar_SoVulkain_Update(SoVulkain* this) {
             if (this->animFrame == 75) {
                 AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, this->sfxSource, 4);
             }
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_601388C)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim0)) {
                 if (this->health != 0) {
                     this->animFrame = 0;
                     this->swork[SO_SWK_1]++;
                     this->fwork[SO_FWK_0] = 0.01f;
                 } else {
-                    this->animFrame = Animation_GetFrameCount(&D_SO_601388C) - 1;
+                    this->animFrame = Animation_GetFrameCount(&aSoVulkainAnim0) - 1;
                 }
             }
-            sp1BC = Animation_GetFrameData(&D_SO_601388C, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim0, this->animFrame, frameTable);
             break;
 
         case 1:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_600D3DC)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim1)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600D3DC, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim1, this->animFrame, frameTable);
             break;
 
         case 2:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_600E2C4)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim2)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600E2C4, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim2, this->animFrame, frameTable);
             break;
 
         case 3:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_600F744)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim3)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600F744, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim3, this->animFrame, frameTable);
             break;
 
         case 4:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_600C15C)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim4)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600C15C, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim4, this->animFrame, frameTable);
             break;
 
         case 5:
@@ -2749,28 +2751,29 @@ void Solar_SoVulkain_Update(SoVulkain* this) {
             if ((this->animFrame == 45) && (this->health != 0)) {
                 AUDIO_PLAY_SFX(NA_SE_EN_SOBOSS_CRY, this->sfxSource, 4);
             }
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_6012C00)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim589)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_6012C00, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim589, this->animFrame, frameTable);
             break;
 
         case 6:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_600B1B4)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim6)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_600B1B4, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim6, this->animFrame, frameTable);
             break;
 
         case 7:
             this->animFrame++;
-            if (this->animFrame >= Animation_GetFrameCount(&D_SO_6009D30)) {
+            if (this->animFrame >= Animation_GetFrameCount(&aSoVulkainAnim7)) {
                 this->animFrame = 0;
             }
-            sp1BC = Animation_GetFrameData(&D_SO_6009D30, this->animFrame, frameTable);
+            sp1BC = Animation_GetFrameData(&aSoVulkainAnim7, this->animFrame, frameTable);
             break;
     }
+
     Matrix_RotateZ(gCalcMatrix, -this->vwork[SO_VWK_29].z * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, -this->vwork[SO_VWK_29].x * M_DTOR, MTXF_APPLY);
     Matrix_RotateY(gCalcMatrix, -this->vwork[SO_VWK_29].y * M_DTOR, MTXF_APPLY);
@@ -3055,7 +3058,7 @@ void Solar_SoVulkain_Draw(SoVulkain* this) {
     Matrix_Scale(gCalcMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
 
     if (gBossActive) {
-        Animation_DrawSkeleton(2, D_SO_600E470, this->vwork, Solar_SoVulkain_OverrideLimbDraw,
+        Animation_DrawSkeleton(2, aSoVulkainSkel, this->vwork, Solar_SoVulkain_OverrideLimbDraw,
                                Solar_SoVulkain_PostLimbDraw, this, gCalcMatrix);
     }
 
