@@ -32,8 +32,8 @@ aLandmasterModelTex4:
 aLandmasterModelTex5:
   { type: TEXTURE, format: RGBA16, offset: 0x3002680, width: 32, height: 32, ctype: u16, symbol: aLandmasterModelTex5 }
 
-aLandmasterModelTex6:
-  { type: TEXTURE, format: RGBA16, offset: 0x3002E80, width: 32, height: 32, ctype: u16, symbol: aLandmasterModelTex6 }
+aLandmasterTrackChainTex:
+  { type: TEXTURE, format: RGBA16, offset: 0x3002E80, width: 32, height: 32, ctype: u16, symbol: aLandmasterTrackChainTex }
 
 aLandmasterModelTex7:
   { type: TEXTURE, format: RGBA16, offset: 0x3003680, width: 64, height: 32, ctype: u16, symbol: aLandmasterModelTex7 }

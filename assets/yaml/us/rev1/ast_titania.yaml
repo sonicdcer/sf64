@@ -22,53 +22,53 @@ aTiBackdropDL:
 aTiBackdropTex:
   {type: TEXTURE, format: RGBA16, ctype: u16, width: 64, height: 32, offset: 0x6000B10, symbol: aTiBackdropTex}
 
-D_TI_6001B10:
-  {type: GFX, offset: 0x6001B10, symbol: D_TI_6001B10}
+aTiUnusedDL1:
+  {type: GFX, offset: 0x6001B10, symbol: aTiUnusedDL1}
 
-D_TI_6001BA8:
-  {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6001BA8, symbol: D_TI_6001BA8}
+aTiGroundTex1:
+  {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6001BA8, symbol: aTiGroundTex1}
 
 aTiCactusDL:
   {type: GFX, offset: 0x60023B0, symbol: aTiCactusDL}
 
-D_TI_6002438:
-  {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 64, offset: 0x6002438, symbol: D_TI_6002438}
+aTiCactusTex:
+  {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 64, offset: 0x6002438, symbol: aTiCactusTex}
 
-D_TI_6003440:
-  {type: GFX, offset: 0x6003440, symbol: D_TI_6003440}
+aTiEffectTiDustFrame1DL:
+  {type: GFX, offset: 0x6003440, symbol: aTiEffectTiDustFrame1DL}
 
-D_TI_60034E0:
-  {type: GFX, offset: 0x60034E0, symbol: D_TI_60034E0}
+aTiEffectTiDustFrame2DL:
+  {type: GFX, offset: 0x60034E0, symbol: aTiEffectTiDustFrame2DL}
 
-D_TI_6003580:
-  {type: GFX, offset: 0x6003580, symbol: D_TI_6003580}
+aTiEffectTiDustFrame3DL:
+  {type: GFX, offset: 0x6003580, symbol: aTiEffectTiDustFrame3DL}
 
-D_TI_6003620:
-  {type: GFX, offset: 0x6003620, symbol: D_TI_6003620}
+aTiEffectTiDustFrame4DL:
+  {type: GFX, offset: 0x6003620, symbol: aTiEffectTiDustFrame4DL}
 
-D_TI_60036C0:
-  {type: GFX, offset: 0x60036C0, symbol: D_TI_60036C0}
+aTiEffectTiDustFrame5DL:
+  {type: GFX, offset: 0x60036C0, symbol: aTiEffectTiDustFrame5DL}
 
-D_TI_6003760:
-  {type: GFX, offset: 0x6003760, symbol: D_TI_6003760}
+aTiEffectTiDustFrame6DL:
+  {type: GFX, offset: 0x6003760, symbol: aTiEffectTiDustFrame6DL}
 
-D_TI_6003800:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6003800, symbol: D_TI_6003800}
+aTiEffectTiDustFrame1Tex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6003800, symbol: aTiEffectTiDustFrame1Tex}
 
-D_TI_6003C00:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6003C00, symbol: D_TI_6003C00}
+aTiEffectTiDustFrame2Tex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6003C00, symbol: aTiEffectTiDustFrame2Tex}
 
-D_TI_6004000:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004000, symbol: D_TI_6004000}
+aTiEffectTiDustFrame3Tex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004000, symbol: aTiEffectTiDustFrame3Tex}
 
-D_TI_6004400:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004400, symbol: D_TI_6004400}
+aTiEffectTiDustFrame4Tex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004400, symbol: aTiEffectTiDustFrame4Tex}
 
-D_TI_6004800:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004800, symbol: D_TI_6004800}
+aTiEffectTiDustFrame5Tex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004800, symbol: aTiEffectTiDustFrame5Tex}
 
-D_TI_6004C00:
-  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004C00, symbol: D_TI_6004C00}
+aTiEffectTiDustFrame6Tex:
+  {type: TEXTURE, format: IA8, ctype: u8, width: 32, height: 32, offset: 0x6004C00, symbol: aTiEffectTiDustFrame6Tex}
 
 aTiEnvSetup:
   {type: SF64:ENVIRONMENT, offset: 0x6005000, symbol: aTiEnvSetup}
@@ -127,8 +127,9 @@ aTiBoulderHitbox:
 aTiBombHitbox:
   {type: SF64:HITBOX, offset: 0x6006858, symbol: aTiBombHitbox}
 
-D_TI_6006874:
-  {type: SF64:HITBOX, offset: 0x6006874, symbol: D_TI_6006874}
+# Unused
+aTiUnusedHitbox:
+  {type: SF64:HITBOX, offset: 0x6006874, symbol: aTiUnusedHitbox}
 
 aTiRascoHitbox:
   {type: SF64:HITBOX, offset: 0x6006890, symbol: aTiRascoHitbox}
@@ -139,44 +140,44 @@ aTiCactusHitbox:
 aTiFekudaHitbox:
   {type: SF64:HITBOX, offset: 0x60068F0, symbol: aTiFekudaHitbox}
 
-D_TI_6006940:
-  {type: SF64:HITBOX, offset: 0x6006940, symbol: D_TI_6006940}
+aTiRib0InitHitbox:
+  {type: SF64:HITBOX, offset: 0x6006940, symbol: aTiRib0InitHitbox}
 
-D_TI_600695C:
-  {type: SF64:HITBOX, offset: 0x600695C, symbol: D_TI_600695C}
+aTiRib1InitHitbox:
+  {type: SF64:HITBOX, offset: 0x600695C, symbol: aTiRib1InitHitbox}
 
-D_TI_6006978:
-  {type: SF64:HITBOX, offset: 0x6006978, symbol: D_TI_6006978}
+aTiRib2InitHitbox:
+  {type: SF64:HITBOX, offset: 0x6006978, symbol: aTiRib2InitHitbox}
 
-D_TI_6006994:
-  {type: SF64:HITBOX, offset: 0x6006994, symbol: D_TI_6006994}
+aTiRib3InitHitbox:
+  {type: SF64:HITBOX, offset: 0x6006994, symbol: aTiRib3InitHitbox}
 
-D_TI_60069B0:
-  {type: SF64:HITBOX, offset: 0x60069B0, symbol: D_TI_60069B0}
+aTiRib4InitHitbox:
+  {type: SF64:HITBOX, offset: 0x60069B0, symbol: aTiRib4InitHitbox}
 
-D_TI_60069CC:
-  {type: SF64:HITBOX, offset: 0x60069CC, symbol: D_TI_60069CC}
+aTiRib5InitHitbox:
+  {type: SF64:HITBOX, offset: 0x60069CC, symbol: aTiRib5InitHitbox}
 
-D_TI_60069E8:
-  {type: SF64:HITBOX, offset: 0x60069E8, symbol: D_TI_60069E8}
+aTiRib6InitHitbox:
+  {type: SF64:HITBOX, offset: 0x60069E8, symbol: aTiRib6InitHitbox}
 
-D_TI_6006A04:
-  {type: SF64:HITBOX, offset: 0x6006A04, symbol: D_TI_6006A04}
+aTiRib7InitHitbox:
+  {type: SF64:HITBOX, offset: 0x6006A04, symbol: aTiRib7InitHitbox}
 
-D_TI_6006A20:
-  {type: SF64:HITBOX, offset: 0x6006A20, symbol: D_TI_6006A20}
+aTiRib8InitHitbox:
+  {type: SF64:HITBOX, offset: 0x6006A20, symbol: aTiRib8InitHitbox}
 
-aTiPillarHitbox:
-  {type: SF64:HITBOX, offset: 0x6006BF0, symbol: aTiPillarHitbox}
+aTiPillarStandingHitbox:
+  {type: SF64:HITBOX, offset: 0x6006BF0, symbol: aTiPillarStandingHitbox}
 
-D_TI_6006924:
-  {type: SF64:HITBOX, offset: 0x6006924, symbol: D_TI_6006924}
+aTiFekudaDyingHitbox:
+  {type: SF64:HITBOX, offset: 0x6006924, symbol: aTiFekudaDyingHitbox}
 
-D_TI_6006C0C:
-  {type: SF64:HITBOX, offset: 0x6006C0C, symbol: D_TI_6006C0C}
+aTiPillarFallenHitbox:
+  {type: SF64:HITBOX, offset: 0x6006C0C, symbol: aTiPillarFallenHitbox}
 
-D_TI_6006C28:
-  {type: SF64:HITBOX, offset: 0x6006C28, symbol: D_TI_6006C28}
+aTiPillarFallingHitbox:
+  {type: SF64:HITBOX, offset: 0x6006C28, symbol: aTiPillarFallingHitbox}
 
 aTiBridgeHitbox:
   {type: SF64:HITBOX, offset: 0x6006C44, symbol: aTiBridgeHitbox}
@@ -184,5 +185,5 @@ aTiBridgeHitbox:
 aTiLevelObjects:
   {type: SF64:OBJECT_INIT, offset: 0x6006C60, symbol: aTiLevelObjects}
 
-D_TI_6009BB8:
-  {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6009BB8, symbol: D_TI_6009BB8}
+aTiLandmasterWheelTex:
+  {type: TEXTURE, format: RGBA16, ctype: u16, width: 32, height: 32, offset: 0x6009BB8, symbol: aTiLandmasterWheelTex}

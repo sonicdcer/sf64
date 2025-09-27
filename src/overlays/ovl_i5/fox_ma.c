@@ -5647,7 +5647,7 @@ void Macbeth_LevelStart(Player* player) {
     player->rockPhase += player->vel.z * 5.0f;
     player->rockAngle = SIN_DEG(player->rockPhase) * 0.7f;
 
-    Lib_Texture_Scroll(aLandmasterModelTex6, 32, 32, 0);
+    Lib_Texture_Scroll(aLandmasterTrackChainTex, 32, 32, 0);
 
     if ((gCsFrameCount > 150) && ((-player->trueZpos - player->zPath) > 200.0f)) {
         if (D_i5_801BA768 < 11.5f) {

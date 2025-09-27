@@ -1062,7 +1062,7 @@ void Scenery_Corneria_Init(CoDoors* this) {
     }
 }
 
-void Scenery_CoStoneArch_Init(CoStoneArch* this, f32* hitboxData) {
+void Scenery_Arch_Init(Scenery* this, f32* hitboxData) {
     s32 i;
     Item* item;
 
@@ -1134,31 +1134,31 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_SCENERY_TI_RIB_0:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006940);
+            Scenery_Arch_Init(&gScenery[index], aTiRib0InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_1:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_600695C);
+            Scenery_Arch_Init(&gScenery[index], aTiRib1InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_2:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006978);
+            Scenery_Arch_Init(&gScenery[index], aTiRib2InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_3:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006994);
+            Scenery_Arch_Init(&gScenery[index], aTiRib3InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_4:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069B0);
+            Scenery_Arch_Init(&gScenery[index], aTiRib4InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_5:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069CC);
+            Scenery_Arch_Init(&gScenery[index], aTiRib5InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_6:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_60069E8);
+            Scenery_Arch_Init(&gScenery[index], aTiRib6InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_7:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A04);
+            Scenery_Arch_Init(&gScenery[index], aTiRib7InitHitbox);
             break;
         case OBJ_SCENERY_TI_RIB_8:
-            Scenery_CoStoneArch_Init(&gScenery[index], D_TI_6006A20);
+            Scenery_Arch_Init(&gScenery[index], aTiRib8InitHitbox);
             break;
         case OBJ_SCENERY_CO_RADAR_DISH:
             Actor_CoRadar_Init(&gScenery[index]);
@@ -1191,7 +1191,7 @@ void Object_Init(s32 index, ObjectId objId) {
             }
             break;
         case OBJ_SCENERY_CO_STONE_ARCH:
-            Scenery_CoStoneArch_Init(&gScenery[index], gItemRingCheckHitbox);
+            Scenery_Arch_Init(&gScenery[index], gItemRingCheckHitbox);
             /* fallthrough */
         case OBJ_SCENERY_CO_HIGHWAY_1:
         case OBJ_SCENERY_CO_HIGHWAY_2:

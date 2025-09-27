@@ -173,7 +173,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_SCENERY_CO_WATERFALL,  */  {(void*)     aCoWaterfallDL, 0, (ObjectFunc) CoWaterfall_Update,        aCoWaterfallHitbox,  1000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_CO_ROCKWALL,  */  {(void*)     aCoRockwallDL, 0, (ObjectFunc)          NULL,        aCoRockwallHitbox,  1000.0f,  0, 0, 41, 0,   0.0f,  0 },
   /* OBJ_SCENERY_CO_DOORS,  */  {(void*) Corneria_CoDoors_Draw, 2, (ObjectFunc) Corneria_CoDoors_Update,        aCoDoorsClosedHitbox,  1000.0f,  0, 0, 39, 0,   0.0f,  0 },
-  /* OBJ_SCENERY_TI_PILLAR,  */  {(void*) Titania_TiPillar_Draw, 1, (ObjectFunc) Titania_TiPillar_Update,        aTiPillarHitbox,   800.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_SCENERY_TI_PILLAR,  */  {(void*) Titania_TiPillar_Draw, 1, (ObjectFunc) Titania_TiPillar_Update,        aTiPillarStandingHitbox,   800.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_TI_BRIDGE,  */  {(void*)     aTiBridgeDL, 0, (ObjectFunc)          NULL,        aTiBridgeHitbox,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_SCENERY_MA_BUILDING_1,  */  {(void*)     aMaBuilding1DL, 0, (ObjectFunc)          NULL,        aMaBuilding1Hitbox,   300.0f,  0, 0,  5, 0,   0.0f,  0 },
   /* OBJ_SCENERY_MA_BUILDING_2,  */  {(void*)     aMaBuilding2DL, 0, (ObjectFunc)          NULL,        aMaBuilding2Hitbox,   400.0f,  0, 0,  5, 0,   0.0f,  0 },

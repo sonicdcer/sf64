@@ -364,7 +364,7 @@ void Titania_TiFekuda_Update(TiFekuda* this) {
                 this->info.targetOffset = 0.0f;
                 Actor_Despawn(this);
                 this->info.bonus = 0;
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006924);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiFekudaDyingHitbox);
                 Effect_FireSmoke1_Spawn4(this->fwork[0], this->fwork[1], this->fwork[2], 2.0f);
             }
         }
@@ -2170,13 +2170,13 @@ void Titania_TiPillar_Update(TiPillar* this) {
     if (this->unk_44 != 0) {
         if (this->obj.rot.z == 0.0f) {
             this->obj.pos.x = this->vel.z;
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiPillarHitbox);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiPillarStandingHitbox);
         } else if (this->obj.rot.z > 0.0f) {
             this->obj.pos.x = this->vel.z - 75.0f;
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C28);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiPillarFallingHitbox);
         } else {
             this->obj.pos.x = this->vel.z + 75.0f;
-            this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_TI_6006C0C);
+            this->info.hitbox = SEGMENTED_TO_VIRTUAL(aTiPillarFallenHitbox);
         }
     }
 }

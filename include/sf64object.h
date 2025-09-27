@@ -226,7 +226,7 @@ typedef struct Effect {
     /* 0x46 */ s16 unk_46;
     /* 0x48 */ s16 unk_48;
     /* 0x4A */ s16 unk_4A;
-    /* 0x4C */ u8 unk_4C; // animation frame ?
+    /* 0x4C */ u8 unk_4C; // animation frame
     /* 0x4E */ s16 state;
     /* 0x50 */ u16 timer_50;
     /* 0x52 */ char pad52[2];

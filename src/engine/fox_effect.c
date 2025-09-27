@@ -1055,7 +1055,8 @@ void Effect_EffectTiDust_Update(EffectTiDust* this) {
     this->unk_4A++;
 }
 
-Gfx* D_800D178C[] = { D_TI_6003440, D_TI_60034E0, D_TI_6003580, D_TI_6003620, D_TI_60036C0, D_TI_6003760 };
+Gfx* sEffectTiDustFrames[] = { aTiEffectTiDustFrame1DL, aTiEffectTiDustFrame2DL, aTiEffectTiDustFrame3DL,
+                               aTiEffectTiDustFrame4DL, aTiEffectTiDustFrame5DL, aTiEffectTiDustFrame6DL };
 
 void Effect_EffectTiDust_Draw(EffectTiDust* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_68);
@@ -1063,7 +1064,7 @@ void Effect_EffectTiDust_Draw(EffectTiDust* this) {
     gDPSetEnvColor(gMasterDisp++, 141, 73, 5, 0);
     Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_800D178C[this->unk_4C]);
+    gSPDisplayList(gMasterDisp++, sEffectTiDustFrames[this->unk_4C]);
     this->unk_4C = this->unk_48;
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
