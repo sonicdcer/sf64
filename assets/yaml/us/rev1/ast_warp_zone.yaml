@@ -17,14 +17,14 @@ aWzGateDL:
 aWzMeteor2DL:
   { type: GFX, offset: 0x70008F0, symbol: aWzMeteor2DL }
 
-D_WZ_7000260:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 4, height: 4, offset: 0x7000260, symbol: D_WZ_7000260 }
+aWzSxEnemy1Tex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 4, height: 4, offset: 0x7000260, symbol: aWzSxEnemy1Tex }
 
-D_WZ_7000A30:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x7000A30, symbol: D_WZ_7000A30, tlut: 0x7000C30 }
+aWzGateTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 32, height: 32, offset: 0x7000A30, symbol: aWzGateTex, tlut: 0x7000C30 }
 
-D_WZ_7000C30:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x7000C30, symbol: D_WZ_7000C30 }
+aWzGateTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 8, offset: 0x7000C30, symbol: aWzGateTLUT }
 
 aWzPillar1DL:
   { type: GFX, offset: 0x7000C40, symbol: aWzPillar1DL }
