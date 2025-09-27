@@ -94,9 +94,9 @@ CollisionHeader D_800D2B38[10] = {
     {
         { -1386.0f, -696.0f, -2274.0f },
         { 1386.0f, 1033.0f, 1833.0f },
-        ARRAY_COUNT(D_SZ_6007558),
-        D_SZ_6007558,
-        D_SZ_6008E08,
+        ARRAY_COUNT(aSzColPoly),
+        aSzColPoly,
+        aSzColPolyMesh,
     },
     {
         { -671.0f, 0.0f, -671.0f },

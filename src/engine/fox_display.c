@@ -1541,7 +1541,7 @@ void Display_ActorMarks(void) {
                 gDPSetTextureFilter(gMasterDisp++, G_TF_POINT);
 
                 if ((i == 0) && (gCurrentLevel == LEVEL_SECTOR_Z)) {
-                    gSPDisplayList(gMasterDisp++, aSzMissileMark);
+                    gSPDisplayList(gMasterDisp++, aSzMissileMarkDL);
                 } else {
                     gSPDisplayList(gMasterDisp++, sTeammateMarkDLs[i]);
                 }
