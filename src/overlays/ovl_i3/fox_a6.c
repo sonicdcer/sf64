@@ -1756,7 +1756,7 @@ void Area6_A6Gorgon_DrawTentacle(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s
 
 void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     s32 i;
-    Vec3f spB0 = { 0.0f, 0.0f, 0.0f };
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
     f32 spAC;
     f32 var_fs3 = 5.0f;
 
@@ -1794,7 +1794,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
                             (s32) D_i3_801C22F0.b[arg4], 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             gSPDisplayList(gMasterDisp++, aOrbDL);
-            Matrix_MultVec3f(gCalcMatrix, &spB0, arg2);
+            Matrix_MultVec3f(gCalcMatrix, &src, arg2);
         } else {
             RCP_SetupDL(&gMasterDisp, SETUPDL_47);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 64, 64, 192);
@@ -1818,8 +1818,8 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
 void Area6_A6Gorgon_Draw(A6Gorgon* this) {
     Vec3f jointTable[30];
     Vec3f spC4;
-    Vec3f spB8;
-    Vec3f spAC;
+    Vec3f dest;
+    Vec3f src;
     s32 i;
     s32 j;
 
@@ -1837,18 +1837,18 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
         if (D_i3_801C22F0.alpha != 255.0f) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_71);
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, (s32) D_i3_801C22F0.alpha);
-            spAC.x = 0.0f;
+            src.x = 0.0f;
 
-            if (!(gSysFrameCount & 1)) {
-                spAC.x = 1.0f;
+            if ((gSysFrameCount % 2) == 0) {
+                src.x = 1.0f;
                 if (1) {}
-                spAC.x = 0.0f;
+                src.x = 0.0f;
             }
-            spAC.y = spAC.z = 0.0f;
+            src.y = src.z = 0.0f;
 
             Matrix_RotateZ(gCalcMatrix, gGameFrameCount * 6.0f * M_DTOR, MTXF_NEW);
-            Matrix_MultVec3f(gCalcMatrix, &spAC, &spB8);
-            Matrix_Translate(gGfxMatrix, spB8.x, spB8.y, 0.0f, MTXF_APPLY);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+            Matrix_Translate(gGfxMatrix, dest.x, dest.y, 0.0f, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, this->scale, this->scale, this->scale, MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix, gGameFrameCount * 10.0f * M_DTOR, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, this->fwork[A6_FWK_34], this->fwork[A6_FWK_35], 1.0f, MTXF_APPLY);
@@ -1883,14 +1883,14 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
                     Effect_FireSmoke1_Spawn4(this->obj.pos.x + spC4.x, this->obj.pos.y + spC4.y,
                                              this->obj.pos.z + spC4.z, 20.0f);
 
-                    spB8.x = this->obj.pos.x + spC4.x;
-                    spB8.y = this->obj.pos.y + spC4.y;
-                    spB8.z = this->obj.pos.z + spC4.z;
+                    dest.x = this->obj.pos.x + spC4.x;
+                    dest.y = this->obj.pos.y + spC4.y;
+                    dest.z = this->obj.pos.z + spC4.z;
 
                     if ((!this) && (!this)) {} // fake
 
                     if (D_i3_801C2250[A6_BSS_26] == 0) {
-                        Effect_TimedSfx_Spawn(&spB8, NA_SE_EN_EXPLOSION_M);
+                        Effect_TimedSfx_Spawn(&dest, NA_SE_EN_EXPLOSION_M);
                     }
 
                     D_i3_801C2250[A6_BSS_26]++;
@@ -2020,6 +2020,7 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
 
         Matrix_Pop(&gGfxMatrix);
         RCP_SetupDL(&gMasterDisp, SETUPDL_71);
+
         if (D_i3_801C22F0.alpha != 255.0f) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->swork[A6_SWK_22], this->swork[A6_SWK_23],
                             this->swork[A6_SWK_24], (s32) D_i3_801C22F0.unk_28[-1]);
@@ -2027,6 +2028,7 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, this->swork[A6_SWK_22], this->swork[A6_SWK_23],
                             this->swork[A6_SWK_24], (s32) this->fwork[A6_FWK_29]);
         }
+
         Matrix_Translate(gGfxMatrix, 0.0f, 0.0f, 74.0f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gSPDisplayList(gMasterDisp++, aA6GorgonCoreShieldDL);
