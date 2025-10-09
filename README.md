@@ -9,6 +9,14 @@
         <img src="https://img.shields.io/badge/Matching%20Functions:%202948%2F2951-99.90%25-yellow" /></a>
 </p>
 
+Functions left to match:
+
+[AudioSynth_HartleyTransform](https://decomp.me/scratch/7N88x)
+
+[Aquas_AqBacoon_Update](https://decomp.me/scratch/cyJAV)
+
+[Titania_80193DF0](https://decomp.me/scratch/aOI9e)
+
 [![Discord Invitation](https://discordapp.com/api/guilds/1190102597521133700/widget.png?style=banner2 'Starfox 64')](https://discord.gg/tuwdmuTTqc)
 
 # Starfox 64 (US) REV 1.1
