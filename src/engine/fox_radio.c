@@ -151,7 +151,7 @@ void Radio_PlayMessage(u16* msg, RadioCharacterId character) {
 
 s32 sRadioUseRedBox;
 
-void func_radio_800BAAE8(void) {
+void Radio_Portrait_Draw(void) {
     static f32 D_800D4A74 = -1.0f;
     u16* radioPortraitTex;
     s32 mirror;
@@ -169,55 +169,55 @@ void func_radio_800BAAE8(void) {
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX:
-            radioPortraitTex = aFoxPortraitTex;
+            radioPortraitTex = aFoxPortrait1Tex;
             break;
         case RCID_FOX_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FOX + 1:
-            radioPortraitTex = D_1006000;
+            radioPortraitTex = aFoxPortrait2Tex;
             break;
         case RCID_FOX_EXPERT:
-            radioPortraitTex = D_1006F20;
+            radioPortraitTex = aFoxExpertPortrait1Tex;
             break;
         case RCID_FOX_EXPERT + 1:
-            radioPortraitTex = D_1007E40;
+            radioPortraitTex = aFoxExpertPortrait2Tex;
             break;
         case RCID_FALCO_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO:
-            radioPortraitTex = aFalcoPortraitTex;
+            radioPortraitTex = aFalcoPortrait1Tex;
             break;
         case RCID_FALCO_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_FALCO + 1:
-            radioPortraitTex = D_10041C0;
+            radioPortraitTex = aFalcoPortrait2Tex;
             break;
         case RCID_SLIPPY_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY:
-            radioPortraitTex = aSlippyPortraitTex;
+            radioPortraitTex = aSlippyPortrait1Tex;
             break;
         case RCID_SLIPPY_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_SLIPPY + 1:
-            radioPortraitTex = D_100E820;
+            radioPortraitTex = aSlippyPortrait2Tex;
             break;
         case RCID_PEPPY_RED:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY:
-            radioPortraitTex = aPeppyPortraitTex;
+            radioPortraitTex = aPeppyPortrait1Tex;
             break;
         case RCID_PEPPY_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_PEPPY + 1:
-            radioPortraitTex = D_100C9E0;
+            radioPortraitTex = aPeppyPortrait2Tex;
             break;
         case RCID_WOLF:
             radioPortraitTex = aStarWolfWolfPortrait1Tex;
@@ -326,14 +326,14 @@ void func_radio_800BAAE8(void) {
             /* fallthrough */
         case RCID_ROB64:
         case RCID_ROB64_2:
-            radioPortraitTex = D_1009C80;
+            radioPortraitTex = aRob64Portrait1Tex;
             break;
         case RCID_ROB64_RED + 1:
             sRadioUseRedBox = true;
             /* fallthrough */
         case RCID_ROB64 + 1:
         case RCID_ROB64_2 + 1:
-            radioPortraitTex = D_100ABA0;
+            radioPortraitTex = aRob64Portrait2Tex;
             break;
         case RCID_KATT:
             radioPortraitTex = aKattPortrait1Tex;
@@ -402,7 +402,7 @@ void func_radio_800BAAE8(void) {
                     radioPortraitTex = NULL;
                     break;
                 case GSTATE_PLAY:
-                    radioPortraitTex = D_1008D60;
+                    radioPortraitTex = aRadioStaticPortraitTex;
                     break;
                 case GSTATE_TITLE:
                 case GSTATE_ENDING:
@@ -692,7 +692,7 @@ void Radio_Draw(void) {
     }
 
     if (((gRadioState > 0) && (gRadioState != 100)) && !gHideRadio) {
-        func_radio_800BAAE8();
+        Radio_Portrait_Draw();
         func_radio_800BB388();
 
         radioCharId = (s32) gRadioMsgRadioId;
@@ -891,7 +891,7 @@ void func_radio_800BC040(void) {
         }
 
         if ((gRadioState > 0) && (gRadioState != 100)) {
-            func_radio_800BAAE8();
+            Radio_Portrait_Draw();
             func_radio_800BB388();
             if (((s32) gRadioMsgRadioId == RCID_FALCO) || ((s32) gRadioMsgRadioId == RCID_SLIPPY) ||
                 ((s32) gRadioMsgRadioId == RCID_PEPPY)) {

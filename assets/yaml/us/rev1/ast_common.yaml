@@ -8,212 +8,212 @@
       - '#include "gfx.h"'
       - '#include "sf64object.h"'
 
-D_1000000:
-  { type: TEXTURE, format: IA8, width: 64, height: 10, ctype: u8, offset: 0x1000000, symbol: D_1000000 }
+aContinueTex:
+  { type: TEXTURE, format: IA8, width: 64, height: 10, ctype: u8, offset: 0x1000000, symbol: aContinueTex }
 
-D_1000280:
-  { type: TEXTURE, format: IA8, width: 96, height: 10, ctype: u8, offset: 0x1000280, symbol: D_1000280 }
+aRetryCourseTex:
+  { type: TEXTURE, format: IA8, width: 96, height: 10, ctype: u8, offset: 0x1000280, symbol: aRetryCourseTex }
 
-D_1000640:
-  { type: TEXTURE, format: IA8, width: 96, height: 22, ctype: u8, offset: 0x1000640, symbol: D_1000640 }
+aRestartGameTex:
+  { type: TEXTURE, format: IA8, width: 96, height: 22, ctype: u8, offset: 0x1000640, symbol: aRestartGameTex }
 
 aBoostGaugeFrameTex:
   { type: TEXTURE, format: IA8, width: 48, height: 9, ctype: u8, offset: 0x1000E80, symbol: aBoostGaugeFrameTex }
 
-D_1001030:
-  { type: TEXTURE, format: IA8, width: 8, height: 8, ctype: u8, offset: 0x1001030, symbol: D_1001030 }
+aUnusedDotTex:
+  { type: TEXTURE, format: IA8, width: 8, height: 8, ctype: u8, offset: 0x1001030, symbol: aUnusedDotTex }
 
-D_1001070:
-  { type: TEXTURE, format: IA8, width: 104, height: 10, ctype: u8, offset: 0x1001070, symbol: D_1001070 }
+aCommonJPTex1:
+  { type: TEXTURE, format: IA8, width: 104, height: 10, ctype: u8, offset: 0x1001070, symbol: aCommonJPTex1 }
 
-D_1001480:
-  { type: TEXTURE, format: IA8, width: 56, height: 12, ctype: u8, offset: 0x1001480, symbol: D_1001480 }
+aCommonJPTex2:
+  { type: TEXTURE, format: IA8, width: 56, height: 12, ctype: u8, offset: 0x1001480, symbol: aCommonJPTex2 }
 
-D_1001720:
-  { type: TEXTURE, format: IA8, width: 40, height: 36, ctype: u8, offset: 0x1001720, symbol: D_1001720 }
+aUnusedTex1:
+  { type: TEXTURE, format: IA8, width: 40, height: 36, ctype: u8, offset: 0x1001720, symbol: aUnusedTex1 }
 
-D_1001CC0:
-  { type: TEXTURE, format: IA8, width: 64, height: 14, ctype: u8, offset: 0x1001CC0, symbol: D_1001CC0 }
+aUnusedTex2:
+  { type: TEXTURE, format: IA8, width: 64, height: 14, ctype: u8, offset: 0x1001CC0, symbol: aUnusedTex2 }
 
-D_1002040:
-  { type: TEXTURE, format: IA8, width: 40, height: 12, ctype: u8, offset: 0x1002040, symbol: D_1002040 }
+aBossTextFrameTex:
+  { type: TEXTURE, format: IA8, width: 40, height: 12, ctype: u8, offset: 0x1002040, symbol: aBossTextFrameTex }
 
-D_1002220:
-  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002220, symbol: D_1002220 }
+aUnusedTex3:
+  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002220, symbol: aUnusedTex3 }
 
 aShieldGaugeFrameEdgeTex:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x1002280, symbol: aShieldGaugeFrameEdgeTex }
 
-D_10022E0:
-  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10022E0, symbol: D_10022E0 }
+aUnusedTex4:
+  { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10022E0, symbol: aUnusedTex4 }
 
-D_1002340:
-  { type: TEXTURE, format: IA8, width: 40, height: 10, ctype: u8, offset: 0x1002340, symbol: D_1002340 }
+aCommonJPTex3:
+  { type: TEXTURE, format: IA8, width: 40, height: 10, ctype: u8, offset: 0x1002340, symbol: aCommonJPTex3 }
 
-D_10024D0:
-  { type: TEXTURE, format: IA8, width: 96, height: 32, ctype: u8, offset: 0x10024D0, symbol: D_10024D0 }
+aCommonJPTex4:
+  { type: TEXTURE, format: IA8, width: 96, height: 32, ctype: u8, offset: 0x10024D0, symbol: aCommonJPTex4 }
 
 aShieldGaugeFrameTex:
   { type: TEXTURE, format: IA8, width: 8, height: 12, ctype: u8, offset: 0x10030D0, symbol: aShieldGaugeFrameTex }
 
-D_1003130:
-  { type: GFX, offset: 0x1003130, symbol: D_1003130 }
+aBonus0DL:
+  { type: GFX, offset: 0x1003130, symbol: aBonus0DL }
 
-D_1003208:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1003208, tlut: 0x1003288, symbol: D_1003208 }
+aBonus0Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1003208, tlut: 0x1003288, symbol: aBonus0Tex }
 
-D_1003288:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1003288, ctype: u16, symbol: D_1003288 }
+aBonus0TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1003288, ctype: u16, symbol: aBonus0TLUT }
 
-aFalcoPortraitTex:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x10032A0, symbol: aFalcoPortraitTex }
+aFalcoPortrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x10032A0, symbol: aFalcoPortrait1Tex }
 
-D_10041C0:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x10041C0, symbol: D_10041C0 }
+aFalcoPortrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x10041C0, symbol: aFalcoPortrait2Tex }
 
-aFoxPortraitTex:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x10050E0, symbol: aFoxPortraitTex }
+aFoxPortrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x10050E0, symbol: aFoxPortrait1Tex }
 
-D_1006000:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1006000, symbol: D_1006000 }
+aFoxPortrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1006000, symbol: aFoxPortrait2Tex }
 
-D_1006F20:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1006F20, symbol: D_1006F20 }
+aFoxExpertPortrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1006F20, symbol: aFoxExpertPortrait1Tex }
 
-D_1007E40:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1007E40, symbol: D_1007E40 }
+aFoxExpertPortrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1007E40, symbol: aFoxExpertPortrait2Tex }
 
-D_1008D60:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1008D60, symbol: D_1008D60 }
+aRadioStaticPortraitTex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1008D60, symbol: aRadioStaticPortraitTex }
 
-D_1009C80:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1009C80, symbol: D_1009C80 }
+aRob64Portrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x1009C80, symbol: aRob64Portrait1Tex }
 
-D_100ABA0:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100ABA0, symbol: D_100ABA0 }
+aRob64Portrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100ABA0, symbol: aRob64Portrait2Tex }
 
-aPeppyPortraitTex:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100BAC0, symbol: aPeppyPortraitTex }
+aPeppyPortrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100BAC0, symbol: aPeppyPortrait1Tex }
 
-D_100C9E0:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100C9E0, symbol: D_100C9E0 }
+aPeppyPortrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100C9E0, symbol: aPeppyPortrait2Tex }
 
-aSlippyPortraitTex:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100D900, symbol: aSlippyPortraitTex }
+aSlippyPortrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100D900, symbol: aSlippyPortrait1Tex }
 
-D_100E820:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100E820, symbol: D_100E820 }
+aSlippyPortrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100E820, symbol: aSlippyPortrait2Tex }
 
-D_100F740:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100F740, symbol: D_100F740 }
+aUnusedStaticPortraitTex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, ctype: u16, offset: 0x100F740, symbol: aUnusedStaticPortraitTex }
 
-D_1010660:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010660, tlut: 0x10106A0, symbol: D_1010660 }
+aHudNumber_0:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010660, tlut: 0x10106A0, symbol: aHudNumber_0 }
 
-D_10106A0:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10106A0, ctype: u16, symbol: D_10106A0 }
+aHudNumber_0_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10106A0, ctype: u16, symbol: aHudNumber_0_TLUT }
 
-D_10106B0:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10106B0, tlut: 0x10106F0, symbol: D_10106B0 }
+aHudNumber_1:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10106B0, tlut: 0x10106F0, symbol: aHudNumber_1 }
 
-D_10106F0:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10106F0, ctype: u16, symbol: D_10106F0 }
+aHudNumber_1_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10106F0, ctype: u16, symbol: aHudNumber_1_TLUT }
 
-D_1010700:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010700, tlut: 0x1010740, symbol: D_1010700 }
+aHudNumber_2:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010700, tlut: 0x1010740, symbol: aHudNumber_2 }
 
-D_1010740:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010740, ctype: u16, symbol: D_1010740 }
+aHudNumber_2_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010740, ctype: u16, symbol: aHudNumber_2_TLUT }
 
-D_1010750:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010750, tlut: 0x1010790, symbol: D_1010750 }
+aHudNumber_3:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010750, tlut: 0x1010790, symbol: aHudNumber_3 }
 
-D_1010790:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010790, ctype: u16, symbol: D_1010790 }
+aHudNumber_3_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010790, ctype: u16, symbol: aHudNumber_3_TLUT }
 
-D_10107A0:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10107A0, tlut: 0x10107E0, symbol: D_10107A0 }
+aHudNumber_4:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10107A0, tlut: 0x10107E0, symbol: aHudNumber_4 }
 
-D_10107E0:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10107E0, ctype: u16, symbol: D_10107E0 }
+aHudNumber_4_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10107E0, ctype: u16, symbol: aHudNumber_4_TLUT }
 
-D_10107F0:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10107F0, tlut: 0x1010830, symbol: D_10107F0 }
+aHudNumber_5:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10107F0, tlut: 0x1010830, symbol: aHudNumber_5 }
 
-D_1010830:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010830, ctype: u16, symbol: D_1010830 }
+aHudNumber_5_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010830, ctype: u16, symbol: aHudNumber_5_TLUT }
 
-D_1010840:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010840, tlut: 0x1010880, symbol: D_1010840 }
+aHudNumber_6:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010840, tlut: 0x1010880, symbol: aHudNumber_6 }
 
-D_1010880:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010880, ctype: u16, symbol: D_1010880 }
+aHudNumber_6_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010880, ctype: u16, symbol: aHudNumber_6_TLUT }
 
-D_1010890:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010890, tlut: 0x10108D0, symbol: D_1010890 }
+aHudNumber_7:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010890, tlut: 0x10108D0, symbol: aHudNumber_7 }
 
-D_10108D0:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10108D0, ctype: u16, symbol: D_10108D0 }
+aHudNumber_7_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10108D0, ctype: u16, symbol: aHudNumber_7_TLUT }
 
-D_10108E0:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10108E0, tlut: 0x1010920, symbol: D_10108E0 }
+aHudNumber_8:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x10108E0, tlut: 0x1010920, symbol: aHudNumber_8 }
 
-D_1010920:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010920, ctype: u16, symbol: D_1010920 }
+aHudNumber_8_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010920, ctype: u16, symbol: aHudNumber_8_TLUT }
 
-D_1010930:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010930, tlut: 0x1010970, symbol: D_1010930 }
+aHudNumber_9:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1010930, tlut: 0x1010970, symbol: aHudNumber_9 }
 
-D_1010970:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010970, ctype: u16, symbol: D_1010970 }
+aHudNumber_9_TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1010970, ctype: u16, symbol: aHudNumber_9_TLUT }
 
-D_1010980:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1010980, tlut: 0x1010A00, symbol: D_1010980 }
+aUnusedArwingIconTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1010980, tlut: 0x1010A00, symbol: aUnusedArwingIconTex }
 
-D_1010A00:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1010A00, symbol: D_1010A00 }
+aUnusedArwingIconTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1010A00, symbol: aUnusedArwingIconTLUT }
 
-D_1010A10:
-  { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1010A10, tlut: 0x1010A80, symbol: D_1010A10 }
+aBetaBombTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1010A10, tlut: 0x1010A80, symbol: aBetaBombTex }
 
-D_1010A80:
-  { type: TEXTURE, format: TLUT, colors: 4, ctype: u16, offset: 0x1010A80, symbol: D_1010A80 }
+aBetaBombTLUT:
+  { type: TEXTURE, format: TLUT, colors: 4, ctype: u16, offset: 0x1010A80, symbol: aBetaBombTLUT }
 
-D_1010A90:
-  { type: TEXTURE, format: CI4, width: 64, height: 49, ctype: u8, offset: 0x1010A90, tlut: 0x10110B0, symbol: D_1010A90 }
+aBetaChargeTex:
+  { type: TEXTURE, format: CI4, width: 64, height: 49, ctype: u8, offset: 0x1010A90, tlut: 0x10110B0, symbol: aBetaChargeTex }
 
-D_10110B0:
-  { type: TEXTURE, format: TLUT, colors: 4, ctype: u16, offset: 0x10110B0, symbol: D_10110B0 }
+aBetaChargeTLUT:
+  { type: TEXTURE, format: TLUT, colors: 4, ctype: u16, offset: 0x10110B0, symbol: aBetaChargeTLUT }
 
-D_10110C0:
-  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x10110C0, tlut: 0x10110F8, symbol: D_10110C0 }
+aBetaFoxStatusTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x10110C0, tlut: 0x10110F8, symbol: aBetaFoxStatusTex }
 
-D_10110F8:
-  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x10110F8, symbol: D_10110F8 }
+aBetaFoxStatusTLUT:
+  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x10110F8, symbol: aBetaFoxStatusTLUT }
 
-D_1011110:
-  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x1011110, tlut: 0x1011148, symbol: D_1011110 }
+aBetaPeppyStatusTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x1011110, tlut: 0x1011148, symbol: aBetaPeppyStatusTex }
 
-D_1011148:
-  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011148, symbol: D_1011148 }
+aBetaPeppyStatusTLUT:
+  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011148, symbol: aBetaPeppyStatusTLUT }
 
-D_1011160:
-  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x1011160, tlut: 0x1011198, symbol: D_1011160 }
+aBetaSlippyStatusTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x1011160, tlut: 0x1011198, symbol: aBetaSlippyStatusTex }
 
-D_1011198:
-  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011198, symbol: D_1011198 }
+aBetaSlippyStatusTLUT:
+  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011198, symbol: aBetaSlippyStatusTLUT }
 
-D_10111B0:
-  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x10111B0, tlut: 0x10111E8, symbol: D_10111B0 }
+aBetaFalcoStatusTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x10111B0, tlut: 0x10111E8, symbol: aBetaFalcoStatusTex }
 
-D_10111E8:
-  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x10111E8, symbol: D_10111E8 }
+aBetaFalcoStatusTLUT:
+  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x10111E8, symbol: aBetaFalcoStatusTLUT }
 
-D_1011200:
-  { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1011200, tlut: 0x1011270, symbol: D_1011200 }
+aBetaHitTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1011200, tlut: 0x1011270, symbol: aBetaHitTex }
 
-D_1011270:
-  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011270, symbol: D_1011270 }
+aBetaHitTLUT:
+  { type: TEXTURE, format: TLUT, colors: 6, ctype: u16, offset: 0x1011270, symbol: aBetaHitTLUT }
 
 aRadarFrameTex:
   { type: TEXTURE, format: CI4, width: 48, height: 44, ctype: u8, offset: 0x1011280, tlut: 0x10116A0, symbol: aRadarFrameTex }
@@ -227,23 +227,23 @@ aVsBombIconTex:
 aVsBombIconTLUT:
   { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011730, symbol: aVsBombIconTLUT }
 
-D_1011750:
-  { type: TEXTURE, format: CI4, width: 80, height: 13, ctype: u8, offset: 0x1011750, tlut: 0x1011958, symbol: D_1011750 }
+aBetaPauseTex:
+  { type: TEXTURE, format: CI4, width: 80, height: 13, ctype: u8, offset: 0x1011750, tlut: 0x1011958, symbol: aBetaPauseTex }
 
-D_1011958:
-  { type: TEXTURE, format: TLUT, colors: 16, ctype: u16, offset: 0x1011958, symbol: D_1011958 }
+aBetaPauseTLUT:
+  { type: TEXTURE, format: TLUT, colors: 16, ctype: u16, offset: 0x1011958, symbol: aBetaPauseTLUT }
 
-D_1011980:
-  { type: TEXTURE, format: CI4, width: 48, height: 7, ctype: u8, offset: 0x1011980, tlut: 0x1011A28, symbol: D_1011980 }
+aBetaShieldTextTex:
+  { type: TEXTURE, format: CI4, width: 48, height: 7, ctype: u8, offset: 0x1011980, tlut: 0x1011A28, symbol: aBetaShieldTextTex }
 
-D_1011A28:
-  { type: TEXTURE, format: TLUT, colors: 12, ctype: u16, offset: 0x1011A28, symbol: D_1011A28 }
+aBetaShieldTextTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, ctype: u16, offset: 0x1011A28, symbol: aBetaShieldTextTLUT }
 
-D_1011A40:
-  { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1011A40, tlut: 0x1011AB0, symbol: D_1011A40 }
+aBossTextTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 7, ctype: u8, offset: 0x1011A40, tlut: 0x1011AB0, symbol: aBossTextTex }
 
-D_1011AB0:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011AB0, symbol: D_1011AB0 }
+aBossTextTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011AB0, symbol: aBossTextTLUT }
 
 aIncomingMsgButtonTex:
   { type: TEXTURE, format: CI4, width: 16, height: 26, ctype: u8, offset: 0x1011AC0, tlut: 0x1011B90, symbol: aIncomingMsgButtonTex }
@@ -269,11 +269,11 @@ aIncomingMsgSignal3Tex:
 aIncomingMsgSignal3TLUT:
   { type: TEXTURE, format: TLUT, colors: 15, ctype: u16, offset: 0x1011E60, symbol: aIncomingMsgSignal3TLUT }
 
-D_1011E80:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1011E80, tlut: 0x1011EC0, symbol: D_1011E80 }
+aColonTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1011E80, tlut: 0x1011EC0, symbol: aColonTex }
 
-D_1011EC0:
-  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011EC0, symbol: D_1011EC0 }
+aColonTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, ctype: u16, offset: 0x1011EC0, symbol: aColonTLUT }
 
 aXTex:
   { type: TEXTURE, format: CI4, width: 16, height: 7, ctype: u8, offset: 0x1011ED0, tlut: 0x1011F08, symbol: aXTex }
@@ -281,14 +281,14 @@ aXTex:
 aXTLUT:
   { type: TEXTURE, format: TLUT, colors: 12, ctype: u16, offset: 0x1011F08, symbol: aXTLUT }
 
-D_1011F20:
-  { type: GFX, offset: 0x1011F20, symbol: D_1011F20 }
+aBonus1UpDL:
+  { type: GFX, offset: 0x1011F20, symbol: aBonus1UpDL }
 
-D_1012000:
-  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x1012000, tlut: 0x1012100, symbol: D_1012000 }
+aBonus1UpTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x1012000, tlut: 0x1012100, symbol: aBonus1UpTex }
 
-D_1012100:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1012100, ctype: u16, symbol: D_1012100 }
+aBonus1UpTLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1012100, ctype: u16, symbol: aBonus1UpTLUT }
 
 aGoldRingEmptySlotDL:
   { type: GFX, offset: 0x1012110, symbol: aGoldRingEmptySlotDL }
@@ -296,23 +296,23 @@ aGoldRingEmptySlotDL:
 aGoldRingEmptySlotTex:
   { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1012190, symbol: aGoldRingEmptySlotTex }
 
-D_1012290:
-  { type: TEXTURE, format: CI8, width: 48, height: 22, ctype: u8, offset: 0x1012290, tlut: 0x10126B0, symbol: D_1012290 }
+aBetaBoostMeterTex1:
+  { type: TEXTURE, format: CI8, width: 48, height: 22, ctype: u8, offset: 0x1012290, tlut: 0x10126B0, symbol: aBetaBoostMeterTex1 }
 
-D_10126B0:
-  { type: TEXTURE, format: TLUT, colors: 32, ctype: u16, offset: 0x10126B0, symbol: D_10126B0 }
+aBetaBoostMeterTex1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 32, ctype: u16, offset: 0x10126B0, symbol: aBetaBoostMeterTex1TLUT }
 
-D_10126F0:
-  { type: TEXTURE, format: CI8, width: 24, height: 4, ctype: u8, offset: 0x10126F0, tlut: 0x1012750, symbol: D_10126F0 }
+aBetaBoostMeterTex2:
+  { type: TEXTURE, format: CI8, width: 24, height: 4, ctype: u8, offset: 0x10126F0, tlut: 0x1012750, symbol: aBetaBoostMeterTex2 }
 
-D_1012750:
-  { type: TEXTURE, format: TLUT, colors: 59, ctype: u16, offset: 0x1012750, symbol: D_1012750 }
+aBetaBoostMeterTex2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 59, ctype: u16, offset: 0x1012750, symbol: aBetaBoostMeterTex2TLUT }
 
-D_1013780:
-  { type: TEXTURE, format: CI8, width: 48, height: 141, ctype: u8, offset: 0x1013780, tlut: 0x10151F0, symbol: D_1013780 }
+aBetaBossHealthBarTex:
+  { type: TEXTURE, format: CI8, width: 48, height: 141, ctype: u8, offset: 0x1013780, tlut: 0x10151F0, symbol: aBetaBossHealthBarTex }
 
-D_10151F0:
-  { type: TEXTURE, format: TLUT, colors: 146, ctype: u16, offset: 0x10151F0, symbol: D_10151F0 }
+aBetaBossHealthBarTLUT:
+  { type: TEXTURE, format: TLUT, colors: 146, ctype: u16, offset: 0x10151F0, symbol: aBetaBossHealthBarTLUT }
 
 aBoostGaugeCoolTex:
   { type: TEXTURE, format: CI8, width: 40, height: 5, ctype: u8, offset: 0x10127D0, tlut: 0x1012898, symbol: aBoostGaugeCoolTex }
@@ -326,11 +326,11 @@ aBoostGaugeOverheatTex:
 aBoostGaugeOverheatTLUT:
   { type: TEXTURE, format: TLUT, colors: 28, ctype: u16, offset: 0x1012988, symbol: aBoostGaugeOverheatTLUT }
 
-D_10129C0:
-  { type: TEXTURE, format: CI8, width: 16, height: 109, ctype: u8, offset: 0x10129C0, tlut: 0x1013090, symbol: D_10129C0 }
+aBossHealthBarTex:
+  { type: TEXTURE, format: CI8, width: 16, height: 109, ctype: u8, offset: 0x10129C0, tlut: 0x1013090, symbol: aBossHealthBarTex }
 
-D_1013090:
-  { type: TEXTURE, format: TLUT, colors: 112, ctype: u16, offset: 0x1013090, symbol: D_1013090 }
+aBossHealthBarTLUT:
+  { type: TEXTURE, format: TLUT, colors: 112, ctype: u16, offset: 0x1013090, symbol: aBossHealthBarTLUT }
 
 aMsgWindowBgTex:
   { type: TEXTURE, format: CI8, width: 32, height: 32, ctype: u8, offset: 0x1013170, tlut: 0x1013570, symbol: aMsgWindowBgTex }
@@ -344,14 +344,14 @@ aShieldGaugeTex:
 aShieldGaugeTLUT:
   { type: TEXTURE, format: TLUT, colors: 58, ctype: u16, offset: 0x1013700, symbol: aShieldGaugeTLUT }
 
-D_1015320:
-  { type: GFX, offset: 0x1015320, symbol: D_1015320 }
+aBonus10DL:
+  { type: GFX, offset: 0x1015320, symbol: aBonus10DL }
 
-D_10153F8:
-  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x10153F8, tlut: 0x10154F8, symbol: D_10153F8 }
+aBonus10Tex:
+  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x10153F8, tlut: 0x10154F8, symbol: aBonus10Tex }
 
-D_10154F8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10154F8, ctype: u16, symbol: D_10154F8 }
+aBonus10TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10154F8, ctype: u16, symbol: aBonus10TLUT }
 
 aRadarMarkArwingDL:
   { type: GFX, offset: 0x1015510, symbol: aRadarMarkArwingDL }
@@ -359,104 +359,104 @@ aRadarMarkArwingDL:
 aRadarMarkArwingTex:
   { type: TEXTURE, format: IA8, width: 16, height: 16, ctype: u8, offset: 0x1015598, symbol: aRadarMarkArwingTex }
 
-D_10156A0:
-  { type: GFX, offset: 0x10156A0, symbol: D_10156A0 }
+aBonus7DL:
+  { type: GFX, offset: 0x10156A0, symbol: aBonus7DL }
 
-D_1015778:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015778, tlut: 0x10157F8, symbol: D_1015778 }
+aBonus7Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015778, tlut: 0x10157F8, symbol: aBonus7Tex }
 
-D_10157F8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10157F8, ctype: u16, symbol: D_10157F8 }
+aBonus7TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10157F8, ctype: u16, symbol: aBonus7TLUT }
 
-D_1015810:
-  { type: GFX, offset: 0x1015810, symbol: D_1015810 }
+aBonus1DL:
+  { type: GFX, offset: 0x1015810, symbol: aBonus1DL }
 
-D_10158E8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10158E8, tlut: 0x1015968, symbol: D_10158E8 }
+aBonus1Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10158E8, tlut: 0x1015968, symbol: aBonus1Tex }
 
-D_1015968:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015968, ctype: u16, symbol: D_1015968 }
+aBonus1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015968, ctype: u16, symbol: aBonus1TLUT }
 
-D_1015980:
-  { type: GFX, offset: 0x1015980, symbol: D_1015980 }
+aBonusHitPlusDL:
+  { type: GFX, offset: 0x1015980, symbol: aBonusHitPlusDL }
 
-D_1015A58:
-  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x1015A58, tlut: 0x1015B58, symbol: D_1015A58 }
+aBonusHitPlusTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x1015A58, tlut: 0x1015B58, symbol: aBonusHitPlusTex }
 
-D_1015B58:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015B58, ctype: u16, symbol: D_1015B58 }
+aBonusHitPlusTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015B58, ctype: u16, symbol: aBonusHitPlusTLUT }
 
-D_1015B70:
-  { type: GFX, offset: 0x1015B70, symbol: D_1015B70 }
+aBonus9DL:
+  { type: GFX, offset: 0x1015B70, symbol: aBonus9DL }
 
-D_1015C48:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015C48, tlut: 0x1015CC8, symbol: D_1015C48 }
+aBonus9Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015C48, tlut: 0x1015CC8, symbol: aBonus9Tex }
 
-D_1015CC8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015CC8, ctype: u16, symbol: D_1015CC8 }
+aBonus9TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015CC8, ctype: u16, symbol: aBonus9TLUT }
 
-D_1015CE0:
-  { type: GFX, offset: 0x1015CE0, symbol: D_1015CE0 }
+aBonus8DL:
+  { type: GFX, offset: 0x1015CE0, symbol: aBonus8DL }
 
-D_1015DB8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015DB8, tlut: 0x1015E38, symbol: D_1015DB8 }
+aBonus8Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015DB8, tlut: 0x1015E38, symbol: aBonus8Tex }
 
-D_1015E38:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015E38, ctype: u16, symbol: D_1015E38 }
+aBonus8TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015E38, ctype: u16, symbol: aBonus8TLUT }
 
-D_1015E50:
-  { type: GFX, offset: 0x1015E50, symbol: D_1015E50 }
+aBonus6DL:
+  { type: GFX, offset: 0x1015E50, symbol: aBonus6DL }
 
-D_1015F28:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015F28, tlut: 0x1015FA8, symbol: D_1015F28 }
+aBonus6Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1015F28, tlut: 0x1015FA8, symbol: aBonus6Tex }
 
-D_1015FA8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015FA8, ctype: u16, symbol: D_1015FA8 }
+aBonus6TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1015FA8, ctype: u16, symbol: aBonus6TLUT }
 
-D_1015FC0:
-  { type: GFX, offset: 0x1015FC0, symbol: D_1015FC0 }
+aBonus5DL:
+  { type: GFX, offset: 0x1015FC0, symbol: aBonus5DL }
 
-D_1016098:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1016098, tlut: 0x1016118, symbol: D_1016098 }
+aBonus5Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1016098, tlut: 0x1016118, symbol: aBonus5Tex }
 
-D_1016118:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016118, ctype: u16, symbol: D_1016118 }
+aBonus5TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016118, ctype: u16, symbol: aBonus5TLUT }
 
-D_1016130:
-  { type: GFX, offset: 0x1016130, symbol: D_1016130 }
+aBonus4DL:
+  { type: GFX, offset: 0x1016130, symbol: aBonus4DL }
 
-D_1016208:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1016208, tlut: 0x1016288, symbol: D_1016208 }
+aBonus4Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1016208, tlut: 0x1016288, symbol: aBonus4Tex }
 
-D_1016288:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016288, ctype: u16, symbol: D_1016288 }
+aBonus4TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016288, ctype: u16, symbol: aBonus4TLUT }
 
-D_10162A0:
-  { type: GFX, offset: 0x10162A0, symbol: D_10162A0 }
+aBonus3DL:
+  { type: GFX, offset: 0x10162A0, symbol: aBonus3DL }
 
-D_1016378:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1016378, tlut: 0x10163F8, symbol: D_1016378 }
+aBonus3Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1016378, tlut: 0x10163F8, symbol: aBonus3Tex }
 
-D_10163F8:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10163F8, ctype: u16, symbol: D_10163F8 }
+aBonus3TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x10163F8, ctype: u16, symbol: aBonus3TLUT }
 
-D_1016410:
-  { type: GFX, offset: 0x1016410, symbol: D_1016410 }
+aBonus2DL:
+  { type: GFX, offset: 0x1016410, symbol: aBonus2DL }
 
-D_10164E8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10164E8, tlut: 0x1016568, symbol: D_10164E8 }
+aBonus2Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10164E8, tlut: 0x1016568, symbol: aBonus2Tex }
 
-D_1016568:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016568, ctype: u16, symbol: D_1016568 }
+aBonus2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016568, ctype: u16, symbol: aBonus2TLUT }
 
-D_1016580:
-  { type: GFX, offset: 0x1016580, symbol: D_1016580 }
+aBonusGREATDL:
+  { type: GFX, offset: 0x1016580, symbol: aBonusGREATDL }
 
-D_1016658:
-  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1016658, tlut: 0x1016858, symbol: D_1016658 }
+aBonusGREATTex:
+  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1016658, tlut: 0x1016858, symbol: aBonusGREATTex }
 
-D_1016858:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016858, ctype: u16, symbol: D_1016858 }
+aBonusGREATTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1016858, ctype: u16, symbol: aBonusGREATTLUT }
 
 aItemGoldRingDL:
   { type: GFX, offset: 0x1016870, symbol: aItemGoldRingDL }
@@ -467,53 +467,56 @@ aItemGoldRingTex:
 aItemGoldRingTLUT:
   { type: TEXTURE, format: TLUT, colors: 256, offset: 0x1016FC8, ctype: u16, symbol: aItemGoldRingTLUT }
 
-D_10171D0:
-  { type: GFX, offset: 0x10171D0, symbol: D_10171D0 }
+# Unused
+aBonusX10DL:
+  { type: GFX, offset: 0x10171D0, symbol: aBonusX10DL }
 
-D_10172A8:
-  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x10172A8, tlut: 0x10173A8, symbol: D_10172A8 }
+aBonusX10Tex:
+  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x10172A8, tlut: 0x10173A8, symbol: aBonusX10Tex }
 
-D_10173A8:
-  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x10173A8, ctype: u16, symbol: D_10173A8 }
+aBonusX10TLUT:
+  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x10173A8, ctype: u16, symbol: aBonusX10TLUT }
 
-D_10173D0:
-  { type: GFX, offset: 0x10173D0, symbol: D_10173D0 }
+# Unused
+aBonusX5DL:
+  { type: GFX, offset: 0x10173D0, symbol: aBonusX5DL }
 
-D_10174A8:
-  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x10174A8, tlut: 0x10175A8, symbol: D_10174A8 }
+aBonusX5Tex:
+  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x10174A8, tlut: 0x10175A8, symbol: aBonusX5Tex }
 
-D_10175A8:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10175A8, ctype: u16, symbol: D_10175A8 }
+aBonusX5TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x10175A8, ctype: u16, symbol: aBonusX5TLUT }
 
-D_10175C0:
-  { type: GFX, offset: 0x10175C0, symbol: D_10175C0 }
+# Unused
+aBonusX2DL:
+  { type: GFX, offset: 0x10175C0, symbol: aBonusX2DL }
 
-D_1017698:
-  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x1017698, tlut: 0x1017798, symbol: D_1017698 }
+aBonusX2Tex:
+  { type: TEXTURE, format: CI4, width: 32, height: 16, ctype: u8, offset: 0x1017698, tlut: 0x1017798, symbol: aBonusX2Tex }
 
-D_1017798:
-  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1017798, ctype: u16, symbol: D_1017798 }
+aBonusX2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1017798, ctype: u16, symbol: aBonusX2TLUT }
 
 aActorSuppliesDL:
   { type: GFX, offset: 0x10177C0, symbol: aActorSuppliesDL }
 
-D_1017A38:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1017A38, symbol: D_1017A38 }
+aActorSuppliesTex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1017A38, symbol: aActorSuppliesTex2 }
 
-D_1018238:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1018238, symbol: D_1018238 }
+aActorSuppliesTex1:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1018238, symbol: aActorSuppliesTex1 }
 
-D_10182C0:
-  { type: GFX, offset: 0x10182C0, symbol: D_10182C0 }
+aEffectBossExplosionDL:
+  { type: GFX, offset: 0x10182C0, symbol: aEffectBossExplosionDL }
 
-D_10190C0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 32, ctype: u16, offset: 0x10190C0, symbol: D_10190C0 }
+aEffectBossExplosionTex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 32, ctype: u16, offset: 0x10190C0, symbol: aEffectBossExplosionTex }
 
-D_10194C0:
-  { type: GFX, offset: 0x10194C0, symbol: D_10194C0 }
+aDebris1DL:
+  { type: GFX, offset: 0x10194C0, symbol: aDebris1DL }
 
-D_1019620:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1019620, symbol: D_1019620 }
+aDebris1Tex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1019620, symbol: aDebris1Tex }
 
 aItemLaserUpgradeDL:
   { type: GFX, offset: 0x1019820, symbol: aItemLaserUpgradeDL }
@@ -548,128 +551,128 @@ aItemLaserUpgradeLetterTLUT:
 aLaserShotRedDL:
   { type: GFX, offset: 0x101ABD0, symbol: aLaserShotRedDL }
 
-D_101AC98:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x0101AC98, symbol: D_101AC98 }
+aLaserShotRedTex:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x0101AC98, symbol: aLaserShotRedTex }
 
 aLaserShotBlueDL:
   { type: GFX, offset: 0x101AD20, symbol: aLaserShotBlueDL }
 
-D_101AE48:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x101AE48, symbol: D_101AE48 }
+aLaserShotBlueTex:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x101AE48, symbol: aLaserShotBlueTex }
 
 aLaserShotGreenDL:
   { type: GFX, offset: 0x101AED0, symbol: aLaserShotGreenDL }
 
-D_101AF98:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x101AF98, symbol: D_101AF98 }
+aLaserShotGreenTex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x101AF98, symbol: aLaserShotGreenTex }
 
 aGoldRingFrame12DL:
   { type: GFX, offset: 0x101B1A0, symbol: aGoldRingFrame12DL }
 
-D_101B268:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B268, tlut: 0x101B2E8, symbol: D_101B268 }
+aGoldRingFrame12Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B268, tlut: 0x101B2E8, symbol: aGoldRingFrame12Tex }
 
-D_101B2E8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B2E8, ctype: u16, symbol: D_101B2E8 }
+aGoldRingFrame12TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B2E8, ctype: u16, symbol: aGoldRingFrame12TLUT }
 
 aGoldRingFrame11DL:
   { type: GFX, offset: 0x101B310, symbol: aGoldRingFrame11DL }
 
-D_101B3D8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B3D8, tlut: 0x101B458, symbol: D_101B3D8 }
+aGoldRingFrame11Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B3D8, tlut: 0x101B458, symbol: aGoldRingFrame11Tex }
 
-D_101B458:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B458, ctype: u16, symbol: D_101B458 }
+aGoldRingFrame11TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B458, ctype: u16, symbol: aGoldRingFrame11TLUT }
 
 aGoldRingFrame10DL:
   { type: GFX, offset: 0x101B480, symbol: aGoldRingFrame10DL }
 
-D_101B548:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B548, tlut: 0x101B5C8, symbol: D_101B548 }
+aGoldRingFrame10Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B548, tlut: 0x101B5C8, symbol: aGoldRingFrame10Tex }
 
-D_101B5C8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B5C8, ctype: u16, symbol: D_101B5C8 }
+aGoldRingFrame10TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B5C8, ctype: u16, symbol: aGoldRingFrame10TLUT }
 
 aGoldRingFrame9DL:
   { type: GFX, offset: 0x101B5F0, symbol: aGoldRingFrame9DL }
 
-D_101B6B8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B6B8, tlut: 0x101B738, symbol: D_101B6B8 }
+aGoldRingFrame9Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B6B8, tlut: 0x101B738, symbol: aGoldRingFrame9Tex }
 
-D_101B738:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B738, ctype: u16, symbol: D_101B738 }
+aGoldRingFrame9TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B738, ctype: u16, symbol: aGoldRingFrame9TLUT }
 
 aGoldRingFrame8DL:
   { type: GFX, offset: 0x101B760, symbol: aGoldRingFrame8DL }
 
-D_101B828:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B828, tlut: 0x101B8A8, symbol: D_101B828 }
+aGoldRingFrame8Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B828, tlut: 0x101B8A8, symbol: aGoldRingFrame8Tex }
 
-D_101B8A8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B8A8, ctype: u16, symbol: D_101B8A8 }
+aGoldRingFrame8TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101B8A8, ctype: u16, symbol: aGoldRingFrame8TLUT }
 
 aGoldRingFrame7DL:
   { type: GFX, offset: 0x101B8D0, symbol: aGoldRingFrame7DL }
 
-D_101B998:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B998, tlut: 0x101BA18, symbol: D_101B998 }
+aGoldRingFrame7Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101B998, tlut: 0x101BA18, symbol: aGoldRingFrame7Tex }
 
-D_101BA18:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BA18, ctype: u16, symbol: D_101BA18 }
+aGoldRingFrame7TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BA18, ctype: u16, symbol: aGoldRingFrame7TLUT }
 
 aGoldRingFrame6DL:
   { type: GFX, offset: 0x101BA40, symbol: aGoldRingFrame6DL }
 
-D_101BB08:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BB08, tlut: 0x101BB88, symbol: D_101BB08 }
+aGoldRingFrame6Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BB08, tlut: 0x101BB88, symbol: aGoldRingFrame6Tex }
 
-D_101BB88:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BB88, ctype: u16, symbol: D_101BB88 }
+aGoldRingFrame6TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BB88, ctype: u16, symbol: aGoldRingFrame6TLUT }
 
 aGoldRingFrame5DL:
   { type: GFX, offset: 0x101BBB0, symbol: aGoldRingFrame5DL }
 
-D_101BC78:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BC78, tlut: 0x101BCF8, symbol: D_101BC78 }
+aGoldRingFrame5Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BC78, tlut: 0x101BCF8, symbol: aGoldRingFrame5Tex }
 
-D_101BCF8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BCF8, ctype: u16, symbol: D_101BCF8 }
+aGoldRingFrame5TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BCF8, ctype: u16, symbol: aGoldRingFrame5TLUT }
 
 aGoldRingFrame4DL:
   { type: GFX, offset: 0x101BD20, symbol: aGoldRingFrame4DL }
 
-D_101BDE8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BDE8, tlut: 0x101BE68, symbol: D_101BDE8 }
+aGoldRingFrame4Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BDE8, tlut: 0x101BE68, symbol: aGoldRingFrame4Tex }
 
-D_101BE68:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BE68, ctype: u16, symbol: D_101BE68 }
+aGoldRingFrame4TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BE68, ctype: u16, symbol: aGoldRingFrame4TLUT }
 
 aGoldRingFrame3DL:
   { type: GFX, offset: 0x101BE90, symbol: aGoldRingFrame3DL }
 
-D_101BF58:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BF58, tlut: 0x101BFD8, symbol: D_101BF58 }
+aGoldRingFrame3Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101BF58, tlut: 0x101BFD8, symbol: aGoldRingFrame3Tex }
 
-D_101BFD8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BFD8, ctype: u16, symbol: D_101BFD8 }
+aGoldRingFrame3TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101BFD8, ctype: u16, symbol: aGoldRingFrame3TLUT }
 
 aGoldRingFrame2DL:
   { type: GFX, offset: 0x101C000, symbol: aGoldRingFrame2DL }
 
-D_101C0C8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C0C8, tlut: 0x101C148, symbol: D_101C0C8 }
+aGoldRingFrame2Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C0C8, tlut: 0x101C148, symbol: aGoldRingFrame2Tex }
 
-D_101C148:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C148, ctype: u16, symbol: D_101C148 }
+aGoldRingFrame2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C148, ctype: u16, symbol: aGoldRingFrame2TLUT }
 
 aGoldRingFrame1DL:
   { type: GFX, offset: 0x101C170, symbol: aGoldRingFrame1DL }
 
-D_101C238:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C238, tlut: 0x101C2B8, symbol: D_101C238 }
+aGoldRingFrame1Tex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x101C238, tlut: 0x101C2B8, symbol: aGoldRingFrame1Tex }
 
-D_101C2B8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C2B8, ctype: u16, symbol: D_101C2B8 }
+aGoldRingFrame1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x101C2B8, ctype: u16, symbol: aGoldRingFrame1TLUT }
 
 aStarDL:
   { type: GFX, offset: 0x101C2E0, symbol: aStarDL }
@@ -677,14 +680,14 @@ aStarDL:
 aStarTex:
   { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, colors: 20, offset: 0x101C368, symbol: aStarTex }
 
-D_101C770:
-  { type: GFX, offset: 0x101C770, symbol: D_101C770 }
+aUnusedHeartDL:
+  { type: GFX, offset: 0x101C770, symbol: aUnusedHeartDL }
 
-D_101C920:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x101C920, tlut: 0x101CA20, symbol: D_101C920 }
+aUnusedHeartTex:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x101C920, tlut: 0x101CA20, symbol: aUnusedHeartTex }
 
-D_101CA20:
-  { type: TEXTURE, format: TLUT, colors: 96, offset: 0x101CA20, ctype: u16, symbol: D_101CA20 }
+aUnusedHeartTLUT:
+  { type: TEXTURE, format: TLUT, colors: 96, offset: 0x101CA20, ctype: u16, symbol: aUnusedHeartTLUT }
 
 aCheckpointArrowDL:
   { type: GFX, offset: 0x101CAE0, symbol: aCheckpointArrowDL }
@@ -701,71 +704,72 @@ aUnusedShieldDL:
 aUnusedShieldTex:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x101D070, symbol: aUnusedShieldTex }
 
-D_101D870:
-  { type: GFX, offset: 0x101D870, symbol: D_101D870 }
+# Unused
+aBetaGoldCoinDL:
+  { type: GFX, offset: 0x101D870, symbol: aBetaGoldCoinDL }
 
 ast_common_seg1_vtx_1D9C8:
   { type: VTX, offset: 0x101D9C8, count: 36, symbol: ast_common_seg1_vtx_1D9C8 }
 
-D_101DE20:
-  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101DE20, symbol: D_101DE20 }
+aBarrelRollTex1:
+  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101DE20, symbol: aBarrelRollTex1 }
 
-aBarrelRollTex:
-  { type: GFX, offset: 0x101DC10, symbol: aBarrelRollTex }
+aBarrelRollDL:
+  { type: GFX, offset: 0x101DC10, symbol: aBarrelRollDL }
 
-D_101EE20:
-  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101EE20, symbol: D_101EE20 }
+aBarrelRollTex2:
+  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101EE20, symbol: aBarrelRollTex2 }
 
-D_101FE20:
-  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101FE20, symbol: D_101FE20 }
+aBarrelRollTex3:
+  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x101FE20, symbol: aBarrelRollTex3 }
 
-D_1020E20:
-  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x1020E20, symbol: D_1020E20 }
+aBarrelRollTex4:
+  { type: TEXTURE, format: IA8, width: 128, height: 32, ctype: u8, offset: 0x1020E20, symbol: aBarrelRollTex4 }
 
 aMetalDebrisDL:
   { type: GFX, offset: 0x1021E20, symbol: aMetalDebrisDL }
 
-D_1021EF8:
-  { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x1021EF8, tlut: 0x10220F8, symbol: D_1021EF8 }
+aMetalDebrisTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x1021EF8, tlut: 0x10220F8, symbol: aMetalDebrisTex }
 
-D_10220F8:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x10220F8, ctype: u16, symbol: D_10220F8 }
+aMetalDebrisTLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x10220F8, ctype: u16, symbol: aMetalDebrisTLUT }
 
-D_1022120:
-  { type: GFX, offset: 0x1022120, symbol: D_1022120 }
+aItem1UpDL:
+  { type: GFX, offset: 0x1022120, symbol: aItem1UpDL }
 
 ast_common_seg1_vtx_22480:
   { type: VTX, offset: 0x1022480, count: 124, symbol: ast_common_seg1_vtx_22480 }
 
-D_1022C40:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1022C40, tlut: 0x1022CC0, symbol: D_1022C40 }
+aItem1UpTex2:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1022C40, tlut: 0x1022CC0, symbol: aItem1UpTex2 }
 
-D_1022CC0:
-  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1022CC0, ctype: u16, symbol: D_1022CC0 }
+aItem1UpTex2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1022CC0, ctype: u16, symbol: aItem1UpTex2TLUT }
 
-D_1022CE0:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1022CE0, tlut: 0x1022D60, symbol: D_1022CE0 }
+aItem1UpTex3:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x1022CE0, tlut: 0x1022D60, symbol: aItem1UpTex3 }
 
-D_1022D60:
-  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1022D60, ctype: u16, symbol: D_1022D60 }
+aItem1UpTex3TLUT:
+  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1022D60, ctype: u16, symbol: aItem1UpTex3TLUT }
 
-D_1022D80:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 16, ctype: u16, offset: 0x1022D80, symbol: D_1022D80 }
+aItem1UpTex1:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 16, ctype: u16, offset: 0x1022D80, symbol: aItem1UpTex1 }
 
 aItemBombLetterDL:
   { type: GFX, offset: 0x1022E80, symbol: aItemBombLetterDL }
 
-D_1022F80:
-  { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x1022F80, tlut: 0x1023180, symbol: D_1022F80 }
+aItemBombLetterTex:
+  { type: TEXTURE, format: CI4, width: 32, height: 32, ctype: u8, offset: 0x1022F80, tlut: 0x1023180, symbol: aItemBombLetterTex }
 
-D_1023180:
-  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1023180, ctype: u16, symbol: D_1023180 }
+aItemBombLetterTLUT:
+  { type: TEXTURE, format: TLUT, colors: 16, offset: 0x1023180, ctype: u16, symbol: aItemBombLetterTLUT }
 
 aItemBombDL:
   { type: GFX, offset: 0x10231A0, symbol: aItemBombDL }
 
-D_1023518:
-  { type: TEXTURE, format: IA8, width: 4, height: 5, ctype: u8, offset: 0x1023518, symbol: D_1023518 }
+aUnusedTex5:
+  { type: TEXTURE, format: IA8, width: 4, height: 5, ctype: u8, offset: 0x1023518, symbol: aUnusedTex5 }
 
 aItemBombTex:
   { type: TEXTURE, format: CI8, width: 16, height: 16, ctype: u8, offset: 0x1023530, tlut: 0x1023630, symbol: aItemBombTex }
@@ -773,38 +777,38 @@ aItemBombTex:
 aItemBombTLUT:
   { type: TEXTURE, format: TLUT, colors: 104, offset: 0x1023630, ctype: u16, symbol: aItemBombTLUT }
 
-D_1023700:
-  { type: GFX, offset: 0x1023700, symbol: D_1023700 }
+aHelpAlertDL:
+  { type: GFX, offset: 0x1023700, symbol: aHelpAlertDL }
 
-D_1023750:
-  { type: GFX, offset: 0x1023750, symbol: D_1023750 }
+aSmoke1DL:
+  { type: GFX, offset: 0x1023750, symbol: aSmoke1DL }
 
-D_10237E0:
-  { type: GFX, offset: 0x10237E0, symbol: D_10237E0 }
+aUnusedSmoke1DL:
+  { type: GFX, offset: 0x10237E0, symbol: aUnusedSmoke1DL }
 
-D_1023878:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1023878, symbol: D_1023878 }
+aSmoke1Tex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1023878, symbol: aSmoke1Tex }
 
 aCheckpointCenterDL:
   { type: GFX, offset: 0x1023C80, symbol: aCheckpointCenterDL }
 
-aCheckpointTextTex:
-  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1023E10, tlut: 0x1024010, symbol: aCheckpointTextTex }
+aCheckpointTextTex1:
+  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1023E10, tlut: 0x1024010, symbol: aCheckpointTextTex1 }
 
-aCheckpointTextTLUT:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1024010, ctype: u16, symbol: aCheckpointTextTLUT }
+aCheckpointTextTex1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1024010, ctype: u16, symbol: aCheckpointTextTex1TLUT }
 
-D_1024020:
-  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1024020, tlut: 0x1024220, symbol: D_1024020 }
+aCheckpointTextTex2:
+  { type: TEXTURE, format: CI4, width: 64, height: 16, ctype: u8, offset: 0x1024020, tlut: 0x1024220, symbol: aCheckpointTextTex2 }
 
-D_1024220:
-  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1024220, ctype: u16, symbol: D_1024220 }
+aCheckpointTextTex2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 8, offset: 0x1024220, ctype: u16, symbol: aCheckpointTextTex2TLUT }
 
-D_1024230:
-  { type: GFX, offset: 0x1024230, symbol: D_1024230 }
+aRadarLineDL:
+  { type: GFX, offset: 0x1024230, symbol: aRadarLineDL, comment: "used for supplies and missile alarm" }
 
-D_1024290:
-  { type: GFX, offset: 0x1024290, symbol: D_1024290 }
+aDebris2DL:
+  { type: GFX, offset: 0x1024290, symbol: aDebris2DL }
 
 aPeppyMarkDL:
   { type: GFX, offset: 0x1024410, symbol: aPeppyMarkDL }
@@ -836,125 +840,125 @@ aSlippyMarkTLUT:
 aRadarMarkBossDL:
   { type: GFX, offset: 0x1024830, symbol: aRadarMarkBossDL }
 
-D_10248F8:
-  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10248F8, tlut: 0x1024978, symbol: D_10248F8 }
+aRadarMarkBossTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 16, ctype: u8, offset: 0x10248F8, tlut: 0x1024978, symbol: aRadarMarkBossTex }
 
-D_1024978:
-  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024978, ctype: u16, symbol: D_1024978 }
+aRadarMarkBossTLUT:
+  { type: TEXTURE, format: TLUT, colors: 12, offset: 0x1024978, ctype: u16, symbol: aRadarMarkBossTLUT }
 
 aArrowDL:
   { type: GFX, offset: 0x1024990, symbol: aArrowDL }
 
-D_1024A58:
-  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1024A58, tlut: 0x1024A98, symbol: D_1024A58 }
+aArrowTex:
+  { type: TEXTURE, format: CI4, width: 16, height: 8, ctype: u8, offset: 0x1024A58, tlut: 0x1024A98, symbol: aArrowTex }
 
-D_1024A98:
-  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x1024A98, ctype: u16, symbol: D_1024A98 }
+aArrowTLUT:
+  { type: TEXTURE, format: TLUT, colors: 20, offset: 0x1024A98, ctype: u16, symbol: aArrowTLUT }
 
 aOrbDL:
   { type: GFX, offset: 0x1024AC0, symbol: aOrbDL }
 
-D_1024B58:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1024B58, symbol: D_1024B58 }
+aOrbTex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1024B58, symbol: aOrbTex }
 
-D_1024F60:
-  { type: GFX, offset: 0x1024F60, symbol: D_1024F60 }
+aReticleDL:
+  { type: GFX, offset: 0x1024F60, symbol: aReticleDL }
 
-D_1024FF8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1024FF8, symbol: D_1024FF8 }
+aReticleTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1024FF8, symbol: aReticleTex }
 
-D_1025800:
-  { type: GFX, offset: 0x1025800, symbol: D_1025800 }
+aHitMark2DL:
+  { type: GFX, offset: 0x1025800, symbol: aHitMark2DL }
 
-D_1025888:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1025888, symbol: D_1025888 }
+aHitMark2Tex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1025888, symbol: aHitMark2Tex }
 
-D_1026090:
-  { type: GFX, offset: 0x1026090, symbol: D_1026090 }
+aHitMark1DL:
+  { type: GFX, offset: 0x1026090, symbol: aHitMark1DL }
 
-D_1026120:
-  { type: GFX, offset: 0x1026120, symbol: D_1026120 }
+aUnusedRadioStaticDL:
+  { type: GFX, offset: 0x1026120, symbol: aUnusedRadioStaticDL }
 
-D_1026230:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x1026230, symbol: D_1026230 }
+aUnusedRadioStaticTex1:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x1026230, symbol: aUnusedRadioStaticTex1 }
 
-D_1027230:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x1027230, symbol: D_1027230 }
+aUnusedRadioStaticTex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x1027230, symbol: aUnusedRadioStaticTex2 }
 
-D_1028230:
-  { type: GFX, offset: 0x1028230, symbol: D_1028230 }
+aMissileSeekDL:
+  { type: GFX, offset: 0x1028230, symbol: aMissileSeekDL }
 
-D_10288D8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x10288D8, symbol: D_10288D8 }
+aMissileSeekTex4:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x10288D8, symbol: aMissileSeekTex4 }
 
-D_1028AD8:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028AD8, symbol: D_1028AD8 }
+aMissileSeekTex1:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028AD8, symbol: aMissileSeekTex1 }
 
-D_1028B58:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1028B58, symbol: D_1028B58 }
+aMissileSeekTex3:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1028B58, symbol: aMissileSeekTex3 }
 
-D_1028D58:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028D58, symbol: D_1028D58 }
+aMissileSeekTex2:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028D58, symbol: aMissileSeekTex2 }
 
-D_1028DE0:
-  { type: GFX, offset: 0x1028DE0, symbol: D_1028DE0 }
+aUnusedSnowDL:
+  { type: GFX, offset: 0x1028DE0, symbol: aUnusedSnowDL }
 
-D_1028E68:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028E68, symbol: D_1028E68 }
+aUnusedSnowTex:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x1028E68, symbol: aUnusedSnowTex }
 
-D_1028EF0:
-  { type: GFX, offset: 0x1028EF0, symbol: D_1028EF0 }
+aUnusedPinkBallDL:
+  { type: GFX, offset: 0x1028EF0, symbol: aUnusedPinkBallDL }
 
-D_1028F78:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1028F78, symbol: D_1028F78 }
+aUnusedPinkBallTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1028F78, symbol: aUnusedPinkBallTex }
 
-D_1029780:
-  { type: GFX, offset: 0x1029780, symbol: D_1029780 }
+aEffectExplosionMarkDL:
+  { type: GFX, offset: 0x1029780, symbol: aEffectExplosionMarkDL }
 
-D_1029808:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1029808, symbol: D_1029808 }
+aEffectExplosionMarkTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x1029808, symbol: aEffectExplosionMarkTex }
 
-D_102A010:
-  { type: GFX, offset: 0x102A010, symbol: D_102A010 }
+aSmoke2DL:
+  { type: GFX, offset: 0x102A010, symbol: aSmoke2DL }
 
-D_102A098:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102A098, symbol: D_102A098 }
+aSmoke2Tex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102A098, symbol: aSmoke2Tex }
 
 aBallDL:
   { type: GFX, offset: 0x102A8A0, symbol: aBallDL }
 
-D_102A928:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x102A928, symbol: D_102A928 }
+aBallTex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x102A928, symbol: aBallTex }
 
-D_102AB30:
-  { type: GFX, offset: 0x102AB30, symbol: D_102AB30 }
+aUnusedFalcoPortrait1DL:
+  { type: GFX, offset: 0x102AB30, symbol: aUnusedFalcoPortrait1DL }
 
-D_102AC40:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102AC40, symbol: D_102AC40 }
+aUnusedFalcoPortrait1Tex1:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102AC40, symbol: aUnusedFalcoPortrait1Tex1 }
 
-D_102BC40:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102BC40, symbol: D_102BC40 }
+aUnusedFalcoPortrait1Tex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102BC40, symbol: aUnusedFalcoPortrait1Tex2 }
 
-D_102CC40:
-  { type: GFX, offset: 0x102CC40, symbol: D_102CC40 }
+aUnusedFalcoPortrait2DL:
+  { type: GFX, offset: 0x102CC40, symbol: aUnusedFalcoPortrait2DL }
 
-D_102CD50:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102CD50, symbol: D_102CD50 }
+aUnusedFalcoPortrait2Tex1:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102CD50, symbol: aUnusedFalcoPortrait2Tex1 }
 
-D_102DD50:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102DD50, symbol: D_102DD50 }
+aUnusedFalcoPortrait2Tex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 64, ctype: u16, offset: 0x102DD50, symbol: aUnusedFalcoPortrait2Tex2 }
 
 aBlueSphereDL:
   { type: GFX, offset: 0x102ED50, symbol: aBlueSphereDL }
 
-D_102EDD8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102EDD8, symbol: D_102EDD8 }
+aBlueSphereTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102EDD8, symbol: aBlueSphereTex }
 
-D_102F5E0:
-  { type: GFX, offset: 0x102F5E0, symbol: D_102F5E0 }
+aElectricArcDL:
+  { type: GFX, offset: 0x102F5E0, symbol: aElectricArcDL }
 
-D_102F678:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102F678, symbol: D_102F678 }
+aElectricArcTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, ctype: u16, offset: 0x102F678, symbol: aElectricArcTex }
 
 aMeteoWarpDL:
   { type: GFX, offset: 0x102FE80, symbol: aMeteoWarpDL }
@@ -962,26 +966,26 @@ aMeteoWarpDL:
 aMeteoWarpTex:
   { type: TEXTURE, format: RGBA16, width: 8, height: 8, ctype: u16, offset: 0x102FF08, symbol: aMeteoWarpTex }
 
-D_102FF90:
-  { type: GFX, offset: 0x102FF90, symbol: D_102FF90 }
+aUnusedSpikyExplosionDL:
+  { type: GFX, offset: 0x102FF90, symbol: aUnusedSpikyExplosionDL }
 
-D_1031228:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 16, ctype: u16, offset: 0x1031228, symbol: D_1031228 }
+aUnusedSpikyExplosionTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 16, ctype: u16, offset: 0x1031228, symbol: aUnusedSpikyExplosionTex }
 
 aShieldDL:
   { type: GFX, offset: 0x1031630, symbol: aShieldDL }
 
-D_1031CC08:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1031CC0, symbol: D_1031CC0 }
+aShieldTex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1031CC0, symbol: aShieldTex }
 
-D_1031EC0:
-  { type: GFX, offset: 0x1031EC0, symbol: D_1031EC0 }
+aBombExplosionDL:
+  { type: GFX, offset: 0x1031EC0, symbol: aBombExplosionDL }
 
-D_1032578:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1032578, symbol: D_1032578 }
+aBombExplosionTex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, ctype: u16, offset: 0x1032578, symbol: aBombExplosionTex }
 
 aArwingShadowDL:
   { type: GFX, offset: 0x1032780, symbol: aArwingShadowDL }
 
-D_1032808:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1032808, symbol: D_1032808 }
+aArwingShadowTex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, ctype: u8, offset: 0x1032808, symbol: aArwingShadowTex }

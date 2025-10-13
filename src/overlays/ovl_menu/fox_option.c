@@ -1503,8 +1503,8 @@ void Option_Sound_Draw(void) {
 
     if (D_menu_801B9288 == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Lib_TextureRect_IA8_MirX(&gMasterDisp, aArrowTex, 8, 8, D_menu_801AEFA8[6], D_menu_801AEFD4[6], 1.0f, 1.0f);
-        Lib_TextureRect_IA8(&gMasterDisp, aArrowTex, 8, 8, D_menu_801AEFA8[7], D_menu_801AEFD4[7], 1.0f, 1.0f);
+        Lib_TextureRect_IA8_MirX(&gMasterDisp, aOptArrowTex2, 8, 8, D_menu_801AEFA8[6], D_menu_801AEFD4[6], 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aOptArrowTex2, 8, 8, D_menu_801AEFA8[7], D_menu_801AEFD4[7], 1.0f, 1.0f);
     }
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
@@ -1974,8 +1974,9 @@ void Option_Data_Draw(void) {
                         D_menu_801AF0AC[0] + 8.0f, 1.0f, 1.0f);
 
     if (D_menu_801B91CC < 2) {
-        Lib_TextureRect_IA8_MirX(&gMasterDisp, aArrowTex, 8, 8, D_menu_801AF084[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
-        Lib_TextureRect_IA8(&gMasterDisp, aArrowTex, 8, 8, D_menu_801AF08C[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
+        Lib_TextureRect_IA8_MirX(&gMasterDisp, aOptArrowTex2, 8, 8, D_menu_801AF084[D_menu_801B91C0], 140.0f, 1.0f,
+                                 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aOptArrowTex2, 8, 8, D_menu_801AF08C[D_menu_801B91C0], 140.0f, 1.0f, 1.0f);
 
         Option_Color_FlashRed(&D_menu_801AED20[D_menu_801B91C0]);
         D_menu_801AED20[!D_menu_801B91C0] = 255.0f;
@@ -2225,7 +2226,7 @@ void Option_RankingMenu2_Draw(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
     }
 
-    Lib_TextureRect_IA8(&gMasterDisp, aOptArrowTex, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, aOptArrowTex1, 16, 16, 150.0f, 44.0f, 1.0f, 1.0f);
 
     if (D_menu_801B91D4 <= -1055.0f) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 32, 32, 32, 255);
@@ -2235,7 +2236,7 @@ void Option_RankingMenu2_Draw(void) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, colorGB, colorGB, 255);
     }
 
-    Lib_TextureRect_IA8_MirY(&gMasterDisp, aOptArrowTex, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8_MirY(&gMasterDisp, aOptArrowTex1, 16, 16, 150.0f, 200.0f, 1.0f, 1.0f);
 }
 
 Vec3f D_menu_801AF100[2] = { { 0.0f, 167.0f, 0.0f }, { 0.0f, -167.0f, 0.0f } };
@@ -2848,10 +2849,10 @@ void Option_VS_HandicapSet_Draw(s32 PlayerIdx) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    Lib_TextureRect_IA8_MirX(&gMasterDisp, aArrowTex, 8, 8, sVsHandicapFrameXpos[PlayerIdx] + D_menu_801AF1D4,
+    Lib_TextureRect_IA8_MirX(&gMasterDisp, aOptArrowTex2, 8, 8, sVsHandicapFrameXpos[PlayerIdx] + D_menu_801AF1D4,
                              sVsHandicapFrameYpos[PlayerIdx] + D_menu_801AF1DC, 1.0f, 1.0f);
 
-    Lib_TextureRect_IA8(&gMasterDisp, aArrowTex, 8, 8, sVsHandicapFrameXpos[PlayerIdx] + D_menu_801AF1D8,
+    Lib_TextureRect_IA8(&gMasterDisp, aOptArrowTex2, 8, 8, sVsHandicapFrameXpos[PlayerIdx] + D_menu_801AF1D8,
                         sVsHandicapFrameYpos[PlayerIdx] + D_menu_801AF1DC, 1.0f, 1.0f);
 
     Lib_TextureRect_IA8(&gMasterDisp, aVsTextContTex, 40, 7, sVsHandicapFrameXpos[PlayerIdx] + D_menu_801AF1CC,

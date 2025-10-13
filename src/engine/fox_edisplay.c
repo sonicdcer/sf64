@@ -311,9 +311,9 @@ void ActorDebris_Draw(ActorDebris* this) {
         case 4:
             Graphics_SetScaleMtx(this->scale);
             if ((this->index % 2) != 0) {
-                gSPDisplayList(gMasterDisp++, D_10194C0);
+                gSPDisplayList(gMasterDisp++, aDebris1DL);
             } else {
-                gSPDisplayList(gMasterDisp++, D_1024290);
+                gSPDisplayList(gMasterDisp++, aDebris2DL);
             }
             break;
 
@@ -662,7 +662,7 @@ void ActorMissileSeek_Draw(Actor* missile) {
 
     switch (missile->eventType) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_1028230);
+            gSPDisplayList(gMasterDisp++, aMissileSeekDL);
             break;
 
         case 1:
@@ -730,7 +730,7 @@ void Object_SetShadowDL(ObjectId objId, s32 index) {
                     Matrix_Scale(gGfxMatrix, 2.3f, 0.0f, 2.3f, MTXF_APPLY);
                     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_102A010);
+                    gSPDisplayList(gMasterDisp++, aSmoke2DL);
                     break;
 
                 case EVID_VE1_BLOCKER:

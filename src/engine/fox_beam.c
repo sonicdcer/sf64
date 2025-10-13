@@ -166,8 +166,8 @@ void PlayerShot_Impact(PlayerShot* shot) {
     }
 }
 
-void PlayerShot_Effect344_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 xRot, f32 scale, s32 alpha,
-                                s32 time) {
+void PlayerShot_EffectExplosionMark_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f32 yRot, f32 xRot, f32 scale,
+                                          s32 alpha, s32 time) {
     Effect_Initialize(effect);
     effect->obj.status = OBJ_INIT;
     effect->obj.id = OBJ_EFFECT_EXPLOSION_MARK_1;
@@ -184,8 +184,8 @@ void PlayerShot_Effect344_Setup(Effect* effect, f32 xPos, f32 yPos, f32 zPos, f3
     Play_PlaySfxNoPlayer(effect->sfxSource, NA_SE_EXPLOSION_S);
 }
 
-void PlayerShot_Effect344_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot, f32 xRot,
-                                f32 scale, s32 alpha, s32 time) {
+void PlayerShot_EffectExplosionMark_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4, f32 arg5, f32 yRot,
+                                          f32 xRot, f32 scale, s32 alpha, s32 time) {
     s32 i;
 
     if ((gGroundType != GROUND_4) && (gLevelType == LEVELTYPE_PLANET) && (gGroundSurface != SURFACE_WATER) &&
@@ -193,7 +193,7 @@ void PlayerShot_Effect344_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 arg4
         (gCurrentLevel != LEVEL_ZONESS)) {
         for (i = 0; i < 50; i++) {
             if (gEffects[i].obj.status == OBJ_FREE) {
-                PlayerShot_Effect344_Setup(&gEffects[i], xPos, yPos, zPos, yRot, xRot, scale, alpha, time);
+                PlayerShot_EffectExplosionMark_Setup(&gEffects[i], xPos, yPos, zPos, yRot, xRot, scale, alpha, time);
                 break;
             }
         }
@@ -319,26 +319,28 @@ s32 PlayerShot_CheckObjectHitbox(PlayerShot* shot, f32* hitboxData, Object* obj)
                             if (hitbox->z.size + (obj->pos.z + hitbox->z.offset) < shot->obj.pos.z) {
                                 shot->obj.pos.z = hitbox->z.size + (obj->pos.z + hitbox->z.offset) - 5.0f;
                             }
-                            PlayerShot_Effect344_Spawn((hitbox->x.offset + obj->pos.x) - (hitbox->x.size + 2.0f),
-                                                       shot->obj.pos.y, shot->obj.pos.z, obj->pos.x, obj->pos.z,
-                                                       obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1, 20);
+                            PlayerShot_EffectExplosionMark_Spawn(
+                                (hitbox->x.offset + obj->pos.x) - (hitbox->x.size + 2.0f), shot->obj.pos.y,
+                                shot->obj.pos.z, obj->pos.x, obj->pos.z, obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1,
+                                20);
                             return i + 1;
                         }
                         if (hitbox->x.size < shot->obj.pos.x - (obj->pos.x + hitbox->x.offset)) {
                             if ((hitbox->z.size + (obj->pos.z + hitbox->z.offset)) < shot->obj.pos.z) {
                                 shot->obj.pos.z = hitbox->z.size + (obj->pos.z + hitbox->z.offset) - 5.0f;
                             }
-                            PlayerShot_Effect344_Spawn(hitbox->x.size + (hitbox->x.offset + obj->pos.x) + 2.0f,
-                                                       shot->obj.pos.y, shot->obj.pos.z, obj->pos.x, obj->pos.z,
-                                                       obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1, 20);
+                            PlayerShot_EffectExplosionMark_Spawn(
+                                hitbox->x.size + (hitbox->x.offset + obj->pos.x) + 2.0f, shot->obj.pos.y,
+                                shot->obj.pos.z, obj->pos.x, obj->pos.z, obj->rot.y, obj->rot.y + 90.0f, 0.0f, 2.0f, 1,
+                                20);
                             return i + 1;
                         }
                         if (((hitbox->y.size + (obj->pos.y + hitbox->y.offset)) - 10.0f) <= shot->obj.pos.y) {
                             shot->obj.pos.y = ((hitbox->y.size + (obj->pos.y + hitbox->y.offset)) - 10.0f);
                         }
-                        PlayerShot_Effect344_Spawn(shot->obj.pos.x, shot->obj.pos.y,
-                                                   hitbox->z.size + (obj->pos.z + hitbox->z.offset) + 20.0f, obj->pos.x,
-                                                   obj->pos.z, 0.0f, 0.0f, 0.0f, 2.0f, 1, 20);
+                        PlayerShot_EffectExplosionMark_Spawn(shot->obj.pos.x, shot->obj.pos.y,
+                                                             hitbox->z.size + (obj->pos.z + hitbox->z.offset) + 20.0f,
+                                                             obj->pos.x, obj->pos.z, 0.0f, 0.0f, 0.0f, 2.0f, 1, 20);
                         return i + 1;
                     }
                     if (obj->id < OBJ_SCENERY_MAX) {
@@ -1082,15 +1084,15 @@ void PlayerShot_DrawHitmark(PlayerShot* shot) {
 
         switch (shot->unk_60) {
             case 0:
-                gSPDisplayList(gMasterDisp++, D_1026090);
+                gSPDisplayList(gMasterDisp++, aHitMark1DL);
                 break;
             case 1:
-                gSPDisplayList(gMasterDisp++, D_1025800);
+                gSPDisplayList(gMasterDisp++, aHitMark2DL);
                 break;
             case 2:
                 Matrix_Scale(gGfxMatrix, 1.5f, 0.7f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1025800);
+                gSPDisplayList(gMasterDisp++, aHitMark2DL);
                 break;
         }
     }
@@ -1354,7 +1356,7 @@ void PlayerShot_DrawShot(PlayerShot* shot) {
                         RCP_SetupDL_64_2();
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, shot->unk_58);
                     }
-                    gSPDisplayList(gMasterDisp++, D_1031EC0);
+                    gSPDisplayList(gMasterDisp++, aBombExplosionDL);
                 }
                 break;
 

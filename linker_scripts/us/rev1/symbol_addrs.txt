@@ -29,7 +29,7 @@ D_80180000 = 0x80180000;//ignore:true
 D_80160000 = 0x80160000;//ignore:true
 D_800D0000 = 0x800D0000;//ignore:true
 D_7FFFFFFE = 0x7FFFFFFE;//ignore:true
-D_1000000 = 0x01000000;//ignore:true
+aContinueTex = 0x01000000;//ignore:true
 D_01000100 = 0x01000100;//ignore:true
 D_01010100 = 0x01010100;//ignore:true
 

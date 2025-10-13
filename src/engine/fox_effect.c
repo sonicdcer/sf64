@@ -72,44 +72,44 @@ void BonusText_Update(void) {
 }
 
 Gfx* sLargeBonusDLs[4][2] = {
-    { D_1016410, D_1003130 },
-    { D_10162A0, D_1003130 },
-    { D_1016130, D_1003130 },
-    { D_1015FC0, D_1003130 },
+    { aBonus2DL, aBonus0DL },
+    { aBonus3DL, aBonus0DL },
+    { aBonus4DL, aBonus0DL },
+    { aBonus5DL, aBonus0DL },
 };
 
 Gfx* sSmallBonusDLs[10] = {
-    D_1015810, D_1016410, D_10162A0, D_1016130, D_1015FC0, D_1015E50, D_10156A0, D_1015CE0, D_1015B70, D_1015320,
+    aBonus1DL, aBonus2DL, aBonus3DL, aBonus4DL, aBonus5DL, aBonus6DL, aBonus7DL, aBonus8DL, aBonus9DL, aBonus10DL,
 };
 
 void BonusText_Draw(BonusText* bonus) {
     s32 dlIndex;
-    Vec3f sp60 = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp54;
-    f32 sp50;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
+    f32 scale;
 
     if (bonus->timer <= 45) {
         Matrix_Translate(gGfxMatrix, bonus->pos.x, bonus->pos.y, bonus->pos.z + gPathProgress, MTXF_APPLY);
-        Matrix_MultVec3f(gGfxMatrix, &sp60, &sp54);
+        Matrix_MultVec3f(gGfxMatrix, &src, &dest);
 
-        if ((fabsf(sp54.x) < 20000.0f) && (fabsf(sp54.y) < 20000.0f)) {
-            if ((sp54.z < 0.0f) && (sp54.z > -20000.0f)) {
-                sp50 = (VEC3F_MAG(&sp54)) * 0.0015f * 0.2f;
+        if ((fabsf(dest.x) < 20000.0f) && (fabsf(dest.y) < 20000.0f)) {
+            if ((dest.z < 0.0f) && (dest.z > -20000.0f)) {
+                scale = (VEC3F_MAG(&dest)) * 0.0015f * 0.2f;
                 Matrix_RotateY(gGfxMatrix, -gPlayer[gPlayerNum].camYaw, MTXF_APPLY);
                 Matrix_RotateX(gGfxMatrix, gPlayer[gPlayerNum].camPitch, MTXF_APPLY);
-                Matrix_Scale(gGfxMatrix, sp50, sp50, 1.0f, MTXF_APPLY);
+                Matrix_Scale(gGfxMatrix, scale, scale, 1.0f, MTXF_APPLY);
                 Matrix_Translate(gGfxMatrix, 0.0f, bonus->rise, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
                 if (bonus->hits <= 10) {
-                    gSPDisplayList(gMasterDisp++, D_1015980);
+                    gSPDisplayList(gMasterDisp++, aBonusHitPlusDL);
                     gSPDisplayList(gMasterDisp++, sSmallBonusDLs[bonus->hits - 1]);
                 } else if (bonus->hits == BONUS_TEXT_1UP) {
-                    gSPDisplayList(gMasterDisp++, D_1011F20);
+                    gSPDisplayList(gMasterDisp++, aBonus1UpDL);
                 } else if (bonus->hits == BONUS_TEXT_GREAT) {
-                    gSPDisplayList(gMasterDisp++, D_1016580);
+                    gSPDisplayList(gMasterDisp++, aBonusGREATDL);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_1015980);
+                    gSPDisplayList(gMasterDisp++, aBonusHitPlusDL);
                     switch (bonus->hits) {
                         case 20:
                             dlIndex = 0;
@@ -361,7 +361,7 @@ void Effect_ElectricArc_Draw(EffectElectricArc* this) {
             Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            gSPDisplayList(gMasterDisp++, aElectricArcDL);
             Matrix_Pop(&gGfxMatrix);
         }
         Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, MTXF_APPLY);
@@ -406,7 +406,7 @@ void Effect_Effect367_Draw(Effect367* this) {
     }
 }
 
-void Effect_Effect344_Draw(Effect344* this) {
+void Effect_ExplosionMark_Draw(EffectExplosionMark* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, this->scale2, this->scale2, this->scale2, MTXF_APPLY);
@@ -414,17 +414,17 @@ void Effect_Effect344_Draw(Effect344* this) {
         Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     }
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1029780);
+    gSPDisplayList(gMasterDisp++, aEffectExplosionMarkDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect345_Draw(Effect345* this) {
+void Effect_LaserMark_Draw(EffectLaserMark* this) {
     RCP_SetupDL_60(gFogRed, gFogGreen, gFogBlue, gFogAlpha, gFogNear, gFogFar);
     gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
     Matrix_Scale(gGfxMatrix, this->scale2 * 0.6f, 1.0f, this->scale2 * 3.5f, MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1029780);
+    gSPDisplayList(gMasterDisp++, aEffectExplosionMarkDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -826,9 +826,9 @@ void Effect_Effect357_Draw(Effect357* this) {
 
                 default:
                     if ((this->index % 2) != 0) {
-                        gSPDisplayList(gMasterDisp++, D_10194C0);
+                        gSPDisplayList(gMasterDisp++, aDebris1DL);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_1024290);
+                        gSPDisplayList(gMasterDisp++, aDebris2DL);
                     }
                     break;
             }
@@ -844,9 +844,9 @@ void Effect_Effect357_Draw(Effect357* this) {
             switch (this->unk_4C) {
                 case 0:
                     if ((this->index % 2) != 0) {
-                        gSPDisplayList(gMasterDisp++, D_10194C0);
+                        gSPDisplayList(gMasterDisp++, aDebris1DL);
                     } else {
-                        gSPDisplayList(gMasterDisp++, D_1024290);
+                        gSPDisplayList(gMasterDisp++, aDebris2DL);
                     }
                     break;
 
@@ -883,7 +883,7 @@ void Effect_Effect357_Draw(Effect357* this) {
 }
 
 void Effect_EffectBossExplosion_Update(EffectBossExplosion* this) {
-    Lib_Texture_Scroll(D_10190C0, 16, 32, 0);
+    Lib_Texture_Scroll(aEffectBossExplosionTex, 16, 32, 0);
     gGroundClipMode = 2;
     this->obj.rot.y += 1.0f;
     Math_SmoothStepToF(&this->scale2, this->scale1, 0.05f, 1.5f, 0.001f);
@@ -918,7 +918,7 @@ void Effect_EffectBossExplosion_Draw(EffectBossExplosion* this) {
         RCP_SetupDL_64_2();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-        gSPDisplayList(gMasterDisp++, D_10182C0);
+        gSPDisplayList(gMasterDisp++, aEffectBossExplosionDL);
         gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
         RCP_SetupDL_64_2();
     }
@@ -1710,7 +1710,7 @@ void Effect_Effect387_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer5
     }
 }
 
-void Effect_Effect343_Setup(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Smoke2_Setup(EffectSmoke2* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_SMOKE_2;
@@ -1746,12 +1746,12 @@ void Effect_Effect343_Setup(Effect343* this, f32 xPos, f32 yPos, f32 zPos, f32 s
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect343_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
+void Effect_Smoke2_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects) - 20; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect343_Setup(&gEffects[i], xPos, yPos, zPos, scale2);
+            Effect_Smoke2_Setup(&gEffects[i], xPos, yPos, zPos, scale2);
             break;
         }
     }
@@ -1772,15 +1772,15 @@ void Effect_Effect387_Update(Effect387* this) {
         randX = RAND_FLOAT_CENTERED(10.0f);
         randY = RAND_FLOAT_CENTERED(10.0f);
         randOther = RAND_FLOAT(0.5f) + 1.0f;
-        Effect_Effect343_Spawn(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z,
-                               this->scale2 * randOther);
+        Effect_Smoke2_Spawn(this->obj.pos.x + randX, this->obj.pos.y + randY, this->obj.pos.z,
+                            this->scale2 * randOther);
         if (this->timer_50 == 0) {
             Object_Kill(&this->obj, this->sfxSource);
         }
     }
 }
 
-void Effect_Effect343_Update(Effect343* this) {
+void Effect_Smoke2_Update(EffectSmoke2* this) {
     if (this->alpha == 0) {
         this->scale2 *= 1.03f;
         this->unk_4A -= 3;
@@ -1802,11 +1802,11 @@ void Effect_Effect343_Update(Effect343* this) {
     }
 }
 
-void Effect_Effect343_Draw(Effect343* this) {
+void Effect_Smoke2_Draw(EffectSmoke2* this) {
     Graphics_SetScaleMtx(this->scale2);
     if (this->alpha == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, this->unk_4A);
-        gSPDisplayList(gMasterDisp++, D_102A010);
+        gSPDisplayList(gMasterDisp++, aSmoke2DL);
     } else {
         Matrix_Scale(gGfxMatrix, 1.5f, 1.5f, 1.5f, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
@@ -1861,7 +1861,7 @@ void Effect_FireSmoke2_Setup(Effect340* this, f32 xPos, f32 yPos, f32 zPos, f32 
     }
 }
 
-void Effect_Effect342_Setup(Effect342* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void Effect_Smoke1_Setup(EffectSmoke1* this, f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_EFFECT_SMOKE_1;
@@ -1891,12 +1891,12 @@ void Effect_Effect342_Setup(Effect342* this, f32 xPos, f32 yPos, f32 zPos, f32 s
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect342_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
+void Effect_Smoke1_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect342_Setup(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
+            Effect_Smoke1_Setup(&gEffects[i], xPos, yPos, zPos, scale2, timer50);
             break;
         }
     }
@@ -1988,7 +1988,7 @@ void Effect_FireSmoke3_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 void func_effect_8007D24C(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
     if (gLevelType == LEVELTYPE_PLANET) {
         Effect_FireSmoke3_Spawn(xPos, yPos, zPos, scale2);
-        Effect_Effect342_Spawn(xPos, scale2 + yPos, zPos, scale2, 9);
+        Effect_Smoke1_Spawn(xPos, scale2 + yPos, zPos, scale2, 9);
     } else {
         Effect_FireSmoke1_Spawn4(xPos, yPos, zPos, scale2);
     }
@@ -2236,8 +2236,8 @@ void Effect_FlamePillar_Update(EffectFlamePillar* this) {
                                         4.0f, 5);
 
                 if ((this->obj.pos.y < (gGroundHeight + 10.0f)) || (gGroundSurface != SURFACE_WATER)) {
-                    PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
-                                               0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                    PlayerShot_EffectExplosionMark_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
+                                                         this->obj.pos.z, 0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                     break;
                 }
             }
@@ -2286,7 +2286,7 @@ void Effect_FlamePillar_Draw(EffectFlamePillar* this) {
     }
 }
 
-void Effect_Effect344_Update(Effect344* this) {
+void Effect_ExplosionMark_Update(EffectExplosionMark* this) {
     s32 i;
     f32 x;
     f32 z;
@@ -2314,13 +2314,13 @@ void Effect_Effect344_Update(Effect344* this) {
     }
 }
 
-void Effect_Effect345_Update(Effect345* this) {
+void Effect_LaserMark_Update(EffectLaserMark* this) {
     if ((gCamCount != 1) && (this->timer_50 == 0)) {
         Object_Kill(&this->obj, this->sfxSource);
     }
 }
 
-void Effect_Effect342_Update(Effect342* this) {
+void Effect_Smoke1_Update(EffectSmoke1* this) {
     if (this->timer_50 == 0) {
         this->scale2 *= 1.035f;
         this->unk_4A -= 8;
@@ -2334,7 +2334,7 @@ void Effect_Effect342_Update(Effect342* this) {
     }
 }
 
-void Effect_Effect342_Draw(Effect342* this) {
+void Effect_Smoke1_Draw(EffectSmoke1* this) {
     Graphics_SetScaleMtx(this->scale2);
     if (this->alpha == 0) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, this->unk_4A);
@@ -3243,7 +3243,7 @@ void Effect_Effect394_Draw(Effect394* this) {
             Graphics_SetScaleMtx(this->scale2);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 120, 60, 0, this->alpha);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            gSPDisplayList(gMasterDisp++, D_1023750);
+            gSPDisplayList(gMasterDisp++, aSmoke1DL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
@@ -3259,7 +3259,7 @@ void Effect_Effect394_Draw(Effect394* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
             gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 0);
-            gSPDisplayList(gMasterDisp++, D_1023750);
+            gSPDisplayList(gMasterDisp++, aSmoke1DL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
@@ -3268,7 +3268,7 @@ void Effect_Effect394_Draw(Effect394* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
             gDPSetEnvColor(gMasterDisp++, 255, 255, 255, 0);
-            gSPDisplayList(gMasterDisp++, D_1023750);
+            gSPDisplayList(gMasterDisp++, aSmoke1DL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
@@ -3277,7 +3277,7 @@ void Effect_Effect394_Draw(Effect394* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
             gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 0);
-            gSPDisplayList(gMasterDisp++, D_1023750);
+            gSPDisplayList(gMasterDisp++, aSmoke1DL);
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             break;
 
@@ -3288,7 +3288,7 @@ void Effect_Effect394_Draw(Effect394* this) {
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            gSPDisplayList(gMasterDisp++, aElectricArcDL);
             Matrix_Pop(&gGfxMatrix);
 
             for (i = 0; i < 7; i++) {
@@ -3298,7 +3298,7 @@ void Effect_Effect394_Draw(Effect394* this) {
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Scale(gGfxMatrix, 0.25f, 1.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_102F5E0);
+                gSPDisplayList(gMasterDisp++, aElectricArcDL);
                 Matrix_Pop(&gGfxMatrix);
             }
             this->obj.rot.z += 1.0f;
@@ -3326,7 +3326,7 @@ void Effect_Effect394_Draw(Effect394* this) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -60.0f, 0.0f, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.8f, 3.0f, 1.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_102F5E0);
+                gSPDisplayList(gMasterDisp++, aElectricArcDL);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, 0.0f, -120.0f, 0.0f, MTXF_APPLY);
                 Matrix_RotateZ(gGfxMatrix, D_800D1534[D_800D18E4][i] * M_DTOR, MTXF_APPLY);
@@ -3943,7 +3943,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_68);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 0, 0, this->unk_4A);
             gDPSetEnvColor(gMasterDisp++, 0, 0, 0, 0);
-            gSPDisplayList(gMasterDisp++, D_1023750);
+            gSPDisplayList(gMasterDisp++, aSmoke1DL);
             break;
 
         case 5:
@@ -3965,7 +3965,7 @@ void Effect_Effect395_Draw(Effect395* this) {
             }
             RCP_SetupDL(&gMasterDisp, SETUPDL_64);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 255, 0, this->unk_4A);
-            gSPDisplayList(gMasterDisp++, D_1023750);
+            gSPDisplayList(gMasterDisp++, aSmoke1DL);
             break;
 
         case 8:

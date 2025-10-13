@@ -366,6 +366,7 @@ D_MAP_6047A68:
 aMapVenomCloudDL:
   { type: GFX, offset: 0x6047E70, symbol: aMapVenomCloudDL }
 
+# These two should be one whole 64 x 64 texture but Torch can't handle a texture call with a custom offset.
 aMapVenomCloud1Tex:
   { type: TEXTURE, format: IA8, offset: 0x06047F80, width: 64, height: 32, ctype: u8, symbol: aMapVenomCloud1Tex }
 

@@ -16,7 +16,7 @@ aTitleRadioStatic: { type: TEXTURE, ctype: u16, format: RGBA16, width: 44, heigh
 
 aTitleSunGlareTex: { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x600D5C0, symbol: aTitleSunGlareTex }
 
-a1997NintendoTex: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x600DDC0, symbol: a1997NintendoTex }
+aTitle1997NintendoTex: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 12, offset: 0x600DDC0, symbol: aTitle1997NintendoTex }
 
 aTitlePressStartTex: { type: TEXTURE, ctype: u8, format: IA8, width: 120, height: 13, offset: 0x600E360, symbol: aTitlePressStartTex }
 

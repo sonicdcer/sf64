@@ -259,7 +259,7 @@ void func_versus_800BD7C4(f32 xPos, f32 yPos, s32 arg2) {
 }
 
 void func_versus_800BD9FC(f32 xPos, f32 yPos) {
-    Lib_TextureRect_CI4(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, xPos, yPos, 1.0f, 1.0f);
+    Lib_TextureRect_CI4(&gMasterDisp, aColonTex, aColonTLUT, 16, 8, xPos, yPos, 1.0f, 1.0f);
 }
 
 void func_versus_800BDA54(f32 xPos, f32 yPos) {

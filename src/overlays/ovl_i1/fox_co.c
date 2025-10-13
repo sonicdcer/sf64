@@ -30,7 +30,7 @@ void Corneria_CoSmoke_Update(CoSmoke* this) {
         x = RAND_FLOAT_CENTERED(10.0f);
         y = RAND_FLOAT_CENTERED(10.0f);
         z = RAND_FLOAT(0.5f) + 1.0f;
-        Effect_Effect343_Spawn(this->obj.pos.x + x, this->obj.pos.y + y, this->obj.pos.z, 4.0f * z);
+        Effect_Smoke2_Spawn(this->obj.pos.x + x, this->obj.pos.y + y, this->obj.pos.z, 4.0f * z);
     }
 }
 

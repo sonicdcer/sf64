@@ -177,8 +177,8 @@ aOptDataErasedTex:
 aOptStereoTex:
   { type: TEXTURE, ctype: u8, format: IA8, width: 56, height: 13, offset: 0x800CD90, symbol: aOptStereoTex }
 
-aOptArrowTex:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x800D070, symbol: aOptArrowTex }
+aOptArrowTex1:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x800D070, symbol: aOptArrowTex1 }
 
 aOptRankingFadeBandTex:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 16, offset: 0x800D170, symbol: aOptRankingFadeBandTex }
@@ -191,8 +191,8 @@ aOptInvoiceSealTex:
 aOptUnusedTex1:
   { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E0F0, symbol: aOptUnusedTex1 }
 
-aArrowTex:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E130, symbol: aArrowTex }
+aOptArrowTex2:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 8, height: 8, offset: 0x800E130, symbol: aOptArrowTex2 }
 
 # Mercenary Unit STARFOX Fox Mccloud
 aOptSignatureTex:

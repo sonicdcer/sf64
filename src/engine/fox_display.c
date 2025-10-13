@@ -93,7 +93,7 @@ void Display_DrawHelpAlert(void) {
                 Matrix_RotateZ(gGfxMatrix, sp74, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.03f, 0.03f, 0.03f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1023700);
+                gSPDisplayList(gMasterDisp++, aHelpAlertDL);
                 Matrix_Pop(&gGfxMatrix);
                 break;
 
@@ -103,7 +103,7 @@ void Display_DrawHelpAlert(void) {
                 Matrix_RotateZ(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.03f, 0.03f, 0.03f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1023700);
+                gSPDisplayList(gMasterDisp++, aHelpAlertDL);
                 Matrix_Pop(&gGfxMatrix);
                 sp78 = -20.0f;
                 Matrix_Push(&gGfxMatrix);
@@ -111,7 +111,7 @@ void Display_DrawHelpAlert(void) {
                 Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                 Matrix_Scale(gGfxMatrix, 0.03f, 0.03f, 0.03f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_1023700);
+                gSPDisplayList(gMasterDisp++, aHelpAlertDL);
                 Matrix_Pop(&gGfxMatrix);
                 break;
         }
@@ -741,7 +741,7 @@ void Display_Reticle(Player* player) {
             }
             Matrix_Scale(gGfxMatrix, 4.0f, 4.0f, 4.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_1024F60);
+            gSPDisplayList(gMasterDisp++, aReticleDL);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -915,7 +915,7 @@ void Display_BarrelRollShield(Player* player) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, player->barrelRollAlpha);
         gDPSetEnvColor(gMasterDisp++, 0, 0, 160, player->barrelRollAlpha);
-        gSPDisplayList(gMasterDisp++, aBarrelRollTex);
+        gSPDisplayList(gMasterDisp++, aBarrelRollDL);
         Matrix_Pop(&gGfxMatrix);
     }
 }
@@ -1585,7 +1585,7 @@ void Display_LockOnIndicator(void) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_67);
                 gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 0, 0, 255);
                 gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
-                gSPDisplayList(gMasterDisp++, D_1024F60);
+                gSPDisplayList(gMasterDisp++, aReticleDL);
                 Matrix_Pop(&gGfxMatrix);
             }
         }

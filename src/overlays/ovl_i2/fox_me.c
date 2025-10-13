@@ -1699,7 +1699,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
             Matrix_Scale(gGfxMatrix, 2.0f, 2.0f * var_fs1, 2.0f, MTXF_APPLY);
             Matrix_Translate(gGfxMatrix, 0.0f, -20.0f, 0.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            gSPDisplayList(gMasterDisp++, aElectricArcDL);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -2174,7 +2174,7 @@ void Meteo_Effect369_Draw(Effect369* this) {
         Matrix_RotateX(gGfxMatrix, -M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 160, 255, 160, this->alpha);
-        gSPDisplayList(gMasterDisp++, D_102F5E0);
+        gSPDisplayList(gMasterDisp++, aElectricArcDL);
     }
 }
 

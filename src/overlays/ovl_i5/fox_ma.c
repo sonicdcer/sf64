@@ -5855,8 +5855,8 @@ void Macbeth_MaBombDrop_Update(MaBombDrop* this) {
                                         4.0f, 5);
 
                 if (this->obj.pos.y < (gGroundHeight + 10.0f)) {
-                    PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x, this->obj.pos.z,
-                                               0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
+                    PlayerShot_EffectExplosionMark_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
+                                                         this->obj.pos.z, 0.0f, 0.0f, 90.0f, 5.0f, 0, 0);
                 }
                 gControllerRumbleFlags[gMainController] = 1;
                 gControllerRumbleTimers[gMainController] = 10;
@@ -6977,8 +6977,8 @@ void Macbeth_LevelComplete2(Player* player) {
             if ((gGameFrameCount % 4) == 0) {
                 Effect_FireSmoke1_Spawn4(player->pos.x - 1750.0f + RAND_FLOAT_CENTERED(700.0f), 10.0f,
                                          player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(700.0f), 5.0f);
-                Effect_Effect343_Spawn(player->pos.x - 1800.0f + RAND_FLOAT_CENTERED(40.0f), -100.0f,
-                                       player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(40.0f), 9.0f);
+                Effect_Smoke2_Spawn(player->pos.x - 1800.0f + RAND_FLOAT_CENTERED(40.0f), -100.0f,
+                                    player->pos.z + 5000.0f + RAND_FLOAT_CENTERED(40.0f), 9.0f);
             }
 
             if ((gCsFrameCount >= 1059) && (gCsFrameCount < 2120)) {

@@ -2913,8 +2913,8 @@ void Title_Copyright_Draw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
     for (i = 0; i < 2; i++) {
-        Lib_TextureRect_IA8(&gMasterDisp, a1997NintendoTex + (120 * 6 * i), 120, 6, 102.0f, 209.0f + (i * 6.0f), 1.0f,
-                            1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aTitle1997NintendoTex + (120 * 6 * i), 120, 6, 102.0f, 209.0f + (i * 6.0f),
+                            1.0f, 1.0f);
     }
 }
 

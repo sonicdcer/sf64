@@ -4379,8 +4379,9 @@ void Actor_DyingCrash(Actor* this) {
                                                    20);
                             Effect_WaterSpray_SpawnCircle(this->obj.pos.x, gGroundHeight, this->obj.pos.z, 0.1f, 3.0f);
                         } else {
-                            PlayerShot_Effect344_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z, this->obj.pos.x,
-                                                       this->obj.pos.z, 0.0f, 0.0f, 90.0f, 6.5f, 0, 0);
+                            PlayerShot_EffectExplosionMark_Spawn(this->obj.pos.x, 3.0f, this->obj.pos.z,
+                                                                 this->obj.pos.x, this->obj.pos.z, 0.0f, 0.0f, 90.0f,
+                                                                 6.5f, 0, 0);
                         }
                         Effect_Effect390_Spawn(this->obj.pos.x, 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                                this->scale * 0.05f, 30);

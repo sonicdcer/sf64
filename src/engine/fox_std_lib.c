@@ -779,15 +779,15 @@ u16* Graphics_SetupTextureRender(Gfx** gfxPtr, u8 width, u8 height) {
 }
 
 void Graphics_DisplayHUDNumber(s32 xPos, s32 yPos, s32 number) {
-    u8* hudNumberTex[] = { D_1010660, D_10106B0, D_1010700, D_1010750, D_10107A0,
-                           D_10107F0, D_1010840, D_1010890, D_10108E0, D_1010930 };
-    u16* hudNumberPal[] = { D_10106A0, D_10106F0, D_1010740, D_1010790, D_10107E0,
-                            D_1010830, D_1010880, D_10108D0, D_1010920, D_1010970 };
+    u8* hudNumberTex[] = { aHudNumber_0, aHudNumber_1, aHudNumber_2, aHudNumber_3, aHudNumber_4,
+                           aHudNumber_5, aHudNumber_6, aHudNumber_7, aHudNumber_8, aHudNumber_9 };
+    u16* hudNumberPal[] = { aHudNumber_0_TLUT, aHudNumber_1_TLUT, aHudNumber_2_TLUT, aHudNumber_3_TLUT,
+                            aHudNumber_4_TLUT, aHudNumber_5_TLUT, aHudNumber_6_TLUT, aHudNumber_7_TLUT,
+                            aHudNumber_8_TLUT, aHudNumber_9_TLUT };
     s32 place;
     s32 startNumber = false;
 
     number %= 10000000;
-    place = 1000000;
     for (place = 1000000; place != 1; place /= 10) {
         if ((number / place != 0) || (startNumber == true)) {
             Lib_TextureRect_CI4(&gMasterDisp, hudNumberTex[number / place], hudNumberPal[number / place], 16, 8, xPos,

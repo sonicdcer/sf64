@@ -1754,7 +1754,7 @@ void Area6_A6Gorgon_DrawTentacle(Vec3f* arg0, f32 arg1, f32 arg2, Vec3f* arg3, s
     }
 }
 
-void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
+void Area6_A6GorgonEnergyBalls_Draw(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
     s32 i;
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     f32 spAC;
@@ -1803,7 +1803,7 @@ void Area6_8018C0D0(f32* arg0, f32 arg1, Vec3f* arg2, f32 arg3, s32 arg4) {
             Matrix_RotateY(gCalcMatrix, M_DTOR * spAC, MTXF_APPLY);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_102F5E0);
+            gSPDisplayList(gMasterDisp++, aElectricArcDL);
         }
         Matrix_Pop(&gCalcMatrix);
         Matrix_Pop(&gGfxMatrix);
@@ -1942,17 +1942,18 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
 
             if ((this->swork[A6_SWK_15] != 0) && (this->state >= 3) && (D_i3_801C22F0.alpha == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
-                Area6_8018C0D0(D_i3_801BF1F0, 0.0f, &this->vwork[A6_VWK_4], this->fwork[A6_FWK_0], 0);
+                Area6_A6GorgonEnergyBalls_Draw(D_i3_801BF1F0, 0.0f, &this->vwork[A6_VWK_4], this->fwork[A6_FWK_0], 0);
             }
 
             if ((this->swork[A6_SWK_16] != 0) && (this->state >= 3) && (D_i3_801C22F0.alpha == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
-                Area6_8018C0D0(D_i3_801BF220, -120.0f, &this->vwork[A6_VWK_5], this->fwork[A6_FWK_0], 1);
+                Area6_A6GorgonEnergyBalls_Draw(D_i3_801BF220, -120.0f, &this->vwork[A6_VWK_5], this->fwork[A6_FWK_0],
+                                               1);
             }
 
             if ((this->swork[A6_SWK_17] != 0) && (this->state >= 3) && (D_i3_801C22F0.alpha == 255.0f) &&
                 (D_i3_801C2250[A6_BSS_0] == 0)) {
-                Area6_8018C0D0(D_i3_801BF250, 120.0f, &this->vwork[A6_VWK_6], this->fwork[A6_FWK_0], 2);
+                Area6_A6GorgonEnergyBalls_Draw(D_i3_801BF250, 120.0f, &this->vwork[A6_VWK_6], this->fwork[A6_FWK_0], 2);
             }
 
             if (this->swork[A6_SWK_25] != 0) {

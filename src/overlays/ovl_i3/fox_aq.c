@@ -1102,8 +1102,8 @@ void Aquas_801ABA40(PlayerShot* shot) {
 
     if (shot->obj.pos.y < gGroundHeight) {
         shot->obj.pos.y = gGroundHeight + 2.0f;
-        PlayerShot_Effect344_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f, 90.0f,
-                                   2.0f, 0, 0);
+        PlayerShot_EffectExplosionMark_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.0f,
+                                             90.0f, 2.0f, 0, 0);
         Effect_FireSmoke1_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 1.2f);
         D_i3_801C4190[5] = D_i3_801C4190[3] = 0;
         PlayerShot_Impact(shot);

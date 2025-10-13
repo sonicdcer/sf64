@@ -4644,7 +4644,6 @@ void Map_VenomCloud2_Draw(PlanetId planetId) {
     s32 b;
 
     r = g = b = 255;
-
     if (planetId == PLANET_MACBETH) {
         r = g = b = 64;
     }

@@ -984,11 +984,11 @@ void HUD_LivesCount2_Draw(f32 x, f32 y, s32 number) {
 }
 
 void HUD_TeammateStatus_Draw(void) {
-    u16* sPortraitTex[] = { aFoxPortraitTex, aPeppyPortraitTex, aSlippyPortraitTex, aFalcoPortraitTex };
-    u8* sText[] = { aTextPeppy, aTextSlippy, aTextFalco };
+    u16* portraitTex[] = { aFoxPortrait1Tex, aPeppyPortrait1Tex, aSlippyPortrait1Tex, aFalcoPortrait1Tex };
+    u8* text[] = { aTextPeppy, aTextSlippy, aTextFalco };
     s32 shield;
-    s32 sTextWidth[] = { 48, 56, 48 };
-    s32 sTextHeght[] = { 10, 10, 8 };
+    s32 textWidth[] = { 48, 56, 48 };
+    s32 textHeght[] = { 10, 10, 8 };
     s32 i;
     s32 j;
     f32 x[3][3], y[3][3];
@@ -1019,7 +1019,7 @@ void HUD_TeammateStatus_Draw(void) {
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Lib_TextureRect_IA8(&gMasterDisp, sText[j], sTextWidth[j], sTextHeght[j], x[j][1], y[j][1], 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, text[j], textWidth[j], textHeght[j], x[j][1], y[j][1], 1.0f, 1.0f);
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
         shield = gTeamShields[3 - j];
@@ -1031,10 +1031,10 @@ void HUD_TeammateStatus_Draw(void) {
         }
 
         for (i = 0; i < 2; i++) {
-            Lib_TextureRect_RGBA16(&gMasterDisp, sPortraitTex[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
+            Lib_TextureRect_RGBA16(&gMasterDisp, portraitTex[j + 1] + (44 * 20 * i), 44, 20, x[j][0],
                                    y[j][0] + (f32) (20 * i), 1.0f, 1.0f);
         }
-        Lib_TextureRect_RGBA16(&gMasterDisp, sPortraitTex[j + 1] + (44 * 20 * 2), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f,
+        Lib_TextureRect_RGBA16(&gMasterDisp, portraitTex[j + 1] + (44 * 20 * 2), 44, 4, x[j][0], y[j][0] + 40.0f, 1.0f,
                                1.0f);
 
         HUD_TeamShields_Draw(x[j][2], y[j][2], shield);
@@ -1675,7 +1675,7 @@ void HUD_PauseScreen_Update(void) {
                     gDPSetPrimColor(gMasterDisp++, 0, 0, 64, 64, 64, 255);
                 }
 
-                Lib_TextureRect_IA8(&gMasterDisp, D_1000000, 64, 10, x0 - 12.0f, y0, 1.0f, 1.0f);
+                Lib_TextureRect_IA8(&gMasterDisp, aContinueTex, 64, 10, x0 - 12.0f, y0, 1.0f, 1.0f);
 
                 if (sPauseScreenIwork[1] == 1) {
                     temp = (sPauseScreenTimer[0] % 20);
@@ -1694,9 +1694,9 @@ void HUD_PauseScreen_Update(void) {
                     Lib_TextureRect_IA8(&gMasterDisp, aTrQuitTrainingEnTex, 96, 12, x1, y1, 1.0f, 1.0f);
                 } else {
                     if (gLifeCount[gPlayerNum]) {
-                        Lib_TextureRect_IA8(&gMasterDisp, D_1000280, 96, 10, x1, y1, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, aRetryCourseTex, 96, 10, x1, y1, 1.0f, 1.0f);
                     } else {
-                        Lib_TextureRect_IA8(&gMasterDisp, D_1000640, 96, 22, x1, y1, 1.0f, 1.0f);
+                        Lib_TextureRect_IA8(&gMasterDisp, aRestartGameTex, 96, 22, x1, y1, 1.0f, 1.0f);
                     }
                 }
 
@@ -1767,21 +1767,21 @@ void HUD_RadarMark_Arwing_Draw(s32 colorIdx) {
         { 177, 242, 12, 255 }, { 89, 121, 6, 128 }, { 90, 90, 255, 255 }, { 45, 45, 128, 128 },
         { 0, 179, 67, 255 },   { 0, 90, 34, 128 },  { 255, 30, 0, 255 },  { 128, 15, 0, 128 },
     };
-    f32 var_fv1;
-    f32 var_fv2;
+    f32 xScale;
+    f32 yScale;
 
     if (gCamCount != 1) {
-        var_fv1 = 38.0f;
-        var_fv2 = 38.0f;
+        xScale = 38.0f;
+        yScale = 38.0f;
     } else {
-        var_fv1 = 54.0f;
-        var_fv2 = 54.0f;
+        xScale = 54.0f;
+        yScale = 54.0f;
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_62);
     gDPSetPrimColor(gMasterDisp++, 0, 0, arwingMarkColor[colorIdx][0], arwingMarkColor[colorIdx][1],
                     arwingMarkColor[colorIdx][2], arwingMarkColor[colorIdx][3]);
-    Matrix_Scale(gGfxMatrix, var_fv1, var_fv2, 1.0f, MTXF_APPLY);
+    Matrix_Scale(gGfxMatrix, xScale, yScale, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, aRadarMarkArwingDL);
 }
@@ -1817,7 +1817,7 @@ void HUD_RadarMark_Supplies_Draw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, alpha);
     Matrix_Scale(gGfxMatrix, 15.0f, 15.0f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024230);
+    gSPDisplayList(gMasterDisp++, aRadarLineDL);
 }
 
 void HUD_RadarMissileAlarm_Draw(void) {
@@ -1843,7 +1843,7 @@ void HUD_RadarMissileAlarm_Draw(void) {
     Matrix_Translate(gGfxMatrix, 0.0f, -185.92001f, 0, MTXF_APPLY);
     Matrix_Scale(gGfxMatrix, 3.55f, 0.13f, 1.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_1024230);
+    gSPDisplayList(gMasterDisp++, aRadarLineDL);
 }
 
 void HUD_RadarMark_Draw(s32 type) {
@@ -2740,10 +2740,10 @@ void HUD_DisplaySmallNumber(f32 xPos, f32 yPos, f32 scale, s32 number) {
 
 void HUD_VsModePortraitTex_Draw(f32 xPos, f32 yPos, f32 scale, s32 idx) {
     u16* sVsModeFaceDL[] = {
-        aFoxPortraitTex,
-        aPeppyPortraitTex,
-        aSlippyPortraitTex,
-        aFalcoPortraitTex,
+        aFoxPortrait1Tex,
+        aPeppyPortrait1Tex,
+        aSlippyPortrait1Tex,
+        aFalcoPortrait1Tex,
     };
     s32 i;
 
@@ -2819,7 +2819,7 @@ void HUD_EdgeArrows_Update(void) {
                 HUD_EdgeArrows_Draw(i, true);
             }
         }
-        HUD_Texture_Scroll(D_1024A58, 8, 8, 2);
+        HUD_Texture_Scroll(aArrowTex, 8, 8, 2);
     }
 }
 
@@ -3121,10 +3121,10 @@ void HUD_DrawBossHealth(void) {
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_78);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-        Lib_TextureRect_CI4(&gMasterDisp, D_1011A40, D_1011AB0, 32, 7, temp2, temp3, 1.0f, 1.0f);
+        Lib_TextureRect_CI4(&gMasterDisp, aBossTextTex, aBossTextTLUT, 32, 7, temp2, temp3, 1.0f, 1.0f);
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
-        Lib_TextureRect_IA8(&gMasterDisp, D_1002040, 40, 12, sp3C, temp1, 1.0f, 1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aBossTextFrameTex, 40, 12, sp3C, temp1, 1.0f, 1.0f);
 
         if (sp3C >= 25.0f) {
             Math_SmoothStepToF(&D_801616C4, 0.88f, 0.3f, 0.2f, 0.1f);
@@ -3133,7 +3133,8 @@ void HUD_DrawBossHealth(void) {
         if ((D_801616C4 >= 0.1f) && (sp3C >= 25.0f)) {
             RCP_SetupDL(&gMasterDisp, SETUPDL_78);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            Lib_TextureRect_CI8(&gMasterDisp, D_10129C0, D_1013090, 16, 109, temp4, temp5, 1.0f, D_801616C4);
+            Lib_TextureRect_CI8(&gMasterDisp, aBossHealthBarTex, aBossHealthBarTLUT, 16, 109, temp4, temp5, 1.0f,
+                                D_801616C4);
         }
 
         RCP_SetupDL(&gMasterDisp, SETUPDL_76);
@@ -3187,7 +3188,7 @@ void HUD_DisplayCountdown(f32 xPos, f32 yPos, s32* countdown, f32 scale) {
         if ((i % 2) != 0) {
             RCP_SetupDL_78();
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
-            Lib_TextureRect_CI4(&gMasterDisp, D_1011E80, D_1011EC0, 16, 8, (var_fs0 * scale) + xPos, yPos, scale,
+            Lib_TextureRect_CI4(&gMasterDisp, aColonTex, aColonTLUT, 16, 8, (var_fs0 * scale) + xPos, yPos, scale,
                                 scale);
         } else {
             RCP_SetupDL_76();
@@ -5411,11 +5412,11 @@ void Aquas_Effect363_Draw(Effect363* this) {
         gDPSetPrimColor(gMasterDisp++, 0, 0, 0, 21, 34, this->unk_4A);
         gDPSetEnvColor(gMasterDisp++, 255, 255, 251, 0);
         Graphics_SetScaleMtx(this->scale2);
-        gSPDisplayList(gMasterDisp++, D_1023750);
+        gSPDisplayList(gMasterDisp++, aSmoke1DL);
     } else {
         Graphics_SetScaleMtx(this->scale2);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
-        gSPDisplayList(gMasterDisp++, D_1023750);
+        gSPDisplayList(gMasterDisp++, aSmoke1DL);
     }
 }
 
