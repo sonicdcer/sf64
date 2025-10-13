@@ -14,11 +14,11 @@ aFont3D_DOT:
 aFont3D_1:
   { type: GFX, offset: 0x90001F0, symbol: aFont3D_1 }
 
-D_FONT3D_9000528:
-  { type: TEXTURE, ctype: u8, format: CI4, width: 8, height: 8, offset: 0x09000528, symbol: D_FONT3D_9000528, tlut: 0x09000548 }
+aFont3DTex:
+  { type: TEXTURE, ctype: u8, format: CI4, width: 8, height: 8, offset: 0x09000528, symbol: aFont3DTex, tlut: 0x09000548 }
 
-D_FONT3D_9000548:
-  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x09000548, symbol: D_FONT3D_9000548 }
+aFont3DTLUT:
+  { type: TEXTURE, ctype: u16, format: TLUT, colors: 16, offset: 0x09000548, symbol: aFont3DTLUT }
 
 aFont3D_O:
   { type: GFX, offset: 0x9000570, symbol: aFont3D_O }
