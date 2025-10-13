@@ -1586,7 +1586,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_2_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedHatch2DL;
+                *dList = aKaDestroyedHatch2DL;
             }
             break;
 
@@ -1600,7 +1600,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_3_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedHatch3DL;
+                *dList = aKaDestroyedHatch3DL;
             }
             break;
 
@@ -1614,7 +1614,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_HATCH_4_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedHatch4DL;
+                *dList = aKaDestroyedHatch4DL;
             }
             break;
 
@@ -1628,7 +1628,7 @@ bool Katina_BossOverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* 
             if (boss->swork[BOSS_CORE_HP] <= 0) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_57);
                 gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
-                *dList = aDestroyedCoreDL;
+                *dList = aKaDestroyedCoreDL;
             }
             break;
 
@@ -1655,8 +1655,8 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
 
         Matrix_RotateY(gGfxMatrix, this->fwork[BOSS_FWORK_13] * M_DTOR, MTXF_APPLY);
 
-        Animation_GetFrameData(&D_KA_60105D8, 0, jointTable);
-        Animation_DrawSkeleton(1, D_KA_6010744, jointTable, Katina_BossOverrideLimbDraw, NULL, this, &gIdentityMatrix);
+        Animation_GetFrameData(&aKaSaucererAnim, 0, jointTable);
+        Animation_DrawSkeleton(1, aKaSaucererSkel, jointTable, Katina_BossOverrideLimbDraw, NULL, this, &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
 
@@ -1692,7 +1692,7 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
             Matrix_RotateX(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_Scale(gGfxMatrix, 0.3f, this->fwork[BOSS_LASER_LENGTH], 0.3f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_KA_600BFB0);
+            gSPDisplayList(gMasterDisp++, aKaSaucererLaserDL);
         }
     }
 }

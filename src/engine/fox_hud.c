@@ -2131,11 +2131,13 @@ s32 HUD_RadarMarks_Update(void) {
                 break;
 
             case LEVEL_KATINA:
-                Lib_TextureRect_IA8(&gMasterDisp, D_KA_6001260, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f, 1.00f);
+                Lib_TextureRect_IA8(&gMasterDisp, aKaFLBaseRadarMarkTex, 8, 8, 254.0f + D_800D1E10, 182.0f, 1.00f,
+                                    1.00f);
                 break;
 
             case LEVEL_VENOM_2:
-                Lib_TextureRect_IA8(&gMasterDisp, D_VE2_6002890, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f, 1.00f);
+                Lib_TextureRect_IA8(&gMasterDisp, aVe2EntranceRadarMarkTex, 16, 16, 251.0f + D_800D1E10, 178.0f, 1.00f,
+                                    1.00f);
                 break;
         }
     }
@@ -2174,6 +2176,7 @@ s32 HUD_RadarMarks_Update(void) {
     }
 
     Matrix_Pop(&gGfxMatrix);
+
     return 0;
 }
 

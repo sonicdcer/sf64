@@ -24,8 +24,8 @@ aVe2TitleCardTex:
 D_VE2_60020D0:
   { type: TEXTURE, format: IA8, width: 104, height: 19, offset: 0x60020D0, ctype: u8, symbol: D_VE2_60020D0 }
 
-D_VE2_6002890:
-  { type: TEXTURE, format: IA8, width: 16, height: 16, offset: 0x6002890, ctype: u8, symbol: D_VE2_6002890 }
+aVe2EntranceRadarMarkTex:
+  { type: TEXTURE, format: IA8, width: 16, height: 16, offset: 0x6002890, ctype: u8, symbol: aVe2EntranceRadarMarkTex }
 
 aAndPathExitDL:
   { type: GFX, offset: 0x6002990, symbol: aAndPathExitDL }

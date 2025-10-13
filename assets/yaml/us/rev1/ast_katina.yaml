@@ -17,8 +17,8 @@
 aKaTitleCardTex:
   { type: TEXTURE, format: IA8, width: 168, height: 28, offset: 0x6000000, ctype: u8, symbol: aKaTitleCardTex }
 
-D_KA_6001260:
-  { type: TEXTURE, format: IA8, width: 8, height: 8, offset: 0x6001260, ctype: u8, symbol: D_KA_6001260 }
+aKaFLBaseRadarMarkTex:
+  { type: TEXTURE, format: IA8, width: 8, height: 8, offset: 0x6001260, ctype: u8, symbol: aKaFLBaseRadarMarkTex }
 
 aKaDestroyedHatchDL:
   { type: GFX, offset: 0x60012A0, symbol: aKaDestroyedHatchDL }
@@ -26,36 +26,36 @@ aKaDestroyedHatchDL:
 aKaEnemyDL:
   { type: GFX, offset: 0x6001530, symbol: aKaEnemyDL }
 
-D_KA_6001968:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6001968, ctype: u16, symbol: D_KA_6001968 }
+aKaGenTex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6001968, ctype: u16, symbol: aKaGenTex2 }
 
 # Mothership model
-D_KA_6002170:
-  { type: GFX, offset: 0x6002170, symbol: D_KA_6002170 }
+aKaSaucererBodyDL:
+  { type: GFX, offset: 0x6002170, symbol: aKaSaucererBodyDL }
 
-D_KA_6004078:
-  { type: TEXTURE, format: RGBA16, width: 8, height: 8, offset: 0x6004078, ctype: u16, symbol: D_KA_6004078 }
+aKaSaucererTex2:
+  { type: TEXTURE, format: RGBA16, width: 8, height: 8, offset: 0x6004078, ctype: u16, symbol: aKaSaucererTex2 }
 
-D_KA_60040F8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60040F8, ctype: u16, symbol: D_KA_60040F8 }
+aKaGenTex6:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60040F8, ctype: u16, symbol: aKaGenTex6 }
 
-D_KA_60048F8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60048F8, ctype: u16, symbol: D_KA_60048F8 }
+aKaGenTex5:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60048F8, ctype: u16, symbol: aKaGenTex5 }
 
-D_KA_60050F8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60050F8, ctype: u16, symbol: D_KA_60050F8 }
+aKaGenTex4:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x60050F8, ctype: u16, symbol: aKaGenTex4 }
 
-D_KA_60052F8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60052F8, ctype: u16, symbol: D_KA_60052F8 }
+aKaSaucererTex4:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60052F8, ctype: u16, symbol: aKaSaucererTex4 }
 
-D_KA_6005AF8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6005AF8, ctype: u16, symbol: D_KA_6005AF8 }
+aKaSaucererTex1:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6005AF8, ctype: u16, symbol: aKaSaucererTex1 }
 
-D_KA_60062F8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60062F8, ctype: u16, symbol: D_KA_60062F8 }
+aKaGenTex3:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60062F8, ctype: u16, symbol: aKaGenTex3 }
 
-D_KA_6006AF8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006AF8, ctype: u16, symbol: D_KA_6006AF8 }
+aKaSaucererTex3:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6006AF8, ctype: u16, symbol: aKaSaucererTex3 }
 
 aKaDestroyedKaSaucererDL:
   { type: GFX, offset: 0x6007300, symbol: aKaDestroyedKaSaucererDL }
@@ -66,75 +66,75 @@ aKaGroundDL:
 aKaGroundTex:
   { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60094A8, ctype: u16, symbol: aKaGroundTex }
 
-D_KA_6009CB0:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6009CB0, ctype: u16, symbol: D_KA_6009CB0 }
+aKaBillPortrait1Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x6009CB0, ctype: u16, symbol: aKaBillPortrait1Tex }
 
-D_KA_600ABD0:
-  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x600ABD0, ctype: u16, symbol: D_KA_600ABD0 }
+aKaBillPortrait2Tex:
+  { type: TEXTURE, format: RGBA16, width: 44, height: 44, offset: 0x600ABD0, ctype: u16, symbol: aKaBillPortrait2Tex }
 
 aKaFLBaseDL:
   { type: GFX, offset: 0x600BAF0, symbol: aKaFLBaseDL }
 
-D_KA_600BDB0:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600BDB0, ctype: u16, symbol: D_KA_600BDB0 }
+aKaFLBaseTex1:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600BDB0, ctype: u16, symbol: aKaFLBaseTex1 }
 
-D_KA_600C2D8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C2D8, ctype: u16, symbol: D_KA_600C2D8 }
+aKaSaucererLaserTex:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C2D8, ctype: u16, symbol: aKaSaucererLaserTex }
 
 aKaFLBaseDestroyedDL:
   { type: GFX, offset: 0x600C4E0, symbol: aKaFLBaseDestroyedDL }
 
-D_KA_600C760:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C760, ctype: u16, symbol: D_KA_600C760 }
+aKaFLBaseTex3:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C760, ctype: u16, symbol: aKaFLBaseTex3 }
 
-D_KA_600C960:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C960, ctype: u16, symbol: D_KA_600C960 }
+aKaFLBaseTex2:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600C960, ctype: u16, symbol: aKaFLBaseTex2 }
 
 # Mothership Core
-D_KA_600CB60:
-  { type: GFX, offset: 0x600CB60, symbol: D_KA_600CB60 }
+aKaSaucererCoreDL:
+  { type: GFX, offset: 0x600CB60, symbol: aKaSaucererCoreDL }
 
-D_KA_600BFB0:
-  { type: GFX, offset: 0x600BFB0, symbol: D_KA_600BFB0 }
+aKaSaucererLaserDL:
+  { type: GFX, offset: 0x600BFB0, symbol: aKaSaucererLaserDL }
 
-aDestroyedHatch2DL:
-  { type: GFX, offset: 0x600CDC0, symbol: aDestroyedHatch2DL }
+aKaDestroyedHatch2DL:
+  { type: GFX, offset: 0x600CDC0, symbol: aKaDestroyedHatch2DL }
 
-aDestroyedCoreDL:
-  { type: GFX, offset: 0x600D090, symbol: aDestroyedCoreDL }
+aKaDestroyedCoreDL:
+  { type: GFX, offset: 0x600D090, symbol: aKaDestroyedCoreDL }
 
-aDestroyedHatch4DL:
-  { type: GFX, offset: 0x600D290, symbol: aDestroyedHatch4DL }
+aKaDestroyedHatch4DL:
+  { type: GFX, offset: 0x600D290, symbol: aKaDestroyedHatch4DL }
 
-aDestroyedHatch3DL:
-  { type: GFX, offset: 0x600D4E0, symbol: aDestroyedHatch3DL }
+aKaDestroyedHatch3DL:
+  { type: GFX, offset: 0x600D4E0, symbol: aKaDestroyedHatch3DL }
 
 aKaCornerianFighterShadowDL:
   { type: GFX, offset: 0x600D730, symbol: aKaCornerianFighterShadowDL }
 
-D_KA_600D7B8:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600D7B8, ctype: u8, symbol: D_KA_600D7B8 }
+aKaCornerianFighterShadowTex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600D7B8, ctype: u8, symbol: aKaCornerianFighterShadowTex }
 
 aKaEnemyShadowDL:
   { type: GFX, offset: 0x600DBC0, symbol: aKaEnemyShadowDL }
 
-D_KA_600DC48:
-  { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600DC48, ctype: u8, symbol: D_KA_600DC48 }
+aKaEnemyShadowTex:
+  { type: TEXTURE, format: IA8, width: 32, height: 32, offset: 0x600DC48, ctype: u8, symbol: aKaEnemyShadowTex }
 
 aKaCornerianFighterDL:
   { type: GFX, offset: 0x600E050, symbol: aKaCornerianFighterDL }
 
-D_KA_600E7E8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600E7E8, ctype: u16, symbol: D_KA_600E7E8 }
+aKaCornerianFighterTex1:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600E7E8, ctype: u16, symbol: aKaCornerianFighterTex1 }
 
-D_KA_600E9E8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600E9E8, ctype: u16, symbol: D_KA_600E9E8 }
+aKaCornerianFighterTex2:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600E9E8, ctype: u16, symbol: aKaCornerianFighterTex2 }
 
-D_KA_600EBE8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600EBE8, ctype: u16, symbol: D_KA_600EBE8 }
+aKaCornerianFighterTex3:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600EBE8, ctype: u16, symbol: aKaCornerianFighterTex3 }
 
-D_KA_600EDE8:
-  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600EDE8, ctype: u16, symbol: D_KA_600EDE8 }
+aKaGenTex1:
+  { type: TEXTURE, format: RGBA16, width: 16, height: 16, offset: 0x600EDE8, ctype: u16, symbol: aKaGenTex1 }
 
 aKaEnemyLowPolyDL:
   { type: GFX, offset: 0x600EFF0, symbol: aKaEnemyLowPolyDL }
@@ -145,23 +145,23 @@ aKaBackdropDL:
 aKaBackdropTex:
   { type: TEXTURE, format: RGBA16, width: 64, height: 32, offset: 0x600F260, ctype: u16, symbol: aKaBackdropTex }
 
-D_KA_6010260:
-  { type: GFX, offset: 0x6010260, symbol: D_KA_6010260 }
+aKaSaucererHatch1DL:
+  { type: GFX, offset: 0x6010260, symbol: aKaSaucererHatch1DL }
 
-D_KA_60105D8:
-  { type: SF64:ANIM, offset: 0x60105D8, symbol: D_KA_60105D8 }
+aKaSaucererAnim:
+  { type: SF64:ANIM, offset: 0x60105D8, symbol: aKaSaucererAnim }
 
-D_KA_6010A60:
-  { type: GFX, offset: 0x6010A60, symbol: D_KA_6010A60 }
+aKaSaucererHatch3DL:
+  { type: GFX, offset: 0x6010A60, symbol: aKaSaucererHatch3DL }
 
-D_KA_6010D20:
-  { type: GFX, offset: 0x6010D20, symbol: D_KA_6010D20 }
+aKaSaucererHatch2DL:
+  { type: GFX, offset: 0x6010D20, symbol: aKaSaucererHatch2DL }
 
-D_KA_6010744:
-  { type: SF64:SKELETON, offset: 0x6010744, symbol: D_KA_6010744 }
+aKaSaucererSkel:
+  { type: SF64:SKELETON, offset: 0x6010744, symbol: aKaSaucererSkel }
 
-D_KA_6010780:
-  { type: GFX, offset: 0x6010780, symbol: D_KA_6010780 }
+aKaSaucererHatch4DL:
+  { type: GFX, offset: 0x6010780, symbol: aKaSaucererHatch4DL }
 
 aKaEnvSetup:
   { type: SF64:ENVIRONMENT, offset: 0x6011000, symbol: aKaEnvSetup }
@@ -175,5 +175,5 @@ aKaSaucererHitbox:
 aKaFrontlineBaseHitbox:
   { type: SF64:HITBOX, offset: 0x601115C, symbol: aKaFrontlineBaseHitbox }
 
-D_KA_60111D8:
-  { type: SF64:HITBOX, offset: 0x60111D8, symbol: D_KA_60111D8 }
+aKaUnusedHitbox:
+  { type: SF64:HITBOX, offset: 0x60111D8, symbol: aKaUnusedHitbox }
