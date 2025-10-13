@@ -1656,7 +1656,8 @@ void Katina_KaSaucerer_Draw(KaSaucerer* this) {
         Matrix_RotateY(gGfxMatrix, this->fwork[BOSS_FWORK_13] * M_DTOR, MTXF_APPLY);
 
         Animation_GetFrameData(&aKaSaucererAnim, 0, jointTable);
-        Animation_DrawSkeleton(1, aKaSaucererSkel, jointTable, Katina_BossOverrideLimbDraw, NULL, this, &gIdentityMatrix);
+        Animation_DrawSkeleton(1, aKaSaucererSkel, jointTable, Katina_BossOverrideLimbDraw, NULL, this,
+                               &gIdentityMatrix);
 
         gSPFogPosition(gMasterDisp++, gFogNear, gFogFar);
 
