@@ -2065,7 +2065,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                     this->swork[26] = 1;
                     this->info.hitbox = gNoHitbox;
                     this->drawShadow = false;
-                    Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y + 10.0f, this->obj.pos.z, 40.0f);
+                    Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y + 10.0f, this->obj.pos.z, 40.0f);
                     gCameraShake = 40;
                     break;
 

@@ -27,7 +27,7 @@ u8 gMapKatinaTex[96 * 96];
 u8 gMapMacbethTex[96 * 96];
 u8 gMapZonessTex[96 * 96];
 
-s32 D_menu_801CD810;
+s32 sGralPepperFaceIndex;
 f32 D_menu_801CD818[9];
 s32 D_menu_801CD83C;
 s32 sUnusedPathIdx[24]; // Path index, set but not used
@@ -400,19 +400,23 @@ PlanetId sPlanetList[] = {
 Gfx* sExplosionAnimDLs[4] = { aMapExplosion1DL, aMapExplosion2DL, aMapExplosion3DL, aMapExplosion4DL };
 
 TitleCard sPlanetNameCards[14] = {
-    { D_MAP_6007B90, 128, 28, 95.0f }, { D_MAP_60030D0, 96, 28, 110.0f },  { D_MAP_60131A0, 176, 12, 73.0f },
-    { D_MAP_6009AD0, 168, 28, 77.0f }, { D_MAP_600B9B0, 168, 28, 74.0f },  { D_MAP_6001C80, 96, 13, 106.0f },
-    { D_MAP_6011660, 176, 12, 75.0f }, { D_MAP_6010010, 112, 13, 109.0f }, { D_MAP_6017640, 112, 28, 101.0f },
-    { D_MAP_6015CE0, 96, 28, 108.0f }, { D_MAP_600E210, 160, 28, 78.0f },  { D_MAP_6014360, 176, 12, 73.0f },
-    { D_MAP_6004AC0, 168, 19, 72.0f }, { D_MAP_6006320, 104, 28, 105.0f },
+    { aMapCoNameCardTex, 128, 28, 95.0f },  { aMapMeNameCardTex, 96, 28, 110.0f },
+    { aMapSyNameCardTex, 176, 12, 73.0f },  { aMapFoNameCardTex, 168, 28, 77.0f },
+    { aMapKaNameCardTex, 168, 28, 74.0f },  { aMapAqNameCardTex, 96, 13, 106.0f },
+    { aMapSxNameCardTex, 176, 12, 75.0f },  { aMapSoNameCardTex, 112, 13, 109.0f },
+    { aMapZoNameCardTex, 112, 28, 101.0f }, { aMapTiNameCardTex, 96, 28, 108.0f },
+    { aMapMaNameCardTex, 160, 28, 78.0f },  { aMapSzNameCardTex, 176, 12, 73.0f },
+    { aMapBoNameCardTex, 168, 19, 72.0f },  { aMapA6NameCardTex, 104, 28, 105.0f },
 };
 
 TitleCard sPlanetTitleCards[] = {
-    { D_MAP_6008990, 232, 19, 46.0f }, { D_MAP_6003B50, 208, 19, 56.0f }, { D_MAP_60139E0, 128, 19, 98.0f },
-    { D_MAP_600AD30, 168, 19, 77.0f }, { D_MAP_600CC10, 128, 19, 95.0f }, { D_MAP_6002160, 208, 19, 57.0f },
-    { D_MAP_6011EA0, 256, 19, 40.0f }, { D_MAP_60105C0, 224, 19, 49.0f }, { D_MAP_6018280, 184, 19, 70.0f },
-    { D_MAP_6016760, 200, 18, 61.0f }, { D_MAP_600F390, 168, 19, 75.0f }, { D_MAP_6014BA0, 232, 19, 43.0f },
-    { D_MAP_6005740, 160, 19, 81.0f }, { D_MAP_6006E80, 176, 19, 70.0f },
+    { aMapCoTitleCardTex, 232, 19, 46.0f }, { aMapMeTitleCardTex, 208, 19, 56.0f },
+    { aMapSyTitleCardTex, 128, 19, 98.0f }, { aMapFoTitleCardTex, 168, 19, 77.0f },
+    { aMapKaTitleCardTex, 128, 19, 95.0f }, { aMapAqTitleCardTex, 208, 19, 57.0f },
+    { aMapSxTitleCardTex, 256, 19, 40.0f }, { aMapSoTitleCardTex, 224, 19, 49.0f },
+    { aMapZoTitleCardTex, 184, 19, 70.0f }, { aMapTiTitleCardTex, 200, 18, 61.0f },
+    { aMapMaTitleCardTex, 168, 19, 75.0f }, { aMapSzTitleCardTex, 232, 19, 43.0f },
+    { aMapBoTitleCardTex, 160, 19, 81.0f }, { aMapA6TitleCardTex, 176, 19, 70.0f },
 };
 
 char* sPlanetNames[] = {
@@ -720,7 +724,7 @@ Gfx gMapVenomCloudDL[] = {
 };
 
 Gfx gMapCorneriaDL[] = {
-    gsDPLoadTLUT_pal256(gMapCorneriaTLUT),
+    gsDPLoadTLUT_pal256(aMapCorneriaTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapCorneriaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -767,7 +771,7 @@ Gfx gMapCorneriaDL[] = {
 };
 
 Gfx gMapFortunaDL[] = {
-    gsDPLoadTLUT_pal256(gMapFortunaTLUT),
+    gsDPLoadTLUT_pal256(aMapFortunaTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(&gMapFortunaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -814,7 +818,7 @@ Gfx gMapFortunaDL[] = {
 };
 
 Gfx gMapAquasDL[] = {
-    gsDPLoadTLUT_pal256(gMapAquasTLUT),
+    gsDPLoadTLUT_pal256(aMapAquasTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapAquasTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -861,7 +865,7 @@ Gfx gMapAquasDL[] = {
 };
 
 Gfx gMapVenomDL[] = {
-    gsDPLoadTLUT_pal256(gMapVenomTLUT),
+    gsDPLoadTLUT_pal256(aMapVenomTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapVenomTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -908,7 +912,7 @@ Gfx gMapVenomDL[] = {
 };
 
 Gfx gMapTitaniaDL[] = {
-    gsDPLoadTLUT_pal256(gMapTitaniaTLUT),
+    gsDPLoadTLUT_pal256(aMapTitaniaTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapTitaniaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -955,7 +959,7 @@ Gfx gMapTitaniaDL[] = {
 };
 
 Gfx gMapKatinaDL[] = {
-    gsDPLoadTLUT_pal256(gMapKatinaTLUT),
+    gsDPLoadTLUT_pal256(aMapKatinaTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapKatinaTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -1002,7 +1006,7 @@ Gfx gMapKatinaDL[] = {
 };
 
 Gfx gMapMacbethDL[] = {
-    gsDPLoadTLUT_pal256(gMapMacbethTLUT),
+    gsDPLoadTLUT_pal256(aMapMacbethTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapMacbethTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -1049,7 +1053,7 @@ Gfx gMapMacbethDL[] = {
 };
 
 Gfx gMapZonessDL[] = {
-    gsDPLoadTLUT_pal256(gMapZonessTLUT),
+    gsDPLoadTLUT_pal256(aMapZonessTLUT),
     gsSPVertex(gMapPlanetVTX, 16, 0),
     gsDPLoadTextureBlock(gMapZonessTex, G_IM_FMT_CI, G_IM_SIZ_8b, 96, 9, 0, G_TX_NOMIRROR | G_TX_WRAP,
                          G_TX_NOMIRROR | G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD, G_TX_NOLOD),
@@ -1417,7 +1421,7 @@ void Map_Setup(void) {
                            &D_menu_801CD818[i]);
     }
 
-    D_menu_801CD810 = 0;
+    sGralPepperFaceIndex = 0;
 
     gMapState = 2;
 
@@ -1988,7 +1992,7 @@ void Map_Draw(void) {
         D_menu_801CEEC4 = 0;
     }
 
-    Lib_Texture_Mottle((u16*) aMapVenomCloud1Tex, (u16*) D_MAP_6048F80, 5);
+    Lib_Texture_Mottle((u16*) aMapVenomCloud1DestTex, (u16*) aMapVenomCloud1SrcTex, 5);
 }
 
 s32 Map_801A05B4(void) {
@@ -2391,10 +2395,11 @@ void Map_LylatCard_Draw(void) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, (s32) D_menu_801CEA9C);
 
     for (i = 0; i < 4; i++) {
-        Lib_TextureRect_IA8(&gMasterDisp, D_MAP_600D590 + (168 * 4 * i), 168, 4, 72.0f, 104.0f + (4.0f * i), 1.0f,
-                            1.0f);
+        Lib_TextureRect_IA8(&gMasterDisp, aMapLylatSystemCardTex + (168 * 4 * i), 168, 4, 72.0f, 104.0f + (4.0f * i),
+                            1.0f, 1.0f);
     }
-    Lib_TextureRect_IA8(&gMasterDisp, D_MAP_600D590 + (168 * 4 * 4), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f, 1.0f);
+    Lib_TextureRect_IA8(&gMasterDisp, aMapLylatSystemCardTex + (168 * 4 * 4), 168, 3, 72.0f, 104.0f + 16.0f, 1.0f,
+                        1.0f);
 }
 
 void Map_ZoomPlanet_Setup(void) {
@@ -4679,7 +4684,7 @@ void Map_PlanetShadow_Draw(PlanetId planetId) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_MAP_605C230);
+    gSPDisplayList(gMasterDisp++, aMapPlanetShadowDL);
 
     Matrix_Pop(&gGfxMatrix);
 }
@@ -4808,7 +4813,7 @@ void Map_PlanetCleared_Draw(PlanetId planetId) {
         Matrix_Copy(gGfxMatrix, &D_menu_801CE1E0[planetId]);
         Matrix_SetGfxMtx(&gMasterDisp);
 
-        gSPDisplayList(gMasterDisp++, D_MAP_604D680);
+        gSPDisplayList(gMasterDisp++, aMapPlanetClearStarDL);
 
         Matrix_Pop(&gGfxMatrix);
 
@@ -4851,7 +4856,7 @@ void Map_PlanetMedal_Draw(PlanetId planetId) {
 
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_MAP_604D680);
+                gSPDisplayList(gMasterDisp++, aMapPlanetClearStarDL);
 
                 Matrix_Pop(&gGfxMatrix);
 
@@ -4887,7 +4892,7 @@ void Map_PlanetMedal_Draw(PlanetId planetId) {
 
                     Matrix_SetGfxMtx(&gMasterDisp);
 
-                    gSPDisplayList(gMasterDisp++, D_MAP_604D680);
+                    gSPDisplayList(gMasterDisp++, aMapPlanetClearStarDL);
 
                     Matrix_Pop(&gGfxMatrix);
                 }
@@ -5751,7 +5756,7 @@ void Map_PathPlanet_Draw(s32 missionIdx, f32 x, f32 y, PlanetId planetId) {
                     }
                     Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_MAP_605C230);
+                    gSPDisplayList(gMasterDisp++, aMapPlanetShadowDL);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
@@ -5959,7 +5964,7 @@ void Map_BriefingRadio_Draw(s32 arg0) {
     switch (arg0) {
         case 10:
         case 11:
-            D_menu_801CD810 = arg0 - 10;
+            sGralPepperFaceIndex = arg0 - 10;
             break;
 
         case 20:
@@ -5971,14 +5976,14 @@ void Map_BriefingRadio_Draw(s32 arg0) {
                 yPos = 77.0f;
 
                 for (i = 0; i < 12; i++) {
-                    Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6044820 + (92 * 4 * i), 92, 4, xPos, yPos + (i * 4.0f),
-                                           1.0f, 1.0f);
+                    Lib_TextureRect_RGBA16(&gMasterDisp, aMapBriefingFoxTex + (92 * 4 * i), 92, 4, xPos,
+                                           yPos + (i * 4.0f), 1.0f, 1.0f);
                 }
-                Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6044820 + (92 * 4 * 12), 92, 3, xPos, yPos + 48.0f, 1.0f,
-                                       1.0f);
+                Lib_TextureRect_RGBA16(&gMasterDisp, aMapBriefingFoxTex + (92 * 4 * 12), 92, 3, xPos, yPos + 48.0f,
+                                       1.0f, 1.0f);
 
                 if (arg0 == 21) {
-                    Lib_TextureRect_RGBA16(&gMasterDisp, D_MAP_6046CD0, 32, 34, xPos + 47.0, yPos, 1.0f, 1.0f);
+                    Lib_TextureRect_RGBA16(&gMasterDisp, aMapBriefingFoxTalkTex, 32, 34, xPos + 47.0, yPos, 1.0f, 1.0f);
                 }
 
                 for (i = 0; i < 3; i++) {
@@ -6078,11 +6083,11 @@ void Map_GralPepperFace_Draw(void) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gSPDisplayList(gMasterDisp++, sMapGralPepperFaceDLs[D_menu_801CD810]);
+            gSPDisplayList(gMasterDisp++, sMapGralPepperFaceDLs[sGralPepperFaceIndex]);
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
-            gSPDisplayList(gMasterDisp++, D_MAP_605A120);
+            gSPDisplayList(gMasterDisp++, aMapGralPepperFaceBottomDL);
         }
         Matrix_Pop(&gGfxMatrix);
 
@@ -6294,7 +6299,7 @@ void Map_PathLine_Draw(PathType pathType) {
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gSPDisplayList(gMasterDisp++, D_MAP_604D680);
+    gSPDisplayList(gMasterDisp++, aMapPlanetClearStarDL);
 
     Matrix_Pop(&gGfxMatrix);
 

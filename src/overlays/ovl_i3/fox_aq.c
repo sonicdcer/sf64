@@ -2833,7 +2833,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
             if (this->timer_056 == 0) {
                 gEffects[98].obj.status = OBJ_FREE;
                 gEffects[99].obj.status = OBJ_FREE;
-                Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 600.0f, 40.0f);
+                Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 600.0f, 40.0f);
                 this->timer_056 = 50;
 
                 for (i3 = 0; i3 < AQ_LIMB_MAX; i3++) {
@@ -2849,7 +2849,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
             if (this->timer_056 == 20) {
                 gEffects[96].obj.status = OBJ_FREE;
                 gEffects[97].obj.status = OBJ_FREE;
-                Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 600.0f, 80.0f);
+                Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 600.0f, 80.0f);
             }
 
             D_i3_801C42A0[0] -= 4;

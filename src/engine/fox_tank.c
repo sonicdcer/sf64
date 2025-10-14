@@ -185,8 +185,8 @@ void func_tank_80043B18(Player* player) {
                                          player->rot.y + sp38, 1.3f);
             }
             if ((gGameFrameCount % 4) == 0) {
-                Effect_EffectTiDust_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                          player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
+                Effect_TiDust_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f, player->trueZpos + sp3C.z,
+                                    2.0f, 255, 15, 0);
             }
         }
     } else {
@@ -204,8 +204,8 @@ void func_tank_80043B18(Player* player) {
                                              player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
-                    Effect_EffectTiDust_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                              player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
+                    Effect_TiDust_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
+                                        player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
                 }
             }
         }
@@ -222,8 +222,8 @@ void func_tank_80043B18(Player* player) {
                                              player->rot.y + sp38, 1.0f);
                 }
                 if (((gGameFrameCount % 4) == 0) && (player->baseSpeed >= 5.0f)) {
-                    Effect_EffectTiDust_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
-                                              player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
+                    Effect_TiDust_Spawn(player->pos.x + sp3C.x, player->pos.y + sp3C.y + 20.0f,
+                                        player->trueZpos + sp3C.z, 2.0f, 255, 15, 0);
                 }
             }
         }
@@ -701,21 +701,19 @@ void func_tank_80045678(Player* player) {
             Math_SmoothStepToF(&player->vel.y, 0.0f, 0.1f, 2.0f, 0);
         }
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
-            Effect_EffectTiDust_Spawn(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
-                                      player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.5f, 255, 16, 1);
+            Effect_TiDust_Spawn(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
+                                player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 3.5f, 255, 16, 1);
         }
     } else {
         D_800C9F3C = 0;
         if ((gCamCount == 1) && ((gGameFrameCount % 4) == 0) && (player->rollState == 0)) {
             if ((player->unk_16C > 0.2f) && (player->radioDamageTimer == 0)) {
-                Effect_EffectTiDust_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f),
-                                          player->groundPos.y + 10.0f, player->trueZpos - 10.0f,
-                                          RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
+                Effect_TiDust_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x - 57.0f), player->groundPos.y + 10.0f,
+                                    player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
             }
             if ((player->unk_170 > 0.2f) && (player->radioDamageTimer == 0)) {
-                Effect_EffectTiDust_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f),
-                                          player->groundPos.y + 10.0f, player->trueZpos - 10.0f,
-                                          RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
+                Effect_TiDust_Spawn(RAND_FLOAT_CENTERED(10.0f) + (player->pos.x + 57.0f), player->groundPos.y + 10.0f,
+                                    player->trueZpos - 10.0f, RAND_FLOAT(1.0f) + 1.5f, 255, 15, 0);
             }
         }
     }

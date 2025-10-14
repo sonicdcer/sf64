@@ -2586,7 +2586,7 @@ void Option_RankingPlanetRoute_Draw(s32 rankIdx, f32 y, s32 routeMax) {
                 Matrix_Scale(gGfxMatrix, 1.6f, 1.6f, 1.6f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
 
-                gSPDisplayList(gMasterDisp++, D_MAP_605C230);
+                gSPDisplayList(gMasterDisp++, aMapPlanetShadowDL);
 
                 Matrix_Pop(&gGfxMatrix);
                 break;

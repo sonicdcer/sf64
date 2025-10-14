@@ -1032,8 +1032,7 @@ void Macbeth_MaLocomotive_Update(MaLocomotive* this) {
             if (this->timer_0BC == 160) {
                 gShowBossHealth = false;
                 Radio_PlayMessage(gMsg_ID_17440, RCID_BOSS_MACBETH);
-                Effect_EffectBossExplosion_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y, this->obj.pos.z,
-                                                 40.0f);
+                Effect_BossExplosion_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y, this->obj.pos.z, 40.0f);
                 Macbeth_Boss_HitCountBonus(this);
                 this->vel.z = 0.0f;
                 gCameraShake = 25;
@@ -2709,11 +2708,11 @@ void Macbeth_TrainTrack_Draw(Scenery* this) {
             break;
 
         case OBJ_SCENERY_MA_TRAIN_TRACK_1:
-            gSPDisplayList(gMasterDisp++, D_MA_60014A0);
+            gSPDisplayList(gMasterDisp++, aMaTrainTrack1DL);
             break;
 
         case OBJ_SCENERY_MA_TRAIN_TRACK_2:
-            gSPDisplayList(gMasterDisp++, D_MA_6001180);
+            gSPDisplayList(gMasterDisp++, aMaTrainTrack2DL);
             break;
     }
     RCP_SetupDL(&gMasterDisp, SETUPDL_29);
@@ -6790,8 +6789,8 @@ void Macbeth_LevelComplete2(Player* player) {
 
                 Effect_Effect367_Spawn(gActors[D_i5_801BE314].obj.pos.x + 1000.0f,
                                        gActors[D_i5_801BE314].obj.pos.y + 20.0f, -138500.0f, 100.0f, 1000.0f, 0);
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x + 200.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 700.0f, -137750.0f, 100.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x + 200.0f,
+                                           gActors[D_i5_801BE314].obj.pos.y + 700.0f, -137750.0f, 100.0f);
 
                 for (i = 0; i < 8; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x + RAND_FLOAT_CENTERED(1000.0f),
@@ -6834,9 +6833,9 @@ void Macbeth_LevelComplete2(Player* player) {
                                          30.0f);
             }
             if (gCsFrameCount == 800) {
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 3000.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.z + 1600.0f, 10000.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 3000.0f,
+                                           gActors[D_i5_801BE314].obj.pos.y + 500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.z + 1600.0f, 10000.0f);
                 for (i = 0; i < 8; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x - 3000.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              gActors[D_i5_801BE314].obj.pos.y + 700.0f,
@@ -6847,9 +6846,8 @@ void Macbeth_LevelComplete2(Player* player) {
                 }
             }
             if (gCsFrameCount == 820) {
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.z + 3300.0f, 14000.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x, gActors[D_i5_801BE314].obj.pos.y + 500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.z + 3300.0f, 14000.0f);
                 for (i = 0; i < 8; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x + 500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              gActors[D_i5_801BE314].obj.pos.y + 900.0f,
@@ -6860,9 +6858,9 @@ void Macbeth_LevelComplete2(Player* player) {
                 }
             }
             if (gCsFrameCount == 835) {
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 1500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.z + 2000.0f, 80.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 1500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.y + 500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.z + 2000.0f, 80.0f);
                 for (i = 0; i < 8; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x - 1500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              gActors[D_i5_801BE314].obj.pos.y + 1200.0f,
@@ -6873,9 +6871,9 @@ void Macbeth_LevelComplete2(Player* player) {
                 }
             }
             if (gCsFrameCount == 845) {
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.z + 2800.0f, 10000.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.y + 500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.z + 2800.0f, 10000.0f);
                 for (i = 0; i < 11; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x - 500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              gActors[D_i5_801BE314].obj.pos.y + 900.0f,
@@ -6886,9 +6884,9 @@ void Macbeth_LevelComplete2(Player* player) {
                 }
             }
             if (gCsFrameCount == 853) {
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 3500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.z + 2500.0f, 14000.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 3500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.y + 500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.z + 2500.0f, 14000.0f);
                 for (i = 0; i < 8; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x - 3500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              gActors[D_i5_801BE314].obj.pos.y + 900.0f,
@@ -6902,9 +6900,9 @@ void Macbeth_LevelComplete2(Player* player) {
             if (gCsFrameCount == 860) {
                 Effect_Effect367_Spawn(gActors[D_i5_801BE314].obj.pos.x + 1000.0f,
                                        gActors[D_i5_801BE314].obj.pos.y + 20.0f, -138500.0f, 100.0f, 1000.0f, 0);
-                Effect_EffectBossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 1500.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.y + 700.0f,
-                                                 gActors[D_i5_801BE314].obj.pos.z + 3000.0f, 180.0f);
+                Effect_BossExplosion_Spawn(gActors[D_i5_801BE314].obj.pos.x - 1500.0f,
+                                           gActors[D_i5_801BE314].obj.pos.y + 700.0f,
+                                           gActors[D_i5_801BE314].obj.pos.z + 3000.0f, 180.0f);
                 for (i = 0; i < 8; i++) {
                     Effect_Effect357_Spawn50(gActors[D_i5_801BE314].obj.pos.x - 1500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                              gActors[D_i5_801BE314].obj.pos.y + 1300.0f,
@@ -6933,7 +6931,7 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->pos.z = player->trueZpos = -(gPathProgress + 210.0f);
                 player->pos.x = player->xPath;
 
-                Effect_EffectBossExplosion_Spawn(player->pos.x - 1800.0f, -50.0f, player->pos.z + 5000.0f, 40.0f);
+                Effect_BossExplosion_Spawn(player->pos.x - 1800.0f, -50.0f, player->pos.z + 5000.0f, 40.0f);
 
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 255;
                 gFillScreenAlphaTarget = 0;

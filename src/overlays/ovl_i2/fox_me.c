@@ -1445,7 +1445,7 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
                 Object_Kill(&this->obj, this->sfxSource);
             }
             if (this->timer_050 == 20) {
-                Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
+                Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
                 AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, this->sfxSource, 4);
                 gControllerRumbleTimers[0] = 60;
                 for (i = 0; i < ARRAY_COUNT(gActors); i++) {

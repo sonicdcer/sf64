@@ -2585,7 +2585,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 sZoFwork[ZO_BSF_25] = -1000.0f;
                 sZoFwork[ZO_BSF_23] = 10.0f;
                 gShowBossHealth = false;
-                Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
+                Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 80.0f);
                 if ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN)) {
                     gCsFrameCount = 0;
                     gPlayer[0].state = PLAYERSTATE_LEVEL_COMPLETE;

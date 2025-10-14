@@ -16,8 +16,8 @@
 aMaTitleCardTex:
   {type: TEXTURE, format: IA8, ctype: u8, width: 160, height: 28, offset: 0x6000000, symbol: aMaTitleCardTex}
 
-D_MA_6001180:
-  {type: GFX, offset: 0x6001180, symbol: D_MA_6001180}
+aMaTrainTrack2DL:
+  {type: GFX, offset: 0x6001180, symbol: aMaTrainTrack2DL}
 
 D_MA_60012A0:
   { type: TEXTURE, format: CI8, ctype: u8, width: 16, height: 16, offset: 0x60012A0, symbol: D_MA_60012A0, tlut: 0x60013A0}
@@ -25,8 +25,8 @@ D_MA_60012A0:
 D_MA_60013A0:
   { type: TEXTURE, format: TLUT, ctype: u16, colors: 128, offset: 0x60013A0, symbol: D_MA_60013A0}
 
-D_MA_60014A0:
-  {type: GFX, offset: 0x60014A0, symbol: D_MA_60014A0}
+aMaTrainTrack1DL:
+  {type: GFX, offset: 0x60014A0, symbol: aMaTrainTrack1DL}
 
 D_MA_6001578:
   { type: TEXTURE, format: CI8, ctype: u8, width: 32, height: 32, offset: 0x6001578, symbol: D_MA_6001578, tlut: 0x6001978}

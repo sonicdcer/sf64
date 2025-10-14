@@ -999,9 +999,8 @@ void Corneria_CoGranga_Update(CoGranga* this) {
                         }
                     }
 
-                    Effect_EffectBossExplosion_Spawn(sCoGrangaWork[GRANGA_WORK_62],
-                                                     sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
-                                                     sCoGrangaWork[GRANGA_WORK_64], 40.0f);
+                    Effect_BossExplosion_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
+                                               sCoGrangaWork[GRANGA_WORK_64], 40.0f);
                     Effect_FireSmoke1_Spawn4(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[GRANGA_WORK_63] - 100.0f,
                                              sCoGrangaWork[GRANGA_WORK_64], 30.0f);
                     Effect_Effect348_Spawn(sCoGrangaWork[GRANGA_WORK_62], sCoGrangaWork[64], 0, 120.0f);
@@ -2255,8 +2254,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                 }
 
                 if (this->timer_050 == 0) {
-                    Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y + 500.0f, this->obj.pos.z,
-                                                     120.0f);
+                    Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y + 500.0f, this->obj.pos.z, 120.0f);
                     Object_Kill(&this->obj, this->sfxSource);
                 }
                 break;

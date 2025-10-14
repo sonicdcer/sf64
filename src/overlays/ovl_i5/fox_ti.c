@@ -506,7 +506,7 @@ void Titania_TiBoulder_Update(TiBoulder* this) {
                 if ((Actor*) this->iwork[0] != NULL) {
                     ((Actor*) this->iwork[0])->iwork[this->iwork[1]] = 0;
                 }
-                Effect_EffectTiDust_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 255, 8, 1);
+                Effect_TiDust_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 255, 8, 1);
                 if (Rand_ZeroOne() < 0.3f) {
                     this->itemDrop = DROP_SILVER_RING;
                 } else {
@@ -518,7 +518,7 @@ void Titania_TiBoulder_Update(TiBoulder* this) {
             }
             Object_Kill(&this->obj, this->sfxSource);
         } else {
-            Effect_EffectTiDust_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 255, 8, 1);
+            Effect_TiDust_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 8.0f, 255, 8, 1);
             Object_Kill(&this->obj, this->sfxSource);
 
             if ((Actor*) this->iwork[0] != NULL) {
@@ -1373,11 +1373,11 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                 x = this->obj.pos.x + this->fwork[6];
                 y = this->obj.pos.y + this->fwork[7] + this->fwork[26];
                 z = this->obj.pos.z + this->fwork[8];
-                Effect_EffectTiDust_Spawn(x, y, z, 20.0f, 255, 8, 0);
+                Effect_TiDust_Spawn(x, y, z, 20.0f, 255, 8, 0);
                 x = this->obj.pos.x + this->fwork[3];
                 y = this->obj.pos.y + this->fwork[4] + this->fwork[26];
                 z = this->obj.pos.z + this->fwork[5];
-                Effect_EffectTiDust_Spawn(x, y, z, 20.0f, 255, 8, 0);
+                Effect_TiDust_Spawn(x, y, z, 20.0f, 255, 8, 0);
                 sp88 = fabsf(sp88);
                 if (sp88 < 5000.0f) {
                     this->iwork[4] = (s32) (sp88 / 200.0f);
@@ -1547,17 +1547,17 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                 Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
 
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[12], &sp158);
-                Effect_EffectTiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
-                                          this->obj.pos.z + sp158.z, 20.0f, 255, 8, 0);
+                Effect_TiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
+                                    20.0f, 255, 8, 0);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[9], &sp158);
-                Effect_EffectTiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
-                                          this->obj.pos.z + sp158.z, 20.0f, 255, 8, 0);
+                Effect_TiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
+                                    20.0f, 255, 8, 0);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[3], &sp158);
-                Effect_EffectTiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
-                                          this->obj.pos.z + sp158.z, 20.0f, 255, 8, 0);
+                Effect_TiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
+                                    20.0f, 255, 8, 0);
                 Matrix_MultVec3f(gCalcMatrix, (Vec3f*) &this->fwork[6], &sp158);
-                Effect_EffectTiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y,
-                                          this->obj.pos.z + sp158.z, 20.0f, 255, 8, 0);
+                Effect_TiDust_Spawn(this->obj.pos.x + sp158.x, this->obj.pos.y + sp158.y, this->obj.pos.z + sp158.z,
+                                    20.0f, 255, 8, 0);
                 AUDIO_PLAY_SFX(NA_SE_OB_METAL_BOUND_M, this->sfxSource, 4);
             }
 
@@ -2070,8 +2070,8 @@ void Titania_8018F134(TiPillar* this) {
             if ((this->obj.rot.y <= 30.0f) || (this->obj.rot.y >= 330.0f)) {
                 for (*j = -80.0f; *j <= 80.0f; *j += 40.0f) {
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i5_801B7690, &sp70);
-                    Effect_EffectTiDust_Spawn(this->obj.pos.x + sp70.x, this->obj.pos.y + sp70.y,
-                                              this->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
+                    Effect_TiDust_Spawn(this->obj.pos.x + sp70.x, this->obj.pos.y + sp70.y, this->obj.pos.z + sp70.z,
+                                        10.0f, 255, 15, 0);
                 }
             } else {
                 sp7C.z = 0.0f;
@@ -2085,8 +2085,8 @@ void Titania_8018F134(TiPillar* this) {
                     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                     sp7C.y = i;
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
-                    Effect_EffectTiDust_Spawn(this->obj.pos.x + sp70.x, this->obj.pos.y + sp70.y,
-                                              this->obj.pos.z + sp70.z, 10.0f, 255, 15, 0);
+                    Effect_TiDust_Spawn(this->obj.pos.x + sp70.x, this->obj.pos.y + sp70.y, this->obj.pos.z + sp70.z,
+                                        10.0f, 255, 15, 0);
                 }
             }
             break;
@@ -2098,8 +2098,8 @@ void Titania_8018F134(TiPillar* this) {
             for (i = 0.0f; i <= 450.0f; i += 50.0f) {
                 sp7C.y = i;
                 Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp7C, &sp70);
-                Effect_EffectTiDust_Spawn(this->obj.pos.x + sp70.x, this->obj.pos.y + sp70.y, this->obj.pos.z + sp70.z,
-                                          10.0f, 255, 15, 0);
+                Effect_TiDust_Spawn(this->obj.pos.x + sp70.x, this->obj.pos.y + sp70.y, this->obj.pos.z + sp70.z, 10.0f,
+                                    255, 15, 0);
             }
             break;
     }
@@ -3569,7 +3569,7 @@ void Titania_80192118(TiGoras* this) {
             }
 
             if ((this->swork[38] & 3) == 0) {
-                Effect_EffectTiDust_Spawn(temp_ft2, this->obj.pos.y, temp_ft4, 10.0f, 192, 16, 0);
+                Effect_TiDust_Spawn(temp_ft2, this->obj.pos.y, temp_ft4, 10.0f, 192, 16, 0);
             }
         }
 
@@ -3600,7 +3600,7 @@ void Titania_80192118(TiGoras* this) {
             }
 
             if ((this->swork[38] & 3) == 0) {
-                Effect_EffectTiDust_Spawn(temp_ft2, this->obj.pos.y, temp_ft4, 10.0f, 192, 16, 0);
+                Effect_TiDust_Spawn(temp_ft2, this->obj.pos.y, temp_ft4, 10.0f, 192, 16, 0);
             }
         }
 
@@ -3631,7 +3631,7 @@ void Titania_80192118(TiGoras* this) {
             }
 
             if ((this->swork[38] & 3) == 0) {
-                Effect_EffectTiDust_Spawn(temp_ft2, this->obj.pos.y, temp_ft4, 10.0f, 192, 16, 0);
+                Effect_TiDust_Spawn(temp_ft2, this->obj.pos.y, temp_ft4, 10.0f, 192, 16, 0);
             }
         }
     }
@@ -4408,9 +4408,9 @@ void Titania_80193DF0(TiGoras* this) {
                 if (D_i5_801BBF00[i].unk_24 > 0) {
                     D_i5_801BBF00[i].unk_24--;
                     if (!(D_i5_801BBF00[i].unk_24 & 1)) { // prefer == 0
-                        Effect_EffectTiDust_Spawn(this->obj.pos.x + D_i5_801BBF00[i].unk_00.pos.x,
-                                                  this->obj.pos.y + D_i5_801BBF00[i].unk_00.pos.y,
-                                                  this->obj.pos.z + D_i5_801BBF00[i].unk_00.pos.z, 7.0f, 160, 16, 0);
+                        Effect_TiDust_Spawn(this->obj.pos.x + D_i5_801BBF00[i].unk_00.pos.x,
+                                            this->obj.pos.y + D_i5_801BBF00[i].unk_00.pos.y,
+                                            this->obj.pos.z + D_i5_801BBF00[i].unk_00.pos.z, 7.0f, 160, 16, 0);
                     }
                 }
                 if (D_i5_801BBF00[i].unk_24 != 0) {
@@ -4522,7 +4522,7 @@ void Titania_80193DF0(TiGoras* this) {
                 spD4.y = 0.0f;
                 spD4.z = this->obj.pos.z + D_i5_801BBEF4[70];
                 if (this->animFrame & 1) {
-                    Effect_EffectTiDust_Spawn(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
+                    Effect_TiDust_Spawn(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (this->animFrame == 38) {
                     Effect_TimedSfx_Spawn(&spD4, NA_SE_EN_BOSS_ATTACK);
@@ -4535,7 +4535,7 @@ void Titania_80193DF0(TiGoras* this) {
                 spD4.y = 0.0f;
                 spD4.z = this->obj.pos.z + D_i5_801BBEF4[73];
                 if (this->animFrame & 1) {
-                    Effect_EffectTiDust_Spawn(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
+                    Effect_TiDust_Spawn(spD4.x, 0.0f, spD4.z, 10.0f, 255, 8, 0);
                 }
                 if (this->animFrame == 98) {
                     Effect_TimedSfx_Spawn(&spD4, NA_SE_EN_BOSS_ATTACK);
@@ -5473,7 +5473,7 @@ void Titania_TiGoras_Dying(TiGoras* this) {
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_BGM, 50);
         SEQCMD_STOP_SEQUENCE(SEQ_PLAYER_FANFARE, 50);
 
-        Effect_EffectBossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z, 40.0f);
+        Effect_BossExplosion_Spawn(this->obj.pos.x, this->obj.pos.y + 250.0f, this->obj.pos.z, 40.0f);
         Boss_AwardBonus(this);
 
         gShowBossHealth = false;
