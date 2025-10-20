@@ -520,8 +520,8 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
 
     if ((this->swork[A6_SWK_15 + 0] == 0) && (this->swork[A6_SWK_15 + 1] == 0) && (this->swork[A6_SWK_15 + 2] == 0) &&
         (this->fwork[A6_FWK_0] != 0) && !(gGameFrameCount % 2U)) {
-        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, this->vel.x, this->vel.y,
-                               this->vel.z, 0.3f, 1);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 200.0f, this->vel.x, this->vel.y,
+                                  this->vel.z, 0.3f, 1);
     }
 
     sp120 = 0.5f;
@@ -623,8 +623,8 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
         }
 
         if (!(gGameFrameCount % 32U)) {
-            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.5f, 70);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 300.0f, this->vel.x,
+                                      this->vel.y, this->vel.z, 0.5f, 70);
         }
     }
 
@@ -1669,8 +1669,8 @@ void Area6_A6GorgonEnergyBalls_ApplyDamage(A6Gorgon* this) {
                     sfxPos.z = this->obj.pos.z + dest.z;
 
                     Effect_TimedSfx_Spawn(&sfxPos, NA_SE_EN_EXPLOSION_M);
-                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
-                                           this->vel.y, this->vel.z, 0.2f, 50);
+                    Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z + 150.0f, this->vel.x,
+                                              this->vel.y, this->vel.z, 0.2f, 50);
                 }
 
                 if ((this->swork[A6_SWK_15] == 0) && (this->swork[A6_SWK_16] == 0) && (this->swork[A6_SWK_17] == 0)) {

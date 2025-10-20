@@ -127,7 +127,7 @@ void Corneria_801879F0(CoGranga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale) 
 }
 
 void Corneria_80187A38(CoGranga* this, f32 xPos, f32 yPos, f32 zPos, f32 scale, s32 timer) {
-    Effect_Effect390_Spawn(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
+    Effect_ElectricArc2_Spawn(xPos, yPos, zPos, this->vel.x, this->vel.y, this->vel.z, scale, timer);
 }
 
 f32 Corneria_80187A88(s32 angle) {
@@ -1294,8 +1294,8 @@ void Corneria_Garuda_HandleDamage(Actor* this) {
 
         if (this->dmgPart == 0) {
             AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
-            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.1f, 20);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x,
+                                      this->vel.y, this->vel.z, 0.1f, 20);
             this->timer_0C6 = 15;
             this->health -= this->damage;
 
@@ -1314,8 +1314,8 @@ void Corneria_Garuda_HandleDamage(Actor* this) {
         Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                  this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
                                  this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
-        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
-                               this->vel.z, 0.1f, 10);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x, this->vel.y,
+                                  this->vel.z, 0.1f, 10);
     }
 }
 
@@ -1522,8 +1522,8 @@ void Corneria_CoGarudaDestroy_Update(CoGarudaDestroy* this) {
                 Effect_FireSmoke1_Spawn3(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
                                          this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(100.0f),
                                          this->obj.pos.z + 50.0f + RAND_FLOAT(50.0f), 3.0f);
-                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x,
-                                       this->vel.y, this->vel.z, 0.1f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 200.0f, this->obj.pos.z, this->vel.x,
+                                          this->vel.y, this->vel.z, 0.1f, 10);
                 AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_S, this->sfxSource, 4);
             }
 
@@ -1811,8 +1811,9 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                     Matrix_MultVec3f(gCalcMatrix, &D_i1_8019995C[j], &sp84[k]);
                     Effect_FireSmoke1_Spawn4(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
                                              sp84[k].z + this->obj.pos.z, this->fwork[17]);
-                    Effect_Effect390_Spawn(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
-                                           sp84[k].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f, 7);
+                    Effect_ElectricArc2_Spawn(sp84[k].x + this->obj.pos.x, sp84[k].y + this->obj.pos.y,
+                                              sp84[k].z + this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z, 0.1f,
+                                              7);
                 }
             }
         }
@@ -2385,8 +2386,8 @@ void Corneria_CarrierLeft_Update(CoCarrierLeft* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A6C, &sp4C);
-                Effect_Effect390_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
             }
 
             if (this->obj.pos.y < (gGroundHeight + 150.0f)) {
@@ -2493,8 +2494,8 @@ void Corneria_CarrierUpper_Update(CoCarrierUpper* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A84, &sp4C);
-                Effect_Effect390_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
             }
 
             if (this->obj.pos.y < (gGroundHeight + 150.0f)) {
@@ -2603,8 +2604,8 @@ void Corneria_CarrierBottom_Update(CoCarrierBottom* this) {
 
             if ((gGameFrameCount % 2) == 0) {
                 Matrix_MultVec3f(gCalcMatrix, &D_i1_80199A9C, &sp4C);
-                Effect_Effect390_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + sp4C.x, this->obj.pos.y + sp4C.y, this->obj.pos.z + sp4C.z,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
             }
 
             if (this->obj.pos.y < (gGroundHeight + 150.0f)) {

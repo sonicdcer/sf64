@@ -6,6 +6,7 @@
 
 #include "global.h"
 #include "assets/ast_ve1_boss.h"
+#include "actordebris.h"
 
 typedef struct {
     /* 0x00 */ s16 unk_00;
@@ -699,7 +700,7 @@ void Venom1_Ve1MonkeyStatue_Draw(Ve1MonkeyStatue* this) {
 
 void Venom1_Ve1Generator_Update(Ve1Generator* this) {
     if (((gPlayer[0].trueZpos - this->obj.pos.z) <= 3500.0f) && ((gGameFrameCount % 4) == 0)) {
-        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 10);
     }
 }
 
@@ -906,7 +907,7 @@ void Venom1_Ve1Golemech_Init(Ve1Golemech* this) {
     AUDIO_PLAY_BGM(NA_BGM_BOSS_VE);
 }
 
-bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+bool Venom1_Ve1Golemech_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
     Ve1Golemech* this = (Ve1Golemech*) thisx;
     bool override;
     s32 i;
@@ -1000,7 +1001,7 @@ bool Venom1_801937F4(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* t
     return override;
 }
 
-void Venom1_80193D64(s32 limbIndex, Vec3f* rot, void* thisx) {
+void Venom1_Ve1Golemech_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     s32 spBC;
     Ve1Golemech* this = (Ve1Golemech*) thisx;
     Vec3f spAC;
@@ -1378,7 +1379,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                             actor->obj.rot.x = RAND_FLOAT(360.0f);
                             actor->obj.rot.y = RAND_FLOAT(360.0f);
                             actor->obj.rot.z = RAND_FLOAT(360.0f);
-                            actor->state = 50;
+                            actor->state = ACTORDEBRIS_50;
                             actor->iwork[0] = 0;
 
                             if (spF4 == 14) {
@@ -1407,7 +1408,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                             actor->obj.rot.x = RAND_FLOAT(360.0f);
                             actor->obj.rot.y = RAND_FLOAT(360.0f);
                             actor->obj.rot.z = RAND_FLOAT(360.0f);
-                            actor->state = 50;
+                            actor->state = ACTORDEBRIS_50;
                             actor->iwork[0] = 1;
 
                             if (spF4 == 14) {
@@ -1443,7 +1444,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                             actor->obj.rot.x = RAND_FLOAT(360.0f);
                             actor->obj.rot.y = RAND_FLOAT(360.0f);
                             actor->obj.rot.z = RAND_FLOAT(360.0f);
-                            actor->state = 50;
+                            actor->state = ACTORDEBRIS_50;
                             actor->iwork[0] = 1;
                             actor->iwork[1] = 1;
                             actor->vel.x = RAND_FLOAT_CENTERED(20.0f);
@@ -1471,7 +1472,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                 actor->obj.rot.x = sGoleMechLimbInfo[spF4].unk_30[0].x;
                 actor->obj.rot.y = sGoleMechLimbInfo[spF4].unk_30[0].y;
                 actor->obj.rot.z = sGoleMechLimbInfo[spF4].unk_30[0].z;
-                actor->state = 57;
+                actor->state = ACTORDEBRIS_57;
                 actor->iwork[0] = 0;
                 actor->work_048 = spF4;
 
@@ -1508,7 +1509,7 @@ void Venom1_Ve1Golemech_Update(Ve1Golemech* this) {
                     actor->obj.rot.x = RAND_FLOAT(360.0f);
                     actor->obj.rot.y = RAND_FLOAT(360.0f);
                     actor->obj.rot.z = RAND_FLOAT(360.0f);
-                    actor->state = 50;
+                    actor->state = ACTORDEBRIS_50;
                     actor->iwork[0] = RAND_INT(2) + 2;
 
                     if (this->swork[25] == 0) {
@@ -2556,7 +2557,8 @@ void Venom1_Ve1Golemech_Dying(Ve1Golemech* this) {
 
 void Venom1_Ve1Golemech_Draw(Ve1Golemech* this) {
     if (this->swork[26] == 0) {
-        Animation_DrawSkeleton(0, D_VE1_901C0F4, this->vwork, Venom1_801937F4, Venom1_80193D64, this, &gIdentityMatrix);
+        Animation_DrawSkeleton(0, D_VE1_901C0F4, this->vwork, Venom1_Ve1Golemech_OverrideLimbDraw,
+                               Venom1_Ve1Golemech_PostLimbDraw, this, &gIdentityMatrix);
     }
     this->state = this->swork[9];
 }

@@ -506,7 +506,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_387  */  {(void*)          NULL, 1, (ObjectFunc) Effect_Effect387_Update,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_388  */  {(void*) Effect_Effect388_Draw, 1, (ObjectFunc) Effect_Effect388_Update,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_ELECTRIC_ARC  */  {(void*) Effect_ElectricArc_Draw, 1, (ObjectFunc) Effect_ElectricArc_Update,             NULL,  -200.0f,  1, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_390  */  {(void*)          NULL, 1, (ObjectFunc) Effect_Effect390_Update,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_ELECTRIC_ARC_2  */  {(void*)          NULL, 1, (ObjectFunc) Effect_ElectricArc2_Update,             NULL,  -200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_391  */  {(void*) Effect_Effect391_Draw, 1, (ObjectFunc) Effect_Effect391_Update,             NULL,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_SO_FLARE  */  {(void*) Solar_SoFlare_Draw, 1, (ObjectFunc) Solar_SoFlare_Update,             NULL,   300.0f,  1, 2, 10, 0,   0.0f,  0 },
   /* OBJ_EFFECT_SPARKLE  */  {(void*) Effect_Sparkle_Draw, 1, (ObjectFunc) Effect_Sparkle_Update,             NULL,   300.0f,  1, 1,  0, 0,   0.0f,  0 },

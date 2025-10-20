@@ -1057,7 +1057,7 @@ void Zoness_ZoEnergyBall_Update(ZoEnergyBall* this) {
     if (Play_CheckDynaFloorCollision(&sp4C, &sp48, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z) &&
         (this->state == 0)) {
         Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f, 7);
-        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
         Object_Kill(&this->obj, this->sfxSource);
         this->iwork[0] = 0;
         Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_MINI_BOMB);
@@ -2572,8 +2572,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 sZoLimbTimers[ZO_LIMB_25] = 15;
             }
 
-            Effect_Effect390_Spawn(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], this->vel.x,
-                                   this->vel.y, this->vel.z, 0.2f, 10);
+            Effect_ElectricArc2_Spawn(sZoFwork[ZO_BSF_55_X], sZoFwork[ZO_BSF_55_Y], sZoFwork[ZO_BSF_55_Z], this->vel.x,
+                                      this->vel.y, this->vel.z, 0.2f, 10);
             Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_55_X] + RAND_FLOAT_CENTERED(200.0f),
                                      sZoFwork[ZO_BSF_55_Y] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_55_Z], 10.0f);
 
@@ -3392,8 +3392,8 @@ void Zoness_80198F3C(ZoSarumarine* this, s32 arg1, s32 arg2) {
     Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
                              sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
     if ((gGameFrameCount % 2) == 0) {
-        Effect_Effect390_Spawn(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2],
-                               this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+        Effect_ElectricArc2_Spawn(sZoFwork[ZO_BSF_0 + arg2], sZoFwork[ZO_BSF_1 + arg2], sZoFwork[ZO_BSF_2 + arg2],
+                                  this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
     }
 }
 

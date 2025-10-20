@@ -3734,8 +3734,8 @@ void FoBase_BurnEffects(FoBase* this, s32 timer) {
         i = RAND_INT(36.0f);
 
         if ((gGameFrameCount & 2) == 0) {
-            Effect_Effect390_Spawn(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
-                                   this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x + D_800D21C8[i].x, this->obj.pos.y + D_800D21C8[i].y,
+                                      this->obj.pos.z + D_800D21C8[i].z, 0.0f, 0.0f, 0.0f, 0.3f * temp, 20);
         }
 
         if ((gGameFrameCount % 8) == 0) {
@@ -4491,9 +4491,9 @@ void ActorTeamBoss_DmgEffect(ActorTeamBoss* this) {
         }
 
         if (!(gGameFrameCount & (mask >> 2)) && (Rand_ZeroOne() < 0.5f)) {
-            Effect_Effect390_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
-                                   this->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), this->vel.x, this->vel.y, this->vel.z,
-                                   this->scale * 0.07f, 3);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(30.0f), this->obj.pos.y + RAND_FLOAT(10.0f),
+                                      this->obj.pos.z + RAND_FLOAT_CENTERED(30.0f), this->vel.x, this->vel.y,
+                                      this->vel.z, this->scale * 0.07f, 3);
         }
     }
 }

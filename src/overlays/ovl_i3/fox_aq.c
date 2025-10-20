@@ -7,6 +7,7 @@
 #include "global.h"
 #include "assets/ast_blue_marine.h"
 #include "assets/ast_aquas.h"
+#include "actordebris.h"
 // #include "prevent_bss_reordering2.h"
 
 const char D_i3_801C1A30[] = "プレイヤーのすべてをクリア \n"; // Clear of all players
@@ -298,7 +299,7 @@ PosRot* D_i3_801C27C0;
 PosRot D_i3_801C27C8[4 * 50];
 Vtx D_i3_801C3A88[2][2][28];
 
-// Waves the electric arcs that link Jellyfish together
+// Waves the current that link Jellyfish together
 void Aquas_JellyfishCurrent_Wave(void) {
     s32 i;
     f32 linkArcxMod[17];
@@ -1960,10 +1961,10 @@ void Aquas_AqBacoonMuscle_Update(AqBacoonMuscle* this) {
 
         case 1:
             if ((gGameFrameCount % 2) == 0) {
-                Effect_Effect390_Spawn(this->obj.pos.x, this->fwork[0] + this->obj.pos.y, this->obj.pos.z, this->vel.x,
-                                       this->vel.y, this->vel.z, 0.1f, 10);
-                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + (this->fwork[0] * -1.0f),
-                                       this->obj.pos.z + 200.0f, this->vel.x, this->vel.y, this->vel.z, 0.1f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->fwork[0] + this->obj.pos.y, this->obj.pos.z,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.1f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + (this->fwork[0] * -1.0f),
+                                          this->obj.pos.z + 200.0f, this->vel.x, this->vel.y, this->vel.z, 0.1f, 10);
                 this->fwork[0] += 40.0f;
             }
 
@@ -2208,8 +2209,8 @@ void Aquas_AqBacconBarnacle_Update(AqBacconBarnacle* this) {
     }
 
     if (this->timer_0C6 & 1) {
-        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z + RAND_FLOAT(500.0f),
-                               this->vel.x, this->vel.y, this->vel.z, this->scale * 0.2f, 10);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z + RAND_FLOAT(500.0f),
+                                  this->vel.x, this->vel.y, this->vel.z, this->scale * 0.2f, 10);
     }
 
     switch (this->state) {
@@ -2812,10 +2813,10 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
                     D_i3_801C42A0[7] = 50;
             }
             if (((gGameFrameCount % 2) == 0)) {
-                Effect_Effect390_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
-                                       this->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
-                                       this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), this->vel.x,
-                                       this->vel.y, this->vel.z, 0.5f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
+                                          this->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
+                                          this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), this->vel.x,
+                                          this->vel.y, this->vel.z, 0.5f, 10);
                 Effect_FireSmoke1_Spawn4(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
                                          this->obj.pos.y + 200.0f + RAND_FLOAT_CENTERED(400.0f),
                                          this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), 10.0f);
@@ -2866,10 +2867,10 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
             Math_SmoothStepToF(&this->fwork[AQ_FWK_10], 0.1f, 0.1f, 1.0f, 0.0f);
 
             if ((gGameFrameCount % 2) == 0) {
-                Effect_Effect390_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
-                                       this->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
-                                       this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), this->vel.x,
-                                       this->vel.y, this->vel.z, 0.7f, 15);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(1200.0f),
+                                          this->obj.pos.y + 400.0f + RAND_FLOAT_CENTERED(400.0f),
+                                          this->obj.pos.z + 1000.0f + RAND_FLOAT_CENTERED(800.0f), this->vel.x,
+                                          this->vel.y, this->vel.z, 0.7f, 15);
             }
 
             if (this->timer_056 == 1) {
@@ -3484,13 +3485,13 @@ void Aquas_AqBacoon_Update(AqBacoon* this);
 #endif
 
 bool Aquas_AqBacoon_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
-    Vec3f sp6C = { 0.0f, 0.0f, 0.0f };
-    Vec3f sp60;
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
+    Vec3f dest;
     f32 sp5C = 0.0f;
     f32 sp58 = 0.0f;
     f32 sp54 = 0.0f;
     s32 sp50 = false;
-    Boss* this = thisx;
+    Boss* this = (Boss*) thisx;
 
     if (sAqBacoonlimbTimers[limbIndex] >= 1000) {
         *dList = NULL;
@@ -3637,8 +3638,8 @@ bool Aquas_AqBacoon_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec
         Matrix_RotateY(gCalcMatrix, rot->y * M_DTOR, MTXF_APPLY);
         Matrix_RotateX(gCalcMatrix, rot->x * M_DTOR, MTXF_APPLY);
         if (*dList != NULL) {
-            Matrix_MultVec3f(gCalcMatrix, &sp6C, &sp60);
-            Display_SetSecondLight(&sp60);
+            Matrix_MultVec3f(gCalcMatrix, &src, &dest);
+            Display_SetSecondLight(&dest);
             Matrix_Mult(gGfxMatrix, gCalcMatrix, MTXF_APPLY);
             Matrix_Push(&gGfxMatrix);
             Matrix_Scale(gGfxMatrix, sp5C, sp58, sp54, MTXF_APPLY);
@@ -5781,17 +5782,20 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
                 i = 0;
             }
             if (i != 0) {
-                if (!this->timer_0C0 && sp70->timer_0C0 >= 2) {
+                if (!this->timer_0C0 && (sp70->timer_0C0 >= 2)) {
                     this->timer_0C0 = sp70->timer_0C0;
                     this->timer_0C6 = sp70->timer_0C6;
                 }
+
+                //! @bug logical not is only applied to the left hand side of comparison
+                //! This condition is always false
                 if (this->timer_0C0 && !sp70->timer_0C0 >= 2) {
                     sp70->timer_0C0 = this->timer_0C0;
                     sp70->timer_0C6 = this->timer_0C6;
                 }
             }
 
-            if (((gGameFrameCount % 8) == 0)) {
+            if ((gGameFrameCount % 8) == 0) {
                 Effect_TimedSfx_Spawn(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
@@ -5816,16 +5820,19 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
                 i = 0;
             }
             if (i != 0) {
-                if (!this->timer_0C0 && sp6C->timer_0C0 >= 2) {
+                if (!this->timer_0C0 && (sp6C->timer_0C0 >= 2)) {
                     this->timer_0C0 = sp6C->timer_0C0;
                     this->timer_0C6 = sp6C->timer_0C6;
                 }
+
+                //! @bug logical not is only applied to the left hand side of comparison
+                //! This condition is always false
                 if (this->timer_0C0 && !sp6C->timer_0C0 >= 2) {
                     sp6C->timer_0C0 = this->timer_0C0;
                     sp6C->timer_0C6 = this->timer_0C6;
                 }
             }
-            if (((gGameFrameCount % 4) == 0)) {
+            if ((gGameFrameCount % 4) == 0) {
                 Effect_TimedSfx_Spawn(&sp6C->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
@@ -5851,17 +5858,20 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
                 i = 0;
             }
             if (i != 0) {
-                if (!this->timer_0C0 && sp70->timer_0C0 >= 2) {
+                if (!this->timer_0C0 && (sp70->timer_0C0 >= 2)) {
                     this->timer_0C0 = sp70->timer_0C0;
                     this->timer_0C6 = sp70->timer_0C6;
                 }
+
+                //! @bug logical not is only applied to the left hand side of comparison
+                //! This condition is always false
                 if (this->timer_0C0 && !sp70->timer_0C0 >= 2) {
                     sp70->timer_0C0 = this->timer_0C0;
                     sp70->timer_0C6 = this->timer_0C6;
                 }
             }
 
-            if (((gGameFrameCount % 16) == 0)) {
+            if ((gGameFrameCount % 16) == 0) {
                 Effect_TimedSfx_Spawn(&sp70->obj.pos, NA_SE_EN_WT_SPARK_BEAM);
             }
 
@@ -5870,10 +5880,10 @@ void Aquas_AqJellyfish_Update(AqJellyfish* this) {
     }
 
     if ((gGameFrameCount % 4) == 0) {
-        Effect_Effect390_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
-                               this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
-                               this->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), this->vel.x, this->vel.y, this->vel.z,
-                               0.05f + RAND_FLOAT(0.03f), 10);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(100.0f),
+                                  this->obj.pos.y + RAND_FLOAT_CENTERED(100.0f),
+                                  this->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), this->vel.x, this->vel.y, this->vel.z,
+                                  0.05f + RAND_FLOAT(0.03f), 10);
     }
 
     if (this->timer_0BE == 0) {
@@ -6081,7 +6091,7 @@ void Aquas_AqJellyfish_Draw(AqJellyfish* this) {
                            Aquas_AqJellyfish_PostLimbDraw, this, gCalcMatrix);
 }
 
-s32 D_i3_801C04C4[9] = {
+s32 sAqStoneColumnDrops[9] = {
     DROP_SILVER_RING, DROP_BOMB,        DROP_LASERS, DROP_GOLD_RING_1, DROP_GOLD_RING_2,
     DROP_GOLD_RING_3, DROP_GOLD_RING_4, DROP_NONE,   DROP_1UP,
 };
@@ -6143,7 +6153,7 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
             for (i = 0; i < 2; i++) {
                 for (j = 0; j < ARRAY_COUNT(gActors); j++) {
                     if ((gActors[j].obj.status == OBJ_ACTIVE) && (gActors[j].obj.id == OBJ_ACTOR_DEBRIS) &&
-                        (gActors[j].state == 58)) {
+                        (gActors[j].state == ACTORDEBRIS_58)) {
                         Object_Kill(&gActors[j].obj, gActors[j].sfxSource);
                         break;
                     }
@@ -6208,7 +6218,7 @@ void Aquas_AqStoneColumn_Update(AqStoneColumn* this) {
                 this->obj.pos.x = this->vwork[4].x;
                 this->obj.pos.y = this->vwork[4].y;
                 this->obj.pos.z = this->vwork[4].z;
-                this->itemDrop = D_i3_801C04C4[this->iwork[1]];
+                this->itemDrop = sAqStoneColumnDrops[this->iwork[1]];
                 Actor_Despawn(this);
                 Object_Kill(&this->obj, this->sfxSource);
                 Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_OB_AQ_PILLAR_BROKE);

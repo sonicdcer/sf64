@@ -419,8 +419,8 @@ void SectorY_80198F5C(SyShogun* this) {
     s32 i;
 
     this->timer_05C = 20;
-    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
-                           0.1f, 10);
+    Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y, this->vel.z,
+                              0.1f, 10);
     this->health -= this->damage;
 
     if (this->health < 0) {
@@ -589,8 +589,8 @@ void SectorY_80199438(SyShogun* this) {
         }
 
         if (((gGameFrameCount % 4) == 0) && (this->swork[36] == 0)) {
-            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.1f, 5);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                      this->vel.z, 0.1f, 5);
         }
 
         if ((gCsFrameCount == 120) && (this->swork[36] == 0) && (this->index == 0)) {
@@ -1067,8 +1067,8 @@ void SectorY_8019AEEC(SyShogun* this) {
                 Math_SmoothStepToF(&this->vel.z, 80.0f, 0.1f, 2.0f, 0.5f);
                 Math_SmoothStepToF(&gActors[59].vel.z, 80.0f, 0.1f, 2.0f, 0.5f);
                 if ((gGameFrameCount % 2) == 0) {
-                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y - 150.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                           0.1f, 5);
+                    Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y - 150.0f, this->obj.pos.z, 0.0f, 0.0f,
+                                              0.0f, 0.1f, 5);
                 }
             }
         }
@@ -1451,8 +1451,8 @@ void SectorY_SyShogun_Update(SyShogun* this) {
         }
 
         if ((this->swork[29] != 0) && !(this->swork[29] & gGameFrameCount)) {
-            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.1f, 5);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                      this->vel.z, 0.1f, 5);
         }
 
         switch (this->swork[21]) {
@@ -2791,9 +2791,9 @@ void SectorY_LevelStart(Player* player) {
                 spA4.y = RAND_FLOAT_CENTERED(500.0f) + -500.0f;
                 spA4.z = RAND_FLOAT_CENTERED(5000.0f) + 170.0f;
                 Matrix_MultVec3f(gCalcMatrix, &spA4, &sp98);
-                Effect_Effect390_Spawn(gActors[8].obj.pos.x + sp98.x, gActors[8].obj.pos.y + sp98.y,
-                                       gActors[8].obj.pos.z + sp98.z, gActors[8].vel.x, gActors[8].vel.y,
-                                       gActors[8].vel.z, 0.8f, 5);
+                Effect_ElectricArc2_Spawn(gActors[8].obj.pos.x + sp98.x, gActors[8].obj.pos.y + sp98.y,
+                                          gActors[8].obj.pos.z + sp98.z, gActors[8].vel.x, gActors[8].vel.y,
+                                          gActors[8].vel.z, 0.8f, 5);
                 Effect_FireSmoke1_Spawn3(gActors[8].obj.pos.x - 2000.0f + RAND_FLOAT_CENTERED(500.0f),
                                          gActors[8].obj.pos.y - 500.0f + RAND_FLOAT_CENTERED(1000.0f),
                                          gActors[8].obj.pos.z + RAND_FLOAT_CENTERED(3000.0f), 8);
@@ -3787,8 +3787,8 @@ void SectorY_SyRobot_Update(SyRobot* this) {
         } else {
             AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
             this->timer_0C6 = 15;
-            Effect_Effect390_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.1f, 10);
+            Effect_ElectricArc2_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
+                                      this->vel.z, 0.1f, 10);
             this->health -= this->damage;
 
             if (this->health <= 0) {
@@ -3899,29 +3899,29 @@ void SectorY_SyShip3Destroyed_Update(SyShip3Destroyed* this) {
         src.y = RAND_FLOAT_CENTERED(900.0f) + -150.0f;
         src.z = 90.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                  this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
 
         src.x = RAND_FLOAT_CENTERED(100.0f) + -500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f);
         src.z = 80.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                  this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
 
         src.x = RAND_FLOAT_CENTERED(100.0f) + 500.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -50.0f;
         src.z = 1900.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                  this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
 
         src.x = RAND_FLOAT_CENTERED(100.0f) + -1000.0f;
         src.y = RAND_FLOAT_CENTERED(900.0f) + -250.0f;
         src.z = 1100.0f - RAND_FLOAT(50.0f);
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                  this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
     }
 }
 
@@ -3942,13 +3942,13 @@ void SectorY_SyShip4Destroyed_Update(SyShip2Destroyed* this) {
         src.y = RAND_FLOAT_CENTERED(300.0f) + -100.0f;
         src.z = RAND_FLOAT_CENTERED(5000.0f) + 500.0f;
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.3f, 5);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                  this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.3f, 5);
         src.x = RAND_FLOAT_CENTERED(100.0f) + -600.0f;
         src.y = RAND_FLOAT_CENTERED(250.0f) + 300.0f;
         src.z = RAND_FLOAT_CENTERED(1500.0f) + -1650.0f;
         Matrix_MultVec3f(gCalcMatrix, &src, &dest);
-        Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                               this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                  this->effectVel.x, this->effectVel.y, this->effectVel.z, 0.2f, 5);
     }
 }

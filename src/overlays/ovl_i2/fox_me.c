@@ -480,7 +480,7 @@ void Meteo_MeCrusherShield_Draw(MeCrusherShield* this) {
 
     Matrix_RotateZ(gGfxMatrix, (M_PI / 4), MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_ME_60240B0);
+    gSPDisplayList(gMasterDisp++, aMeCrusherShieldDL);
     RCP_SetupDL_64();
 
     for (i = 1; i < 4; i++) {
@@ -498,7 +498,7 @@ void Meteo_MeCrusherShield_Draw(MeCrusherShield* this) {
 
             Matrix_RotateZ(gGfxMatrix, 1.5707964f, MTXF_APPLY); // (M_PI / 2) does not match
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_ME_60263F0);
+            gSPDisplayList(gMasterDisp++, aMeCrusherShieldChargeDL);
             Matrix_Pop(&gGfxMatrix);
         }
     }
@@ -1428,8 +1428,8 @@ void Meteo_MeCrusher_Update(MeCrusher* this) {
             Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_i2_80195430[RAND_INT(19.9f)], &dest);
 
             if (((gGameFrameCount % 2) == 0)) {
-                Effect_Effect390_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
             }
             if (((gGameFrameCount % 4) == 0)) {
                 Effect_Effect386_Spawn1(this->obj.pos.x + dest.x, this->obj.pos.y + dest.y, this->obj.pos.z + dest.z,
@@ -1638,10 +1638,11 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
 
             Matrix_SetGfxMtx(&gMasterDisp);
 
+            // Weak points
             if (i < 4) {
-                gSPDisplayList(gMasterDisp++, D_ME_6024AD0);
+                gSPDisplayList(gMasterDisp++, aMeCrusherCoreSegment1DL);
             } else {
-                gSPDisplayList(gMasterDisp++, D_ME_60236F0);
+                gSPDisplayList(gMasterDisp++, aMeCrusherCoreSegment2DL);
             }
             Matrix_Pop(&gGfxMatrix);
         }
@@ -1741,7 +1742,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
                 }
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_ME_6023810);
+                gSPDisplayList(gMasterDisp++, aMeCrusherRingLaserDL);
                 Matrix_Pop(&gGfxMatrix);
                 Matrix_Push(&gGfxMatrix);
                 Matrix_Translate(gGfxMatrix, -700.0f, 0.0f, -(1235.0f - ((var_fs0 - 1.0f) * 89.2f)), MTXF_APPLY);
@@ -1753,7 +1754,7 @@ void Meteo_MeCrusher_Draw(MeCrusher* this) {
                 }
 
                 Matrix_SetGfxMtx(&gMasterDisp);
-                gSPDisplayList(gMasterDisp++, D_ME_6023810);
+                gSPDisplayList(gMasterDisp++, aMeCrusherRingLaserDL);
                 Matrix_Pop(&gGfxMatrix);
             }
         }
@@ -1802,7 +1803,7 @@ void Meteo_LevelStart_SetupTeam(ActorCutscene* this, s32 teamIdx) {
     AUDIO_PLAY_SFX(NA_SE_GREATFOX_BURNER, this->sfxSource, 0);
 }
 
-void Meteo_8018C8F4(MeMeteor2* this, ActorCutscene* actorCs) {
+void Meteo_MeMeteor2_SpawnAroundActor(MeMeteor2* this, ActorCutscene* actorCs) {
     Actor_Initialize(this);
     this->obj.status = OBJ_INIT;
     this->obj.id = OBJ_ACTOR_ME_METEOR_2;
@@ -1836,7 +1837,7 @@ void Meteo_8018CA10(MeMeteor2* this, ActorCutscene* actorCs, f32 x, f32 y, f32 z
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Meteo_8018CAD8(void) {
+void Meteo_CsCorneriaBG_Setup(void) {
     ActorCutscene* actorCs = &gActors[50];
 
     Actor_Initialize(actorCs);
@@ -1890,10 +1891,10 @@ void Meteo_SmallRock_Spawn(ActorEvent* this) {
 void Meteo_LevelStart(Player* player) {
     u8 sp8F;
     s32 i;
-    Actor* falco = &gActors[0];
-    Actor* slippy = &gActors[1];
-    Actor* peppy = &gActors[2];
-    Actor* greatFox = &gActors[3];
+    ActorCutscene* falco = &gActors[0];
+    ActorCutscene* slippy = &gActors[1];
+    ActorCutscene* peppy = &gActors[2];
+    ActorCutscene* greatFox = &gActors[3];
     f32 x;
     f32 y;
     f32 z;
@@ -1921,10 +1922,10 @@ void Meteo_LevelStart(Player* player) {
             }
 
             Meteo_LevelStart_SetupTeam(greatFox, 3);
-            Meteo_8018CAD8();
+            Meteo_CsCorneriaBG_Setup();
 
             for (i = 5; i < 15; i++) {
-                Meteo_8018C8F4(&gActors[i], greatFox);
+                Meteo_MeMeteor2_SpawnAroundActor(&gActors[i], greatFox);
             }
 
             D_ctx_80177A48[1] = -13000.0f;
@@ -2009,7 +2010,7 @@ void Meteo_LevelStart(Player* player) {
                 greatFox->obj.pos.z += 4000.0f;
 
                 for (i = 4; i < 9; i++) {
-                    Meteo_8018C8F4(&gActors[i], greatFox);
+                    Meteo_MeMeteor2_SpawnAroundActor(&gActors[i], greatFox);
                 }
 
                 greatFox->obj.pos.x -= 1000.0f;
@@ -2158,7 +2159,7 @@ void Meteo_Effect370_Draw(Effect370* this) {
         Matrix_RotateZ(gGfxMatrix, M_PI / 2, MTXF_APPLY);
         Matrix_SetGfxMtx(&gMasterDisp);
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
-        gSPDisplayList(gMasterDisp++, D_ME_60263F0);
+        gSPDisplayList(gMasterDisp++, aMeCrusherShieldChargeDL);
     }
 }
 
@@ -2186,7 +2187,7 @@ void Meteo_Effect371_Draw(Effect371* this) {
 
     switch (this->unk_4C) {
         case 0:
-            gSPDisplayList(gMasterDisp++, D_ME_6023810);
+            gSPDisplayList(gMasterDisp++, aMeCrusherRingLaserDL);
         case 1:
             break;
     }

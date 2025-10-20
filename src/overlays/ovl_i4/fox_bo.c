@@ -782,9 +782,9 @@ s32 Bolse_8018DE8C(BoBase* this) {
     s32 index = RAND_FLOAT(26);
 
     if (!(gGameFrameCount % 2)) { // has to be ! instead of == 0
-        Effect_Effect390_Spawn(effectSpawnPos[index].x + this->obj.pos.x,
-                               effectSpawnPos[index].y + this->obj.pos.y - 10.0f,
-                               effectSpawnPos[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
+        Effect_ElectricArc2_Spawn(effectSpawnPos[index].x + this->obj.pos.x,
+                                  effectSpawnPos[index].y + this->obj.pos.y - 10.0f,
+                                  effectSpawnPos[index].z + this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.2f, 20);
     }
 
     if (!(gGameFrameCount % 5)) {

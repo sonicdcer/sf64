@@ -312,8 +312,8 @@ void Titania_TiDesertRover_Update(TiDesertRover* this) {
         Actor_Despawn(this);
         this->info.bonus = 0;
         Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, 8.0f);
-        Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, this->vel.x, this->vel.y,
-                               this->vel.z, 0.1f, 30);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 30.0f, this->obj.pos.z, this->vel.x, this->vel.y,
+                                  this->vel.z, 0.1f, 30);
         Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -420,7 +420,7 @@ void Titania_TiFekuda_Update(TiFekuda* this) {
         }
     } else if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
         AUDIO_PLAY_SFX(NA_SE_EN_BROKEN_SPARK, this->sfxSource, 4);
-        Effect_Effect390_Spawn(this->fwork[0], this->fwork[1], this->fwork[2], 0.0f, 0.0f, 0.0f, 0.1f, 7);
+        Effect_ElectricArc2_Spawn(this->fwork[0], this->fwork[1], this->fwork[2], 0.0f, 0.0f, 0.0f, 0.1f, 7);
         this->timer_0C6 = 4;
     }
 }
@@ -877,6 +877,8 @@ void Titania_TiRasco_Draw(TiRasco* this) {
                            this, &gIdentityMatrix);
 }
 
+#include "actordebris.h"
+
 void Titania_TiRasco_Dying(TiRasco* this) {
     PosRot* var_s1;
     Actor* actorPtr;
@@ -891,7 +893,7 @@ void Titania_TiRasco_Dying(TiRasco* this) {
         actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
         if (actorPtr != NULL) {
             actorPtr->obj.status = OBJ_ACTIVE;
-            actorPtr->state = 46;
+            actorPtr->state = ACTORDEBRIS_46;
             actorPtr->work_048 = i;
             Matrix_MultVec3f(gCalcMatrix, &var_s1->pos, &sp70);
             actorPtr->obj.pos.x = this->obj.pos.x + sp70.x;
@@ -1609,7 +1611,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                     for (i = 0; i < 9U; i++, var_s1++) {
                         actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                         if ((actorPtr != NULL) && D_i5_801B7630[i][1] == 1) {
-                            actorPtr->state = 47;
+                            actorPtr->state = ACTORDEBRIS_47;
                             actorPtr->work_048 = i;
                             Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
                             actorPtr->obj.pos.x = this->obj.pos.x + sp158.x;
@@ -1645,7 +1647,7 @@ void Titania_TiDesertCrawler_Update(TiDesertCrawler* this) {
                         if (i == 8) {
                             actorPtr = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                             if (actorPtr != NULL) {
-                                actorPtr->state = 47;
+                                actorPtr->state = ACTORDEBRIS_47;
                                 actorPtr->work_048 = 9;
                                 Matrix_MultVec3f(gCalcMatrix, &var_s1->unk_00.pos, &sp158);
                                 actorPtr->obj.pos.x = this->obj.pos.x + sp158.x;
@@ -1753,7 +1755,7 @@ void Titania_TiDelphor_Init(TiDelphor* this) {
 void Titania_TiDelphor_Update(TiDelphor* this) {
     this->iwork[1]++;
     if ((this->iwork[0] == (uintptr_t) NULL) && ((this->iwork[1] & 3) == 0)) {
-        Effect_Effect390_Spawn(this->fwork[0], this->fwork[1], this->fwork[2], 0.0f, 0.0f, 0.0f, 0.0625f, 10);
+        Effect_ElectricArc2_Spawn(this->fwork[0], this->fwork[1], this->fwork[2], 0.0f, 0.0f, 0.0f, 0.0625f, 10);
     }
 }
 
@@ -3827,7 +3829,7 @@ void Titania_80193DF0(TiGoras* this) {
         if (D_i5_801BBF00[i].unk_26 & 2) {
             actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
             if (actor != NULL) {
-                actor->state = 40;
+                actor->state = ACTORDEBRIS_40;
                 actor->work_046 = D_i5_801B7770[i][5];
                 actor->work_048 = D_i5_801B7770[i][1];
                 if (D_i5_801B7770[i][0] == 85) {
@@ -4202,7 +4204,7 @@ void Titania_80193DF0(TiGoras* this) {
             for (i = 0; i < 33; i++) {
                 actor = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                 if (actor != NULL) {
-                    actor->state = 40;
+                    actor->state = ACTORDEBRIS_40;
                     actor->obj.pos.x = 0.0f;
                     actor->obj.pos.y = 0.0f;
                     actor->obj.pos.z = this->obj.pos.z + 2000.0f;
@@ -5489,7 +5491,7 @@ void Titania_TiGoras_Dying(TiGoras* this) {
             if (!(D_i5_801BBF00[i].unk_26 & 4)) {
                 debris = Game_SpawnActor(OBJ_ACTOR_DEBRIS);
                 if (debris != NULL) {
-                    debris->state = 40;
+                    debris->state = ACTORDEBRIS_40;
 
                     debris->work_046 = D_i5_801B7770[i][5];
                     debris->work_048 = D_i5_801B7770[i][1];
@@ -5538,7 +5540,7 @@ void Titania_TiGoras_Dying(TiGoras* this) {
                 debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
                 debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
 
-                debris->state = 40;
+                debris->state = ACTORDEBRIS_40;
 
                 debris->work_046 = 25;
                 debris->work_048 = 0;
@@ -5565,7 +5567,7 @@ void Titania_TiGoras_Dying(TiGoras* this) {
                 debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
                 debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(5.0f) + 5.0f);
 
-                debris->state = 40;
+                debris->state = ACTORDEBRIS_40;
 
                 debris->work_046 = 2;
                 debris->work_048 = 1;
@@ -5592,7 +5594,7 @@ void Titania_TiGoras_Dying(TiGoras* this) {
                 debris->fwork[0] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
                 debris->fwork[1] = ((Rand_ZeroOne() < 0.5f) ? -1 : 1) * (RAND_FLOAT(1.0f) + 1.0f);
 
-                debris->state = 40;
+                debris->state = ACTORDEBRIS_40;
 
                 debris->work_046 = 2;
                 debris->work_048 = 1;

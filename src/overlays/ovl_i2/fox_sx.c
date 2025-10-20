@@ -417,15 +417,15 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
                 this->swork[3] -= this->damage;
                 this->timer_054 = 20;
-                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
 
                 if (this->swork[3] <= 0) {
                     Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f,
                                             0.0f, 10.0f, 50);
 
-                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
-                                           this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
+                    Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
+                                              this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
                     for (i = 0; i < 10; i++) {
                         Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z);
                     }
@@ -475,8 +475,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
                     Effect_Effect386_Spawn1(this->obj.pos.x, this->obj.pos.y + 300.0f, this->obj.pos.z, 0.0f, 0.0f,
                                             0.0f, 10.0f, 50);
 
-                    Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
-                                           this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
+                    Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z,
+                                              this->vel.x, this->vel.y, this->vel.z, 0.15f, 70);
 
                     for (i = 0; i < 10; i++) {
                         Play_SpawnDebris(4, this->obj.pos.x, this->obj.pos.y + 334.0f, -237.0f + this->obj.pos.z);
@@ -495,8 +495,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
 
                 this->timer_054 = 20;
                 this->timer_05C = this->timer_054;
-                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                       this->vel.z, 0.2f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                          this->vel.z, 0.2f, 10);
             } else {
                 Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_REFLECT);
             }
@@ -544,16 +544,16 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             if (fabsf(Math_SmoothStepToF(&this->fwork[16], 0.0f, 0.1f, 10.0f, 0)) < 8.0f) {
                 Math_SmoothStepToF(&this->fwork[14], 0.0f, 0.2f, 10.0f, 0);
                 if ((this->timer_050 % 8) == 0) {
-                    Effect_Effect390_Spawn(this->obj.pos.x + 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
-                                           this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
+                    Effect_ElectricArc2_Spawn(this->obj.pos.x + 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
+                                              this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
                 }
             }
 
             if (fabsf(Math_SmoothStepToF(&this->fwork[19], 0.0f, 0.1f, 10.0f, 0)) < 8.0f) {
                 Math_SmoothStepToF(&this->fwork[17], 0.0f, 0.2f, 10.0f, 0);
                 if ((this->timer_050 % 8) == 0) {
-                    Effect_Effect390_Spawn(this->obj.pos.x - 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
-                                           this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
+                    Effect_ElectricArc2_Spawn(this->obj.pos.x - 312.0f, this->obj.pos.y, this->obj.pos.z - 173.0f,
+                                              this->vel.x, this->vel.y, this->vel.z, 0.2f, 8);
                 }
             }
 
@@ -1066,8 +1066,8 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
 
             if ((this->timer_050 & 3) == 0) {
-                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                       this->vel.z, 0.3f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                          this->vel.z, 0.3f, 10);
             }
 
             if (this->timer_050 < 230) {

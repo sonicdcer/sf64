@@ -150,7 +150,7 @@ void PlayerShot_Impact(PlayerShot* shot) {
         if (gCurrentLevel == LEVEL_AQUAS) {
             gLight3R = gLight3G = gLight3B = 0;
             Effect_Effect384_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 10.0f, 4);
-            Effect_Effect390_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
+            Effect_ElectricArc2_Spawn(shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.3f, 30);
         } else {
             if (gVersusMode) {
                 var_v0_2 = shot->sourceId + 10;

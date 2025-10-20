@@ -20,6 +20,7 @@
 #include "assets/ast_solar.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_zoness.h"
+#include "actordebris.h"
 
 s32 gTeamEventActorIndex[4] = { 0, 0, 0, 0 };
 s32 gCallVoiceParam = 0;
@@ -504,52 +505,15 @@ void func_enmy2_8006BF7C(f32 xPos, f32 yPos, f32 zPos) {
     }
 }
 
-typedef enum DebrisType {
-    DEBRIS_0,
-    DEBRIS_1,
-    DEBRIS_2,
-    DEBRIS_3,
-    DEBRIS_4,
-    DEBRIS_10,
-    DEBRIS_34,
-    DEBRIS_35,
-    DEBRIS_36,
-    DEBRIS_37,
-    DEBRIS_38, // unused
-    DEBRIS_39,
-    DEBRIS_40,
-    DEBRIS_41,
-    DEBRIS_42,
-    DEBRIS_43,
-    DEBRIS_44,
-    DEBRIS_45,
-    DEBRIS_46,
-    DEBRIS_47,
-    DEBRIS_48,
-    DEBRIS_49,
-    DEBRIS_50,
-    DEBRIS_51,
-    DEBRIS_52,
-    DEBRIS_53,
-    DEBRIS_54,
-    DEBRIS_55,
-    DEBRIS_56,
-    DEBRIS_57,
-    DEBRIS_58,
-    DEBRIS_59,
-    DEBRIS_70 = 70,
-} DebrisType;
-
-Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f }; // could be in-function
-
 void ActorDebris_Update(ActorDebris* this) {
     f32 sp4C;
     f32 sp48;
     f32 sp44;
     s32 sp40;
+    static Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f };
 
     switch (this->state) {
-        case 40:
+        case ACTORDEBRIS_40:
             if (this->work_04A & 4) {
                 this->obj.pos.x = gPlayer[0].pos.x + this->fwork[3];
                 this->obj.pos.z = gPlayer[0].trueZpos + this->fwork[4];
@@ -601,12 +565,12 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 45:
+        case ACTORDEBRIS_45:
             this->obj.rot.y += this->fwork[0];
             this->obj.rot.z += this->fwork[1];
             break;
 
-        case 46:
+        case ACTORDEBRIS_46:
             this->obj.rot.x += this->fwork[0];
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
@@ -630,7 +594,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 47:
+        case ACTORDEBRIS_47:
             Ground_801B6E20(this->obj.pos.x, this->obj.pos.z + gPathProgress, &sp4C, &sp48, &sp4C);
 
             if (this->obj.pos.y < this->fwork[3] + (-100.0f + sp48)) {
@@ -662,12 +626,12 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 48:
-        case 49:
-        case 51:
-        case 52:
-        case 53:
-        case 55:
+        case ACTORDEBRIS_48:
+        case ACTORDEBRIS_49:
+        case ACTORDEBRIS_51:
+        case ACTORDEBRIS_52:
+        case ACTORDEBRIS_53:
+        case ACTORDEBRIS_55:
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
@@ -677,7 +641,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 56:
+        case ACTORDEBRIS_56:
             Math_SmoothStepToF(&this->scale, 0.0f, 0.1f, 2.0f, 0.0001f);
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
@@ -688,7 +652,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 58:
+        case ACTORDEBRIS_58:
             if (this->work_046 == 0) {
                 this->work_046++;
                 this->fwork[0] = RAND_FLOAT_CENTERED(30.0f);
@@ -709,7 +673,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 54:
+        case ACTORDEBRIS_54:
             if (((this->timer_0BC == 0) || (Object_CheckCollision(this->index, &this->obj.pos, &D_800D0030, 1) != 0) ||
                  (this->obj.pos.y < (gGroundHeight + 10.0f))) &&
                 (this->timer_0BE == 0)) {
@@ -720,7 +684,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 50:
+        case ACTORDEBRIS_50:
             if ((this->iwork[0] == 2) && (this->timer_0BC == 0)) {
                 Effect_FireSmoke1_Spawn3(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f);
                 this->timer_0BC = 4;
@@ -736,7 +700,7 @@ void ActorDebris_Update(ActorDebris* this) {
             }
             break;
 
-        case 57:
+        case ACTORDEBRIS_57:
             this->obj.rot.x += this->fwork[0];
             this->obj.rot.y += this->fwork[1];
             this->obj.rot.z += this->fwork[2];
@@ -1293,7 +1257,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
         case EV_OPC(EVOP_SET_ACTION):
             if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_OPEN) {
-                this->state = EVSTATE_ME_AS_OPEN;
+                this->state = EVSTATE_ME_ROCK_EYE_OPEN;
                 this->fwork[EVA_Z_ROT_RATE] = 0.0f;
                 this->aiIndex += 2;
                 break;
@@ -1301,7 +1265,7 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
 
             if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_CLOSE) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(gCubeHitbox200);
-                this->state = EVSTATE_ME_AS_CLOSE;
+                this->state = EVSTATE_ME_ROCK_EYE_CLOSE;
                 this->aiIndex += 2;
                 break;
             }
@@ -2324,8 +2288,8 @@ void ActorEvent_80070BA8(ActorEvent* this) {
         if ((this->eventType != EVID_ZERAM_CLASS_CRUISER) ||
             ((this->eventType == EVID_ZERAM_CLASS_CRUISER) && (this->dmgPart == 0))) {
             this->timer_0C6 = 10;
-            Effect_Effect390_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.2f, 10);
+            Effect_ElectricArc2_Spawn(this->hitPos.x, this->hitPos.y, this->hitPos.z, this->vel.x, this->vel.y,
+                                      this->vel.z, 0.2f, 10);
             this->health -= this->damage;
             AUDIO_PLAY_SFX(NA_SE_EN_SPARK_DAMAGE_M, this->sfxSource, 4);
             if (this->health <= 0) {
@@ -2895,8 +2859,8 @@ void ActorEvent_SlowDestruct(ActorEvent* this) {
     }
 
     if (((gGameFrameCount % 2) == 0)) {
-        Effect_Effect390_Spawn(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z,
-                               this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z,
+                                  this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
     }
 
     if (((gGameFrameCount % 8) == 0)) {
@@ -3059,8 +3023,8 @@ void ActorEvent_Update(ActorEvent* this) {
         this->obj.rot.y += this->fwork[EVA_FWORK_15];
         this->obj.rot.x += this->fwork[EVA_FWORK_16];
         if ((gGameFrameCount % 16) == 0) {
-            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, 0.3f, 10);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                      this->vel.z, 0.3f, 10);
         }
         return;
     }
@@ -3316,7 +3280,7 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVSTATE_ME_AS_OPEN:
+        case EVSTATE_ME_ROCK_EYE_OPEN:
             var_s0 = 0;
             if (Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                 var_s0++;
@@ -3331,12 +3295,12 @@ void ActorEvent_Update(ActorEvent* this) {
             }
 
             if (var_s0 == 3) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_ME_602F638);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMeRockEyeOpenHitbox);
                 ActorEvent_ProcessScript(this);
             }
             break;
 
-        case EVSTATE_ME_AS_CLOSE:
+        case EVSTATE_ME_ROCK_EYE_CLOSE:
             if (Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
@@ -3895,8 +3859,8 @@ void ActorEvent_Draw(ActorEvent* this) {
             (this->eventType != EVID_ME_METEOR_4) && (this->eventType != EVID_ME_METEOR_5) &&
             (this->eventType != EVID_AQ_OYSTER) && (this->eventType != EVID_MA_BOULDER) && (this->scale > 0.5f) &&
             (this->timer_0C6 >= 9) && ((this->timer_0C6 & 3) == 0) && (gPlayState != PLAY_PAUSE)) {
-            Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
-                                   this->vel.z, this->scale * 0.07f, 3);
+            Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, this->vel.x, this->vel.y,
+                                      this->vel.z, this->scale * 0.07f, 3);
         }
 
         if ((this->eventType != EVID_A6_NINJIN_MISSILE) && (this->eventType != EVID_VENOM_FIGHTER_3) &&
@@ -4383,8 +4347,8 @@ void Actor_DyingCrash(Actor* this) {
                                                                  this->obj.pos.x, this->obj.pos.z, 0.0f, 0.0f, 90.0f,
                                                                  6.5f, 0, 0);
                         }
-                        Effect_Effect390_Spawn(this->obj.pos.x, 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
-                                               this->scale * 0.05f, 30);
+                        Effect_ElectricArc2_Spawn(this->obj.pos.x, 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
+                                                  this->scale * 0.05f, 30);
                         if ((gCurrentLevel == LEVEL_FORTUNA) || (gCurrentLevel == LEVEL_VENOM_2)) {
                             Effect_Effect387_Spawn(this->obj.pos.x, gGroundHeight + 30.0f, this->obj.pos.z, 3.0f, 60);
                             if (gCurrentLevel == LEVEL_FORTUNA) {

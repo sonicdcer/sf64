@@ -714,7 +714,7 @@ typedef enum ObjectId {
     /* 387 */ OBJ_EFFECT_387, // ground impact marking
     /* 388 */ OBJ_EFFECT_388, // all functions dummied out
     /* 389 */ OBJ_EFFECT_ELECTRIC_ARC, // lightning effect from damage
-    /* 390 */ OBJ_EFFECT_390, // no model, makes ElectricArcs
+    /* 390 */ OBJ_EFFECT_ELECTRIC_ARC_2, // no model, makes ElectricArcs
     /* 391 */ OBJ_EFFECT_391, // splash effect in Zoness?
     /* 392 */ OBJ_EFFECT_SO_FLARE, // Solar flare effects
     /* 393 */ OBJ_EFFECT_SPARKLE, // sparkle
@@ -1374,7 +1374,7 @@ typedef Effect Effect386;
 typedef Effect Effect387;
 typedef Effect Effect388;
 typedef Effect EffectElectricArc;
-typedef Effect Effect390;
+typedef Effect EffectElectricArc2;
 typedef Effect Effect391;
 typedef Effect EffectSoFlare;
 typedef Effect EffectSparkle;

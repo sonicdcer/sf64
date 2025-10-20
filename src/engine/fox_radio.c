@@ -280,10 +280,10 @@ void Radio_Portrait_Draw(void) {
             radioPortraitTex = aCoCorneriaBoss2Portrait2Tex;
             break;
         case RCID_BOSS_METEO:
-            radioPortraitTex = D_ME_601C8E0;
+            radioPortraitTex = aMeBossPortrait1Tex;
             break;
         case RCID_BOSS_METEO + 1:
-            radioPortraitTex = D_ME_601D800;
+            radioPortraitTex = aMeBossPortrait2Tex;
             break;
         case RCID_BOSS_AREA6:
             radioPortraitTex = aA6BossPortrait1Tex;

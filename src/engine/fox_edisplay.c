@@ -27,6 +27,7 @@
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_ve1_boss.h"
 #include "assets/ast_zoness.h"
+#include "actordebris.h"
 
 Vec3f D_edisplay_801615D0;
 Vec3f sViewPos;
@@ -285,30 +286,30 @@ Gfx* sZoObnemaDebrisDLs[] = {
 
 void ActorDebris_Draw(ActorDebris* this) {
     switch (this->state) {
-        case 0:
+        case ACTORDEBRIS_0:
             Matrix_Translate(gGfxMatrix, 18.0f, 15.0f, -15.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aAwLeftWingDL);
             break;
 
-        case 1:
+        case ACTORDEBRIS_1:
             Matrix_Translate(gGfxMatrix, -18.0f, 15.0f, -15.0f, MTXF_APPLY);
             Matrix_RotateY(gGfxMatrix, M_PI, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aAwRightWingDL);
             break;
 
-        case 2:
+        case ACTORDEBRIS_2:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, aAwFlap1DL);
             break;
 
-        case 3:
+        case ACTORDEBRIS_3:
             gSPDisplayList(gMasterDisp++, aAwLaserGun1DL);
             break;
 
-        case 4:
+        case ACTORDEBRIS_4:
             Graphics_SetScaleMtx(this->scale);
             if ((this->index % 2) != 0) {
                 gSPDisplayList(gMasterDisp++, aDebris1DL);
@@ -317,12 +318,12 @@ void ActorDebris_Draw(ActorDebris* this) {
             }
             break;
 
-        case 39:
+        case ACTORDEBRIS_39:
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
             gSPDisplayList(gMasterDisp++, sZoContainerDebrisDLs[this->work_048]);
             break;
 
-        case 40:
+        case ACTORDEBRIS_40:
             gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 255);
             switch (this->work_048) {
                 case 0:
@@ -357,31 +358,31 @@ void ActorDebris_Draw(ActorDebris* this) {
             }
             break;
 
-        case 41:
+        case ACTORDEBRIS_41:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sZoBirdDebrisDLs[this->work_048]);
             break;
 
-        case 42:
+        case ACTORDEBRIS_42:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sZGullDebrisDLs[this->work_048]);
             break;
 
-        case 43:
+        case ACTORDEBRIS_43:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sZoShrimpDebrisDLs[this->work_048]);
             break;
 
-        case 44:
+        case ACTORDEBRIS_44:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sZoTroikaDebrisDLs[this->work_048]);
             break;
 
-        case 45:
+        case ACTORDEBRIS_45:
             gSPDisplayList(gMasterDisp++, aPlanetArwingAllRangeDL);
             break;
 
-        case 46:
+        case ACTORDEBRIS_46:
             if ((this->work_048 == 2) || (this->work_048 == 3) || (this->work_048 == 4)) {
                 RCP_SetupDL(&gMasterDisp, SETUPDL_33);
             }
@@ -389,21 +390,21 @@ void ActorDebris_Draw(ActorDebris* this) {
             gSPDisplayList(gMasterDisp++, D_TI_801B7584[this->work_048]);
             break;
 
-        case 47:
+        case ACTORDEBRIS_47:
             gSPDisplayList(gMasterDisp++, D_TI_801B7608[this->work_048]);
             break;
 
-        case 48:
+        case ACTORDEBRIS_48:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqAnglerFishDebrisDLs[this->work_048]);
             break;
 
-        case 49:
+        case ACTORDEBRIS_49:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqSculpinDebrisDLs[this->work_048]);
             break;
 
-        case 50:
+        case ACTORDEBRIS_50:
             Graphics_SetScaleMtx(0.7f);
 
             if (this->iwork[1] == 1) {
@@ -436,32 +437,32 @@ void ActorDebris_Draw(ActorDebris* this) {
             }
             break;
 
-        case 51:
+        case ACTORDEBRIS_51:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqSpindlyFishDebrisDLs[this->work_048]);
             break;
 
-        case 52:
+        case ACTORDEBRIS_52:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqGaroaDebrisDLs[this->work_048]);
             break;
 
-        case 53:
+        case ACTORDEBRIS_53:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqSquidDebrisDLs[this->work_048]);
             break;
 
-        case 54:
+        case ACTORDEBRIS_54:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqBoulderDebrisDLs[this->work_048]);
             break;
 
-        case 55:
+        case ACTORDEBRIS_55:
             Graphics_SetScaleMtx(this->scale);
             gSPDisplayList(gMasterDisp++, sAqCoralDebrisDLs[this->work_048]);
             break;
 
-        case 56:
+        case ACTORDEBRIS_56:
             Graphics_SetScaleMtx(this->scale);
             RCP_SetupDL(&gMasterDisp, SETUPDL_41);
             Matrix_SetGfxMtx(&gMasterDisp);
@@ -469,23 +470,23 @@ void ActorDebris_Draw(ActorDebris* this) {
             gSPDisplayList(gMasterDisp++, sAqJellyfishDebrisDLs[this->work_048]);
             break;
 
-        case 58:
+        case ACTORDEBRIS_58:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, aAqStoneColumnDebrisDL);
             break;
 
-        case 59:
+        case ACTORDEBRIS_59:
             Graphics_SetScaleMtx(this->scale);
             Matrix_SetGfxMtx(&gMasterDisp);
             gSPDisplayList(gMasterDisp++, sZoObnemaDebrisDLs[this->work_048]);
             break;
 
-        case 70:
+        case ACTORDEBRIS_70:
             gSPDisplayList(gMasterDisp++, aActorSuppliesDL);
             break;
 
-        case 57:
+        case ACTORDEBRIS_57:
             gSPDisplayList(gMasterDisp++, D_VE1_8019A008[this->work_048]);
             break;
 

@@ -438,7 +438,7 @@ void Effect_SmallRock_Draw(EffectSmallRock* this) {
         case LEVEL_METEO:
             Graphics_SetScaleMtx(this->scale2);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 128, 128, 128, 255);
-            gSPDisplayList(gMasterDisp++, D_ME_601FF80);
+            gSPDisplayList(gMasterDisp++, aMeSmallRockDL);
             break;
 
         case LEVEL_AQUAS:
@@ -493,7 +493,7 @@ void Effect_SpyborgOrb_Draw(EffectSpyborgOrb* this) {
 void Effect_MeFireball_Draw(EffectMeFireball* this) {
     Graphics_SetScaleMtx(this->scale2);
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 192);
-    gSPDisplayList(gMasterDisp++, D_ME_6000A80);
+    gSPDisplayList(gMasterDisp++, aMeFireballDL);
 }
 
 void Effect_EffectGrangaPlasmaShot_Draw(EffectGrangaPlasmaShot* this) {
@@ -1564,11 +1564,11 @@ void Effect_Effect386_Spawn1(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f
     }
 }
 
-void Effect_Effect390_Setup(Effect390* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2,
-                            s32 timer50) {
+void Effect_ElectricArc2_Setup(EffectElectricArc2* this, f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel,
+                               f32 scale2, s32 timer50) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_390;
+    this->obj.id = OBJ_EFFECT_ELECTRIC_ARC_2;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -1582,12 +1582,12 @@ void Effect_Effect390_Setup(Effect390* this, f32 xPos, f32 yPos, f32 zPos, f32 x
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect390_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
+void Effect_ElectricArc2_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, f32 zVel, f32 scale2, s32 timer50) {
     s32 i;
 
     for (i = ARRAY_COUNT(gEffects) - 1; i >= 0; i--) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect390_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
+            Effect_ElectricArc2_Setup(&gEffects[i], xPos, yPos, zPos, xVel, yVel, zVel, scale2, timer50);
             break;
         }
     }
@@ -1667,7 +1667,7 @@ void Effect_ElectricArc_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 xVel, f32 yVel, 
     }
 }
 
-void Effect_Effect390_Update(Effect390* this) {
+void Effect_ElectricArc2_Update(EffectElectricArc2* this) {
     f32 randX;
     f32 randY;
     f32 randOther;
@@ -3466,7 +3466,7 @@ s32 func_effect_80081B24(f32 xPos, f32 yPos, f32 zPos, f32 scale2) {
 
     func_effect_800815DC();
 
-    for (i = 0, effect = gEffects; i < ARRAY_COUNT(gEffects); i++, effect++) {
+    for (i = 0, effect = &gEffects[0]; i < ARRAY_COUNT(gEffects); i++, effect++) {
         if (effect->obj.status == OBJ_FREE) {
             Effect_Initialize(effect);
             effect->obj.status = OBJ_ACTIVE;
@@ -3604,10 +3604,10 @@ void Effect_Effect395_Update(Effect395* this) {
             }
 
             if ((gGameFrameCount % 4) == 0) {
-                Effect_Effect390_Spawn((RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.x,
-                                       (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.y,
-                                       (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.z, this->vel.x,
-                                       this->vel.y, this->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
+                Effect_ElectricArc2_Spawn((RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.x,
+                                          (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.y,
+                                          (RAND_FLOAT_CENTERED(this->scale2) * 50.0f) + this->obj.pos.z, this->vel.x,
+                                          this->vel.y, this->vel.z, RAND_FLOAT(0.03f) + 0.05f, 10);
             }
             if (Object_CheckCollision(this->index, &this->obj.pos, &velocity, 1) != 0) {
                 Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);

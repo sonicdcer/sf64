@@ -787,8 +787,8 @@ void Macbeth_8019B580(Actor* this, s32* arg1) {
                                  this->obj.pos.z + RAND_FLOAT(50.0f), 10.0f);
     }
     if ((u16) (gGameFrameCount % 4U) == 0) { // fake?
-        Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
-                               this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
+                                  this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
     }
 }
 
@@ -811,8 +811,8 @@ void Macbeth_8019B8B0(Actor* this) {
                                  RAND_FLOAT(50.0f) + this->obj.pos.z, 20.0f);
     }
     if ((gGameFrameCount % 4U) == 0) {
-        Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
-                               this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 350.0f, this->obj.pos.z,
+                                  this->vel.x, this->vel.y, this->vel.z, 0.2f, 20);
     }
 }
 
@@ -830,8 +830,8 @@ void Macbeth_8019BBEC(Actor* this) {
                                  RAND_FLOAT_CENTERED(100.0f) + (this->obj.pos.y + 100.0f),
                                  RAND_FLOAT(50.0f) + (this->obj.pos.z + 450.0f), 3.0f);
     } else if ((this->timer_0BC % 16U) == 12) {
-        Effect_Effect390_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 100.0f, this->obj.pos.z,
-                               this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+        Effect_ElectricArc2_Spawn(this->obj.pos.x + this->fwork[25], this->obj.pos.y + 100.0f, this->obj.pos.z,
+                                  this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
     }
 }
 
@@ -1305,8 +1305,8 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
 
                 this->dmgType = DMG_NONE;
 
-                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.15f, 20);
 
                 this->iwork[arg3 + 6] = 15;
 
@@ -1346,8 +1346,8 @@ void Macbeth_8019D910(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
                 ((this->obj.id == OBJ_ACTOR_MA_ROBOT) && (arg3 == 2))) {
                 AUDIO_PLAY_SFX(NA_SE_OB_DAMAGE_M, this->sfxSource, 4);
                 this->dmgType = DMG_NONE;
-                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.15f, 20);
                 this->iwork[arg3 + 6] = 20;
                 *arg2 -= this->damage;
                 if ((*arg2 <= 0) ||
@@ -1487,8 +1487,8 @@ void Macbeth_8019E624(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
 
                 this->dmgType = DMG_NONE;
 
-                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
 
                 this->iwork[7] = 15;
 
@@ -1519,8 +1519,8 @@ void Macbeth_8019E624(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
 
                 this->dmgType = DMG_NONE;
 
-                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.2f, 10);
 
                 this->iwork[7] = 15;
 
@@ -1608,8 +1608,8 @@ void Macbeth_8019EBF8(Actor* this, s32* arg1, s32* arg2, s32 arg3, f32 arg4, f32
 
                 this->dmgType = DMG_NONE;
 
-                Effect_Effect390_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + arg4, this->obj.pos.y + 200.0f, this->obj.pos.z + arg5,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
 
                 this->iwork[7] = 15;
 
@@ -1890,8 +1890,8 @@ void Macbeth_8019FC54(Actor* this, s32* arg1, s32* arg2, s32 arg3, s32 arg4, f32
 
                 this->dmgType = DMG_NONE;
 
-                Effect_Effect390_Spawn(this->obj.pos.x + arg5, this->obj.pos.y + 200.0f, this->obj.pos.z + arg6,
-                                       this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + arg5, this->obj.pos.y + 200.0f, this->obj.pos.z + arg6,
+                                          this->vel.x, this->vel.y, this->vel.z, 0.15f, 10);
                 this->iwork[7] = 15;
 
                 *arg2 -= this->damage;
@@ -3708,8 +3708,8 @@ void Macbeth_MaBarrier_Update(MaBarrier* this) {
     switch (this->state) {
         case 0:
             if (this->dmgType != DMG_NONE) {
-                Effect_Effect390_Spawn(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, this->vel.x,
-                                       this->vel.y, this->vel.z, 0.15f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y + 100.0f, this->obj.pos.z, this->vel.x,
+                                          this->vel.y, this->vel.z, 0.15f, 20);
 
                 AUDIO_PLAY_SFX(NA_SE_EN_DAMAGE_S, this->sfxSource, 4);
 
@@ -6256,10 +6256,10 @@ void Macbeth_MaShockBox_Update(MaShockBox* this) {
             }
 
             if ((gGameFrameCount % 16) == 0) {
-                Effect_Effect390_Spawn(this->obj.pos.x - 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, -3.0f, 0.0f,
-                                       0.0f, 0.1f, 20);
-                Effect_Effect390_Spawn(this->obj.pos.x + 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, 3.0f, 0.0f,
-                                       0.0f, 0.1f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x - 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, -3.0f,
+                                          0.0f, 0.0f, 0.1f, 20);
+                Effect_ElectricArc2_Spawn(this->obj.pos.x + 35.0f, this->obj.pos.y + 15.0f, this->obj.pos.z, 3.0f, 0.0f,
+                                          0.0f, 0.1f, 20);
             }
             break;
 
@@ -6702,10 +6702,10 @@ void Macbeth_LevelComplete2(Player* player) {
                 player->zPathVel = -gActors[D_i5_801BE314].vel.z;
                 gCsCamEyeX = D_ctx_80177A48[7] + gCsCamAtX;
                 gCsCamEyeZ = D_ctx_80177A48[8] + gCsCamAtZ;
-                Effect_Effect390_Spawn(gActors[D_i5_801BE314].obj.pos.x + 480.0f,
-                                       gActors[D_i5_801BE314].obj.pos.y + 15.0f,
-                                       gActors[D_i5_801BE314].obj.pos.z - 400.0f, gActors[D_i5_801BE314].vel.x,
-                                       gActors[D_i5_801BE314].vel.y, 0.0f, 0.2f, 10);
+                Effect_ElectricArc2_Spawn(gActors[D_i5_801BE314].obj.pos.x + 480.0f,
+                                          gActors[D_i5_801BE314].obj.pos.y + 15.0f,
+                                          gActors[D_i5_801BE314].obj.pos.z - 400.0f, gActors[D_i5_801BE314].vel.x,
+                                          gActors[D_i5_801BE314].vel.y, 0.0f, 0.2f, 10);
             } else {
                 player->vel.z = 0.0f;
                 if ((gGameFrameCount % 16) == 0) {

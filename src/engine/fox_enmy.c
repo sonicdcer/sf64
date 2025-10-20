@@ -18,6 +18,7 @@
 #include "assets/ast_training.h"
 #include "assets/ast_versus.h"
 #include "assets/ast_zoness.h"
+#include "actordebris.h"
 
 s32 gTeamChaseTimers[4];
 s32 gLastPathChange;
@@ -2091,7 +2092,7 @@ void Actor_SetupDebris70(ActorDebris* this, f32 xPos, f32 yPos, f32 zPos, f32 xR
     Actor_Initialize(this);
     this->obj.status = OBJ_ACTIVE;
     this->obj.id = OBJ_ACTOR_DEBRIS;
-    this->state = 70;
+    this->state = ACTORDEBRIS_70;
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
     this->obj.pos.z = zPos;

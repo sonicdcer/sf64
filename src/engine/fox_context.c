@@ -43,8 +43,8 @@ Vec3f gPlayCamAt;
 bool gExpertMode;
 s32 D_ctx_80177A10[10]; // work buffer
 f32 D_ctx_80177A48[10]; // work buffer
-s32 gCsFrameCount;
-u8 gDrawGround; // some sort of flag. Used in background
+s32 gCsFrameCount;      // Original name: Demo_Time
+u8 gDrawGround;         // some sort of flag. Used in background
 u8 gDrawBackdrop;
 u8 gAqDrawMode;
 s32 gTitleState;
