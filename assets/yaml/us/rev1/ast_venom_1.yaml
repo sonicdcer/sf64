@@ -1,3 +1,4 @@
+# Documented
 :config:
   segments:
     - [0x6, 0xAB4000]
@@ -13,44 +14,47 @@
       - '#include "sf64audio_external.h"'
       - '#include "sf64mesg.h"'
 
-D_VE1_6000000:
-  { type: TEXTURE, format: IA8, width: 96, height: 28, offset: 0x6000000, ctype: u8, symbol: D_VE1_6000000 }
+# Translates to:
+# The Root of Evil ~Planet Venom
+aVe1TitleCardJPTex1:
+  { type: TEXTURE, format: IA8, width: 96, height: 28, offset: 0x6000000, ctype: u8, symbol: aVe1TitleCardJPTex1 }
 
-D_VE1_6000A80:
-  { type: TEXTURE, format: IA8, width: 40, height: 19, offset: 0x6000A80, ctype: u8, symbol: D_VE1_6000A80 }
+# Decisive battle
+aVe1TitleCardJPTex2:
+  { type: TEXTURE, format: IA8, width: 40, height: 19, offset: 0x6000A80, ctype: u8, symbol: aVe1TitleCardJPTex2 }
+
+aVe1StatusScreenTitleCardTex:
+  { type: TEXTURE, format: IA8, width: 128, height: 28, offset: 0x6000D80, ctype: u8, symbol: aVe1StatusScreenTitleCardTex }
 
 aVe1TitleCardTex:
-  { type: TEXTURE, format: IA8, width: 128, height: 28, offset: 0x6000D80, ctype: u8, symbol: aVe1TitleCardTex }
-
-D_VE1_6001B80:
-  { type: TEXTURE, format: IA8, width: 128, height: 19, offset: 0x6001B80, ctype: u8, symbol: D_VE1_6001B80 }
+  { type: TEXTURE, format: IA8, width: 128, height: 19, offset: 0x6001B80, ctype: u8, symbol: aVe1TitleCardTex }
 
 aVe1EnemyGateDL:
   { type: GFX, offset: 0x6002500, symbol: aVe1EnemyGateDL }
 
-D_VE1_60029F8:
-  { type: TEXTURE, format: CI8, width: 8, height: 16, offset: 0x60029F8, tlut: 0x6002A78, ctype: u8, symbol: D_VE1_60029F8 }
+aVe1EnemyGateTex1:
+  { type: TEXTURE, format: CI8, width: 8, height: 16, offset: 0x60029F8, tlut: 0x6002A78, ctype: u8, symbol: aVe1EnemyGateTex1 }
 
-D_VE1_6002A78:
-  { type: TEXTURE, format: TLUT, colors: 24, offset: 0x6002A78, ctype: u16, symbol: D_VE1_6002A78 }
+aVe1EnemyGateTex1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 24, offset: 0x6002A78, ctype: u16, symbol: aVe1EnemyGateTex1TLUT }
 
-D_VE1_6002AA8:
-  { type: TEXTURE, format: CI8, width: 32, height: 32, offset: 0x6002AA8, tlut: 0x6002EA8, ctype: u8, symbol: D_VE1_6002AA8 }
+aVe1GenTex1:
+  { type: TEXTURE, format: CI8, width: 32, height: 32, offset: 0x6002AA8, tlut: 0x6002EA8, ctype: u8, symbol: aVe1GenTex1 }
 
-D_VE1_6002EA8:
-  { type: TEXTURE, format: TLUT, colors: 232, offset: 0x6002EA8, ctype: u16, symbol: D_VE1_6002EA8 }
+aVe1GenTex1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 232, offset: 0x6002EA8, ctype: u16, symbol: aVe1GenTex1TLUT }
 
-D_VE1_6003078:
-  { type: TEXTURE, format: CI8, width: 32, height: 32, offset: 0x6003078, tlut: 0x6003478, ctype: u8, symbol: D_VE1_6003078 }
+aVe1EnemyGateTex2:
+  { type: TEXTURE, format: CI8, width: 32, height: 32, offset: 0x6003078, tlut: 0x6003478, ctype: u8, symbol: aVe1EnemyGateTex2 }
 
-D_VE1_6003478:
-  { type: TEXTURE, format: TLUT, colors: 204, offset: 0x6003478, ctype: u16, symbol: D_VE1_6003478 }
+aVe1EnemyGateTex2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 204, offset: 0x6003478, ctype: u16, symbol: aVe1EnemyGateTex2TLUT }
 
 aVe1WatchPostDL:
   { type: GFX, offset: 0x6003610, symbol: aVe1WatchPostDL }
 
-D_VE1_6003B10:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003B10, ctype: u16, symbol: D_VE1_6003B10 }
+aVe1GenTex2:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x6003B10, ctype: u16, symbol: aVe1GenTex2 }
 
 aVe1EnemyGateDoorLeftDL:
   { type: GFX, offset: 0x6004310, symbol: aVe1EnemyGateDoorLeftDL }
@@ -58,11 +62,11 @@ aVe1EnemyGateDoorLeftDL:
 aVe1EnemyGateDoorRightDL:
   { type: GFX, offset: 0x60043F0, symbol: aVe1EnemyGateDoorRightDL }
 
-D_VE1_60044D0:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x60044D0, tlut: 0x60045D0, ctype: u8, symbol: D_VE1_60044D0 }
+aVe1EnemyGateDoorTex:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x60044D0, tlut: 0x60045D0, ctype: u8, symbol: aVe1EnemyGateDoorTex }
 
-D_VE1_60045D0:
-  { type: TEXTURE, format: TLUT, colors: 144, offset: 0x60045D0, ctype: u16, symbol: D_VE1_60045D0 }
+aVe1EnemyGateDoorTLUT:
+  { type: TEXTURE, format: TLUT, colors: 144, offset: 0x60045D0, ctype: u16, symbol: aVe1EnemyGateDoorTLUT }
 
 aVe1BackdropDL:
   { type: GFX, offset: 0x60046F0, symbol: aVe1BackdropDL }
@@ -73,23 +77,23 @@ aVe1BackdropTex:
 aVe1GeneratorDL:
   { type: GFX, offset: 0x6005780, symbol: aVe1GeneratorDL }
 
-D_VE1_6005E50:
-  { type: TEXTURE, format: TLUT, colors: 160, offset: 0x6005E50, ctype: u16, symbol: D_VE1_6005E50 }
+aVe1GeneratorTex1TLUT:
+  { type: TEXTURE, format: TLUT, colors: 160, offset: 0x6005E50, ctype: u16, symbol: aVe1GeneratorTex1TLUT }
 
-D_VE1_6005D50:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x6005D50, tlut: 0x6005E50, ctype: u8, symbol: D_VE1_6005D50 }
+aVe1GeneratorTex1:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x6005D50, tlut: 0x6005E50, ctype: u8, symbol: aVe1GeneratorTex1 }
 
-D_VE1_6005F90:
-  { type: TEXTURE, format: CI8, width: 32, height: 32, offset: 0x6005F90, tlut: 0x6006390, ctype: u8, symbol: D_VE1_6005F90 }
+aVe1GenTex3:
+  { type: TEXTURE, format: CI8, width: 32, height: 32, offset: 0x6005F90, tlut: 0x6006390, ctype: u8, symbol: aVe1GenTex3 }
 
-D_VE1_6006390:
-  { type: TEXTURE, format: TLUT, colors: 208, offset: 0x6006390, ctype: u16, symbol: D_VE1_6006390 }
+aVe1GenTex3TLUT:
+  { type: TEXTURE, format: TLUT, colors: 208, offset: 0x6006390, ctype: u16, symbol: aVe1GenTex3TLUT }
 
-D_VE1_6006530:
-  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x6006530, ctype: u8, symbol: D_VE1_6006530 }
+aVe1GeneratorTex2:
+  { type: TEXTURE, format: CI8, width: 16, height: 16, offset: 0x6006530, ctype: u8, symbol: aVe1GeneratorTex2 }
 
-D_VE1_6006630:
-  { type: TEXTURE, format: TLUT, colors: 80, offset: 0x6006630, ctype: u16, symbol: D_VE1_6006630 }
+aVe1GeneratorTex2TLUT:
+  { type: TEXTURE, format: TLUT, colors: 80, offset: 0x6006630, ctype: u16, symbol: aVe1GeneratorTex2TLUT }
 
 aVe1GroundDL:
   { type: GFX, offset: 0x60066D0, symbol: aVe1GroundDL }
@@ -103,8 +107,8 @@ aVe1HallwayObstacleDL:
 aVe1SceneryWall3DL:
   { type: GFX, offset: 0x6007410, symbol: aVe1SceneryWall3DL }
 
-D_VE1_60074E8:
-  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60074E8, ctype: u16, symbol: D_VE1_60074E8 }
+aVe1WallTex:
+  { type: TEXTURE, format: RGBA16, width: 32, height: 32, offset: 0x60074E8, ctype: u16, symbol: aVe1WallTex }
 
 aVe1Wall2DL:
   { type: GFX, offset: 0x6007CF0, symbol: aVe1Wall2DL }
@@ -127,11 +131,11 @@ aVe1BetaLevelObjects:
 aVe1Pillar5Hitbox:
   { type: SF64:HITBOX, offset: 0x601B43C, symbol: aVe1Pillar5Hitbox }
 
-D_VE1_601B474:
-  { type: SF64:HITBOX, offset: 0x601B474, symbol: D_VE1_601B474 }
+aVe1PillarHitbox:
+  { type: SF64:HITBOX, offset: 0x601B474, symbol: aVe1PillarHitbox }
 
-D_VE1_601B4C4:
-  { type: SF64:HITBOX, offset: 0x601B4C4, symbol: D_VE1_601B4C4 }
+aVe1BlockerHitbox:
+  { type: SF64:HITBOX, offset: 0x601B4C4, symbol: aVe1BlockerHitbox }
 
 Ve1Wall1Hitbox:
   { type: SF64:HITBOX, offset: 0x601B4E0, symbol: Ve1Wall1Hitbox }

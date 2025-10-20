@@ -992,7 +992,7 @@ EventActorInfo sEventActorInfo[108] = {
     /* EVID_SY_SHIP_MISSILE */ { aSyShipMissileDL, aSyShipMissileHitbox, 3.0f, 100.0f, 3001.0f, 0, 0, EISFX_EN_ENGINE_01, 0, 0.0f, 1 },
     /* EVID_SUPPLY_CRATE */ { NULL, gCubeHitbox150, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 1.0f, 0 },
     /* EVID_ZO_BIRD */ { NULL, aZoBirdHitbox, 1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 1.0f, 1 },
-    /* EVID_VE1_PILLAR */ { NULL, D_VE1_601B474, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
+    /* EVID_VE1_PILLAR */ { NULL, aVe1PillarHitbox, -1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_VE1_BLOCKER */ { NULL, gNoHitbox, -1.0f, 100.0f, 3000.0f, 0, 0, EISFX_NONE, 0, 0.0f, 1 },
     /* EVID_MA_LASER_TURRET */ { NULL, gCubeHitbox100, 2.0f, 100.0f, 3000.0f, 1, 0, EISFX_EN_ENGINE_01, 0, 1.0f, 1 },
     /* EVID_AQ_OYSTER */ { NULL, aAqOysterEvHitbox, 1.0f, 100.0f, 3000.0f, 2, 0, EISFX_NONE, 0, 60.0f, 1 },
@@ -1256,16 +1256,16 @@ void ActorEvent_ProcessScript(ActorEvent* this) {
             break;
 
         case EV_OPC(EVOP_SET_ACTION):
-            if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_OPEN) {
-                this->state = EVSTATE_ME_ROCK_EYE_OPEN;
+            if (actorScript[this->aiIndex + 1] == EVACT_ME_ROCK_GULL_OPEN) {
+                this->state = EVSTATE_ME_ROCK_GULL_OPEN;
                 this->fwork[EVA_Z_ROT_RATE] = 0.0f;
                 this->aiIndex += 2;
                 break;
             }
 
-            if (actorScript[this->aiIndex + 1] == EVACT_ME_AS_CLOSE) {
+            if (actorScript[this->aiIndex + 1] == EVACT_ME_ROCK_GULL_CLOSE) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(gCubeHitbox200);
-                this->state = EVSTATE_ME_ROCK_EYE_CLOSE;
+                this->state = EVSTATE_ME_ROCK_GULL_CLOSE;
                 this->aiIndex += 2;
                 break;
             }
@@ -2997,7 +2997,7 @@ Vec3f D_800D1290 = { 0.0f, 837.00006f, 0.0f }; // could be in-function
 void ActorEvent_Update(ActorEvent* this) {
     s32 spFC;
     f32 var_fv0;
-    s32 var_s0;
+    s32 rockEyeState;
     f32 spF0;
     f32 spEC;
     f32 spE8;
@@ -3280,27 +3280,27 @@ void ActorEvent_Update(ActorEvent* this) {
             }
             break;
 
-        case EVSTATE_ME_ROCK_EYE_OPEN:
-            var_s0 = 0;
+        case EVSTATE_ME_ROCK_GULL_OPEN:
+            rockEyeState = 0;
             if (Math_SmoothStepToAngle(&this->obj.rot.x, 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
-                var_s0++;
+                rockEyeState++;
             }
 
             if (Math_SmoothStepToAngle(&this->obj.rot.y, 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
-                var_s0++;
+                rockEyeState++;
             }
 
             if (Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 40.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
-                var_s0++;
+                rockEyeState++;
             }
 
-            if (var_s0 == 3) {
+            if (rockEyeState == 3) {
                 this->info.hitbox = SEGMENTED_TO_VIRTUAL(aMeRockEyeOpenHitbox);
                 ActorEvent_ProcessScript(this);
             }
             break;
 
-        case EVSTATE_ME_ROCK_EYE_CLOSE:
+        case EVSTATE_ME_ROCK_GULL_CLOSE:
             if (Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 0.0f, 0.3f, 10.0f, 1.0f) == 0.0f) {
                 ActorEvent_ProcessScript(this);
             }
@@ -3687,7 +3687,7 @@ void ActorEvent_Update(ActorEvent* this) {
             Math_SmoothStepToF(&this->fwork[EVA_FWORK_15], 1.0f, 0.1f, 0.1f, 0.001f);
 
             if (this->fwork[EVA_FWORK_15] > 0.5f) {
-                this->info.hitbox = SEGMENTED_TO_VIRTUAL(D_VE1_601B4C4);
+                this->info.hitbox = SEGMENTED_TO_VIRTUAL(aVe1BlockerHitbox);
             }
 
             if (this->work_046 == 0) {

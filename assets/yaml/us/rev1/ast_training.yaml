@@ -1,3 +1,4 @@
+# Documented
 :config:
   segments:
     - [0x6, 0xDDC010]

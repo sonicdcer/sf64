@@ -44,7 +44,7 @@ s32 sShieldUpgradeTimer;
 s32 gMedalStatus;
 s32 gMedalFlashTimer;
 s32 D_801617C0[10];
-s32 D_801617E8[10];
+s32 sLevelClearStatusScreenTimers[10];
 s32 sPauseScreenIwork[10];
 s32 sPauseScreenTimer[10];
 s32 sGoldRingsIwork[20];
@@ -551,22 +551,31 @@ s32 HUD_GetLevelIndex(void) {
 }
 
 LevelTitleCard sLevelTitleCard[] = {
-    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },    { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
-    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },    { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
-    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },    { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
-    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },    { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
-    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },    { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
-    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },    { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
-    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },    { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
-    { aLargeText_7, 16, 15, aVe1TitleCardTex, 128, 28 },   { aLargeText_7, 16, 15, aVe2TitleCardTex, 128, 28 },
-    { aLargeText_7, 16, 15, aAndTitleCardEnTex, 128, 28 }, { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
+    { aLargeText_1, 16, 15, aCoTitleCardTex, 128, 28 },
+    { aLargeText_2, 16, 15, aMeTitleCardTex, 96, 28 },
+    { aLargeText_2, 16, 15, aSyTitleCardTex, 176, 12 },
+    { aLargeText_3, 16, 15, aFoTitleCardTex, 168, 28 },
+    { aLargeText_3, 16, 15, aKaTitleCardTex, 168, 28 },
+    { aLargeText_3, 16, 15, aAqTitleCardTex, 96, 13 },
+    { aLargeText_4, 16, 15, aSxTitleCardTex, 176, 12 },
+    { aLargeText_4, 16, 15, aSoTitleCardTex, 112, 13 },
+    { aLargeText_4, 16, 15, aZoTitleCardTex, 112, 28 },
+    { aLargeText_5, 16, 15, aTiTitleCardTex, 96, 28 },
+    { aLargeText_5, 16, 15, aMaTitleCardTex, 160, 28 },
+    { aLargeText_5, 16, 15, aSzTitleCardTex, 176, 12 },
+    { aLargeText_6, 16, 15, aBoTitleCardTex, 168, 19 },
+    { aLargeText_6, 16, 15, aA6TitleCardTex, 104, 28 },
+    { aLargeText_7, 16, 15, aVe1StatusScreenTitleCardTex, 128, 28 },
+    { aLargeText_7, 16, 15, aVe2StatusTitleCardTex, 128, 28 },
+    { aLargeText_7, 16, 15, aAndTitleCardEnTex, 128, 28 },
+    { aLargeText_0, 16, 15, aTrTitleCardTex, 80, 12 },
 };
 
 void HUD_VenomTitleCard_Draw(void) {
     s32 i = 9;
     s32 j;
 
-    u8* sVenomTitleCardDLs[] = { D_VE1_6001B80, D_VE2_60020D0 };
+    u8* sVenomTitleCardDLs[] = { aVe1TitleCardTex, aVe2TitleCardTex };
     s32 sVenomTitleCardWidths[] = { 128, 104 };
     s32 D_800D1CAC[] = { 19, 19 }; // unused
     f32 sVenomTitleCardHeights[] = { 96.0f, 112.0f };
@@ -1064,7 +1073,8 @@ void HUD_LevelClearStatusScreen_Draw(void) {
         D_801617C0[0] = 0;
     }
 
-    if ((gPlayState != PLAY_PAUSE) && (gShowLevelClearStatusScreen == true) && (D_801617E8[0] == 0)) {
+    if ((gPlayState != PLAY_PAUSE) && (gShowLevelClearStatusScreen == true) &&
+        (sLevelClearStatusScreenTimers[0] == 0)) {
         switch (D_801617C0[0]) {
             case 0:
                 D_801617C0[5] = gHitCount;
@@ -1078,7 +1088,7 @@ void HUD_LevelClearStatusScreen_Draw(void) {
                     gLifeCount[gPlayerNum] = 99;
                 }
 
-                D_801617E8[0] = 10;
+                sLevelClearStatusScreenTimers[0] = 10;
                 D_801617C0[0] = 1;
                 D_801617C0[4] = gHitCount / 2;
                 D_801617C0[6] = 0;
@@ -1098,7 +1108,7 @@ void HUD_LevelClearStatusScreen_Draw(void) {
                 if ((D_801617C0[5] == 0) && (D_801617C0[4] == 0)) {
                     Audio_KillSfxById(NA_SE_TEAM_SHIELD_UP);
                     D_801617C0[0] = 3;
-                    D_801617E8[0] = 30;
+                    sLevelClearStatusScreenTimers[0] = 30;
                     break;
                 }
 
@@ -1157,7 +1167,7 @@ void HUD_LevelClearStatusScreen_Draw(void) {
             case 5:
                 if (D_801617C0[3] >= gLifeCount[gPlayerNum]) {
                     gLifeCount[gPlayerNum] = D_801617C0[3];
-                    D_801617E8[0] = 10;
+                    sLevelClearStatusScreenTimers[0] = 10;
                     D_801617C0[0]++;
                 } else {
                     if ((gGameFrameCount % 2) == 0) {
@@ -1317,8 +1327,8 @@ void HUD_DrawStatusScreens(void) {
     s32 i;
 
     for (i = 0; i < 5; i++) {
-        if (D_801617E8[i] != 0) {
-            D_801617E8[i]--;
+        if (sLevelClearStatusScreenTimers[i] != 0) {
+            sLevelClearStatusScreenTimers[i]--;
         }
     }
     HUD_DrawLevelStartStatusScreen();
@@ -3585,7 +3595,7 @@ void HUD_Draw(void) {
 
     if (gShieldGaugeState == SHIELD_GAUGE_NEUTRAL) {
         for (i = 0; i < 10; i++) {
-            D_801617E8[i] = 0;
+            sLevelClearStatusScreenTimers[i] = 0;
             D_801617C0[i] = 0;
             sPauseScreenTimer[i] = 0;
             sPauseScreenIwork[i] = 0;

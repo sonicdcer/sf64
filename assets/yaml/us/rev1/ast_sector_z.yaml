@@ -1,3 +1,4 @@
+# Documented
 :config:
   segments:
     - [0x06, 0xA4FBB0]
@@ -26,7 +27,6 @@ aSzTitleCardTex:
 aSzBossTitleTex:
   { type: TEXTURE, ctype: u8, format: IA8, width: 104, height: 26, offset: 0x6000840, symbol: aSzBossTitleTex }
 
-# Great Fox icon showed in the Radar
 aSzGreatFoxRadarMark:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 9, offset: 0x60012D0, symbol: aSzGreatFoxRadarMark }
 
@@ -72,7 +72,6 @@ aSzSpaceJunkTex2TLUT:
 aSzBackgroundDL:
   { type: GFX, offset: 0x6002F80, symbol: aSzBackgroundDL }
 
-# Sector Z Background
 aSzBackgroundTex:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 64, height: 32, offset: 0x06003010, symbol: aSzBackgroundTex }
 
