@@ -1,3 +1,4 @@
+# Documented
 :config:
   segments:
     - [0x0D, 0x955270]
@@ -14,8 +15,8 @@ aKattMarkDL:
 ast_allies_seg13_vtx_00000098:
   { type: VTX, count: 3, offset: 0x0D000098, symbol: ast_allies_seg13_vtx_00000098 }
 
-D_D0000C8:
-  { type: BLOB, size: 0x18, offset: 0x0D0000C8, symbol: D_D0000C8 }
+aAlliesUnkBlob:
+  { type: BLOB, size: 0x18, offset: 0x0D0000C8, symbol: aAlliesUnkBlob }
 
 aKattMarkTex:
   { type: TEXTURE, ctype: u8, format: CI4, width: 16, height: 16, offset: 0x0D0000E0, symbol: aKattMarkTex, tlut: 0x0D000160 }
