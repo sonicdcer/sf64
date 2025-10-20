@@ -15,7 +15,7 @@
       - '#include "sf64mesg.h"'
 
 # Translates to:
-# The Root of Evil ~Planet Venom
+# ~Planet Venom, the Root of Evil~
 aVe1TitleCardJPTex1:
   { type: TEXTURE, format: IA8, width: 96, height: 28, offset: 0x6000000, ctype: u8, symbol: aVe1TitleCardJPTex1 }
 

@@ -1608,7 +1608,7 @@ void Scenery360_Draw(Scenery360* this) {
                     Matrix_RotateY(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                     Matrix_Translate(gGfxMatrix, -551.0f, 0.0f, 0.0f, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);
-                    gSPDisplayList(gMasterDisp++, D_VE2_6007650);
+                    gSPDisplayList(gMasterDisp++, aVe2AndrossGateSkelLimb13DL);
                 } else {
                     Matrix_RotateY(gGfxMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                     Matrix_SetGfxMtx(&gMasterDisp);

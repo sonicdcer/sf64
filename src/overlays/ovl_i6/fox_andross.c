@@ -1366,9 +1366,9 @@ void Andross_AndBrain_Draw(AndBrain* this) {
                 Matrix_Translate(gGfxMatrix, 0.0f, -5.0f, 0.0f, MTXF_APPLY);
                 Matrix_SetGfxMtx(&gMasterDisp);
                 if (j == 9) {
-                    gSPDisplayList(gMasterDisp++, D_VE2_600C2D0);
+                    gSPDisplayList(gMasterDisp++, aVe2AndBrainTentacleTipDL);
                 } else {
-                    gSPDisplayList(gMasterDisp++, D_VE2_600C560);
+                    gSPDisplayList(gMasterDisp++, aVe2AndBrainTentacleDL);
                 }
                 Matrix_Pop(&gGfxMatrix);
             }
