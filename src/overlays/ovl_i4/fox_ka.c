@@ -877,8 +877,8 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
     if ((((this->swork[BOSS_HATCH_1_HP] <= 0) && (this->swork[BOSS_HATCH_2_HP] <= 0) &&
           (this->swork[BOSS_HATCH_3_HP] <= 0) && (this->swork[BOSS_HATCH_4_HP] <= 0)) ||
          (this->swork[BOSS_CORE_TIMER] == 1)) &&
-        (this->state < 10)) {
-        this->state = 10;
+        (this->state < SAUCERER_LOWER_CORE)) {
+        this->state = SAUCERER_LOWER_CORE;
         this->timer_050 = 50;
     }
 
@@ -887,11 +887,11 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
     }
 
     switch (this->state) {
-        // Send KaSaucerer whether you killed 10 enemies or after 2 minutes of gameplay
+        // Send KaSaucerer whether 10 enemies are killed or after 2 minutes of gameplay
         case SAUCERER_STAND_BY:
             if ((gHitCount >= 10) || (gAllRangeEventTimer > 3840)) {
                 if ((D_edisplay_801615D0.y < 0.0f)) {
-                    this->state = 1;
+                    this->state = SAUCERER_CS_APPROACH_BASE;
 
                     this->vwork[0].y = 2000.0f;
 
@@ -1096,7 +1096,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             Math_SmoothStepToF(&this->fwork[BOSS_MOVEMENT_SPEED], 30.0f, 0.1f, 0.5f, 0.0f);
 
             if ((enemyCount < 30) || (this->timer_056 == 0)) {
-                this->state = 7;
+                this->state = SAUCERER_SEND_ENEMIES;
                 this->timer_050 = 300;
 
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_HATCH_OPEN, this->sfxSource, 0);
@@ -1127,7 +1127,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             }
 
             if (this->timer_050 == 0) {
-                this->state = 6;
+                this->state = SAUCERER_OPEN_HATCHES;
                 this->fwork[BOSS_HATCH_4_ANGLE_TARGET] = 0.0f;
                 this->fwork[BOSS_HATCH_3_ANGLE_TARGET] = 0.0f;
                 this->fwork[BOSS_HATCH_2_ANGLE_TARGET] = 0.0f;
@@ -1144,7 +1144,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 this->fwork[BOSS_CORE_TARGET_LEVEL] = 200.0f;
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_CORE_OPEN, this->sfxSource, 0);
                 Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_KA_UFO_ENGINE);
-                this->state = 11;
+                this->state = SAUCERER_LASER_CHARGE_START;
                 this->timer_050 = 100;
                 Radio_PlayMessage(gMsg_ID_18050, RCID_BILL);
                 gAllRangeCountdownScale = 1.0f;
@@ -1159,7 +1159,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
         case SAUCERER_LASER_CHARGE_START:
             if (this->timer_050 == 0) {
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_HATCH_STOP, this->sfxSource, 0);
-                this->state = 12;
+                this->state = SAUCERER_CS_LASER_CHARGE_END;
                 this->timer_050 = 1928;
                 Radio_PlayMessage(gMsg_ID_18055, RCID_BILL);
                 AUDIO_PLAY_SFX(NA_SE_KA_UFO_LONG_CHARGE, this->sfxSource, 0);
@@ -1184,7 +1184,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 ((gPlayer[0].state == PLAYERSTATE_ACTIVE) || (gPlayer[0].state == PLAYERSTATE_U_TURN))) {
                 gShowAllRangeCountdown = false;
                 this->timer_050 = 1000;
-                this->state = 15;
+                this->state = SAUCERER_CS_ROTATE;
                 this->obj.rot.y = 0.0f;
 
                 this->obj.pos.y = 3500.0f;
@@ -1252,7 +1252,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
                 gPlayer[0].cam.at.y = this->obj.pos.y - 300.0f;
                 gPlayer[0].cam.at.z = this->obj.pos.z;
 
-                this->state = 16;
+                this->state = SAUCERER_CS_LASER_FIRE_START;
                 this->timer_050 = 130;
                 this->timer_052 = 1000;
 
@@ -1322,7 +1322,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
             }
 
             if (this->timer_052 == 690) {
-                this->state = 17;
+                this->state = SAUCERER_CS_LASER_FIRE_END;
 
                 for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
                     if (gEffects[i].obj.id == OBJ_EFFECT_KA_ENERGY_PARTICLES) {
@@ -1358,7 +1358,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
 
             if (this->timer_050 == 1) {
                 gBosses[KA_BOSS_BASE].state = 1;
-                this->state = 18;
+                this->state = SAUCERER_CS_LASER_HIT;
                 this->timer_050 = 50;
                 AUDIO_PLAY_SFX(NA_SE_EXPLOSION_DEMO3, this->sfxSource, 0);
             }
@@ -1503,7 +1503,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
         gRadarMarks[64].pos.z = this->obj.pos.z;
         gRadarMarks[64].yRot = this->orient.y + 180.0f;
 
-        if (this->state < 6) {
+        if (this->state < SAUCERER_OPEN_HATCHES) {
             Math_SmoothStepToF(&this->obj.pos.x, this->vwork[0].x, 0.01f, this->fwork[BOSS_MOVEMENT_SPEED], 0);
             Math_SmoothStepToF(&this->obj.pos.y, this->vwork[0].y, 0.01f, this->fwork[BOSS_MOVEMENT_SPEED], 0);
             Math_SmoothStepToF(&this->obj.pos.z, this->vwork[0].z, 0.01f, this->fwork[BOSS_MOVEMENT_SPEED], 0);
