@@ -574,6 +574,7 @@ void AudioHeap_UpdateReverbs(void) {
     } else {
         count = 1;
     }
+
     for (reverbIndex = 0; reverbIndex < gNumSynthReverbs; reverbIndex++) {
         for (i = 0; i < count; i++) {
             gSynthReverbs[reverbIndex].decayRatio -= gSynthReverbs[reverbIndex].decayRatio / 3;
@@ -604,6 +605,7 @@ s32 AudioHeap_ResetStep(void) {
     } else {
         numBuffers = 1;
     }
+
     switch (gAudioResetStep) {
         case 5:
             for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
@@ -612,6 +614,7 @@ s32 AudioHeap_ResetStep(void) {
             gResetFadeoutFramesLeft = 4 / numBuffers;
             gAudioResetStep--;
             break;
+
         case 4:
             if (gResetFadeoutFramesLeft != 0) {
                 gResetFadeoutFramesLeft--;
@@ -628,6 +631,7 @@ s32 AudioHeap_ResetStep(void) {
                 gAudioResetStep--;
             }
             break;
+
         case 3:
             if (gResetFadeoutFramesLeft != 0) {
                 gResetFadeoutFramesLeft--;
@@ -643,6 +647,7 @@ s32 AudioHeap_ResetStep(void) {
                 break; // needed to match
             }
             break;
+
         case 2:
             AudioHeap_ClearCurrentAiBuffer();
             if (gResetFadeoutFramesLeft != 0) {
@@ -652,6 +657,7 @@ s32 AudioHeap_ResetStep(void) {
                 AudioHeap_DiscardSampleCaches();
             }
             break;
+
         case 1:
             AudioHeap_Init();
             gAudioResetStep = 0;
@@ -663,6 +669,7 @@ s32 AudioHeap_ResetStep(void) {
             }
             break;
     }
+
     if (gAudioResetStep < 3) {
         return 0;
     }
