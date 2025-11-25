@@ -9,7 +9,7 @@
 
 bool gVsMatchOver;
 s32 gVsMatchState;
-s32 D_versus_80178758;
+s32 sVsMatchTimer;
 s32 sUnlockLandmaster;
 s32 sUnlockOnFoot;
 s32 gVsCountdown[3];
@@ -1794,7 +1794,7 @@ void Versus_StartMatch(void) {
             gGameState = GSTATE_PLAY;
             gNextGameStateTimer = 2;
             gPlayState = PLAY_STANDBY;
-            D_versus_80178758 = 0;
+            sVsMatchTimer = 0;
             break;
     }
     gGameFrameCount++;
@@ -1937,13 +1937,12 @@ void func_versus_800C26C8(void) {
     Actor* actor;
 
     if ((gVsMatchType == VS_MATCH_TIME) && gVsMatchStart) {
-
-        if (D_versus_80178758 != 0) {
-            D_versus_80178758--;
+        if (sVsMatchTimer != 0) {
+            sVsMatchTimer--;
         }
 
-        if (D_versus_80178758 == 0) {
-            D_versus_80178758 = 2;
+        if (sVsMatchTimer == 0) {
+            sVsMatchTimer = 2;
 
             src.x = 0.0f;
             src.y = 500.0f;
@@ -1953,7 +1952,7 @@ void func_versus_800C26C8(void) {
                 if (actor->obj.status == OBJ_FREE) {
                     Actor_Initialize(actor);
                     actor->obj.status = OBJ_ACTIVE;
-                    actor->obj.id = 197;
+                    actor->obj.id = OBJ_ACTOR_ALLRANGE;
                     Matrix_RotateY(gCalcMatrix, M_DTOR * RAND_FLOAT(360.0f), MTXF_NEW);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
                     actor->obj.pos.x = dest.x;
