@@ -3482,7 +3482,7 @@ void Map_801A4A38(f32 arg0) {
     sMapCamAtY = sPathFollowCamAtY;
 }
 
-// Player selecting the next destination after Mission Accomplised
+// Player selecting the next destination after Mission Accomplished
 void Map_PathChange_Update(void) {
     s32 var_a0;
     s32 i;
