@@ -2580,7 +2580,7 @@ void Effect_SetupById(Effect* this, ObjectId objId, f32 xPos, f32 yPos, f32 zPos
 
     this->scale2 = scale2;
 
-    if (this->obj.id != OBJ_EFFECT_380) {
+    if (this->obj.id != OBJ_EFFECT_MECHBETH_BEAM) {
         AUDIO_PLAY_SFX(NA_SE_EN_SHOT_0, this->sfxSource, 4);
     }
     Object_SetInfo(&this->info, this->obj.id);

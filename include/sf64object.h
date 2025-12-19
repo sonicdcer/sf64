@@ -704,7 +704,7 @@ typedef enum ObjectId {
     /* 377 */ OBJ_EFFECT_SPYBORG_ORB, // Spyborg blue shot
     /* 378 */ OBJ_EFFECT_378, // Ball projectiles shot by train car turret in Macbeth
     /* 379 */ OBJ_EFFECT_379, // small orbs in Ma boss wing projectile charge
-    /* 380 */ OBJ_EFFECT_380, // Some kind of shot (Macbeth boss), probably wing projectile
+    /* 380 */ OBJ_EFFECT_MECHBETH_BEAM, // Mechbeth (boss) wing gathered energy beam attack
     /* 381 */ OBJ_EFFECT_381, // small splash
     /* 382 */ OBJ_EFFECT_382, // larger splash?
     /* 383 */ OBJ_EFFECT_BOSS_EXPLOSION, // Big spherical boss explosion

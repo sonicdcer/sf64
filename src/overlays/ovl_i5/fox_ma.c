@@ -4954,7 +4954,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
                     sp330.y = this->vwork[3].y;
                     sp330.z = this->vwork[3].z;
 
-                    Effect_SpawnById1(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 5.0f);
+                    Effect_SpawnById1(OBJ_EFFECT_MECHBETH_BEAM, &sp348, &sp33C, &sp330, &D_i5_801BA750, 5.0f);
 
                     sp348.x = this->vwork[7].x - this->vwork[4].x;
                     sp348.y = this->vwork[7].y - this->vwork[4].y + 25.0f;
@@ -4989,7 +4989,7 @@ void Macbeth_MaMechbeth_Update(MaMechbeth* this) {
                     sp330.x = this->vwork[5].x;
                     sp330.y = this->vwork[5].y;
                     sp330.z = this->vwork[5].z;
-                    Effect_SpawnById1(OBJ_EFFECT_380, &sp348, &sp33C, &sp330, &D_i5_801BA750, 10.0f);
+                    Effect_SpawnById1(OBJ_EFFECT_MECHBETH_BEAM, &sp348, &sp33C, &sp330, &D_i5_801BA750, 10.0f);
                 }
             }
 
