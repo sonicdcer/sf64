@@ -3593,7 +3593,7 @@ void Macbeth_Effect378_Draw(Effect378* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Macbeth_Effect380_Update(Effect380* this) {
+void Macbeth_EffectMechbethBeam_Update(EffectMechbethBeam* this) {
     if ((gPlayer[0].trueZpos - this->obj.pos.z) < -2000.0f) {
         Object_Kill(&this->obj, this->sfxSource);
     }
@@ -3630,12 +3630,12 @@ void Macbeth_Effect380_Update(Effect380* this) {
     }
 }
 
-void Macbeth_Effect380_Draw(Effect380* this) {
+void Macbeth_EffectMechbethBeam_Draw(EffectMechbethBeam* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
     gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 112, 255, 243, this->alpha);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->alpha);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_MA_6012A60);
+    gSPDisplayList(gMasterDisp++, aMechbethBeamDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 

@@ -1364,7 +1364,7 @@ typedef Effect EffectGrangaPlasmaShot;
 typedef Effect EffectSpyborgOrb;
 typedef Effect Effect378;
 typedef Effect Effect379;
-typedef Effect Effect380;
+typedef Effect EffectMechbethBeam;
 typedef Effect Effect381;
 typedef Effect Effect382;
 typedef Effect EffectBossExplosion;

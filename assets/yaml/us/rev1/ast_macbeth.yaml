@@ -349,8 +349,8 @@ D_MA_6010C20:
 D_MA_6011B40:
   { type: TEXTURE, format: RGBA16, ctype: u16, width: 44, height: 44, offset: 0x6011B40, symbol: D_MA_6011B40}
 
-D_MA_6012A60:
-  {type: GFX, offset: 0x6012A60, symbol: D_MA_6012A60}
+aMechbethBeamDL:
+  {type: GFX, offset: 0x6012A60, symbol: aMechbethBeamDL}
 
 D_MA_6012BC0:
   { type: TEXTURE, format: IA8, ctype: u8, width: 8, height: 8, offset: 0x6012BC0, symbol: D_MA_6012BC0}

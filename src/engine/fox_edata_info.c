@@ -496,7 +496,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_EFFECT_SPYBORG_ORB  */  {(void*) Effect_SpyborgOrb_Draw, 1, (ObjectFunc) Effect_SpyborgOrb_Update,             NULL,   100.0f,  1, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_378  */  {(void*) Macbeth_Effect378_Draw, 1, (ObjectFunc) Macbeth_Effect378_Update,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_379  */  {(void*) Macbeth_Effect379_Draw, 1, (ObjectFunc) Macbeth_Effect379_Update,             NULL,   100.0f,  1, 1,  0, 0,   0.0f,  0 },
-  /* OBJ_EFFECT_380  */  {(void*) Macbeth_Effect380_Draw, 1, (ObjectFunc) Macbeth_Effect380_Update,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
+  /* OBJ_EFFECT_380  */  {(void*) Macbeth_EffectMechbethBeam_Draw, 1, (ObjectFunc) Macbeth_EffectMechbethBeam_Update,             NULL,   100.0f,  0, 0, 20, 0,   0.0f,  0 },
   /* OBJ_EFFECT_381  */  {(void*) Effect_Effect382_Draw, 1, (ObjectFunc) Effect_Effect381_Update,             NULL,   500.0f,  0, 0,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_382  */  {(void*)          NULL, 1, (ObjectFunc) Effect_Effect382_Update,             NULL,   200.0f,  0, 1,  0, 0,   0.0f,  0 },
   /* OBJ_EFFECT_BOSS_EXPLOSION  */  {(void*) Effect_BossExplosion_Draw, 1, (ObjectFunc) Effect_BossExplosion_Update,             NULL, 10000.0f,  0, 1,  0, 0,   0.0f,  0 },
