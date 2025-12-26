@@ -1986,7 +1986,7 @@ void Display_Update(void) {
         Save_Write();
     }
 
-    if (sCutsceneStarted && recordCount < 512 / sizeof(Record)) {
+    if (sCutsceneStarted && (recordCount < 512 / sizeof(Record))) {
         static u8 prevVis = 0;
 
         if (prevVis != validVis) {

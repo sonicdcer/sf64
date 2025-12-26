@@ -3884,6 +3884,8 @@ f32 sAndAmbientR;
 f32 sAndAmbientG;
 f32 sAndAmbientB;
 
+extern int sCutsceneStarted;
+
 void Andross_LevelComplete(Player* player) {
     s32 i;
     s32 sp90;
@@ -3903,6 +3905,7 @@ void Andross_LevelComplete(Player* player) {
     switch (player->csState) {
         case 0: // Andross Robot kill cutscene setup
             gCsFrameCount = 0;
+            // sCutsceneStarted = 1;
             player->arwing.drawFace = true;
             D_ctx_80177A48[0] = 0.0f;
             if (player->aerobaticPitch > 180.0f) {
