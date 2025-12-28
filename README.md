@@ -39,7 +39,7 @@ It currently builds the following ROM:
 
 For Windows 10, install WSL and a distribution by following this
 [Windows Subsystem for Linux Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
-We recommend using Debian or Ubuntu 22.04 Linux distributions.
+We recommend using Debian or Ubuntu 24.04 Linux distributions.
 
 ### Linux (Native or under WSL / VM)
 
