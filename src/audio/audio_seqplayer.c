@@ -1,9 +1,6 @@
 #include "sys.h"
 #include "sf64audio.h"
 
-#define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
-#define PORTAMENTO_MODE(x) ((x).mode & ~0x80)
-
 static const char devstr00[] = "Audio:Track:Warning: No Free Notetrack\n";
 static const char devstr01[] = "SUBTRACK DIM\n";
 static const char devstr02[] = "Audio:Track: Warning :SUBTRACK had been stolen by other Group.\n";
@@ -35,10 +32,6 @@ static const char devstr27[] = "Macro Level Over Error!\n";
 static const char devstr28[] = "Macro Level Over Error!\n";
 static const char devstr29[] = "Group:Undefine upper C0h command (%x)\n";
 static const char devstr30[] = "Group:Undefined Command\n";
-
-void AudioSeq_AudioListPushBack(AudioListItem* list, AudioListItem* item);
-void* AudioSeq_AudioListPopBack(AudioListItem* list);
-u8 AudioSeq_GetInstrument(SequenceChannel* channel, u8 instId, Instrument** instrumentOut, AdsrSettings* adsrSettings);
 
 // Original name: Nas_InitSubTrack
 void AudioSeq_InitSequenceChannel(SequenceChannel* channel) {

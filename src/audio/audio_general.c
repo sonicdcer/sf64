@@ -4,16 +4,6 @@
 #include "audiothread_cmd.h"
 #include "audioseq_cmd.h"
 
-void Audio_SetModulationAndPlaySfx(f32* sfxSource, u32 sfxId, f32 freqMod);
-s32 Audio_GetCurrentVoice(void);
-void Audio_PlaySequence(u8, u16, u8, u8);
-void Audio_PlayFanfare(u16, u8, u8, u8);
-void Audio_PlaySequenceDistorted(u8, u16, u16, u8, u8);
-
-void Audio_RestartSeqPlayers(void);
-void Audio_PlayMapMenuSfx(u8);
-void Audio_StartReset(u8);
-
 static const char devstr1[] = "preload start (%d): ";
 static const char devstr2[] = "%d ";
 static const char devstr3[] = "\n";

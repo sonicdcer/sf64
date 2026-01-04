@@ -2,10 +2,6 @@
 #include "sf64audio.h"
 #include "audiothread_cmd.h"
 
-void AudioThread_ProcessCmds(u32 msg);
-void AudioThread_SetFadeOutTimer(s32 seqPlayId, s32 fadeTime);
-void AudioThread_SetFadeInTimer(s32 seqPlayId, s32 fadeTime);
-
 OSMesgQueue sAudioTaskStartQueue;
 OSMesgQueue sThreadCmdProcQueue;
 OSMesgQueue sAudioSpecQueue;

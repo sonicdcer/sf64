@@ -33,12 +33,6 @@ static const char devstr25[] = "Intterupt UseStop %d (Kill %d)\n";
 static const char devstr26[] = "Intterupt RelWait %d (Kill %d)\n";
 static const char devstr27[] = "Drop Voice (Prio %x)\n";
 
-void Audio_NoteSetResamplingRate(Note* note, f32);
-void Audio_SeqLayerNoteRelease(SequenceLayer* layer);
-void Audio_AudioListPushFront(AudioListItem* list, AudioListItem* item);
-void Audio_AudioListRemove(Note* note);
-void Audio_NoteInitForLayer(Note* note, SequenceLayer* layer);
-
 // Original name: Nas_smzSetParam
 void Audio_InitNoteSub(Note* note, NoteAttributes* noteAttr) {
     NoteSubEu* noteSub;

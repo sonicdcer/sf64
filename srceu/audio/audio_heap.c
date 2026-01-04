@@ -13,7 +13,7 @@ void func_80011F2C(Note* note);
 void func_80012C20(Note* note);
 void func_8001459C(AudioListItem* list, AudioListItem* item);
 void func_800144C4(SequencePlayer* seqPlayer);
-void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
+void* AudioHeap_SearchRegularCaches(AudioTableType tableType, s32 cache, s32 id);
 void AudioHeap_DiscardSampleCaches(void);
 void AudioHeap_Init(void);
 SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(size_t size);
@@ -173,7 +173,7 @@ void AudioHeap_InitTemporaryPoolsAndCaches(AudioCommonPoolSplit* split) {
     AudioHeap_InitTemporaryCache(&gSampleBankCache.temporary);
 }
 
-void* AudioHeap_AllocCached(s32 tableType, size_t size, s32 cache, s32 id) {
+void* AudioHeap_AllocCached(AudioTableType tableType, size_t size, s32 cache, s32 id) {
     AudioCache* loadedCache;
     AudioTemporaryCache* temporaryCache;
     AudioAllocPool* temporaryPool;
@@ -397,7 +397,7 @@ void* AudioHeap_AllocCached(s32 tableType, size_t size, s32 cache, s32 id) {
     return loadedCache->persistent.entries[loadedCache->persistent.numEntries++].ramAddr;
 }
 
-void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
+void* AudioHeap_SearchCaches(AudioTableType tableType, s32 cache, s32 id) {
     void* ramAddr;
 
     // Always search the permanent cache in addition to the regular ones.
@@ -411,7 +411,7 @@ void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
     return AudioHeap_SearchRegularCaches(tableType, cache, id);
 }
 
-void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
+void* AudioHeap_SearchRegularCaches(AudioTableType tableType, s32 cache, s32 id) {
     u32 i;
     AudioCache* loadedCache;
     AudioTemporaryCache* temporary;
@@ -705,7 +705,7 @@ void AudioHeap_Init(void) {
     osWritebackDCacheAll();
 }
 
-void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
+void* AudioHeap_SearchPermanentCache(AudioTableType tableType, s32 id) {
     s32 i;
 
     for (i = 0; i < gPermanentPool.pool.numEntries; i++) {
@@ -716,7 +716,7 @@ void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
     return NULL;
 }
 
-u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, size_t size) {
+u8* AudioHeap_AllocPermanent(AudioTableType tableType, s32 id, size_t size) {
     void* ramAddr;
     s32 index = gPermanentPool.pool.numEntries;
 

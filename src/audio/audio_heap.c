@@ -1,16 +1,6 @@
 #include "sys.h"
 #include "sf64audio.h"
 
-void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry);
-void AudioHeap_Init(void);
-void AudioHeap_DiscardSampleCaches(void);
-void AudioHeap_InitSampleCaches(size_t, size_t);
-void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, Sample* sample);
-SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(size_t);
-void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
-void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
-SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(size_t);
-
 static const char devstr00[] = "Warning:Kill Note  %x \n";
 static const char devstr01[] = "Kill Voice %d (ID %d) %d\n";
 static const char devstr02[] = "Warning: Running Sequence's data disappear!\n";
@@ -240,7 +230,7 @@ void AudioHeap_InitTemporaryPoolsAndCaches(AudioCommonPoolSplit* split) {
 }
 
 // Original name: Nas_SzHeapAlloc
-void* AudioHeap_AllocCached(s32 tableType, size_t size, s32 cache, s32 id) {
+void* AudioHeap_AllocCached(AudioTableType tableType, size_t size, s32 cache, s32 id) {
     AudioCache* loadedCache;
     AudioTemporaryCache* temporaryCache;
     AudioAllocPool* temporaryPool;
@@ -482,7 +472,7 @@ void* AudioHeap_AllocCached(s32 tableType, size_t size, s32 cache, s32 id) {
 }
 
 // Original name: Nas_SzCacheCheck
-void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
+void* AudioHeap_SearchCaches(AudioTableType tableType, s32 cache, s32 id) {
     void* ramAddr;
 
     // Always search the permanent cache in addition to the regular ones.
@@ -497,7 +487,7 @@ void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id) {
 }
 
 // Original name: __Nas_SzCacheCheck_Inner
-void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id) {
+void* AudioHeap_SearchRegularCaches(AudioTableType tableType, s32 cache, s32 id) {
     u32 i;
     AudioCache* loadedCache;
     AudioTemporaryCache* temporary;
@@ -831,7 +821,7 @@ void AudioHeap_Init(void) {
 }
 
 // Original name: EmemOnCheck
-void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
+void* AudioHeap_SearchPermanentCache(AudioTableType tableType, s32 id) {
     s32 i;
 
     for (i = 0; i < gPermanentPool.pool.numEntries; i++) {
@@ -843,7 +833,7 @@ void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
 }
 
 // Original name: EmemAlloc
-u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, size_t size) {
+u8* AudioHeap_AllocPermanent(AudioTableType tableType, s32 id, size_t size) {
     void* ramAddr;
     s32 index = gPermanentPool.pool.numEntries;
 
@@ -1100,18 +1090,21 @@ void AudioHeap_DiscardSampleCaches(void) {
     Instrument* instrument;
     SampleCacheEntry* entry;
 
-#ifdef AVOID_UB
-    entry = gPersistentSampleCache.entries;
-#endif
-
     for (fontId = 0; fontId < numFonts; fontId++) {
         sampleBankId1 = gSoundFontList[fontId].sampleBankId1;
         sampleBankId2 = gSoundFontList[fontId].sampleBankId2;
+
+#ifdef AVOID_UB
+        // F-Zero X newer version of this audio driver has this fix:
+        if ((sampleBankId1 != SAMPLES_NONE_U) || (sampleBankId2 != SAMPLES_NONE)) {
+#else
+        //! @bug: entry is uninitialized, reading from garbage memory.
         if (((sampleBankId1 != SAMPLES_NONE_U) && (entry->sampleBankId == sampleBankId1)) ||
             ((sampleBankId2 != SAMPLES_NONE) && (entry->sampleBankId == sampleBankId2)) ||
             (entry->sampleBankId == SAMPLES_SFX)) {
+#endif
             if ((AudioHeap_SearchCaches(FONT_TABLE, CACHE_PERMANENT, fontId) != NULL) &&
-                ((gFontLoadStatus[fontId] > 1) != 0)) {
+                ((gFontLoadStatus[fontId] > LOAD_STATUS_IN_PROGRESS) != 0)) {
                 for (i = 0; i < gPersistentSampleCache.numEntries; i++) {
                     entry = &gPersistentSampleCache.entries[i];
                     for (instId = 0; instId < gSoundFontList[fontId].numInstruments; instId++) {

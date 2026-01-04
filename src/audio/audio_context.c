@@ -66,7 +66,7 @@ OSIoMesg gSyncDmaIoMsg;
 SampleDma gSampleDmas[0x100];
 u32 gSampleDmaCount;
 u32 gSampleDmaListSize1;
-s32 D_80155A50;
+s32 D_80155A50; // Set to 0, never used
 // 0x4
 u8 gSampleDmaReuseQueue1[0x100];
 u8 gSampleDmaReuseQueue2[0x100];
@@ -237,6 +237,6 @@ s16 gSeqTicksPerBeat = 0x30;
 s32 gAudioHeapSize = 0xAFE00;
 s32 gInitPoolSize = 0x26000;
 u32 gPermanentPoolSize = 0x21000;
-u16 gSequenceMedium = 0;
-u16 gSoundFontMedium = 0;
-u16 gSampleBankMedium = 0;
+u16 gSequenceMedium = MEDIUM_RAM;
+u16 gSoundFontMedium = MEDIUM_RAM;
+u16 gSampleBankMedium = MEDIUM_RAM;

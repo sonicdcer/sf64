@@ -44,23 +44,6 @@ static const char devstr7[] = "S->W\n";
 static const char devstr8[] = "W->S\n";
 static const char devstr9[] = "S-Resample Pitch %x (old %d -> delay %d)\n";
 
-void AudioSynth_DisableSampleStates(s32 updateIndex, s32 noteIndex);
-void AudioSynth_SyncSampleStates(s32 updateIndex);
-Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf,
-                             s32 aiBufLen, Acmd* aList, s32 updateIndex);
-Acmd* AudioSynth_DoOneAudioUpdate(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
-Acmd* AudioSynth_LoadReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
-Acmd* AudioSynth_SaveReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
-Acmd* AudioSynth_LoadReverbSamples(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
-Acmd* AudioSynth_SaveReverbSamples(Acmd* aList, s16 reverbIndex, s16 updateIndex);
-Acmd* AudioSynth_LoadWaveSamples(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad);
-Acmd* AudioSynth_FinalResample(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 pitch, u16 inpDmem,
-                               u32 resampleFlags);
-Acmd* AudioSynth_ProcessEnvelope(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen,
-                                 u16 dmemSrc, s32 delaySide, s32 flags);
-Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags,
-                                 s32 delaySide);
-
 void AudioSynth_InitNextReverbRingBuf(s32 sampleCount, s32 itemIndex, s32 reverbIndex) {
     ReverbRingBufferItem* ringItem;
     SynthesisReverb* reverb = &gSynthReverbs[reverbIndex];
