@@ -1104,9 +1104,15 @@ void AudioHeap_DiscardSampleCaches(void) {
             (entry->sampleBankId == SAMPLES_SFX)) {
 #endif
             if ((AudioHeap_SearchCaches(FONT_TABLE, CACHE_PERMANENT, fontId) != NULL) &&
-                ((gFontLoadStatus[fontId] > LOAD_STATUS_IN_PROGRESS) != 0)) {
+                ((gFontLoadStatus[fontId] >= LOAD_STATUS_COMPLETE) != 0)) {
                 for (i = 0; i < gPersistentSampleCache.numEntries; i++) {
                     entry = &gPersistentSampleCache.entries[i];
+#ifdef AVOID_UB
+                    if ((sampleBankId1 != entry->sampleBankId) && (sampleBankId2 != entry->sampleBankId) &&
+                        (entry->sampleBankId != SAMPLES_SFX)) {
+                        break;
+                    }
+#endif
                     for (instId = 0; instId < gSoundFontList[fontId].numInstruments; instId++) {
                         instrument = Audio_GetInstrument(fontId, instId);
                         if (instrument != NULL) {
@@ -1119,6 +1125,7 @@ void AudioHeap_DiscardSampleCaches(void) {
                             AudioHeap_UnapplySampleCache(entry, instrument->normalPitchTunedSample.sample);
                         }
                     }
+
                     for (drumId = 0; drumId < gSoundFontList[fontId].numDrums; drumId++) {
                         drum = Audio_GetDrum(fontId, drumId);
                         if (drum != NULL) {
