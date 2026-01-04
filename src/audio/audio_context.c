@@ -4,6 +4,7 @@
 u64 gAudioContextStart[2];
 SynthesisReverb gSynthReverbs[4];
 u8 sAudioContextPad10[0x10]; // 0x10
+// set to spec->unk_14, never used
 u16 D_8014C1B0;
 s8 D_8014C1B2;
 s8 gNumSynthReverbs;

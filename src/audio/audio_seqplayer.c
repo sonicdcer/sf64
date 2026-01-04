@@ -248,12 +248,12 @@ void AudioSeq_SequencePlayerDisable(SequencePlayer* seqPlayer) {
     seqPlayer->enabled = false;
 
     if ((gSeqLoadStatus[seqPlayer->seqId] >= LOAD_STATUS_COMPLETE) &&
-        (gSeqLoadStatus[seqPlayer->seqId] != LOAD_STATUS_PERMANENTLY_LOADED)) {
+        (gSeqLoadStatus[seqPlayer->seqId] != LOAD_STATUS_PERMANENT)) {
         gSeqLoadStatus[seqPlayer->seqId] = LOAD_STATUS_DISCARDABLE;
     }
 
     if ((gFontLoadStatus[seqPlayer->defaultFont] >= LOAD_STATUS_COMPLETE) &&
-        (gFontLoadStatus[seqPlayer->defaultFont] != LOAD_STATUS_PERMANENTLY_LOADED)) {
+        (gFontLoadStatus[seqPlayer->defaultFont] != LOAD_STATUS_PERMANENT)) {
         gFontLoadStatus[seqPlayer->defaultFont] = LOAD_STATUS_MAYBE_DISCARDABLE;
     }
 
@@ -1273,11 +1273,11 @@ void AudioSeq_SequencePlayerProcessSequence(SequencePlayer* seqPlayer) {
         return;
     }
 
-    if (gSeqLoadStatus[seqPlayer->seqId] != LOAD_STATUS_PERMANENTLY_LOADED) {
+    if (gSeqLoadStatus[seqPlayer->seqId] != LOAD_STATUS_PERMANENT) {
         gSeqLoadStatus[seqPlayer->seqId] = LOAD_STATUS_COMPLETE;
     }
 
-    if (gFontLoadStatus[seqPlayer->defaultFont] != LOAD_STATUS_PERMANENTLY_LOADED) {
+    if (gFontLoadStatus[seqPlayer->defaultFont] != LOAD_STATUS_PERMANENT) {
         gFontLoadStatus[seqPlayer->defaultFont] = LOAD_STATUS_COMPLETE;
     }
 

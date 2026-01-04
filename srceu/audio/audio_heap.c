@@ -6,7 +6,7 @@
 extern u16 D_8014E320;
 extern s16 D_8014E324;
 
-void AudioHeap_InitSampleCaches(u32 persistentSampleCacheSize, u32 temporarySampleCacheSize);
+void AudioHeap_InitSampleCaches(size_t persistentSampleCacheSize, size_t temporarySampleCacheSize);
 void func_800132C8(void);
 void func_80012894(void);
 void func_80011F2C(Note* note);
@@ -16,8 +16,8 @@ void func_800144C4(SequencePlayer* seqPlayer);
 void* AudioHeap_SearchRegularCaches(s32 tableType, s32 cache, s32 id);
 void AudioHeap_DiscardSampleCaches(void);
 void AudioHeap_Init(void);
-SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size);
-SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32 size);
+SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(size_t size);
+SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(size_t size);
 void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry);
 void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, Sample* sample);
 
@@ -70,7 +70,7 @@ void AudioHeap_DiscardSequence(s32 seqId) {
 }
 
 // Original name: Nas_HeapAlloc_CL
-void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
+void* AudioHeap_AllocZeroed(AudioAllocPool* pool, size_t size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;
     u8* ptr;
@@ -88,7 +88,7 @@ void* AudioHeap_AllocZeroed(AudioAllocPool* pool, u32 size) {
 }
 
 // Original name: Nas_HeapAlloc
-void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
+void* AudioHeap_Alloc(AudioAllocPool* pool, size_t size) {
     u32 aligned = ALIGN16(size);
     u8* ramAddr = pool->curRamAddr;
 
@@ -101,7 +101,7 @@ void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size) {
     return ramAddr;
 }
 
-void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, u32 size) {
+void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, size_t size) {
     pool->curRamAddr = pool->startRamAddr = (u8*) ALIGN16((u32) ramAddr);
     pool->size = size - ((u32) ramAddr & 0xF);
     pool->numEntries = 0;
@@ -128,7 +128,7 @@ void AudioHeap_ResetPool(AudioAllocPool* pool) {
     pool->curRamAddr = pool->startRamAddr;
 }
 
-void AudioHeap_InitMainPools(s32 initPoolSize) {
+void AudioHeap_InitMainPools(size_t initPoolSize) {
     AudioHeap_InitPool(&gInitPool, gAudioHeap, initPoolSize);
     AudioHeap_InitPool(&gSessionPool, gAudioHeap + initPoolSize, gAudioHeapSize - initPoolSize);
 }
@@ -173,7 +173,7 @@ void AudioHeap_InitTemporaryPoolsAndCaches(AudioCommonPoolSplit* split) {
     AudioHeap_InitTemporaryCache(&gSampleBankCache.temporary);
 }
 
-void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id) {
+void* AudioHeap_AllocCached(s32 tableType, size_t size, s32 cache, s32 id) {
     AudioCache* loadedCache;
     AudioTemporaryCache* temporaryCache;
     AudioAllocPool* temporaryPool;
@@ -716,8 +716,8 @@ void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id) {
     return NULL;
 }
 
-u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size) {
-    u8* ramAddr;
+u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, size_t size) {
+    void* ramAddr;
     s32 index = gPermanentPool.pool.numEntries;
 
     ramAddr = AudioHeap_Alloc(&gPermanentPool.pool, size);
@@ -736,7 +736,7 @@ u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size) {
 #endif
 }
 
-void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+void* AudioHeap_AllocTemporarySampleCache(size_t size, s32 fontId, s32 sampleAddr, s8 medium) {
     SampleCacheEntry* entry = AudioHeap_AllocTemporarySampleCacheEntry(size);
 
     if (entry != NULL) {
@@ -749,7 +749,7 @@ void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, 
     }
 }
 
-void* AudioHeap_AllocPersistentSampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+void* AudioHeap_AllocPersistentSampleCache(size_t size, s32 fontId, s32 sampleAddr, s8 medium) {
     SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
 
     if (entry != NULL) {
@@ -762,7 +762,7 @@ void* AudioHeap_AllocPersistentSampleCache(s32 size, s32 fontId, s32 sampleAddr,
     }
 }
 
-void* AudioHeap_AllocPersistentSampleCache_2(u32 size, s32 fontId, s32 sampleAddr, s8 medium) {
+void* AudioHeap_AllocPersistentSampleCache_2(size_t size, s32 fontId, s32 sampleAddr, s8 medium) {
     SampleCacheEntry* entry = AudioHeap_AllocPersistentSampleCacheEntry(size);
 
     if (entry != NULL) {
@@ -775,7 +775,7 @@ void* AudioHeap_AllocPersistentSampleCache_2(u32 size, s32 fontId, s32 sampleAdd
     }
 }
 
-void AudioHeap_InitSampleCaches(u32 persistentSampleCacheSize, u32 temporarySampleCacheSize) {
+void AudioHeap_InitSampleCaches(size_t persistentSampleCacheSize, size_t temporarySampleCacheSize) {
     void* ramAddr;
 
     ramAddr = AudioHeap_Alloc(&gPersistentCommonPool, persistentSampleCacheSize);
@@ -794,7 +794,7 @@ void AudioHeap_InitSampleCaches(u32 persistentSampleCacheSize, u32 temporarySamp
     gTemporarySampleCache.numEntries = 0;
 }
 
-SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(s32 size) {
+SampleCacheEntry* AudioHeap_AllocTemporarySampleCacheEntry(size_t size) {
     u8* endRamAddr;
     u8* old;
     u8* ramAddr;
@@ -912,7 +912,7 @@ void AudioHeap_UnapplySampleCache(SampleCacheEntry* entry, Sample* sample) {
     }
 }
 
-SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(u32 size) {
+SampleCacheEntry* AudioHeap_AllocPersistentSampleCacheEntry(size_t size) {
     AudioSampleCache* cache = &gPersistentSampleCache;
     SampleCacheEntry* entry;
     u8* ramAddr;

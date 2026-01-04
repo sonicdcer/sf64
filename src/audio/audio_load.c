@@ -70,7 +70,7 @@ void AudioLoad_DecreaseSampleDmaTtls(void) {
 static const char devstr00[] = "CAUTION:WAVE CACHE FULL %d";
 
 // Original name: Nas_WaveDmaCallBack
-void* AudioLoad_DmaSampleData(u32 devAddr, u32 size, u32 arg2, u8* dmaIndexRef, s32 medium) {
+void* AudioLoad_DmaSampleData(u32 devAddr, size_t size, u32 arg2, u8* dmaIndexRef, s32 medium) {
     u32 i;
     SampleDma* dma;
     bool hasDma = false;
@@ -839,7 +839,7 @@ void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, 
                 if (ramAddr == NULL) {
                     return ramAddr;
                 }
-                loadStatus = LOAD_STATUS_PERMANENTLY_LOADED;
+                loadStatus = LOAD_STATUS_PERMANENT;
                 break;
 
             case CACHEPOLICY_1:
@@ -871,19 +871,19 @@ void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, 
 
     switch (tableType) {
         case SEQUENCE_TABLE:
-            if (gSeqLoadStatus[id] != LOAD_STATUS_PERMANENTLY_LOADED) {
+            if (gSeqLoadStatus[id] != LOAD_STATUS_PERMANENT) {
                 gSeqLoadStatus[id] = loadStatus;
             }
             break;
 
         case FONT_TABLE:
-            if (gFontLoadStatus[id] != LOAD_STATUS_PERMANENTLY_LOADED) {
+            if (gFontLoadStatus[id] != LOAD_STATUS_PERMANENT) {
                 gFontLoadStatus[id] = loadStatus;
             }
             break;
 
         case SAMPLE_TABLE:
-            if (gSampleFontLoadStatus[id] != LOAD_STATUS_PERMANENTLY_LOADED) {
+            if (gSampleFontLoadStatus[id] != LOAD_STATUS_PERMANENT) {
                 gSampleFontLoadStatus[id] = loadStatus;
             }
             break;
@@ -1067,6 +1067,7 @@ s32 AudioLoad_SlowLoadSample(s32 fontId, u8 instId, s8* status) {
     slowLoad->medium = sample->medium;
     slowLoad->seqOrFontId = fontId;
     slowLoad->instId = instId;
+
     gSlowLoads.unk_00 ^= 1;
 
     return 0;

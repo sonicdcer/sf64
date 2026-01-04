@@ -161,7 +161,7 @@ typedef enum {
     /* 3 */ LOAD_STATUS_DISCARDABLE, // the entry data is loaded, and can be discarded
     /* 4 */ LOAD_STATUS_MAYBE_DISCARDABLE, // only for font table entries, like COMPLETE but prefer discarding it over a
                                            // COMPLETE entry
-    /* 5 */ LOAD_STATUS_PERMANENTLY_LOADED // the entry data is loaded in the permanent pool, it won't be discarded
+    /* 5 */ LOAD_STATUS_PERMANENT // the entry data is loaded in the permanent pool, it won't be discarded
 } AudioLoadStatus;
 
 typedef enum SlowLoadState {
@@ -1052,22 +1052,22 @@ f32 AudioEffects_UpdateAdsr(AdsrState* adsr);
 
 // audio_heap
 void AudioHeap_DiscardFont(s32 fontId);
-void* AudioHeap_Alloc(AudioAllocPool* pool, u32 size);
-void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, u32 size);
-void AudioHeap_InitMainPools(s32 initPoolSize);
-void* AudioHeap_AllocCached(s32 tableType, s32 size, s32 cache, s32 id);
+void* AudioHeap_Alloc(AudioAllocPool* pool, size_t size);
+void AudioHeap_InitPool(AudioAllocPool* pool, void* ramAddr, size_t size);
+void AudioHeap_InitMainPools(size_t initPoolSize);
+void* AudioHeap_AllocCached(s32 tableType, size_t size, s32 cache, s32 id);
 void* AudioHeap_SearchCaches(s32 tableType, s32 cache, s32 id);
 s32 AudioHeap_ResetStep(void);
 void* AudioHeap_SearchPermanentCache(s32 tableType, s32 id);
-u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, u32 size);
-void* AudioHeap_AllocTemporarySampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium);
-void* AudioHeap_AllocPersistentSampleCache(s32 size, s32 fontId, s32 sampleAddr, s8 medium);
+u8* AudioHeap_AllocPermanent(s32 tableType, s32 id, size_t size);
+void* AudioHeap_AllocTemporarySampleCache(size_t size, s32 fontId, s32 sampleAddr, s8 medium);
+void* AudioHeap_AllocPersistentSampleCache(size_t size, s32 fontId, s32 sampleAddr, s8 medium);
 
 // audio_load
 void AudioLoad_DecreaseSampleDmaTtls(void);
 void AudioLoad_ProcessLoads(s32 resetStatus);
 void AudioLoad_SyncInitSeqPlayer(s32 playerIdx, s32 seqId, s32 arg2);
-void* AudioLoad_DmaSampleData(u32 devAddr, u32 size, u32 arg2, u8* dmaIndexRef, s32 medium);
+void* AudioLoad_DmaSampleData(u32 devAddr, size_t size, u32 arg2, u8* dmaIndexRef, s32 medium);
 void AudioLoad_InitSampleDmaBuffers(s32 numNotes);
 void AudioLoad_SyncLoadSeqParts(s32 seqId, s32 flags);
 s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId);

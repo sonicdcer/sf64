@@ -77,7 +77,7 @@ void AudioLoad_DecreaseSampleDmaTtls(void) {
 #ifndef IMPORT_RODATA
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_load/AudioLoad_DmaSampleData.s")
 #else
-void* AudioLoad_DmaSampleData(u32 devAddr, u32 size, u32 arg2, u8* dmaIndexRef, s32 medium) {
+void* AudioLoad_DmaSampleData(u32 devAddr, size_t size, u32 arg2, u8* dmaIndexRef, s32 medium) {
     u32 i;
     SampleDma* dma;
     bool hasDma = false;
@@ -794,7 +794,7 @@ void* AudioLoad_AsyncLoadInner(s32 tableType, s32 id, s32 nChunks, s32 retData, 
                 if (ramAddr == NULL) {
                     return ramAddr;
                 }
-                loadStatus = LOAD_STATUS_PERMANENTLY_LOADED;
+                loadStatus = LOAD_STATUS_PERMANENT;
                 break;
 
             case CACHEPOLICY_1:
