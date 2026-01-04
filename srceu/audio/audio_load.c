@@ -1,6 +1,6 @@
 #include "sys.h"
 #include "sf64dma.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 extern AudioSlowLoadBuffer gSlowLoads;
 extern s32 D_80148EF0;

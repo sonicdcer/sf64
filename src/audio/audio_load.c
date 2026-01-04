@@ -1,7 +1,7 @@
 // Original filename: system.c
 #include "sys.h"
 #include "sf64dma.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 s32 D_80146D80;
 s32 PAD_80146D88[2];

@@ -1,5 +1,5 @@
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 // AudioTable gSampleBankTableInit = {
 AudioTable D_800C0760 = {

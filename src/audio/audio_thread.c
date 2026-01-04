@@ -1,5 +1,5 @@
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 #include "audiothread_cmd.h"
 
 void AudioThread_ProcessCmds(u32 msg);

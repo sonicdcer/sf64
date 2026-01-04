@@ -1,5 +1,5 @@
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 #include "context.h"
 #include "audiothread_cmd.h"
 #include "audioseq_cmd.h"

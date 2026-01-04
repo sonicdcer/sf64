@@ -1044,11 +1044,11 @@ void AudioSynth_HartleyTransform(f32*, s32, f32*);
 Acmd* AudioSynth_Update(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
 
 // audio_effects
-void Audio_SequencePlayerProcessSound(SequencePlayer* seqplayer);
-void Audio_NoteVibratoUpdate(Note* note);
-void Audio_NoteVibratoInit(Note* note);
-void Audio_AdsrInit(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2);
-f32 Audio_AdsrUpdate(AdsrState* adsr);
+void AudioScript_SequencePlayerProcessSound(SequencePlayer* seqplayer);
+void AudioEffects_UpdatePortamentoAndVibrato(Note* note);
+void AudioEffects_InitVibrato(Note* note);
+void AudioEffects_InitAdsr(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2);
+f32 AudioEffects_UpdateAdsr(AdsrState* adsr);
 
 // audio_heap
 void AudioHeap_DiscardFont(s32 fontId);

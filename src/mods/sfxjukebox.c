@@ -1,7 +1,7 @@
 #include "global.h"
 #include "fox_map.h"
 #include "fox_option.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 extern s32 sSpectrumAnalyzerMode;
 extern bool sMusicPlaying;

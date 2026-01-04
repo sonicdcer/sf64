@@ -1,5 +1,5 @@
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 #define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
 #define PORTAMENTO_MODE(x) ((x).mode & ~0x80)
@@ -733,7 +733,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
             layer->note = Audio_AllocNote(layer);
         }
         if ((layer->note != NULL) && (layer == layer->note->playbackState.parentLayer)) {
-            Audio_NoteVibratoInit(layer->note);
+            AudioEffects_InitVibrato(layer->note);
         }
     }
     if (!channel) {}
@@ -1547,7 +1547,7 @@ void AudioSeq_ProcessSequences(s32 arg0) {
     for (i = 0; i < ARRAY_COUNT(gSeqPlayers); i++) {
         if (gSeqPlayers[i].enabled == true) {
             AudioSeq_SequencePlayerProcessSequence(&gSeqPlayers[i]);
-            Audio_SequencePlayerProcessSound(&gSeqPlayers[i]);
+            AudioScript_SequencePlayerProcessSound(&gSeqPlayers[i]);
         }
     }
     Audio_ProcessNotes();

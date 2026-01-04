@@ -361,15 +361,15 @@ Audio_AllocNoteFromDecaying = 0x80012ED4;
 Audio_AllocNoteFromActive = 0x80012F24;
 Audio_AllocNote = 0x8001301C;
 Audio_NoteInitAll = 0x800132E8;
-Audio_SequenceChannelProcessSound = 0x80013400;
-Audio_SequencePlayerProcessSound = 0x800135A8;
-Audio_GetPortamentoFreqScale = 0x80013708;
-Audio_GetVibratoPitchChange = 0x800137DC;
-Audio_GetVibratoFreqScale = 0x80013820;
-Audio_NoteVibratoUpdate = 0x80013A18;
-Audio_NoteVibratoInit = 0x80013A84;
-Audio_AdsrInit = 0x80013B6C;
-Audio_AdsrUpdate = 0x80013B90;
+AudioScript_SequenceChannelProcessSound = 0x80013400;
+AudioScript_SequencePlayerProcessSound = 0x800135A8;
+AudioEffects_UpdatePortamento = 0x80013708;
+AudioEffects_GetVibratoPitchChange = 0x800137DC;
+AudioEffects_UpdateVibrato = 0x80013820;
+AudioEffects_UpdatePortamentoAndVibrato = 0x80013A18;
+AudioEffects_InitVibrato = 0x80013A84;
+AudioEffects_InitAdsr = 0x80013B6C;
+AudioEffects_UpdateAdsr = 0x80013B90;
 
 
 

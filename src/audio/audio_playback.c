@@ -1,5 +1,5 @@
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 static const char devstr00[] = "Audio: setvol: volume minus %f\n";
 static const char devstr01[] = "Audio: setvol: volume overflow %f\n";
@@ -224,11 +224,11 @@ Drum* Audio_GetDrum(s32 fontId, s32 drumId) {
 // Original name: Nas_StartVoice
 void Audio_NoteInit(Note* note) {
     if (note->playbackState.parentLayer->adsr.decayIndex == 0) {
-        Audio_AdsrInit(&note->playbackState.adsr, note->playbackState.parentLayer->channel->adsr.envelope,
-                       &note->playbackState.adsrVolModUnused);
+        AudioEffects_InitAdsr(&note->playbackState.adsr, note->playbackState.parentLayer->channel->adsr.envelope,
+                              &note->playbackState.adsrVolModUnused);
     } else {
-        Audio_AdsrInit(&note->playbackState.adsr, note->playbackState.parentLayer->adsr.envelope,
-                       &note->playbackState.adsrVolModUnused);
+        AudioEffects_InitAdsr(&note->playbackState.adsr, note->playbackState.parentLayer->adsr.envelope,
+                              &note->playbackState.adsrVolModUnused);
     }
     note->playbackState.adsr.state = ADSR_STATE_INITIAL;
     note->noteSubEu = gDefaultNoteSub;
@@ -311,7 +311,7 @@ void Audio_ProcessNotes(void) {
                         Audio_NoteDisable(note);
                         if (playbackState->wantedParentLayer->channel != NULL) {
                             Audio_NoteInitForLayer(note, playbackState->wantedParentLayer);
-                            Audio_NoteVibratoInit(note);
+                            AudioEffects_InitVibrato(note);
                             Audio_AudioListRemove(note);
                             AudioSeq_AudioListPushBack(&note->listItem.pool->active, &note->listItem);
                             playbackState->wantedParentLayer = NO_LAYER;
@@ -336,8 +336,8 @@ void Audio_ProcessNotes(void) {
                 goto next;
             }
 
-            scale = Audio_AdsrUpdate(&playbackState->adsr);
-            Audio_NoteVibratoUpdate(note);
+            scale = AudioEffects_UpdateAdsr(&playbackState->adsr);
+            AudioEffects_UpdatePortamentoAndVibrato(note);
 
             attr = &playbackState->attributes;
             if ((playbackState->unk_04 == 1) || (playbackState->unk_04 == 2)) {

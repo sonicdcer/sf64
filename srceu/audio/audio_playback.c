@@ -1,7 +1,7 @@
 // No version differences found here.
 
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 extern u32 D_80157EF8;
 extern u8 sSamplesPerWavePeriod[4];

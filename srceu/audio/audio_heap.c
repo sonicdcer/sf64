@@ -1,7 +1,7 @@
 // Version differences: AudioHeap_Init
 
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 extern u16 D_8014E320;
 extern s16 D_8014E324;

@@ -1,6 +1,6 @@
 // No regional differences in this file.
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 extern s8 D_8014E322;
 extern f32 D_80147EB8[256];

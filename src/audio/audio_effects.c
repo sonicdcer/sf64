@@ -1,11 +1,23 @@
 // Original filename: effect.c
+
+/**
+ * @file audio_effects.c
+ *
+ * The first half of this file processes sound on the seqPlayer, channel, and layer level
+ * once the .seq file is finished for this update.
+ *
+ * The second half of this file implements three types of audio effects over long periods of times:
+ * - Vibrato: regular, pulsating change of pitch
+ * - Portamento: pitch sliding from one note to another
+ * - Multi-Point ADSR Envelope: volume changing over time through Attack, Decay, Sustain, Release
+ */
 #include "sys.h"
-#include "sf64audio_provisional.h"
+#include "sf64audio.h"
 
 static const char devstr[] = "Audio:Envp: overflow  %f\n";
 
 // Original name: __Nas_CallWaveProcess_Sub
-void Audio_SequenceChannelProcessSound(SequenceChannel* channel, s32 updateVolume) {
+void AudioScript_SequenceChannelProcessSound(SequenceChannel* channel, s32 updateVolume) {
     s32 i;
 
     if (channel->changes.flags.volume || updateVolume) {
@@ -48,68 +60,78 @@ void Audio_SequenceChannelProcessSound(SequenceChannel* channel, s32 updateVolum
 }
 
 // Original name: Nas_MainCtrl
-void Audio_SequencePlayerProcessSound(SequencePlayer* seqplayer) {
+void AudioScript_SequencePlayerProcessSound(SequencePlayer* seqplayer) {
     s32 i;
 
     if (seqplayer->fadeTimer != 0) {
         seqplayer->fadeVolume += seqplayer->fadeVelocity;
         seqplayer->recalculateVolume = true;
+
         if (seqplayer->fadeVolume > 1.0f) {
             seqplayer->fadeVolume = 1.0f;
         }
         if (seqplayer->fadeVolume < 0.0f) {
             seqplayer->fadeVolume = 0.0f;
         }
+
         seqplayer->fadeTimer--;
         if ((seqplayer->fadeTimer == 0) && (seqplayer->state == 2)) {
             AudioSeq_SequencePlayerDisable(seqplayer);
             return;
         }
     }
+
     if (seqplayer->recalculateVolume) {
         seqplayer->appliedFadeVolume = seqplayer->fadeVolume * seqplayer->fadeVolumeMod;
     }
+
     for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
         if ((IS_SEQUENCE_CHANNEL_VALID(seqplayer->channels[i]) == 1) && (seqplayer->channels[i]->enabled == 1)) {
-            Audio_SequenceChannelProcessSound(seqplayer->channels[i], seqplayer->recalculateVolume);
+            AudioScript_SequenceChannelProcessSound(seqplayer->channels[i], seqplayer->recalculateVolume);
         }
     }
     seqplayer->recalculateVolume = false;
 }
 
 // Original name: Nas_SweepCalculator
-f32 Audio_GetPortamentoFreqScale(Portamento* portamento) {
-    u32 temp;
-    f32 temp2;
+f32 AudioEffects_UpdatePortamento(Portamento* portamento) {
+    u32 bendIndex;
+    f32 portamentoFreq;
 
     portamento->cur += portamento->speed;
-    temp = portamento->cur;
-    if (temp > 127) {
-        temp = 127;
+    bendIndex = portamento->cur;
+
+    if (bendIndex > 127) {
+        bendIndex = 127;
     }
-    temp2 = 1.0f + ((gBendPitchOneOctaveFrequencies[0x80 + temp] - 1.0f) * portamento->extent);
-    return temp2;
+
+    portamentoFreq = 1.0f + ((gBendPitchOneOctaveFrequencies[bendIndex + 128] - 1.0f) * portamento->extent);
+
+    return portamentoFreq;
 }
 
 // Original name: Nas_ModTableRead
-s16 Audio_GetVibratoPitchChange(VibratoState* vibrato) {
+s16 AudioEffects_GetVibratoPitchChange(VibratoState* vibrato) {
     s32 index;
 
     vibrato->time += (s32) vibrato->rate;
-    index = (vibrato->time >> 10) & 0x3F;
+    // 0x400 is 1 unit of time, 0x10000 is 1 period
+    index = (vibrato->time / 0x400) % WAVE_SAMPLE_COUNT;
+
     return vibrato->curve[index] >> 8;
 }
 
 // Original name: Nas_Modulator
-f32 Audio_GetVibratoFreqScale(VibratoState* vibrato) {
-    s32 ret;
-    f32 temp;
-    f32 temp2;
+f32 AudioEffects_UpdateVibrato(VibratoState* vibrato) {
+    s32 pitchChange;
+    f32 scaledDepth;
+    f32 result;
 
     if (vibrato->delay != 0) {
         vibrato->delay--;
         return 1.0f;
     }
+
     if (vibrato->depthChangeTimer) {
         if (vibrato->depthChangeTimer == 1) {
             vibrato->depth = (s32) vibrato->channel->vibratoDepthTarget;
@@ -123,6 +145,7 @@ f32 Audio_GetVibratoFreqScale(VibratoState* vibrato) {
             vibrato->depth = (s32) vibrato->channel->vibratoDepthTarget;
         }
     }
+
     if (vibrato->rateChangeTimer) {
         if (vibrato->rateChangeTimer == 1) {
             vibrato->rate = (s32) vibrato->channel->vibratoRateTarget;
@@ -136,27 +159,33 @@ f32 Audio_GetVibratoFreqScale(VibratoState* vibrato) {
             vibrato->rate = (s32) vibrato->channel->vibratoRateTarget;
         }
     }
+
     if (vibrato->depth == 0.0f) {
         return 1.0f;
     }
-    ret = Audio_GetVibratoPitchChange(vibrato);
-    temp = vibrato->depth / 4096.0f;
-    temp2 = 1.0f + temp * (gBendPitchOneOctaveFrequencies[0x80 + ret] - 1.0f);
-    return temp2;
+
+    pitchChange = AudioEffects_GetVibratoPitchChange(vibrato);
+    scaledDepth = vibrato->depth / 4096.0f;
+
+    result = 1.0f + scaledDepth * (gBendPitchOneOctaveFrequencies[0x80 + pitchChange] - 1.0f);
+
+    return result;
 }
 
 // Original name: Nas_ChannelModulation
-void Audio_NoteVibratoUpdate(Note* note) {
+void AudioEffects_UpdatePortamentoAndVibrato(Note* note) {
+    // Update Portamento
     if (note->playbackState.portamento.mode != PORTAMENTO_MODE_OFF) {
-        note->playbackState.portamentoFreqMod = Audio_GetPortamentoFreqScale(&note->playbackState.portamento);
+        note->playbackState.portamentoFreqMod = AudioEffects_UpdatePortamento(&note->playbackState.portamento);
     }
+    // Update Vibrato
     if ((note->playbackState.vibratoState.active != 0) && (note->playbackState.parentLayer != NO_LAYER)) {
-        note->playbackState.vibratoFreqMod = Audio_GetVibratoFreqScale(&note->playbackState.vibratoState);
+        note->playbackState.vibratoFreqMod = AudioEffects_UpdateVibrato(&note->playbackState.vibratoState);
     }
 }
 
 // Original name: Nas_ChannelModInit
-void Audio_NoteVibratoInit(Note* note) {
+void AudioEffects_InitVibrato(Note* note) {
     NotePlaybackState* noteState = &note->playbackState;
     VibratoState* vibrato = &noteState->vibratoState;
 
@@ -165,7 +194,7 @@ void Audio_NoteVibratoInit(Note* note) {
     noteState->vibratoFreqMod = 1.0f;
     noteState->portamentoFreqMod = 1.0f;
 
-    vibrato->curve = gWaveSamples[2];
+    vibrato->curve = gWaveSamples[2]; // gSineWaveSample
 
     vibrato->channel = noteState->parentLayer->channel;
 
@@ -186,48 +215,57 @@ void Audio_NoteVibratoInit(Note* note) {
 }
 
 // Original name: Nas_EnvInit
-void Audio_AdsrInit(AdsrState* adsr, EnvelopePoint* envelope, s16* arg2) {
+void AudioEffects_InitAdsr(AdsrState* adsr, EnvelopePoint* envelope, s16* volOut) {
     adsr->action.asByte = 0;
     adsr->state = 0;
     adsr->delay = 0;
     adsr->envelope = envelope;
     adsr->sustain = 0.0f;
     adsr->current = 0.0f;
+    // (An older versions of the audio engine used in Super Mario 64 did
+    // adsr->volOut = volOut. That line and associated struct member were
+    // removed, but the function parameter was forgotten and remains.)
 }
 
 // Original name: Nas_EnvProcess
-f32 Audio_AdsrUpdate(AdsrState* adsr) {
+f32 AudioEffects_UpdateAdsr(AdsrState* adsr) {
     u8 action = adsr->action.asByte;
     u8 state = adsr->state;
 
     switch (state) {
         case ADSR_STATE_DISABLED:
             return 0.0f;
+
         case ADSR_STATE_INITIAL:
             if (action & ADSR_HANG_FLAG) {
                 adsr->state = ADSR_STATE_HANG;
                 break;
             }
+            // Fallthrough
         case ADSR_STATE_START_LOOP:
             adsr->envIndex = 0;
             adsr->state = ADSR_STATE_LOOP;
-
         retry:
+            // Fallthrough
         case ADSR_STATE_LOOP:
             adsr->delay = adsr->envelope[adsr->envIndex].delay;
             switch (adsr->delay) {
                 case ADSR_DISABLE:
                     adsr->state = ADSR_STATE_DISABLED;
                     break;
+
                 case ADSR_HANG:
                     adsr->state = ADSR_STATE_HANG;
                     break;
+
                 case ADSR_GOTO:
                     adsr->envIndex = adsr->envelope[adsr->envIndex].value;
                     goto retry;
+
                 case ADSR_RESTART:
                     adsr->state = ADSR_STATE_INITIAL;
                     break;
+
                 default:
                     if (adsr->delay >= 4) {
                         adsr->delay =
