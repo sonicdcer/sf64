@@ -806,7 +806,7 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     Matrix_SetGfxMtx(&gMasterDisp);
     gSPDisplayList(gMasterDisp++, aEndAndrossFaceDL);
 }
-
+extern Record sNewRecord[256];
 void Ending_80191234(u32 arg0, AssetInfo* asset) {
     gLastGameState = GSTATE_ENDING;
     gGameState = GSTATE_MENU;
@@ -816,6 +816,8 @@ void Ending_80191234(u32 arg0, AssetInfo* asset) {
     gBgColor = 0;
     gStarCount = 0;
     gControllerLock = 10;
+    gSaveFile = *((SaveFile*) &sNewRecord);
+        Save_Write();
 }
 
 void Ending_80191294(u32 arg0, AssetInfo* asset) {
@@ -1067,7 +1069,7 @@ void Ending_801924EC(u32 arg0) {
 }
 
 void Ending_801926D4(void) {
-    gControllerLock = 10000;
+   //  gControllerLock = 10000;
 
     Matrix_Push(&gGfxMatrix);
 

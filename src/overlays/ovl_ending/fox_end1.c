@@ -1032,7 +1032,10 @@ void Ending_8018A8FC(void) {
     }
     gFillScreenAlphaStep = 16;
 }
-
+extern int sCutsceneStarted;
+extern Record sNewRecord[256];
+extern int validVis;
+extern u32 recordCount;
 void Ending_Main(void) {
     gCsFrameCount++;
     gGameFrameCount++;
@@ -1046,6 +1049,7 @@ void Ending_Main(void) {
             gCsCamAtX = gCsCamAtY = 0.0f;
             gCsCamAtZ = -100.0f;
             D_ending_80196D00 = 1;
+            sCutsceneStarted = 1;
             break;
 
         case 1:
@@ -1055,6 +1059,7 @@ void Ending_Main(void) {
         case 2:
             D_ending_80196D00 = 3;
             gCsFrameCount = 0;
+            
 
         case 3:
             if (Ending_8018BCB0() == 0) {
@@ -1108,6 +1113,28 @@ void Ending_Draw(void) {
     D_ending_80196D04++;
     Radio_Draw();
     Matrix_Pop(&gGfxMatrix);
+
+#if 1
+    if (gControllerPress[0].button & L_TRIG) {
+        gSaveFile = *((SaveFile*) &sNewRecord);
+        Save_Write();
+    }
+
+    if (sCutsceneStarted && (recordCount < 512 / sizeof(Record))) {
+        static u8 prevVis = 0;
+
+        if (prevVis != validVis) {
+            sNewRecord[recordCount].vis = validVis;
+            sNewRecord[recordCount].frame = (u16) gGameFrameCount;
+            recordCount++;
+            prevVis = validVis;
+        }
+
+        RCP_SetupDL(&gMasterDisp, SETUPDL_83);
+        gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
+        Graphics_DisplaySmallText(210, 190, 1.0f, 1.0f, "RECORDING");
+    }
+#endif
 }
 
 void Ending_8018ABE8(void) {

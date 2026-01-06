@@ -23,6 +23,11 @@ typedef enum OverlayCalls {
     /* 110 */ OVLCALL_UNKMAP_DRAW,
 } OverlayCalls;
 
+typedef struct Record {
+    u8 vis;
+    u16 frame;
+} Record;
+
 #include "sf64audio_external.h"
 #include "functions.h"
 #include "variables.h"

@@ -1681,10 +1681,7 @@ void* my_memcpy(void* dest, const void* src, size_t n);
 extern u8 Recording[512];
 extern int sCutsceneStarted;
 
-typedef struct Record {
-    u8 vis;
-    u16 frame;
-} Record;
+
 
 Record sNewRecord[256] = { 0 };
 u32 recordCount = 0;
