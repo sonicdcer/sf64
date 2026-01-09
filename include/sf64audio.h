@@ -1313,7 +1313,7 @@ extern u16 gHaasEffectDelaySizes[64];
 extern EnvelopePoint gDefaultEnvelope[];
 extern NoteSubEu gZeroNoteSub;
 extern NoteSubEu gDefaultNoteSub;
-extern s16 gD_800DD200[];
+extern s16 gInvalidAdpcmCodeBook[];
 extern f32 gHeadsetPanVolume[128];
 extern f32 gStereoPanVolume[128];
 extern f32 gDefaultPanVolume[128];

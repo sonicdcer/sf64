@@ -869,6 +869,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
     note = &gNotes[noteIndex];
     flags = A_CONTINUE;
 
+    // Initialize the synthesis state
     if (noteSub->bitField0.needsInit == 1) {
         flags = A_INIT;
         synthState->restart = 0;
@@ -881,7 +882,11 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
     }
 
     resampleRateFixedPoint = noteSub->resampleRate;
+
+    // Process the sample in either one or two parts
     numParts = noteSub->bitField1.hasTwoParts + 1;
+
+    // Determine number of samples to load based on numSamplesPerUpdate and relative frequency
     sampleslenFixedPoint = ((resampleRateFixedPoint * aiBufLen) * 2) + synthState->samplePosFrac;
     numSamplesToLoad = sampleslenFixedPoint >> 16;
     synthState->samplePosFrac = sampleslenFixedPoint & 0xFFFF;
@@ -910,26 +915,32 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
         sampleAddr = bookSample->sampleAddr;
         resampledTempLen = 0;
 
+        // If the frequency requested is more than double that of the raw sample,
+        // then the sample processing is split into two parts.
         for (curPart = 0; curPart < numParts; curPart++) {
             numSamplesProcessed = 0;
             dmemUncompressedAddrOffset1 = 0;
 
+            // Adjust the number of samples to load only if there are two parts and an odd number of samples
             if (numParts == 1) {
                 numSamplesToLoadAdj = numSamplesToLoad;
             } else if (numSamplesToLoad & 1) {
+                // round down for the first part
+                // round up for the second part
                 numSamplesToLoadAdj = (numSamplesToLoad & ~1) + (curPart * 2);
             } else {
                 numSamplesToLoadAdj = numSamplesToLoad;
             }
 
+            // Load the ADPCM codeBook
             if ((bookSample->codec == CODEC_ADPCM) && (currentBook != bookSample->book->book)) {
                 switch (noteSub->bitField1.bookOffset) {
                     case 1:
-                        currentBook = &gD_800DD200[1];
+                        currentBook = &gInvalidAdpcmCodeBook[1];
                         break;
 
                     case 2:
-                        currentBook = &gD_800DD200[2];
+                        currentBook = &gInvalidAdpcmCodeBook[2];
                         break;
 
                     default:
@@ -942,27 +953,32 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                 aLoadADPCM(aList++, nEntries, OS_K0_TO_PHYSICAL(currentBook));
             }
 
+            // Continue processing samples until the number of samples needed to load is reached
             while (numSamplesProcessed != numSamplesToLoadAdj) {
                 sampleFinished = false;
                 loopToPoint = false;
 
                 samplesRemaining = endPos - synthState->samplePosInt;
+
+                // Calculate number of samples to process this loop
                 nSamplesToProcess = numSamplesToLoadAdj - numSamplesProcessed;
 
                 nFirstFrameSamplesToIgnore = synthState->samplePosInt & 0xF;
-
                 if ((nFirstFrameSamplesToIgnore == 0) && (!synthState->restart)) {
                     nFirstFrameSamplesToIgnore = SAMPLES_PER_FRAME;
                 }
 
                 numSamplesInFirstFrame = SAMPLES_PER_FRAME - nFirstFrameSamplesToIgnore;
 
+                // Determine the number of samples to decode based on whether the end will be reached or not.
                 if (nSamplesToProcess < samplesRemaining) {
+                    // The end will not be reached.
                     nFramesToDecode =
                         ((nSamplesToProcess - numSamplesInFirstFrame) + SAMPLES_PER_FRAME - 1) / SAMPLES_PER_FRAME;
                     numSamplesToDecode = nFramesToDecode * SAMPLES_PER_FRAME;
                     numTrailingSamplesToIgnore = (numSamplesInFirstFrame + numSamplesToDecode) - nSamplesToProcess;
                 } else {
+                    // The end will be reached.
                     numSamplesToDecode = samplesRemaining - numSamplesInFirstFrame;
                     numTrailingSamplesToIgnore = 0;
 
@@ -980,14 +996,17 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                     }
                 }
 
+                // Set parameters based on compression type
                 switch (bookSample->codec) {
                     case CODEC_ADPCM:
+                        // 16 2-byte samples (32 bytes) compressed into 4-bit samples (8 bytes) + 1 header byte
                         frameSize = 9;
                         skipInitialSamples = SAMPLES_PER_FRAME;
                         sampleDmaStart = 0;
                         break;
 
                     case CODEC_S8:
+                        // 16 2-byte samples (32 bytes) compressed into 8-bit samples (16 bytes)
                         frameSize = 16;
                         skipInitialSamples = SAMPLES_PER_FRAME;
                         sampleDmaStart = 0;
@@ -1004,24 +1023,34 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                         numSamplesProcessed = numSamplesToLoadAdj;
                         dmemUncompressedAddrOffset1 = numSamplesToLoadAdj;
                         goto skip;
+
+                    default:
+                        break;
                 }
 
                 aligned = ALIGN16((nFramesToDecode * frameSize) + SAMPLES_PER_FRAME);
                 addr = DMEM_COMPRESSED_ADPCM_DATA - aligned;
 
+                // Move the compressed raw sample data from ram into the rsp (DMEM)
                 if (nFramesToDecode != 0) {
                     if (1) {}
+                    // Get the offset from the start of the sample to where the sample is currently playing from
                     frameIndex = (synthState->samplePosInt + skipInitialSamples - nFirstFrameSamplesToIgnore) / 16;
                     sampleDataOffset = frameIndex * frameSize;
-                    if (bookSample->medium == 0) {
+
+                    // Get the ram address of the requested sample chunk
+                    if (bookSample->medium == MEDIUM_RAM) {
+                        // Sample is already loaded into ram
                         samplesToLoadAddr = (u8*) (sampleDmaStart + sampleDataOffset + sampleAddr);
                     } else {
+                        // This medium is not in ram, so dma the requested sample into ram
                         samplesToLoadAddr =
                             AudioLoad_DmaSampleData(sampleDmaStart + sampleDataOffset + sampleAddr, aligned, flags,
                                                     &synthState->sampleDmaIndex, bookSample->medium);
                     }
-                    sampleDataChunkAlignPad = (u32) samplesToLoadAddr % SAMPLES_PER_FRAME;
 
+                    // Move the raw sample chunk from ram to the rsp
+                    sampleDataChunkAlignPad = (u32) samplesToLoadAddr % SAMPLES_PER_FRAME;
                     aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(samplesToLoadAddr - sampleDataChunkAlignPad), addr, aligned);
                 } else {
                     numSamplesToDecode = 0;
@@ -1031,11 +1060,13 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                 if (synthState->restart) {
                     aSetLoop(aList++, OS_K0_TO_PHYSICAL(bookSample->loop->predictorState));
                     flags = A_LOOP;
-                    synthState->restart = 0;
+                    synthState->restart = false;
                 }
 
                 numSamplesInThisIteration = (numSamplesToDecode + numSamplesInFirstFrame) - numTrailingSamplesToIgnore;
 
+                // Decompress the raw sample chunks in the rsp
+                // Goes from adpcm (compressed) sample data to pcm (uncompressed) sample data
                 if (numSamplesProcessed == 0) {
                     switch (bookSample->codec) {
                         case CODEC_ADPCM:
@@ -1097,20 +1128,19 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                         break;
                 }
 
-            skip:
-
                 flags = A_CONTINUE;
 
+            skip:
+
+                // Update what to do with the samples next
                 if (sampleFinished) {
                     aClearBuffer(aList++, DMEM_UNCOMPRESSED_NOTE + dmemUncompressedAddrOffset1,
                                  (numSamplesToLoadAdj - numSamplesProcessed) * SAMPLE_SIZE);
                     noteSub->bitField0.finished = true;
                     note->noteSubEu.bitField0.finished = true;
                     AudioSynth_DisableSampleStates(updateIndex, noteIndex);
-                    break;
-                }
-
-                if (loopToPoint) {
+                    break; // break out of the for-loop
+                } else if (loopToPoint) {
                     synthState->restart = true;
                     synthState->samplePosInt = loopInfo->start;
                 } else {
@@ -1141,6 +1171,9 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
                                     resampledTempLen + DMEM_TEMP + (SAMPLES_PER_FRAME * SAMPLE_SIZE),
                                     ALIGN8(numSamplesToLoadAdj / 2));
                             break;
+
+                        default:
+                            break;
                     }
 
                     break;
@@ -1152,6 +1185,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
         }
     }
 
+    // Update the flags for the signal processing below
     flags = A_CONTINUE;
     if (noteSub->bitField0.needsInit == true) {
         flags = A_INIT;
@@ -1160,6 +1194,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
 
     flags = sp56 | flags;
 
+    // Resample the decompressed mono-signal to the correct pitch
     aList = AudioSynth_FinalResample(aList, synthState, aiBufLen * SAMPLE_SIZE, resampleRateFixedPoint,
                                      noteSamplesDmemAddrBeforeResampling, flags);
 
@@ -1171,6 +1206,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
         aUnkCmd19(aList++, 0, aiBufLen * SAMPLE_SIZE, DMEM_TEMP, DMEM_TEMP);
     }
 
+    // Apply the gain to the mono-signal to adjust the volume
     gain = noteSub->gain;
     if (gain != 0) {
         // A gain of 0x10 (a UQ4.4 number) is equivalent to 1.0 and represents no volume change
@@ -1180,6 +1216,7 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
         aHiLoGain(aList++, gain, (aiBufLen + SAMPLES_PER_FRAME) * SAMPLE_SIZE, DMEM_TEMP, 0);
     }
 
+    // Determine the behavior of the audio processing that leads to the haas effect
     if ((noteSub->leftDelaySize != 0) || (synthState->prevHaasEffectLeftDelaySize != 0)) {
         delaySide = HAAS_EFFECT_DELAY_LEFT;
     } else if ((noteSub->rightDelaySize != 0) || (synthState->prevHaasEffectRightDelaySize != 0)) {
@@ -1190,8 +1227,8 @@ Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisSta
 
     aList = AudioSynth_ProcessEnvelope(aList, noteSub, synthState, aiBufLen, DMEM_TEMP, delaySide, flags);
     if (noteSub->bitField0.usesHeadsetPanEffects) {
-        if (!(flags & 1)) {
-            flags = 0;
+        if (!(flags & A_INIT)) {
+            flags = A_CONTINUE;
         }
         aList = AudioSynth_ApplyHaasEffect(aList, noteSub, synthState, aiBufLen * 2, flags, delaySide);
     }
