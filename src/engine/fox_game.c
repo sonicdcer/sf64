@@ -294,7 +294,7 @@ void Game_Draw(s32 playerNum) {
             break;
         case DRAW_UNK_7:
             gPlayerNum = playerNum;
-            func_pause_800A3CA0();
+            Pause_Draw();
             break;
         case DRAW_ENDING:
             Background_DrawStarfield();

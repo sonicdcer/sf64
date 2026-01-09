@@ -439,7 +439,7 @@ bool func_col1_800998FC(Vec3f* objPos, Vec3f* colliderPos, Vec3f* objVel, s32 co
 bool func_col2_800A3690(Vec3f* objPos, Vec3f* colliderPos, s32 colId, Vec3f* hitDataOut);
 
 // fox_pause
-void func_pause_800A3CA0(void);
+void Pause_Draw(void);
 
 // fox_play
 bool Play_CheckMedalStatus(u16);
