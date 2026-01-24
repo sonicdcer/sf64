@@ -2352,7 +2352,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
                     break;
 
                 case LEVEL_FORTUNA:
-                    if (this->animFrame == 11) {
+                    if (this->animFrame == ACTOR_CS_FO_EXPLOSION) {
                         switch (this->state) {
                             case 0:
                                 if (gCsFrameCount == 100) {
