@@ -1873,7 +1873,7 @@ void Area6_A6Gorgon_Draw(A6Gorgon* this) {
         if (this->scale >= 1.0f) {
             for (i = 0; i < 3; i++) {
                 if ((this->swork[A6_SWK_33 + i] == 0) && (this->state != 3) && (D_i3_801C2250[A6_BSS_2_0 + i] == 0) &&
-                    ((gGameFrameCount % 4) == 0) && (this->swork[A6_SWK_27 + i] != 0) && (gPlayState != 100)) {
+                    ((gGameFrameCount % 4) == 0) && (this->swork[A6_SWK_27 + i] != 0) && (gPlayState != GSTATE_BOOT)) {
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
