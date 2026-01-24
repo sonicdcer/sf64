@@ -1082,7 +1082,7 @@ void SectorX_SxSpyborg_Update(SxSpyborg* this) {
             }
 
             if (this->timer_050 == 210) {
-                this->swork[5] = 1;
+                this->swork[5] = 1; // Makes SxSpyborg invisible
                 this->timer_05A = 1000;
             }
 
@@ -1371,7 +1371,7 @@ void SectorX_SxSpyborg_Draw(SxSpyborg* this) {
 
     if (this->swork[5] == 0) {
         D_i2_80195640 = 0;
-        Animation_DrawSkeleton(3, aSxSpyborgSkel, this->vwork, SectorX_SxSpyborg_OverrideLimbDraw, 0, this,
+        Animation_DrawSkeleton(3, aSxSpyborgSkel, this->vwork, SectorX_SxSpyborg_OverrideLimbDraw, NULL, this,
                                gCalcMatrix);
         RCP_SetupDL_64();
         gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 96);
