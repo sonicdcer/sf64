@@ -1438,25 +1438,25 @@ void Ending_8018B52C(Actor* actor, s32 arg1) {
 }
 
 void Ending_8018B624(Actor* actor) {
-    Vec3f sp24 = { -40.0f, -560.0f, 400.0f };
-    Vec3f sp18 = { 0.0f, 290.0f, 0.0f };
+    Vec3f pos = { -40.0f, -560.0f, 400.0f };
+    Vec3f orient = { 0.0f, 290.0f, 0.0f };
 
     Actor_Initialize(actor);
-    actor->obj.status = 2;
+    actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 2;
-    actor->obj.pos = sp24;
-    actor->orient.x = sp18.x;
-    actor->orient.y = sp18.y;
-    actor->orient.z = sp18.z;
+    actor->obj.pos = pos;
+    actor->orient.x = orient.x;
+    actor->orient.y = orient.y;
+    actor->orient.z = orient.z;
     actor->scale = 1.0f;
 }
 
-void Ending_8018B6D8(Actor* actor, s32 arg1) {
-    Vec3f sp80[6] = {
+void Ending_8018B6D8(Actor* actor, s32 idx) {
+    Vec3f pos[6] = {
         { -400.0f, 500.0f, -1200.0f }, { -160.0f, 500.0f, -1400.0f }, { 80.0f, 500.0f, -1600.0f },
         { 320.0f, 500.0f, -1800.0f },  { 560.0f, 500.0f, -2000.0f },  { 800.0f, 500.0f, -2200.0f },
     };
-    Vec3f sp38[6] = {
+    Vec3f orient[6] = {
         { 0.0f, 90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f },
         { 0.0f, 90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f }, { 0.0f, 90.0f, 0.0f },
     };
@@ -1465,18 +1465,18 @@ void Ending_8018B6D8(Actor* actor, s32 arg1) {
     Actor_Initialize(actor);
     actor->obj.status = OBJ_ACTIVE;
     actor->obj.id = 3;
-    actor->obj.pos = sp80[arg1];
-    actor->orient.x = sp38[arg1].x;
-    actor->orient.y = sp38[arg1].y;
-    actor->orient.z = sp38[arg1].z;
+    actor->obj.pos = pos[idx];
+    actor->orient.x = orient[idx].x;
+    actor->orient.y = orient[idx].y;
+    actor->orient.z = orient[idx].z;
     actor->obj.pos.x += 3200.0f;
     actor->obj.pos.z -= 200.0f;
     actor->scale = 1.0f;
     actor->fwork[1] = 1.0f;
     actor->iwork[1] = 100;
     actor->fwork[0] = 30.0f;
-    actor->iwork[0] = sp20[arg1];
-    actor->work_046 = arg1;
+    actor->iwork[0] = sp20[idx];
+    actor->work_046 = idx;
 }
 
 void Ending_8018B860(void) {
@@ -1722,6 +1722,14 @@ bool Ending_8018BCB0(void) {
     return sp5C;
 }
 
+typedef enum EndingCorneriaObjects {
+    /* 0 */ END_CORNERIA_GREAT_FOX,
+    /* 1 */ END_CORNERIA_BUILDING_1,
+    /* 2 */ END_CORNERIA_BUILDING_2, // Bigger building you only get to see upclose
+    /* 3 */ END_CORNERIA_FIGHTER
+} EndingCorneriaObjectIds;
+
+// Draws the actors at the Corneria phase of the Ending
 void Ending_8018C21C(void) {
     Vec3f sp124[3] = {
         { 0.0f, 40.0f, -2530.0f },
@@ -1738,7 +1746,7 @@ void Ending_8018C21C(void) {
     };
     s32 i2;
     Vec3f* scale;
-    Vec3f* var_s1;
+    Vec3f* greatFoxLightPos;
     f32 spE4;
     s32 i;
 
@@ -1761,7 +1769,7 @@ void Ending_8018C21C(void) {
 
     Matrix_Push(&gGfxMatrix);
 
-    // Actors
+    // Actor List:
     // 0 Great Fox
     // 1 Building on the left
     // 2 building on the right near
@@ -1772,7 +1780,7 @@ void Ending_8018C21C(void) {
         if (gActors[i].obj.status != OBJ_FREE) {
             Matrix_Push(&gGfxMatrix);
             switch (gActors[i].obj.id) {
-                case 0:
+                case END_CORNERIA_GREAT_FOX:
                     if (gActors[i].state == 0) {
                         RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                         Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
@@ -1795,11 +1803,12 @@ void Ending_8018C21C(void) {
                         gDPSetPrimColor(gMasterDisp++, 0x00, 0x00, 255, 255, 255, 64);
                         gDPSetEnvColor(gMasterDisp++, 255, 255, 0, 64);
 
-                        for (i2 = 0, var_s1 = sp124; i2 < 3; i2++, var_s1++) {
+                        for (i2 = 0, greatFoxLightPos = sp124; i2 < 3; i2++, greatFoxLightPos++) {
                             Matrix_Push(&gGfxMatrix);
                             scale = &sp10C[gGameFrameCount % 2];
                             Matrix_Push(&gGfxMatrix);
-                            Matrix_Translate(gGfxMatrix, var_s1->x, var_s1->y, var_s1->z, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, greatFoxLightPos->x, greatFoxLightPos->y, greatFoxLightPos->z,
+                                             MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, scale->x, scale->y, scale->z, MTXF_APPLY);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1807,7 +1816,8 @@ void Ending_8018C21C(void) {
                             Matrix_Pop(&gGfxMatrix);
                             Matrix_Push(&gGfxMatrix);
                             scale = &spF4[gGameFrameCount % 2];
-                            Matrix_Translate(gGfxMatrix, var_s1->x, var_s1->y, var_s1->z - 60.0f, MTXF_APPLY);
+                            Matrix_Translate(gGfxMatrix, greatFoxLightPos->x, greatFoxLightPos->y,
+                                             greatFoxLightPos->z - 60.0f, MTXF_APPLY);
                             Matrix_Scale(gGfxMatrix, scale->x, scale->y, scale->z, MTXF_APPLY);
                             Matrix_RotateX(gGfxMatrix, M_PI / 2, MTXF_APPLY);
                             Matrix_SetGfxMtx(&gMasterDisp);
@@ -1827,7 +1837,7 @@ void Ending_8018C21C(void) {
                     }
                     break;
 
-                case 1:
+                case END_CORNERIA_BUILDING_1:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                      MTXF_APPLY);
@@ -1839,7 +1849,7 @@ void Ending_8018C21C(void) {
                     gSPDisplayList(gMasterDisp++, aEndBuilding1DL);
                     break;
 
-                case 2:
+                case END_CORNERIA_BUILDING_2:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                      MTXF_APPLY);
@@ -1851,7 +1861,7 @@ void Ending_8018C21C(void) {
                     gSPDisplayList(gMasterDisp++, aEndBuilding2DL);
                     break;
 
-                case 3:
+                case END_CORNERIA_FIGHTER:
                     RCP_SetupDL(&gMasterDisp, SETUPDL_23);
                     Matrix_Translate(gGfxMatrix, gActors[i].obj.pos.x, gActors[i].obj.pos.y, gActors[i].obj.pos.z,
                                      MTXF_APPLY);
