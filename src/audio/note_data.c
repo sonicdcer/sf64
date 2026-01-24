@@ -204,9 +204,9 @@ EnvelopePoint gDefaultEnvelope[] = {
     { ADSR_DISABLE, 0 },
 };
 
-NoteSubEu gZeroNoteSub = { 0 };
+NoteSampleState gZeroedSampleState = { 0 };
 
-NoteSubEu gDefaultNoteSub = {
+NoteSampleState gDefaultSampleState = {
     { 1, 1, 0, 0, 0, 0, 0, 0 },
     { 0 },
     0,

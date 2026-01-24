@@ -194,12 +194,12 @@ void AudioThread_ProcessGlobalCmd(AudioCmd* cmd) {
             if (cmd->asUInt == 1) {
                 for (i = 0; i < gNumNotes; i++) {
                     Note* note = &gNotes[i];
-                    NoteSubEu* noteSub = &note->noteSubEu;
+                    NoteSampleState* noteSampleState = &note->sampleState;
 
-                    if ((noteSub->bitField0.enabled) && (note->playbackState.unk_04 == 0) &&
+                    if ((noteSampleState->bitField0.enabled) && (note->playbackState.status == PLAYBACK_STATUS_0) &&
                         (note->playbackState.parentLayer != NO_LAYER) &&
                         (note->playbackState.parentLayer->channel->muteBehavior & 8)) {
-                        noteSub->bitField0.finished = true;
+                        noteSampleState->bitField0.finished = true;
                     }
                 }
             }

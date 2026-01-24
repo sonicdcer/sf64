@@ -1,8 +1,3 @@
-/**
- * This file is provisional, some of the structs need to be corrected, and others might be unused
- * This file is only meant to be used as reference to help audio decompilation
- */
-
 #ifndef SF64_AUDIO_H
 #define SF64_AUDIO_H
 
@@ -86,6 +81,16 @@ typedef void (*AudioCustomUpdateFunction)(void);
 
 #define PORTAMENTO_IS_SPECIAL(x) ((x).mode & 0x80)
 #define PORTAMENTO_MODE(x) ((x).mode & ~0x80)
+
+#define AUDIO_ERROR(fontId, id, err) (((fontId << 8) + id) + (err << 24))
+
+typedef enum AudioError {
+    /* 0x01 */ AUDIO_ERROR_NO_INST = 1,
+    /* 0x03 */ AUDIO_ERROR_INVALID_INST_ID = 3,
+    /* 0x04 */ AUDIO_ERROR_INVALID_DRUM_SFX_ID,
+    /* 0x05 */ AUDIO_ERROR_NO_DRUM_SFX,
+    /* 0x10 */ AUDIO_ERROR_FONT_NOT_LOADED = 0x10
+} AudioError;
 
 typedef enum AdsrStatus {
     /* 0 */ ADSR_STATE_DISABLED,
@@ -222,26 +227,26 @@ typedef struct NotePool {
 // direction is "supported" by setting extent to be negative. The code
 // exterpolates exponentially in the wrong direction in that case, but that
 // doesn't prevent seqplayer from doing it, AFAICT.
-typedef struct {
+typedef struct Portamento {
     /* 0x00 */ u8 mode; // bit 0x80 denotes something; the rest are an index 0-5
     /* 0x04 */ f32 cur;
     /* 0x08 */ f32 speed;
     /* 0x0C */ f32 extent;
 } Portamento; // size = 0x10
 
-typedef struct {
+typedef struct EnvelopePoint {
     /* 0x0 */ s16 delay;
     /* 0x2 */ s16 value;
 } EnvelopePoint; // size = 0x4
 
-typedef struct {
+typedef struct AdpcmLoop {
     /* 0x00 */ u32 start;
     /* 0x04 */ u32 end;
     /* 0x08 */ u32 count;
     /* 0x10 */ u64 predictorState[4]; // only exists if count != 0. 8-byte aligned
 } AdpcmLoop;                          // size = 0x30 or 0x10, 0x8 aligned
 
-typedef struct {
+typedef struct AdpcmBook {
     /* 0x00 */ s32 order;
     /* 0x04 */ s32 numPredictors;
 #ifdef AVOID_UB
@@ -251,7 +256,7 @@ typedef struct {
 #endif
 } AdpcmBook; // size >= 8, 0x8 aligned
 
-typedef struct {
+typedef struct Sample {
     /* 0x00 */ u32 codec : 4;  // The state of compression or decompression
     /* 0x00 */ u32 medium : 2; // Medium where sample is currently stored
     /* 0x00 */ u32 unk_bit26 : 1;
@@ -265,12 +270,12 @@ typedef struct {
         book; // Adpcm book parameters used by the sample. Offset from the start of the sound font / pointer to ram
 } Sample;     // size = 0x10
 
-typedef struct {
+typedef struct TunedSample {
     /* 0x00 */ Sample* sample;
     /* 0x04 */ f32 tuning; // frequency modulation factor
 } TunedSample;             // size = 0x8
 
-typedef struct {
+typedef struct Instrument {
     /* 0x00 */ u8 isRelocated; // have the envelope and all samples been relocated (offsets to pointers)
     /* 0x01 */ u8 normalRangeLo;
     /* 0x02 */ u8 normalRangeHi;
@@ -281,7 +286,7 @@ typedef struct {
     /* 0x18 */ TunedSample highPitchTunedSample;
 } Instrument; // size = 0x20
 
-typedef struct {
+typedef struct Drum {
     /* 0x00 */ u8 adsrDecayIndex; // index used to obtain adsr decay rate from adsrDecayTable
     /* 0x01 */ u8 pan;
     /* 0x02 */ u8 isRelocated; // have tunedSample.sample and envelope been relocated (offsets to pointers)
@@ -289,14 +294,14 @@ typedef struct {
     /* 0x0C */ EnvelopePoint* envelope;
 } Drum; // size = 0x10
 
-typedef struct {
+typedef struct SoundEffect {
     /* 0x00 */ TunedSample tunedSample;
 } SoundEffect; // size = 0x08
 
 /**
  * Stores parsed information from soundfont data
  */
-typedef struct {
+typedef struct SoundFont {
     /* 0x00 */ u8 numInstruments;
     /* 0x01 */ u8 numDrums;
     /* 0x02 */ u8 sampleBankId1;
@@ -305,7 +310,7 @@ typedef struct {
     /* 0x08 */ Drum** drums;
 } SoundFont; // size = 0x10
 
-typedef struct {
+typedef struct ReverbRingBufferItem {
     /* 0x00 */ s16 numSamplesAfterDownsampling; // never read
     /* 0x02 */ s16 chunkLen;                    // never read
     /* 0x04 */ s16* toDownsampleLeft;
@@ -315,7 +320,7 @@ typedef struct {
     /* 0x12 */ s16 lengthB;            // second length in ring buffer (from pos 0)
 } ReverbRingBufferItem;                // size = 0x14
 
-typedef struct {
+typedef struct SynthesisReverb {
     /* 0x000 */ u8 resampleFlags;
     /* 0x001 */ u8 useReverb;
     /* 0x002 */ u8 framesToIgnore;
@@ -340,7 +345,7 @@ typedef struct {
     char pad[0x10];
 } SynthesisReverb; // size = 0x1D4
 
-typedef struct {
+typedef struct SeqScriptState {
     /* 0x00 */ u8* pc; // program counter
     /* 0x04 */ u8* stack[4];
     /* 0x14 */ u8 remLoopIters[4]; // remaining loop iterations
@@ -349,7 +354,7 @@ typedef struct {
 } SeqScriptState; // size = 0x1C
 
 // Also known as a Group, according to debug strings.
-typedef struct {
+typedef struct SequencePlayer {
     /* 0x000 */ u8 enabled : 1;
     /* 0x000 */ u8 finished : 1;
     /* 0x000 */ u8 muted : 1;
@@ -391,13 +396,13 @@ typedef struct {
         padE4[0x6C]; // unused struct members for sequence/sound font dma management, according to sm64 decomp
 } SequencePlayer;    // size = 0x14C
 
-typedef struct {
+typedef struct AdsrSettings {
     /* 0x0 */ u8 decayIndex; // index used to obtain adsr decay rate from adsrDecayTable
     /* 0x1 */ u8 sustain;
     /* 0x4 */ EnvelopePoint* envelope;
 } AdsrSettings; // size = 0x8
 
-typedef struct {
+typedef struct AdsrState {
     /* 0x00 */ union {
         struct A {
             /* 0x00 */ u8 unused : 1;
@@ -420,7 +425,7 @@ typedef struct {
     /* 0x20 */ EnvelopePoint* envelope;
 } AdsrState; // size = 0x24
 
-typedef struct {
+typedef struct StereoData {
     /* 0x00 */ u8 stereoHeadsetEffects : 1;
     /* 0x00 */ u8 usesHeadsetPanEffects : 1;
     /* 0x00 */ u8 unused : 2;
@@ -429,12 +434,12 @@ typedef struct {
     /* 0x00 */ u8 strongLeft : 1;
 } StereoData; // size = 0x1
 
-typedef union {
+typedef union Stereo {
     /* 0x00 */ StereoData s;
     /* 0x00 */ u8 asByte;
 } Stereo; // size = 0x1
 
-typedef struct {
+typedef struct NoteAttributes {
     /* 0x00 */ u8 reverb;
     /* 0x01 */ u8 gain; // Increases volume by a multiplicative scaling factor. Represented as a UQ4.4 number
     /* 0x02 */ u8 pan;
@@ -442,6 +447,12 @@ typedef struct {
     /* 0x04 */ f32 freqMod;
     /* 0x08 */ f32 velocity;
 } NoteAttributes; // size = 0xC
+
+typedef enum NotePlaybackStatus {
+    /* 0 */ PLAYBACK_STATUS_0,
+    /* 1 */ PLAYBACK_STATUS_1,
+    /* 2 */ PLAYBACK_STATUS_2
+} NotePlaybackStatus;
 
 // Also known as a SubTrack, according to sm64 debug strings.
 typedef struct SequenceChannel {
@@ -550,7 +561,7 @@ typedef struct UnkStruct_800097A8 {
     /* 0x1A */ char pad1A[6];
 } UnkStruct_800097A8; /* size = 0x20 */
 
-typedef struct {
+typedef struct NoteSynthesisBuffers {
     /* 0x000 */ s16 adpcmdecState[16];
     /* 0x020 */ s16 finalResampleState[16];
     /* 0x040 */ UnkStruct_800097A8 unk_40;
@@ -562,7 +573,7 @@ typedef struct {
     // /* 0x0E0 */ s16 combFilterState[128];
 } NoteSynthesisBuffers; // size = 0xC0
 
-typedef struct {
+typedef struct NoteSynthesisState {
     /* 0x00 */ u8 restart;
     /* 0x01 */ u8 sampleDmaIndex;
     /* 0x02 */ u8 prevHaasEffectLeftDelaySize;
@@ -577,7 +588,7 @@ typedef struct {
     /* 0x14 */ char unk_14[0xC];
 } NoteSynthesisState; // size = 0x20
 
-typedef struct {
+typedef struct VibratoState {
     /* 0x00 */ struct SequenceChannel* channel;
     /* 0x04 */ u32 time;
     /* 0x08 */ s16* curve; // sineWave
@@ -589,13 +600,13 @@ typedef struct {
     /* 0x1A */ u16 delay;
 } VibratoState; // size = 0x1C
 
-typedef struct {
+typedef struct NotePlaybackState {
     /* 0x00 */ u8 priority;
     /* 0x01 */ u8 waveId;
     /* 0x02 */ u8 harmonicIndex; // the harmonic index for the synthetic wave contained in gWaveSamples (also matches
                                  // the base 2 logarithm of the harmonic order)
     /* 0x03 */ u8 fontId;
-    /* 0x04 */ u8 unk_04;
+    /* 0x04 */ u8 status;
     /* 0x05 */ u8 stereoHeadsetEffects;
     /* 0x06 */ s16 adsrVolModUnused;
     /* 0x08 */ f32 portamentoFreqMod;
@@ -609,7 +620,7 @@ typedef struct {
     /* 0x5C */ VibratoState vibratoState;
 } NotePlaybackState; // size = 0x78
 
-typedef struct {
+typedef struct NoteSampleState {
     struct {
         /* 0x00 */ volatile u8 enabled : 1;
         /* 0x00 */ u8 needsInit : 1;
@@ -626,22 +637,22 @@ typedef struct {
         /* 0x01 */ u8 isSyntheticWave : 1;
         /* 0x01 */ u8 hasTwoParts : 1;
     } bitField1;
-    /* 0x02 */ u8 gain;
+    /* 0x02 */ u8 gain; // Increases volume by a multiplicative scaling factor. Represented as a UQ4.4 number
     /* 0x03 */ u8 leftDelaySize;
     /* 0x04 */ u8 rightDelaySize;
     /* 0x05 */ u8 reverb;
     /* 0x06 */ u16 panVolLeft;
     /* 0x08 */ u16 panVolRight;
     /* 0x0A */ u16 resampleRate;
-    /* 0x0C */ s16* waveSampleAddr;
-} NoteSubEu; // size = 0x10
+    /* 0x0C */ s16* waveSampleAddr; // used for synthetic waves
+} NoteSampleState; // size = 0x10
 
 typedef struct Note {
     /* 0x00 */ AudioListItem listItem;
     /* 0x10 */ NoteSynthesisState synthesisState;
     /* 0x30 */ NotePlaybackState playbackState;
     /* 0xA8 */ char padA0[0x8];
-    /* 0xB0 */ NoteSubEu noteSubEu;
+    /* 0xB0 */ NoteSampleState sampleState;
 } Note; // size = 0xC0
 
 typedef struct {
@@ -876,24 +887,6 @@ typedef struct SampleDma {
 } SampleDma;                  // size = 0x10
 
 typedef struct {
-    /* 0x00 */ u8 reverbVol;
-    /* 0x01 */ u8 gain; // Increases volume by a multiplicative scaling factor. Represented as a UQ4.4 number
-    /* 0x02 */ u8 pan;
-    /* 0x03 */ Stereo stereo;
-    /* 0x04 */ f32 frequency;
-    /* 0x08 */ f32 velocity;
-    /* 0x0C */ char unk_0C[0x4];
-    /* 0x10 */ s16* filter;
-    /* 0x14 */ u8 combFilterSize;
-    /* 0x16 */ u16 combFilterGain;
-} NoteSubAttributes; // size = 0x18
-
-typedef struct {
-    /* 0x0 */ s16 unk_00; // set to 0x1C00, unused
-    /* 0x2 */ s16 seqTicksPerBeat;
-} TempoData; // size = 0x4
-
-typedef struct {
     /* 0x00 */ u32 heapSize; // total number of bytes allocated to the audio heap. Must be <= the size of `gAudioHeap`
                              // (ideally about the same size)
     /* 0x04 */ u32 initPoolSize; // The entire audio heap is split into two pools.
@@ -1057,19 +1050,19 @@ void AudioSynth_HartleyTransform(f32*, s32, f32*);
 Acmd* AudioSynth_Update(Acmd* aList, s32* cmdCount, s16* aiBufStart, s32 aiBufLen);
 void AudioSynth_DisableSampleStates(s32 updateIndex, s32 noteIndex);
 void AudioSynth_SyncSampleStates(s32 updateIndex);
-Acmd* AudioSynth_ProcessNote(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf,
+Acmd* AudioSynth_ProcessSample(s32 noteIndex, NoteSampleState* sampleState, NoteSynthesisState* synthState, s16* aiBuf,
                              s32 aiBufLen, Acmd* aList, s32 updateIndex);
-Acmd* AudioSynth_DoOneAudioUpdate(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
+Acmd* AudioSynth_ProcessSamples(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex);
 Acmd* AudioSynth_LoadReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
 Acmd* AudioSynth_SaveReverbRingBufferPart(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
 Acmd* AudioSynth_LoadReverbSamples(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
 Acmd* AudioSynth_SaveReverbSamples(Acmd* aList, s16 reverbIndex, s16 updateIndex);
-Acmd* AudioSynth_LoadWaveSamples(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad);
+Acmd* AudioSynth_LoadWaveSamples(Acmd* aList, NoteSampleState* sampleState, NoteSynthesisState* synthState, s32 numSamplesToLoad);
 Acmd* AudioSynth_FinalResample(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 pitch, u16 inpDmem,
                                u32 resampleFlags);
-Acmd* AudioSynth_ProcessEnvelope(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen,
+Acmd* AudioSynth_ProcessEnvelope(Acmd* aList, NoteSampleState* sampleState, NoteSynthesisState* synthState, s32 aiBufLen,
                                  u16 dmemSrc, s32 delaySide, s32 flags);
-Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags,
+Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSampleState* sampleState, NoteSynthesisState* synthState, s32 size, s32 flags,
                                  s32 delaySide);
 
 // audio_effects
@@ -1143,24 +1136,24 @@ s32 AudioLoad_RelocateFontAndPreloadSamples(s32 fontId, u32 fontDataAddr, Sample
 s32 AudioLoad_ProcessSamplePreloads(s32 resetStatus);
 
 // audio_playback
-TunedSample* Audio_GetInstrumentTunedSample(Instrument* instrument, s32 semitone);
-Instrument* Audio_GetInstrument(s32, s32);
-Drum* Audio_GetDrum(s32, s32);
-void Audio_NoteDisable(Note* note);
-void Audio_ProcessNotes(void);
-void Audio_SeqLayerNoteDecay(SequenceLayer* layer);
-void Audio_InitSyntheticWave(Note* note, SequenceLayer* layer);
-void Audio_InitNoteLists(NotePool* pool);
-void Audio_InitNoteFreeList(void);
-void Audio_NotePoolClear(NotePool* pool);
-void Audio_NotePoolFill(NotePool* pool, s32);
-void Audio_AudioListRemove(Note* note);
-Note* Audio_AllocNote(SequenceLayer* layer);
-void Audio_NoteInitAll(void);
-void Audio_NoteSetResamplingRate(Note* note, f32);
-void Audio_SeqLayerNoteRelease(SequenceLayer* layer);
-void Audio_AudioListPushFront(AudioListItem* list, AudioListItem* item);
-void Audio_NoteInitForLayer(Note* note, SequenceLayer* layer);
+TunedSample* AudioPlayback_GetInstrumentTunedSample(Instrument* instrument, s32 semitone);
+Instrument* AudioPlayback_GetInstrumentInner(s32, s32);
+Drum* AudioPlayback_GetDrum(s32, s32);
+void AudioPlayback_NoteDisable(Note* note);
+void AudioPlayback_ProcessNotes(void);
+void AudioPlayback_SeqLayerNoteDecay(SequenceLayer* layer);
+void AudioPlayback_InitSyntheticWave(Note* note, SequenceLayer* layer);
+void AudioList_InitNoteLists(NotePool* pool);
+void AudioList_InitNoteFreeList(void);
+void AudioList_ClearNotePool(NotePool* pool);
+void AudioList_FillNotePool(NotePool* pool, s32);
+void AudioList_Remove(Note* note);
+Note* AudioPlayback_AllocNote(SequenceLayer* layer);
+void AudioPlayback_NoteInitAll(void);
+void AudioPlayback_NoteSetResamplingRate(Note* note, f32);
+void AudioPlayback_SeqLayerNoteRelease(SequenceLayer* layer);
+void AudioList_PushFront(AudioListItem* list, AudioListItem* item);
+void AudioPlayback_NoteInitForLayer(Note* note, SequenceLayer* layer);
 
 // audio_seqplayer
 void AudioSeq_SequenceChannelDisable(SequenceChannel* channel);
@@ -1201,10 +1194,10 @@ extern u64 gAudioContextStart[];
 extern SynthesisReverb gSynthReverbs[4];
 extern u8 sAudioContextPad10[0x10]; // 0x10
 extern u16 D_8014C1B0;
-extern s8 D_8014C1B2;
+extern s8 gUseReverb;
 extern s8 gNumSynthReverbs;
 extern s16 D_8014C1B4;
-extern NoteSubEu* gNoteSubsEu;
+extern NoteSampleState* gSampleStateList;
 // 0x4
 extern AudioAllocPool gSessionPool;
 extern AudioAllocPool gInitPool;
@@ -1311,8 +1304,8 @@ extern u8 gDefaultShortNoteVelocityTable[];
 extern u8 gDefaultShortNoteGateTimeTable[];
 extern u16 gHaasEffectDelaySizes[64];
 extern EnvelopePoint gDefaultEnvelope[];
-extern NoteSubEu gZeroNoteSub;
-extern NoteSubEu gDefaultNoteSub;
+extern NoteSampleState gZeroedSampleState;
+extern NoteSampleState gDefaultSampleState;
 extern s16 gInvalidAdpcmCodeBook[];
 extern f32 gHeadsetPanVolume[128];
 extern f32 gStereoPanVolume[128];

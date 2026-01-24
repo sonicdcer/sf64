@@ -20,7 +20,7 @@ void func_8001459C(AudioListItem* list, AudioListItem* item);
 void* func_800145DC(AudioListItem* list);
 
 void func_80011870(Note* note, NoteAttributes* noteAttr) {
-    NoteSubEu* noteSub;
+    NoteSampleState* sampleState;
     f32 panVolumeLeft;
     f32 pamVolumeRight;
     f32 velocity;
@@ -33,29 +33,29 @@ void func_80011870(Note* note, NoteAttributes* noteAttr) {
     Stereo stereo;
 
     func_80011C38(note, noteAttr->freqMod);
-    noteSub = &note->noteSubEu;
+    sampleState = &note->sampleState;
     velocity = noteAttr->velocity;
     pan = noteAttr->pan;
     reverb = noteAttr->reverb;
     stereo = noteAttr->stereo;
     pan %= ARRAY_COUNTU(gHeadsetPanVolume);
-    if ((noteSub->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == SOUNDMODE_HEADSET)) {
+    if ((sampleState->bitField0.stereoHeadsetEffects) && (gAudioSoundMode == SOUNDMODE_HEADSET)) {
         var_a0 = pan >> 1;
         if (var_a0 >= ARRAY_COUNT(gHaasEffectDelaySizes)) {
             var_a0 = ARRAY_COUNT(gHaasEffectDelaySizes) - 1;
         }
-        noteSub->rightDelaySize = gHaasEffectDelaySizes[var_a0];
-        noteSub->leftDelaySize = gHaasEffectDelaySizes[ARRAY_COUNT(gHaasEffectDelaySizes) - 1 - var_a0];
-        noteSub->bitField0.stereoStrongRight = false;
-        noteSub->bitField0.stereoStrongLeft = false;
-        noteSub->bitField0.usesHeadsetPanEffects = true;
+        sampleState->rightDelaySize = gHaasEffectDelaySizes[var_a0];
+        sampleState->leftDelaySize = gHaasEffectDelaySizes[ARRAY_COUNT(gHaasEffectDelaySizes) - 1 - var_a0];
+        sampleState->bitField0.stereoStrongRight = false;
+        sampleState->bitField0.stereoStrongLeft = false;
+        sampleState->bitField0.usesHeadsetPanEffects = true;
 
         panVolumeLeft = gHeadsetPanVolume[pan];
         pamVolumeRight = gHeadsetPanVolume[ARRAY_COUNT(gHeadsetPanVolume) - 1 - pan];
-    } else if (noteSub->bitField0.stereoHeadsetEffects && (gAudioSoundMode == SOUNDMODE_STEREO)) {
-        noteSub->leftDelaySize = 0;
-        noteSub->rightDelaySize = 0;
-        noteSub->bitField0.usesHeadsetPanEffects = false;
+    } else if (sampleState->bitField0.stereoHeadsetEffects && (gAudioSoundMode == SOUNDMODE_STEREO)) {
+        sampleState->leftDelaySize = 0;
+        sampleState->rightDelaySize = 0;
+        sampleState->bitField0.usesHeadsetPanEffects = false;
 
         panVolumeLeft = gStereoPanVolume[pan];
         pamVolumeRight = gStereoPanVolume[ARRAY_COUNT(gStereoPanVolume) - 1 - pan];
@@ -66,22 +66,22 @@ void func_80011870(Note* note, NoteAttributes* noteAttr) {
         } else if (pan > 96) {
             strongRight = true;
         }
-        noteSub->bitField0.stereoStrongRight = strongRight;
-        noteSub->bitField0.stereoStrongLeft = strongLeft;
+        sampleState->bitField0.stereoStrongRight = strongRight;
+        sampleState->bitField0.stereoStrongLeft = strongLeft;
         switch (stereo.s.bit2) {
             case 0:
-                noteSub->bitField0.stereoStrongRight = stereo.s.strongRight;
-                noteSub->bitField0.stereoStrongLeft = stereo.s.strongLeft;
+                sampleState->bitField0.stereoStrongRight = stereo.s.strongRight;
+                sampleState->bitField0.stereoStrongLeft = stereo.s.strongLeft;
                 break;
             case 1:
                 break;
             case 2:
-                noteSub->bitField0.stereoStrongRight = stereo.s.strongRight | strongRight;
-                noteSub->bitField0.stereoStrongLeft = stereo.s.strongLeft | strongLeft;
+                sampleState->bitField0.stereoStrongRight = stereo.s.strongRight | strongRight;
+                sampleState->bitField0.stereoStrongLeft = stereo.s.strongLeft | strongLeft;
                 break;
             case 3:
-                noteSub->bitField0.stereoStrongRight = stereo.s.strongRight ^ strongRight;
-                noteSub->bitField0.stereoStrongLeft = stereo.s.strongLeft ^ strongLeft;
+                sampleState->bitField0.stereoStrongRight = stereo.s.strongRight ^ strongRight;
+                sampleState->bitField0.stereoStrongLeft = stereo.s.strongLeft ^ strongLeft;
                 break;
         }
     } else if (gAudioSoundMode == SOUNDMODE_MONO) {
@@ -97,39 +97,39 @@ void func_80011870(Note* note, NoteAttributes* noteAttr) {
     if (velocity > 1.0f) {
         velocity = 1.0f;
     }
-    noteSub->panVolLeft = (s32) (velocity * panVolumeLeft * 4095.999f);
-    noteSub->panVolRight = (s32) (velocity * pamVolumeRight * 4095.999f);
-    noteSub->gain = noteAttr->gain;
-    if (noteSub->reverb != reverb) {
-        noteSub->reverb = reverb;
-        noteSub->bitField0.unused = true;
-    } else if (noteSub->bitField0.needsInit) {
-        noteSub->bitField0.unused = true;
+    sampleState->panVolLeft = (s32) (velocity * panVolumeLeft * 4095.999f);
+    sampleState->panVolRight = (s32) (velocity * pamVolumeRight * 4095.999f);
+    sampleState->gain = noteAttr->gain;
+    if (sampleState->reverb != reverb) {
+        sampleState->reverb = reverb;
+        sampleState->bitField0.unused = true;
+    } else if (sampleState->bitField0.needsInit) {
+        sampleState->bitField0.unused = true;
     } else {
-        noteSub->bitField0.unused = false;
+        sampleState->bitField0.unused = false;
     }
 }
 
 void func_80011C38(Note* note, f32 arg1) {
-    NoteSubEu* noteSub = &note->noteSubEu;
+    NoteSampleState* sampleState = &note->sampleState;
     f32 var_fv0;
 
     if (arg1 < 2.0f) {
-        noteSub->bitField1.hasTwoParts = 0;
+        sampleState->bitField1.hasTwoParts = 0;
         if (arg1 > 1.99998f) {
             var_fv0 = 1.99998f;
         } else {
             var_fv0 = arg1;
         }
     } else {
-        noteSub->bitField1.hasTwoParts = 1;
+        sampleState->bitField1.hasTwoParts = 1;
         if (arg1 > 3.99996f) {
             var_fv0 = 1.99998f;
         } else {
             var_fv0 = arg1 * 0.5f;
         }
     }
-    note->noteSubEu.resampleRate = (s32) (var_fv0 * 32768.0f);
+    note->sampleState.resampleRate = (s32) (var_fv0 * 32768.0f);
 }
 
 TunedSample* func_80011CF0(Instrument* instrument, s32 arg1) {
@@ -145,7 +145,7 @@ TunedSample* func_80011CF0(Instrument* instrument, s32 arg1) {
     return sample;
 }
 
-Instrument* Audio_GetInstrument(s32 fontId, s32 instId) {
+Instrument* AudioPlayback_GetInstrumentInner(s32 fontId, s32 instId) {
     Instrument* instrument;
 
     if ((gFontLoadStatus[fontId] < 2) != 0) {
@@ -164,7 +164,7 @@ Instrument* Audio_GetInstrument(s32 fontId, s32 instId) {
     return instrument;
 }
 
-Drum* Audio_GetDrum(s32 fontId, s32 drumId) {
+Drum* AudioPlayback_GetDrum(s32 fontId, s32 drumId) {
     Drum* drum;
 
     if ((gFontLoadStatus[fontId] < 2) != 0) {
@@ -194,19 +194,19 @@ void func_80011E98(Note* note) {
                       &note->playbackState.adsrVolModUnused);
     }
     note->playbackState.adsr.state = 1;
-    note->noteSubEu = gDefaultNoteSub;
+    note->sampleState = gDefaultSampleState;
 }
 
 void func_80011F2C(Note* note) {
-    if (note->noteSubEu.bitField0.needsInit == 1) {
-        note->noteSubEu.bitField0.needsInit = 0;
+    if (note->sampleState.bitField0.needsInit == 1) {
+        note->sampleState.bitField0.needsInit = 0;
     }
     note->playbackState.priority = 0;
-    note->playbackState.unk_04 = 0;
-    note->noteSubEu.bitField0.enabled = 0;
+    note->playbackState.status = 0;
+    note->sampleState.bitField0.enabled = 0;
     note->playbackState.parentLayer = NO_LAYER;
     note->playbackState.prevParentLayer = NO_LAYER;
-    note->noteSubEu.bitField0.finished = 0;
+    note->sampleState.bitField0.finished = 0;
     note->playbackState.adsr.state = 0;
     note->playbackState.adsr.current = 0.0f;
 }
@@ -216,7 +216,7 @@ void func_80011F88(void) {
     s32 pad;
     Note* note;
     NotePlaybackState* playbackState;
-    NoteSubEu* noteSub;
+    NoteSampleState* sampleState;
     NoteAttributes* attr;
     s32 i;
     NoteAttributes sp70;
@@ -232,19 +232,19 @@ void func_80011F88(void) {
                 continue;
             }
 
-            if ((note != playbackState->parentLayer->note) && (playbackState->unk_04 == 0)) {
-                playbackState->adsr.action.asByte |= 0x10;
+            if ((note != playbackState->parentLayer->note) && (playbackState->status == 0)) {
+                playbackState->adsr.action.asByte |= ADSR_RELEASE_FLAG;
                 playbackState->adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
                 playbackState->priority = 1;
-                playbackState->unk_04 = 2;
+                playbackState->status = 2;
                 goto block_21;
             } else {
-                if ((playbackState->parentLayer->enabled) || (playbackState->unk_04 != 0) ||
+                if ((playbackState->parentLayer->enabled) || (playbackState->status != 0) ||
                     (playbackState->priority <= 0)) {
                     if (playbackState->parentLayer->channel->seqPlayer == NULL) {
                         func_8001413C(playbackState->parentLayer->channel);
                         playbackState->priority = 1;
-                        playbackState->unk_04 = 1;
+                        playbackState->status = 1;
                         continue;
                     }
                     if (!(playbackState->parentLayer->channel->seqPlayer->muted &&
@@ -256,18 +256,18 @@ void func_80011F88(void) {
                 func_80012C20(note);
                 func_80012BE0(&note->listItem.pool->decaying, &note->listItem);
                 playbackState->priority = 1;
-                playbackState->unk_04 = 2;
+                playbackState->status = 2;
             }
-        } else if ((playbackState->unk_04 == 0) && (playbackState->priority > 0)) {
+        } else if ((playbackState->status == 0) && (playbackState->priority > 0)) {
             continue;
         }
     block_21:
 
         if (playbackState->priority != 0) {
             if (1) {}
-            noteSub = &note->noteSubEu;
-            if ((playbackState->unk_04 > 0) || noteSub->bitField0.finished) {
-                if ((playbackState->adsr.state == 0) || noteSub->bitField0.finished) {
+            sampleState = &note->sampleState;
+            if ((playbackState->status > 0) || sampleState->bitField0.finished) {
+                if ((playbackState->adsr.state == 0) || sampleState->bitField0.finished) {
                     if (playbackState->wantedParentLayer != NO_LAYER) {
                         func_80011F2C(note);
                         if (playbackState->wantedParentLayer->channel != NULL) {
@@ -300,14 +300,14 @@ void func_80011F88(void) {
             temp_fs0 = func_80013B70(&playbackState->adsr);
             func_800139F8(note);
             attr = &playbackState->attributes;
-            if ((playbackState->unk_04 == 1) || (playbackState->unk_04 == 2)) {
+            if ((playbackState->status == 1) || (playbackState->status == 2)) {
                 sp70.freqMod = attr->freqMod;
                 sp70.velocity = attr->velocity;
                 sp70.pan = attr->pan;
                 sp70.reverb = attr->reverb;
                 sp70.stereo = attr->stereo;
                 sp70.gain = attr->gain;
-                bookOffset = noteSub->bitField1.bookOffset;
+                bookOffset = sampleState->bitField1.bookOffset;
             } else {
                 sp70.freqMod = playbackState->parentLayer->noteFreqMod;
                 sp70.velocity = playbackState->parentLayer->noteVelocity;
@@ -327,7 +327,7 @@ void func_80011F88(void) {
             sp70.freqMod *= gAudioBufferParams.resampleRate;
             sp70.velocity *= temp_fs0;
             func_80011870(note, &sp70);
-            noteSub->bitField1.bookOffset = bookOffset;
+            sampleState->bitField1.bookOffset = bookOffset;
         next:;
         }
     }
@@ -353,7 +353,7 @@ void func_80012418(SequenceLayer* layer, s32 arg1) {
         if ((note->playbackState.parentLayer == NO_LAYER) && (note->playbackState.wantedParentLayer == NO_LAYER) &&
             (layer == note->playbackState.prevParentLayer) && (arg1 != 6)) {
             note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-            note->playbackState.adsr.action.asByte |= 0x10;
+            note->playbackState.adsr.action.asByte |= ADSR_RELEASE_FLAG;
         }
     } else {
         noteAttr = &note->playbackState.attributes;
@@ -366,7 +366,7 @@ void func_80012418(SequenceLayer* layer, s32 arg1) {
                 noteAttr->reverb = layer->channel->targetReverbVol;
                 noteAttr->gain = layer->channel->reverbIndex;
                 if (layer->channel->seqPlayer->muted && (layer->channel->muteBehavior & 8)) {
-                    note->noteSubEu.bitField0.finished = 1;
+                    note->sampleState.bitField0.finished = 1;
                 }
             }
             note->playbackState.priority = 1;
@@ -375,12 +375,12 @@ void func_80012418(SequenceLayer* layer, s32 arg1) {
 
             if (arg1 == 7) {
                 note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-                note->playbackState.adsr.action.asByte |= 0x10;
-                note->playbackState.unk_04 = 2;
+                note->playbackState.adsr.action.asByte |= ADSR_RELEASE_FLAG;
+                note->playbackState.status = 2;
 
             } else {
-                note->playbackState.unk_04 = 1;
-                note->playbackState.adsr.action.asByte |= 0x20;
+                note->playbackState.status = 1;
+                note->playbackState.adsr.action.asByte |= ADSR_DECAY_FLAG;
                 if (layer->adsr.decayIndex == 0) {
                     note->playbackState.adsr.fadeOutVel =
                         layer->channel->adsr.decayIndex * gAudioBufferParams.ticksPerUpdateInvScaled;
@@ -434,7 +434,7 @@ s32 func_8001268C(Note* note, SequenceLayer* layer, s32 waveId) {
     layer->freqMod *= freqMod;
     note->playbackState.waveId = waveId;
     note->playbackState.harmonicIndex = harmonicIndex;
-    note->noteSubEu.waveSampleAddr = &gWaveSamples[waveId - 128][harmonicIndex * 64];
+    note->sampleState.waveSampleAddr = &gWaveSamples[waveId - 128][harmonicIndex * 64];
     return harmonicIndex;
 }
 
@@ -608,7 +608,7 @@ Note* func_80012C4C(AudioListItem* item, s32 priority) {
 void func_80012CCC(Note* note, SequenceLayer* layer) {
     s32 pad[4];
     s32 var_a2;
-    NoteSubEu* noteSub;
+    NoteSampleState* sampleState;
 
     note->playbackState.prevParentLayer = NO_LAYER;
     note->playbackState.parentLayer = layer;
@@ -621,22 +621,22 @@ void func_80012CCC(Note* note, SequenceLayer* layer) {
     layer->noteVelocity = 0.0f;
     func_80011E98(note);
     var_a2 = layer->instOrWave;
-    noteSub = &note->noteSubEu;
+    sampleState = &note->sampleState;
     if (var_a2 == 0xFF) {
         var_a2 = layer->channel->instOrWave;
     }
-    noteSub->waveSampleAddr = (s16*) layer->tunedSample;
+    sampleState->waveSampleAddr = (s16*) layer->tunedSample;
     if (var_a2 >= 128) {
-        noteSub->bitField1.isSyntheticWave = true;
+        sampleState->bitField1.isSyntheticWave = true;
     } else {
-        noteSub->bitField1.isSyntheticWave = false;
+        sampleState->bitField1.isSyntheticWave = false;
     }
-    if (noteSub->bitField1.isSyntheticWave) {
+    if (sampleState->bitField1.isSyntheticWave) {
         func_8001268C(note, layer, var_a2);
     }
     note->playbackState.fontId = layer->channel->fontId;
-    noteSub->bitField0.stereoHeadsetEffects = layer->channel->stereoHeadsetEffects;
-    noteSub->bitField1.reverbIndex = layer->channel->someOtherPriority & 3;
+    sampleState->bitField0.stereoHeadsetEffects = layer->channel->stereoHeadsetEffects;
+    sampleState->bitField1.reverbIndex = layer->channel->someOtherPriority & 3;
 }
 
 void func_80012E08(Note* note, SequenceLayer* layer) {
@@ -648,7 +648,7 @@ void func_80012E3C(Note* note, SequenceLayer* layer) {
     note->playbackState.wantedParentLayer = layer;
     note->playbackState.priority = layer->channel->notePriority;
     note->playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-    note->playbackState.adsr.action.asByte |= 0x10;
+    note->playbackState.adsr.action.asByte |= ADSR_RELEASE_FLAG;
 }
 
 Note* func_80012E68(NotePool* pool, SequenceLayer* layer) {
@@ -762,10 +762,10 @@ void func_800132C8(void) {
     for (i = 0; i < gNumNotes; i++) {
         note = &gNotes[i];
 
-        note->noteSubEu = gZeroNoteSub;
+        note->sampleState = gZeroedSampleState;
 
         note->playbackState.priority = 0;
-        note->playbackState.unk_04 = 0;
+        note->playbackState.status = 0;
         note->playbackState.parentLayer = NO_LAYER;
         note->playbackState.wantedParentLayer = NO_LAYER;
         note->playbackState.prevParentLayer = NO_LAYER;

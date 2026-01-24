@@ -12,8 +12,8 @@ void func_800083D4(f32* buffer0, f32* buffer1, s32 length, f32* buffer2);
 void func_80009194(s16** arg0);
 Acmd* func_80009DE8(Acmd* aList, s32 aiBufLen, s16 reverbIndex, s16 updateIndex);
 Acmd* func_8000A198(Acmd* aList, s16 reverbIndex, s16 updateIndex);
-Acmd* func_8000A770(s32 noteIndex, NoteSubEu* noteSub, NoteSynthesisState* synthState, s16* aiBuf, s32 aiBufLen,
-                    Acmd* aList, s32 updateIndex);
+Acmd* func_8000A770(s32 noteIndex, NoteSampleState* sampleState, NoteSynthesisState* synthState, s16* aiBuf,
+                    s32 aiBufLen, Acmd* aList, s32 updateIndex);
 Acmd* func_800099F4(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
 Acmd* func_8000994C(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbIndex);
 void func_8001676C(s32 arg0);
@@ -248,12 +248,12 @@ Acmd* func_800099F4(Acmd* aList, u16 dmem, u16 startPos, s32 size, s32 reverbInd
 }
 
 void func_80009A9C(s32 updateIndex, s32 noteIndex) {
-    NoteSubEu* noteSubEu;
+    NoteSampleState* sampleState;
     s32 i;
 
     for (i = updateIndex + 1; i < gAudioBufferParams.ticksPerUpdate; i++) {
-        if (!gNoteSubsEu[(gNumNotes * i) + noteIndex].bitField0.needsInit) {
-            gNoteSubsEu[(gNumNotes * i) + noteIndex].bitField0.enabled = false;
+        if (!gSampleStateList[(gNumNotes * i) + noteIndex].bitField0.needsInit) {
+            gSampleStateList[(gNumNotes * i) + noteIndex].bitField0.enabled = false;
         } else {
             break;
         }
@@ -261,13 +261,13 @@ void func_80009A9C(s32 updateIndex, s32 noteIndex) {
 }
 
 void func_80009B1C(s32 updateIndex) {
-    NoteSubEu* subEu;
-    NoteSubEu* subEu2;
+    NoteSampleState* subEu;
+    NoteSampleState* subEu2;
     s32 i;
 
     for (i = 0; i < gNumNotes; i++) {
-        subEu = &gNotes[i].noteSubEu;
-        subEu2 = &gNoteSubsEu[gNumNotes * updateIndex + i];
+        subEu = &gNotes[i].sampleState;
+        subEu2 = &gSampleStateList[gNumNotes * updateIndex + i];
         if (subEu->bitField0.enabled) {
             *subEu2 = *subEu;
             subEu->bitField0.needsInit = false;
@@ -390,7 +390,7 @@ Acmd* func_8000A198(Acmd* aList, s16 reverbIndex, s16 updateIndex) {
 
 Acmd* func_8000A2CC(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
     u8 sp84[0x3C];
-    NoteSubEu* temp_v0;
+    NoteSampleState* temp_v0;
     s16 var_s2;
     s16 i;
     s32 j;
@@ -399,21 +399,21 @@ Acmd* func_8000A2CC(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
     if (gNumSynthReverbs == 0) {
         if (gSynthReverbs[i].useReverb) {} // fake?
         for (j = 0; j < gNumNotes; j++) {
-            if (gNoteSubsEu[gNumNotes * updateIndex + j].bitField0.enabled) {
+            if (gSampleStateList[gNumNotes * updateIndex + j].bitField0.enabled) {
                 sp84[var_s2++] = j;
             }
         }
     } else {
         for (i = 0; i < gNumSynthReverbs; i++) {
             for (j = 0; j < gNumNotes; j++) {
-                temp_v0 = &gNoteSubsEu[gNumNotes * updateIndex + j];
+                temp_v0 = &gSampleStateList[gNumNotes * updateIndex + j];
                 if (temp_v0->bitField0.enabled && (temp_v0->bitField1.reverbIndex == i)) {
                     sp84[var_s2++] = j;
                 }
             }
         }
         for (j = 0; j < gNumNotes; j++) {
-            temp_v0 = &gNoteSubsEu[gNumNotes * updateIndex + j];
+            temp_v0 = &gSampleStateList[gNumNotes * updateIndex + j];
             if (temp_v0->bitField0.enabled && (temp_v0->bitField1.reverbIndex >= gNumSynthReverbs)) {
                 sp84[var_s2++] = j;
             }
@@ -429,10 +429,10 @@ Acmd* func_8000A2CC(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
             aList = func_80009DE8(aList, aiBufLen, i, updateIndex);
         }
         while (j < var_s2) {
-            if (i != gNoteSubsEu[updateIndex * gNumNotes + sp84[j]].bitField1.reverbIndex) {
+            if (i != gSampleStateList[updateIndex * gNumNotes + sp84[j]].bitField1.reverbIndex) {
                 break;
             }
-            aList = func_8000A770(sp84[j], &gNoteSubsEu[updateIndex * gNumNotes + sp84[j]],
+            aList = func_8000A770(sp84[j], &gSampleStateList[updateIndex * gNumNotes + sp84[j]],
                                   &gNotes[sp84[j]].synthesisState, aiBuf, aiBufLen, aList, updateIndex);
             j++;
         }
@@ -442,8 +442,8 @@ Acmd* func_8000A2CC(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
     }
 
     while (j < var_s2) {
-        aList = func_8000A770(sp84[j], &gNoteSubsEu[updateIndex * gNumNotes + sp84[j]], &gNotes[sp84[j]].synthesisState,
-                              aiBuf, aiBufLen, aList, updateIndex);
+        aList = func_8000A770(sp84[j], &gSampleStateList[updateIndex * gNumNotes + sp84[j]],
+                              &gNotes[sp84[j]].synthesisState, aiBuf, aiBufLen, aList, updateIndex);
         j++;
     }
 
@@ -457,10 +457,10 @@ Acmd* func_8000A2CC(s16* aiBuf, s32 aiBufLen, Acmd* aList, s32 updateIndex) {
 
 #pragma GLOBAL_ASM("asm/eu/rev0/nonmatchings/audio/audio_synthesis/func_8000A770.s")
 
-Acmd* func_8000B460(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 numSamplesToLoad) {
+Acmd* func_8000B460(Acmd* aList, NoteSampleState* sampleState, NoteSynthesisState* synthState, s32 numSamplesToLoad) {
     s32 temp_v1;
 
-    aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(noteSub->waveSampleAddr), 0x5F0, 0x80);
+    aLoadBuffer(aList++, OS_K0_TO_PHYSICAL(sampleState->waveSampleAddr), 0x5F0, 0x80);
     synthState->samplePosInt &= 0x3F;
     temp_v1 = 0x40 - synthState->samplePosInt;
     if (temp_v1 < numSamplesToLoad) {
@@ -481,8 +481,8 @@ Acmd* func_8000B4F0(Acmd* aList, NoteSynthesisState* synthState, s32 size, u16 p
     return aList;
 }
 
-Acmd* func_8000B58C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 aiBufLen, u16 dmemSrc,
-                    s32 delaySide, s32 flags) {
+Acmd* func_8000B58C(Acmd* aList, NoteSampleState* sampleState, NoteSynthesisState* synthState, s32 aiBufLen,
+                    u16 dmemSrc, s32 delaySide, s32 flags) {
     s16 var_a2;
     s16 var_a3;
     s16 var_t0;
@@ -496,8 +496,8 @@ Acmd* func_8000B58C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
     temp_t1 = synthState->curVolLeft;
     temp_t2 = synthState->curVolRight;
 
-    temp_t7 = noteSub->panVolLeft;
-    temp_t9 = noteSub->panVolRight;
+    temp_t7 = sampleState->panVolLeft;
+    temp_t9 = sampleState->panVolRight;
 
     temp_t7 <<= 4;
     temp_t9 <<= 4;
@@ -515,10 +515,10 @@ Acmd* func_8000B58C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
 
     temp_a1 = synthState->reverbVol;
 
-    if (noteSub->reverb != temp_a1) {
-        temp = (((noteSub->reverb & 0x7F) - (temp_a1 & 0x7F)) << 8);
+    if (sampleState->reverb != temp_a1) {
+        temp = (((sampleState->reverb & 0x7F) - (temp_a1 & 0x7F)) << 8);
         var_a2 = temp / (aiBufLen >> 3);
-        synthState->reverbVol = noteSub->reverb;
+        synthState->reverbVol = sampleState->reverb;
     } else {
         var_a2 = 0;
     }
@@ -526,7 +526,7 @@ Acmd* func_8000B58C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
     synthState->curVolLeft = temp_t1 + (var_t0 * (aiBufLen >> 3));
     synthState->curVolRight = temp_t2 + (var_a3 * (aiBufLen >> 3));
 
-    if (noteSub->bitField0.usesHeadsetPanEffects) {
+    if (sampleState->bitField0.usesHeadsetPanEffects) {
         aClearBuffer(aList++, 0x650, 0x180);
         aEnvSetup1(aList++, (temp_a1 & 0x7F), var_a2, var_t0, var_a3);
         aEnvSetup2(aList++, temp_t1, temp_t2);
@@ -534,28 +534,31 @@ Acmd* func_8000B58C(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
         switch (delaySide) {
             case 1:
                 aEnvMixer(aList++, dmemSrc, aiBufLen, 0, 0, ((temp_a1 & 0x80) >> 7),
-                          noteSub->bitField0.stereoStrongRight, noteSub->bitField0.stereoStrongLeft, 0x65B1C9E1);
+                          sampleState->bitField0.stereoStrongRight, sampleState->bitField0.stereoStrongLeft,
+                          0x65B1C9E1);
                 break;
             case 2:
                 aEnvMixer(aList++, dmemSrc, aiBufLen, 0, 0, ((temp_a1 & 0x80) >> 7),
-                          noteSub->bitField0.stereoStrongRight, noteSub->bitField0.stereoStrongLeft, 0x9965C9E1);
+                          sampleState->bitField0.stereoStrongRight, sampleState->bitField0.stereoStrongLeft,
+                          0x9965C9E1);
                 break;
             default:
                 aEnvMixer(aList++, dmemSrc, aiBufLen, 0, 0, ((temp_a1 & 0x80) >> 7),
-                          noteSub->bitField0.stereoStrongRight, noteSub->bitField0.stereoStrongLeft, 0x99B1C9E1);
+                          sampleState->bitField0.stereoStrongRight, sampleState->bitField0.stereoStrongLeft,
+                          0x99B1C9E1);
                 break;
         }
     } else {
         aEnvSetup1(aList++, (temp_a1 & 0x7F), var_a2, var_t0, var_a3);
         aEnvSetup2(aList++, temp_t1, temp_t2);
-        aEnvMixer(aList++, dmemSrc, aiBufLen, 0, 0, ((temp_a1 & 0x80) >> 7), noteSub->bitField0.stereoStrongRight,
-                  noteSub->bitField0.stereoStrongLeft, 0x99B1C9E1);
+        aEnvMixer(aList++, dmemSrc, aiBufLen, 0, 0, ((temp_a1 & 0x80) >> 7), sampleState->bitField0.stereoStrongRight,
+                  sampleState->bitField0.stereoStrongLeft, 0x99B1C9E1);
     }
 
     return aList;
 }
 
-Acmd* func_8000B9FC(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthState, s32 size, s32 flags,
+Acmd* func_8000B9FC(Acmd* aList, NoteSampleState* sampleState, NoteSynthesisState* synthState, s32 size, s32 flags,
                     s32 delaySide) {
     u16 var_t0;
     u8 var_a1;
@@ -565,7 +568,7 @@ Acmd* func_8000B9FC(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
     switch (delaySide) {
         case 1:
             var_t0 = 0x990;
-            var_a1 = noteSub->leftDelaySize;
+            var_a1 = sampleState->leftDelaySize;
             synthState->prevHaasEffectRightDelaySize = 0;
             var_v1 = synthState->prevHaasEffectLeftDelaySize;
             synthState->prevHaasEffectLeftDelaySize = var_a1;
@@ -573,7 +576,7 @@ Acmd* func_8000B9FC(Acmd* aList, NoteSubEu* noteSub, NoteSynthesisState* synthSt
 
         case 2:
             var_t0 = 0xB10;
-            var_a1 = noteSub->rightDelaySize;
+            var_a1 = sampleState->rightDelaySize;
             synthState->prevHaasEffectLeftDelaySize = 0;
             var_v1 = synthState->prevHaasEffectRightDelaySize;
             synthState->prevHaasEffectRightDelaySize = var_a1;

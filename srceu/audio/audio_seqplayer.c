@@ -528,7 +528,7 @@ void func_80014728(SequenceLayer* layer) {
             }
             if (instOrWave == 0) {
                 cmd = cmd + channel->transposition + layer->transposition;
-                drum = Audio_GetDrum(channel->fontId, cmd);
+                drum = AudioPlayback_GetDrum(channel->fontId, cmd);
                 if (drum == NULL) {
                     layer->muted = true;
                     layer->delay2 = layer->delay;
@@ -649,7 +649,7 @@ void func_80014728(SequenceLayer* layer) {
 u8 func_800152A0(SequenceChannel* channel, u8 arg1, Instrument** instrument, AdsrSettings* adsrSettings) {
     Instrument* temp_v0;
 
-    temp_v0 = Audio_GetInstrument(channel->fontId, arg1);
+    temp_v0 = AudioPlayback_GetInstrumentInner(channel->fontId, arg1);
     if (temp_v0 == NULL) {
         *instrument = NULL;
         return 0;
@@ -826,34 +826,34 @@ void func_800153C8(SequenceChannel* channel) {
                     case 0xDF:
                         cmd = func_800146A0(state);
                         func_800153A4(channel, cmd);
-                        channel->changes.s.volume = 1;
+                        channel->changes.flags.volume = 1;
                         break;
                     case 0xE0:
                         channel->volumeMod = (s32) func_800146A0(state) / 128.0f;
-                        channel->changes.s.volume = 1;
+                        channel->changes.flags.volume = 1;
                         break;
                     case 0xDE:
                         sp52 = func_800146B4(state);
                         channel->freqMod = (s32) sp52 / 32768.0f;
-                        channel->changes.s.freqMod = 1;
+                        channel->changes.flags.freqMod = 1;
                         break;
                     case 0xD3:
                         cmd = func_800146A0(state) + 0x80;
                         channel->freqMod = gBendPitchOneOctaveFrequencies[cmd];
-                        channel->changes.s.freqMod = 1;
+                        channel->changes.flags.freqMod = 1;
                         break;
                     case 0xEE:
                         cmd = func_800146A0(state) + 0x80;
                         channel->freqMod = gBendPitchTwoSemitonesFrequencies[cmd];
-                        channel->changes.s.freqMod = 1;
+                        channel->changes.flags.freqMod = 1;
                         break;
                     case 0xDD:
                         channel->newPan = func_800146A0(state);
-                        channel->changes.s.pan = 1;
+                        channel->changes.flags.pan = 1;
                         break;
                     case 0xDC:
                         channel->panChannelWeight = func_800146A0(state);
-                        channel->changes.s.pan = 1;
+                        channel->changes.flags.pan = 1;
                         break;
                     case 0xDB:
                         temps8 = *(state->pc++);
@@ -980,7 +980,7 @@ void func_800153C8(SequenceChannel* channel) {
                         channel->panChannelWeight = *seqData++;
                         channel->targetReverbVol = *seqData++;
                         channel->someOtherPriority = *seqData++;
-                        channel->changes.s.pan = 1;
+                        channel->changes.flags.pan = 1;
                         break;
                     case 0xE8:
                         channel->muteBehavior = func_800146A0(state);
@@ -991,7 +991,7 @@ void func_800153C8(SequenceChannel* channel) {
                         channel->panChannelWeight = func_800146A0(state);
                         channel->targetReverbVol = func_800146A0(state);
                         channel->someOtherPriority = func_800146A0(state);
-                        channel->changes.s.pan = 1;
+                        channel->changes.flags.pan = 1;
                         break;
                     case 0xEC:
                         channel->vibratoDepthTarget = 0;

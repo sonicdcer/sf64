@@ -278,7 +278,7 @@ s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
     Drum* drum;
 
     if (instId < 0x7F) {
-        instrument = Audio_GetInstrument(fontId, instId);
+        instrument = AudioPlayback_GetInstrumentInner(fontId, instId);
         if (instrument == NULL) {
             return -1;
         }
@@ -290,7 +290,7 @@ s32 AudioLoad_SyncLoadInstrument(s32 fontId, s32 instId, s32 drumId) {
             AudioLoad_SyncLoadSample(instrument->highPitchTunedSample.sample, fontId);
         }
     } else if (instId == 0x7F) {
-        drum = Audio_GetDrum(fontId, drumId);
+        drum = AudioPlayback_GetDrum(fontId, drumId);
         if (drum == NULL) {
             return -1;
         }
@@ -1066,13 +1066,13 @@ Sample* AudioLoad_GetFontSample(s32 fontId, s32 instId) {
     Instrument* instrument;
 
     if (instId < 0x80) {
-        instrument = Audio_GetInstrument(fontId, instId);
+        instrument = AudioPlayback_GetInstrumentInner(fontId, instId);
         if (instrument == NULL) {
             return NULL;
         }
         sample = instrument->normalPitchTunedSample.sample;
     } else {
-        drum = Audio_GetDrum(fontId, instId - 0x80);
+        drum = AudioPlayback_GetDrum(fontId, instId - 0x80);
         if (drum == NULL) {
             return NULL;
         }
@@ -1605,7 +1605,7 @@ s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet) {
     s32 numInstruments = gSoundFontList[fontId].numInstruments;
 
     for (i = 0; i < numDrums; i++) {
-        drum = Audio_GetDrum(fontId, i);
+        drum = AudioPlayback_GetDrum(fontId, i);
         if (drum == NULL) {
             continue;
         }
@@ -1613,7 +1613,7 @@ s32 AudioLoad_GetSamplesForFont(s32 fontId, Sample** sampleSet) {
     }
 
     for (i = 0; i < numInstruments; i++) {
-        inst = Audio_GetInstrument(fontId, i);
+        inst = AudioPlayback_GetInstrumentInner(fontId, i);
         if (inst == NULL) {
             continue;
         }

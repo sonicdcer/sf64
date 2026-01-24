@@ -59,9 +59,9 @@ extern SequencePlayer gSeqPlayers[4];
 extern u8 sSfxRequestWriteIndex;
 extern u8 sSfxRequestReadIndex;
 extern u16 sChannelMuteFlags;
-extern u8 sChannelsPerBank[5][5];
-extern u8 sSfxChannelLayout;
-extern u8 sUsedChannelsPerBank[5][5];
+extern u8 sMaxActiveSfx[5][5];
+extern u8 sSfxLayout;
+extern u8 sMaxSfxRequests[5][5];
 extern SfxRequest sSfxRequests[256];
 extern u8 sSeqCmdReadPos;
 extern u8 sSeqCmdWritePos;
@@ -188,7 +188,7 @@ s8 Audio_GetSfxReverb(u8 bankId, u8 entryIndex, u8 channelId) {
 }
 
 s8 Audio_GetSfxPan(f32 xPos, f32 zPos, u8 mode) {
-    if (sSfxChannelLayout != SFX_BANK_3) {
+    if (sSfxLayout != SFX_BANK_3) {
         f32 absx = ABSF(xPos);
         f32 absz = ABSF(zPos);
         f32 pan;
@@ -230,7 +230,7 @@ f32 Audio_GetSfxFreqMod(u8 bankId, u8 entryIndex) {
             freqMod += 0.2f * (distance / 33000.0f);
         }
     }
-    if ((sSfxChannelLayout != SFXCHAN_0) && (sSfxBanks[bankId][entryIndex].token & 2)) {
+    if ((sSfxLayout != SFX_LAYOUT_DEFAULT) && (sSfxBanks[bankId][entryIndex].token & 2)) {
         freqMod *= 1.1f;
     }
     return freqMod;
@@ -262,7 +262,7 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
             reverb = Audio_GetSfxReverb(bankId, entryIndex, channelId);
             freqMod = Audio_GetSfxFreqMod(bankId, entryIndex) * *entry->freqMod;
             if (!((bankId == SFX_BANK_PLAYER) && ((-200.0f < *entry->zPos) && (*entry->zPos < 200.0f)) &&
-                  (sSfxChannelLayout != SFX_BANK_3))) {
+                  (sSfxLayout != SFX_BANK_3))) {
                 pan = Audio_GetSfxPan(*entry->xPos, *entry->zPos, entry->token);
             }
             break;
@@ -272,7 +272,7 @@ void Audio_SetSfxProperties(u8 bankId, u8 entryIndex, u8 channelId) {
                 AUDIOCMD_CHANNEL_SET_IO(SEQ_PLAYER_SFX, channelId, 1, gVoiceLanguage);
             }
 #endif
-            if (sSfxChannelLayout == SFX_BANK_3) {
+            if (sSfxLayout == SFX_BANK_3) {
                 if (entry->token != 4) {
                     pan = (entry->token & 1) * 127;
                 }
@@ -626,7 +626,7 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             break;
         case SEQCMD_OP_RESET_AUDIO_HEAP:
             specId = seqCmd & 0xFF;
-            sSfxChannelLayout = (seqCmd & 0xFF00) >> 8;
+            sSfxLayout = (seqCmd & 0xFF00) >> 8;
             oldSpecId = sAudioSpecId;
             sAudioSpecId = specId;
 
@@ -936,7 +936,7 @@ u8 Audio_HandleReset(void) {
         if (sAudioResetStatus == AUDIORESET_WAIT) {
             if (AudioThread_ResetComplete() == true) {
                 sAudioResetStatus = AUDIORESET_READY;
-                AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxChannelLayout);
+                AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxLayout);
                 Audio_RestartSeqPlayers();
             }
         } else if (sAudioResetStatus == AUDIORESET_BLOCK) {
@@ -944,7 +944,7 @@ u8 Audio_HandleReset(void) {
                 ;
             }
             sAudioResetStatus = AUDIORESET_READY;
-            AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxChannelLayout);
+            AUDIOCMD_SEQPLAYER_SET_IO(SEQ_PLAYER_SFX, 0, sSfxLayout);
             Audio_RestartSeqPlayers();
         }
     }
@@ -1078,7 +1078,7 @@ void Audio_ProcessSfxRequest(void) {
     while ((next != 0xFF) && (next != 0)) {
         if (&request->source[0] == sSfxBanks[bankId][next].xPos) {
             if (request->sfxId == sSfxBanks[bankId][next].sfxId) {
-                count = sUsedChannelsPerBank[sSfxChannelLayout][bankId];
+                count = sMaxSfxRequests[sSfxLayout][bankId];
             } else {
                 if (count == 0) {
                     evict = next;
@@ -1088,7 +1088,7 @@ void Audio_ProcessSfxRequest(void) {
                     sfxId = sSfxBanks[bankId][next].sfxId;
                 }
                 count++;
-                if (count == sUsedChannelsPerBank[sSfxChannelLayout][bankId]) {
+                if (count == sMaxSfxRequests[sSfxLayout][bankId]) {
                     if ((request->sfxId & SFX_IMPORT_MASK) >= (sfxId & SFX_IMPORT_MASK)) {
                         next = evict;
                     } else {
@@ -1096,7 +1096,7 @@ void Audio_ProcessSfxRequest(void) {
                     }
                 }
             }
-            if (count == sUsedChannelsPerBank[sSfxChannelLayout][bankId]) {
+            if (count == sMaxSfxRequests[sSfxLayout][bankId]) {
                 if ((request->sfxId & SFX_FLAG_27) || (request->sfxId & SFX_FLAG_18) || (next == evict)) {
                     if ((sSfxBanks[bankId][next].sfxId & SFX_FLAG_19) && (sSfxBanks[bankId][next].state != 1)) {
                         Audio_ClearBGMMute(sSfxBanks[bankId][next].channelIndex);
@@ -1223,10 +1223,10 @@ void Audio_ChooseActiveSfx(u8 bankId) {
                     }
                 }
             } else {
-                numChannels = sChannelsPerBank[sSfxChannelLayout][bankId];
+                numChannels = sMaxActiveSfx[sSfxLayout][bankId];
                 for (i = 0; i < numChannels; i++) {
                     if (chosenSfx[i].priority >= entry->priority) {
-                        if (numChosenSfx < sChannelsPerBank[sSfxChannelLayout][bankId]) {
+                        if (numChosenSfx < sMaxActiveSfx[sSfxLayout][bankId]) {
                             numChosenSfx++;
                         }
                         for (j = numChannels - 1; j > i; j--) {
@@ -1251,7 +1251,7 @@ void Audio_ChooseActiveSfx(u8 bankId) {
             sSfxBanks[bankId][chosenSfx[i].entryIndex].state = 3;
         }
     }
-    numChannels = sChannelsPerBank[sSfxChannelLayout][bankId];
+    numChannels = sMaxActiveSfx[sSfxLayout][bankId];
     for (i = 0; i < numChannels; i++) {
         activeSfx = &sActiveSfx[bankId][i];
         needNewSfx = 0;
@@ -1305,7 +1305,7 @@ void Audio_ChooseActiveSfx(u8 bankId) {
 void Audio_PlayActiveSfx(u8 bankId) {
     u8 i;
 
-    for (i = 0; i < sChannelsPerBank[sSfxChannelLayout][bankId]; i++) {
+    for (i = 0; i < sMaxActiveSfx[sSfxLayout][bankId]; i++) {
         u8 entryIndex = sActiveSfx[bankId][i].entryIndex;
 
         if (entryIndex != 0xFF) {

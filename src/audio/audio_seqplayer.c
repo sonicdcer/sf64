@@ -73,7 +73,7 @@ void AudioSeq_InitSequenceChannel(SequenceChannel* channel) {
         channel->seqScriptIO[i] = -1;
     }
     channel->unused = 0;
-    Audio_InitNoteLists(&channel->notePool);
+    AudioList_InitNoteLists(&channel->notePool);
 }
 
 // Original name: Nas_EntryNoteTrack
@@ -89,7 +89,7 @@ s32 AudioSeq_SeqChannelSetLayer(SequenceChannel* channel, s32 layerIndex) {
             return -1;
         }
     } else {
-        Audio_SeqLayerNoteDecay(channel->layers[layerIndex]);
+        AudioPlayback_SeqLayerNoteDecay(channel->layers[layerIndex]);
     }
 
     layer = channel->layers[layerIndex];
@@ -124,7 +124,7 @@ s32 AudioSeq_SeqChannelSetLayer(SequenceChannel* channel, s32 layerIndex) {
 // Original name: Nas_ReleaseNoteTrack
 void AudioSeq_SeqLayerDisable(SequenceLayer* layer) {
     if (layer != NULL) {
-        Audio_SeqLayerNoteDecay(layer);
+        AudioPlayback_SeqLayerNoteDecay(layer);
         layer->enabled = false;
         layer->finished = true;
     }
@@ -148,7 +148,7 @@ void AudioSeq_SequenceChannelDisable(SequenceChannel* channel) {
     for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
         AudioSeq_SeqLayerFree(channel, i);
     }
-    Audio_NotePoolClear(&channel->notePool);
+    AudioList_ClearNotePool(&channel->notePool);
     channel->enabled = false;
     channel->finished = true;
 }
@@ -236,7 +236,7 @@ void AudioSeq_SequenceChannelEnable(SequencePlayer* seqPlayer, u8 channelIndex, 
 // Original name: Nas_ReleaseGroup
 void AudioSeq_SequencePlayerDisable(SequencePlayer* seqPlayer) {
     AudioSeq_SequencePlayerDisableChannels(seqPlayer, AUDIO_GROUP_ALL_SUBTRACKS);
-    Audio_NotePoolClear(&seqPlayer->notePool);
+    AudioList_ClearNotePool(&seqPlayer->notePool);
     seqPlayer->finished = true;
     seqPlayer->enabled = false;
 
@@ -345,16 +345,16 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
         layer->delay--;
 
         if (!layer->muted && (layer->gateDelay >= layer->delay)) {
-            Audio_SeqLayerNoteDecay(layer);
+            AudioPlayback_SeqLayerNoteDecay(layer);
             layer->muted = true;
         }
         return;
     }
 
     if (!layer->continuousNotes) {
-        Audio_SeqLayerNoteDecay(layer);
+        AudioPlayback_SeqLayerNoteDecay(layer);
     } else if ((layer->note != NULL) && (layer == layer->note->playbackState.wantedParentLayer)) {
-        Audio_SeqLayerNoteDecay(layer);
+        AudioPlayback_SeqLayerNoteDecay(layer);
     }
 
     if ((PORTAMENTO_MODE(layer->portamento) == PORTAMENTO_MODE_1) ||
@@ -440,7 +440,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
                 } else {
                     layer->continuousNotes = false;
                 }
-                Audio_SeqLayerNoteDecay(layer);
+                AudioPlayback_SeqLayerNoteDecay(layer);
                 break;
 
             case 0xC3: // layer_setshortnotedefaultdelay
@@ -605,7 +605,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
                 cmd += channel->transposition;
                 cmd += layer->transposition;
 
-                drum = Audio_GetDrum(channel->fontId, cmd);
+                drum = AudioPlayback_GetDrum(channel->fontId, cmd);
                 if (drum == NULL) {
                     layer->muted = true;
                     layer->delay2 = layer->delay;
@@ -638,7 +638,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
                         }
 
                         if (instrument != NULL) {
-                            sample = Audio_GetInstrumentTunedSample(instrument, temp2);
+                            sample = AudioPlayback_GetInstrumentTunedSample(instrument, temp2);
                             sp40 = (sample == layer->tunedSample);
                             layer->tunedSample = sample;
                             tuning = sample->tuning;
@@ -686,7 +686,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
                             layer->portamentoTargetNote = cmd;
                         }
                     } else if (instrument != NULL) {
-                        sample = Audio_GetInstrumentTunedSample(instrument, cmd);
+                        sample = AudioPlayback_GetInstrumentTunedSample(instrument, cmd);
                         sp40 = (sample == layer->tunedSample);
                         layer->tunedSample = sample;
                         layer->freqMod = gPitchFrequencies[cmd] * sample->tuning;
@@ -706,7 +706,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
     }
     if (layer->muted == true) {
         if ((layer->note != NULL) || (layer->continuousNotes)) {
-            Audio_SeqLayerNoteDecay(layer);
+            AudioPlayback_SeqLayerNoteDecay(layer);
         }
     } else {
         cmd = 0;
@@ -715,15 +715,15 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
         } else if ((layer->note == NULL) || ((u8) layer->unk_3 == 0)) {
             cmd = 1;
         } else if (sp40 == 0) {
-            Audio_SeqLayerNoteDecay(layer);
+            AudioPlayback_SeqLayerNoteDecay(layer);
             cmd = 1;
         } else if (layer != layer->note->playbackState.parentLayer) {
             cmd = 1;
         } else if (layer->tunedSample == NULL) {
-            Audio_InitSyntheticWave(layer->note, layer);
+            AudioPlayback_InitSyntheticWave(layer->note, layer);
         }
         if (cmd != 0) {
-            layer->note = Audio_AllocNote(layer);
+            layer->note = AudioPlayback_AllocNote(layer);
         }
         if ((layer->note != NULL) && (layer == layer->note->playbackState.parentLayer)) {
             AudioEffects_InitVibrato(layer->note);
@@ -734,7 +734,7 @@ void AudioSeq_SeqLayerProcessScript(SequenceLayer* layer) {
 
 // Original name: Nas_ProgramChanger
 u8 AudioSeq_GetInstrument(SequenceChannel* channel, u8 instId, Instrument** instrumentOut, AdsrSettings* adsrSettings) {
-    Instrument* instrument = Audio_GetInstrument(channel->fontId, instId);
+    Instrument* instrument = AudioPlayback_GetInstrumentInner(channel->fontId, instId);
 
     if (instrument == NULL) {
         *instrumentOut = NULL;
@@ -889,12 +889,12 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
                         break;
 
                     case 0xF1: // alloc voices
-                        Audio_NotePoolClear(&channel->notePool);
-                        Audio_NotePoolFill(&channel->notePool, AudioSeq_ScriptReadU8(state));
+                        AudioList_ClearNotePool(&channel->notePool);
+                        AudioList_FillNotePool(&channel->notePool, AudioSeq_ScriptReadU8(state));
                         break;
 
                     case 0xF0: // dealloc voices
-                        Audio_NotePoolClear(&channel->notePool);
+                        AudioList_ClearNotePool(&channel->notePool);
                         break;
 
                     case 0xC2: // set dynamic table
@@ -1359,12 +1359,12 @@ void AudioSeq_SequencePlayerProcessSequence(SequencePlayer* seqPlayer) {
                         break;
 
                     case 0xF1: // reserve voices
-                        Audio_NotePoolClear(&seqPlayer->notePool);
-                        Audio_NotePoolFill(&seqPlayer->notePool, AudioSeq_ScriptReadU8(state));
+                        AudioList_ClearNotePool(&seqPlayer->notePool);
+                        AudioList_FillNotePool(&seqPlayer->notePool, AudioSeq_ScriptReadU8(state));
                         break;
 
                     case 0xF0: // release voices
-                        Audio_NotePoolClear(&seqPlayer->notePool);
+                        AudioList_ClearNotePool(&seqPlayer->notePool);
                         break;
 
                     case 0xDF: // absolute transposition
@@ -1543,7 +1543,7 @@ void AudioSeq_ProcessSequences(s32 arg0) {
             AudioScript_SequencePlayerProcessSound(&gSeqPlayers[i]);
         }
     }
-    Audio_ProcessNotes();
+    AudioPlayback_ProcessNotes();
 }
 
 // Original name: Nas_InitMySeq
@@ -1604,7 +1604,7 @@ void AudioSeq_InitSequencePlayers(void) {
         gSeqPlayers[i].muted = false;
         gSeqPlayers[i].fontDmaInProgress = false;
         gSeqPlayers[i].seqDmaInProgress = false;
-        Audio_InitNoteLists(&gSeqPlayers[i].notePool);
+        AudioList_InitNoteLists(&gSeqPlayers[i].notePool);
         AudioSeq_ResetSequencePlayer(i);
     }
 }

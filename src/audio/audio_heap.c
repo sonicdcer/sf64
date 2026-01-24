@@ -90,12 +90,12 @@ void AudioHeap_DiscardFont(s32 fontId) {
         note = &gNotes[i];
 
         if (fontId == note->playbackState.fontId) {
-            if ((note->playbackState.unk_04 == 0) && (note->playbackState.priority != 0)) {
+            if ((note->playbackState.status == PLAYBACK_STATUS_0) && (note->playbackState.priority != 0)) {
                 note->playbackState.parentLayer->enabled = false;
                 note->playbackState.parentLayer->finished = true;
             }
-            Audio_NoteDisable(note);
-            Audio_AudioListRemove(note);
+            AudioPlayback_NoteDisable(note);
+            AudioList_Remove(note);
             AudioSeq_AudioListPushBack(&gNoteFreeLists.disabled, &note->listItem);
         }
     }
@@ -276,7 +276,7 @@ void* AudioHeap_AllocCached(AudioTableType tableType, size_t size, s32 cache, s3
             if (loadStatusEntry0 == LOAD_STATUS_MAYBE_DISCARDABLE) {
                 for (i = 0; i < gNumNotes; i++) {
                     if ((gNotes[i].playbackState.fontId == temporaryCache->entries[0].id) &&
-                        gNotes[i].noteSubEu.bitField0.enabled) {
+                        gNotes[i].sampleState.bitField0.enabled) {
                         break;
                     }
                 }
@@ -291,7 +291,7 @@ void* AudioHeap_AllocCached(AudioTableType tableType, size_t size, s32 cache, s3
             if (loadStatusEntry1 == LOAD_STATUS_MAYBE_DISCARDABLE) {
                 for (i = 0; i < gNumNotes; i++) {
                     if ((gNotes[i].playbackState.fontId == temporaryCache->entries[1].id) &&
-                        gNotes[i].noteSubEu.bitField0.enabled) {
+                        gNotes[i].sampleState.bitField0.enabled) {
                         break;
                     }
                 }
@@ -343,7 +343,7 @@ void* AudioHeap_AllocCached(AudioTableType tableType, size_t size, s32 cache, s3
                 if (loadStatusEntry0 == LOAD_STATUS_COMPLETE) {
                     for (i = 0; i < gNumNotes; i++) {
                         if ((gNotes[i].playbackState.fontId == temporaryCache->entries[0].id) &&
-                            gNotes[i].noteSubEu.bitField0.enabled) {
+                            gNotes[i].sampleState.bitField0.enabled) {
                             break;
                         }
                     }
@@ -356,7 +356,7 @@ void* AudioHeap_AllocCached(AudioTableType tableType, size_t size, s32 cache, s3
                 if (loadStatusEntry1 == LOAD_STATUS_COMPLETE) {
                     for (i = 0; i < gNumNotes; i++) {
                         if ((gNotes[i].playbackState.fontId == temporaryCache->entries[1].id) &&
-                            gNotes[i].noteSubEu.bitField0.enabled) {
+                            gNotes[i].sampleState.bitField0.enabled) {
                             break;
                         }
                     }
@@ -622,9 +622,9 @@ s32 AudioHeap_ResetStep(void) {
                 AudioHeap_UpdateReverbs();
             } else {
                 for (i = 0; i < gNumNotes; i++) {
-                    if (gNotes[i].noteSubEu.bitField0.enabled && (gNotes[i].playbackState.adsr.state != 0)) {
+                    if (gNotes[i].sampleState.bitField0.enabled && (gNotes[i].playbackState.adsr.state != 0)) {
                         gNotes[i].playbackState.adsr.fadeOutVel = gAudioBufferParams.ticksPerUpdateInv;
-                        gNotes[i].playbackState.adsr.action.asByte |= 0x10;
+                        gNotes[i].playbackState.adsr.action.asByte |= ADSR_RELEASE_FLAG;
                     }
                 }
 
@@ -758,11 +758,12 @@ void AudioHeap_Init(void) {
 
     gNotes = AudioHeap_AllocZeroed(&gMiscPool, gNumNotes * sizeof(Note));
 
-    Audio_NoteInitAll();
+    AudioPlayback_NoteInitAll();
 
-    Audio_InitNoteFreeList();
+    AudioList_InitNoteFreeList();
 
-    gNoteSubsEu = AudioHeap_AllocZeroed(&gMiscPool, gAudioBufferParams.ticksPerUpdate * gNumNotes * sizeof(NoteSubEu));
+    gSampleStateList =
+        AudioHeap_AllocZeroed(&gMiscPool, gAudioBufferParams.ticksPerUpdate * gNumNotes * sizeof(NoteSampleState));
 
     for (i = 0; i != ARRAY_COUNT(gAbiCmdBuffs); i++) {
         gAbiCmdBuffs[i] = AudioHeap_AllocZeroed(&gMiscPool, gMaxAudioCmds * 8);
@@ -1023,7 +1024,7 @@ void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry) {
             if ((AudioHeap_SearchCaches(FONT_TABLE, CACHE_EITHER, fondId) != NULL) &&
                 ((gFontLoadStatus[fondId] > 1) != 0)) {
                 for (instId = 0; instId < gSoundFontList[fondId].numInstruments; instId++) {
-                    instrument = Audio_GetInstrument(fondId, instId);
+                    instrument = AudioPlayback_GetInstrumentInner(fondId, instId);
                     if (instrument != NULL) {
                         if (instrument->normalRangeLo != 0) {
                             AudioHeap_UnapplySampleCache(entry, instrument->lowPitchTunedSample.sample);
@@ -1036,7 +1037,7 @@ void AudioHeap_DiscardSampleCacheEntry(SampleCacheEntry* entry) {
                 }
 
                 for (drumId = 0; drumId < gSoundFontList[fondId].numDrums; drumId++) {
-                    drum = Audio_GetDrum(fondId, drumId);
+                    drum = AudioPlayback_GetDrum(fondId, drumId);
                     if (drum != NULL) {
                         AudioHeap_UnapplySampleCache(entry, drum->tunedSample.sample);
                     }
@@ -1114,7 +1115,7 @@ void AudioHeap_DiscardSampleCaches(void) {
                     }
 #endif
                     for (instId = 0; instId < gSoundFontList[fontId].numInstruments; instId++) {
-                        instrument = Audio_GetInstrument(fontId, instId);
+                        instrument = AudioPlayback_GetInstrumentInner(fontId, instId);
                         if (instrument != NULL) {
                             if (instrument->normalRangeLo != 0) {
                                 AudioHeap_UnapplySampleCache(entry, instrument->lowPitchTunedSample.sample);
@@ -1127,7 +1128,7 @@ void AudioHeap_DiscardSampleCaches(void) {
                     }
 
                     for (drumId = 0; drumId < gSoundFontList[fontId].numDrums; drumId++) {
-                        drum = Audio_GetDrum(fontId, drumId);
+                        drum = AudioPlayback_GetDrum(fontId, drumId);
                         if (drum != NULL) {
                             AudioHeap_UnapplySampleCache(entry, drum->tunedSample.sample);
                         }

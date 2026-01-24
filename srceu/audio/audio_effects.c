@@ -6,7 +6,7 @@ void func_800144C4(SequencePlayer* seqPlayer);
 void func_800133E0(SequenceChannel* channel, s32 updateVolume) {
     s32 i;
 
-    if (channel->changes.s.volume || updateVolume) {
+    if (channel->changes.flags.volume || updateVolume) {
         f32 channelVolume = channel->volume * channel->volumeMod * channel->seqPlayer->appliedFadeVolume;
 
         if (channel->seqPlayer->muted && (channel->muteBehavior & 0x20)) {
@@ -14,7 +14,7 @@ void func_800133E0(SequenceChannel* channel, s32 updateVolume) {
         }
         channel->appliedVolume = SQ(channelVolume);
     }
-    if (channel->changes.s.pan) {
+    if (channel->changes.flags.pan) {
         channel->pan = channel->newPan * channel->panChannelWeight;
     }
     for (i = 0; i < ARRAY_COUNT(channel->layers); i++) {
@@ -27,13 +27,13 @@ void func_800133E0(SequenceChannel* channel, s32 updateVolume) {
                 layer->notePan = (channel->pan + (layer->pan * (0x80 - channel->panChannelWeight))) >> 7;
                 layer->ignoreDrumPan = false;
             } else {
-                if (channel->changes.s.freqMod) {
+                if (channel->changes.flags.freqMod) {
                     layer->noteFreqMod = layer->freqMod * channel->freqMod;
                 }
-                if (channel->changes.s.volume || updateVolume) {
+                if (channel->changes.flags.volume || updateVolume) {
                     layer->noteVelocity = layer->velocitySquare * channel->appliedVolume;
                 }
-                if (channel->changes.s.pan) {
+                if (channel->changes.flags.pan) {
                     layer->notePan = (channel->pan + (layer->pan * (0x80 - channel->panChannelWeight))) >> 7;
                 }
             }
@@ -208,7 +208,7 @@ f32 func_80013B70(AdsrState* adsr) {
                     adsr->state = ADSR_STATE_HANG;
                     break;
                 case ADSR_GOTO:
-                    adsr->envIndex = adsr->envelope[adsr->envIndex].arg;
+                    adsr->envIndex = adsr->envelope[adsr->envIndex].value;
                     goto case_ADSR_STATE_LOOP;
                 case ADSR_RESTART:
                     adsr->state = ADSR_STATE_INITIAL;
@@ -222,7 +222,7 @@ f32 func_80013B70(AdsrState* adsr) {
                         adsr->delay = 1;
                     }
 
-                    adsr->target = adsr->envelope[adsr->envIndex].arg / 32767.0f;
+                    adsr->target = adsr->envelope[adsr->envIndex].value / 32767.0f;
                     adsr->target = SQ(adsr->target);
                     adsr->velocity = (adsr->target - adsr->current) / adsr->delay;
                     adsr->state = ADSR_STATE_FADE;
@@ -262,11 +262,11 @@ f32 func_80013B70(AdsrState* adsr) {
     }
     if (action & 0x20) {
         adsr->state = ADSR_STATE_DECAY;
-        adsr->action.asByte = action & ~0x20;
+        adsr->action.asByte = action & ~ADSR_DECAY_FLAG;
     }
     if (action & 0x10) {
         adsr->state = ADSR_STATE_RELEASE;
-        adsr->action.asByte = action & ~0x10;
+        adsr->action.asByte = action & ~ADSR_RELEASE_FLAG;
     }
     if (adsr->current < 0.0f) {
         return 0.0f;
