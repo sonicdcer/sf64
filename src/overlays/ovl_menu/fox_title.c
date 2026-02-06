@@ -2517,7 +2517,7 @@ void Title_CorneriaExplosions_Draw(void) {
                 if (D_menu_801B7CF0[i] < 0) {
                     D_menu_801B7CF0[i] = 0;
                 }
-                if (D_menu_801B7CC8[i] == 0 && D_menu_801B7CF0[i] == 0) {
+                if ((D_menu_801B7CC8[i] == 0) && (D_menu_801B7CF0[i] == 0)) {
                     D_menu_801B7CA0[i] = 255;
                 }
                 break;

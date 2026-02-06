@@ -155,7 +155,7 @@ void Ending_8018D638(u32 arg0, AssetInfo* asset) {
 
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, 255);
 
-    if (gExpertMode != 0) {
+    if (gExpertMode) {
         for (i = 0; i < 240; i += 4) {
             if (gVenomHardClear == 0) {
                 Lib_TextureRect_RGBA16(&gMasterDisp, aEndingNormalReward + 316 * i, 316, 4, 0.0f, i, 1.0f, 1.0f);
@@ -313,7 +313,7 @@ bool Ending_8018DCB4(void) {
 }
 
 void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     if ((asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z) < D_ending_801985D0.z) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
@@ -333,20 +333,20 @@ void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
     Matrix_Scale(gGfxMatrix, asset->unk_30.x + (arg0 % 3) * 0.01f, asset->unk_30.y + (arg0 % 3) * 0.01f,
                  asset->unk_30.z + (arg0 % 3) * 0.01f, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -354,15 +354,15 @@ void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -372,7 +372,7 @@ void Ending_8018E1B8(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     if ((asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z) < D_ending_801985D0.z) {
         RCP_SetupDL(&gMasterDisp, SETUPDL_67);
@@ -389,20 +389,20 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
                      asset->unk_18.y + (arg0 - asset->unk_0C) * asset->unk_3C.y,
                      asset->unk_18.z + (arg0 - asset->unk_0C) * asset->unk_3C.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -410,15 +410,15 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -432,7 +432,7 @@ void Ending_8018E7B8(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_Floor_Draw(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     gStarCount = 0;
 
@@ -448,16 +448,16 @@ void Ending_Floor_Draw(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                   M_DTOR * (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                    MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                   M_DTOR * (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                    MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                   M_DTOR * (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                    MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -470,7 +470,7 @@ void Ending_Floor_Draw(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -484,27 +484,27 @@ void Ending_8018F2A8(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                   M_DTOR * (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                    MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                   M_DTOR * (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                    MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                   M_DTOR * (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                    MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
 
-    gCurrentLevel = LEVEL_UNK_M1;
+    gCurrentLevel = LEVEL_INVALID;
 
     Cutscene_DrawGreatFox();
 }
 
 void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     if (gLeveLClearStatus[LEVEL_ZONESS] == 0) {
         return;
@@ -523,20 +523,20 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -544,15 +544,15 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -571,7 +571,7 @@ void Ending_8018F64C(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     if (gLeveLClearStatus[LEVEL_KATINA] == 0) {
         return;
@@ -590,20 +590,20 @@ void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -611,15 +611,15 @@ void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -638,7 +638,7 @@ void Ending_8018FC60(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80190274(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -652,16 +652,16 @@ void Ending_80190274(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                   M_DTOR * (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                    MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                   M_DTOR * (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                    MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                   M_DTOR * (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                    MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -684,7 +684,7 @@ void Ending_80190648(s32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80190778(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -699,20 +699,20 @@ void Ending_80190778(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.2f + asset->unk_70);
+    angle = __sinf(arg0 * 0.2f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -720,15 +720,15 @@ void Ending_80190778(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -742,7 +742,7 @@ void Ending_80190778(u32 arg0, AssetInfo* asset) {
 
 void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
     u8 alpha = 255;
-    f32 temp;
+    f32 angle;
 
     if (gVenomHardClear == 1) {
         return;
@@ -769,20 +769,20 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.2f + asset->unk_70);
+    angle = __sinf(arg0 * 0.2f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -790,15 +790,15 @@ void Ending_80190CF0(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -819,7 +819,7 @@ void Ending_80191234(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80191294(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -834,16 +834,16 @@ void Ending_80191294(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                   M_DTOR * (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                    MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                   M_DTOR * (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                    MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                   M_DTOR * (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                    MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);
@@ -876,7 +876,7 @@ void Ending_80191700(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80191710(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -891,20 +891,20 @@ void Ending_80191710(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     switch (asset->unk_71) {
         case 1:
             Matrix_RotateY(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + temp * asset->unk_54.y +
+                           M_DTOR * (-D_ending_801985F0.y + asset->unk_24.y + angle * asset->unk_54.y +
                                      (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
-                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + temp * asset->unk_54.x +
+                           M_DTOR * (-D_ending_801985F0.x + asset->unk_24.x + angle * asset->unk_54.x +
                                      (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
-                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + temp * asset->unk_54.z +
+                           M_DTOR * (D_ending_801985F0.z + asset->unk_24.z + angle * asset->unk_54.z +
                                      (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
@@ -912,15 +912,15 @@ void Ending_80191710(u32 arg0, AssetInfo* asset) {
         default:
             Matrix_RotateY(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                               (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                            MTXF_APPLY);
             Matrix_RotateX(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                               (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                            MTXF_APPLY);
             Matrix_RotateZ(gGfxMatrix,
                            M_DTOR *
-                               (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                               (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                            MTXF_APPLY);
             break;
     }
@@ -935,7 +935,7 @@ void Ending_80191C58(u32 arg0, AssetInfo* asset) {
 }
 
 void Ending_80191C7C(u32 arg0, AssetInfo* asset) {
-    f32 temp;
+    f32 angle;
 
     RCP_SetupDL(&gMasterDisp, asset->unk_08);
 
@@ -950,16 +950,16 @@ void Ending_80191C7C(u32 arg0, AssetInfo* asset) {
 
     Matrix_Scale(gGfxMatrix, asset->unk_30.x, asset->unk_30.y, asset->unk_30.z, MTXF_APPLY);
 
-    temp = __sinf(arg0 * 0.1f + asset->unk_70);
+    angle = __sinf(arg0 * 0.1f + asset->unk_70);
 
     Matrix_RotateY(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.y + temp * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
+                   M_DTOR * (asset->unk_24.y + angle * asset->unk_54.y + (arg0 - asset->unk_0C) * asset->unk_48.y),
                    MTXF_APPLY);
     Matrix_RotateX(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.x + temp * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
+                   M_DTOR * (asset->unk_24.x + angle * asset->unk_54.x + (arg0 - asset->unk_0C) * asset->unk_48.x),
                    MTXF_APPLY);
     Matrix_RotateZ(gGfxMatrix,
-                   M_DTOR * (asset->unk_24.z + temp * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
+                   M_DTOR * (asset->unk_24.z + angle * asset->unk_54.z + (arg0 - asset->unk_0C) * asset->unk_48.z),
                    MTXF_APPLY);
 
     Matrix_SetGfxMtx(&gMasterDisp);

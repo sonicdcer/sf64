@@ -46,7 +46,7 @@ typedef enum DrawMode {
     /* 4 */ DRAW_PLAY,
     /* 5 */ DRAW_UNK_MAP,
     /* 6 */ DRAW_UNK_VS,
-    /* 7 */ DRAW_UNK_7,
+    /* 7 */ DRAW_PAUSE, // Unused pause code
     /* 8 */ DRAW_ENDING,
     /* 9 */ DRAW_MAX,
 } DrawMode;

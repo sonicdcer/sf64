@@ -5021,7 +5021,7 @@ void Map_CorneriaExplosion_Draw(void) {
 
 void Map_PlanetExplosions_Draw(PlanetId planetId, PlanetExplosions explosionIdx) {
     s32 i;
-    s32 temp2;
+    s32 maxExplosions;
     f32 temp;
 
     if (sPlanets[planetId].alpha == 0) {
@@ -5032,16 +5032,16 @@ void Map_PlanetExplosions_Draw(PlanetId planetId, PlanetExplosions explosionIdx)
         return;
     }
 
-    temp2 = 10;
+    maxExplosions = 10;
     if (planetId != PLANET_CORNERIA) {
-        temp2 = 5;
+        maxExplosions = 5;
     }
 
     RCP_SetupDL(&gMasterDisp, SETUPDL_67);
 
     gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 0);
 
-    for (i = 0; i < temp2; i++) {
+    for (i = 0; i < maxExplosions; i++) {
         switch (D_menu_801CEB58[explosionIdx][i]) {
             case 0:
                 D_menu_801CEC48[explosionIdx][i] += 0.1f;

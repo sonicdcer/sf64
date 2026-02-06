@@ -29,7 +29,7 @@ void Pause_Update(void) {
 
         case 1:
             D_ctx_80177868 = 2;
-            gDrawMode = DRAW_UNK_7;
+            gDrawMode = DRAW_PAUSE;
             gCsCamEyeX = gCsCamEyeY = gCsCamEyeZ = gCsCamAtX = gCsCamAtY = 0.0f;
             gCsCamAtZ = -10.0f;
             break;

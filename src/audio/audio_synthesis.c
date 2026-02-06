@@ -1380,6 +1380,8 @@ Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSampleState* sampleState, Note
 
     switch (delaySide) {
         case HAAS_EFFECT_DELAY_LEFT:
+            // Delay the sample on the left channel
+            // This allows the right channel to be heard first
             dmemDest = DMEM_LEFT_CH;
             haasEffectDelaySize = sampleState->leftDelaySize;
             prevHaasEffectDelaySize = synthState->prevHaasEffectLeftDelaySize;
@@ -1388,6 +1390,8 @@ Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSampleState* sampleState, Note
             break;
 
         case HAAS_EFFECT_DELAY_RIGHT:
+            // Delay the sample on the right channel
+            // This allows the left channel to be heard first
             dmemDest = DMEM_RIGHT_CH;
             haasEffectDelaySize = sampleState->rightDelaySize;
             prevHaasEffectDelaySize = synthState->prevHaasEffectRightDelaySize;
@@ -1400,6 +1404,7 @@ Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSampleState* sampleState, Note
     }
 
     if (flags != A_INIT) {
+        // Slightly adjust the sample rate in order to fit a change in sample delay
         if (haasEffectDelaySize != prevHaasEffectDelaySize) {
             pitch = (((size << 0xF) / 2) - 1) / ((size + haasEffectDelaySize - prevHaasEffectDelaySize - 2) / 2);
             aSetBuffer(aList++, 0, DMEM_HAAS_TEMP, DMEM_TEMP, size + haasEffectDelaySize - prevHaasEffectDelaySize);
@@ -1416,12 +1421,14 @@ Acmd* AudioSynth_ApplyHaasEffect(Acmd* aList, NoteSampleState* sampleState, Note
             aDMEMMove(aList++, DMEM_TEMP, DMEM_HAAS_TEMP, size + haasEffectDelaySize);
         }
     } else {
+        // Just apply a delay directly
         aDMEMMove(aList++, DMEM_HAAS_TEMP, DMEM_TEMP, size);
         aClearBuffer(aList++, DMEM_HAAS_TEMP, haasEffectDelaySize);
         aDMEMMove(aList++, DMEM_TEMP, haasEffectDelaySize + DMEM_HAAS_TEMP, size);
     }
 
-    if (haasEffectDelaySize) {
+    if (haasEffectDelaySize) { // != 0
+        // Save excessive samples for next iteration
         aSaveBuffer(aList++, size + DMEM_HAAS_TEMP, OS_K0_TO_PHYSICAL(synthState->synthesisBuffers->panSamplesBuffer),
                     ALIGN16(haasEffectDelaySize));
     }

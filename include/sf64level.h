@@ -82,7 +82,7 @@ typedef enum SceneId {
 } SceneId;
 
 typedef enum LevelId {
-    /* -1 */ LEVEL_UNK_M1 = -1,
+    /* -1 */ LEVEL_INVALID = -1,
     /*  0 */ LEVEL_CORNERIA,
     /*  1 */ LEVEL_METEO,
     /*  2 */ LEVEL_SECTOR_X,

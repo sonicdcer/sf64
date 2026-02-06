@@ -4,7 +4,9 @@
 #include "PR/ultratypes.h"
 
 #define M_PI    3.14159265358979323846f
+// Degrees to Radians
 #define M_DTOR	(M_PI / 180.0f)
+// Radians to Degrees
 #define M_RTOD	(180.0f / M_PI)
 #define M_SQRT2 1.41421356237309504880f
 #define M_SQRT1_2 0.70710678118654752440f	/* 1/sqrt(2) */

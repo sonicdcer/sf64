@@ -292,7 +292,7 @@ void Game_Draw(s32 playerNum) {
         case DRAW_UNK_VS:
             func_versus_800C2190();
             break;
-        case DRAW_UNK_7:
+        case DRAW_PAUSE: // Unused
             gPlayerNum = playerNum;
             Pause_Draw();
             break;
