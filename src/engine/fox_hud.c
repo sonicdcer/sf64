@@ -2195,7 +2195,7 @@ s32 ActorMissileSeek_ModeCheck(ActorMissileSeekMode mode) {
     s32 i;
     s32 ret = 0;
 
-    for (i = 0, actor = &gActors[0]; i < 60; i++, actor++) {
+    for (i = 0, actor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, actor++) {
         switch (mode) {
             case MISSILE_SEEK_TEAMMATES:
                 if ((actor->obj.status == OBJ_ACTIVE) && (actor->obj.id == OBJ_ACTOR_MISSILE_SEEK_TEAM)) {

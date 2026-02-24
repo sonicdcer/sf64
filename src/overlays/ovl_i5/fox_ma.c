@@ -386,11 +386,11 @@ void Macbeth_InitLevel(void) {
 
     Graphics_ClearPrintBuffer(D_i5_801BE308, 0, 8);
 
-    for (i = 0; i < 35; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_i5_801BE320); i++) {
         D_i5_801BE320[i] = 0;
     }
 
-    for (i = 0; i < 50; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_i5_801BE368); i++) {
         D_i5_801BE368[i] = 0;
     }
 }
