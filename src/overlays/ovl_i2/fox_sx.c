@@ -1357,9 +1357,9 @@ Vec3f sLevelStartTeamSetupPos[3] = {
     { 150.0f, -50.0f, 50.0f },
 };
 
-f32 D_i2_80195710[4] = { -1200.0f, 1000.0f, 0.0f, 0.0f };
-f32 D_i2_80195720[4] = { -300.0f, 400.0f, -400.0f, 0.0f };
-f32 D_i2_80195730[4] = { -800.0f, -800.0f, -1000.0f, -8000.0f };
+f32 sLevelCompleteTeamSetupPosX[4] = { -1200.0f, 1000.0f, 0.0f, 0.0f };
+f32 sLevelCompleteTeamSetupPosY[4] = { -300.0f, 400.0f, -400.0f, 0.0f };
+f32 sLevelCompleteTeamSetupPosZ[4] = { -800.0f, -800.0f, -1000.0f, -8000.0f };
 f32 D_i2_80195740[4] = { -150.0f, 150.0f, 0.0f, 0.0f };
 f32 D_i2_80195750[4] = { 20.0f, 0.0f, -70.0f, 0.0f };
 f32 D_i2_80195760[4] = { -250.0f, -200.0f, -400.0f, -8000.0f };
@@ -1675,9 +1675,9 @@ void SectorX_LevelComplete_SetupTeam(ActorCutscene* this, s32 teamIdx) {
 
     Matrix_RotateY(gCalcMatrix, player->rot.y * M_DTOR, MTXF_NEW);
 
-    srcA.x = D_i2_80195710[teamIdx];
-    srcA.y = D_i2_80195720[teamIdx];
-    srcA.z = D_i2_80195730[teamIdx];
+    srcA.x = sLevelCompleteTeamSetupPosX[teamIdx];
+    srcA.y = sLevelCompleteTeamSetupPosY[teamIdx];
+    srcA.z = sLevelCompleteTeamSetupPosZ[teamIdx];
     srcB.x = D_i2_80195740[teamIdx];
     srcB.y = D_i2_80195750[teamIdx];
     srcB.z = D_i2_80195760[teamIdx];

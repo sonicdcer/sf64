@@ -71,7 +71,7 @@ f32 D_i5_801B7518[2] = { 20.0f, 60.0f };
 void Titania_80188F30(void) {
     s32 i;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_i5_801B750C); i++) {
         D_i5_801B750C[i] = false;
     }
     D_MA_801BA1E8 = 99;
@@ -1070,7 +1070,7 @@ void Titania_TiDesertCrawler_Init(TiDesertCrawler* this) {
     s32 index;
     s32 i;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < ARRAY_COUNT(D_i5_801B750C); i++) {
         if (!D_i5_801B750C[i]) {
             D_i5_801B750C[i] = true;
             this->iwork[0] = i;

@@ -3108,7 +3108,7 @@ bool Macbeth_801A3C20(f32 arg0) {
     return true;
 }
 
-void Macbeth_MaMaRailroadSwitch_Init(MaRailroadSwitch* this) {
+void Macbeth_MaRailroadSwitch_Init(MaRailroadSwitch* this) {
     this->state = 0;
     this->work_046 = D_i5_801BA1D8;
     D_i5_801BA1D8++;
