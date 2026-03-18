@@ -1045,7 +1045,7 @@ void Solar_801A0FD4(ActorCutscene* this, s32 index) {
         AUDIO_PLAY_SFX(NA_SE_ARWING_ENGINE_FG, this->sfxSource, 4);
     }
 }
-
+extern int sCutsceneStarted;
 void Solar_LevelStart(Player* player) {
     s32 i;
     Vec3f sp50;
@@ -1060,6 +1060,7 @@ void Solar_LevelStart(Player* player) {
 
     switch (player->csState) {
         case 0:
+            // sCutsceneStarted = 1;
             gCsFrameCount = 0;
             Rand_SetSeed(1, 29100, 9786);
             player->csState = 1;
@@ -1231,6 +1232,7 @@ void Solar_LevelStart(Player* player) {
             }
 
             if (gFillScreenAlpha == 255) {
+                // sCutsceneStarted = 0;
                 AUDIO_PLAY_BGM(NA_BGM_STAGE_SO);
                 player->pos.z = 0.0f;
                 player->baseSpeed = gArwingSpeed;
