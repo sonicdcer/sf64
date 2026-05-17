@@ -919,7 +919,7 @@ void AudioSeq_SequenceChannelProcessScript(SequenceChannel* channel) {
                             channel->fontId = cmd;
                         }
                         /* fallthrough */
-                    case 0xC1: // Set subtrack voice
+                    case 0xC1: // Set channel voice
                         cmd = AudioSeq_ScriptReadU8(state);
                         AudioSeq_SetInstrument(channel, cmd);
                         break;
