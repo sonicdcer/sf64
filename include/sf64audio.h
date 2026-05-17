@@ -655,7 +655,7 @@ typedef struct Note {
     /* 0xB0 */ NoteSampleState sampleState;
 } Note; // size = 0xC0
 
-typedef struct {
+typedef struct ReverbSettings {
     /* 0x00 */ u8 downsampleRate;
     /* 0x02 */ u8 windowSize;
     /* 0x02 */ u16 decayRatio; // determines how much reverb persists
@@ -667,7 +667,7 @@ typedef struct {
  * The high-level audio specifications requested when initializing or resetting the audio heap.
  * The audio heap can be reset on various occasions, including on most scene transitions.
  */
-typedef struct {
+typedef struct AudioSpec {
     /* 0x00 */ u32 samplingFrequency; // Target sampling rate in Hz
     /* 0x04 */ u8 numBuffers;
     /* 0x05 */ u8 numNotes;
@@ -692,7 +692,7 @@ typedef struct {
  * digital-analog converter (DAC), then to play on the speakers. The audio buffer is written to by the rsp after
  * processing audio commands. This struct parameterizes that buffer.
  */
-typedef struct {
+typedef struct AudioBufferParameters {
     /* 0x00 */ s16 numBuffers;
     /* 0x02 */ u16 samplingFrequency;   // Target sampling rate in Hz
     /* 0x04 */ u16 aiSamplingFrequency; // True sampling rate of the audio interface (AI), see `osAiSetFrequency`
@@ -711,7 +711,7 @@ typedef struct {
 /**
  * Meta-data associated with a pool (contained within the Audio Heap)
  */
-typedef struct {
+typedef struct AudioAllocPool {
     /* 0x0 */ u8* startRamAddr; // start addr of the pool
     /* 0x4 */ u8* curRamAddr;   // address of the next available memory for allocation
     /* 0x8 */ s32 size;         // size of the pool
@@ -721,7 +721,7 @@ typedef struct {
 /**
  * Audio cache entry data to store a single entry containing either a sequence, soundfont, or entire sample banks
  */
-typedef struct {
+typedef struct AudioCacheEntry {
     /* 0x0 */ u8* ramAddr;
     /* 0x4 */ u32 size;
     /* 0x8 */ s16 tableType;
@@ -731,7 +731,7 @@ typedef struct {
 /**
  * Audio cache entry data to store a single entry containing an individual sample
  */
-typedef struct {
+typedef struct SampleCacheEntry {
     /* 0x00 */ s8 inUse;
     /* 0x01 */ s8 origMedium;
     /* 0x02 */ s8 sampleBankId;
@@ -744,48 +744,48 @@ typedef struct {
 /**
  * Audio cache entry data to store individual samples
  */
-typedef struct {
+typedef struct AudioSampleCache {
     /* 0x000 */ AudioAllocPool pool;
     /* 0x010 */ SampleCacheEntry entries[64];
     /* 0x290 */ s32 numEntries;
 } AudioSampleCache; // size = 0x294
 
-typedef struct {
+typedef struct AudioPersistentCache {
     /* 0x00*/ u32 numEntries;
     /* 0x04*/ AudioAllocPool pool;
     /* 0x14*/ AudioCacheEntry entries[32];
 } AudioPersistentCache; // size = 0x194
 
-typedef struct {
+typedef struct AudioTemporaryCache {
     /* 0x00*/ u32 nextSide;
     /* 0x04*/ AudioAllocPool pool;
     /* 0x14*/ AudioCacheEntry entries[2];
 } AudioTemporaryCache; // size = 0x2C
 
-typedef struct {
+typedef struct AudioCache {
     /* 0x000*/ AudioPersistentCache persistent;
     /* 0x194*/ AudioTemporaryCache temporary;
     /* 0x1C0*/ char pad[0x10];
 } AudioCache; // size = 0x1D0
 
-typedef struct {
+typedef struct AudioCachePoolSplit {
     /* 0x0 */ u32 persistentCommonPoolSize;
     /* 0x4 */ u32 temporaryCommonPoolSize;
 } AudioCachePoolSplit; // size = 0x8
 
-typedef struct {
+typedef struct AudioCommonPoolSplit {
     /* 0x0 */ u32 seqCacheSize;
     /* 0x4 */ u32 fontCacheSize;
     /* 0x8 */ u32 sampleBankCacheSize;
 } AudioCommonPoolSplit; // size = 0xC
 
-typedef struct {
+typedef struct AudioSessionPoolSplit {
     /* 0x0 */ u32 miscPoolSize;
     /* 0x4 */ u32 unkSizes[2];
     /* 0xC */ u32 cachePoolSize;
 } AudioSessionPoolSplit; // size = 0x10
 
-typedef struct {
+typedef struct AudioPreloadReq {
     /* 0x00 */ u32 endAndMediumKey;
     /* 0x04 */ Sample* sample;
     /* 0x08 */ u8* ramAddr;
@@ -796,7 +796,7 @@ typedef struct {
 /**
  * Audio commands used to transfer audio requests from the graph thread to the audio thread
  */
-typedef struct {
+typedef struct AudioCmd {
     /* 0x0 */ union {
         u32 opArgs;
         struct {
@@ -817,7 +817,7 @@ typedef struct {
     };
 } AudioCmd; // size = 0x8
 
-typedef struct {
+typedef struct AudioAsyncLoad {
     /* 0x00 */ s8 status;
     /* 0x01 */ s8 delay;
     /* 0x02 */ s8 medium;
@@ -833,7 +833,7 @@ typedef struct {
     /* 0x3C */ OSIoMesg ioMesg;
 } AudioAsyncLoad; // size = 0x54
 
-typedef struct {
+typedef struct AudioSlowLoad {
     /* 0x00 */ u8 medium;
     /* 0x01 */ u8 seqOrFontId;
     /* 0x02 */ u8 instId;
@@ -849,19 +849,19 @@ typedef struct {
     /* 0x48 */ OSIoMesg ioMesg;
 } AudioSlowLoad; // size = 0x60
 
-typedef struct {
+typedef struct AudioSlowLoadBuffer {
     /* 0x00 */ s32 slowLoadPos;
     /* 0x04 */ AudioSlowLoad slowLoad[2];
 } AudioSlowLoadBuffer; // size = 0xC4
 
-typedef struct {
+typedef struct AudioTableBase {
     /* 0x00 */ s16 numEntries;
     /* 0x02 */ s16 medium;
     /* 0x04 */ uintptr_t romAddr;
     /* 0x08 */ char pad[8];
 } AudioTableBase;
 
-typedef struct {
+typedef struct AudioTableEntry {
     /* 0x00 */ uintptr_t romAddr;
     /* 0x04 */ u32 size;
     /* 0x08 */ s8 medium;
@@ -871,7 +871,7 @@ typedef struct {
     /* 0x0E */ s16 shortData3;
 } AudioTableEntry; // size = 0x10
 
-typedef struct {
+typedef struct AudioTable {
     /* 0x00 */ AudioTableBase base;
     /* 0x10 */ AudioTableEntry entries[]; // (dynamic size)
 } AudioTable;                             // size >= 0x20
@@ -886,19 +886,19 @@ typedef struct SampleDma {
     /* 0x0E */ u8 ttl;        // duration after which the DMA can be discarded
 } SampleDma;                  // size = 0x10
 
-typedef struct {
+typedef struct AudioHeapInitSizes {
     /* 0x00 */ u32 heapSize; // total number of bytes allocated to the audio heap. Must be <= the size of `gAudioHeap`
                              // (ideally about the same size)
     /* 0x04 */ u32 initPoolSize; // The entire audio heap is split into two pools.
     /* 0x08 */ u32 permanentPoolSize;
 } AudioHeapInitSizes; // size = 0xC
 
-typedef struct {
+typedef struct PermanentCache {
     AudioAllocPool pool;
     AudioCacheEntry entry[32];
 } PermanentCache; // size = 0x190
 
-typedef struct {
+typedef struct SampleBankRelocInfo {
     /* 0x00 */ s32 sampleBankId1;
     /* 0x04 */ s32 sampleBankId2;
     /* 0x08 */ s32 baseAddr1;
@@ -907,7 +907,7 @@ typedef struct {
     /* 0x14 */ u32 medium2;
 } SampleBankRelocInfo; // size = 0x18
 
-typedef struct {
+typedef struct PlaylistCmd {
     /* 0x0 */ u8 opCode;
     /* 0x1 */ u8 seqPlayId;
     /* 0x2 */ u16 seqId;
@@ -916,13 +916,13 @@ typedef struct {
     /* 0x8 */ u16 timer;
 } PlaylistCmd; // size:0xA
 
-typedef struct {
+typedef struct SoundTestTrack {
     /* 0x0 */ u16 seqId;
     /* 0x2 */ u16 audioSpec;
     /* 0x4 */ u8 bgmParam;
 } SoundTestTrack; // size: 0x6
 
-typedef struct {
+typedef struct SfxBankEntry {
     /* 0x00 */ f32* xPos;
     /* 0x04 */ f32* yPos;
     /* 0x08 */ f32* zPos;
@@ -940,7 +940,7 @@ typedef struct {
     /* 0x2C */ u8 channelIndex;
 } SfxBankEntry; // size = 0x30
 
-typedef struct {
+typedef struct SfxRequest {
     /* 0x00 */ u32 sfxId;
     /* 0x04 */ f32* source;
     /* 0x08 */ u8 token;
@@ -949,24 +949,24 @@ typedef struct {
     /* 0x14 */ s8* reverbAdd;
 } SfxRequest; // size = 0x18
 
-typedef struct {
+typedef struct ActiveSfx {
     /* 0x0 */ u32 priority; // lower is more prioritized
     /* 0x4 */ u8 entryIndex;
 } ActiveSfx; // size 0x8
 
-typedef struct {
+typedef struct SeqRequest {
     /* 0x0 */ u8 seqId;
     /* 0x1 */ u8 priority; // higher values have higher priority
 } SeqRequest;              // size = 0x2
 
-typedef struct {
+typedef struct Modulation {
     /* 0x0 */ f32 value;
     /* 0x4 */ f32 target;
     /* 0x8 */ f32 step;
     /* 0xC */ u16 timer;
 } Modulation; // size 0x10
 
-typedef struct {
+typedef struct FadeModulation {
     /* 0x000 */ f32 mod;
     /* 0x004 */ f32 target;
     /* 0x008 */ f32 step;
@@ -976,12 +976,12 @@ typedef struct {
     /* 0x012 */ u8 fadeActive;
 } FadeModulation; // size 0x14
 
-typedef struct {
+typedef struct ChannelModulation {
     /* 0x00 */ Modulation volume;
     /* 0x10 */ Modulation freq;
 } ChannelModulation; // size = 0x20
 
-typedef struct {
+typedef struct ActiveSequence {
     /* 0x000 */ FadeModulation mainVolume;
     /* 0x014 */ u32 tempoCmd;
     /* 0x018 */ u16 tempoOriginal; // stores the original tempo before modifying it (to reset back to)
@@ -1000,19 +1000,19 @@ typedef struct {
     /* 0x254 */ u8 isWaitingForFonts; // This name comes from MM
 } ActiveSequence;                     // size 0x258
 
-typedef struct {
+typedef struct SfxChannelState {
     /* 0x0 */ f32 volMod;
     /* 0x4 */ f32 freqMod;
     /* 0x8 */ s8 reverb;
     /* 0x9 */ s8 pan;
 } SfxChannelState; // size 0xC
 
-typedef struct {
+typedef struct DelayedSeqCmd {
     /* 0x0 */ u32 seqData;
     /* 0x4 */ u16 timer;
 } DelayedSeqCmd; // size 0x08
 
-typedef struct {
+typedef struct FrequencyLerp {
     /* 0x00 */ f32 value;
     /* 0x04 */ f32 target;
     /* 0x08 */ u32 timer;
@@ -1021,7 +1021,7 @@ typedef struct {
     /* 0x11 */ u8 brake;
 } FrequencyLerp; // size 0x14
 
-typedef struct {
+typedef struct PlayerNoiseModulation {
     /* 0x00 */ FrequencyLerp freqMod[5];
     /* 0x64 */ f32 dopplerShift;
     /* 0x68 */ f32 totalMod;
