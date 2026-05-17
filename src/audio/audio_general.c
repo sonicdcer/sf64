@@ -639,6 +639,7 @@ void Audio_StartSequence(u8 seqPlayId, u8 seqId, u8 seqArgs, u16 fadeInTime) {
         sActiveSequences[seqPlayId].tempo.timer = 0;
         sActiveSequences[seqPlayId].tempoOriginal = 0;
         sActiveSequences[seqPlayId].tempoCmd = 0;
+        
         for (i = 0; i < SEQ_NUM_CHANNELS; i++) {
             sActiveSequences[seqPlayId].channelMod[i].volume.value = 1.0f;
             sActiveSequences[seqPlayId].channelMod[i].volume.timer = 0;
@@ -759,7 +760,6 @@ void Audio_ProcessSeqCmd(u32 seqCmd) {
             if (found == 0) {
                 Audio_StopSequence(seqPlayId, fadeTimer);
                 if (sNumSeqRequests[seqPlayId] != 0) {
-
                     Audio_StartSequence(seqPlayId, sSeqRequests[seqPlayId][0].seqId,
                                         sSeqRequests[seqPlayId][0].priority, fadeTimer);
                 }
