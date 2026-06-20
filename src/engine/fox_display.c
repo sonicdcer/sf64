@@ -1688,9 +1688,14 @@ void Display_Update(void) {
 
     sDrawCockpit = false;
 
-    // 511 hit count cap
-    if (gHitCount > 511) {
-        gHitCount = 511;
+    // // 511 hit count cap
+    // if (gHitCount > 511) {
+    //     gHitCount = 511;
+    // }
+
+    // 999 hit count cap (like in version 1.0 US)
+    if (gHitCount > 999) {
+        gHitCount = 999;
     }
 
     Matrix_Push(&gGfxMatrix);
