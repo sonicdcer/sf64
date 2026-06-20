@@ -1677,6 +1677,21 @@ void Display_CsLevelCompleteHandleCamera(Player* player) {
     }
 }
 
+void PracticeROM_Cheats(void) {
+    Player* player = &gPlayer[0];
+
+    // Max Lives & Bombs
+    if (gControllerPress[0].button & D_JPAD) {
+        gBombCount[0] = 9;
+        gLifeCount[0] = 9;
+    }
+
+    if (gControllerPress[0].button & U_JPAD) {
+        player->shields = 0;
+        Player_ApplyDamage(player, 0, 10000);
+    }
+}
+
 void Display_Update(void) {
     s32 i;
     Vec3f tempVec;
@@ -1917,4 +1932,6 @@ void Display_Update(void) {
     Display_DrawHelpAlert();
     sPlayersVisible[gPlayerNum] = false;
     Matrix_Pop(&gGfxMatrix);
+
+    PracticeROM_Cheats();
 }

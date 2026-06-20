@@ -17,13 +17,13 @@
  * an advanced level phase (warp zone or Andross fight).
  * Useful for debugging and speedrunning training.
  */
-#define MODS_LEVEL_SELECT 0
+#define MODS_LEVEL_SELECT 1
 
 /**
  * Full Save:
  * Get a full save.
  */
-#define MODS_FULL_SAVE 0
+#define MODS_FULL_SAVE 1
 
 /**
  * Sound Effects Jukebox:
@@ -32,7 +32,7 @@
  * Use D-PAD to move the cursor
  * Use C buttons to edit values
  */
-#define MODS_SFX_JUKEBOX 0
+#define MODS_SFX_JUKEBOX 1
 
 /**
  * Auto debugger:
