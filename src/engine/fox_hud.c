@@ -2836,7 +2836,7 @@ void HUD_EdgeArrows_Update(void) {
     }
 }
 
-// Unused
+// Stubbed, returns 0
 s32 HUD_8008CB8C(void) {
     return 0;
 }

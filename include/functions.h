@@ -401,6 +401,7 @@ void HUD_VsModePortraitTex_Draw(f32, f32, f32, s32);
 void HUD_EdgeArrows_Draw(s32, bool);
 s32 HUD_CountDigits(s32);
 void HUD_EdgeArrows_Update(void);
+// Stubbed, returns 0
 s32 HUD_8008CB8C(void);
 void HUD_VS_ShieldGaugeTex_Draw(f32, f32, f32, f32, f32);
 void HUD_DrawBossHealth(void);

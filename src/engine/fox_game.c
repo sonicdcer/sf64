@@ -520,6 +520,7 @@ void Game_Update(void) {
 
         Game_Draw(0);
 
+        // gCamCount can never be 2 so this will never pass.
         if (gCamCount == 2) {
             Game_InitViewport(&gMasterDisp, gCamCount, 1);
             Game_Draw(1);
