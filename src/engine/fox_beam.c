@@ -916,7 +916,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
     }
 
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (shot->sourceId < 110)) {
-        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+        for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
                     (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_2) ||

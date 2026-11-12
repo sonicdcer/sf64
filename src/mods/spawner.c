@@ -110,7 +110,7 @@ void Spawner_Scenery360(s32 scenery360Id) {
         Vec3f* reticlePos = &D_display_801613E0[0];
         s32 i;
 
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < NUM_SCENERY_360; i++) {
             if (gScenery360[i].obj.status == OBJ_FREE) {
                 Scenery360_Initialize(&gScenery360[i]);
                 gScenery360[i].obj.status = OBJ_ACTIVE;
@@ -249,7 +249,7 @@ ObjCount Spawner_ObjCount(void) {
         }
     }
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < NUM_SCENERY_360; i++) {
             if (gScenery360[i].obj.status != OBJ_FREE) {
                 counter.scenery++;
             }
@@ -295,7 +295,7 @@ void Spawner_ObjKill(void) {
         Object_Kill(&gItems[i].obj, gItems[i].sfxSource);
     }
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < NUM_SCENERY_360; i++) {
             gScenery360[i].obj.status = OBJ_FREE;
         }
     }

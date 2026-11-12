@@ -361,7 +361,7 @@ void Play_Setup360_CO(void) {
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(aCoAllRangeLevelObjects);
 
-    for (i = 0, scenery360 = gScenery360; i < 200; i++) {
+    for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
@@ -413,7 +413,7 @@ void Play_Setup360_SY(void) {
 
     gLevelObjects = SEGMENTED_TO_VIRTUAL(aSyAllRangeLevelObjects);
 
-    for (i = 0, scenery360 = gScenery360; i < 200; i++) {
+    for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++) {
         if (gLevelObjects[i].id <= OBJ_INVALID) {
             break;
         }
@@ -1728,7 +1728,7 @@ void Player_CollisionCheck(Player* player) {
                 sp8C = 4000.0f;
             }
 
-            for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+            for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
                 if (scenery360->obj.status == OBJ_ACTIVE) {
                     spC8.x = scenery360->obj.pos.x - player->pos.x;
                     spC8.z = scenery360->obj.pos.z - player->trueZpos;
@@ -2244,12 +2244,12 @@ void Player_CollisionCheck(Player* player) {
 }
 
 void Player_FloorCheck(Player* player) {
-    s32 sp144;
+    s32 i;
     Scenery360* scenery360;
     Scenery* scenery;
     s32 count;
     s32 colId;
-    s32 i;
+    s32 j;
     f32 tempx;
     f32 tempy;
     f32 tempz;
@@ -2301,8 +2301,8 @@ void Player_FloorCheck(Player* player) {
 
     if (gCamCount != 1) {
         if (player->form == FORM_ON_FOOT) {
-            for (sp144 = 0; sp144 < 200; sp144++) {
-                scenery360 = &gScenery360[sp144];
+            for (i = 0; i < NUM_SCENERY_360; i++) {
+                scenery360 = &gScenery360[i];
                 if ((scenery360->obj.status == OBJ_ACTIVE) &&
                     ((scenery360->obj.id == OBJ_SCENERY_VS_KA_FLBASE) ||
                      (scenery360->obj.id == OBJ_SCENERY_VS_PYRAMID_1) ||
@@ -2334,7 +2334,7 @@ void Player_FloorCheck(Player* player) {
         if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
             player->groundPos.x = player->pos.x;
             player->groundPos.z = player->trueZpos;
-            for (sp144 = 0, scenery360 = gScenery360; sp144 < 200; sp144++, scenery360++) {
+            for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
                 if ((scenery360->obj.status == OBJ_ACTIVE) &&
                     ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
                      (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
@@ -2386,9 +2386,8 @@ void Player_FloorCheck(Player* player) {
                 }
             }
         }
-        for (sp144 = 0, scenery = gScenery;
-             (sp144 < 50) && (gLevelMode == LEVELMODE_ON_RAILS) && (gCurrentLevel != LEVEL_VENOM_1);
-             sp144++, scenery++) {
+        for (i = 0, scenery = gScenery;
+             (i < 50) && (gLevelMode == LEVELMODE_ON_RAILS) && (gCurrentLevel != LEVEL_VENOM_1); i++, scenery++) {
             if ((scenery->obj.status == OBJ_ACTIVE) && ((player->trueZpos - 3000.0f) < scenery->obj.pos.z) &&
                 (scenery->obj.id != OBJ_SCENERY_CO_STONE_ARCH) && (scenery->obj.id != OBJ_SCENERY_CO_HIGHWAY_3)) {
                 tempx = scenery->obj.pos.x;
@@ -2444,7 +2443,7 @@ void Player_FloorCheck(Player* player) {
                             sp120 = 0.0f;
                         }
                         hitboxData++;
-                        for (i = 0; i < count; i++, hitboxData += 6) {
+                        for (j = 0; j < count; j++, hitboxData += 6) {
                             if (*hitboxData >= HITBOX_SHADOW) {
                                 break;
                             }
@@ -2822,7 +2821,7 @@ void Play_Init(void) {
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
         MEM_ARRAY_ALLOCATE(gScenery360, 200);
 
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < NUM_SCENERY_360; i++) {
             gScenery360[i].obj.status = OBJ_FREE;
         }
 
@@ -6960,10 +6959,10 @@ void Play_Main(void) {
         gLevelMode = LEVELMODE_ALL_RANGE;
 
         if (gCurrentLevel != LEVEL_VENOM_ANDROSS) {
-            MEM_ARRAY_ALLOCATE(gScenery360, 200);
+            MEM_ARRAY_ALLOCATE(gScenery360, NUM_SCENERY_360);
         }
 
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < NUM_SCENERY_360; i++) {
             gScenery360[i].obj.status = OBJ_FREE;
         }
 

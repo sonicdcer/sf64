@@ -4,6 +4,18 @@
 #include "libultra/ultra64.h"
 #include "sf64math.h"
 
+#define NUM_SCENERY_360 200
+#define NUM_SCENERY 50
+#define NUM_SPRITES 40
+#define NUM_ACTORS 60
+#define NUM_BOSSES 4
+#define NUM_EFFECTS 100
+#define NUM_ITEMS 20
+#define NUM_TEXTURED_LINES 100
+#define NUM_PLAYERSHOTS 16
+#define NUM_RADARMARKS (NUM_ACTORS + 5)
+#define NUM_BONUS_TEXT 10
+
 #define HITBOX_ROTATED 200000.0f
 #define HITBOX_SHADOW 300000.0f
 #define HITBOX_WHOOSH 400000.0f

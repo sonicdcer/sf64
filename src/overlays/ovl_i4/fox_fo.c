@@ -803,7 +803,7 @@ void Fortuna_LevelComplete(Player* player) {
                     player->csState = 20;
                 }
 
-                for (i = 0; i < 200; i++) {
+                for (i = 0; i < NUM_SCENERY_360; i++) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
 

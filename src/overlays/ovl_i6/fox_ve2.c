@@ -436,8 +436,8 @@ void Venom2_LevelComplete(Player* player) {
                 gFillScreenAlphaTarget = 255;
                 gFillScreenAlphaStep = 8;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 0;
-                if (gFillScreenAlpha == 255) {
 
+                if (gFillScreenAlpha == 255) {
                     for (i = 1; i < ARRAY_COUNT(gTeamShields); i++) {
                         gPrevPlanetTeamShields[i] = gSavedTeamShields[i];
                         gPrevPlanetSavedTeamShields[i] = gSavedTeamShields[i];
@@ -453,7 +453,7 @@ void Venom2_LevelComplete(Player* player) {
                     Audio_StopPlayerNoise(0);
                     Audio_KillSfxBySource(player->sfxSource);
 
-                    for (i = 0; i < 200; i++) {
+                    for (i = 0; i < NUM_SCENERY_360; i++) {
                         gScenery360[i].obj.status = OBJ_FREE;
                     }
                 }

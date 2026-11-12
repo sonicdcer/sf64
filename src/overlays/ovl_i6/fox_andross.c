@@ -278,7 +278,7 @@ void Andross_James_Update(ActorTeamArwing* this) {
     Vec3f vel;
     f32 temp_fv1;
 
-    for (scenery360 = gScenery360, i = 0; i < 200; i++, scenery360++) {
+    for (scenery360 = gScenery360, i = 0; i < NUM_SCENERY_360; i++, scenery360++) {
         if ((scenery360->obj.id == OBJ_SCENERY_LEVEL_OBJECTS) && (scenery360->pathIndex == (u8) this->counter_04E)) {
             this->fwork[3] = scenery360->obj.pos.x;
             this->fwork[4] = scenery360->obj.pos.y;
@@ -625,7 +625,7 @@ void Andross_80189214(void) {
 
     Play_ClearObjectData();
 
-    for (i = 0; i < 200; i++) {
+    for (i = 0; i < NUM_SCENERY_360; i++) {
         gScenery360[i].obj.status = OBJ_FREE;
     }
 
@@ -714,7 +714,7 @@ void Andross_AndJamesTrigger_Update(AndJamesTrigger* this) {
         D_ctx_80177A48[0] = 1.0f;
         Play_ClearObjectData();
 
-        for (i = 0; i < 200; i++) {
+        for (i = 0; i < NUM_SCENERY_360; i++) {
             gScenery360[i].obj.status = OBJ_FREE;
         }
 
@@ -4081,7 +4081,7 @@ void Andross_LevelComplete(Player* player) {
                     Play_ClearObjectData();
 
                     gScenery360 = Memory_Allocate(200 * sizeof(Scenery360));
-                    for (i = 0; i < 200; i++) {
+                    for (i = 0; i < NUM_SCENERY_360; i++) {
                         gScenery360[i].obj.status = OBJ_FREE;
                     }
 
@@ -4153,7 +4153,8 @@ void Andross_LevelComplete(Player* player) {
                 sAndAmbientB = gAmbientB;
                 gEnvLightyRot = -50.0f;
                 gMissionStatus = MISSION_ACCOMPLISHED;
-                for (i = 0; i < 200; i++) {
+
+                for (i = 0; i < NUM_SCENERY_360; i++) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
             }

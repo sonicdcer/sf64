@@ -4215,7 +4215,7 @@ bool ActorTeamBoss_ObstacleCheck(ActorTeamBoss* this) {
     Math_Vec3fFromAngles(&vec, 0.0f, this->orient.y, 650.0f + this->fwork[9] * 10.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        for (i = 0, scenery360 = &gScenery360[0]; i < 200; i++, scenery360++) {
+        for (i = 0, scenery360 = &gScenery360[0]; i < NUM_SCENERY_360; i++, scenery360++) {
             if (scenery360->obj.status != OBJ_ACTIVE) {
                 continue;
             }

@@ -1353,7 +1353,7 @@ void SectorZ_LevelComplete(Player* player) {
                 D_ctx_80177A48[2] = 0.0f;
                 D_ctx_80177A48[3] = 300.0f;
 
-                for (i = 0; i < 200; i++) {
+                for (i = 0; i < NUM_SCENERY_360; i++) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
             }

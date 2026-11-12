@@ -881,7 +881,7 @@ s32 Object_CheckCollision(s32 index, Vec3f* pos, Vec3f* vel, s32 mode) {
 
     if ((gLevelMode == LEVELMODE_ALL_RANGE) && (gCurrentLevel != LEVEL_KATINA)) {
         scenery360 = gScenery360;
-        for (i = 0; i < 200; i++, scenery360++) {
+        for (i = 0; i < NUM_SCENERY_360; i++, scenery360++) {
             if (scenery360->obj.status == OBJ_ACTIVE) {
                 if ((scenery360->obj.id == OBJ_SCENERY_CO_BUMP_1) || (scenery360->obj.id == OBJ_SCENERY_CO_BUMP_3) ||
                     (scenery360->obj.id == OBJ_SCENERY_AQ_CORAL_REEF_1) ||
@@ -1102,7 +1102,7 @@ void Object_Init(s32 index, ObjectId objId) {
     f32 xRot;
     f32 zRot;
     f32 sp4C;
-    PosRot* var_v0;
+    PosRot* zoDodoraPosRot;
 
     switch (objId) {
         case OBJ_SPRITE_CO_SMOKE:
@@ -1238,14 +1238,14 @@ void Object_Init(s32 index, ObjectId objId) {
             gActors[index].orient.y = gActors[index].obj.rot.y;
             gActors[index].obj.rot.x = gActors[index].obj.rot.y = 0.0f;
             gActors[index].fwork[2] = gActors[index].obj.pos.y;
-            var_v0 = gZoDodoraPosRots;
-            for (i = 0; i < 200; i++, var_v0++) {
-                var_v0->pos.x = gActors[index].obj.pos.x;
-                var_v0->pos.y = gActors[index].obj.pos.y;
-                var_v0->pos.z = gActors[index].obj.pos.z;
-                var_v0->rot.x = gActors[index].obj.rot.x;
-                var_v0->rot.y = gActors[index].obj.rot.y;
-                var_v0->rot.z = gActors[index].obj.rot.z;
+            zoDodoraPosRot = gZoDodoraPosRots;
+            for (i = 0; i < 200; i++, zoDodoraPosRot++) {
+                zoDodoraPosRot->pos.x = gActors[index].obj.pos.x;
+                zoDodoraPosRot->pos.y = gActors[index].obj.pos.y;
+                zoDodoraPosRot->pos.z = gActors[index].obj.pos.z;
+                zoDodoraPosRot->rot.x = gActors[index].obj.rot.x;
+                zoDodoraPosRot->rot.y = gActors[index].obj.rot.y;
+                zoDodoraPosRot->rot.z = gActors[index].obj.rot.z;
             }
             break;
         case OBJ_ACTOR_ME_MORA:
@@ -3114,7 +3114,7 @@ void Object_Update(void) {
             }
         }
     } else if (gVersusMode) {
-        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+        for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
             if ((scenery360->obj.status != OBJ_FREE) && (scenery360->obj.id == OBJ_SCENERY_VS_SPACE_JUNK_3)) {
                 if ((i % 2) != 0) {
                     scenery360->obj.rot.y += 0.5f;

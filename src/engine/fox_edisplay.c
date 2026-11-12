@@ -1720,7 +1720,7 @@ void Object_DrawAll(s32 cullDirection) {
             gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
         }
 
-        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+        for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) && (scenery360->obj.id != OBJ_SCENERY_LEVEL_OBJECTS)) {
                 if (gCurrentLevel == LEVEL_BOLSE) {
                     spAC.x = scenery360->sfxSource[0];

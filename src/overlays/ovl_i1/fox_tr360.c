@@ -38,7 +38,7 @@ bool Training_EnemyObstacleCheck(ActorAllRange* this, f32 sinRotY, f32 cosRotY) 
     Scenery360* scenery360;
     s32 i;
 
-    for (i = 0, scenery360 = gScenery360; i < 200;) {
+    for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360;) {
         if ((scenery360->obj.status == OBJ_ACTIVE) &&
             (fabsf(scenery360->obj.pos.x - (this->obj.pos.x + ((sinRotY * 650.0f) + 350.0f))) < 1200.0f) &&
             (fabsf(scenery360->obj.pos.z - (this->obj.pos.z + ((cosRotY * 650.0f) + 350.0f))) < 1200.0f) &&

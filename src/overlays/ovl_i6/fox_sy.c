@@ -2183,7 +2183,7 @@ void SectorY_LevelComplete(Player* player) {
                 AUDIO_PLAY_BGM(NA_BGM_COURSE_CLEAR);
                 gDrawGround = false;
 
-                for (i = 0; i < 200; i++) {
+                for (i = 0; i < NUM_SCENERY_360; i++) {
                     gScenery360[i].obj.status = OBJ_FREE;
                 }
 

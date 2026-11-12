@@ -308,7 +308,7 @@ void ActorAllRange_SetShadowData(Actor* this) {
     this->fwork[25] = this->fwork[26] = this->fwork[28] = this->fwork[27] = 0.0f;
 
     if (this->drawShadow && (gLevelMode == LEVELMODE_ALL_RANGE) && (gLevelType == LEVELTYPE_PLANET)) {
-        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+        for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
                 ((scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_3) ||
                  (scenery360->obj.id == OBJ_SCENERY_FO_MOUNTAIN_2) ||
@@ -772,7 +772,7 @@ s32 ActorAllRange_CheckObjectNearbySpace(Actor* this) {
     temp_ft4 = this->fwork[9] * 10.0f + (sinY * 650.0f);
     temp_ft5 = this->fwork[9] * 10.0f + (cosY * 650.0f);
 
-    for (i = 0; i < 200; i++) {
+    for (i = 0; i < NUM_SCENERY_360; i++) {
         if ((gScenery360[i].obj.status == OBJ_ACTIVE) &&
             (fabsf(gScenery360[i].obj.pos.x - (this->obj.pos.x + temp_ft4)) < 1000.0f) &&
             (fabsf(gScenery360[i].obj.pos.z - (this->obj.pos.z + temp_ft5)) < 1000.0f)) {
@@ -835,7 +835,7 @@ s32 ActorAllRange_CheckObjectNearby(ActorAllRange* this) {
     zOffset = this->fwork[9] * 10.0f + (cosRotY * 650.0f);
 
     if (gLevelMode == LEVELMODE_ALL_RANGE) {
-        for (i = 0, scenery360 = gScenery360; i < 200; i++, scenery360++) {
+        for (i = 0, scenery360 = gScenery360; i < NUM_SCENERY_360; i++, scenery360++) {
             if ((scenery360->obj.status == OBJ_ACTIVE) &&
                 (fabsf(scenery360->obj.pos.x - (this->obj.pos.x + xOffset)) < 1200.0f) &&
                 (fabsf(scenery360->obj.pos.z - (this->obj.pos.z + zOffset)) < 1200.0f) && (this->obj.pos.y < 650.0f)) {

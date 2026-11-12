@@ -75,6 +75,8 @@ typedef enum SfxBankId {
     SFX_BANK_MAX
 } SfxBankId;
 
+/* Sound Effect defines found inside SF64 3D */
+
 #define NA_SE_NONE                  0x00000000 // 
 
 #define NA_SE_TURRET_SHOT           0x09000000 // Invented name. Appears in unused turret mode.

@@ -827,7 +827,7 @@ void CheatRam_UpdateEntry(CheatEntry* cheat) {
         case CHEAT_COMPLETE:
             if ((gCurrentLevel == LEVEL_CORNERIA) && (gPlayer[0].state != PLAYERSTATE_LEVEL_COMPLETE)) {
                 if ((gLevelMode == LEVELMODE_ON_RAILS) && (cheat->option == MISSION_COMPLETE)) {
-                    gScenery360 = Memory_Allocate(200 * sizeof(Scenery360));
+                    gScenery360 = Memory_Allocate(NUM_SCENERY_360 * sizeof(Scenery360));
                     gLevelMode = LEVELMODE_ALL_RANGE;
                 } else if ((gLevelMode == LEVELMODE_ALL_RANGE) && (cheat->option == MISSION_ACCOMPLISHED)) {
                     gLevelMode = LEVELMODE_ON_RAILS;
