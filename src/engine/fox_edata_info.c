@@ -365,7 +365,7 @@ ObjectInfo gObjectInfo[] = {
   /* OBJ_ACTOR_ZO_MINE */  {(void*) Zoness_ZoMine_Draw, 1, (ObjectFunc) Zoness_ZoMine_Update,       gCubeHitbox100,  2000.0f,  0, 0, 40, 0,   1.0f,  0 },
   /* OBJ_ACTOR_ZO_BARRIER */  {(void*) Zoness_ZoBarrier_Draw, 1, (ObjectFunc) Zoness_ZoBarrier_Update,        aZoBarrierHitbox,   500.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_ZO_CRANE_MAGNET */  {(void*) Zoness_ZoCraneMagnet_Draw, 1, (ObjectFunc) Zoness_ZoCraneMagnet_Update,       gCubeHitbox150,  2000.0f,  0, 0, 40, 0,   0.0f,  0 },
-  /* OBJ_ACTOR_SPIKEBALL */  {(void*) Zoness_ZoSpikeBall_Draw, 1, (ObjectFunc) Zoness_ZoSpikeBall_Update,       gCubeHitbox200,  5000.0f,  0, 0, 40, 0,   0.0f,  0 },
+  /* OBJ_ACTOR_ZO_SPIKEBALL */  {(void*) Zoness_ZoSpikeBall_Draw, 1, (ObjectFunc) Zoness_ZoSpikeBall_Update,       gCubeHitbox200,  5000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_ZO_TANKER */  {(void*) Zoness_ZoTanker_Draw, 1, (ObjectFunc) Zoness_ZoTanker_Update,        aZoTankerHitbox, 10000.0f,  0, 0, 40, 0,   0.0f,  0 },
   /* OBJ_ACTOR_ZO_CONTAINER */  {(void*) Zoness_ZoContainer_Draw, 2, (ObjectFunc) Zoness_ZoContainer_Update,        aZoContainerHitbox,  1000.0f,  0, 0, 40, 0,   1.0f,  1 },
   /* OBJ_ACTOR_ZO_RADARBUOY */  {(void*) Zoness_ZoRadarBuoy_Draw, 1, (ObjectFunc) Zoness_ZoRadarBuoy_Update,        aZoRadarBuoyHitbox,   200.0f,  0, 0, 40, 0,  80.0f,  1 },

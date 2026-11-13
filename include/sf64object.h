@@ -585,7 +585,7 @@ typedef enum ObjectId {
     /* 246 */ OBJ_ACTOR_ZO_MINE,
     /* 247 */ OBJ_ACTOR_ZO_BARRIER,   // Barrier with opening rudders on the sides.
     /* 248 */ OBJ_ACTOR_ZO_CRANE_MAGNET,
-    /* 249 */ OBJ_ACTOR_SPIKEBALL,    // Spikeball shot by Zoness boss.
+    /* 249 */ OBJ_ACTOR_ZO_SPIKEBALL,    // Spikeball shot by Zoness boss.
     /* 250 */ OBJ_ACTOR_ZO_TANKER,    // Cargo ship, usually carries contaners.
     /* 251 */ OBJ_ACTOR_ZO_CONTAINER,
     /* 252 */ OBJ_ACTOR_ZO_RADARBUOY, // Zoness searchlight.
