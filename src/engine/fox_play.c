@@ -104,11 +104,11 @@ void Play_UpdateDynaFloor(void) {
 
         case LEVEL_ZONESS:
             if ((gGameFrameCount % 2) != 0) {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
+                spB4 = SEGMENTED_TO_VIRTUAL(aZoDynaFloorVTX1);
             } else {
-                spB4 = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
+                spB4 = SEGMENTED_TO_VIRTUAL(aZoDynaFloorVTX2);
             }
-            spB0 = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
+            spB0 = SEGMENTED_TO_VIRTUAL(aZoDynaFloorIndexes);
             spA8 = 8 - 1;
             sp90 = 40.0f;
             sp8C = 0.2f;
@@ -1063,8 +1063,8 @@ bool Play_CheckDynaFloorCollision(f32* floorHeight, s32* triangleIndex, f32 xPos
             break;
 
         case LEVEL_ZONESS:
-            vertexData = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
-            indexData = SEGMENTED_TO_VIRTUAL(D_ZO_602AC50);
+            vertexData = SEGMENTED_TO_VIRTUAL(aZoDynaFloorVTX1);
+            indexData = SEGMENTED_TO_VIRTUAL(aZoDynaFloorIndexes);
             break;
 
         default:
@@ -2200,7 +2200,7 @@ void Player_CollisionCheck(Player* player) {
             if (gCurrentLevel == LEVEL_ZONESS) {
                 player->rot.x = (player->baseSpeed + player->boostSpeed) * 0.8f;
                 player->hitTimer = 15;
-                Effect_Effect381_Spawn(player->hit4.x, sp94, player->hit4.z, 1.0f);
+                Effect_ZoPlayerSplash_Spawn(player->hit4.x, sp94, player->hit4.z, 1.0f);
             } else {
                 if (player->hitTimer == 0) {
                     Player_ApplyDamage(player, 4, 10);
@@ -2218,8 +2218,8 @@ void Player_CollisionCheck(Player* player) {
         if (Play_CheckDynaFloorCollision(&sp94, &sp90, player->pos.x + ((player->hit1.x - player->pos.x) * 1.5f),
                                          player->pos.y + (player->hit1.y - player->pos.y) * 1.5f, player->hit1.z)) {
             if (gCurrentLevel == LEVEL_ZONESS) {
-                Effect_Effect381_Spawn(player->pos.x + (player->hit1.x - player->pos.x) * 1.5f, sp94, player->hit1.z,
-                                       1.0f);
+                Effect_ZoPlayerSplash_Spawn(player->pos.x + (player->hit1.x - player->pos.x) * 1.5f, sp94,
+                                            player->hit1.z, 1.0f);
             } else {
                 if (player->hitTimer == 0) {
                     Player_ApplyDamage(player, 1, 10);
@@ -2231,8 +2231,8 @@ void Player_CollisionCheck(Player* player) {
         if (Play_CheckDynaFloorCollision(&sp94, &sp90, player->pos.x + ((player->hit2.x - player->pos.x) * 1.5f),
                                          player->pos.y + (player->hit2.y - player->pos.y) * 1.5f, player->hit2.z)) {
             if (gCurrentLevel == LEVEL_ZONESS) {
-                Effect_Effect381_Spawn(player->pos.x + (player->hit2.x - player->pos.x) * 1.5f, sp94, player->hit2.z,
-                                       1.0f);
+                Effect_ZoPlayerSplash_Spawn(player->pos.x + (player->hit2.x - player->pos.x) * 1.5f, sp94,
+                                            player->hit2.z, 1.0f);
             } else {
                 if (player->hitTimer == 0) {
                     Player_ApplyDamage(player, 2, 40);
@@ -2615,7 +2615,7 @@ void Play_InitLevel(void) {
                     mesh = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX1);
                     break;
                 case LEVEL_ZONESS:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_ZO_6009ED0);
+                    mesh = SEGMENTED_TO_VIRTUAL(aZoDynaFloorVTX1);
                     break;
             }
 
@@ -2636,7 +2636,7 @@ void Play_InitLevel(void) {
                     mesh = SEGMENTED_TO_VIRTUAL(aSoDynaFloorVTX2);
                     break;
                 case LEVEL_ZONESS:
-                    mesh = SEGMENTED_TO_VIRTUAL(D_ZO_600C780);
+                    mesh = SEGMENTED_TO_VIRTUAL(aZoDynaFloorVTX2);
                     break;
             }
 
@@ -6835,13 +6835,13 @@ void Play_UpdateLevel(void) {
         case LEVEL_ZONESS:
             Play_UpdateDynaFloor();
             for (gPathTexScroll; gPathTexScroll >= 20.0f; gPathTexScroll -= 20.0f) {
-                Lib_Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+                Lib_Texture_Scroll(aZoWaterSrcTex, 32, 32, 1);
             }
             if (gPlayer[0].state == PLAYERSTATE_NEXT) {
-                Lib_Texture_Scroll(D_ZO_602C2CC, 32, 32, 1);
+                Lib_Texture_Scroll(aZoWaterSrcTex, 32, 32, 1);
             }
 
-            HUD_Texture_Wave(D_ZO_602C2CC, aZoWaterTex);
+            HUD_Texture_Wave(aZoWaterSrcTex, aZoWaterDestTex);
 
             if (Play_CheckDynaFloorCollision(&sp3C, &sp40, gPlayer[0].cam.eye.x, gPlayer[0].cam.eye.y,
                                              gPlayer[0].cam.eye.z - gPathProgress)) {

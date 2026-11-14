@@ -508,7 +508,7 @@ void func_enmy2_8006BF7C(f32 xPos, f32 yPos, f32 zPos) {
 void ActorDebris_Update(ActorDebris* this) {
     f32 sp4C;
     f32 sp48;
-    f32 sp44;
+    f32 floorHeight;
     s32 sp40;
     static Vec3f D_800D0030 = { 0.0f, -10.0f, 0.0f };
 
@@ -762,8 +762,9 @@ void ActorDebris_Update(ActorDebris* this) {
                     Object_Kill(&this->obj, this->sfxSource);
                     Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
                 }
-                if (Play_CheckDynaFloorCollision(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z)) {
-                    Effect_Effect381_Spawn(this->obj.pos.x, sp44, this->obj.pos.z, 2.0f);
+                if (Play_CheckDynaFloorCollision(&floorHeight, &sp40, this->obj.pos.x, this->obj.pos.y,
+                                                 this->obj.pos.z)) {
+                    Effect_ZoPlayerSplash_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z, 2.0f);
                     Object_Kill(&this->obj, this->sfxSource);
                 }
             } else if (this->state >= 10) {
@@ -4271,7 +4272,7 @@ void Actor_DyingCrash(Actor* this) {
                                                           this->obj.pos.y, this->obj.pos.z)) {
             Effect_Effect386_Spawn1(this->obj.pos.x, floorHeight + 20.0f, this->obj.pos.z, 0.0f, 0.0f, 0.0f,
                                     this->scale * 3.0f, 5);
-            Effect_Effect381_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z, 2.0f);
+            Effect_ZoPlayerSplash_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z, 2.0f);
             this->timer_0BE = 2;
             Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_EXPLOSION_S);
             return;

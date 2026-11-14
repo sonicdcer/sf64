@@ -249,7 +249,7 @@ Effect_FireSmoke1_Spawn3 = 0x8007D2C8;
 Effect_SpawnById1 = 0x8007EE68;
 func_effect_800815DC = 0x800815DC;
 func_effect_80081A8C = 0x80081A8C;
-Effect_ZoSplash_Spawn = 0x8008377C;
+Effect_ZoEnemySplash_Spawn = 0x8008377C;
 
 // fox_enmy
 Object_PlayerSfx = 0x80060F30;

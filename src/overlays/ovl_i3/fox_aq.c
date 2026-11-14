@@ -5379,7 +5379,7 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
         case 1:
             if (this->iwork[1] == 0) {
                 this->obj.rot.z += this->fwork[2];
-                if (((gGameFrameCount % 4) == 0)) {
+                if ((gGameFrameCount % 4) == 0) {
                     Aquas_Bubble_Spawn(this->obj.pos.x + RAND_FLOAT_CENTERED(70.0f),
                                        this->obj.pos.y + RAND_FLOAT_CENTERED(50.0f),
                                        this->obj.pos.z + RAND_FLOAT_CENTERED(50.0f), 1.0f, 0);
@@ -5500,29 +5500,29 @@ void Aquas_AqCoral_Update(AqCoral* this) {
 }
 
 void Aquas_AqCoral_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
-    Vec3f sp24 = { 0.0f, 0.0f, 0.0f };
+    Vec3f src = { 0.0f, 0.0f, 0.0f };
     AqCoral* this = (AqCoral*) thisx;
 
     if (this->state != 0) {
         switch (limbIndex) {
             case 1:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[0]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[0]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[5]);
                 break;
             case 2:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[1]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[1]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[6]);
                 break;
             case 3:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[2]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[2]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[7]);
                 break;
             case 4:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[3]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[3]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[8]);
                 break;
             case 9:
-                Matrix_MultVec3f(gCalcMatrix, &sp24, &this->vwork[4]);
+                Matrix_MultVec3f(gCalcMatrix, &src, &this->vwork[4]);
                 Matrix_GetYPRAngles(gCalcMatrix, &this->vwork[9]);
                 break;
         }

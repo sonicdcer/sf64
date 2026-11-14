@@ -160,9 +160,9 @@ CollisionHeader2 D_800D2CA0[19] = {
     {
         { -488.0f, 0.0f, -568.0f },
         { 488.0f, 148.0f, 567.0f },
-        ARRAY_COUNT(D_ZO_602CACC),
-        D_ZO_602CACC,
-        D_ZO_602CB80,
+        ARRAY_COUNT(aZoIslandTriangle),
+        aZoIslandTriangle,
+        aZoIslandTriangleMesh,
     },
     {
         { -900.0f, -110.0f, -1900.0f },

@@ -211,14 +211,14 @@ void Effect_WaterSpray_Draw(EffectWaterSpray* this) {
     gSPDisplayList(gMasterDisp++, aAwBeamWaterSplashDL);
 }
 
-void Effect_DynaFloorWave_Draw(EffectDynaFloorWave* this) {
+void Effect_ZoPlayerSplash_Draw(EffectZoPlayerSplash* this) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->alpha);
     Matrix_Scale(gGfxMatrix, this->scale1, this->scale2, 1.0f, MTXF_APPLY);
     Matrix_Translate(gGfxMatrix, 0.0f, 20.0f, 0.0f, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_ZO_6024220);
+    gSPDisplayList(gMasterDisp++, aZoPlayerSplashDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
@@ -1193,7 +1193,7 @@ void Effect_DynaFloorWave_Update(EffectDynaFloorWave* this) {
     }
 }
 
-void Effect_Effect381_Update(Effect381* this) {
+void Effect_ZoPlayerSplash_Update(EffectZoPlayerSplash* this) {
     Math_SmoothStepToF(&this->scale2, this->scale1 * 3.0f, 0.1f, 10.0f, 0.0f);
     this->alpha -= 13;
     this->obj.rot.y = 180.0f - this->obj.rot.y;
@@ -1202,10 +1202,10 @@ void Effect_Effect381_Update(Effect381* this) {
     }
 }
 
-void Effect_Effect381_Setup(Effect381* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_ZoPlayerSplash_Setup(EffectZoPlayerSplash* this, f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_381;
+    this->obj.id = OBJ_EFFECT_ZO_PLAYER_SPLASH;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -1217,12 +1217,12 @@ void Effect_Effect381_Setup(Effect381* this, f32 xPos, f32 yPos, f32 zPos, f32 s
     AUDIO_PLAY_SFX(NA_SE_SPLASH_LEVEL_L, this->sfxSource, 0);
 }
 
-void Effect_Effect381_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
+void Effect_ZoPlayerSplash_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects) && gCurrentLevel == LEVEL_ZONESS; i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect381_Setup(&gEffects[i], xPos, yPos, zPos, scale1);
+            Effect_ZoPlayerSplash_Setup(&gEffects[i], xPos, yPos, zPos, scale1);
             break;
         }
     }
@@ -3691,7 +3691,7 @@ void Effect_Effect395_Update(Effect395* this) {
                     if ((Play_CheckDynaFloorCollision(&posYOut, &unusedOut, this->obj.pos.x, this->obj.pos.y,
                                                       this->obj.pos.z)) ||
                         (this->timer_50 == 0)) {
-                        Effect_Effect381_Spawn(this->obj.pos.x, posYOut, this->obj.pos.z, this->scale2);
+                        Effect_ZoPlayerSplash_Spawn(this->obj.pos.x, posYOut, this->obj.pos.z, this->scale2);
                         Object_Kill(&this->obj, this->sfxSource);
                     }
                     break;
@@ -4014,10 +4014,10 @@ void Effect_Effect395_Draw(Effect395* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_ZoSplash_Setup(EffectZoSplash* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
+void Effect_ZoEnemySplash_Setup(EffectZoEnemySplash* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_ZO_SPLASH;
+    this->obj.id = OBJ_EFFECT_ZO_ENEMY_SPLASH;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -4035,18 +4035,18 @@ void Effect_ZoSplash_Setup(EffectZoSplash* this, f32 xPos, f32 yPos, f32 zPos, f
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_ZoSplash_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
+void Effect_ZoEnemySplash_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_ZoSplash_Setup(&gEffects[i], xPos, yPos, zPos, arg3, scale);
+            Effect_ZoEnemySplash_Setup(&gEffects[i], xPos, yPos, zPos, arg3, scale);
             break;
         }
     }
 }
 
-void Effect_ZoSplash_Update(EffectZoSplash* this) {
+void Effect_ZoEnemySplash_Update(EffectZoEnemySplash* this) {
     s32 pad[2];
     f32 var_fv1;
     s32 var_s2;
@@ -4101,13 +4101,13 @@ void Effect_ZoSplash_Update(EffectZoSplash* this) {
         Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - (this->obj.pos.z + gPathProgress)));
 }
 
-void Effect_ZoSplash_Draw(EffectZoSplash* this) {
+void Effect_ZoEnemySplash_Draw(EffectZoEnemySplash* this) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
     gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
     Matrix_Scale(gGfxMatrix, this->orient.x, this->scale2 * this->orient.y, this->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, aEffectZoSplashDL);
+    gSPDisplayList(gMasterDisp++, aEffectZoEnemySplashDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 

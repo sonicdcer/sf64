@@ -701,7 +701,7 @@ void Zoness_ZoDodora_Update(ZoDodora* this) {
 
     if ((this->timer_0C0 == 0) &&
         Play_CheckDynaFloorCollision(&sp2C, &sp28, this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z)) {
-        Effect_ZoSplash_Spawn(this->obj.pos.x, sp2C, this->obj.pos.z + 150.0f, 0.0f, 1.7f);
+        Effect_ZoEnemySplash_Spawn(this->obj.pos.x, sp2C, this->obj.pos.z + 150.0f, 0.0f, 1.7f);
         if (this->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, this->sfxSource, 4);
         } else {
@@ -872,7 +872,7 @@ void Zoness_ZoFish_Update(ZoFish* this) {
                 }
                 this->timer_0C0 = 10;
                 this->iwork[0]++;
-                Effect_ZoSplash_Spawn(this->obj.pos.x, sp7C, this->obj.pos.z, 0.0f, 0.7f);
+                Effect_ZoEnemySplash_Spawn(this->obj.pos.x, sp7C, this->obj.pos.z, 0.0f, 0.7f);
             }
             break;
 
@@ -1165,7 +1165,7 @@ void Zoness_ZoTroika_Update(ZoTroika* this) {
 
     if ((this->iwork[0] == 0) &&
         (Play_CheckDynaFloorCollision(&spB8, &spA0, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z) != 0)) {
-        Effect_ZoSplash_Spawn(this->obj.pos.x, spB8, this->obj.pos.z + 100.0f, 0.0f, 1.5f);
+        Effect_ZoEnemySplash_Spawn(this->obj.pos.x, spB8, this->obj.pos.z + 100.0f, 0.0f, 1.5f);
 
         this->iwork[0]++;
 
@@ -1372,7 +1372,7 @@ void Zoness_ZoShrimp_Update(ZoShrimp* this) {
     if ((this->iwork[0] == 0) &&
         (Play_CheckDynaFloorCollision(&sp74, &sp70, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z) != 0)) {
         this->iwork[0]++;
-        Effect_ZoSplash_Spawn(this->obj.pos.x, sp74, this->obj.pos.z, 0.0f, 0.7f);
+        Effect_ZoEnemySplash_Spawn(this->obj.pos.x, sp74, this->obj.pos.z, 0.0f, 0.7f);
         if (this->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, this->sfxSource, 4);
         } else {
@@ -2176,11 +2176,14 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                             AUDIO_PLAY_BGM(NA_BGM_BOSS_ZO);
                             sZoSwork[ZO_BSS_55] = 1;
                         }
-                        Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
-                        Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f, 3.0f);
+                        Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f,
+                                                   3.0f);
+                        Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, 5.0f,
+                                                   3.0f);
                     }
 
-                    Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, sp100, spFC);
+                    Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 100.0f, sp100,
+                                               spFC);
 
                     if (this->timer_050 == 43) {
                         AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, this->sfxSource, 4);
@@ -2622,8 +2625,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             D_ctx_801779A8[0] = 20;
             if (((gGameFrameCount % 8) == 0) &&
                 (Play_CheckDynaFloorCollision(&sp134, &sp130, this->obj.pos.x, -300.0f, this->obj.pos.z) != 0)) {
-                Effect_ZoSplash_Spawn(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, sp134 - 300.0f,
-                                      RAND_FLOAT_CENTERED(3000.0f) + this->obj.pos.z, 5.0f, 2.0f);
+                Effect_ZoEnemySplash_Spawn(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, sp134 - 300.0f,
+                                           RAND_FLOAT_CENTERED(3000.0f) + this->obj.pos.z, 5.0f, 2.0f);
             }
             if ((this->timer_050 == 0) || (this->obj.pos.y < -800.0f)) {
                 Object_Kill(&this->obj, this->sfxSource);
@@ -2796,7 +2799,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                                               sZoFwork[ZO_BSF_43_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_45] == 0)) {
                 if (gPlayer) {}
-                Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 30.0f, 0.0f, 2.0f);
+                Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_43_X], sp134, sZoFwork[ZO_BSF_43_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_45]++;
             }
         }
@@ -2816,7 +2819,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             if ((Play_CheckDynaFloorCollision(&sp134, &sp130, sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y] - 100.0f,
                                               sZoFwork[ZO_BSF_29_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_46] == 0)) {
-                Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_29_X], sp134, sZoFwork[ZO_BSF_29_Z] + 30.0f, 0.0f, 2.0f);
+                Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_29_X], sp134, sZoFwork[ZO_BSF_29_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_46]++;
             }
         }
@@ -2834,7 +2837,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             if ((Play_CheckDynaFloorCollision(&sp134, &sp130, sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y] - 100.0f,
                                               sZoFwork[ZO_BSF_32_Z]) != 0) &&
                 (sZoSwork[ZO_BSS_47] == 0)) {
-                Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_32_X], sp134, sZoFwork[ZO_BSF_32_Z] + 30.0f, 0.0f, 2.0f);
+                Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_32_X], sp134, sZoFwork[ZO_BSF_32_Z] + 30.0f, 0.0f, 2.0f);
                 sZoSwork[ZO_BSS_47]++;
             }
         }
@@ -2868,7 +2871,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 if ((Play_CheckDynaFloorCollision(&sp134, &sp130, sZoFwork[ZO_BSF_52_X], sZoFwork[ZO_BSF_52_Y] - 100.0f,
                                                   sZoFwork[ZO_BSF_52_Z]) != 0) &&
                     (sZoSwork[ZO_BSS_48] == 0)) {
-                    Effect_ZoSplash_Spawn(sZoFwork[ZO_BSF_52_X], sp134, sZoFwork[ZO_BSF_52_Z] + 100.0f, 0.0f, 2.0f);
+                    Effect_ZoEnemySplash_Spawn(sZoFwork[ZO_BSF_52_X], sp134, sZoFwork[ZO_BSF_52_Z] + 100.0f, 0.0f,
+                                               2.0f);
                     sZoSwork[ZO_BSS_48]++;
                 }
             }
@@ -3207,7 +3211,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
     ZO_HIT_1(this)->z.offset = sZoFwork[ZO_BSF_43_Z] - this->obj.pos.z;
     ZO_HIT_1(this)->x.offset = sZoFwork[ZO_BSF_43_X] - this->obj.pos.x;
 
-    Animation_GetFrameData(&D_ZO_601996C, 0, this->vwork);
+    Animation_GetFrameData(&aZoSarumarineAnim, 0, this->vwork);
 
     if (sZoSwork[ZO_BSS_38] != 0) {
         sZoSwork[ZO_BSS_37] -= 10;
@@ -3620,7 +3624,7 @@ void Zoness_ZoMine_Update(ZoMine* this) {
         case 1:
             if ((Play_CheckDynaFloorCollision(&sp3C, &sp34, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z) != 0) &&
                 (this->iwork[1] == 0)) {
-                Effect_ZoSplash_Spawn(this->obj.pos.x, sp3C, this->obj.pos.z, 0.0f, 0.5f);
+                Effect_ZoEnemySplash_Spawn(this->obj.pos.x, sp3C, this->obj.pos.z, 0.0f, 0.5f);
                 this->iwork[1]++;
                 AUDIO_PLAY_SFX(NA_SE_ON_SPLASH_S, this->sfxSource, 4);
             }
@@ -3937,7 +3941,7 @@ void Zoness_ZoSpikeBall_Update(ZoSpikeBall* this) {
 
     if (((gGameFrameCount % 8) == 0) && (this->state != 0) && (this->iwork[0] < 8) &&
         (Play_CheckDynaFloorCollision(&sp44, &sp40, this->obj.pos.x, this->obj.pos.y - 100.0f, this->obj.pos.z) != 0)) {
-        Effect_ZoSplash_Spawn(this->obj.pos.x, sp44, this->obj.pos.z, 0.0f, 0.7f);
+        Effect_ZoEnemySplash_Spawn(this->obj.pos.x, sp44, this->obj.pos.z, 0.0f, 0.7f);
         this->iwork[0]++;
         if (this->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, this->sfxSource, 4);
@@ -4356,7 +4360,7 @@ void Zoness_ZoRadarBuoy_Update(ZoRadarBuoy* this) {
             searchLight = &gActors[this->iwork[0]];
 
             searchLight->iwork[0] = 777;
-            Effect_ZoSplash_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f, 0.7f);
+            Effect_ZoEnemySplash_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 5.0f, 0.7f);
             Effect_FireSmoke1_Spawn4(this->obj.pos.x, this->obj.pos.y + 50.0f, this->obj.pos.z, 5.0f);
             Object_Kill(&this->obj, this->sfxSource);
             Effect_TimedSfx_Spawn(&this->obj.pos, NA_SE_EN_WT_EXPLOSION_S);

@@ -717,7 +717,7 @@ typedef enum ObjectId {
     /* 378 */ OBJ_EFFECT_378, // Ball projectiles shot by train car turret in Macbeth
     /* 379 */ OBJ_EFFECT_379, // small orbs in Ma boss wing projectile charge
     /* 380 */ OBJ_EFFECT_MECHBETH_BEAM, // Mechbeth (boss) wing gathered energy beam attack
-    /* 381 */ OBJ_EFFECT_381, // small splash
+    /* 381 */ OBJ_EFFECT_ZO_PLAYER_SPLASH, // Small water splash effect caused by the player in Zoness.
     /* 382 */ OBJ_EFFECT_DYNAFLOOR_WAVE, // Dynafloor waving effect, used in both Zoness and Solar.
     /* 383 */ OBJ_EFFECT_BOSS_EXPLOSION, // Big spherical boss explosion
     /* 384 */ OBJ_EFFECT_384, // small explosion
@@ -727,7 +727,7 @@ typedef enum ObjectId {
     /* 388 */ OBJ_EFFECT_UNK_388, // all functions dummied out
     /* 389 */ OBJ_EFFECT_ELECTRIC_ARC, // lightning effect from damage
     /* 390 */ OBJ_EFFECT_ELECTRIC_ARC_2, // no model, makes ElectricArcs
-    /* 391 */ OBJ_EFFECT_ZO_SPLASH, // Water splash effect in Zoness.
+    /* 391 */ OBJ_EFFECT_ZO_ENEMY_SPLASH, // Water splash effect caused by enemies in Zoness.
     /* 392 */ OBJ_EFFECT_SO_FLARE, // Solar flare effects
     /* 393 */ OBJ_EFFECT_SPARKLE, // sparkle
     /* 394 */ OBJ_EFFECT_394, // various explosion effects. specifically damaging ones?
@@ -1377,7 +1377,7 @@ typedef Effect EffectSpyborgOrb;
 typedef Effect Effect378;
 typedef Effect Effect379;
 typedef Effect EffectMechbethBeam;
-typedef Effect Effect381;
+typedef Effect EffectZoPlayerSplash;
 typedef Effect EffectDynaFloorWave;
 typedef Effect EffectBossExplosion;
 typedef Effect Effect384;
@@ -1387,7 +1387,7 @@ typedef Effect Effect387;
 typedef Effect EffectUnk388;
 typedef Effect EffectElectricArc;
 typedef Effect EffectElectricArc2;
-typedef Effect EffectZoSplash;
+typedef Effect EffectZoEnemySplash;
 typedef Effect EffectSoFlare;
 typedef Effect EffectSparkle;
 typedef Effect Effect394;

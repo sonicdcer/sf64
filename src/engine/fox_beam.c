@@ -911,7 +911,7 @@ void PlayerShot_CollisionCheck(PlayerShot* shot) {
         Play_CheckDynaFloorCollision(&sp94, &spA4, shot->obj.pos.x, shot->obj.pos.y, shot->obj.pos.z)) {
         PlayerShot_Impact(shot);
         if (shot->obj.id != PLAYERSHOT_LOCK_SEARCH) {
-            Effect_Effect381_Spawn(shot->obj.pos.x, sp94, shot->obj.pos.z, 1.0f);
+            Effect_ZoPlayerSplash_Spawn(shot->obj.pos.x, sp94, shot->obj.pos.z, 1.0f);
         }
     }
 
