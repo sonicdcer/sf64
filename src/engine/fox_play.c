@@ -316,7 +316,7 @@ void Play_InitVsStage(void) {
             break;
     }
 
-    for (i = 0, j = 0; i < 199; j++) {
+    for (i = 0, j = 0; i < NUM_SCENERY_360 - 1; j++) {
         if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
@@ -332,7 +332,7 @@ void Play_InitVsStage(void) {
         }
     }
 
-    for (i = 5, j = 0; i < 199; j++) {
+    for (i = 5, j = 0; i < NUM_SCENERY_360 - 1; j++) {
         if (gLevelObjects[j].id <= OBJ_INVALID) {
             break;
         }
@@ -2210,8 +2210,8 @@ void Player_CollisionCheck(Player* player) {
             }
             if (player->state == PLAYERSTATE_DOWN) {
                 player->radioDamageTimer = 2;
-                Effect_Effect382_Spawn(player->pos.x, player->trueZpos, 30.0f, 0.0f, 5.0f);
-                Effect_Effect382_Spawn(player->pos.x, player->trueZpos, -30.0f, 0.0f, 5.0f);
+                Effect_DynaFloorWave_Spawn(player->pos.x, player->trueZpos, 30.0f, 0.0f, 5.0f);
+                Effect_DynaFloorWave_Spawn(player->pos.x, player->trueZpos, -30.0f, 0.0f, 5.0f);
             }
         }
 

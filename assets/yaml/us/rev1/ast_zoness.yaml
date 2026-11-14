@@ -27,41 +27,38 @@ D_ZO_6001098:
 aZoDodoraHeadDL:
   { type: GFX, offset: 0x60012A0, symbol: aZoDodoraHeadDL}
 
-D_ZO_6001810:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001810, symbol: D_ZO_6001810}
+aZoDodoraHeadTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6001810, symbol: aZoDodoraHeadTex1}
 
-D_ZO_6002010:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002010, symbol: D_ZO_6002010}
+aZoDodoraTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002010, symbol: aZoDodoraTex1}
 
-D_ZO_6002210:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002210, symbol: D_ZO_6002210}
+aZoTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002210, symbol: aZoTex1}
 
-D_ZO_6002410:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002410, symbol: D_ZO_6002410}
+aZoTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002410, symbol: aZoTex2}
 
-D_ZO_6002610:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002610, symbol: D_ZO_6002610}
+aZoTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002610, symbol: aZoTex3}
 
-D_ZO_6002810:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002810, symbol: D_ZO_6002810}
+aZoDodoraHeadTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6002810, symbol: aZoDodoraHeadTex2}
 
-D_ZO_6002A10:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x6002A10, symbol: D_ZO_6002A10}
+aZoDodoraHeadTex3:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 16, offset: 0x6002A10, symbol: aZoDodoraHeadTex3}
 
 aZoRadarBuoyDL:
   { type: GFX, offset: 0x6002E10, symbol: aZoRadarBuoyDL}
 
-D_ZO_6003288:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003288, symbol: D_ZO_6003288}
+aZoRadarBuoyTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003288, symbol: aZoRadarBuoyTex1}
 
-D_ZO_6003488:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003488, symbol: D_ZO_6003488}
+aZoRadarBuoyTex2:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003488, symbol: aZoRadarBuoyTex2}
 
-D_ZO_6003690:
-  { type: GFX, offset: 0x6003690, symbol: D_ZO_6003690}
-
-D_ZO_6003930:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003930, symbol: D_ZO_6003930}
+aZoSarumarineTex1:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6003930, symbol: aZoSarumarineTex1}
 
 D_ZO_6003B30:
   { type: TEXTURE, ctype: u8, format: CI8, width: 32, height: 64, offset: 0x6003B30, symbol: D_ZO_6003B30}
@@ -69,11 +66,8 @@ D_ZO_6003B30:
 D_ZO_6004330:
   { type: TEXTURE, ctype: u16, format: TLUT, colors: 40, offset: 0x6004330, symbol: D_ZO_6004330}
 
-D_ZO_6004380:
-  { type: GFX, offset: 0x6004380, symbol: D_ZO_6004380}
-
-D_ZO_6004450:
-  { type: GFX, offset: 0x6004450, symbol: D_ZO_6004450}
+aZoSpikeBallDL:
+  { type: GFX, offset: 0x6004380, symbol: aZoSpikeBallDL}
 
 D_ZO_6004970:
   { type: TEXTURE, ctype: u8, format: CI8, width: 16, height: 16, offset: 0x6004970, symbol: D_ZO_6004970}
@@ -93,8 +87,8 @@ D_ZO_6005958:
 D_ZO_6005B58:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6005B58, symbol: D_ZO_6005B58}
 
-D_ZO_6006360:
-  { type: GFX, offset: 0x6006360, symbol: D_ZO_6006360}
+aZoTankerDL:
+  { type: GFX, offset: 0x6006360, symbol: aZoTankerDL}
 
 D_ZO_6007230:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6007230, symbol: D_ZO_6007230}
@@ -168,14 +162,8 @@ D_ZO_6011928:
 D_ZO_6012128:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6012128, symbol: D_ZO_6012128}
 
-D_ZO_6012930:
-  { type: GFX, offset: 0x6012930, symbol: D_ZO_6012930}
-
-D_ZO_6013010:
-  { type: GFX, offset: 0x6013010, symbol: D_ZO_6013010}
-
-D_ZO_6013330:
-  { type: GFX, offset: 0x6013330, symbol: D_ZO_6013330}
+aZoSupplyCraneMastDL:
+  { type: GFX, offset: 0x6013330, symbol: aZoSupplyCraneMastDL}
 
 aZoBackdropDL:
   { type: GFX, offset: 0x6013480, symbol: aZoBackdropDL}
@@ -231,29 +219,29 @@ aZoBallDL:
 D_ZO_60179D8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x60179D8, symbol: D_ZO_60179D8}
 
-D_ZO_60181E0:
-  { type: GFX, offset: 0x60181E0, symbol: D_ZO_60181E0}
+aZoSearchLightDL:
+  { type: GFX, offset: 0x60181E0, symbol: aZoSearchLightDL}
 
 D_ZO_60182E0:
   { type: TEXTURE, ctype: u16, format: IA16, width: 16, height: 16, offset: 0x60182E0, symbol: D_ZO_60182E0}
 
-D_ZO_6018550:
-  { type: SF64:ANIM, offset: 0x6018550, symbol: D_ZO_6018550}
+aZoContainerAnim:
+  { type: SF64:ANIM, offset: 0x6018550, symbol: aZoContainerAnim}
 
-D_ZO_601863C:
-  { type: SF64:SKELETON, offset: 0x601863C, symbol: D_ZO_601863C}
+aZoContainerSkel:
+  { type: SF64:SKELETON, offset: 0x601863C, symbol: aZoContainerSkel}
 
-D_ZO_6018660:
-  { type: GFX, offset: 0x6018660, symbol: D_ZO_6018660}
+aZoSpikeBallChainDL:
+  { type: GFX, offset: 0x6018660, symbol: aZoSpikeBallChainDL}
 
-D_ZO_60186E8:
-  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x60186E8, symbol: D_ZO_60186E8}
+aZoSpikeBallChainTex:
+  { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 32, offset: 0x60186E8, symbol: aZoSpikeBallChainTex}
 
-D_ZO_6018AF0:
-  { type: GFX, offset: 0x6018AF0, symbol: D_ZO_6018AF0}
+aZoSarumarineShotDL:
+  { type: GFX, offset: 0x6018AF0, symbol: aZoSarumarineShotDL}
 
-D_ZO_6018B78:
-  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6018B78, symbol: D_ZO_6018B78}
+aZoSarumarineShotTex:
+  { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x6018B78, symbol: aZoSarumarineShotTex}
 
 aZoTroikaDebris4DL:
   { type: GFX, offset: 0x6018C80, symbol: aZoTroikaDebris4DL}
@@ -264,11 +252,11 @@ aZoTroikaDebris1DL:
 D_ZO_6019040:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6019040, symbol: D_ZO_6019040}
 
-D_ZO_60195EC:
-  { type: SF64:ANIM, offset: 0x60195EC, symbol: D_ZO_60195EC}
+aZoTroikaAnim:
+  { type: SF64:ANIM, offset: 0x60195EC, symbol: aZoTroikaAnim}
 
-D_ZO_6019738:
-  { type: SF64:SKELETON, offset: 0x6019738, symbol: D_ZO_6019738}
+aZoTroikaSkel:
+  { type: SF64:SKELETON, offset: 0x6019738, symbol: aZoTroikaSkel}
 
 D_ZO_601996C:
   { type: SF64:ANIM, offset: 0x601996C, symbol: D_ZO_601996C}
@@ -276,20 +264,20 @@ D_ZO_601996C:
 aZoSarumarineSkel:
   { type: SF64:SKELETON, offset: 0x6019E18, symbol: aZoSarumarineSkel}
 
-D_ZO_6019EB0:
-  { type: GFX, offset: 0x6019EB0, symbol: D_ZO_6019EB0}
+aZoEnergyBallDL:
+  { type: GFX, offset: 0x6019EB0, symbol: aZoEnergyBallDL}
 
-D_ZO_601A340:
-  { type: GFX, offset: 0x601A340, symbol: D_ZO_601A340}
+aZoSupplyCraneBoomDL:
+  { type: GFX, offset: 0x601A340, symbol: aZoSupplyCraneBoomDL}
 
-D_ZO_601AA48:
-  { type: SF64:ANIM, offset: 0x601AA48, symbol: D_ZO_601AA48}
+aZoFishAnim:
+  { type: SF64:ANIM, offset: 0x601AA48, symbol: aZoFishAnim}
 
-D_ZO_601AB14:
-  { type: SF64:SKELETON, offset: 0x601AB14, symbol: D_ZO_601AB14}
+aZoFishSkel:
+  { type: SF64:SKELETON, offset: 0x601AB14, symbol: aZoFishSkel}
 
-D_ZO_601AFB8:
-  { type: SF64:ANIM, offset: 0x601AFB8, symbol: D_ZO_601AFB8}
+aZoObnemaAnim:
+  { type: SF64:ANIM, offset: 0x601AFB8, symbol: aZoObnemaAnim}
 
 aZoObnemaSkel:
   { type: SF64:SKELETON, offset: 0x601B184, symbol: aZoObnemaSkel}
@@ -309,20 +297,20 @@ aZoObnemaDebris2DL:
 aZoObnemaDebris6DL:
   { type: GFX, offset: 0x601B8F0, symbol: aZoObnemaDebris6DL}
 
-D_ZO_601BAD0:
-  { type: GFX, offset: 0x601BAD0, symbol: D_ZO_601BAD0}
+aEffectZoSplashDL:
+  { type: GFX, offset: 0x601BAD0, symbol: aEffectZoSplashDL}
 
 D_ZO_601BBB8:
   { type: TEXTURE, ctype: u8, format: IA8, width: 16, height: 16, offset: 0x601BBB8, symbol: D_ZO_601BBB8}
 
-D_ZO_601BCC0:
-  { type: GFX, offset: 0x601BCC0, symbol: D_ZO_601BCC0}
+aZoSpikeBallSpikesDL:
+  { type: GFX, offset: 0x601BCC0, symbol: aZoSpikeBallSpikesDL}
 
 D_ZO_601C390:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x601C390, symbol: D_ZO_601C390}
 
-D_ZO_601C590:
-  { type: GFX, offset: 0x601C590, symbol: D_ZO_601C590}
+aZoCraneMagnetDL:
+  { type: GFX, offset: 0x601C590, symbol: aZoCraneMagnetDL}
 
 D_ZO_601C8E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x601C8E0, symbol: D_ZO_601C8E0}
@@ -333,11 +321,8 @@ D_ZO_601D0E0:
 D_ZO_601D2E0:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x601D2E0, symbol: D_ZO_601D2E0}
 
-D_ZO_601D5B0:
-  { type: GFX, offset: 0x601D5B0, symbol: D_ZO_601D5B0}
-
-D_ZO_601D680:
-  { type: GFX, offset: 0x601D680, symbol: D_ZO_601D680}
+aZoSupplyCraneSheaveDL:
+  { type: GFX, offset: 0x601D680, symbol: aZoSupplyCraneSheaveDL}
 
 D_ZO_601E618:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x601E618, symbol: D_ZO_601E618}
@@ -360,8 +345,8 @@ aZoSarumarinePeriscopeSkel:
 aZoTroikaDebris5DL:
   { type: GFX, offset: 0x601F940, symbol: aZoTroikaDebris5DL}
 
-D_ZO_601FBC4:
-  { type: SF64:ANIM, offset: 0x601FBC4, symbol: D_ZO_601FBC4}
+aZoBarrierAnim:
+  { type: SF64:ANIM, offset: 0x601FBC4, symbol: aZoBarrierAnim}
 
 aZoBarrierSkel:
   { type: SF64:SKELETON, offset: 0x601FC90, symbol: aZoBarrierSkel}
@@ -396,11 +381,11 @@ D_ZO_60212B0:
 D_ZO_60216A8:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x60216A8, symbol: D_ZO_60216A8}
 
-D_ZO_6021ABC:
-  { type: SF64:ANIM, offset: 0x6021ABC, symbol: D_ZO_6021ABC}
+aZoShrimpAnim:
+  { type: SF64:ANIM, offset: 0x6021ABC, symbol: aZoShrimpAnim}
 
-D_ZO_6021B88:
-  { type: SF64:SKELETON, offset: 0x6021B88, symbol: D_ZO_6021B88}
+aZoShrimpSkel:
+  { type: SF64:SKELETON, offset: 0x6021B88, symbol: aZoShrimpSkel}
 
 aZoBirdDebris2DL:
   { type: GFX, offset: 0x6021BB0, symbol: aZoBirdDebris2DL}
@@ -459,8 +444,8 @@ D_ZO_60237E0:
 aZoDodoraBodyDL:
   { type: GFX, offset: 0x60239E0, symbol: aZoDodoraBodyDL}
 
-D_ZO_6023D50:
-  { type: GFX, offset: 0x6023D50, symbol: D_ZO_6023D50}
+aZoEnergyBallEffectDL:
+  { type: GFX, offset: 0x6023D50, symbol: aZoEnergyBallEffectDL}
 
 D_ZO_6024018:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6024018, symbol: D_ZO_6024018}
@@ -480,8 +465,8 @@ D_ZO_6024D60:
 D_ZO_6025658:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 32, height: 32, offset: 0x6025658, symbol: D_ZO_6025658}
 
-D_ZO_6025E60:
-  { type: GFX, offset: 0x6025E60, symbol: D_ZO_6025E60}
+aZoMineDL:
+  { type: GFX, offset: 0x6025E60, symbol: aZoMineDL}
 
 D_ZO_6025F98:
   { type: TEXTURE, ctype: u16, format: RGBA16, width: 16, height: 16, offset: 0x6025F98, symbol: D_ZO_6025F98}

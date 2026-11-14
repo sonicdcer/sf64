@@ -718,23 +718,23 @@ typedef enum ObjectId {
     /* 379 */ OBJ_EFFECT_379, // small orbs in Ma boss wing projectile charge
     /* 380 */ OBJ_EFFECT_MECHBETH_BEAM, // Mechbeth (boss) wing gathered energy beam attack
     /* 381 */ OBJ_EFFECT_381, // small splash
-    /* 382 */ OBJ_EFFECT_382, // larger splash?
+    /* 382 */ OBJ_EFFECT_DYNAFLOOR_WAVE, // Dynafloor waving effect, used in both Zoness and Solar.
     /* 383 */ OBJ_EFFECT_BOSS_EXPLOSION, // Big spherical boss explosion
     /* 384 */ OBJ_EFFECT_384, // small explosion
     /* 385 */ OBJ_EFFECT_385, // small explosion
     /* 386 */ OBJ_EFFECT_386, // some type of explosion
     /* 387 */ OBJ_EFFECT_387, // ground impact marking
-    /* 388 */ OBJ_EFFECT_388, // all functions dummied out
+    /* 388 */ OBJ_EFFECT_UNK_388, // all functions dummied out
     /* 389 */ OBJ_EFFECT_ELECTRIC_ARC, // lightning effect from damage
     /* 390 */ OBJ_EFFECT_ELECTRIC_ARC_2, // no model, makes ElectricArcs
-    /* 391 */ OBJ_EFFECT_391, // splash effect in Zoness?
+    /* 391 */ OBJ_EFFECT_ZO_SPLASH, // Water splash effect in Zoness.
     /* 392 */ OBJ_EFFECT_SO_FLARE, // Solar flare effects
     /* 393 */ OBJ_EFFECT_SPARKLE, // sparkle
     /* 394 */ OBJ_EFFECT_394, // various explosion effects. specifically damaging ones?
     /* 395 */ OBJ_EFFECT_395, // multipurpose effect. laser-related?
     /* 396 */ OBJ_EFFECT_AND_SUCTION, // Effects in andross fight
     /* 397 */ OBJ_EFFECT_BO_LASER_SHOT, // Lasers shot by bolse core
-    /* 398 */ OBJ_EFFECT_398, // orange projectiles from carrier and sarumarine
+    /* 398 */ OBJ_EFFECT_BOSS_SHOT, // Orange projectiles from Carrier and Sarumarine
     /* 399 */ OBJ_EFFECT_ORB_RING,
     /* 400 */ OBJ_ENV_SMALL_ROCKS_ENABLE,
     /* 401 */ OBJ_ENV_SMALL_ROCKS_DISABLE,
@@ -1378,23 +1378,23 @@ typedef Effect Effect378;
 typedef Effect Effect379;
 typedef Effect EffectMechbethBeam;
 typedef Effect Effect381;
-typedef Effect Effect382;
+typedef Effect EffectDynaFloorWave;
 typedef Effect EffectBossExplosion;
 typedef Effect Effect384;
 typedef Effect Effect385;
 typedef Effect Effect386;
 typedef Effect Effect387;
-typedef Effect Effect388;
+typedef Effect EffectUnk388;
 typedef Effect EffectElectricArc;
 typedef Effect EffectElectricArc2;
-typedef Effect Effect391;
+typedef Effect EffectZoSplash;
 typedef Effect EffectSoFlare;
 typedef Effect EffectSparkle;
 typedef Effect Effect394;
 typedef Effect Effect395;
 typedef Effect EffectAndSuction;
 typedef Effect EffectBoLaserShot;
-typedef Effect Effect398;
+typedef Effect EffectBossShot;
 typedef Effect EffectOrbRing;
 
 #endif

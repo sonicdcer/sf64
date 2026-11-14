@@ -211,7 +211,7 @@ void Effect_WaterSpray_Draw(EffectWaterSpray* this) {
     gSPDisplayList(gMasterDisp++, aAwBeamWaterSplashDL);
 }
 
-void Effect_Effect382_Draw(Effect382* this) {
+void Effect_DynaFloorWave_Draw(EffectDynaFloorWave* this) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
     gDPSetEnvColor(gMasterDisp++, 255, 255, 255, this->alpha);
@@ -222,7 +222,8 @@ void Effect_Effect382_Draw(Effect382* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect388_Draw(Effect388* this) {
+void Effect_Unk388_Draw(EffectUnk388* this) {
+    // Stubbed
 }
 
 void Effect_Effect384_Draw(Effect384* this) {
@@ -496,7 +497,7 @@ void Effect_MeFireball_Draw(EffectMeFireball* this) {
     gSPDisplayList(gMasterDisp++, aMeFireballDL);
 }
 
-void Effect_EffectGrangaPlasmaShot_Draw(EffectGrangaPlasmaShot* this) {
+void Effect_GrangaPlasmaShot_Draw(EffectGrangaPlasmaShot* this) {
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->unk_4A);
     Graphics_SetScaleMtx(this->scale2);
     gSPDisplayList(gMasterDisp++, aCoGrangaPlasmaShotDL);
@@ -1151,10 +1152,10 @@ void Effect_WaterSpray_SpawnCircle(f32 xPos, f32 yPos, f32 zPos, f32 scale2, f32
     }
 }
 
-void Effect_Effect382_Setup(Effect382* this, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
+void Effect_DynaFloorWave_Setup(EffectDynaFloorWave* this, f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_382;
+    this->obj.id = OBJ_EFFECT_DYNAFLOOR_WAVE;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = -10.0f;
@@ -1167,18 +1168,18 @@ void Effect_Effect382_Setup(Effect382* this, f32 xPos, f32 zPos, f32 xVel, f32 z
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect382_Spawn(f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
+void Effect_DynaFloorWave_Spawn(f32 xPos, f32 zPos, f32 xVel, f32 zVel, f32 scale1) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect382_Setup(&gEffects[i], xPos, zPos, xVel, zVel, scale1);
+            Effect_DynaFloorWave_Setup(&gEffects[i], xPos, zPos, xVel, zVel, scale1);
             break;
         }
     }
 }
 
-void Effect_Effect382_Update(Effect382* this) {
+void Effect_DynaFloorWave_Update(EffectDynaFloorWave* this) {
     f32 sp2C;
     s32 sp28;
 
@@ -1334,7 +1335,8 @@ void Effect_Clouds_Update(EffectClouds* this) {
     }
 }
 
-void Effect_Effect388_Update(Effect388* this) {
+void Effect_Unk388_Update(EffectUnk388* this) {
+    // Stubbed
 }
 
 void Effect_ElectricArc_Update(EffectElectricArc* this) {
@@ -2984,7 +2986,7 @@ void Effect_MeFireball_Update(EffectMeFireball* this) {
     }
 }
 
-void Effect_EffectGrangaPlasmaShot_Update(EffectGrangaPlasmaShot* this) {
+void Effect_GrangaPlasmaShot_Update(EffectGrangaPlasmaShot* this) {
     this->obj.rot.z += 8.0f;
     this->scale2 += 0.1f;
     // It seems they forgot that unk_4A is s16 and not a float...
@@ -2995,7 +2997,7 @@ void Effect_EffectGrangaPlasmaShot_Update(EffectGrangaPlasmaShot* this) {
     Effect_CheckPlayerCollision(&gPlayer[0], this, 50.0f);
 }
 
-void Effect_Effect398_Update(Effect398* this) {
+void Effect_BossShot_Update(EffectBossShot* this) {
     f32 xRot;
     f32 yRot;
     f32 temp;
@@ -3097,18 +3099,18 @@ void Effect_Effect398_Update(Effect398* this) {
     Effect_CheckPlayerCollision(&gPlayer[0], this, 50.0f);
 }
 
-void Effect_Effect398_Draw(Effect398* this) {
+void Effect_BossShot_Draw(EffectBossShot* this) {
     switch (this->alpha) {
-        case 0:
+        case 0: // Sarumarine shots
             RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
             Matrix_Scale(gGfxMatrix, 4.0f, 2.0f, 4.0f, MTXF_APPLY);
             Matrix_SetGfxMtx(&gMasterDisp);
-            gSPDisplayList(gMasterDisp++, D_ZO_6018AF0);
+            gSPDisplayList(gMasterDisp++, aZoSarumarineShotDL);
             break;
 
-        case 1:
+        case 1: // Carrier shots
             RCP_SetupDL(&gMasterDisp, SETUPDL_49);
             gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 0, 255);
             gDPSetEnvColor(gMasterDisp++, 255, 0, 0, 255);
@@ -4012,10 +4014,10 @@ void Effect_Effect395_Draw(Effect395* this) {
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 
-void Effect_Effect391_Setup(Effect391* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
+void Effect_ZoSplash_Setup(EffectZoSplash* this, f32 xPos, f32 yPos, f32 zPos, f32 arg4, f32 scale) {
     Effect_Initialize(this);
     this->obj.status = OBJ_INIT;
-    this->obj.id = OBJ_EFFECT_391;
+    this->obj.id = OBJ_EFFECT_ZO_SPLASH;
 
     this->obj.pos.x = xPos;
     this->obj.pos.y = yPos;
@@ -4033,18 +4035,18 @@ void Effect_Effect391_Setup(Effect391* this, f32 xPos, f32 yPos, f32 zPos, f32 a
     Object_SetInfo(&this->info, this->obj.id);
 }
 
-void Effect_Effect391_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
+void Effect_ZoSplash_Spawn(f32 xPos, f32 yPos, f32 zPos, f32 arg3, f32 scale) {
     s32 i;
 
     for (i = 0; i < ARRAY_COUNT(gEffects); i++) {
         if (gEffects[i].obj.status == OBJ_FREE) {
-            Effect_Effect391_Setup(&gEffects[i], xPos, yPos, zPos, arg3, scale);
+            Effect_ZoSplash_Setup(&gEffects[i], xPos, yPos, zPos, arg3, scale);
             break;
         }
     }
 }
 
-void Effect_Effect391_Update(Effect391* this) {
+void Effect_ZoSplash_Update(EffectZoSplash* this) {
     s32 pad[2];
     f32 var_fv1;
     s32 var_s2;
@@ -4099,13 +4101,13 @@ void Effect_Effect391_Update(Effect391* this) {
         Math_Atan2F(gPlayer[0].cam.eye.x - this->obj.pos.x, gPlayer[0].cam.eye.z - (this->obj.pos.z + gPathProgress)));
 }
 
-void Effect_Effect391_Draw(Effect391* this) {
+void Effect_ZoSplash_Draw(EffectZoSplash* this) {
     RCP_SetupDL_49();
     gDPSetPrimColor(gMasterDisp++, 0, 0, 255, 255, 255, this->alpha);
     gDPSetEnvColor(gMasterDisp++, 36, 45, 28, 255);
     Matrix_Scale(gGfxMatrix, this->orient.x, this->scale2 * this->orient.y, this->scale2, MTXF_APPLY);
     Matrix_SetGfxMtx(&gMasterDisp);
-    gSPDisplayList(gMasterDisp++, D_ZO_601BAD0);
+    gSPDisplayList(gMasterDisp++, aEffectZoSplashDL);
     RCP_SetupDL(&gMasterDisp, SETUPDL_64);
 }
 

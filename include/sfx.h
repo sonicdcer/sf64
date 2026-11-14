@@ -172,7 +172,7 @@ typedef enum SfxBankId {
 #define NA_SE_OUT_SPLASH_S          0x19800018 // Unreferenced.
 #define NA_SE_IN_SPLASH_L           0x19832019
 #define NA_SE_OUT_SPLASH_L          0x1983201A
-#define NA_SE_OB_CRAME_MOTOR        0x1900001B
+#define NA_SE_OB_CRANE_MOTOR        0x1900001B
 #define NA_SE_OB_BROKEN_BOX         0x1903901C
 #define NA_SE_OB_MINI_BOMB          0x1903001D
 #define NA_SE_OB_WT_WHEEL_ROLL      0x1903001E

@@ -2858,17 +2858,17 @@ void ActorEvent_SlowDestruct(ActorEvent* this) {
         Matrix_MultVec3fNoTranslate(gCalcMatrix, &D_800D1194[rInd], &sp38);
     }
 
-    if (((gGameFrameCount % 2) == 0)) {
+    if ((gGameFrameCount % 2) == 0) {
         Effect_ElectricArc2_Spawn(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z,
                                   this->vel.x, this->vel.y, this->vel.z, 0.3f, 20);
     }
 
-    if (((gGameFrameCount % 8) == 0)) {
+    if ((gGameFrameCount % 8) == 0) {
         Effect_Effect386_Spawn1(this->obj.pos.x + sp38.x, this->obj.pos.y + sp38.y, this->obj.pos.z + sp38.z,
                                 this->vel.x, this->vel.y, this->vel.z, 10.0f, 9);
     }
 
-    if (((gGameFrameCount % 16) == 0)) {
+    if ((gGameFrameCount % 16) == 0) {
         AUDIO_PLAY_SFX(NA_SE_EN_EXPLOSION_M, this->sfxSource, 4);
     }
 

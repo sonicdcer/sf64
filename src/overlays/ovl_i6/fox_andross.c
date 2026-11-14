@@ -4080,7 +4080,7 @@ void Andross_LevelComplete(Player* player) {
                     D_ctx_80177A48[0] = 1.0f;
                     Play_ClearObjectData();
 
-                    gScenery360 = Memory_Allocate(200 * sizeof(Scenery360));
+                    gScenery360 = Memory_Allocate(NUM_SCENERY_360 * sizeof(Scenery360));
                     for (i = 0; i < NUM_SCENERY_360; i++) {
                         gScenery360[i].obj.status = OBJ_FREE;
                     }

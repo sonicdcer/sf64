@@ -2293,10 +2293,19 @@ void Aquas_AqBacconBarnacle_Update(AqBacconBarnacle* this) {
                         break;
                     }
                 }
+
+#ifndef AVOID_UB
+                // @Bug: checking out of bounds
+                // gActors[60] overflows to gBosses[0].
                 if (i >= ARRAY_COUNT(gActors)) {
                     this->iwork[3] = 0;
                     sp48->obj.status = OBJ_FREE;
                 }
+#else
+                if (i >= ARRAY_COUNT(gActors)) {
+                    PRINTF("ERROR: Failed to spawn OBJ_ACTOR_AQ_SANADA, no free actor slots available.\n");
+                }
+#endif
             }
 
             if (this->iwork[1] == D_i3_801BFC70[this->iwork[2]]) {
@@ -5420,9 +5429,17 @@ void Aquas_AqBoulder_Update(AqBoulder* this) {
                         j++;
                     }
                 }
+#ifndef AVOID_UB
+                // @Bug: checking out of bounds
+                // gActors[60] overflows to gBosses[0].
                 if (i >= ARRAY_COUNT(gActors)) {
                     boulder->obj.status = OBJ_FREE;
                 }
+#else
+                if (i >= ARRAY_COUNT(gActors)) {
+                    PRINTF("ERROR: Failed to spawn OBJ_ACTOR_AQ_BOULDER, no free actor slots available.\n");
+                }
+#endif
             } else {
                 for (i = 0; i < 4; i++) {
                     Aquas_SpawnDebris(&this->obj.pos, &this->obj.rot, RAND_FLOAT_CENTERED(30.0f), RAND_FLOAT(5.0f),

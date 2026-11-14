@@ -105,15 +105,15 @@ void PlayerShot_ExplodeBomb(PlayerShot* shot) {
                 var_fs0 = 4.0f;
             }
             var_fs0 *= 2.0f;
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 50.0f, 0.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 46.0f, 19.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 35.0f, 35.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 19.0f, 46.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, 0.0f, 50.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -50.0f, 0.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -46.0f, 19.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -35.0f, 35.0f, var_fs0);
-            Effect_Effect382_Spawn(shot->obj.pos.x, shot->obj.pos.z, -19.0f, 46.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, 50.0f, 0.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, 46.0f, 19.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, 35.0f, 35.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, 19.0f, 46.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, 0.0f, 50.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, -50.0f, 0.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, -46.0f, 19.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, -35.0f, 35.0f, var_fs0);
+            Effect_DynaFloorWave_Spawn(shot->obj.pos.x, shot->obj.pos.z, -19.0f, 46.0f, var_fs0);
         }
     }
 }

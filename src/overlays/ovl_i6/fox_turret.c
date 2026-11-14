@@ -1,3 +1,9 @@
+/*
+ * File: fox_turret.c
+ * System: Turret
+ * Description: Leftover code for a Turret Mode that never made into the final game.
+ */
+
 #include "global.h"
 
 void Turret_SetupShot(Player* player, PlayerShot* shot, f32 xOffset, f32 yOffset, f32 zOffset, s32 shotId, f32 speed) {
@@ -132,8 +138,8 @@ void Turret_Shoot(Player* player) {
 }
 
 void Turret_Update(Player* player) {
-    f32 sp2C;
-    f32 sp28;
+    f32 stickX;
+    f32 stickY;
 
     // The player follows the turret actor. Possibly the great fox
     player->pos.x = gActors[player->turretActor].obj.pos.x;
@@ -158,10 +164,12 @@ void Turret_Update(Player* player) {
     }
 
     // The control stick may have moved a targeting cursor
-    sp2C = (f32) gControllerPress[player->num].stick_x;
-    sp28 = -(f32) gControllerPress[player->num].stick_y;
-    Math_SmoothStepToF(&player->rot.y, -sp2C * 0.35000002f, 0.5f, 2.0f, 0.00001f);
-    Math_SmoothStepToF(&player->rot.x, -sp28 * 0.3f, 0.5f, 2.0f, 0.00001f);
+    stickX = (f32) gControllerPress[player->num].stick_x;
+    stickY = -(f32) gControllerPress[player->num].stick_y;
+
+    Math_SmoothStepToF(&player->rot.y, -stickX * 0.35000002f, 0.5f, 2.0f, 0.00001f);
+    Math_SmoothStepToF(&player->rot.x, -stickY * 0.3f, 0.5f, 2.0f, 0.00001f);
+
     player->trueZpos = player->pos.z;
     player->zPathVel = -gActors[player->turretActor].vel.z;
     player->zPath += player->zPathVel;
@@ -170,20 +178,21 @@ void Turret_Update(Player* player) {
     gPathProgress = player->zPath;
 
     // These appear to move the camera around unless locked in place with Z
-    if (!(gControllerHold[player->num].button & Z_TRIG) && (sqrtf(SQ(sp2C) + SQ(sp28)) > 55.0f)) {
-        if ((gControllerHold[player->num].button & R_CBUTTONS) || (sp2C > 40.0f)) {
+    if (!(gControllerHold[player->num].button & Z_TRIG) && (sqrtf(SQ(stickX) + SQ(stickY)) > 55.0f)) {
+        if ((gControllerHold[player->num].button & R_CBUTTONS) || (stickX > 40.0f)) {
             player->unk_008 += 2.0f;
         }
-        if ((gControllerHold[player->num].button & L_CBUTTONS) || (sp2C < -40.0f)) {
+        if ((gControllerHold[player->num].button & L_CBUTTONS) || (stickX < -40.0f)) {
             player->unk_008 -= 2.0f;
         }
-        if ((gControllerHold[player->num].button & U_CBUTTONS) || (sp28 < -40.0f)) {
+        if ((gControllerHold[player->num].button & U_CBUTTONS) || (stickY < -40.0f)) {
             player->unk_00C -= 2.0f;
         }
-        if ((gControllerHold[player->num].button & D_CBUTTONS) || (sp28 > 40.0f)) {
+        if ((gControllerHold[player->num].button & D_CBUTTONS) || (stickY > 40.0f)) {
             player->unk_00C += 2.0f;
         }
     }
+
     if (player->unk_008 > 30.0f) {
         player->unk_008 = 30.0f;
     }
@@ -196,6 +205,7 @@ void Turret_Update(Player* player) {
     if (player->unk_00C < -30.0f) {
         player->unk_00C = -30.0f;
     }
+
     player->flags_228 = 0;
 
     if (player->unk_008 > 20.0f) {
@@ -215,8 +225,10 @@ void Turret_Update(Player* player) {
     if (gControllerPress[player->num].button & B_BUTTON) {
         player->unk_008 = player->unk_00C = 0.0f;
     }
+
     Math_SmoothStepToF(&player->unk_180, -player->unk_008, 0.5f, 3.0f, 0.00001f);
     Math_SmoothStepToF(&player->unk_17C, -player->unk_00C, 0.5f, 3.0f, 0.00001f);
+
     Turret_Shoot(player);
 }
 

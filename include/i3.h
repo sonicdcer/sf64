@@ -49,7 +49,7 @@ void Zoness_ZoSarumarine_Update(Boss* this);
 void Zoness_ZoBall_Update(ZoBall* this);
 void Zoness_ZoBall_Draw(Actor* actor);
 void Zoness_ZoMine_Update(Actor* this);
-void Zoness_ZoMine_Draw(ZoMine* actor);
+void Zoness_ZoMine_Draw(ZoMine* this);
 void Zoness_ZoCraneMagnet_Update(Actor* this);
 void Zoness_ZoCraneMagnet_Draw(Actor* this);
 void Zoness_ZoSpikeBall_Update(Actor* this);

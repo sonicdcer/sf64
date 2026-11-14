@@ -1745,7 +1745,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
     s32 pad2;
     f32* temp_a0;
     f32* temp_a1;
-    Effect398* effect398;
+    EffectBossShot* effect398;
 
     gBossFrameCount++;
 
@@ -2099,7 +2099,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                                     if (effect398->obj.status == OBJ_FREE) {
                                         Effect_Initialize(effect398);
                                         effect398->obj.status = OBJ_INIT;
-                                        effect398->obj.id = OBJ_EFFECT_398;
+                                        effect398->obj.id = OBJ_EFFECT_BOSS_SHOT;
                                         effect398->timer_50 = 100;
                                         effect398->alpha = 1;
                                         effect398->scale2 = 1.0f;
@@ -2111,10 +2111,19 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                                         break;
                                     }
                                 }
-
-                                if (i >= 60) {
+#ifndef AVOID_UB
+                                // @Bug: If this condition passes, it will free the next slot to the allocated effect.
+                                // The programmer probably intended this to be ARRAY_COUNT(gEffects), although
+                                // that would have also been a bug on it's own.
+                                if (i >= ARRAY_COUNT(gActors)) {
                                     effect398->obj.status = OBJ_FREE;
                                 }
+#else
+                                if (i >= ARRAY_COUNT(gEffects)) {
+                                    PRINTF("ERROR: Failed to spawn OBJ_EFFECT_BOSS_SHOT, no free effect slots "
+                                           "available.\n");
+                                }
+#endif
                             }
                         }
                     }

@@ -237,7 +237,7 @@ aAndDoorHitbox:
   {type: SF64:HITBOX, offset: 0xC038A48, symbol: aAndDoorHitbox}
 
 aAndDoorHitbox2:
-  {type: SF64:HITBOX, offset: 0xC038AC4, symbol: aAndDoorHitbox2, comment: copy of aAndDoorHitbox}
+  {type: SF64:HITBOX, offset: 0xC038AC4, symbol: aAndDoorHitbox2, comment: duplicate of aAndDoorHitbox}
 
 aAndPathHitbox:
   {type: SF64:HITBOX, offset: 0xC038B40, symbol: aAndPathHitbox}
