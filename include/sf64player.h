@@ -4,14 +4,14 @@
 #include "sf64math.h"
 #include "sf64object.h"
 
-#define PFLAG_228_0 (1 << 0)
-#define PFLAG_228_1 (1 << 1)
-#define PFLAG_228_2 (1 << 2)
-#define PFLAG_228_3 (1 << 3)
-#define PFLAG_228_4 (1 << 4)
-#define PFLAG_228_5 (1 << 5)
-#define PFLAG_228_6 (1 << 6)
-#define PFLAG_228_7 (1 << 7)
+// Flags related to player position on the screen,
+// used to choose level paths and displaying edge screen arrows
+#define PFLAG_228_0 (1 << 0) // EAST
+#define PFLAG_228_1 (1 << 1) // WEST
+#define PFLAG_228_2 (1 << 2) // SOUTH
+#define PFLAG_228_3 (1 << 3) // NORTH
+#define PFLAG_228_4 (1 << 4) // PATH TURN RIGHT
+#define PFLAG_228_5 (1 << 5) // PATH TURN LEFT
 
 typedef enum TeamId {
     /* 0 */ TEAM_ID_FOX,

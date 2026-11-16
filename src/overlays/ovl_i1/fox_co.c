@@ -1907,7 +1907,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
         }
 
         if (this->timer_052 != 0) {
-            Math_SmoothStepToF(&D_ctx_801779A8[0], 50.0f, 1.0f, 1.6f, 0.0001f);
+            Math_SmoothStepToF(&gRumbleStrength[0], 50.0f, 1.0f, 1.6f, 0.0001f);
         }
 
         switch (this->state) {
@@ -2173,7 +2173,7 @@ void Corneria_CoCarrier_Update(CoCarrier* this) {
                 break;
 
             case CARRIER_STATE_8:
-                D_ctx_801779A8[0] = 20.0f;
+                gRumbleStrength[0] = 20.0f;
 
                 if ((gGameFrameCount % 32) == 0) {
                     for (i = 0; i < 10; i++) {

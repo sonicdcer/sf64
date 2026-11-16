@@ -1465,7 +1465,7 @@ void Bolse_LevelComplete(Player* player) {
             }
 
             if ((gCsFrameCount > 110) && (gCsFrameCount < 200)) {
-                D_ctx_801779A8[0] = 60.0f;
+                gRumbleStrength[0] = 60.0f;
             }
 
             switch (gCsFrameCount) {

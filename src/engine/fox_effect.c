@@ -890,7 +890,7 @@ void Effect_BossExplosion_Update(EffectBossExplosion* this) {
     Math_SmoothStepToF(&this->scale2, this->scale1, 0.05f, 1.5f, 0.001f);
 
     if (this->timer_50 > 10) {
-        D_ctx_801779A8[0] = 60.0f;
+        gRumbleStrength[0] = 60.0f;
     }
     if (this->timer_50 == 48) {
         gFillScreenAlpha = 150;
@@ -3506,7 +3506,7 @@ f32 D_800D18E8 = 0.0f;
 f32 D_800D18EC = 0.0f;
 
 void Effect_Effect395_Update(Effect395* this) {
-    f32 sp84;
+    f32 scale;
     f32 posXDiff;
     f32 posYDiff;
     f32 posZDiff;
@@ -3516,6 +3516,10 @@ void Effect_Effect395_Update(Effect395* this) {
     s32 unusedOut;
     Vec3f velocity;
     Vec3f velocityDest;
+
+#ifdef AVOID_UB
+    scale = 50.0f;
+#endif
 
     velocity.x = this->vel.x;
     velocity.y = this->vel.y;
@@ -3550,7 +3554,7 @@ void Effect_Effect395_Update(Effect395* this) {
                 Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            sp84 = 50.0f;
+            scale = 50.0f;
             break;
 
         case 1:
@@ -3615,7 +3619,7 @@ void Effect_Effect395_Update(Effect395* this) {
                 Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 3.0f, 7);
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            sp84 = 50.0f;
+            scale = 50.0f;
             break;
 
         case 3:
@@ -3627,7 +3631,7 @@ void Effect_Effect395_Update(Effect395* this) {
                 ActorEvent_PinkExplosion_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 15.0f);
                 Object_Kill(&this->obj, this->sfxSource);
             }
-            sp84 = 50.0f;
+            scale = 50.0f;
             break;
 
         case 4:
@@ -3699,7 +3703,7 @@ void Effect_Effect395_Update(Effect395* this) {
             break;
 
         case 8:
-            Math_SmoothStepToF(D_ctx_801779A8, 30.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(gRumbleStrength, 30.0f, 1.0f, 5.0f, 0.0f);
             Matrix_RotateY(gCalcMatrix, gBosses[0].obj.rot.y * M_DTOR, MTXF_NEW);
             Matrix_RotateX(gCalcMatrix, gBosses[0].obj.rot.x * M_DTOR, MTXF_APPLY);
 
@@ -3794,7 +3798,7 @@ void Effect_Effect395_Update(Effect395* this) {
         case 10:
             switch (this->alpha) {
                 case 0:
-                    D_ctx_801779A8[0] = 50.0f;
+                    gRumbleStrength[0] = 50.0f;
                     if (this->unk_46 == 10) {
                         gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                         gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -3826,7 +3830,7 @@ void Effect_Effect395_Update(Effect395* this) {
                     break;
 
                 case 1:
-                    Math_SmoothStepToF(D_ctx_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
+                    Math_SmoothStepToF(gRumbleStrength, 20.0f, 1.0f, 5.0f, 0.0f);
                     break;
             }
 
@@ -3893,7 +3897,7 @@ void Effect_Effect395_Update(Effect395* this) {
         Effect_EnemyShot_Update(this);
     }
     if ((this->state < 4) && (this->state != 1)) {
-        Effect_CheckPlayerCollision(&gPlayer[0], this, sp84);
+        Effect_CheckPlayerCollision(&gPlayer[0], this, scale);
     }
 }
 

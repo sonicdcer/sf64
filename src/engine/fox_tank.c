@@ -589,11 +589,11 @@ void func_tank_80045348(Player* player) {
             sp38 = 6.0f;
 
             D_800C9F24 += 1.0f;
-            if (D_ctx_801779A8[player->num] < 25.0f) {
-                D_ctx_801779A8[player->num] = 25.0f;
+            if (gRumbleStrength[player->num] < 25.0f) {
+                gRumbleStrength[player->num] = 25.0f;
             }
 
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             D_800C9F24 = 0.0f;
         }
@@ -603,7 +603,7 @@ void func_tank_80045348(Player* player) {
             sp40 = 100.0f;
             sp3C = 0.2f;
             D_800C9F28 += 1.0f;
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
         } else {
             D_800C9F28 = 0.0f;
         }
@@ -761,7 +761,7 @@ void func_tank_80045E7C(Player* player) {
             }
         }
         if (player->rollTimer == 0) {
-            D_ctx_801779A8[player->num] = 25.0f;
+            gRumbleStrength[player->num] = 25.0f;
             if (player->rollRate > 0) {
                 player->rollRate -= 2;
             }

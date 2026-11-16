@@ -959,7 +959,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
         case SAUCERER_CS_CLOSE_UP:
             gPlayer[0].cam.at.y += 0.2f;
 
-            Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.65f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[gMainController], 30.0f, 1.0f, 1.65f, 0.0f);
 
             if (this->timer_050 == 460) {
                 D_i4_801A0548 = 10.0f;
@@ -1270,7 +1270,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
 
         // Cutscene: Close up, start KaSaucerer attack.
         case SAUCERER_CS_LASER_FIRE_START:
-            Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[gMainController], 30.0f, 1.0f, 1.6f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.eye.z, 0.0f, 0.05f, 5.0f, 0.0f);
             this->fwork[BOSS_FWORK_13] += 0.1f;
             Math_SmoothStepToF(&gEnvLightyRot, 200.0f, 1.0f, 0.5f, 0.0f);
@@ -1366,7 +1366,7 @@ void Katina_KaSaucerer_Update(KaSaucerer* this) {
 
         // Cutscene: Base is hit by KaSaucerer's laser.
         case SAUCERER_CS_LASER_HIT:
-            Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[gMainController], 100.0f, 1.0f, 100.0f, 0.0f);
             Math_SmoothStepToF(&gPlayer[0].cam.at.y, 525.0f, 0.3f, 50.0f, 0.0f);
 
             if (this->timer_050 == 0) {

@@ -317,8 +317,8 @@ s32 gTeamLowHealthMsgTimer;
 OSContPad* gInputHold;
 OSContPad* gInputPress;
 u8* gControllerRumble;
-s32 D_ctx_80177990[4]; // these two are also rumble related
-f32 D_ctx_801779A8[4];
+s32 gRumbleTimer[4];
+f32 gRumbleStrength[4];
 u8 gPauseEnabled;
 s32 gChargeTimers[4];
 f32 gPathVelX;

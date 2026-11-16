@@ -716,7 +716,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             break;
 
         case 1: // Fade out
-            Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(gRumbleStrength, 10.0f, 1.0f, 5.0f, 0.0f);
             this->info.hitbox[0] = 0;
             Math_SmoothStepToAngle(&this->obj.rot.z, 0.0f, 1.0f, 10.0f, 0.0001f);
 
@@ -768,7 +768,7 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             break;
 
         case 2: // Fade in
-            Math_SmoothStepToF(D_ctx_801779A8, 10.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(gRumbleStrength, 10.0f, 1.0f, 5.0f, 0.0f);
             if (this->timer_050 == 10) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -1132,9 +1132,9 @@ void Area6_A6Gorgon_Update(A6Gorgon* this) {
             }
 
             if (this->timer_052 < 50) {
-                D_ctx_801779A8[0] = 50.0f;
+                gRumbleStrength[0] = 50.0f;
             } else {
-                D_ctx_801779A8[0] = 20.0f;
+                gRumbleStrength[0] = 20.0f;
             }
 
             if (this->timer_052 == 0) {

@@ -2903,7 +2903,7 @@ void SectorY_LevelStart(Player* player) {
                     gActors[9].iwork[6] = 255;
                     gActors[9].iwork[7] = 100;
                     AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[5].sfxSource, 4);
-                    D_ctx_801779A8[gMainController] = 100.0f;
+                    gRumbleStrength[gMainController] = 100.0f;
                     break;
 
                 case 260:

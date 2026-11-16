@@ -5,474 +5,15 @@
  */
 
 #include "global.h"
+#include "fox_zo.h"
 #include "assets/ast_enmy_planet.h"
 #include "assets/ast_zoness.h"
-
-#define TRAP_ENEMY_LASERS (1000)
-
-typedef struct {
-    f32 id;
-    Vec3f tilt;
-    Hitbox b;
-} TiltHitbox;
-
-#define LIMB_DESTROYED 1000
-
-#define ZO_HITBOX_COUNT ((s32) (bossZO)->info.hitbox[0])
-#define ZO_HIT_0(bossZO) ((Hitbox*) ((bossZO)->info.hitbox + 1))
-#define ZO_HIT_1(bossZO) ((Hitbox*) (ZO_HIT_0(bossZO) + 1))
-#define ZO_HIT_2(bossZO) ((Hitbox*) (ZO_HIT_1(bossZO) + 1))
-#define ZO_HIT_3(bossZO) ((TiltHitbox*) (ZO_HIT_2(bossZO) + 1))
-#define ZO_HIT_4(bossZO) ((TiltHitbox*) (ZO_HIT_3(bossZO) + 1))
-#define ZO_HIT_5(bossZO) ((Hitbox*) (ZO_HIT_4(bossZO) + 1))
-#define ZO_HIT_6(bossZO) ((Hitbox*) (ZO_HIT_5(bossZO) + 1))
-#define ZO_HIT_7(bossZO) ((Hitbox*) (ZO_HIT_6(bossZO) + 1))
-#define ZO_HIT_8(bossZO, index) ((Hitbox*) ((f32*) (ZO_HIT_7(bossZO) + 1) + 6 * (index)))
-#define ZO_HIT_10(bossZO, index) ((Hitbox*) ((f32*) (ZO_HIT_8(bossZO, 0) + 2) + 6 * (index)))
-#define ZO_HIT_12(bossZO) ((Hitbox*) (ZO_HIT_10(bossZO, 0) + 2))
-
-void Solar_801A7750(void);
-void Zoness_801986FC(Boss* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot);
-void Zoness_801989FC(Boss* this);
-void Zoness_80198BE8(Boss* this, s32 arg1);
-void Zoness_80198ECC(Boss* this);
-void Zoness_80198F3C(Boss* this, s32 arg1, s32 arg2);
-void Zoness_8019907C(Boss* this);
-void Zoness_8019914C(Boss* this, s32 arg1);
-void Zoness_801991D0(Boss* this, s32 arg1);
-void Zoness_80199394(Boss* this, s32 arg1);
-void Zoness_80199470(Boss* this, s32 arg1);
-void Zoness_8019962C(Boss* this, f32 arg1);
-
-typedef enum {
-    /*  0 */ ZO_LIMB_0,
-    /*  1 */ ZO_LIMB_1,
-    /*  2 */ ZO_LIMB_2,
-    /*  3 */ ZO_LIMB_3,
-    /*  4 */ ZO_LIMB_4,
-    /*  5 */ ZO_LIMB_5,
-    /*  6 */ ZO_LIMB_6,
-    /*  7 */ ZO_LIMB_7,
-    /*  8 */ ZO_LIMB_8,
-    /*  9 */ ZO_LIMB_9,
-    /* 10 */ ZO_LIMB_10,
-    /* 11 */ ZO_LIMB_11,
-    /* 12 */ ZO_LIMB_12,
-    /* 13 */ ZO_LIMB_13,
-    /* 14 */ ZO_LIMB_14,
-    /* 15 */ ZO_LIMB_15,
-    /* 16 */ ZO_LIMB_16,
-    /* 17 */ ZO_LIMB_17,
-    /* 18 */ ZO_LIMB_18,
-    /* 19 */ ZO_LIMB_19,
-    /* 20 */ ZO_LIMB_20,
-    /* 21 */ ZO_LIMB_21,
-    /* 22 */ ZO_LIMB_22,
-    /* 23 */ ZO_LIMB_23,
-    /* 24 */ ZO_LIMB_24,
-    /* 25 */ ZO_LIMB_25,
-    /* 26 */ ZO_LIMB_26,
-    /* 27 */ ZO_LIMB_27,
-    /* 28 */ ZO_LIMB_28,
-    /* 29 */ ZO_LIMB_29,
-    /* 30 */ ZO_LIMB_30,
-    /* 31 */ ZO_LIMB_31,
-    /* 32 */ ZO_LIMB_32,
-    /* 33 */ ZO_LIMB_33,
-    /* 34 */ ZO_LIMB_34,
-    /* 35 */ ZO_LIMB_35,
-    /* 36 */ ZO_LIMB_36,
-    /* 37 */ ZO_LIMB_37,
-    /* 38 */ ZO_LIMB_38,
-    /* 39 */ ZO_LIMB_39,
-    /* 40 */ ZO_LIMB_MAX,
-} ZoSarumarineLimbs;
-
-typedef enum {
-    /*   0 */ ZO_BSF_0,
-    /*   1 */ ZO_BSF_1,
-    /*   2 */ ZO_BSF_2,
-    /*   3 */ ZO_BSF_3,
-    /*   4 */ ZO_BSF_4,
-    /*   5 */ ZO_BSF_5,
-    /*   6 */ ZO_BSF_6,
-    /*   7 */ ZO_BSF_7,
-    /*   8 */ ZO_BSF_8,
-    /*   9 */ ZO_BSF_9,
-    /*  10 */ ZO_BSF_10,
-    /*  11 */ ZO_BSF_11,
-    /*  12 */ ZO_BSF_12,
-    /*  13 */ ZO_BSF_13,
-    /*  14 */ ZO_BSF_14,
-    /*  15 */ ZO_BSF_15,
-    /*  16 */ ZO_BSF_16,
-    /*  17 */ ZO_BSF_17,
-    /*  18 */ ZO_BSF_18,
-    /*  19 */ ZO_BSF_19,
-    /*  20 */ ZO_BSF_20,
-    /*  21 */ ZO_BSF_21,
-    /*  22 */ ZO_BSF_22,
-    /*  23 */ ZO_BSF_23,
-    /*  24 */ ZO_BSF_24,
-    /*  25 */ ZO_BSF_25,
-    /*  26 */ ZO_BSF_26,
-    /*  27 */ ZO_BSF_27,
-    /*  28 */ ZO_BSF_28,
-    /*  29 */ ZO_BSF_29_X,
-    /*  30 */ ZO_BSF_29_Y,
-    /*  31 */ ZO_BSF_29_Z,
-    /*  32 */ ZO_BSF_32_X,
-    /*  33 */ ZO_BSF_32_Y,
-    /*  34 */ ZO_BSF_32_Z,
-    /*  35 */ ZO_BSF_35,
-    /*  36 */ ZO_BSF_36,
-    /*  37 */ ZO_BSF_37_X,
-    /*  38 */ ZO_BSF_37_Y,
-    /*  39 */ ZO_BSF_37_Z,
-    /*  40 */ ZO_BSF_40_X,
-    /*  41 */ ZO_BSF_40_Y,
-    /*  42 */ ZO_BSF_40_Z,
-    /*  43 */ ZO_BSF_43_X,
-    /*  44 */ ZO_BSF_43_Y,
-    /*  45 */ ZO_BSF_43_Z,
-    /*  46 */ ZO_BSF_46_X,
-    /*  47 */ ZO_BSF_46_Y,
-    /*  48 */ ZO_BSF_46_Z,
-    /*  49 */ ZO_BSF_49_X,
-    /*  50 */ ZO_BSF_49_Y,
-    /*  51 */ ZO_BSF_49_Z,
-    /*  52 */ ZO_BSF_52_X,
-    /*  53 */ ZO_BSF_52_Y,
-    /*  54 */ ZO_BSF_52_Z,
-    /*  55 */ ZO_BSF_55_X,
-    /*  56 */ ZO_BSF_55_Y,
-    /*  57 */ ZO_BSF_55_Z,
-    /*  58 */ ZO_BSF_58,
-    /*  59 */ ZO_BSF_59,
-    /*  60 */ ZO_BSF_60_X,
-    /*  61 */ ZO_BSF_60_Y,
-    /*  62 */ ZO_BSF_60_Z,
-    /*  63 */ ZO_BSF_63,
-    /*  64 */ ZO_BSF_64,
-    /*  65 */ ZO_BSF_65_X,
-    /*  66 */ ZO_BSF_65_Y,
-    /*  67 */ ZO_BSF_65_Z,
-    /*  68 */ ZO_BSF_68_X,
-    /*  69 */ ZO_BSF_68_Y,
-    /*  70 */ ZO_BSF_68_Z,
-    /*  71 */ ZO_BSF_71_X,
-    /*  72 */ ZO_BSF_71_Y,
-    /*  73 */ ZO_BSF_71_Z,
-    /*  74 */ ZO_BSF_74,
-    /*  75 */ ZO_BSF_75,
-    /*  76 */ ZO_BSF_76,
-    /*  77 */ ZO_BSF_77,
-    /*  78 */ ZO_BSF_78,
-    /*  79 */ ZO_BSF_79,
-    /*  80 */ ZO_BSF_80,
-    /*  81 */ ZO_BSF_81,
-    /*  82 */ ZO_BSF_82,
-    /*  83 */ ZO_BSF_83,
-    /*  84 */ ZO_BSF_84,
-    /*  85 */ ZO_BSF_85,
-    /*  86 */ ZO_BSF_86,
-    /*  87 */ ZO_BSF_87,
-    /*  88 */ ZO_BSF_88,
-    /*  89 */ ZO_BSF_89,
-    /*  90 */ ZO_BSF_90,
-    /*  91 */ ZO_BSF_91,
-    /*  92 */ ZO_BSF_92,
-    /*  93 */ ZO_BSF_93_X,
-    /*  94 */ ZO_BSF_93_Y,
-    /*  95 */ ZO_BSF_93_Z,
-    /*  96 */ ZO_BSF_96_X,
-    /*  97 */ ZO_BSF_96_Y,
-    /*  98 */ ZO_BSF_96_Z,
-    /*  99 */ ZO_BSF_99_X,
-    /* 100 */ ZO_BSF_99_Y,
-    /* 101 */ ZO_BSF_99_Z,
-    /* 102 */ ZO_BSF_102_X,
-    /* 103 */ ZO_BSF_102_Y,
-    /* 104 */ ZO_BSF_102_Z,
-    /* 105 */ ZO_BSF_105,
-    /* 106 */ ZO_BSF_106_X,
-    /* 107 */ ZO_BSF_106_Y,
-    /* 108 */ ZO_BSF_106_Z,
-    /* 109 */ ZO_BSF_109_X,
-    /* 110 */ ZO_BSF_109_Y,
-    /* 111 */ ZO_BSF_109_Z,
-    /* 112 */ ZO_BSF_112,
-    /* 113 */ ZO_BSF_113,
-    /* 114 */ ZO_BSF_114,
-    /* 115 */ ZO_BSF_115,
-    /* 116 */ ZO_BSF_116,
-    /* 117 */ ZO_BSF_117,
-    /* 118 */ ZO_BSF_118,
-    /* 119 */ ZO_BSF_119,
-    /* 120 */ ZO_BSF_120,
-    /* 121 */ ZO_BSF_121,
-    /* 122 */ ZO_BSF_122,
-    /* 123 */ ZO_BSF_123,
-    /* 124 */ ZO_BSF_124,
-    /* 125 */ ZO_BSF_125,
-    /* 126 */ ZO_BSF_126,
-    /* 127 */ ZO_BSF_127,
-    /* 128 */ ZO_BSF_128,
-    /* 129 */ ZO_BSF_129,
-    /* 130 */ ZO_BSF_130,
-    /* 131 */ ZO_BSF_131,
-    /* 132 */ ZO_BSF_132,
-    /* 133 */ ZO_BSF_133,
-    /* 134 */ ZO_BSF_134,
-    /* 135 */ ZO_BSF_135,
-    /* 136 */ ZO_BSF_136,
-    /* 137 */ ZO_BSF_137,
-    /* 138 */ ZO_BSF_138,
-    /* 139 */ ZO_BSF_139,
-    /* 140 */ ZO_BSF_140,
-    /* 141 */ ZO_BSF_141,
-    /* 142 */ ZO_BSF_142,
-    /* 143 */ ZO_BSF_143,
-    /* 144 */ ZO_BSF_144,
-    /* 145 */ ZO_BSF_145,
-    /* 146 */ ZO_BSF_146,
-    /* 147 */ ZO_BSF_147,
-    /* 148 */ ZO_BSF_148,
-    /* 149 */ ZO_BSF_149,
-    /* 150 */ ZO_BSF_MAX,
-} ZoSarumarinebsfwork;
-
-typedef enum {
-    /*  0 */ ZO_BSS_0,
-    /*  1 */ ZO_BSS_1,
-    /*  2 */ ZO_BSS_2,
-    /*  3 */ ZO_BSS_3,
-    /*  4 */ ZO_BSS_4,
-    /*  5 */ ZO_BSS_5,
-    /*  6 */ ZO_BSS_6,
-    /*  7 */ ZO_BSS_7,
-    /*  8 */ ZO_BSS_8,
-    /*  9 */ ZO_BSS_9,
-    /* 10 */ ZO_BSS_10,
-    /* 11 */ ZO_BSS_11,
-    /* 12 */ ZO_BSS_12,
-    /* 13 */ ZO_BSS_13,
-    /* 14 */ ZO_BSS_14,
-    /* 15 */ ZO_BSS_15,
-    /* 16 */ ZO_BSS_16,
-    /* 17 */ ZO_BSS_17,
-    /* 18 */ ZO_BSS_18,
-    /* 19 */ ZO_BSS_19,
-    /* 20 */ ZO_BSS_20,
-    /* 21 */ ZO_BSS_21,
-    /* 22 */ ZO_BSS_22,
-    /* 23 */ ZO_BSS_23,
-    /* 24 */ ZO_BSS_24,
-    /* 25 */ ZO_BSS_25,
-    /* 26 */ ZO_BSS_26,
-    /* 27 */ ZO_BSS_27,
-    /* 28 */ ZO_BSS_28,
-    /* 29 */ ZO_BSS_29,
-    /* 30 */ ZO_BSS_30,
-    /* 31 */ ZO_BSS_31,
-    /* 32 */ ZO_BSS_32,
-    /* 33 */ ZO_BSS_33,
-    /* 34 */ ZO_BSS_34,
-    /* 35 */ ZO_BSS_35,
-    /* 36 */ ZO_BSS_36,
-    /* 37 */ ZO_BSS_37,
-    /* 38 */ ZO_BSS_38,
-    /* 39 */ ZO_BSS_39,
-    /* 40 */ ZO_BSS_40,
-    /* 41 */ ZO_BSS_41,
-    /* 42 */ ZO_BSS_42,
-    /* 43 */ ZO_BSS_43,
-    /* 44 */ ZO_BSS_44,
-    /* 45 */ ZO_BSS_45,
-    /* 46 */ ZO_BSS_46,
-    /* 47 */ ZO_BSS_47,
-    /* 48 */ ZO_BSS_48,
-    /* 49 */ ZO_BSS_49,
-    /* 50 */ ZO_BSS_50,
-    /* 51 */ ZO_BSS_51,
-    /* 52 */ ZO_BSS_52,
-    /* 53 */ ZO_BSS_53,
-    /* 54 */ ZO_BSS_54,
-    /* 55 */ ZO_BSS_55,
-    /* 56 */ ZO_BSS_56,
-    /* 57 */ ZO_BSS_57,
-    /* 58 */ ZO_BSS_58,
-    /* 59 */ ZO_BSS_59,
-    /* 60 */ ZO_BSS_60,
-    /* 61 */ ZO_BSS_61,
-    /* 62 */ ZO_BSS_62,
-    /* 63 */ ZO_BSS_63,
-    /* 64 */ ZO_BSS_64,
-    /* 65 */ ZO_BSS_65,
-    /* 66 */ ZO_BSS_66,
-    /* 67 */ ZO_BSS_67,
-    /* 68 */ ZO_BSS_68,
-    /* 69 */ ZO_BSS_69,
-    /* 70 */ ZO_BSS_MAX,
-} ZoSarumarinebsswork;
-
-typedef enum {
-    /*  0 */ ZO_SWK_0,
-    /*  1 */ ZO_SWK_1,
-    /*  2 */ ZO_SWK_2,
-    /*  3 */ ZO_SWK_3,
-    /*  4 */ ZO_SWK_4,
-    /*  5 */ ZO_SWK_5,
-    /*  6 */ ZO_SWK_6,
-    /*  7 */ ZO_SWK_7,
-    /*  8 */ ZO_SWK_8,
-    /*  9 */ ZO_SWK_9,
-    /* 10 */ ZO_SWK_10,
-    /* 11 */ ZO_SWK_11,
-    /* 12 */ ZO_SWK_12,
-    /* 13 */ ZO_SWK_13,
-    /* 14 */ ZO_SWK_14,
-    /* 15 */ ZO_SWK_15,
-    /* 16 */ ZO_SWK_16,
-    /* 17 */ ZO_SWK_17,
-    /* 18 */ ZO_SWK_18,
-    /* 19 */ ZO_SWK_19,
-    /* 20 */ ZO_SWK_20,
-    /* 21 */ ZO_SWK_21,
-    /* 22 */ ZO_SWK_22,
-    /* 23 */ ZO_SWK_23,
-    /* 24 */ ZO_SWK_24,
-    /* 25 */ ZO_SWK_25,
-    /* 26 */ ZO_SWK_26,
-    /* 27 */ ZO_SWK_27,
-    /* 28 */ ZO_SWK_28,
-    /* 29 */ ZO_SWK_29,
-    /* 30 */ ZO_SWK_30,
-    /* 31 */ ZO_SWK_31,
-    /* 32 */ ZO_SWK_32,
-    /* 33 */ ZO_SWK_33,
-    /* 34 */ ZO_SWK_34,
-    /* 35 */ ZO_SWK_35,
-    /* 36 */ ZO_SWK_36,
-    /* 37 */ ZO_SWK_37,
-    /* 38 */ ZO_SWK_38,
-    /* 39 */ ZO_SWK_39,
-    /* 40 */ ZO_SWK_MAX,
-} ZoSarumarineswork;
-
-typedef enum {
-    /*  0 */ ZO_FWK_0,
-    /*  1 */ ZO_FWK_1,
-    /*  2 */ ZO_FWK_2,
-    /*  3 */ ZO_FWK_3,
-    /*  4 */ ZO_FWK_4,
-    /*  5 */ ZO_FWK_5,
-    /*  6 */ ZO_FWK_6,
-    /*  7 */ ZO_FWK_7,
-    /*  8 */ ZO_FWK_8,
-    /*  9 */ ZO_FWK_9,
-    /* 10 */ ZO_FWK_10,
-    /* 11 */ ZO_FWK_11,
-    /* 12 */ ZO_FWK_12,
-    /* 13 */ ZO_FWK_13,
-    /* 14 */ ZO_FWK_14,
-    /* 15 */ ZO_FWK_15,
-    /* 16 */ ZO_FWK_16,
-    /* 17 */ ZO_FWK_17,
-    /* 18 */ ZO_FWK_18,
-    /* 19 */ ZO_FWK_19,
-    /* 20 */ ZO_FWK_20,
-    /* 21 */ ZO_FWK_21,
-    /* 22 */ ZO_FWK_22,
-    /* 23 */ ZO_FWK_23,
-    /* 24 */ ZO_FWK_24,
-    /* 25 */ ZO_FWK_25,
-    /* 26 */ ZO_FWK_26,
-    /* 27 */ ZO_FWK_27,
-    /* 28 */ ZO_FWK_28,
-    /* 29 */ ZO_FWK_29,
-    /* 30 */ ZO_FWK_30,
-    /* 31 */ ZO_FWK_31,
-    /* 32 */ ZO_FWK_32,
-    /* 33 */ ZO_FWK_33,
-    /* 34 */ ZO_FWK_34,
-    /* 35 */ ZO_FWK_35,
-    /* 36 */ ZO_FWK_36,
-    /* 37 */ ZO_FWK_37,
-    /* 38 */ ZO_FWK_38,
-    /* 39 */ ZO_FWK_39,
-    /* 40 */ ZO_FWK_40,
-    /* 41 */ ZO_FWK_41,
-    /* 42 */ ZO_FWK_42,
-    /* 43 */ ZO_FWK_43,
-    /* 44 */ ZO_FWK_44,
-    /* 45 */ ZO_FWK_45,
-    /* 46 */ ZO_FWK_46,
-    /* 47 */ ZO_FWK_47,
-    /* 48 */ ZO_FWK_48,
-    /* 49 */ ZO_FWK_49,
-    /* 50 */ ZO_FWK_MAX,
-} ZoSarumarinefwork;
-
-typedef enum {
-    /*  0 */ ZO_VWK_0,
-    /*  1 */ ZO_VWK_1,
-    /*  2 */ ZO_VWK_2,
-    /*  3 */ ZO_VWK_3,
-    /*  4 */ ZO_VWK_4,
-    /*  5 */ ZO_VWK_5,
-    /*  6 */ ZO_VWK_6,
-    /*  7 */ ZO_VWK_7,
-    /*  8 */ ZO_VWK_8,
-    /*  9 */ ZO_VWK_9,
-    /* 10 */ ZO_VWK_10,
-    /* 11 */ ZO_VWK_11,
-    /* 12 */ ZO_VWK_12,
-    /* 13 */ ZO_VWK_13,
-    /* 14 */ ZO_VWK_14,
-    /* 15 */ ZO_VWK_15,
-    /* 16 */ ZO_VWK_16,
-    /* 17 */ ZO_VWK_17,
-    /* 18 */ ZO_VWK_18,
-    /* 19 */ ZO_VWK_19,
-    /* 20 */ ZO_VWK_20,
-    /* 21 */ ZO_VWK_21,
-    /* 22 */ ZO_VWK_22,
-    /* 23 */ ZO_VWK_23,
-    /* 24 */ ZO_VWK_24,
-    /* 25 */ ZO_VWK_25,
-    /* 26 */ ZO_VWK_26,
-    /* 27 */ ZO_VWK_27,
-    /* 28 */ ZO_VWK_28,
-    /* 29 */ ZO_VWK_29,
-    /* 30 */ ZO_VWK_30,
-    /* 31 */ ZO_VWK_31,
-    /* 32 */ ZO_VWK_32,
-    /* 33 */ ZO_VWK_33,
-    /* 34 */ ZO_VWK_34,
-    /* 35 */ ZO_VWK_35,
-    /* 36 */ ZO_VWK_36,
-    /* 37 */ ZO_VWK_37,
-    /* 38 */ ZO_VWK_38,
-    /* 39 */ ZO_VWK_39,
-    /* 40 */ ZO_VWK_40,
-    /* 41 */ ZO_VWK_41,
-    /* 42 */ ZO_VWK_42,
-    /* 43 */ ZO_VWK_43,
-    /* 44 */ ZO_VWK_44,
-    /* 45 */ ZO_VWK_45,
-    /* 46 */ ZO_VWK_46,
-    /* 47 */ ZO_VWK_47,
-    /* 48 */ ZO_VWK_48,
-    /* 49 */ ZO_VWK_49,
-    /* 50 */ ZO_VWK_MAX,
-} ZoSarumarinevwork;
 
 s32 sZoLimbTimers[ZO_LIMB_MAX];
 s32 sZoSwork[ZO_BSS_MAX];
 f32 sZoFwork[ZO_BSF_MAX];
 
-void Zoness_8018FF50(ZoEnergyBall* this) {
+void Zoness_FaceCamera(ZoEnergyBall* this) {
     f32 x;
 
     this->obj.rot.y = RAD_TO_DEG(
@@ -515,6 +56,8 @@ void Zoness_ActorDebris_Spawn(Vec3f* pos, Vec3f* rot, f32 xVel, f32 yVel, f32 zV
 }
 
 bool Zoness_ZoBird_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
+    (void) dList, pos, rot, thisx;
+
     gSPSetGeometryMode(gMasterDisp++, G_CULL_BACK);
     if ((limbIndex >= 4) && (limbIndex < 10)) {
         gSPClearGeometryMode(gMasterDisp++, G_CULL_BACK);
@@ -525,6 +68,7 @@ bool Zoness_ZoBird_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3
 void Zoness_ZoBird_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     ZoBird* this = (ZoBird*) thisx;
+    (void) rot;
 
     if (this->state == 1) {
         switch (limbIndex) {
@@ -638,14 +182,15 @@ void Zoness_ZoBird_Update(ZoBird* this) {
     }
 }
 
-void Zoness_80190790(ZoDodora* this) {
+void Zoness_ZoDodora_Move(ZoDodora* this) {
     s32 pad[2];
     f32 angle;
     PosRot* zoDodoraPosRotPtr;
     Vec3f src;
     Vec3f dest;
     s32 i;
-    Actor* otherActor;
+    Actor* waypoint;
+    (void) pad;
 
     this->counter_04E++;
     if (this->counter_04E >= 200) {
@@ -658,17 +203,17 @@ void Zoness_80190790(ZoDodora* this) {
     this->fwork[1] += 5.0f;
     this->orient.z = SIN_DEG(this->fwork[1]) * 30.0f;
 
-    for (i = 0, otherActor = &gActors[0]; i < ARRAY_COUNT(gActors); i++, otherActor++) {
-        if ((otherActor->obj.status == OBJ_ACTIVE) && (otherActor->obj.id == OBJ_ACTOR_ZO_DODORA_WP_COUNT) &&
-            (otherActor->iwork[0] == this->iwork[0])) {
+    for (i = 0, waypoint = &gActors[0]; i < ARRAY_COUNT(gActors); i++, waypoint++) {
+        if ((waypoint->obj.status == OBJ_ACTIVE) && (waypoint->obj.id == OBJ_ACTOR_ZO_DODORA_WP_COUNT) &&
+            (waypoint->iwork[0] == this->iwork[0])) {
             angle = Math_RadToDeg(
-                Math_Atan2F(otherActor->obj.pos.x - this->obj.pos.x, otherActor->obj.pos.z - this->obj.pos.z));
+                Math_Atan2F(waypoint->obj.pos.x - this->obj.pos.x, waypoint->obj.pos.z - this->obj.pos.z));
 
             Math_SmoothStepToAngle(&this->orient.y, angle, 0.2f, 3.0f, 0.0f);
 
-            if ((fabsf(this->obj.pos.x - otherActor->obj.pos.x) < 500.0f) &&
-                (fabsf(this->obj.pos.z - otherActor->obj.pos.z) < 500.0f)) {
-                otherActor->obj.status = OBJ_FREE;
+            if ((fabsf(this->obj.pos.x - waypoint->obj.pos.x) < 500.0f) &&
+                (fabsf(this->obj.pos.z - waypoint->obj.pos.z) < 500.0f)) {
+                waypoint->obj.status = OBJ_FREE;
                 this->iwork[0]++;
             }
             break;
@@ -696,12 +241,12 @@ void Zoness_80190790(ZoDodora* this) {
 }
 
 void Zoness_ZoDodora_Update(ZoDodora* this) {
-    f32 sp2C;
-    s32 sp28;
+    f32 floorHeight;
+    s32 triangleIndex;
 
-    if ((this->timer_0C0 == 0) &&
-        Play_CheckDynaFloorCollision(&sp2C, &sp28, this->obj.pos.x, this->obj.pos.y - 50.0f, this->obj.pos.z)) {
-        Effect_ZoEnemySplash_Spawn(this->obj.pos.x, sp2C, this->obj.pos.z + 150.0f, 0.0f, 1.7f);
+    if ((this->timer_0C0 == 0) && Play_CheckDynaFloorCollision(&floorHeight, &triangleIndex, this->obj.pos.x,
+                                                               this->obj.pos.y - 50.0f, this->obj.pos.z)) {
+        Effect_ZoEnemySplash_Spawn(this->obj.pos.x, floorHeight, this->obj.pos.z + 150.0f, 0.0f, 1.7f);
         if (this->vel.y >= 0.0f) {
             AUDIO_PLAY_SFX(NA_SE_OUT_SPLASH_L, this->sfxSource, 4);
         } else {
@@ -710,7 +255,7 @@ void Zoness_ZoDodora_Update(ZoDodora* this) {
         this->timer_0C0 = 30;
     }
 
-    Zoness_80190790(this);
+    Zoness_ZoDodora_Move(this);
 
     // Invulnerable
     if (this->dmgType != DMG_NONE) {
@@ -1058,15 +603,15 @@ void Zoness_ZoEnergyBall_Init2(ZoEnergyBall* this) {
 }
 
 void Zoness_ZoEnergyBall_Update(ZoEnergyBall* this) {
-    f32 sp4C;
-    s32 sp48;
+    f32 floorHeight;
+    s32 triangleIndex;
 
     if ((this->vel.y != 0.0f) && (this->iwork[1] == 0)) {
         this->iwork[1] = 1;
         AUDIO_PLAY_SFX(NA_SE_EN_FALLING_DOWN, this->sfxSource, 4);
     }
 
-    if (Play_CheckDynaFloorCollision(&sp4C, &sp48, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z) &&
+    if (Play_CheckDynaFloorCollision(&floorHeight, &triangleIndex, this->obj.pos.x, this->obj.pos.y, this->obj.pos.z) &&
         (this->state == 0)) {
         Effect_Effect384_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 20.0f, 7);
         Effect_ElectricArc2_Spawn(this->obj.pos.x, this->obj.pos.y, this->obj.pos.z, 0.0f, 0.0f, 0.0f, 0.5f, 50);
@@ -1077,7 +622,7 @@ void Zoness_ZoEnergyBall_Update(ZoEnergyBall* this) {
 
     this->fwork[0] += 10.0f;
 
-    Zoness_8018FF50(this);
+    Zoness_FaceCamera(this);
 
     if ((gGameFrameCount % 2) == 0) {
         Effect_ElectricArc_Spawn(RAND_FLOAT_CENTERED(50.0f) + this->obj.pos.x,
@@ -1099,6 +644,7 @@ void Zoness_ZoEnergyBall_Draw(ZoEnergyBall* this) {
 void Zoness_ZoTroika_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     ZoTroika* this = (ZoTroika*) thisx;
+    (void) rot;
 
     if (this->state == 4) {
         switch (limbIndex) {
@@ -1274,6 +820,7 @@ void Zoness_ZoTroika_Update(ZoTroika* this) {
 void Zoness_ZoShrimp_PostLimbDraw(s32 limbIndex, Vec3f* rot, void* thisx) {
     Vec3f src = { 0.0f, 0.0f, 0.0f };
     ZoShrimp* this = (ZoShrimp*) thisx;
+    (void) rot;
 
     if (this->state == 2) {
         switch (limbIndex) {
@@ -1555,11 +1102,11 @@ void Zoness_ZoSarumarine_Init(ZoSarumarine* this) {
                     sZoFwork[ZO_BSF_55_Z] = this->obj.pos.z;
 
     sZoSwork[ZO_BSS_8] = 40;
-    sZoSwork[ZO_BSS_9] = 40;
-    sZoSwork[ZO_BSS_10] = 40;
+    sZoSwork[LEFT_EXHAUST_HEALTH] = 40;
+    sZoSwork[RIGHT_EXHAUST_HEALTH] = 40;
     sZoSwork[ZO_BSS_11] = 20;
     sZoSwork[ZO_BSS_12] = 20;
-    sZoSwork[ZO_BSS_13] = 61;
+    sZoSwork[CRANE_HEALTH] = 61;
 
     this->health = 300;
     this->obj.pos.y = -1800.0f;
@@ -1604,18 +1151,19 @@ void Zoness_ZoSarumarine_Init(ZoSarumarine* this) {
     ZO_HIT_12(this)->x.size = 93.6f;
 }
 
-void Zoness_80193628(Object* obj, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+// Unused
+void Zoness_SpawnEnemyLaser(Boss* boss, f32 xPos, f32 yPos, f32 zPos, f32 xRot, f32 yRot, f32 arg6) {
     Vec3f src = { 0.0f, 0.0f, 40.0f };
     Vec3f dest;
 
-    Matrix_RotateY(gCalcMatrix, obj->rot.y * M_DTOR, MTXF_NEW);
-    Matrix_RotateX(gCalcMatrix, obj->rot.x * M_DTOR, MTXF_APPLY);
-    Matrix_RotateZ(gCalcMatrix, obj->rot.z * M_DTOR, MTXF_APPLY);
-    Matrix_RotateY(gCalcMatrix, M_DTOR * arg5, MTXF_APPLY);
-    Matrix_RotateX(gCalcMatrix, M_DTOR * arg4, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, boss->obj.rot.y * M_DTOR, MTXF_NEW);
+    Matrix_RotateX(gCalcMatrix, boss->obj.rot.x * M_DTOR, MTXF_APPLY);
+    Matrix_RotateZ(gCalcMatrix, boss->obj.rot.z * M_DTOR, MTXF_APPLY);
+    Matrix_RotateY(gCalcMatrix, M_DTOR * yRot, MTXF_APPLY);
+    Matrix_RotateX(gCalcMatrix, M_DTOR * xRot, MTXF_APPLY);
     Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
-    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, arg1 + dest.x + arg6, arg2 + dest.y, arg3 + dest.z, arg4, arg5, 0.0f,
-                      obj->rot.x, obj->rot.y, obj->rot.z, dest.x + arg6, dest.y, dest.z, 1.0f);
+    Effect_SpawnById2(OBJ_EFFECT_ENEMY_LASER, xPos + dest.x + arg6, yPos + dest.y, zPos + dest.z, xRot, yRot, 0.0f,
+                      boss->obj.rot.x, boss->obj.rot.y, boss->obj.rot.z, dest.x + arg6, dest.y, dest.z, 1.0f);
 }
 
 void Zoness_Effect394_Setup(Effect394* this, f32 xPos, f32 yPos, f32 zPos, f32 yRot) {
@@ -1731,13 +1279,13 @@ void Zoness_Effect394_Spawn3(f32 xPos, f32 yPos, f32 zPos, f32 scale) {
     }
 }
 
-f32 Zoness_80193CC8(s32 arg0) {
-    f32 var_fv1 = arg0 * 0.5f;
+f32 Zoness_ZoSarumarine_DamageShake(s32 magnitude) {
+    f32 half = magnitude / 2.0f;
 
-    if (var_fv1 > 8.0f) {
-        var_fv1 = 8.0f;
+    if (half > 8.0f) {
+        half = 8.0f;
     }
-    return var_fv1;
+    return half;
 }
 
 bool Zoness_ZoSarumarine_OverrideLimbDraw(s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3f* rot, void* thisx) {
@@ -2080,7 +1628,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
     gBossFrameCount++;
 
-    if ((this->state != 0) || ((this->state == 0) && (this->timer_050 < 50))) {
+    if ((this->state != SARUMARINE_SURFACE) || ((this->state == SARUMARINE_SURFACE) && (this->timer_050 < 50))) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_24], sZoFwork[ZO_BSF_23], 0.1f, 2.0f, 0.00001f);
         Math_SmoothStepToF(&this->obj.pos.y, sZoFwork[ZO_BSF_25], 0.1f, sZoFwork[ZO_BSF_24], 0.00001f);
     }
@@ -2121,7 +1669,9 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         }
     }
 
-    if (((this->state == 2) || (this->state == 3) || (this->state == 8)) && (gPlayer[0].radioDamageTimer == 2)) {
+    if (((this->state == SARUMARINE_SHOOT_SPIKEBALL) || (this->state == SARUMARINE_SHOOT_AT_PLAYER) ||
+         (this->state == SARUMARINE_ATTACK_UNDERWATER)) &&
+        (gPlayer[0].radioDamageTimer == 2)) {
         if (this->swork[ZO_SWK_8] == 0) {
             Radio_PlayMessage(gMsg_ID_6068, RCID_BOSS_ZONESS);
         }
@@ -2131,7 +1681,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         }
     }
 
-    if ((this->swork[ZO_SWK_9] == 0) && (this->state >= 2) && (this->health != 0)) {
+    if ((this->swork[ZO_SWK_9] == 0) && (this->state >= SARUMARINE_SHOOT_SPIKEBALL) && (this->health != 0)) {
         if (this->swork[ZO_SWK_10] == 0) {
             Effect_DynaFloorWave_Spawn(this->obj.pos.x, this->obj.pos.z, 50.0f, 0.0f, 5.0f);
             Effect_DynaFloorWave_Spawn(this->obj.pos.x, this->obj.pos.z, 46.0f, 19.0f, 5.0f);
@@ -2161,10 +1711,10 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
     }
 
     switch (this->state) {
-        case 0:
+        case SARUMARINE_SURFACE:
             if ((((gGameFrameCount % 8) == 0) || (this->timer_050 == 43)) && (this->swork[ZO_SWK_13] == 0) &&
                 ((this->swork[ZO_SWK_12] < 7) || (this->timer_050 == 43))) {
-                D_ctx_801779A8[0] = 20;
+                gRumbleStrength[0] = 20;
                 if (Play_CheckDynaFloorCollision(&sp134, &sp130, sZoFwork[ZO_BSF_43_X], sZoFwork[ZO_BSF_43_Y] - 300.0f,
                                                  sZoFwork[ZO_BSF_43_Z])) {
                     sp100 = 1.5f;
@@ -2195,7 +1745,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             }
 
             if ((this->timer_050 < 43) && (this->timer_050 >= 31)) {
-                D_ctx_801779A8[0] = 20;
+                gRumbleStrength[0] = 20;
             }
 
             Math_SmoothStepToF(&this->fwork[ZO_FWK_4], 1.0f, 0.1f, 10.0f, 0.0f);
@@ -2211,23 +1761,23 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                     this->swork[ZO_SWK_12] = 0;
                     sZoFwork[ZO_BSF_77] = 0.0f;
                     this->swork[ZO_SWK_13] = 1;
-                    this->state = 1;
+                    this->state = SARUMARINE_FACE_FORWARD;
                 }
             }
             break;
 
-        case 1:
+        case SARUMARINE_FACE_FORWARD:
             Math_SmoothStepToF(&this->fwork[ZO_FWK_4], 100.0f, 0.1f, 1.0f, 0.0f);
             Zoness_8019962C(this, 0.0f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_1], sZoFwork[ZO_BSF_74], 0.1f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_11], sZoFwork[ZO_BSF_75], 0.1f, 2.0f, 0.00001f);
 
             if ((this->timer_050 == 0) && ((gGameFrameCount % 4) == 0)) {
-                if (sZoSwork[ZO_BSS_9] != 0) {
+                if (sZoSwork[LEFT_EXHAUST_HEALTH] != 0) {
                     Zoness_Effect394_Spawn(sZoFwork[ZO_BSF_29_X], sZoFwork[ZO_BSF_29_Y], sZoFwork[ZO_BSF_29_Z],
                                            this->obj.rot.y);
                 }
-                if (sZoSwork[ZO_BSS_10] != 0) {
+                if (sZoSwork[RIGHT_EXHAUST_HEALTH] != 0) {
                     Zoness_Effect394_Spawn(sZoFwork[ZO_BSF_32_X], sZoFwork[ZO_BSF_32_Y], sZoFwork[ZO_BSF_32_Z],
                                            this->obj.rot.y);
                 }
@@ -2257,18 +1807,18 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                         this->timer_050 = 0;
                         sZoFwork[ZO_BSF_77] = 0.0f;
                         this->swork[ZO_SWK_4] = 1000;
-                        this->state = 3;
+                        this->state = SARUMARINE_SHOOT_AT_PLAYER;
                         if (sZoSwork[ZO_BSS_19] == 0) {
                             this->timer_050 = 30;
                             this->swork[ZO_SWK_4] = 0;
-                            this->state = 2;
+                            this->state = SARUMARINE_SHOOT_SPIKEBALL;
                         }
                     }
                 }
             }
             break;
 
-        case 2:
+        case SARUMARINE_SHOOT_SPIKEBALL:
             if (this->timer_050 == 1) {
                 sZoSwork[ZO_BSS_20]++;
                 sZoFwork[ZO_BSF_77] = 0.0f;
@@ -2279,12 +1829,12 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 Math_SmoothStepToF(&sZoFwork[ZO_BSF_11], sZoFwork[ZO_BSF_75], 0.2f, 4.0f, 0.00001f);
                 if ((sZoSwork[ZO_BSS_20] == 0) && (sZoFwork[ZO_BSF_1] == 0.0f)) {
                     this->swork[ZO_SWK_4] = 1000;
-                    this->state = 3;
+                    this->state = SARUMARINE_SHOOT_AT_PLAYER;
                 }
             }
             break;
 
-        case 3:
+        case SARUMARINE_SHOOT_AT_PLAYER:
             if (ZO_HIT_12(this)->z.offset != -883.99994f) {
                 ZO_HIT_12(this)->z.offset = -883.99994f; // 13 * 68.0
                 ZO_HIT_12(this)->z.size = 244.4f;        // 13 * 18.8
@@ -2318,8 +1868,9 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 }
             }
 
-            if ((this->swork[ZO_SWK_4] == 0) && ((sZoSwork[ZO_BSS_9] != 0) || (sZoSwork[ZO_BSS_10] != 0))) {
-                Zoness_80198ECC(this);
+            if ((this->swork[ZO_SWK_4] == 0) &&
+                ((sZoSwork[LEFT_EXHAUST_HEALTH] != 0) || (sZoSwork[RIGHT_EXHAUST_HEALTH] != 0))) {
+                Zoness_Sarumarine_SetupAttackUnderwater(this);
             }
             if ((sZoSwork[ZO_BSS_32] == 0) && (sZoSwork[ZO_BSS_34] == 1) && (sZoSwork[ZO_BSS_24] == 0)) {
                 Radio_PlayMessage(gMsg_ID_6080, RCID_PEPPY);
@@ -2327,7 +1878,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             }
             if (sZoSwork[ZO_BSS_4] == 0) {
                 sZoSwork[ZO_BSS_4] = 100;
-                Zoness_801989FC(this);
+                Zoness_ZoMine_Spawn(this);
             }
             if (sZoSwork[ZO_BSS_24] != 0) {
                 sZoSwork[ZO_BSS_20] = 1;
@@ -2432,12 +1983,12 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_10], sp104, 0.2f, 2.0f, 0.0f);
                 Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_9], sp108, 0.2f, 2.0f, 0.0f);
 
-                Zoness_80198BE8(this, 0);
-                Zoness_80198BE8(this, 1);
+                Zoness_Sarumarine_ShootAtPlayer(this, 0);
+                Zoness_Sarumarine_ShootAtPlayer(this, 1);
             }
             break;
 
-        case 4:
+        case SARUMARINE_SINK_CANNON:
             if (this->swork[ZO_SWK_15] == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
             }
@@ -2446,14 +1997,14 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             Math_SmoothStepToAngle(&this->fwork[ZO_FWK_9], 0.0f, 0.1f, 100.0f, 0.00001f);
 
             if ((sZoSwork[ZO_BSS_11] == 0) && (sZoLimbTimers[ZO_LIMB_7] != LIMB_DESTROYED)) {
-                Zoness_80198F3C(this, 0, 46);
+                Zoness_Sarumarine_CannonDamageEffect(this, 0, 46);
                 if (sZoFwork[ZO_BSF_17] > -400.0f) {
                     sZoFwork[ZO_BSF_17] -= 10.0f;
                 } else {
                     Audio_KillSfxBySource(this->sfxSource);
                     if (this->obj.rot.z > 359.0f) {
-                        if (sZoSwork[ZO_BSS_13] != 0) {
-                            Zoness_8019907C(this);
+                        if (sZoSwork[CRANE_HEALTH] != 0) {
+                            Zoness_Sarumarine_CheckExhaustPipes(this);
                         } else {
                             Zoness_8019914C(this, 0);
                         }
@@ -2461,14 +2012,14 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 }
             }
             if ((sZoSwork[ZO_BSS_12] == 0) && (sZoLimbTimers[ZO_LIMB_11] != LIMB_DESTROYED)) {
-                Zoness_80198F3C(this, 1, 49);
+                Zoness_Sarumarine_CannonDamageEffect(this, 1, 49);
                 if (sZoFwork[ZO_BSF_18] > -400.0f) {
                     sZoFwork[ZO_BSF_18] -= 10.0f;
                 } else {
                     Audio_KillSfxBySource(this->sfxSource);
                     if (this->obj.rot.z < 1.0f) {
-                        if (sZoSwork[ZO_BSS_13] != 0) {
-                            Zoness_8019907C(this);
+                        if (sZoSwork[CRANE_HEALTH] != 0) {
+                            Zoness_Sarumarine_CheckExhaustPipes(this);
                         } else {
                             Zoness_8019914C(this, 1);
                         }
@@ -2477,13 +2028,13 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             }
             break;
 
-        case 5:
+        case SARUMARINE_RECOVER_CANNON:
             Math_SmoothStepToAngle(&this->obj.rot.z, this->fwork[ZO_FWK_9], 0.1f, 100.0f, 0.00001f);
             Math_SmoothStepToAngle(&this->fwork[ZO_FWK_9], 0.0f, 0.1f, 100.0f, 0.00001f);
 
             switch (sZoSwork[ZO_BSS_16]) {
                 case 0:
-                    if (sZoSwork[ZO_BSS_13] != 0) {
+                    if (sZoSwork[CRANE_HEALTH] != 0) {
                         Zoness_8019962C(this, 180.0f);
                         if (this->obj.rot.y == 180.0f) {
                             if ((sZoSwork[ZO_BSS_11] == 0) && (sZoLimbTimers[ZO_LIMB_7] != LIMB_DESTROYED)) {
@@ -2518,7 +2069,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                     break;
 
                 case 3:
-                    if (sZoSwork[ZO_BSS_13] != 0) {
+                    if (sZoSwork[CRANE_HEALTH] != 0) {
                         if (this->timer_050 == 0) {
                             Math_SmoothStepToF(&sZoFwork[ZO_BSF_4], 0.0f, 1.0f, 5.0f, 0.001f);
                             Math_SmoothStepToF(&sZoFwork[ZO_BSF_3], 0.0f, 1.0f, 3.0f, 0.001f);
@@ -2527,7 +2078,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                                 if (this->obj.rot.y == 0.0f) {
                                     sZoSwork[ZO_BSS_16] = 0;
                                     this->swork[ZO_SWK_4] = 1000;
-                                    this->state = 3;
+                                    this->state = SARUMARINE_SHOOT_AT_PLAYER;
                                 }
                             }
                         }
@@ -2542,15 +2093,15 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                             sZoSwork[ZO_BSS_36] = 0;
                             sZoFwork[ZO_BSF_77] = 0.0f;
                             this->swork[ZO_SWK_4] = 1000;
-                            this->state = 3;
+                            this->state = SARUMARINE_SHOOT_AT_PLAYER;
                         }
                     }
                     break;
             }
             break;
 
-        case 6:
-            D_ctx_801779A8[0] = 20;
+        case SARUMARINE_DYING:
+            gRumbleStrength[0] = 20;
 
             if (gCameraShake == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -2617,12 +2168,12 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 sZoSwork[ZO_BSS_5] = 0;
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = gFillScreenAlpha = 0;
                 Boss_AwardBonus(this);
-                this->state = 7;
+                this->state = SARUMARINE_EXPLODE;
             }
             break;
 
-        case 7:
-            D_ctx_801779A8[0] = 20;
+        case SARUMARINE_EXPLODE:
+            gRumbleStrength[0] = 20;
             if (((gGameFrameCount % 8) == 0) &&
                 (Play_CheckDynaFloorCollision(&sp134, &sp130, this->obj.pos.x, -300.0f, this->obj.pos.z) != 0)) {
                 Effect_ZoEnemySplash_Spawn(RAND_FLOAT_CENTERED(500.0f) + this->obj.pos.x, sp134 - 300.0f,
@@ -2633,7 +2184,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
             }
             break;
 
-        case 8:
+        case SARUMARINE_ATTACK_UNDERWATER:
             if (sZoSwork[ZO_BSS_18] != 0) {
                 if ((sZoSwork[ZO_BSS_27] != 2) && (this->swork[ZO_SWK_5] == 0) && (this->swork[ZO_SWK_6] < 2) &&
                     ((sZoSwork[ZO_BSS_33] == 0) || (sZoSwork[ZO_BSS_33] >= 30))) {
@@ -2682,7 +2233,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                     this->timer_050 = 50;
                     sZoFwork[ZO_BSF_37_X] = RAND_RANGE(-330.0f, 770.0f);
                     sZoFwork[ZO_BSF_40_X] = RAND_RANGE(-560.0f, 240.0f);
-                    Zoness_801989FC(this);
+                    Zoness_ZoMine_Spawn(this);
                 }
             } else {
                 if (sZoSwork[ZO_BSS_28] == 0) {
@@ -2701,7 +2252,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                     Zoness_80199394(this, i);
                 }
                 this->timer_050 = 100;
-                this->state = 0;
+                this->state = SARUMARINE_SURFACE;
             }
             break;
     }
@@ -2729,7 +2280,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
     spE4.z = gPlayer[0].trueZpos - sZoFwork[ZO_BSF_65_Z];
     Math_SmoothStepToAngle(&sZoFwork[ZO_BSF_19], Math_RadToDeg(Math_Atan2F(spE4.x, spE4.z)), 0.1f, 5.0f, 0.0f);
 
-    if ((this->state >= 3) && (this->state < 6)) {
+    if ((this->state >= SARUMARINE_SHOOT_AT_PLAYER) && (this->state < SARUMARINE_DYING)) {
         Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
         Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
 
@@ -2774,10 +2325,10 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         if ((this->obj.rot.y >= 330.0f) || (this->obj.rot.y <= 30.0f) ||
             ((this->obj.rot.y <= 200.0f) && (this->obj.rot.y >= 160.0f))) {
             if ((sZoFwork[ZO_BSF_15] > 315.0f) || (sZoFwork[ZO_BSF_15] < 215.0f)) {
-                Zoness_801986FC(this, 0, sp78.x, sp78.y, sp78.z, sZoFwork[ZO_BSF_5]);
+                Zoness_ZoBall_Spawn(this, 0, sp78.x, sp78.y, sp78.z, sZoFwork[ZO_BSF_5]);
             }
             if ((sZoFwork[ZO_BSF_16] < 45.0f) || (sZoFwork[ZO_BSF_16] > 145.0f)) {
-                Zoness_801986FC(this, 1, sp6C.x, sp6C.y, sp6C.z, sZoFwork[ZO_BSF_12]);
+                Zoness_ZoBall_Spawn(this, 1, sp6C.x, sp6C.y, sp6C.z, sZoFwork[ZO_BSF_12]);
             }
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_35], 0.0f, 1.0f, 2.0f, 0.00001f);
             Math_SmoothStepToF(&sZoFwork[ZO_BSF_36], 0.0f, 1.0f, 2.0f, 0.00001f);
@@ -2805,7 +2356,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         }
     }
 
-    if ((sZoSwork[ZO_BSS_9] == 0) && (sZoLimbTimers[ZO_LIMB_10] != LIMB_DESTROYED)) {
+    if ((sZoSwork[LEFT_EXHAUST_HEALTH] == 0) && (sZoLimbTimers[ZO_LIMB_10] != LIMB_DESTROYED)) {
         if ((sZoFwork[ZO_BSF_81] > 700.0f) || (sZoFwork[ZO_BSF_82] < -400.0f)) {
             sZoLimbTimers[ZO_LIMB_10] = LIMB_DESTROYED;
             ZO_HIT_3(this)->b.z.offset = 100000.0f;
@@ -2825,7 +2376,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         }
     }
 
-    if ((sZoSwork[ZO_BSS_10] == 0) && (sZoLimbTimers[ZO_LIMB_2] != LIMB_DESTROYED)) {
+    if ((sZoSwork[RIGHT_EXHAUST_HEALTH] == 0) && (sZoLimbTimers[ZO_LIMB_2] != LIMB_DESTROYED)) {
         if ((sZoFwork[ZO_BSF_84] > 700.0f) || (sZoFwork[ZO_BSF_85] < -400.0f)) {
             sZoLimbTimers[ZO_LIMB_2] = LIMB_DESTROYED;
             ZO_HIT_4(this)->b.z.offset = 100000.0f;
@@ -2843,8 +2394,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         }
     }
 
-    if ((sZoSwork[ZO_BSS_13] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
-        D_ctx_801779A8[0] = 20;
+    if ((sZoSwork[CRANE_HEALTH] < 2) && (sZoLimbTimers[ZO_LIMB_5] != LIMB_DESTROYED)) {
+        gRumbleStrength[0] = 20;
         if ((gGameFrameCount % 2) == 0) {
             Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_52_X] + RAND_FLOAT_CENTERED(200.0f),
                                      sZoFwork[ZO_BSF_52_Y] + RAND_FLOAT_CENTERED(200.0f),
@@ -2859,7 +2410,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 sZoSwork[ZO_BSS_52] = 30;
             }
         } else {
-            sZoSwork[ZO_BSS_13] = 0;
+            sZoSwork[CRANE_HEALTH] = 0;
             if ((sZoFwork[ZO_BSF_92] < -700.0f) || (sZoFwork[ZO_BSF_91] < -400.0f)) {
                 sZoLimbTimers[ZO_LIMB_5] = sZoLimbTimers[ZO_LIMB_6] = LIMB_DESTROYED;
                 sZoFwork[ZO_BSF_52_Z] = 100000.0f;
@@ -2888,7 +2439,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
         switch (this->dmgPart) {
             case 0:
-                if ((sZoSwork[ZO_BSS_8] != 0) && (dmgType == DMG_BOMB) && ((this->state == 3) || (this->state == 8))) {
+                if ((sZoSwork[ZO_BSS_8] != 0) && (dmgType == DMG_BOMB) &&
+                    ((this->state == SARUMARINE_SHOOT_AT_PLAYER) || (this->state == SARUMARINE_ATTACK_UNDERWATER))) {
                     sZoLimbTimers[ZO_LIMB_1] = sZoLimbTimers[ZO_LIMB_14] = sZoLimbTimers[ZO_LIMB_15] = 15;
                     sZoSwork[ZO_BSS_49] = 60;
                     sZoSwork[ZO_BSS_8] -= this->damage;
@@ -2900,13 +2452,13 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 break;
 
             case 3:
-                if ((sZoSwork[ZO_BSS_9] != 0) && (this->state == 3) && (dmgType == DMG_BOMB) &&
-                    (sZoSwork[ZO_BSS_50] == 0)) {
+                if ((sZoSwork[LEFT_EXHAUST_HEALTH] != 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER) &&
+                    (dmgType == DMG_BOMB) && (sZoSwork[ZO_BSS_50] == 0)) {
                     sZoLimbTimers[ZO_LIMB_10] = 15;
                     sZoSwork[ZO_BSS_50] = 50;
-                    sZoSwork[ZO_BSS_9] -= this->damage;
-                    if (sZoSwork[ZO_BSS_9] <= 0) {
-                        sZoSwork[ZO_BSS_50] = sZoSwork[ZO_BSS_9] = 0;
+                    sZoSwork[LEFT_EXHAUST_HEALTH] -= this->damage;
+                    if (sZoSwork[LEFT_EXHAUST_HEALTH] <= 0) {
+                        sZoSwork[ZO_BSS_50] = sZoSwork[LEFT_EXHAUST_HEALTH] = 0;
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
@@ -2916,13 +2468,13 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 break;
 
             case 4:
-                if ((sZoSwork[ZO_BSS_10] != 0) && (this->state == 3) && (dmgType == DMG_BOMB) &&
-                    (sZoSwork[ZO_BSS_51] == 0)) {
+                if ((sZoSwork[RIGHT_EXHAUST_HEALTH] != 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER) &&
+                    (dmgType == DMG_BOMB) && (sZoSwork[ZO_BSS_51] == 0)) {
                     sZoLimbTimers[ZO_LIMB_2] = 15;
                     sZoSwork[ZO_BSS_51] = 50;
-                    sZoSwork[ZO_BSS_10] -= this->damage;
-                    if (sZoSwork[ZO_BSS_10] <= 0) {
-                        sZoSwork[ZO_BSS_51] = sZoSwork[ZO_BSS_10] = 0;
+                    sZoSwork[RIGHT_EXHAUST_HEALTH] -= this->damage;
+                    if (sZoSwork[RIGHT_EXHAUST_HEALTH] <= 0) {
+                        sZoSwork[ZO_BSS_51] = sZoSwork[RIGHT_EXHAUST_HEALTH] = 0;
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
@@ -2932,14 +2484,14 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 break;
 
             case 5:
-                if ((sZoSwork[ZO_BSS_9] != 0) && (this->state == 3) && (dmgType == DMG_BOMB) &&
-                    (sZoSwork[ZO_BSS_50] == 0)) {
+                if ((sZoSwork[LEFT_EXHAUST_HEALTH] != 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER) &&
+                    (dmgType == DMG_BOMB) && (sZoSwork[ZO_BSS_50] == 0)) {
                     sZoLimbTimers[ZO_LIMB_10] = 15;
                     sZoSwork[ZO_BSS_50] = 50;
 
-                    sZoSwork[ZO_BSS_9] -= this->damage;
-                    if (sZoSwork[ZO_BSS_9] <= 0) {
-                        sZoSwork[ZO_BSS_50] = sZoSwork[ZO_BSS_9] = 0;
+                    sZoSwork[LEFT_EXHAUST_HEALTH] -= this->damage;
+                    if (sZoSwork[LEFT_EXHAUST_HEALTH] <= 0) {
+                        sZoSwork[ZO_BSS_50] = sZoSwork[LEFT_EXHAUST_HEALTH] = 0;
                         spD8.x = sZoFwork[ZO_BSF_29_X];
                         spD8.y = sZoFwork[ZO_BSF_29_Y];
                         spD8.z = sZoFwork[ZO_BSF_29_Z];
@@ -2947,13 +2499,13 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                     }
                 }
 
-                if ((sZoSwork[ZO_BSS_10] != 0) && (this->state == 3) && (dmgType == DMG_BOMB) &&
-                    (sZoSwork[ZO_BSS_51] == 0)) {
+                if ((sZoSwork[RIGHT_EXHAUST_HEALTH] != 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER) &&
+                    (dmgType == DMG_BOMB) && (sZoSwork[ZO_BSS_51] == 0)) {
                     sZoLimbTimers[ZO_LIMB_2] = 15;
                     sZoSwork[ZO_BSS_51] = 50;
-                    sZoSwork[ZO_BSS_10] -= this->damage;
-                    if (sZoSwork[ZO_BSS_10] <= 0) {
-                        sZoSwork[ZO_BSS_51] = sZoSwork[ZO_BSS_10] = 0;
+                    sZoSwork[RIGHT_EXHAUST_HEALTH] -= this->damage;
+                    if (sZoSwork[RIGHT_EXHAUST_HEALTH] <= 0) {
+                        sZoSwork[ZO_BSS_51] = sZoSwork[RIGHT_EXHAUST_HEALTH] = 0;
                         spD8.x = sZoFwork[ZO_BSF_32_X];
                         spD8.y = sZoFwork[ZO_BSF_32_Y];
                         spD8.z = sZoFwork[ZO_BSF_32_Z];
@@ -2962,9 +2514,9 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                 }
                 /* fallthrough */
             case 6:
-                if ((this->health != 0) && (sZoSwork[ZO_BSS_9] == 0) && (sZoSwork[ZO_BSS_10] == 0) &&
-                    (sZoSwork[ZO_BSS_11] == 0) && (sZoSwork[ZO_BSS_12] == 0) && (sZoSwork[ZO_BSS_13] == 0) &&
-                    (this->state == 3)) {
+                if ((this->health != 0) && (sZoSwork[LEFT_EXHAUST_HEALTH] == 0) &&
+                    (sZoSwork[RIGHT_EXHAUST_HEALTH] == 0) && (sZoSwork[ZO_BSS_11] == 0) && (sZoSwork[ZO_BSS_12] == 0) &&
+                    (sZoSwork[CRANE_HEALTH] == 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER)) {
                     sZoLimbTimers[ZO_LIMB_25] = sZoLimbTimers[ZO_LIMB_36] = 15;
 
                     this->health -= this->damage;
@@ -2985,7 +2537,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
                         sZoFwork[ZO_BSF_27] = 20.0f;
                         sZoFwork[ZO_BSF_26] = 50.0f;
                         sZoFwork[ZO_BSF_28] = -2600.0f;
-                        this->state = 6;
+                        this->state = SARUMARINE_DYING;
                         this->fwork[ZO_FWK_4] = 1.0f;
                     }
                 }
@@ -2993,14 +2545,15 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
             case 7:
             case 12:
-                if ((sZoSwork[ZO_BSS_13] >= 2) && (this->state == 5) && (dmgType == DMG_BOMB)) {
+                if ((sZoSwork[CRANE_HEALTH] >= 2) && (this->state == SARUMARINE_RECOVER_CANNON) &&
+                    (dmgType == DMG_BOMB)) {
                     sZoLimbTimers[ZO_LIMB_5] = sZoLimbTimers[ZO_LIMB_6] = 15;
                     sZoSwork[ZO_BSS_52] = 30;
 
-                    sZoSwork[ZO_BSS_13] -= this->damage;
-                    if (sZoSwork[ZO_BSS_13] < 2) {
+                    sZoSwork[CRANE_HEALTH] -= this->damage;
+                    if (sZoSwork[CRANE_HEALTH] < 2) {
                         this->swork[ZO_SWK_14] = 30;
-                        sZoSwork[ZO_BSS_13] = 1;
+                        sZoSwork[CRANE_HEALTH] = 1;
                         Radio_PlayMessage(gMsg_ID_6090, RCID_BOSS_ZONESS);
                         spD8.x = sZoFwork[ZO_BSF_52_X];
                         spD8.y = sZoFwork[ZO_BSF_52_Y];
@@ -3012,8 +2565,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
             case 8 + 0:
             case 10 + 0:
-                if ((sZoSwork[ZO_BSS_11] != 0) && (this->state == 3) && (dmgType == DMG_BOMB) &&
-                    (sZoSwork[ZO_BSS_53] == 0)) {
+                if ((sZoSwork[ZO_BSS_11] != 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER) &&
+                    (dmgType == DMG_BOMB) && (sZoSwork[ZO_BSS_53] == 0)) {
                     sZoLimbTimers[ZO_LIMB_7] = sZoLimbTimers[ZO_LIMB_21] = sZoLimbTimers[ZO_LIMB_22] = 15;
                     sZoSwork[ZO_BSS_53] = 50;
 
@@ -3037,7 +2590,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
                         sZoSwork[ZO_BSS_16] = 0;
                         ZO_HIT_8(this, 0)->z.offset = ZO_HIT_10(this, 0)->z.offset = 100000.0f;
-                        this->state = 4;
+                        this->state = SARUMARINE_SINK_CANNON;
                         this->fwork[ZO_FWK_9] = 330.0f;
                     }
                 }
@@ -3045,8 +2598,8 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
             case 8 + 1:
             case 10 + 1:
-                if ((sZoSwork[ZO_BSS_12] != 0) && (this->state == 3) && (dmgType == DMG_BOMB) &&
-                    (sZoSwork[ZO_BSS_54] == 0)) {
+                if ((sZoSwork[ZO_BSS_12] != 0) && (this->state == SARUMARINE_SHOOT_AT_PLAYER) &&
+                    (dmgType == DMG_BOMB) && (sZoSwork[ZO_BSS_54] == 0)) {
                     sZoLimbTimers[ZO_LIMB_11] = sZoLimbTimers[ZO_LIMB_23] = sZoLimbTimers[ZO_LIMB_24] = 15;
                     sZoSwork[ZO_BSS_54] = 50;
 
@@ -3070,7 +2623,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
 
                         sZoSwork[ZO_BSS_16] = 0;
                         ZO_HIT_8(this, 1)->z.offset = ZO_HIT_10(this, 1)->z.offset = 100000.0f;
-                        this->state = 4;
+                        this->state = SARUMARINE_SINK_CANNON;
                         this->fwork[ZO_FWK_9] = 30.0f;
                     }
                 }
@@ -3136,7 +2689,7 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         }
     }
 
-    if (this->state < 4) {
+    if (this->state < SARUMARINE_SINK_CANNON) {
         spD8.x = sZoFwork[ZO_BSF_106_X];
         spD8.y = sZoFwork[ZO_BSF_106_Y];
         spD8.z = sZoFwork[ZO_BSF_106_Z];
@@ -3201,9 +2754,9 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
         gBossHealthBar = this->health / 300.0f * 64.0f;
         gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_11] / 20.0f) * 64.0f);
         gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_12] / 20.0f) * 64.0f);
-        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_9] / (20.0f * 2)) * 16.0f);
-        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_10] / (20.0f * 2)) * 16.0f);
-        gBossHealthBar += (s32) ((sZoSwork[ZO_BSS_13] / 61.0f) * 31.0f);
+        gBossHealthBar += (s32) ((sZoSwork[LEFT_EXHAUST_HEALTH] / (20.0f * 2)) * 16.0f);
+        gBossHealthBar += (s32) ((sZoSwork[RIGHT_EXHAUST_HEALTH] / (20.0f * 2)) * 16.0f);
+        gBossHealthBar += (s32) ((sZoSwork[CRANE_HEALTH] / 61.0f) * 31.0f);
     }
 
     ZO_HIT_0(this)->z.offset = sZoFwork[ZO_BSF_43_Z] - this->obj.pos.z;
@@ -3226,11 +2779,11 @@ void Zoness_ZoSarumarine_Update(ZoSarumarine* this) {
     }
 
     for (j = ZO_BSF_112, i = ZO_BSS_49, sp124 = 0; sp124 < 6; sp124++, i++, j++) {
-        sZoFwork[j] = SIN_DEG(sZoSwork[i] * 50.0f) * Zoness_80193CC8(sZoSwork[i]);
+        sZoFwork[j] = SIN_DEG(sZoSwork[i] * 50.0f) * Zoness_ZoSarumarine_DamageShake(sZoSwork[i]);
     }
 }
 
-void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
+void Zoness_ZoBall_Spawn(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff, f32 yRot) {
     ZoBall* zoBall;
     Vec3f src = { 0.0f, 0.0f, 50.0f };
     Vec3f dest;
@@ -3249,7 +2802,7 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
 
         for (i = 0, zoBall = &gActors[0]; i < ARRAY_COUNT(gActors); i++, zoBall++) {
             if (zoBall->obj.status == OBJ_FREE) {
-                D_ctx_801779A8[0] = 20.0f;
+                gRumbleStrength[0] = 20.0f;
                 Actor_Initialize(zoBall);
                 zoBall->obj.status = OBJ_INIT;
                 zoBall->obj.id = OBJ_ACTOR_ZO_BALL;
@@ -3299,35 +2852,35 @@ void Zoness_801986FC(ZoSarumarine* this, s32 arg1, f32 xOff, f32 yOff, f32 zOff,
 #endif
 }
 
-void Zoness_801989FC(ZoSarumarine* this) {
+void Zoness_ZoMine_Spawn(ZoSarumarine* this) {
     s32 i;
     Vec3f sp70 = { 0.0f, 0.0f, 20.0f };
     Vec3f sp64;
-    ZoMine* actor246;
+    ZoMine* zoMine;
     s32 j;
 
     for (i = 0; i < 2; i++) {
         if (sZoSwork[ZO_BSS_11 + i] != 0) {
-            for (j = 0, actor246 = &gActors[0]; j < ARRAY_COUNT(gActors); j++, actor246++) {
-                if (actor246->obj.status == OBJ_FREE) {
-                    Actor_Initialize(actor246);
-                    actor246->obj.status = OBJ_INIT;
-                    actor246->obj.id = OBJ_ACTOR_ZO_MINE;
+            for (j = 0, zoMine = &gActors[0]; j < ARRAY_COUNT(gActors); j++, zoMine++) {
+                if (zoMine->obj.status == OBJ_FREE) {
+                    Actor_Initialize(zoMine);
+                    zoMine->obj.status = OBJ_INIT;
+                    zoMine->obj.id = OBJ_ACTOR_ZO_MINE;
 
-                    actor246->obj.pos.x = sZoFwork[ZO_BSF_37_X + 3 * i];
-                    actor246->obj.pos.y = sZoFwork[ZO_BSF_37_Y + 3 * i];
-                    actor246->obj.pos.z = sZoFwork[ZO_BSF_37_Z + 3 * i];
+                    zoMine->obj.pos.x = sZoFwork[ZO_BSF_37_X + 3 * i];
+                    zoMine->obj.pos.y = sZoFwork[ZO_BSF_37_Y + 3 * i];
+                    zoMine->obj.pos.z = sZoFwork[ZO_BSF_37_Z + 3 * i];
 
-                    actor246->obj.rot.y = this->obj.rot.y;
-                    actor246->timer_0BC = 300;
-                    actor246->health = 10;
+                    zoMine->obj.rot.y = this->obj.rot.y;
+                    zoMine->timer_0BC = 300;
+                    zoMine->health = 10;
 
                     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
                     Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                     Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp70, &sp64);
-                    actor246->vel.x = sp64.x;
-                    actor246->vel.z = this->vel.z + sp64.z;
-                    Object_SetInfo(&actor246->info, actor246->obj.id);
+                    zoMine->vel.x = sp64.x;
+                    zoMine->vel.z = this->vel.z + sp64.z;
+                    Object_SetInfo(&zoMine->info, zoMine->obj.id);
                     AUDIO_PLAY_SFX(NA_SE_EN_MISSILE_SHOT, this->sfxSource, 4);
                     break;
                 }
@@ -3336,22 +2889,23 @@ void Zoness_801989FC(ZoSarumarine* this) {
     }
 }
 
-void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
+// @side: Which of the two weapons to shoot with.
+void Zoness_Sarumarine_ShootAtPlayer(ZoSarumarine* this, s32 side) {
     s32 i;
     EffectBossShot* bossShot;
     Vec3f src = { 0.0f, 0.0f, 100.0f };
     Vec3f dest;
 
-    if ((sZoSwork[ZO_BSS_2 + arg1] == 0) && (sZoSwork[ZO_BSS_39 + arg1] == 0)) {
-        if ((arg1 == 0) && (sZoSwork[ZO_BSS_41] == 0)) {
+    if ((sZoSwork[ZO_BSS_2 + side] == 0) && (sZoSwork[ZO_BSS_39 + side] == 0)) {
+        if ((side == 0) && (sZoSwork[ZO_BSS_41] == 0)) {
             AUDIO_PLAY_SFX(NA_SE_EN_ZOBOSS_BEAM, this->sfxSource, 4);
         }
-        sZoSwork[ZO_BSS_2 + arg1] = 2;
-        sZoSwork[ZO_BSS_41 + arg1]++;
-        if (sZoSwork[ZO_BSS_41 + arg1] > 10) {
-            sZoSwork[ZO_BSS_41 + arg1] = 0;
-            sZoSwork[ZO_BSS_39 + arg1] = 30;
-            if (arg1 == 1) {
+        sZoSwork[ZO_BSS_2 + side] = 2;
+        sZoSwork[ZO_BSS_41 + side]++;
+        if (sZoSwork[ZO_BSS_41 + side] > 10) {
+            sZoSwork[ZO_BSS_41 + side] = 0;
+            sZoSwork[ZO_BSS_39 + side] = 30;
+            if (side == 1) {
                 Audio_KillSfxBySourceAndId(this->sfxSource, NA_SE_EN_ZOBOSS_BEAM);
             }
         }
@@ -3365,11 +2919,11 @@ void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
                 bossShot->state = 1;
                 bossShot->scale2 = 1.0f;
                 bossShot->obj.rot.z = 30.0f;
-                bossShot->obj.pos.x = sZoFwork[ZO_BSF_93_X + 3 * arg1];
-                bossShot->obj.pos.y = sZoFwork[ZO_BSF_93_Y + 3 * arg1];
-                bossShot->obj.pos.z = sZoFwork[ZO_BSF_93_Z + 3 * arg1];
-                Matrix_RotateY(gCalcMatrix, sZoFwork[ZO_BSF_8 + 2 * arg1] * M_DTOR, MTXF_NEW);
-                Matrix_RotateX(gCalcMatrix, sZoFwork[ZO_BSF_7 + 2 * arg1] * M_DTOR, MTXF_APPLY);
+                bossShot->obj.pos.x = sZoFwork[ZO_BSF_93_X + 3 * side];
+                bossShot->obj.pos.y = sZoFwork[ZO_BSF_93_Y + 3 * side];
+                bossShot->obj.pos.z = sZoFwork[ZO_BSF_93_Z + 3 * side];
+                Matrix_RotateY(gCalcMatrix, sZoFwork[ZO_BSF_8 + 2 * side] * M_DTOR, MTXF_NEW);
+                Matrix_RotateX(gCalcMatrix, sZoFwork[ZO_BSF_7 + 2 * side] * M_DTOR, MTXF_APPLY);
                 Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_APPLY);
                 Matrix_RotateX(gCalcMatrix, this->obj.rot.x * M_DTOR, MTXF_APPLY);
                 Matrix_RotateZ(gCalcMatrix, this->obj.rot.z * M_DTOR, MTXF_APPLY);
@@ -3397,7 +2951,7 @@ void Zoness_80198BE8(ZoSarumarine* this, s32 arg1) {
     }
 }
 
-void Zoness_80198ECC(ZoSarumarine* this) {
+void Zoness_Sarumarine_SetupAttackUnderwater(ZoSarumarine* this) {
     sZoSwork[ZO_BSS_18] = 500;
     this->timer_050 = 100;
     this->timer_054 = 0;
@@ -3406,14 +2960,14 @@ void Zoness_80198ECC(ZoSarumarine* this) {
     sZoFwork[ZO_BSF_23] = 15.0f;
     sZoFwork[ZO_BSF_28] = -3500.0f;
     sZoFwork[ZO_BSF_77] = 0.0f;
-    this->state = 8;
+    this->state = SARUMARINE_ATTACK_UNDERWATER;
     this->fwork[ZO_FWK_4] = 1.0f;
 }
 
-void Zoness_80198F3C(ZoSarumarine* this, s32 arg1, s32 arg2) {
+void Zoness_Sarumarine_CannonDamageEffect(ZoSarumarine* this, s32 side, s32 arg2) {
     if (((gGameFrameCount % 8) == 0) && (Rand_ZeroOne() < 0.5f)) {
-        sZoLimbTimers[ZO_LIMB_7 + 4 * arg1] = sZoLimbTimers[ZO_LIMB_21 + 2 * arg1] =
-            sZoLimbTimers[ZO_LIMB_22 + 2 * arg1] = 15;
+        sZoLimbTimers[ZO_LIMB_7 + 4 * side] = sZoLimbTimers[ZO_LIMB_21 + 2 * side] =
+            sZoLimbTimers[ZO_LIMB_22 + 2 * side] = 15;
     }
     Effect_FireSmoke1_Spawn4(sZoFwork[ZO_BSF_0 + arg2] + RAND_FLOAT_CENTERED(400.0f),
                              sZoFwork[ZO_BSF_1 + arg2] + RAND_RANGE(-160.0f, 640.0f), sZoFwork[ZO_BSF_2 + arg2], 7.0f);
@@ -3423,8 +2977,9 @@ void Zoness_80198F3C(ZoSarumarine* this, s32 arg1, s32 arg2) {
     }
 }
 
-void Zoness_8019907C(ZoSarumarine* this) {
-    if ((sZoSwork[ZO_BSS_9] == 0) && (sZoSwork[ZO_BSS_10] == 0)) {
+// Decide next state based on exhaust pipes health condition.
+void Zoness_Sarumarine_CheckExhaustPipes(ZoSarumarine* this) {
+    if ((sZoSwork[LEFT_EXHAUST_HEALTH] == 0) && (sZoSwork[RIGHT_EXHAUST_HEALTH] == 0)) {
         if ((sZoSwork[ZO_BSS_31] == 0) && (sZoSwork[ZO_BSS_30] != 0)) {
             Radio_PlayMessage(gMsg_ID_6082, RCID_PEPPY);
             sZoSwork[ZO_BSS_34] = 333;
@@ -3435,9 +2990,9 @@ void Zoness_8019907C(ZoSarumarine* this) {
             sZoSwork[ZO_BSS_30]++;
         }
         sZoFwork[ZO_BSF_77] = 0.0f;
-        this->state = 5;
+        this->state = SARUMARINE_RECOVER_CANNON;
     } else {
-        Zoness_80198ECC(this);
+        Zoness_Sarumarine_SetupAttackUnderwater(this);
     }
 }
 
@@ -3447,7 +3002,7 @@ void Zoness_8019914C(ZoSarumarine* this, s32 arg1) {
     sZoFwork[ZO_BSF_77] = 0.0f;
     sZoSwork[ZO_BSS_36] = sZoSwork[ZO_BSS_16] = 0;
     this->swork[ZO_SWK_4] = 1000;
-    this->state = 3;
+    this->state = SARUMARINE_SHOOT_AT_PLAYER;
     if ((sZoSwork[ZO_BSS_11] == 0) && (sZoSwork[ZO_BSS_12] == 0)) {
         this->fwork[ZO_FWK_6] = this->obj.pos.x;
         sZoSwork[ZO_BSS_20] = sZoSwork[ZO_BSS_24] = 1;
@@ -3500,7 +3055,7 @@ void Zoness_80199394(ZoSarumarine* this, s32 arg1) {
 }
 
 void Zoness_80199470(ZoSarumarine* this, s32 arg1) {
-    if (sZoSwork[ZO_BSS_13] == 0) {
+    if (sZoSwork[CRANE_HEALTH] == 0) {
         if (sZoFwork[ZO_BSF_17 + arg1] > -400.0f) {
             sZoFwork[ZO_BSF_17 + arg1] -= 4.0f;
         } else {
@@ -3513,14 +3068,14 @@ void Zoness_80199470(ZoSarumarine* this, s32 arg1) {
                 sZoSwork[ZO_BSS_36] = sZoSwork[ZO_BSS_16] = 0;
                 sZoFwork[ZO_BSF_77] = 0;
                 this->swork[ZO_SWK_4] = 1000;
-                this->state = 3;
+                this->state = SARUMARINE_SHOOT_AT_PLAYER;
                 if ((sZoSwork[ZO_BSS_11] == 0) && (sZoSwork[ZO_BSS_12] == 0)) {
                     sZoSwork[ZO_BSS_20] = sZoSwork[ZO_BSS_24] = 1;
                 }
                 Zoness_8019914C(this, arg1);
             }
         }
-    } else if ((sZoSwork[ZO_BSS_13] != 1) && (this->timer_052 == 0)) {
+    } else if ((sZoSwork[CRANE_HEALTH] != 1) && (this->timer_052 == 0)) {
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_17 + arg1], 0.0f, 1.0f, 5.0f, 0.001f);
         Math_SmoothStepToF(&sZoFwork[ZO_BSF_3], -30.0f, 1.0f, 3.0f, 0.001f);
         if (sZoFwork[ZO_BSF_17 + arg1] == 0.0f) {
@@ -3557,7 +3112,7 @@ void Zoness_ZoBall_Update(ZoBall* this) {
         this->dmgType = DMG_NONE;
     }
     this->fwork[0] += 10.0f;
-    Zoness_8018FF50(this);
+    Zoness_FaceCamera(this);
 }
 
 void Zoness_ZoBall_Draw(ZoBall* this) {
@@ -3697,7 +3252,7 @@ void Zoness_80199E9C(ZoCraneMagnet* this, f32 arg1, f32 arg2) {
 }
 
 void Zoness_ZoCraneMagnet_Update(ZoCraneMagnet* this) {
-    if (sZoSwork[ZO_BSS_13] == 0) {
+    if (sZoSwork[CRANE_HEALTH] == 0) {
         this->state = 3;
         this->vel.y = -50.0f;
         this->obj.pos.x = sZoFwork[ZO_BSF_60_X];
@@ -3874,7 +3429,7 @@ void Zoness_ZoSpikeBall_Update(ZoSpikeBall* this) {
 
         case 1:
             if (this->timer_0C0 != 0) {
-                D_ctx_801779A8[0] = 40.0f;
+                gRumbleStrength[0] = 40.0f;
             }
             this->iwork[0] = 0;
             if (this->timer_0BC == 0) {
@@ -3930,7 +3485,7 @@ void Zoness_ZoSpikeBall_Update(ZoSpikeBall* this) {
             }
             break;
     }
-    Zoness_8018FF50(this);
+    Zoness_FaceCamera(this);
 
     if (this->dmgType != DMG_NONE) {
         if (this->dmgType == DMG_BEAM) {
@@ -4126,7 +3681,7 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
     f32 sp6C;
     s32 sp68;
     s32 i;
-    Vec3f sp58;
+    Vec3f dest;
     Actor* actor;
 
     Matrix_RotateY(gCalcMatrix, this->obj.rot.y * M_DTOR, MTXF_NEW);
@@ -4137,10 +3692,10 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
                 actor = &gActors[this->iwork[i]];
                 if ((actor->obj.status != OBJ_FREE) && (actor->iwork[1] == this->index) &&
                     (actor->obj.id == OBJ_ACTOR_ZO_CONTAINER)) {
-                    Matrix_MultVec3f(gCalcMatrix, &sTankerContainerInitPos[i], &sp58);
-                    actor->obj.pos.x = this->obj.pos.x + sp58.x;
-                    actor->obj.pos.y = this->obj.pos.y + sp58.y;
-                    actor->obj.pos.z = this->obj.pos.z + sp58.z;
+                    Matrix_MultVec3f(gCalcMatrix, &sTankerContainerInitPos[i], &dest);
+                    actor->obj.pos.x = this->obj.pos.x + dest.x;
+                    actor->obj.pos.y = this->obj.pos.y + dest.y;
+                    actor->obj.pos.z = this->obj.pos.z + dest.z;
                 }
             }
             break;
@@ -4150,10 +3705,10 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
                 actor = &gActors[this->iwork[i]];
                 if ((actor->obj.status != OBJ_FREE) && (actor->obj.id == OBJ_ACTOR_ZO_SUPPLYCRANE) &&
                     (actor->iwork[1] == this->index)) {
-                    Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneContainerInitPos[i], &sp58);
-                    actor->obj.pos.x = this->obj.pos.x + sp58.x;
-                    actor->obj.pos.y = this->obj.pos.y + sp58.y;
-                    actor->obj.pos.z = this->obj.pos.z + sp58.z;
+                    Matrix_MultVec3f(gCalcMatrix, &sSupplyCraneContainerInitPos[i], &dest);
+                    actor->obj.pos.x = this->obj.pos.x + dest.x;
+                    actor->obj.pos.y = this->obj.pos.y + dest.y;
+                    actor->obj.pos.z = this->obj.pos.z + dest.z;
                 }
             }
             break;
@@ -4166,6 +3721,7 @@ void Zoness_ZoTanker_Update(ZoTanker* this) {
 }
 
 void Zoness_ZoTanker_Draw(ZoTanker* this) {
+    (void) this;
     gSPDisplayList(gMasterDisp++, aZoTankerDL);
 }
 
@@ -4640,7 +4196,7 @@ void Zoness_ZoSearchLight_Update(ZoSearchLight* this) {
             }
             break;
     }
-    Zoness_8018FF50(this);
+    Zoness_FaceCamera(this);
     this->obj.rot.x = 0.0f;
 }
 
@@ -4795,9 +4351,9 @@ void Zoness_LevelStart(Player* player) {
             Player_ArwingBoost(player);
 
             if (gCsFrameCount > 195) {
-                D_ctx_801779A8[0] = 50.0f;
+                gRumbleStrength[0] = 50.0f;
             } else {
-                D_ctx_801779A8[0] = 0.0f;
+                gRumbleStrength[0] = 0.0f;
             }
 
             gControllerHold[gMainController].button = buttonSave;
@@ -5130,7 +4686,7 @@ void Zoness_LevelComplete(Player* player) {
     player->rockAngle = SIN_DEG(player->rockPhase);
 }
 
-void Zoness_8019E5F0(ActorCutscene* this) {
+void Zoness_LevelComplete_CsUpdate(ActorCutscene* this) {
     Vec3f src;
     Vec3f dest;
 

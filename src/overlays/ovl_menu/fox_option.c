@@ -1854,16 +1854,16 @@ void Option_Data_Update(void) {
                     case 1:
                         D_menu_801B91CC = 2;
                         AUDIO_PLAY_SFX(NA_SE_BACKUP_CLEAR, gDefaultSfxSource, 4);
-                        D_ctx_801779A8[gMainController] = 50.0f;
-                        D_ctx_80177990[gMainController] = 0;
+                        gRumbleStrength[gMainController] = 50.0f;
+                        gRumbleTimer[gMainController] = 0;
                         break;
 
                     case 2:
-                        D_ctx_80177990[gMainController] += (s32) D_ctx_801779A8[gMainController];
-                        temp_fv0 = Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 100.0f, 0.05f, 100.0f, 0.1f);
+                        gRumbleTimer[gMainController] += (s32) gRumbleStrength[gMainController];
+                        temp_fv0 = Math_SmoothStepToF(&gRumbleStrength[gMainController], 100.0f, 0.05f, 100.0f, 0.1f);
 
-                        if (D_ctx_80177990[gMainController] >= 100) {
-                            D_ctx_80177990[gMainController] -= 100;
+                        if (gRumbleTimer[gMainController] >= 100) {
+                            gRumbleTimer[gMainController] -= 100;
                             gControllerRumbleFlags[gMainController] = 1;
                         }
 

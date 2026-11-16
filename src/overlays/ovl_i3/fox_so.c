@@ -1223,7 +1223,7 @@ void Solar_LevelStart(Player* player) {
             gCsCamAtZ = player->trueZpos + 1100.0f;
 
             D_ctx_80177A48[0] = 0.03f;
-            D_ctx_801779A8[gMainController] = 60.0f;
+            gRumbleStrength[gMainController] = 60.0f;
 
             player->unk_190 = 2.0f;
 
@@ -1362,7 +1362,7 @@ void Solar_801A1F80(SoVulkain* this) {
 
         Solar_SoWave_Setup(&gActors[10], this->obj.pos.x, this->obj.pos.z + 2000.0f, 20.0f, 1);
 
-        D_ctx_801779A8[gMainController] = 10.0f;
+        gRumbleStrength[gMainController] = 10.0f;
 
         gCameraShake = 120;
 
@@ -1403,7 +1403,7 @@ void Solar_801A1F80(SoVulkain* this) {
     }
 
     if (gBossFrameCount <= 60) {
-        Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 120.0f, 1.0f, 3.5f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[gMainController], 120.0f, 1.0f, 3.5f, 0.0f);
     }
 
     if (gBossFrameCount == 60) {
@@ -2100,7 +2100,7 @@ void Solar_801A4214(SoVulkain* this) {
     Matrix_MultVec3f(gCalcMatrix, &sp50, &sp44);
 
     if (this->state >= 2) {
-        Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 30.0f, 1.0f, 2.5f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[gMainController], 30.0f, 1.0f, 2.5f, 0.0f);
     }
 
     switch (this->state) {
@@ -2199,7 +2199,7 @@ void Solar_801A4214(SoVulkain* this) {
 
             if (gCsFrameCount == 230) {
                 AUDIO_PLAY_SFX(NA_SE_EN_STAR_EXPLOSION, gActors[5].sfxSource, 4);
-                D_ctx_801779A8[gMainController] = 120.0f;
+                gRumbleStrength[gMainController] = 120.0f;
             }
 
             if (gCsFrameCount == 250) {

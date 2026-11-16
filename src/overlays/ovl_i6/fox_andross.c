@@ -909,7 +909,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
                 gPlayer[0].dmgEffectTimer = gGameFrameCount % 8U;
                 gPlayer[0].radioDamageTimer = 3;
 
-                Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 40.0f, 1.0f, 3.0f, 0.0f);
+                Math_SmoothStepToF(&gRumbleStrength[gMainController], 40.0f, 1.0f, 3.0f, 0.0f);
 
                 if (((gGameFrameCount % 32) == 0) && (gPlayer[0].state == PLAYERSTATE_ACTIVE)) {
                     Player_ApplyDamage(&gPlayer[0], 3, 10);
@@ -1070,7 +1070,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
                 }
                 gPlayerGlareReds[0] = gPlayerGlareGreens[0] = gPlayerGlareBlues[0] = 255;
                 Math_SmoothStepToF(&gCamDistortion, 0.15f, 0.2f, 0.004f, 0.0f);
-                Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
+                Math_SmoothStepToF(&gRumbleStrength[gMainController], 70.0f, 1.0f, 4.0f, 0.0f);
             }
 
             switch (gCsFrameCount) {
@@ -1143,7 +1143,7 @@ void Andross_AndBrain_Update(AndBrain* this) {
             }
 
             if (gCsFrameCount > 600) {
-                Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 10.0f, 1.0f, 2.0f, 0.0f);
+                Math_SmoothStepToF(&gRumbleStrength[gMainController], 10.0f, 1.0f, 2.0f, 0.0f);
             }
             this->obj.pos.y = 10000.0f;
 
@@ -2659,7 +2659,7 @@ void Andross_AndAndross_Update(AndAndross* this) {
             if (1) {}
             if (1) {}
             if (1) {}
-            Math_SmoothStepToF(&D_ctx_801779A8[gMainController], 50.0f, 1.0f, 1.8f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[gMainController], 50.0f, 1.0f, 1.8f, 0.0f);
             this->timer_056 = 50;
 
             if ((this->timer_050 > 70) && (this->timer_050 < 1000) && ((gGameFrameCount % 4) == 0)) {
@@ -4033,7 +4033,7 @@ void Andross_LevelComplete(Player* player) {
                     player->contrailScale = 0.6f;
                 }
                 Math_SmoothStepToF(&player->camRoll, 3.0f, 0.5f, 0.1f, 0.0f);
-                Math_SmoothStepToF(D_ctx_801779A8, 70.0f, 1.0f, 2.0f, 0.0f);
+                Math_SmoothStepToF(gRumbleStrength, 70.0f, 1.0f, 2.0f, 0.0f);
             }
 
             switch (gCsFrameCount) {

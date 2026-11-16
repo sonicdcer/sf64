@@ -579,7 +579,7 @@ typedef enum ObjectId {
     /* 240 */ OBJ_ACTOR_ZO_Z_GULL,
     /* 241 */ OBJ_ACTOR_ZO_ENERGY_BALL,     // Energy balls carried by Z-Gulls.
     /* 242 */ OBJ_ACTOR_ZO_TROIKA,
-    /* 243 */ OBJ_ACTOR_ZO_SHRIMP,
+    /* 243 */ OBJ_ACTOR_ZO_SHRIMP,    // Lobster type enemy in Zoness.
     /* 244 */ OBJ_ACTOR_ZO_OBNEMA,    // Giant Arachnid type enemy.
     /* 245 */ OBJ_ACTOR_ZO_BALL,      // Balls shoot by Zoness boss.
     /* 246 */ OBJ_ACTOR_ZO_MINE,

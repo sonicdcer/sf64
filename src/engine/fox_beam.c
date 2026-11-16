@@ -2125,7 +2125,7 @@ void PlayerShot_UpdateBomb(PlayerShot* shot) {
                         var_ft5 = 60.0f;
                     }
                     var_ft5 = 60.0f - var_ft5;
-                    Math_SmoothStepToF(&D_ctx_801779A8[gMainController], var_ft5 + 5.0f, 1.0f, 3.0f, 0.0f);
+                    Math_SmoothStepToF(&gRumbleStrength[gMainController], var_ft5 + 5.0f, 1.0f, 3.0f, 0.0f);
                 }
                 PlayerShot_SetBombLight(shot);
             }

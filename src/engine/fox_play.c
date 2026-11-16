@@ -3827,11 +3827,11 @@ void Player_MoveArwingOnRails(Player* player) {
     gPlayerTurnStickMod = 0.68f;
 
     if ((gInputPress->stick_x != 0) || (gInputPress->stick_y != 0)) {
-        gPlayerTurnStickMod = 0.68f; //! FAKE ?
+        gPlayerTurnStickMod = 0.68f;
     }
 
-    stickX = -gInputPress->stick_x;
-    stickY = +gInputPress->stick_y;
+    stickX = (f32) -gInputPress->stick_x;
+    stickY = (f32) + gInputPress->stick_y;
 
     Math_SmoothStepToAngle(&player->aerobaticPitch, 0.0f, 0.1f, 5.0f, 0.01f);
 
@@ -4438,7 +4438,7 @@ void Player_Setup(Player* playerx) {
             gVsLockOnTimers[gPlayerNum][0] = gVsLockOnTimers[gPlayerNum][1] = gVsLockOnTimers[gPlayerNum][2] =
                 gVsLockOnTimers[gPlayerNum][3] = 0;
     gRightWingFlashTimer[gPlayerNum] = gLeftWingFlashTimer[gPlayerNum] = gRightWingDebrisTimer[gPlayerNum] =
-        gLeftWingDebrisTimer[gPlayerNum] = D_ctx_80177990[gPlayerNum] = D_ctx_801779A8[gPlayerNum] =
+        gLeftWingDebrisTimer[gPlayerNum] = gRumbleTimer[gPlayerNum] = gRumbleStrength[gPlayerNum] =
             gMuzzleFlashScale[gPlayerNum] = 0.0f;
     gShieldAlpha[gPlayerNum] = 0.0f;
     player->unk_190 = 1.0f;
@@ -4928,7 +4928,7 @@ void Player_UpdateTankRoll(Player* player) {
                 player->rollState = 0;
             }
         } else {
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 30.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 30.0f, 1.0f, 30.0f, 0.0f);
         }
 
         if ((player->rollTimer >= 5) && (player->mercyTimer == 0)) {
@@ -4999,7 +4999,7 @@ void Player_ArwingBoost(Player* player) {
         player->meteoWarpTimer--;
         player->boostCooldown = true;
         if (gRingPassCount > 0) {
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], gRingPassCount * 10.0f, 1.0f, 5.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], gRingPassCount * 10.0f, 1.0f, 5.0f, 0.0f);
         }
         player->boostSpeed += 0.3f;
         Math_SmoothStepToF(&player->camDist, -130.0f, 0.2f, 10.0f, 0.0f);
@@ -5059,7 +5059,7 @@ void Player_ArwingBoost(Player* player) {
             }
             Math_SmoothStepToF(&player->camDist, -400.0f, 0.1f, 30.0f, 0.0f);
             player->sfx.boost = 1;
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             if (player->boostMeter > 0.0f) {
                 player->boostMeter -= boostRecoverRate;
@@ -5156,7 +5156,7 @@ void Player_ArwingBrake(Player* player) {
 
         Math_SmoothStepToF(&player->camDist, 180.0f, 0.1f, 10.0f, 0.0f);
         player->sfx.brake = true;
-        Math_SmoothStepToF(&D_ctx_801779A8[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[player->num], 25.0f, 1.0f, 5.0f, 0.0f);
     } else if (player->boostMeter > 0.0f) {
         player->boostMeter -= brakeRecoverRate;
         if (player->boostMeter <= 0.0f) {
@@ -5195,7 +5195,7 @@ void Player_TankBoostBrake(Player* player) {
             player->unk_190 = 4.0f;
             Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BOOST, player->num);
         }
-        Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         player->unk_190 = 2.0f;
         sp2C = 35.0f;
         player->boostActive = true;
@@ -5209,7 +5209,7 @@ void Player_TankBoostBrake(Player* player) {
         if (player->boostMeter == 0.0f) {
             Player_PlaySfx(player->sfxSource, NA_SE_ARWING_BRAKE, player->num);
         }
-        Math_SmoothStepToF(&D_ctx_801779A8[player->num], 20.0f, 1.0f, 10.0f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[player->num], 20.0f, 1.0f, 10.0f, 0.0f);
         sp2C = 5.0f;
         player->boostActive = true;
         Math_SmoothStepToF(&player->boostMeter, 90.0f, 1.0f, 1.0f, 0.0f);
@@ -5301,7 +5301,7 @@ void Player_UpdateTankJets(Player* player) {
         Math_SmoothStepToF(&player->unk_000, stickY * 0.5f, 0.05f, 5.0f, 0.00001f);
         Math_SmoothStepToF(&player->boostSpeed, 30.0f, 0.5f, 5.0f, 0.0f);
         player->gravity = -0.4f;
-        Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
         if ((gCamCount == 1) && ((gGameFrameCount % 2) == 0)) {
             Effect_Effect362_Spawn(RAND_FLOAT_CENTERED(20.0f) + player->pos.x, player->groundPos.y + 10.0f,
                                    player->trueZpos - 10.0f, RAND_FLOAT(2.0f) + 4.0f);
@@ -5734,10 +5734,10 @@ void Player_Update(Player* player) {
         gControllerRumble = &gControllerRumbleFlags[gMainController];
     }
 
-    D_ctx_80177990[player->num] += (s32) D_ctx_801779A8[player->num];
-    Math_SmoothStepToF(&D_ctx_801779A8[player->num], 0.0f, 1.0f, 1.5f, 0.0f);
-    if (D_ctx_80177990[player->num] >= 100) {
-        D_ctx_80177990[player->num] -= 100;
+    gRumbleTimer[player->num] += (s32) gRumbleStrength[player->num];
+    Math_SmoothStepToF(&gRumbleStrength[player->num], 0.0f, 1.0f, 1.5f, 0.0f);
+    if (gRumbleTimer[player->num] >= 100) {
+        gRumbleTimer[player->num] -= 100;
         *gControllerRumble = 1;
     }
     if (gControllerRumbleTimers[player->num] != 0) {
@@ -6254,54 +6254,53 @@ void Camera_FollowPlayer(Player* player, s32 playerNum, bool arg2) {
 }
 
 void Camera_UpdateArwing360(Player* player, bool arg1) {
-    Vec3f sp74;
-    Vec3f sp68;
-    f32 temp1;
-    f32 temp2;
-    f32 temp3;
-    f32 var_fv0;
+    Vec3f src;
+    Vec3f dest;
+    s32 pad[3];
+    f32 stickY;
     f32 eyeX;
     f32 eyeY;
     f32 eyeZ;
     f32 atX;
     f32 atY;
     f32 atZ;
+    (void) pad;
 
     Matrix_RotateY(gCalcMatrix, (player->yRot_114 + (player->damageShake * 0.2f)) * M_DTOR, MTXF_NEW);
     Matrix_RotateX(gCalcMatrix, player->damageShake * 0.2f * M_DTOR, MTXF_APPLY);
 
-    sp74.x = 0.0f;
-    sp74.y = 0.0f;
+    src.x = 0.0f;
+    src.y = 0.0f;
     if (player->alternateView) {
-        sp74.z = 1000.0f - player->camDist;
+        src.z = 1000.0f - player->camDist;
     } else {
-        sp74.z = 300.0f - player->camDist;
+        src.z = 300.0f - player->camDist;
     }
 
     if (player->somersault) {
-        sp74.z += 500.0f;
+        src.z += 500.0f;
     }
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
     if (!gVersusMode) {
-        var_fv0 = -gInputPress->stick_y;
+        stickY = -gInputPress->stick_y;
     } else {
-        var_fv0 = -gControllerPress[player->num].stick_y;
+        stickY = -gControllerPress[player->num].stick_y;
     }
 
-    Math_SmoothStepToF(&player->unk_02C, var_fv0, 0.05f, 5.0f, 0.0f);
+    Math_SmoothStepToF(&player->unk_02C, stickY, 0.05f, 5.0f, 0.0f);
 
-    eyeX = player->pos.x + sp68.x;
+    eyeX = player->pos.x + dest.x;
     eyeY = (player->pos.y * player->unk_148) + 50.0f;
     eyeY -= (player->unk_02C * 1.5f);
-    eyeZ = player->pos.z + sp68.z;
+    eyeZ = player->pos.z + dest.z;
 
     atX = player->pos.x + player->damageShake;
 
-    var_fv0 = (player->somersault) ? 1.0f : 0.79f;
+    stickY = (player->somersault) ? 1.0f : 0.79f;
 
-    atY = (player->pos.y * (var_fv0)) + player->damageShake + (player->xRock * 5.0f);
+    atY = (player->pos.y * (stickY)) + player->damageShake + (player->xRock * 5.0f);
     atY += (player->unk_02C * 0.5f);
     if (player->state == PLAYERSTATE_U_TURN) {
         atY = player->pos.y;
@@ -6310,16 +6309,16 @@ void Camera_UpdateArwing360(Player* player, bool arg1) {
 
     Math_SmoothStepToF(&player->unk_028, 2.0f * player->rot.y, 0.05f, 2.0f, 0.02f);
 
-    sp74.x = -player->unk_028;
-    sp74.y = 0.0f;
-    sp74.z = 0.f;
+    src.x = -player->unk_028;
+    src.y = 0.0f;
+    src.z = 0.f;
 
-    Matrix_MultVec3fNoTranslate(gCalcMatrix, &sp74, &sp68);
+    Matrix_MultVec3fNoTranslate(gCalcMatrix, &src, &dest);
 
-    eyeX += sp68.x;
-    eyeZ += sp68.z;
-    atX += sp68.x;
-    atZ += sp68.z;
+    eyeX += dest.x;
+    eyeZ += dest.z;
+    atX += dest.x;
+    atZ += dest.z;
 
     if (player->state == PLAYERSTATE_ACTIVE) {
         Math_SmoothStepToF(&player->cam.eye.x, eyeX, player->unk_014, 30000.0f, 0);
@@ -6939,6 +6938,7 @@ void Play_Main(void) {
     s32 pad[3];
     s32 i;
     f32 fovYtarget;
+    (void) pad;
 
     switch (gFovYMode) {
         case 0:

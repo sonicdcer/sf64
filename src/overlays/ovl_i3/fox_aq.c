@@ -1531,7 +1531,7 @@ void Aquas_BlueMarineBoost(Player* player) {
 
             player->sfx.boost = 1;
 
-            Math_SmoothStepToF(&D_ctx_801779A8[0], 50.0f, 1.0f, 10.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[0], 50.0f, 1.0f, 10.0f, 0.0f);
         } else {
             D_i3_801C41B8[27] = 0.0f;
 
@@ -1579,7 +1579,7 @@ void Aquas_BlueMarineBrake(Player* player) {
 
         player->sfx.brake = true;
 
-        Math_SmoothStepToF(&D_ctx_801779A8[0], 25.0f, 1.0f, 5.0f, 0.0f);
+        Math_SmoothStepToF(&gRumbleStrength[0], 25.0f, 1.0f, 5.0f, 0.0f);
     } else {
         if (player->boostMeter > 0.0f) {
             player->boostMeter -= 0.5f;
@@ -2783,7 +2783,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
             break;
 
         case 16:
-            D_ctx_801779A8[0] = 20.0f;
+            gRumbleStrength[0] = 20.0f;
             if (gCameraShake == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
                 gFillScreenAlpha = gFillScreenAlphaTarget = 255;
@@ -2940,7 +2940,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
             this->swork[AQ_SWK_19] = 50;
             Math_SmoothStepToF(&D_i3_801C4308[10], D_i3_801C4308[79], 0.5f, 5.0f, 0.0f);
             if (this->timer_058 > 10) {
-                Math_SmoothStepToF(D_ctx_801779A8, 20.0f, 1.0f, 5.0f, 0.0f);
+                Math_SmoothStepToF(gRumbleStrength, 20.0f, 1.0f, 5.0f, 0.0f);
             }
             if (this->timer_058 != 0) {
                 gPlayer[0].boostCooldown = 1;
@@ -3326,7 +3326,7 @@ void Aquas_AqBacoon_Update(AqBacoon* this) {
         D_i3_801C42A0[9] = sp110;
     }
     if (D_i3_801C42A0[7] != 0) {
-        Math_SmoothStepToF(&D_ctx_801779A8[0], 20.0f, 1.0f, 5.0f, 0);
+        Math_SmoothStepToF(&gRumbleStrength[0], 20.0f, 1.0f, 5.0f, 0);
     }
     for (i2 = 45, i3 = 1, i7 = 0; i7 < 14; i3++, i2++, i7 += 2) {
         if (D_i3_801C42A0[i3] != 0) {

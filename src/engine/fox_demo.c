@@ -446,7 +446,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 1:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 4.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 100.0f, 1.0f, 4.0f, 0.0f);
             Math_SmoothStepToF(&player->camRoll, 0.0f, 0.1f, 3.0f, 0.0f);
             gStarWarpDistortion *= 1.05f;
             if (player->csTimer == 0) {
@@ -459,7 +459,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 2:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
             if (gStarWarpDistortion < 20000.0f) {
                 gStarWarpDistortion *= 1.01f;
             }
@@ -512,7 +512,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 4:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
             player->camRoll -= 0.5f;
             if (player->csTimer == 0) {
                 gFillScreenRed = gFillScreenGreen = gFillScreenBlue = 255;
@@ -540,7 +540,7 @@ void Cutscene_EnterWarpZone(Player* player) {
             break;
 
         case 5:
-            Math_SmoothStepToF(&D_ctx_801779A8[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
+            Math_SmoothStepToF(&gRumbleStrength[player->num], 100.0f, 1.0f, 3.0f, 0.0f);
             if (player->csTimer == 0) {
                 gFillScreenAlphaTarget = 0;
                 gFillScreenAlphaStep = 8;
@@ -816,7 +816,7 @@ void Cutscene_AllRangeMode(Player* player) {
             }
 
             if ((gCsFrameCount > 135) && (gCsFrameCount < 180)) {
-                Math_SmoothStepToF(&D_ctx_801779A8[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
+                Math_SmoothStepToF(&gRumbleStrength[player->num], 30.0f, 1.0f, 10.0f, 0.0f);
             }
 
             if (gCsFrameCount == 138) {
@@ -836,7 +836,7 @@ void Cutscene_AllRangeMode(Player* player) {
 
                 AUDIO_PLAY_SFX(NA_SE_ARWING_BOOST, player->sfxSource, 0);
 
-                D_ctx_801779A8[player->num] = 70.0f;
+                gRumbleStrength[player->num] = 70.0f;
 
                 if ((gCurrentLevel != LEVEL_VENOM_ANDROSS) && (gCurrentLevel != LEVEL_TRAINING)) {
                     D_hud_800D1970 = 0;
@@ -2325,7 +2325,7 @@ void ActorCutscene_Update(ActorCutscene* this) {
 
                 case LEVEL_ZONESS:
                     if (gPlayer[0].csState >= 3) {
-                        Zoness_8019E5F0(this);
+                        Zoness_LevelComplete_CsUpdate(this);
                     }
                     break;
 

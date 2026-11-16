@@ -12,7 +12,7 @@ extern f32 gAquasSurfaceAlpha;
 void Aquas_CsAqFishGroup_Update(Actor*);
 
 void Area6_IntroCs_ManeuverTeam(Actor*);
-void Zoness_8019E5F0(Actor*);
+void Zoness_LevelComplete_CsUpdate(Actor*);
 void Aquas_BlueMarineDown(Player*);
 void Aquas_CsAqFishGroup_Draw(Actor*);
 
@@ -56,7 +56,7 @@ void Zoness_ZoSpikeBall_Update(Actor* this);
 void Zoness_ZoSpikeBall_Draw(Actor* this);
 void Zoness_ZoTanker_Init(Actor* actor);
 void Zoness_ZoTanker_Update(Actor* this);
-void Zoness_ZoTanker_Draw(Actor* actor);
+void Zoness_ZoTanker_Draw(Actor* this);
 void Zoness_ZoContainer_Init(Actor* this);
 void Zoness_ZoContainer_Update(Actor* this);
 void Zoness_ZoContainer_Draw(Actor* this);

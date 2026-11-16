@@ -1667,7 +1667,7 @@ void Macbeth_MaTankCar_Update(Actor* this) {
             Macbeth_801A015C(this);
             Macbeth_8019A830(this);
 
-            D_ctx_801779A8[gMainController] = 100.0f;
+            gRumbleStrength[gMainController] = 100.0f;
             this->state = 2;
             break;
 
